@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AzurCalculator β</title>
+  <link rel="icon" href="assets/icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,800">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button id="refresh-btn" class="brand-logo-btn" type="button" title="Refresh the ship list" aria-label="Refresh the ship list">
+        <img src="assets/icon.png" alt="AzurCalc" class="brand-logo">
+      </button>
+      <div class="brand-text">
+        <h1>AzurCalculator <span class="beta-mark">β</span></h1>
+      </div>
+    </div>
+
+    <div class="controls">
+      <input type="search" id="search" class="search-box" placeholder="Search a character..." autocomplete="off">
+
+      <input type="search" id="search-class" class="search-box" placeholder="Search by ship class..." autocomplete="off">
+
+      <label class="sort-control">
+        Sort by
+        <select id="sort-select">
+          <option value="name-asc">Name (A → Z)</option>
+          <option value="name-desc">Name (Z → A)</option>
+          <option value="rarity-desc">Rarity (high → low)</option>
+          <option value="rarity-asc">Rarity (low → high)</option>
+          <option value="hullType-asc">Class (A → Z)</option>
+          <option value="nationality-asc">Nation (A → Z)</option>
+          <option value="release-asc">Release order ≈ (old → recent)</option>
+          <option value="release-desc">Release order ≈ (recent → old)</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="filters" id="filters"></div>
+  </header>
+
+  <main>
+    <p id="count" class="count"></p>
+    <div id="grid" class="grid"></div>
+  </main>
+
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+      <button id="modal-close" class="modal-close" type="button" aria-label="Close">&times;</button>
+
+      <div class="modal-image-col">
+        <div class="modal-image-wrap">
+          <img id="modal-image" class="modal-image" src="" alt="">
+          <span id="modal-skin-name" class="modal-skin-name"></span>
+        </div>
+        <div id="modal-skin-strip" class="modal-skin-strip"></div>
+      </div>
+
+      <div class="modal-info">
+        <div class="modal-info-scroll">
+          <div class="modal-heading">
+            <img id="modal-hull-icon" class="modal-hull-icon" alt="" hidden>
+            <h2 id="modal-name"></h2>
+          </div>
+
+          <div id="modal-tags" class="modal-tags"></div>
+
+          <div class="toggle-row">
+            <label id="modal-retrofit-control" class="retrofit-checkbox" hidden>
+              <input type="checkbox" id="modal-retrofit-checkbox">
+              Retrofit
+            </label>
+
+            <label id="modal-augment-control" class="augment-checkbox" hidden>
+              <input type="checkbox" id="modal-augment-checkbox">
+              Unique Augment
+            </label>
+
+            <label id="modal-fatesim-control" class="fatesim-checkbox" hidden>
+              <input type="checkbox" id="modal-fatesim-checkbox">
+              Fate Simulation
+            </label>
+          </div>
+
+          <div id="modal-level-control" class="modal-level-control" hidden>
+            <label for="modal-level-slider">Level <span id="modal-level-value">1</span></label>
+            <input type="range" id="modal-level-slider" min="1" max="125" value="1" step="1">
+          </div>
+
+          <div id="modal-stats-section" class="modal-stats-section" hidden>
+            <h3 class="modal-section-title">Stats</h3>
+            <div id="modal-stats" class="modal-stats-row"></div>
+
+            <div id="modal-effective-stats-section" class="modal-effective-stats-section" hidden>
+              <h4 class="modal-subsection-title">Effective Stats <span class="modal-subsection-hint">— after active skills, fully leveled, conditions assumed met</span></h4>
+              <div id="modal-effective-stats" class="modal-stats-row"></div>
+              <div id="modal-combat-modifiers" class="modal-combat-modifiers"></div>
+            </div>
+          </div>
+
+          <div id="modal-skills-section" class="modal-skills-section" hidden>
+            <h3 class="modal-section-title">Skills</h3>
+            <div id="modal-skills" class="modal-skills-list"></div>
+          </div>
+
+          <div id="modal-barrages-section" class="modal-skills-section" hidden>
+            <h3 class="modal-section-title">Barrages</h3>
+            <div id="modal-barrages" class="modal-barrages-list"></div>
+          </div>
+
+          <div id="modal-interaction-section" class="modal-skills-section" hidden>
+            <h3 class="modal-section-title">Interaction</h3>
+            <p class="modal-subsection-hint modal-interaction-hint">Other characters with skills that reference this ship's nation, hull type, fleet role, class, or name directly.</p>
+            <div id="modal-interaction" class="modal-interaction-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <img id="gif-preview" class="gif-preview" alt="" hidden>
+
+  <script src="data/ships.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
