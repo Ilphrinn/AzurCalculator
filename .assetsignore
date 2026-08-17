@@ -2,5 +2,3 @@ wrangler.toml
 .assetsignore
 .gitignore
 CLAUDE.md
-.git/
-.claude/
