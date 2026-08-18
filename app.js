@@ -10,6 +10,17 @@ const RARITY_CLASS = {
 
 const RARITY_ORDER = ["Normal", "Rare", "Elite", "Super Rare", "Priority", "Ultra Rare", "Decisive"];
 
+// Filter chips pair up adjacent progression tiers (SR sits right below Priority, UR
+// right below Decisive) into one clickable option instead of four separate chips —
+// requested to declutter the Rarity row, since the split rarely matters when filtering.
+const RARITY_FILTER_GROUPS = [
+  { label: "Normal", values: ["Normal"] },
+  { label: "Rare", values: ["Rare"] },
+  { label: "Elite", values: ["Elite"] },
+  { label: "SR/Priority", values: ["Super Rare", "Priority"] },
+  { label: "UR/Decisive", values: ["Ultra Rare", "Decisive"] }
+];
+
 const grid = document.getElementById("grid");
 const countEl = document.getElementById("count");
 const searchEl = document.getElementById("search");
@@ -49,19 +60,15 @@ const HULL_TEXT_TO_ABBR = Object.fromEntries(Object.entries(HULL_ABBREVIATIONS).
 
 // One color per nation, grounded in each nation's actual Azur Lane / source-franchise
 // branding (majors: national flag/military colors; collabs: the source franchise's own
-// brand color) rather than a generic palette-slot pick — per explicit user direction
-// ("base toi sur la couleur dans l'univers d'Azur Lane"). All 30 values individually
+// brand color) rather than a generic palette-slot pick. All 30 values individually
 // checked for >=3:1 contrast against this app's dark surface (#0b1120); this can't also
 // be CVD-safe pairwise at N=30 (color theory caps reliable categorical distinction at
-// ~8 hues — see the `dataviz` skill), which was flagged to the user and deliberately
-// overridden in favor of authenticity over separation.
+// ~8 hues — see the `dataviz` skill), deliberately overridden in favor of authenticity.
 //
-// The 13 major/pirate nations below use the exact hex values the user supplied directly
-// (their own "dominant color" reference table, presumably from official brand material) —
-// EXCEPT Vichya Dominion, Iron Blood, and META, whose given hexes measured under 3:1
-// contrast on this dark surface (2.16/2.47/2.68) and were lightened in HSL space (same
-// hue and saturation, +L only) until they cleared ~4:1 — noted here since those three
-// are NOT the literal values supplied, everything else is verbatim.
+// The 13 major/pirate nations use the user-supplied hex values verbatim EXCEPT Vichya
+// Dominion, Iron Blood, and META, whose given hexes measured under 3:1 contrast on this
+// dark surface (2.16/2.47/2.68) and were lightened in HSL space (same hue/saturation,
+// +L only) until they cleared ~4:1 — don't "fix" these back to the literal supplied hex.
 const NATION_COLORS = {
   // Major WW2 nations — user-supplied hex table (2026-08-17)
   "Eagle Union": "#2878B5",
@@ -98,6 +105,50 @@ const NATION_COLORS = {
   "NieR:Automata": "#c9c4b8"
 };
 
+// Faction logo watermark shown behind the ship name in the modal header. Nations with a
+// genuinely distinct icon on the wiki's own Nations page get their own logo; every
+// collab nation that doesn't have one there shares "Um" — the wiki's own generic
+// collab/Universal-style icon — instead of getting no watermark, since a shared
+// watermark beats none for those.
+// Source files: the wiki's own per-file "File:{code} 1.png" pages (full original
+// resolution, 356-656px depending on nation), copied to `assets/faction-logos/{code}.png`
+// — code mapping read off the Nations page's own table (each icon's wrapping
+// <a title="..."> names its real nation); Universal ("Cm") has no row on that page at
+// all (it's only mentioned in prose above the table) but its own dedicated file page
+// confirms "Cm" is linked from the Universal article.
+const FACTION_LOGO_CODE = {
+  "Eagle Union": "Us",
+  "Royal Navy": "En",
+  "Sakura Empire": "Jp",
+  "Iron Blood": "De",
+  "Dragon Empery": "Cn",
+  "Northern Parliament": "Sn",
+  "Iris Libre": "Ff",
+  "Vichya Dominion": "Vf",
+  "Sardegna Empire": "Rn",
+  "Kingdom of Tulipa": "Nl",
+  "Liga de Pedrería": "Ldp",
+  "Neptunia": "Np",
+  "Bilibili": "Bi",
+  "Utawarerumono": "Um",
+  "META": "Meta",
+  "Tempesta": "Mot",
+  "Universal": "Cm",
+  "KizunaAI": "Um",
+  "Hololive": "Um",
+  "Venus Vacation": "Um",
+  "The Idolmaster": "Um",
+  "SSSS": "Um",
+  "Atelier Ryza": "Um",
+  "Senran Kagura": "Um",
+  "To LOVE-Ru": "Um",
+  "BLACK★ROCK SHOOTER": "Um",
+  "Atelier Yumia": "Um",
+  "Danmachi": "Um",
+  "Date A Live": "Um",
+  "NieR:Automata": "Um"
+};
+
 // ship.nationality stores "BLACK★ROCK SHOOTER (Nation)" — the "(Nation)" qualifier
 // disambiguates the nation from other same-named entities in the source data, but never
 // appears in actual skill prose and isn't meant to be shown to the user either (it was
@@ -106,22 +157,18 @@ function nationDisplayName(nationality) {
   return nationality ? nationality.replace(/\s*\([^)]*\)$/, "") : nationality;
 }
 
-// Only two things get color-coded: nations and stats — per explicit user instruction to
-// strip out every other category ("enlève tout ce qui n'est pas une nation et pas dans la
-// liste de la table de couleur", e.g. DMG). Hull types, weapon terms, DMG/Damage, healing
-// terms, fleet role (Vanguard/Main Fleet), and Siren were all removed from this system —
-// note this also drops the earlier "don't touch Vanguard/Main's color" protection, since
-// that color no longer exists here at all; if that's wrong, it needs to come back as an
-// explicit ask, not be inferred.
+// Only two things get color-coded: nations and stats. Hull types, weapon terms,
+// DMG/Damage, healing terms, fleet role (Vanguard/Main Fleet), and Siren are
+// deliberately NOT part of this system — don't re-add one of these without an explicit
+// ask, since it was a deliberate reduction, not an oversight.
 //
-// One color per stat, user-supplied hex table (2026-08-17) — verbatim, all 15 already
-// cleared >=3:1 contrast on this app's dark surface (#0b1120) with no lightening needed
-// (unlike 3 of the nation colors). Abbreviation and spelled-out form share a color
-// (FP/Firepower alike); each row also picked up whichever OTHER real-text variant the
-// corpus actually uses (Ammo for Ammunition, Max HP for Health, etc — checked by
-// occurrence count, not guessed). "Anti Air" (no hyphen, as the user wrote it) never
-// appears in the actual skill text (0 occurrences) — "Anti-Air" does (63) — so that's
-// the form matched here; only the *display* form changed, not the color.
+// One color per stat, user-supplied hex table — verbatim, all 15 already cleared >=3:1
+// contrast on this app's dark surface (#0b1120) with no lightening needed (unlike 3 of
+// the nation colors). Abbreviation and spelled-out form share a color (FP/Firepower
+// alike); each row also picked up whichever OTHER real-text variant the corpus actually
+// uses (Ammo for Ammunition, Max HP for Health, etc — checked by occurrence count, not
+// guessed). "Anti-Air" (hyphenated) is the form matched here, not "Anti Air" — only the
+// hyphenated spelling actually occurs in skill text.
 const STAT_COLOR_GROUPS = [
   { color: "#E3C45B", terms: ["Luck", "LCK"] },
   { color: "#8C9AAA", terms: ["Armor"] },
@@ -264,7 +311,7 @@ const active = {
 const HULL_ICON_DIR = "assets/hull-icons/";
 
 const FILTER_GROUPS = [
-  { key: "rarity", label: "Rarity", values: RARITY_ORDER.filter(r => uniqueValues("rarity").includes(r)) }
+  { key: "rarity", label: "Rarity", options: RARITY_FILTER_GROUPS.filter(g => g.values.some(v => uniqueValues("rarity").includes(v))) }
 ];
 
 // Front-to-back fleet order. Hull types are grouped under their fleet position so the
@@ -316,6 +363,28 @@ function makeChip(group, value) {
     }
     update();
     syncSubfactionButton();
+  });
+  return chip;
+}
+
+// Same click-to-toggle chip as makeChip, but the chip represents SEVERAL underlying
+// values at once (e.g. "SR/Priority" toggling both "Super Rare" and "Priority" in the
+// active Set together) — used for the Rarity row's paired-tier chips.
+function makeMultiChip(group, values, label) {
+  const chip = document.createElement("button");
+  chip.type = "button";
+  chip.className = "chip";
+  chip.textContent = label;
+  if (values.some(v => active[group].has(v))) chip.classList.add("active");
+  chip.addEventListener("click", () => {
+    if (values.some(v => active[group].has(v))) {
+      values.forEach(v => active[group].delete(v));
+      chip.classList.remove("active");
+    } else {
+      values.forEach(v => active[group].add(v));
+      chip.classList.add("active");
+    }
+    update();
   });
   return chip;
 }
@@ -433,8 +502,8 @@ function buildFilterPanel() {
     title.textContent = group.label;
     wrap.appendChild(title);
 
-    for (const value of group.values) {
-      wrap.appendChild(makeChip(group.key, value));
+    for (const option of group.options) {
+      wrap.appendChild(makeMultiChip(group.key, option.values, option.label));
     }
     filtersEl.appendChild(wrap);
   }
@@ -633,30 +702,38 @@ update();
 
 // ---- Detail modal ----
 
-// Fixed display order. "armor" is a text grade (Light/Medium/Heavy), not a level-scaled
-// number, so it's read straight from ship.armorType instead of the computed stat block.
-// "oxygen" and "ammunition" have no numeric source anywhere in the data we have — they
-// always render as "—" rather than being dropped, same as any other stat missing on a
-// particular ship (e.g. oil consumption for the non-custom-imported ships).
-const STAT_DEFS = [
-  { key: "luck", label: "Luck", icon: "assets/stat-icons/luck.png" },
+// One single compact grid matching the game's own compact stat panel exactly — a
+// 3-column layout (HP/Armor/RLD, FP/TRP/EVA, AA/AVI/Cost, ASW/·/·, reading order
+// top-left to bottom-right), one value per stat with any skill delta shown inline
+// ("478 +178" in one cell) rather than a separate Base/Real pair, since the in-game
+// panel never shows a base stat on its own. The trailing row (Speed, Accuracy, Luck)
+// isn't part of that in-game grid but renders through the same cell style for visual
+// consistency. Ammunition, Oxygen, and Oil Consumption are omitted entirely — 0/888
+// ships carry any numeric value for them, so every row would've shown "—" forever.
+// `key: "cost"` is a marker only — Cost isn't part of the normal per-level stat
+// pipeline (see computeOilCost), so buildStatsGrid special-cases it. The two `null`
+// entries are blank cells (the game's panel leaves Cost's neighbor and the
+// submarine-only Oxygen slot empty too). Abbreviated labels match the game's own
+// compact wording; the full name is available via the `title` tooltip.
+const STAT_GRID = [
+  { key: "health", label: "HP", icon: "assets/stat-icons/health.png" },
   { key: "armor", label: "Armor", icon: "assets/stat-icons/armor.png", text: true },
-  { key: "speed", label: "Speed", icon: "assets/stat-icons/speed.png" },
-  { key: "health", label: "Health", icon: "assets/stat-icons/health.png" },
-  { key: "firepower", label: "Firepower", icon: "assets/stat-icons/firepower.png" },
-  { key: "antiair", label: "Anti-air", icon: "assets/stat-icons/antiair.png" },
-  { key: "torpedo", label: "Torpedo", icon: "assets/stat-icons/torpedo.png" },
-  { key: "evasion", label: "Evasion", icon: "assets/stat-icons/evasion.png" },
-  { key: "aviation", label: "Aviation", icon: "assets/stat-icons/aviation.png" },
-  { key: "oilConsumption", label: "Oil consumption", icon: "assets/stat-icons/oilConsumption.png" },
-  { key: "reload", label: "Reload", icon: "assets/stat-icons/reload.png" },
-  { key: "asw", label: "Anti-Submarine", icon: "assets/stat-icons/asw.png" },
-  { key: "oxygen", label: "Oxygen", icon: "assets/stat-icons/oxygen.png" },
-  { key: "ammunition", label: "Ammunition", icon: "assets/stat-icons/ammunition.png" },
-  { key: "accuracy", label: "Accuracy", icon: "assets/stat-icons/accuracy.png" }
+  { key: "reload", label: "RLD", icon: "assets/stat-icons/reload.png" },
+  { key: "firepower", label: "FP", icon: "assets/stat-icons/firepower.png" },
+  { key: "torpedo", label: "TRP", icon: "assets/stat-icons/torpedo.png" },
+  { key: "evasion", label: "EVA", icon: "assets/stat-icons/evasion.png" },
+  { key: "antiair", label: "AA", icon: "assets/stat-icons/antiair.png" },
+  { key: "aviation", label: "AVI", icon: "assets/stat-icons/aviation.png" },
+  { key: "cost", label: "Cost", icon: "assets/stat-icons/oilConsumption.png", custom: true },
+  { key: "asw", label: "ASW", icon: "assets/stat-icons/asw.png" },
+  null,
+  null,
+  { key: "speed", label: "SPD", icon: "assets/stat-icons/speed.png" },
+  { key: "accuracy", label: "ACC", icon: "assets/stat-icons/accuracy.png" },
+  { key: "luck", label: "LCK", icon: "assets/stat-icons/luck.png" }
 ];
 
-const NUMERIC_STAT_KEYS = STAT_DEFS.filter(d => !d.text).map(d => d.key);
+const NUMERIC_STAT_KEYS = STAT_GRID.filter(d => d && !d.text && !d.custom).map(d => d.key);
 
 const SKILL_TYPE_LABELS = { offense: "Offense", support: "Support", defense: "Defense" };
 
@@ -669,6 +746,7 @@ const modalSkinNameEl = document.getElementById("modal-skin-name");
 const modalSkinStrip = document.getElementById("modal-skin-strip");
 const modalName = document.getElementById("modal-name");
 const modalHullIcon = document.getElementById("modal-hull-icon");
+const modalNationWatermark = document.getElementById("modal-nation-watermark");
 const modalTags = document.getElementById("modal-tags");
 const modalRetrofitControl = document.getElementById("modal-retrofit-control");
 const modalRetrofitCheckbox = document.getElementById("modal-retrofit-checkbox");
@@ -677,12 +755,12 @@ const modalAugmentCheckbox = document.getElementById("modal-augment-checkbox");
 const modalFateSimControl = document.getElementById("modal-fatesim-control");
 const modalFateSimCheckbox = document.getElementById("modal-fatesim-checkbox");
 const modalLevelControl = document.getElementById("modal-level-control");
-const modalLevelSlider = document.getElementById("modal-level-slider");
-const modalLevelValue = document.getElementById("modal-level-value");
+const modalLevelNotches = document.getElementById("modal-level-notches");
+const modalLevelInput = document.getElementById("modal-level-input");
+const modalLevelSpinUp = document.getElementById("modal-level-spin-up");
+const modalLevelSpinDown = document.getElementById("modal-level-spin-down");
 const modalStatsSection = document.getElementById("modal-stats-section");
-const modalStatsGrid = document.getElementById("modal-stats");
-const modalEffectiveStatsSection = document.getElementById("modal-effective-stats-section");
-const modalEffectiveStatsGrid = document.getElementById("modal-effective-stats");
+const modalStatsTable = document.getElementById("modal-stats-table");
 const modalCombatModifiers = document.getElementById("modal-combat-modifiers");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsList = document.getElementById("modal-skills");
@@ -771,6 +849,68 @@ function interpolateStatsCurve(curve, level) {
 // source data, so they naturally stay constant across levels. Keys with no source data
 // (oil consumption, oxygen, ammunition — not tracked for the non-custom-imported ships)
 // are left unset rather than defaulted to 0.
+// Sortie oil "Cost" — reintroduced from Site web/Oil Cost - Azur Lane Wiki.htm after
+// having been dropped earlier as untracked data. Unlike every other stat here, Cost
+// isn't level-scaled from a base/growth curve — it's computed from the wiki's own
+// formula: MaxCost (hull type + rarity + a META bonus + the limit-break bonus + a small
+// per-class modifier) combined with the current level. Verified against the wiki's own
+// worked example ("At Limit Break level caps" table, MaxCost=7 row) before trusting it —
+// the naive reading of the MathML ("MaxCost·100 + min(Level,99), all over 200") didn't
+// reproduce that table's numbers; the correct grouping is
+// MaxCost·(100+min(Level,99))/200, confirmed against all 5 columns of that row.
+//
+// This app has no limit-break tracking at all (no UI concept of duplicate-based star
+// investment — the level control doesn't imply one either, since a ship can be leveled
+// anywhere below its cap independent of how many stars it has). Rather than guess a
+// mid-progression state, the limit-break bonus is always the MAX one (+6 surface / +3
+// submarine) — the same fixed assumption the wiki itself already mandates for PR/DR/UR/
+// META ships regardless of investment, extended here to every ship for one consistent,
+// comparable number. Same "fully invested" spirit as Effective Stats already assuming
+// max skill level — not a guess, just the only stable value with no per-player state.
+const HULL_COST_BY_SHORT = {
+  DD: 1, IXS: 1, SS: 1, SSV: 1,
+  CL: 2, AE: 2, AR: 2, BM: 2, IXV: 2,
+  CA: 3, CVL: 3,
+  CB: 4, CV: 4,
+  IXM: 5, BC: 5,
+  BB: 6, BBV: 6
+};
+const RARITY_COST = {
+  Normal: 0, Rare: 1, Elite: 2, "Super Rare": 3,
+  Priority: 4, "Ultra Rare": 5, Decisive: 6
+};
+// "A few ships also have an extra Oil Cost modifier" (per-class, keyed here by every
+// member ship's own display name from the wiki's "Ships from class" column, rather than
+// by ship.class text, since a couple of these — Minato Aqua, Homura — have no shared
+// class at all).
+const EXTRA_COST_MODIFIER_BY_NAME = {
+  "Yuubari": -2,
+  "Dorsetshire": -1, "Asanagi": -1, "Hatakaze": -1, "Hatakaze META": -1,
+  "Kamikaze": -1, "Matsukaze": -1, "Oite": -1, "Mikasa": -1, "Chao Ho": -1, "Ying Swei": -1,
+  "Amagi": 1, "Amagi-chan": 1, "Constellation": 1, "Odin": 1, "Prinz Rupprecht": 1,
+  "Centaur": 1, "Albion": 1, "Theseus": 1,
+  "Hiyou": 1, "Junyou": 1, "Hiyou META": 1, "Junyou META": 1,
+  "Haruna": 1, "Hiei": 1, "Hiei-chan": 1, "Kirishima": 1, "Kongou": 1,
+  "Torricelli": 1, "Minato Aqua": 1, "Homura": 1, "Mikuma": 1, "Mogami": 1
+};
+function computeOilCost(ship, level) {
+  const hullCost = ship.hullShort ? HULL_COST_BY_SHORT[ship.hullShort] : undefined;
+  const rarityCost = ship.rarity ? RARITY_COST[ship.rarity] : undefined;
+  if (hullCost === undefined || rarityCost === undefined) return null;
+
+  const decisiveMainBonus = (ship.rarity === "Decisive" && ship.role === "Main") ? 1 : 0;
+  const metaBonus = ship.category === "META" ? 1 : 0;
+  const isSubmarine = ship.hullShort === "SS" || ship.hullShort === "SSV";
+  const maxLimitBreakBonus = isSubmarine ? 3 : 6;
+  const extraModifier = EXTRA_COST_MODIFIER_BY_NAME[ship.displayName] || 0;
+
+  const maxCost = hullCost + rarityCost + decisiveMainBonus + metaBonus + maxLimitBreakBonus + extraModifier;
+  const cappedLevel = Math.min(level, 99);
+  return isSubmarine
+    ? Math.floor((maxCost + 1) * (100 + cappedLevel) / 200)
+    : Math.floor(maxCost * (100 + cappedLevel) / 200) + 1;
+}
+
 function computeStats(ship, level, isRetrofit) {
   if (ship.statsCurve && ship.statsCurve.length) {
     return interpolateStatsCurve(ship.statsCurve, level);
@@ -795,37 +935,8 @@ function computeStats(ship, level, isRetrofit) {
   return result;
 }
 
-function renderModalStats(ship, level, isRetrofit) {
-  const computed = computeStats(ship, level, isRetrofit);
-  if (!computed) {
-    modalStatsSection.hidden = true;
-    modalLevelControl.hidden = true;
-    return;
-  }
-  modalLevelControl.hidden = false;
-  modalStatsSection.hidden = false;
-  modalStatsGrid.innerHTML = "";
-
-  for (const def of STAT_DEFS) {
-    const raw = def.text ? ship.armorType : computed[def.key];
-
-    const chip = document.createElement("div");
-    chip.className = "stat-chip";
-    chip.title = def.label;
-
-    const icon = document.createElement("img");
-    icon.className = "stat-icon";
-    icon.src = def.icon;
-    icon.alt = def.label;
-    chip.appendChild(icon);
-
-    const val = document.createElement("span");
-    val.className = "stat-value";
-    val.textContent = (raw === undefined || raw === null || raw === "") ? "—" : raw;
-    chip.appendChild(val);
-
-    modalStatsGrid.appendChild(chip);
-  }
+function formatStatValue(raw) {
+  return (raw === undefined || raw === null || raw === "") ? "—" : raw;
 }
 
 const COMBAT_MODIFIER_LABELS = {
@@ -900,51 +1011,82 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
   return { stats, modifiers: modifierSum };
 }
 
-// Mirrors renderModalStats's full STAT_DEFS loop (every stat, including the text-only
-// Armor grade and the never-populated Oxygen/Ammunition slots) rather than only the
-// stats a skill happens to touch — this is meant to stand in for the Stats block above,
-// not as a shorter "bonuses only" addendum to it.
-function renderModalEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) {
-  const base = computeStats(ship, level, isRetrofit);
-  const effective = computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim);
+// Builds the compact 3-column grid matching the game's own stat panel — one cell per
+// stat, no header row since the grid IS the layout (each cell carries its own icon +
+// abbreviated label). A `null` entry in gridDefs (see STAT_GRID) renders as an empty
+// cell so the blank slots the game's own panel has (Cost, and the Oxygen-for-submarines
+// slot) still hold their place in the 3-column shape instead of collapsing it. Populates
+// `container` directly rather than building/returning its own wrapper, since the whole
+// stats section is one grid now.
+//
+// A boosted stat shows "base+delta (real)" — e.g. "286+69 (355)" — rather than just the
+// final real number: showing only the post-skill value with no base in sight makes it
+// ambiguous which number is which, so the base figure is shown explicitly alongside the
+// delta and the real total.
+function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
+  for (const def of gridDefs) {
+    const cell = document.createElement("div");
+    cell.className = "stat-grid-cell";
+    if (!def) {
+      cell.classList.add("stat-grid-blank");
+      container.appendChild(cell);
+      continue;
+    }
 
-  if (!base || !effective) {
-    modalEffectiveStatsSection.hidden = true;
-    return;
-  }
-  modalEffectiveStatsSection.hidden = false;
-  modalEffectiveStatsGrid.innerHTML = "";
-  modalCombatModifiers.innerHTML = "";
-
-  for (const def of STAT_DEFS) {
-    const entry = def.text ? null : effective.stats[def.key];
-    const raw = def.text ? ship.armorType : (entry ? entry.value : base[def.key]);
+    // "Cost" isn't part of the normal per-level stat pipeline at all (own formula, no
+    // skill-bonus delta), so it skips both the effective-stats lookup and the base block
+    // entirely and goes straight through computeOilCost().
+    const entry = (def.text || def.custom) ? null : effective.stats[def.key];
+    const baseRaw = def.custom ? computeOilCost(ship, level) : def.text ? ship.armorType : base[def.key];
     const delta = entry ? entry.delta : 0;
 
-    const chip = document.createElement("div");
-    chip.className = "stat-chip" + (delta ? " stat-chip-boosted" : "");
-    chip.title = def.label;
-
+    const iconLabel = document.createElement("span");
+    iconLabel.className = "stat-grid-icon-label";
+    iconLabel.title = def.label;
     const icon = document.createElement("img");
     icon.className = "stat-icon";
     icon.src = def.icon;
     icon.alt = def.label;
-    chip.appendChild(icon);
+    iconLabel.appendChild(icon);
+    iconLabel.appendChild(document.createTextNode(def.label));
+    cell.appendChild(iconLabel);
 
-    const val = document.createElement("span");
-    val.className = "stat-value";
-    val.textContent = (raw === undefined || raw === null || raw === "") ? "—" : raw;
-    chip.appendChild(val);
-
+    const value = document.createElement("span");
+    value.className = "stat-grid-value";
     if (delta) {
+      value.appendChild(document.createTextNode(formatStatValue(baseRaw)));
       const deltaEl = document.createElement("span");
       deltaEl.className = "stat-delta";
-      deltaEl.textContent = delta > 0 ? `+${delta}` : String(delta);
-      chip.appendChild(deltaEl);
+      deltaEl.textContent = delta > 0 ? `+${delta}` : `${delta}`;
+      value.appendChild(deltaEl);
+      const realEl = document.createElement("span");
+      realEl.className = "stat-grid-real";
+      realEl.textContent = ` (${entry.value})`;
+      value.appendChild(realEl);
+    } else {
+      value.textContent = formatStatValue(baseRaw);
     }
+    cell.appendChild(value);
 
-    modalEffectiveStatsGrid.appendChild(chip);
+    container.appendChild(cell);
   }
+}
+
+function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) {
+  const base = computeStats(ship, level, isRetrofit);
+  if (!base) {
+    modalStatsSection.hidden = true;
+    modalLevelControl.hidden = true;
+    return;
+  }
+  modalLevelControl.hidden = false;
+  modalStatsSection.hidden = false;
+
+  const effective = computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim);
+  modalStatsTable.innerHTML = "";
+  modalCombatModifiers.innerHTML = "";
+
+  buildStatsGrid(modalStatsTable, STAT_GRID, ship, level, base, effective);
 
   for (const [key, amount] of Object.entries(effective.modifiers)) {
     const pill = document.createElement("span");
@@ -1916,8 +2058,7 @@ function applyRetrofitState() {
   const rarity = currentRarity();
 
   renderModalTags(ship, rarity);
-  renderModalStats(ship, currentLevel, retrofitApplied);
-  renderModalEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  renderModalStatsTable(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
   renderModalSkills(ship, retrofitApplied, augmentApplied, fateSimApplied);
   renderModalBarrages(ship, retrofitApplied, augmentApplied, fateSimApplied);
   modalEl.style.setProperty("--modal-rarity-color", `var(--${RARITY_CLASS[rarity] || "rarity-normal"})`);
@@ -1956,8 +2097,7 @@ function openModal(ship) {
   retrofitApplied = false;
   augmentApplied = false;
   fateSimApplied = false;
-  modalLevelSlider.value = "1";
-  modalLevelValue.textContent = "1";
+  updateLevelControlUI(1);
   modalRetrofitCheckbox.checked = false;
   modalRetrofitControl.hidden = !ship.hasRetrofit;
   modalAugmentCheckbox.checked = false;
@@ -1966,6 +2106,19 @@ function openModal(ship) {
   modalFateSimControl.hidden = !(ship.skills || []).some(s => s.marker === "FS");
 
   modalName.textContent = ship.displayName;
+  const nationColor = NATION_COLORS[nationDisplayName(ship.nationality)];
+  if (nationColor) {
+    modalEl.style.setProperty("--modal-nation-color", nationColor);
+  } else {
+    modalEl.style.removeProperty("--modal-nation-color");
+  }
+  const logoCode = FACTION_LOGO_CODE[nationDisplayName(ship.nationality)];
+  if (logoCode) {
+    modalNationWatermark.src = `assets/faction-logos/${logoCode}.png`;
+    modalNationWatermark.hidden = false;
+  } else {
+    modalNationWatermark.hidden = true;
+  }
   if (ship.hullShort) {
     modalHullIcon.src = `assets/hull-icons/${ship.hullShort}.png`;
     modalHullIcon.alt = ship.hullType || "";
@@ -1997,13 +2150,47 @@ grid.addEventListener("click", event => {
   if (ship) openModal(ship);
 });
 
-modalLevelSlider.addEventListener("input", () => {
-  currentLevel = Number(modalLevelSlider.value);
-  modalLevelValue.textContent = String(currentLevel);
+// The level control is a set of "notch" buttons for the levels that actually matter
+// (1 = base, 100 = normal max, 120/125 = the same retrofit/limit-break breakpoints the
+// statsCurve data already uses for hand-imported ships) plus a free-entry number input,
+// rather than a continuous slider that makes you hunt for an arbitrary level. Both
+// controls stay in sync through one shared setLevel() so clicking a notch updates the
+// field and vice versa.
+function updateLevelControlUI(level) {
+  modalLevelInput.value = String(level);
+  modalLevelNotches.querySelectorAll(".level-notch").forEach(btn => {
+    btn.classList.toggle("active", Number(btn.dataset.level) === level);
+  });
+}
+
+function setLevel(newLevel) {
+  const clamped = Math.min(125, Math.max(1, Math.round(newLevel) || 1));
+  currentLevel = clamped;
+  updateLevelControlUI(clamped);
   if (!currentShip) return;
-  renderModalStats(currentShip, currentLevel, retrofitApplied);
-  renderModalEffectiveStats(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  renderModalStatsTable(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+}
+
+modalLevelNotches.addEventListener("click", event => {
+  const btn = event.target.closest(".level-notch");
+  if (!btn) return;
+  setLevel(Number(btn.dataset.level));
 });
+
+modalLevelInput.addEventListener("input", () => {
+  // Ignore an empty/mid-edit field instead of snapping it to 1 — otherwise clearing the
+  // field before typing a new number (a common way to replace "1" with "56") would force
+  // it back to "1" on every keystroke.
+  if (modalLevelInput.value === "" || Number.isNaN(Number(modalLevelInput.value))) return;
+  setLevel(Number(modalLevelInput.value));
+});
+
+modalLevelInput.addEventListener("change", () => {
+  if (modalLevelInput.value === "") modalLevelInput.value = String(currentLevel);
+});
+
+modalLevelSpinUp.addEventListener("click", () => setLevel(currentLevel + 1));
+modalLevelSpinDown.addEventListener("click", () => setLevel(currentLevel - 1));
 
 modalRetrofitCheckbox.addEventListener("change", () => {
   retrofitApplied = modalRetrofitCheckbox.checked;

@@ -16,7 +16,7 @@
         <img src="assets/icon.png" alt="AzurCalc" class="brand-logo">
       </button>
       <div class="brand-text">
-        <h1>AzurCalculator <span class="beta-mark">β</span></h1>
+        <h1>AzurCalculator β</h1>
       </div>
     </div>
 
@@ -63,6 +63,7 @@
       <div class="modal-info">
         <div class="modal-info-scroll">
           <div class="modal-heading">
+            <img id="modal-nation-watermark" class="modal-nation-watermark" alt="" hidden>
             <img id="modal-hull-icon" class="modal-hull-icon" alt="" hidden>
             <h2 id="modal-name"></h2>
           </div>
@@ -87,34 +88,45 @@
           </div>
 
           <div id="modal-level-control" class="modal-level-control" hidden>
-            <label for="modal-level-slider">Level <span id="modal-level-value">1</span></label>
-            <input type="range" id="modal-level-slider" min="1" max="125" value="1" step="1">
+            <span class="modal-level-control-label">Level</span>
+            <div class="level-notches" id="modal-level-notches">
+              <button type="button" class="level-notch" data-level="1">1</button>
+              <button type="button" class="level-notch" data-level="10">10</button>
+              <button type="button" class="level-notch" data-level="30">30</button>
+              <button type="button" class="level-notch" data-level="70">70</button>
+              <button type="button" class="level-notch" data-level="100">100</button>
+              <button type="button" class="level-notch" data-level="120">120</button>
+              <button type="button" class="level-notch" data-level="125">125</button>
+            </div>
+            <div class="level-input-wrap">
+              <input type="number" id="modal-level-input" class="level-input" min="1" max="125" value="1" inputmode="numeric">
+              <div class="level-spin-buttons">
+                <button type="button" id="modal-level-spin-up" class="level-spin level-spin-up" aria-label="Increase level"></button>
+                <button type="button" id="modal-level-spin-down" class="level-spin level-spin-down" aria-label="Decrease level"></button>
+              </div>
+            </div>
           </div>
 
-          <div id="modal-stats-section" class="modal-stats-section" hidden>
-            <h3 class="modal-section-title">Stats</h3>
-            <div id="modal-stats" class="modal-stats-row"></div>
-
-            <div id="modal-effective-stats-section" class="modal-effective-stats-section" hidden>
-              <h4 class="modal-subsection-title">Effective Stats <span class="modal-subsection-hint">— after active skills, fully leveled, conditions assumed met</span></h4>
-              <div id="modal-effective-stats" class="modal-stats-row"></div>
+          <div id="modal-stats-section" hidden>
+            <h3 class="modal-section-title">Stats <span class="modal-subsection-hint">, after active skills, conditions assumed met</span></h3>
+            <div class="stats-and-modifiers">
+              <div id="modal-stats-table" class="stats-grid"></div>
               <div id="modal-combat-modifiers" class="modal-combat-modifiers"></div>
             </div>
           </div>
 
-          <div id="modal-skills-section" class="modal-skills-section" hidden>
+          <div id="modal-skills-section" hidden>
             <h3 class="modal-section-title">Skills</h3>
             <div id="modal-skills" class="modal-skills-list"></div>
           </div>
 
-          <div id="modal-barrages-section" class="modal-skills-section" hidden>
+          <div id="modal-barrages-section" hidden>
             <h3 class="modal-section-title">Barrages</h3>
-            <div id="modal-barrages" class="modal-barrages-list"></div>
+            <div id="modal-barrages"></div>
           </div>
 
-          <div id="modal-interaction-section" class="modal-skills-section" hidden>
+          <div id="modal-interaction-section" hidden>
             <h3 class="modal-section-title">Interaction</h3>
-            <p class="modal-subsection-hint modal-interaction-hint">Other characters with skills that reference this ship's nation, hull type, fleet role, class, or name directly.</p>
             <div id="modal-interaction" class="modal-interaction-list"></div>
           </div>
         </div>
