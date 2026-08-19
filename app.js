@@ -157,8 +157,8 @@ function nationDisplayName(nationality) {
   return nationality ? nationality.replace(/\s*\([^)]*\)$/, "") : nationality;
 }
 
-// Only two things get color-coded: nations and stats. Hull types, weapon terms,
-// DMG/Damage, healing terms, fleet role (Vanguard/Main Fleet), and Siren are
+// Three things get color-coded: nations, stats, and named mechanics. Hull types, weapon
+// terms, DMG/Damage, healing terms, fleet role (Vanguard/Main Fleet), and Siren are
 // deliberately NOT part of this system — don't re-add one of these without an explicit
 // ask, since it was a deliberate reduction, not an oversight.
 //
@@ -188,12 +188,42 @@ const STAT_COLOR_GROUPS = [
 ];
 const STAT_COLORS = Object.fromEntries(STAT_COLOR_GROUPS.flatMap(g => g.terms.map(t => [t, g.color])));
 
+// A few status effects are shared game-wide vocabulary rather than one ship's own
+// invention, and recur often enough to be worth learning by color: Burn (98 descriptions),
+// Special Burn (41), Armor Break (40), Smokescreen (32), Flooding (20) — counted over the
+// corpus, not assumed. Hues are mnemonic (fire, water, cracked armor, smoke) but are picks:
+// unlike the nation and stat tables these were not supplied, and no saved wiki page
+// documents what colors the game itself gives these effects, so swap any of them freely.
+// Each row also lists whichever other spelling the corpus actually writes ("Burning",
+// "Armor-broken"); a trailing "s" is already handled by the shared matcher.
+const MECHANIC_COLOR_GROUPS = [
+  { color: "#F2603C", terms: ["Burn", "Burning"] },
+  { color: "#CE72E8", terms: ["Special Burn"] },
+  { color: "#3D7FE8", terms: ["Flooding"] },
+  { color: "#E8C255", terms: ["Armor Break", "Armor-broken"] },
+  { color: "#9FB0C4", terms: ["Smokescreen"] }
+];
+const MECHANIC_COLORS = Object.fromEntries(MECHANIC_COLOR_GROUPS.flatMap(g => g.terms.map(t => [t, g.color])));
+
+// A mechanic a single skill coins for itself — "Berserk Mode", "Frostshred", "Pearl Moon" —
+// gets no palette entry of its own: it appears in one skill, so a color to memorize would
+// mean nothing. They all share --accent, the color the mechanic's own section label already
+// uses, which is what ties the name in the sentence to the block it heads.
+const NAMED_MECHANIC_COLOR = "var(--accent)";
+
 const KEYWORD_GROUPS = [
   // Nations are underlined (see highlightKeywords) as well as colored, since both
   // nations and stats carry many individual hues — the underline is what tells them
-  // apart at a glance rather than relying on memorizing 45 colors.
+  // apart at a glance rather than relying on memorizing 45 colors. Mechanics get a third
+  // treatment, a tinted chip, for the same reason: with three palettes sharing one
+  // sentence, hue alone can no longer say which system a colored word belongs to.
+  //
+  // Mechanics keep the casing the wiki wrote rather than being normalized to the canonical
+  // form the other two use — "smokescreen" is lowercase in 72 of its 87 occurrences, and
+  // capitalizing them all would be the formatting visibly rewriting the text.
   { className: "kw-nation", perTermColor: t => NATION_COLORS[t], underline: true, terms: [...new Set(ships.map(s => nationDisplayName(s.nationality)).filter(Boolean))] },
-  { className: "kw-stat", perTermColor: t => STAT_COLORS[t], terms: Object.keys(STAT_COLORS) }
+  { className: "kw-stat", perTermColor: t => STAT_COLORS[t], terms: Object.keys(STAT_COLORS) },
+  { className: "kw-mech", perTermColor: t => MECHANIC_COLORS[t], keepCase: true, terms: Object.keys(MECHANIC_COLORS) }
 ];
 
 // Maps lowercase term -> { color, canonical, underline }. "canonical" is the properly-
@@ -206,24 +236,34 @@ for (const g of KEYWORD_GROUPS) {
   for (const t of g.terms) {
     if (KEYWORD_INFO.has(t.toLowerCase())) continue;
     const color = g.perTermColor ? g.perTermColor(t) : g.color;
-    KEYWORD_INFO.set(t.toLowerCase(), { color, canonical: t, underline: !!g.underline });
+    KEYWORD_INFO.set(t.toLowerCase(), { color, canonical: t, className: g.className, underline: !!g.underline, keepCase: !!g.keepCase });
   }
 }
 // Longest term first so e.g. "Max HP" is matched whole rather than leaving a stray "HP".
 // Each term also accepts an optional trailing "s" (Destroyer/Destroyers, etc.). The
-// second top-level alternative (group 2) matches bare numbers/percentages ("15%",
+// alternative after it (group 3) matches bare numbers/percentages ("15%",
 // "3213") so skill values stand out from the surrounding prose — matched in the same
 // pass as the keyword terms so numbers inside an already-colored span (e.g. inside "HP")
-// can't be double-wrapped. The third alternative (group 3) matches the literal
+// can't be double-wrapped. The last alternative (group 4) matches the literal
 // "[Operation Siren]" mode tag some skills use to mark roguelike-only behavior —
-// bolded and colored on its own, distinct from the nation/stat palettes.
+// bolded and colored on its own, distinct from the other palettes.
 const OPERATION_SIREN_TAG_COLOR = "#E8A33D";
-const KEYWORD_RE = new RegExp(
+const KEYWORD_ALTERNATIVES =
   "\\b(" + [...KEYWORD_INFO.keys()].sort((a, b) => b.length - a.length).map(escapeRegExp).join("|") + ")s?\\b" +
   "|(\\d+(?:\\.\\d+)?%?)" +
-  "|(\\[Operation Siren\\])",
-  "gi"
-);
+  "|(\\[Operation Siren\\])";
+
+// Named mechanics are per-skill, so they can't live in the fixed vocabulary above — they
+// come in as an argument and take group 1, ahead of everything else, so that a name
+// starting with a term of its own ("Standard Armor Break") is matched whole rather than
+// losing its first word to the shorter global match. With no names to add, group 1 becomes
+// a pattern that can never match, which keeps every other group's number stable.
+let cachedKeywordRe = null;
+function keywordRegExp(names) {
+  if (!names || !names.length) return cachedKeywordRe || (cachedKeywordRe = new RegExp("((?!))|" + KEYWORD_ALTERNATIVES, "gi"));
+  const alternatives = names.slice().sort((a, b) => b.length - a.length).map(escapeRegExp).join("|");
+  return new RegExp("\\b(" + alternatives + ")\\b|" + KEYWORD_ALTERNATIVES, "gi");
+}
 
 function keywordInfoFor(matchText) {
   const lower = matchText.toLowerCase();
@@ -235,7 +275,9 @@ function keywordInfoFor(matchText) {
 // Walks every text node already inside `container` (so it works whether the content was
 // set via textContent or as sanitized wiki HTML with existing <b> tags) and wraps each
 // recurring keyword in a colored span, without disturbing surrounding markup.
-function highlightKeywords(container) {
+// `mechanics` are the names this particular skill coins for itself (see namedMechanics).
+function highlightKeywords(container, mechanics) {
+  const KEYWORD_RE = keywordRegExp(mechanics);
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
   const textNodes = [];
   let node;
@@ -252,26 +294,32 @@ function highlightKeywords(container) {
     let m;
     while ((m = KEYWORD_RE.exec(text))) {
       if (m.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
-      if (m[2] !== undefined) {
+      if (m[1] !== undefined) {
         const span = document.createElement("span");
-        span.className = "kw kw-num";
-        span.textContent = m[2];
+        span.className = "kw kw-mech";
+        span.style.color = NAMED_MECHANIC_COLOR;
+        span.textContent = m[1];
         frag.appendChild(span);
       } else if (m[3] !== undefined) {
+        const span = document.createElement("span");
+        span.className = "kw kw-num";
+        span.textContent = m[3];
+        frag.appendChild(span);
+      } else if (m[4] !== undefined) {
         const span = document.createElement("span");
         span.className = "kw";
         span.style.color = OPERATION_SIREN_TAG_COLOR;
         span.style.fontWeight = "700";
-        span.textContent = m[3];
+        span.textContent = m[4];
         frag.appendChild(span);
       } else {
         const info = keywordInfoFor(m[0]);
         if (info) {
           const span = document.createElement("span");
-          span.className = "kw";
+          span.className = info.className ? "kw " + info.className : "kw";
           span.style.color = info.color;
           if (info.underline) span.style.textDecoration = "underline";
-          span.textContent = info.canonical + (info.plural ? "s" : "");
+          span.textContent = info.keepCase ? m[0] : info.canonical + (info.plural ? "s" : "");
           frag.appendChild(span);
         } else {
           frag.appendChild(document.createTextNode(m[0]));
@@ -763,6 +811,7 @@ const modalStatsSection = document.getElementById("modal-stats-section");
 const modalStatsTable = document.getElementById("modal-stats-table");
 const modalCombatModifiers = document.getElementById("modal-combat-modifiers");
 const modalSkillsSection = document.getElementById("modal-skills-section");
+const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
 const modalSkillsList = document.getElementById("modal-skills");
 const modalBarragesSection = document.getElementById("modal-barrages-section");
 const modalBarragesList = document.getElementById("modal-barrages");
@@ -948,6 +997,111 @@ const COMBAT_MODIFIER_LABELS = {
   evasionRate: "Evasion Rate"
 };
 
+// A combat modifier is usually restricted to a specific target or weapon: Alvitr's
+// "DMG Dealt +15%" only applies to Light Armor enemies. One summed number per stat hid
+// that restriction, and worse, added together bonuses that never apply to the same shot
+// (an unconditional +10% and a "+15% vs Light Armor" are not a +25%), so bonuses are
+// grouped per (stat, qualifier) and each pill carries its own source sentence.
+//
+// The qualifier is whatever surrounds the stat term inside the bonus's own captured
+// phrase, once the verb, the possessive and the trailing "by X% (Y%)" are cut away:
+// "Increases this ship's DMG dealt to Light Armor enemies by 5% (15%)" -> target
+// "to Light Armor enemies"; "Increases this ship's Main Gun efficiency by 1% (10%)"
+// -> source "Main Gun".
+const MODIFIER_TERM_RE = /\b(?:DMG dealt|damage dealt|DMG|damage|crit(?:ical)?(?:\s+(?:rate|dmg|damage))?|evasion rate|hit rate|accuracy|efficiency)\b/gi;
+
+// Only a weapon/source name in front of the stat term is a real qualifier — anything
+// else sitting there is a possessive ("this boat's", "Tirpitz's") or another stat riding
+// the same sentence ("FP and Crit Rate"). Cased canonically, since the wiki writes these
+// both ways ("Main Gun efficiency" / "main gun efficiency") and pills sit side by side.
+const MODIFIER_SOURCES = {
+  "main gun": "Main Gun",
+  "secondary gun": "Secondary Gun",
+  "aa gun": "AA Gun",
+  torpedo: "Torpedo",
+  torpedoes: "Torpedo",
+  airstrike: "Airstrike",
+  aircraft: "Aircraft",
+  cannon: "Cannon",
+  burn: "Burn",
+  barrage: "Barrage",
+  salvo: "Salvo",
+  volley: "Volley"
+};
+const MODIFIER_SOURCE_RE = new RegExp(`\\b(?:${Object.keys(MODIFIER_SOURCES).join("|")})\\b`, "gi");
+
+// A trailing qualifier only counts when it reads as a restriction ("to Sirens",
+// "against Light Armor enemies", "with AP"). "dealt" — left over from "Crit DMG dealt" —
+// and "by self" are just phrasing, not a condition.
+const MODIFIER_TARGET_RE = /^(?:to|against|with|from|for|while|during|when|vs\.?)\s/i;
+
+function modifierQualifier(raw) {
+  const phrase = (raw || "")
+    .replace(/\s*\bby\s+[-+\d.]+\s*%?[\s\S]*$/i, "")
+    .replace(/^\s*(?:increase[sd]?|raise[sd]?|boost(?:s|ed)?)\s+/i, "")
+    .replace(/^\s*(?:this ship(?:'s)?|this character(?:'s)?|this boat(?:'s)?|her|his|its|their|own|the)\s+/i, "")
+    .trim();
+
+  MODIFIER_TERM_RE.lastIndex = 0;
+  let first = null;
+  let last = null;
+  let match;
+  while ((match = MODIFIER_TERM_RE.exec(phrase))) {
+    if (!first) first = match;
+    last = match;
+  }
+  if (!first) return { source: "", target: "" };
+
+  const before = phrase.slice(0, first.index).trim();
+  const after = phrase.slice(last.index + last[0].length).trim();
+  const sourceAt = before.search(MODIFIER_SOURCE_RE);
+  return {
+    source: sourceAt < 0 ? "" : before.slice(sourceAt).replace(/'s$/, "")
+      .replace(MODIFIER_SOURCE_RE, term => MODIFIER_SOURCES[term.toLowerCase()]),
+    target: MODIFIER_TARGET_RE.test(after) ? after : ""
+  };
+}
+
+function addModifier(modifiers, index, key, amount, skill, raw) {
+  const { source, target } = modifierQualifier(raw);
+  const groupKey = `${key}|${source.toLowerCase()}|${target.toLowerCase()}`;
+  let entry = index.get(groupKey);
+  if (!entry) {
+    entry = { key, source, target, amount: 0, sources: [] };
+    index.set(groupKey, entry);
+    modifiers.push(entry);
+  }
+  entry.amount += amount;
+  entry.sources.push({ skill, raw });
+  return entry;
+}
+
+// "Main Gun" + weaponEfficiency reads as "Main Gun Efficiency", not "Main Gun Weapon
+// Efficiency" — the generic label only stands in when no weapon is named.
+function modifierLabel(modifier) {
+  const label = COMBAT_MODIFIER_LABELS[modifier.key] || modifier.key;
+  if (!modifier.source) return label;
+  return modifier.key === "weaponEfficiency"
+    ? `${modifier.source} Efficiency`
+    : `${modifier.source} ${label}`;
+}
+
+// The captured phrase drops whatever gated it ("Once per battle, when this barrage
+// scores a total of 3 hits: ..."), which is exactly the context a pill needs to be
+// trustworthy — so the tooltip quotes the whole sentence the bonus was extracted from,
+// at max skill level to match the number the pill shows.
+function modifierSourceText(entry) {
+  const text = stripHtml(entry.skill.description || "").replace(/\s+/g, " ").trim();
+  const needle = (entry.raw || "").replace(/\s+/g, " ").trim();
+  const at = text.toLowerCase().indexOf(needle.toLowerCase());
+  if (at < 0) return `${entry.skill.name} — ${renderLevelValues(needle, true)}`;
+  const start = text.lastIndexOf(". ", at);
+  let end = text.indexOf(". ", at + needle.length);
+  end = end < 0 ? text.length : end + 1;
+  const sentence = text.slice(start < 0 ? 0 : start + 2, end).trim();
+  return `${entry.skill.name} — ${renderLevelValues(sentence, true)}`;
+}
+
 // Implements the wiki's own "CurrentScalingStat" formula (Damage Calculations page):
 // (ShipBaseStat + sum of flat buffs) * (1 + sum of percent buffs) + sum of skill flat buffs.
 // We have no equipment/Meowfficer/Fleet Tech data, so ShipBaseStat is just the already-leveled
@@ -975,7 +1129,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
   const skills = getSkillsForState(ship, isRetrofit, isAugmented, isFateSim);
   const percentSum = {};
   const flatSum = {};
-  const modifierSum = {};
+  const modifiers = [];
+  const modifierIndex = new Map();
   const seenRaw = new Set();
 
   for (const skill of skills) {
@@ -990,7 +1145,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
       if (typeof amount !== "number") continue;
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
-          modifierSum[key] = (modifierSum[key] || 0) + amount;
+          addModifier(modifiers, modifierIndex, key, amount, skill, b.raw);
         } else if (NUMERIC_STAT_KEYS.includes(key)) {
           const bucket = b.isPercent ? percentSum : flatSum;
           bucket[key] = (bucket[key] || 0) + amount;
@@ -1008,7 +1163,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
     stats[key] = { value, delta: value - base[key] };
   }
 
-  return { stats, modifiers: modifierSum };
+  return { stats, modifiers };
 }
 
 // Builds the compact 3-column grid matching the game's own stat panel — one cell per
@@ -1088,11 +1243,534 @@ function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) 
 
   buildStatsGrid(modalStatsTable, STAT_GRID, ship, level, base, effective);
 
-  for (const [key, amount] of Object.entries(effective.modifiers)) {
+  for (const modifier of effective.modifiers) {
     const pill = document.createElement("span");
     pill.className = "combat-modifier-pill";
-    pill.textContent = `${COMBAT_MODIFIER_LABELS[key] || key} +${amount}%`;
+    if (modifier.target) pill.classList.add("has-target");
+    pill.title = modifier.sources.map(modifierSourceText).join("\n\n");
+
+    const value = document.createElement("span");
+    value.className = "combat-modifier-value";
+    value.textContent = `${modifierLabel(modifier)} +${Math.round(modifier.amount * 100) / 100}%`;
+    pill.appendChild(value);
+
+    if (modifier.target) {
+      const target = document.createElement("span");
+      target.className = "combat-modifier-target";
+      target.textContent = modifier.target;
+      pill.appendChild(target);
+    }
+
     modalCombatModifiers.appendChild(pill);
+  }
+}
+
+// The wiki writes every level-scaled skill value as "base (max)" — "increases this
+// character's FP by 3.5% (8%)" means 3.5% at skill level 1 and 8% at level 10. Carrying
+// both numbers through every sentence is what makes long descriptions unreadable, so
+// only ever one of the two is shown: the base value by default, the max-level one when
+// the "Max Level" toggle is on. Either way the parentheses themselves disappear.
+//
+// Descriptions are pre-sanitized to plain text plus <b> tags, and those tags routinely
+// sit between the two numbers ("<b>20%</b> <b> (40%)"). Rather than drop whatever falls
+// inside a match — which would leave unbalanced markup and bold the rest of the
+// paragraph — every tag inside the matched span is carried over into the replacement in
+// its original order, so only the numbers and the parentheses themselves disappear.
+const LEVEL_PAIR_GAP = "(?:\\s|<\\/?b>)*";
+
+// "3.5% (8%)" → "3.5%" or "8%". A value can be signed, and a penalty shrinking with skill
+// level makes the max the smaller number ("-40% (-20%)", Little Renown's 2nd salvo).
+// Guarded on the two values carrying the same sign and unit, so the wiki's own typos
+// ("for 20s (50)s", "5% (15)%", "-1.5 (6%)") are left untouched rather than mangled.
+const LEVEL_PAIR_NUMBER_RE = new RegExp(
+  `([+-]?)(\\d+(?:\\.\\d+)?)(%|s)?(${LEVEL_PAIR_GAP})\\((${LEVEL_PAIR_GAP})([+-]?)(\\d+(?:\\.\\d+)?)(%|s)?(${LEVEL_PAIR_GAP})\\)`,
+  "g"
+);
+
+// "Lv.1 (Lv.10)" → "Lv.1" or "Lv.10", the level of a skill-scaled barrage. Spacing after
+// "Lv." varies between pages, hence the optional space on both sides.
+const LEVEL_PAIR_LV_RE = new RegExp(
+  `(Lv\\.\\s?\\d+)(${LEVEL_PAIR_GAP})\\((${LEVEL_PAIR_GAP})(Lv\\.\\s?\\d+)(${LEVEL_PAIR_GAP})\\)`,
+  "g"
+);
+
+// "All Out Assault - Fletcher Class I (II)" → "... Class I" or "... Class II", the tier
+// the attack reaches at each end of the skill's level range. Some pages use the Unicode
+// numerals Ⅰ/Ⅱ instead of the ASCII letters, and a handful write the pair the other way
+// round ("All Out Assault (I) Ⅱ", base parenthesized instead of max) — both orders mean
+// the same thing, so both collapse to a single numeral.
+const LEVEL_PAIR_TIER_RE = new RegExp(
+  `(I|Ⅰ)(${LEVEL_PAIR_GAP})\\((${LEVEL_PAIR_GAP})(II|Ⅱ)(${LEVEL_PAIR_GAP})\\)`,
+  "g"
+);
+const LEVEL_PAIR_TIER_REVERSED_RE = new RegExp(
+  `\\((${LEVEL_PAIR_GAP})(I|Ⅰ)(${LEVEL_PAIR_GAP})\\)(${LEVEL_PAIR_GAP})(II|Ⅱ)`,
+  "g"
+);
+
+function keepTags(text) {
+  return (text.match(/<\/?b>/g) || []).join("");
+}
+
+// `atMaxLevel` picks which half of each pair survives; the other half and the
+// parentheses are dropped.
+function renderLevelValues(html, atMaxLevel) {
+  return html
+    .replace(LEVEL_PAIR_NUMBER_RE, (full, baseSign, baseValue, baseUnit, gap1, gap2, maxSign, maxValue, maxUnit, gap3) => {
+      if ((baseUnit || "") !== (maxUnit || "") || baseSign !== maxSign) return full;
+      const kept = atMaxLevel ? maxSign + maxValue + (maxUnit || "") : baseSign + baseValue + (baseUnit || "");
+      return kept + keepTags(gap1) + keepTags(gap2) + keepTags(gap3);
+    })
+    .replace(LEVEL_PAIR_LV_RE, (full, baseLevel, gap1, gap2, maxLevel, gap3) =>
+      (atMaxLevel ? maxLevel : baseLevel) + keepTags(gap1) + keepTags(gap2) + keepTags(gap3))
+    .replace(LEVEL_PAIR_TIER_RE, (full, baseTier, gap1, gap2, maxTier, gap3) =>
+      (atMaxLevel ? maxTier : baseTier) + keepTags(gap1) + keepTags(gap2) + keepTags(gap3))
+    .replace(LEVEL_PAIR_TIER_REVERSED_RE, (full, gap1, baseTier, gap2, gap3, maxTier) =>
+      keepTags(gap1) + keepTags(gap2) + keepTags(gap3) + (atMaxLevel ? maxTier : baseTier));
+}
+
+// Wiki skill descriptions are one unbroken paragraph of prose — up to 8 sentences, with
+// nested conditions and ";"-separated effect lists all running together. These turn that
+// prose into blocks: a condition line followed by its actions as bullets, one block per
+// sentence. Nothing is reworded and no character is dropped except the separators that
+// bullets replace, so the text stays exactly what the wiki says.
+//
+// This runs on the HTML string rather than the DOM, which is safe here because
+// descriptions are sanitized down to balanced <b> tags with no HTML entities anywhere —
+// so a ";" or ". " found in the string is always prose, never markup. It has to run after
+// renderLevelValues: splitting the raw text instead would trip over the "(8%)" halves the
+// reader never sees.
+
+// Every split has to ignore separators inside parentheses — an aside like "(DMG is based
+// on the skill's level; can activate up to 2 times per battle)" carries semicolons that
+// are not list separators (Moskva's "Frozen Fortress").
+function topLevelMatches(text, separator) {
+  const found = [];
+  let depth = 0;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === "(") depth++;
+    else if (char === ")") depth = Math.max(0, depth - 1);
+    else if (depth === 0) {
+      separator.lastIndex = i;
+      const match = separator.exec(text);
+      if (match && match.index === i) {
+        found.push({ start: i, end: separator.lastIndex });
+        i = separator.lastIndex - 1;
+      }
+    }
+  }
+  return found;
+}
+
+function splitTopLevel(text, separator) {
+  const parts = [];
+  let last = 0;
+  for (const { start, end } of topLevelMatches(text, separator)) {
+    parts.push(text.slice(last, start));
+    last = end;
+  }
+  parts.push(text.slice(last));
+  return parts.filter(part => part.trim());
+}
+
+// Sticky flags: splitTopLevel anchors each test at the position it is inspecting.
+// "…by 5. When the battle starts" is a real sentence end, so digits before the period are
+// deliberately not excluded; the three exceptions that are NOT sentence ends are "Lv. 1"
+// (a spacing variant of the barrage level), "No. 1" (San Diego's skill name) and a lone
+// initial ("Allen M. Sumner", "William D. Porter").
+// The second alternative catches a period the wiki glued straight to the next sentence
+// with no space ("…Detection Gauge value by 10.As long as this ship is afloat:", Albion;
+// "…by 3.5%.[Operation Siren]Every time…", Alabama). All 114 in the dataset are real
+// sentence ends — no abbreviation is ever followed directly by a capital — and missing
+// them let a whole sentence get swallowed into the next one's condition line.
+const SENTENCE_SEPARATOR = /(?<!\bLv|\bNo|\b[A-Z])\.(?:\s+(?=[A-Z0-9"“(])|(?=[A-Z[]))/gy;
+const SEMICOLON_SEPARATOR = /;\s*/gy;
+const CLAUSE_SEPARATOR = /,\s+/gy;
+
+// The wiki numbers parallel effects inline — "gains the following effects: 1) … 2) …"
+// (A2's "Devastating Cleave") — which is a list already, just written as running text.
+// Only "N)" counts: "N." is always a decimal or a sentence end in this dataset (48 cases,
+// no real enumeration among them) and "N:" is a threshold table ("3 to 5: …", Implacable).
+// The optional trailing colon covers the wiki's own "2): Dive Bomber" slip (Béarn META).
+// Tag-tolerant, because Juneau's "Martyr+" wraps every single word in its own <b>, marker
+// included. The lookbehind keeps the marker to a real list number: it must open a token,
+// never trail one, so a stray "…up to 10) " inside prose cannot pass for an item.
+const ENUMERATION_SEPARATOR = new RegExp(
+  `(?:^|(?<=[\\s>;:]))${LEVEL_PAIR_GAP}\\d\\)${LEVEL_PAIR_GAP}:?(?:\\s|<\\/?b>)+`,
+  "gy"
+);
+
+// A sentence opening with a run of these is stating conditions, not effects.
+const SUBORDINATE_CLAUSE_RE = /^(?:and |or |but |then )?(?:when(?:ever)?\b|while\b|during\b|if\b|once\b|after\b|before\b|upon\b|every\b|each time\b|the first time\b|at the (?:start|beginning|end)\b|for (?:every|each)\b|as long as\b)/i;
+
+// "Activates All Out Assault I: Moskva once every 12 times…" — this colon ties the tier to
+// the class the attack is named after, it introduces nothing. Only an exact "All Out
+// Assault" + optional tier is excluded, so "All Out Assault II only: …" keeps its colon.
+const ATTACK_NAME_COLON_RE = /all[- ]?out assault\s*(?:i{1,3}|Ⅰ|Ⅱ)?\s*(?:\([^)]*\))?\s*$/i;
+
+function lastConditionColon(text) {
+  let depth = 0;
+  let found = -1;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (char === "(") depth++;
+    else if (char === ")") depth = Math.max(0, depth - 1);
+    else if (char === ":" && depth === 0 && !ATTACK_NAME_COLON_RE.test(text.slice(0, i))) found = i;
+  }
+  return found;
+}
+
+function leadingConditionClauses(text) {
+  const clauses = splitTopLevel(text, CLAUSE_SEPARATOR);
+  let count = 0;
+  while (count < clauses.length && SUBORDINATE_CLAUSE_RE.test(clauses[count].trim())) count++;
+  return { count, clauses };
+}
+
+// Bullets are for the skills that actually need them: two or more actions, or a condition
+// piled up from two or more clauses. A plain "Every 20s: fires a barrage." reads fine as
+// one line and stays one line — 22% of the dataset's descriptions produce bullets.
+function buildClauseBlock(sentence) {
+  const colon = lastConditionColon(sentence);
+  if (colon > -1) {
+    const header = sentence.slice(0, colon + 1).trim();
+    const items = splitTopLevel(sentence.slice(colon + 1), SEMICOLON_SEPARATOR);
+    // A condition with nothing after its colon has to stay a plain line: it is the caption
+    // of whatever follows (a numbered list, usually), and bulleting it would emit an empty
+    // list ("When the battle starts, and every 20s:", Sakawa).
+    if (items.length && (items.length >= 2 || leadingConditionClauses(header).count >= 2)) {
+      return { header, items };
+    }
+    return { text: sentence };
+  }
+
+  const { count, clauses } = leadingConditionClauses(sentence);
+  if (count >= 2 && count < clauses.length) {
+    return { header: clauses.slice(0, count).join(", ") + ",", items: [clauses.slice(count).join(", ")] };
+  }
+  return { text: sentence };
+}
+
+// A ";" list only reads as a list when a single condition at the front governs all of it.
+// If no segment opens with a condition the segments are independent statements (Albion's
+// "Unblemished White Cliffs"), and if several bring their own condition they are parallel
+// pairs, not items (Nubian's "It's Cleaning Time!"). Both cases become standalone blocks
+// instead of bullets dangling under nothing.
+function governsSegmentList(segments) {
+  const withColon = segments.filter(segment => lastConditionColon(segment) > -1).length;
+  return withColon === 1 && lastConditionColon(segments[0]) > -1;
+}
+
+// Promoting a ";" clause to a block of its own makes it a sentence, so it gets sentence
+// punctuation: the ";" it used to hang off becomes a period, and its first letter is
+// capitalized. Skips any leading tag so "<b>if</b> there are…" is still caught.
+function startSentence(html) {
+  return html.replace(/^((?:<[^>]*>|\s)*)([a-z])/, (full, prefix, letter) => prefix + letter.toUpperCase());
+}
+
+// A numbered item routinely runs for several sentences (Béarn META's "1) Main Gun: …" spans
+// three), so the list has to be carved out before sentences are split — otherwise each item
+// is scattered across blocks and its "1)" is left stranded mid-paragraph. Items therefore
+// hold blocks of their own rather than a string, and the sentence that introduces the list
+// is lifted out to caption it.
+function firstTopLevelBoundary(text) {
+  let earliest = null;
+  for (const separator of [SENTENCE_SEPARATOR, SEMICOLON_SEPARATOR]) {
+    const match = topLevelMatches(text, separator)[0];
+    if (match && (!earliest || match.start < earliest.start)) earliest = match;
+  }
+  return earliest;
+}
+
+function buildSkillBlocks(html) {
+  const marks = topLevelMatches(html, ENUMERATION_SEPARATOR);
+  if (marks.length < 2) return buildSentenceBlocks(html);
+
+  const spans = marks.map((mark, i) =>
+    html.slice(mark.end, i + 1 < marks.length ? marks[i + 1].start : html.length));
+
+  // Only the last item has no marker after it to bound it, so it would otherwise run to the
+  // end of the skill and swallow whatever follows the list (A2's "Berserk Mode lasts for up
+  // to 40s…"). Items are parallel by nature, so the last one is cut to the granularity its
+  // siblings use: if none of them runs past a sentence end, neither does it.
+  let tail = "";
+  const siblingsSpanSentences = spans.slice(0, -1)
+    .some(span => topLevelMatches(span, SENTENCE_SEPARATOR).length > 0);
+  if (!siblingsSpanSentences) {
+    const last = spans[spans.length - 1];
+    const cut = firstTopLevelBoundary(last);
+    if (cut) {
+      const endedSentence = last[cut.start] === ".";
+      spans[spans.length - 1] = last.slice(0, cut.start) + (endedSentence ? "." : "");
+      tail = last.slice(cut.end);
+    }
+  }
+
+  const blocks = buildSentenceBlocks(html.slice(0, marks[0].start));
+  // The sentence right before the list introduces it, so it captions the bullets instead of
+  // sitting above them as an unrelated paragraph.
+  const caption = blocks.length && blocks[blocks.length - 1].text ? blocks.pop().text : null;
+  // Items are often chained with ";" as well as numbered; the bullet already separates them,
+  // so a trailing one would just dangle (Glorious META's "Rosen Mark").
+  blocks.push({ header: caption, list: spans.map(span => buildSentenceBlocks(span.replace(/[;\s]+$/, ""))) });
+  if (tail.trim()) blocks.push(...buildSentenceBlocks(tail));
+  return blocks;
+}
+
+function buildSentenceBlocks(html) {
+  const blocks = [];
+  const rawSentences = splitTopLevel(html, SENTENCE_SEPARATOR);
+  for (let i = 0; i < rawSentences.length; i++) {
+    // The separator swallowed the period closing every sentence but the last, so give back
+    // exactly those. Testing for a trailing period instead would both miss the ones hidden
+    // behind a closing tag ("<b>max Health.</b>", Juneau) and invent one for a description
+    // that genuinely ends without it ("(10s cooldown, starts on cooldown)", Atago).
+    const sentence = rawSentences[i].trim() + (i < rawSentences.length - 1 ? "." : "");
+
+    const segments = splitTopLevel(sentence, SEMICOLON_SEPARATOR);
+    if (segments.length >= 2 && !governsSegmentList(segments)) {
+      for (let s = 0; s < segments.length; s++) {
+        const promoted = segments[s].trim() + (s < segments.length - 1 ? "." : "");
+        blocks.push(buildClauseBlock(s === 0 ? promoted : startSentence(promoted)));
+      }
+      continue;
+    }
+    blocks.push(buildClauseBlock(sentence));
+  }
+  return blocks;
+}
+
+// Some skills describe two alternative versions of themselves, one per game mode, marked
+// with the wiki's own bracketed tags — Alabama's "Just Gettin' Fired Up" is a full Regular
+// description followed by a full Operation Siren one. Run together they read as a single
+// list of effects, hiding the fact that only half of it applies at a time, so each tag
+// starts its own labelled section.
+//
+// Only these six tags are modes. Other bracketed spans are status names that belong in the
+// prose ("[Pursued]", "[Expurgating Flame]", "[Venus Concoction]") — they are told apart by
+// this explicit list plus the position check below, since a status name is referenced
+// mid-sentence while all 77 mode tags in the dataset sit at a sentence boundary. Reno's is
+// wrapped in <b>, hence the tags consumed on either side.
+const SKILL_MODE_TAG_RE = /(?:<\/?b>|\s)*\[(Regular play|Regular|Operation Siren only|Operation Siren|Exercise only|Non-Exercise Only)\](?:<\/?b>|\s)*/gi;
+const SENTENCE_END_RE = /[.!?][)\]"”]*$/;
+
+function skillModeColor(label) {
+  return /Operation Siren/i.test(label) ? OPERATION_SIREN_TAG_COLOR : "var(--text-muted)";
+}
+
+// Some skills name a mechanic of their own — "Berserk Mode" (A2), "Frostshred" (Moskva),
+// "[Pursued]" (Algérie META) — then spend several sentences describing it, which is what
+// buries the rest of the skill. Those sentences get grouped under the mechanic's name.
+//
+// Detection is deliberately narrow, since a wrong grouping is worse than none: the name has
+// to be introduced by one of these cue verbs AND reused later, so ordinary capitalized game
+// vocabulary ("Main Guns", "Max HP") can never qualify.
+const MECHANIC_CUE_RES = [
+  /\benters?\s+((?:[A-Z][\w'’-]*\s+){0,2}[A-Z][\w'’-]*\s+Mode)\b/g,
+  /\b(?:gains?|receives?)\s+(?:the\s+)?((?:[A-Z][\w'’-]*\s+){0,3}[A-Z][\w'’-]*)\s+status\b/g,
+  /\bgrants?\s+[^.:;]{0,45}?the\s+((?:[A-Z][\w'’-]*\s+){0,3}[A-Z][\w'’-]*)\s+status\b/g,
+  /\bapplies\s+(?:the\s+)?((?:[A-Z][\w'’-]*\s+){0,3}[A-Z][\w'’-]*)\s+(?:status|debuff|ailment)\b/g,
+  /\binflicts\s+((?:[A-Z][\w'’-]*\s+){0,2}[A-Z][\w'’-]*)\b/g,
+  /\[([A-Z][^\]]{2,30})\]/g,
+];
+
+function blockPlainText(block) {
+  const text = block.text || block.header || "";
+  const rest = block.list
+    ? block.list.map(item => item.map(blockPlainText).join(" "))
+    : (block.items || []);
+  return (text + " " + rest.join(" ")).replace(/<[^>]*>/g, "");
+}
+
+function mechanicNames(text) {
+  const names = new Set();
+  for (const cue of MECHANIC_CUE_RES) {
+    cue.lastIndex = 0;
+    let match;
+    while ((match = cue.exec(text))) names.add(match[1].trim());
+  }
+  return [...names];
+}
+
+// The cue verbs occasionally pick up bookkeeping instead of a name: "inflicts Lv.1 Holy
+// Judgment" (Alsace) yields "Lv", and "inflicts DMG up to 6 times" (Little Prinz Eugen)
+// yields "DMG". These two are the only ones in the dataset, so they are named outright
+// rather than filtered by a minimum-length rule that would be arbitrary either way.
+const NAMED_MECHANIC_STOPLIST = new Set(["lv", "dmg"]);
+
+// The names to color inside one skill's own text. Looser than what earns a section: a name
+// only has to be coined and then reused, whether or not the sentences around it happen to
+// form one uninterrupted run. Mode tags are stripped first so "[Operation Siren]" can't be
+// read as a mechanic by the bracket cue — it has its own color already.
+function namedMechanics(html) {
+  SKILL_MODE_TAG_RE.lastIndex = 0;
+  const text = html.replace(SKILL_MODE_TAG_RE, " ").replace(/<[^>]*>/g, "");
+  return mechanicNames(text).filter(name => {
+    const lower = name.toLowerCase();
+    if (NAMED_MECHANIC_STOPLIST.has(lower) || KEYWORD_INFO.has(lower)) return false;
+    // Naming something once is just a sentence — the color has nothing to connect it to.
+    const uses = text.match(new RegExp("\\b" + escapeRegExp(name) + "\\b", "gi"));
+    return uses && uses.length >= 2;
+  });
+}
+
+// Entering the mechanic and leaving it are transitions, not part of the state: each carries
+// its own trigger and reads on its own, so they stay outside the section rather than opening
+// and closing it (A2 — "…: enters Berserk Mode." above, "When Berserk Mode ends: …" below).
+// What the label then covers is only what holds while the mechanic is active.
+// Recognising the entry sentence may be looser than discovering the name in the first place:
+// this only ever shrinks a section that already exists, so an extra verb here cannot invent
+// one anywhere (Momo Belia Deviluke hands out Plan Execution with "gives", which is not a
+// discovery cue — the name is found on a later "grants" instead).
+function introducesMechanic(text, name) {
+  for (const cue of MECHANIC_CUE_RES) {
+    cue.lastIndex = 0;
+    let match;
+    while ((match = cue.exec(text))) if (match[1].trim() === name) return true;
+  }
+  return new RegExp("\\b(?:gives?|grants?|applies|inflicts?|bestows?)\\b[^.]{0,60}?\\b" +
+    escapeRegExp(name) + "\\b", "i").test(text);
+}
+
+function endsMechanic(text, name) {
+  return new RegExp("\\b" + escapeRegExp(name) +
+    "\\b[^.]{0,24}?\\b(?:ends?|expires?|is (?:removed|over)|wears off)\\b", "i").test(text);
+}
+
+// The blocks describing a mechanic have to form one uninterrupted run that leaves something
+// outside it — a section covering the whole skill explains nothing (Moskva's "Unyielding
+// Valor", where every sentence is about it). A second name inside the run means the split
+// would be arbitrary, so nothing is grouped at all (Oumi's Elegant/Besotted pair).
+function findMechanicRun(blocks) {
+  const texts = blocks.map(blockPlainText);
+  const names = mechanicNames(texts.join(" "));
+  const runs = [];
+  for (const name of names) {
+    const pattern = new RegExp("\\b" + escapeRegExp(name) + "\\b");
+    const flags = texts.map(text => pattern.test(text));
+    const first = flags.indexOf(true);
+    const last = flags.lastIndexOf(true);
+    if (first === -1 || first === last) continue;
+    if (!flags.slice(first, last + 1).every(Boolean)) continue;
+    if (first === 0 && last === blocks.length - 1) continue;
+    runs.push({ name, first, last });
+  }
+  if (runs.length !== 1) return null;
+  const run = runs[0];
+  const inside = texts.slice(run.first, run.last + 1).join(" ");
+  const competing = names.some(name => name !== run.name &&
+    new RegExp("\\b" + escapeRegExp(name) + "\\b").test(inside));
+  if (competing) return null;
+  // Both eligibility tests above run on the untrimmed run on purpose: trimming only ever
+  // shrinks it, so a run rejected for covering the whole skill stays rejected instead of
+  // sneaking in through a transition sentence being moved out.
+  let { first, last } = run;
+  if (introducesMechanic(texts[first], run.name)) first++;
+  if (last > first && endsMechanic(texts[last], run.name)) last--;
+  return first <= last ? { name: run.name, first, last } : null;
+}
+
+// Mode-split skills are left alone: they already carry a label, and nesting a second one
+// inside would compete with it.
+function withMechanicSection(blocks) {
+  const run = blocks.length >= 3 ? findMechanicRun(blocks) : null;
+  if (!run) return [{ mode: null, blocks }];
+  const sections = [];
+  if (run.first > 0) sections.push({ mode: null, blocks: blocks.slice(0, run.first) });
+  sections.push({ mechanic: run.name, blocks: blocks.slice(run.first, run.last + 1) });
+  if (run.last < blocks.length - 1) sections.push({ mode: null, blocks: blocks.slice(run.last + 1) });
+  return sections;
+}
+
+function buildSkillSections(html) {
+  const marks = [];
+  SKILL_MODE_TAG_RE.lastIndex = 0;
+  let match;
+  while ((match = SKILL_MODE_TAG_RE.exec(html))) {
+    const before = html.slice(0, match.index).replace(/(?:<\/?b>|\s)+$/, "");
+    if (before === "" || SENTENCE_END_RE.test(before)) {
+      marks.push({ start: match.index, end: SKILL_MODE_TAG_RE.lastIndex, label: match[1] });
+    }
+  }
+  if (!marks.length) return withMechanicSection(buildSkillBlocks(html));
+
+  const sections = [];
+  const lead = html.slice(0, marks[0].start).trim();
+  if (lead) {
+    // Text sitting above an Operation Siren tag with no tag of its own IS the regular
+    // version — the three skills that spell both tags out confirm the pairing. An explicit
+    // [Regular play] or [Exercise only] section means the opposite: what precedes it is a
+    // shared preamble (U-2501, Honoka), so it stays unlabelled.
+    const impliesRegular = /Operation Siren/i.test(marks[0].label);
+    sections.push({ mode: impliesRegular ? "Regular" : null, blocks: buildSkillBlocks(lead) });
+  }
+  for (let i = 0; i < marks.length; i++) {
+    const body = html.slice(marks[i].end, i + 1 < marks.length ? marks[i + 1].start : html.length).trim();
+    if (body) sections.push({ mode: marks[i].label, blocks: buildSkillBlocks(body) });
+  }
+  return sections;
+}
+
+// No <b> currently spans a split point anywhere in the dataset, but a fragment that ends
+// mid-bold would otherwise bold everything after it, so each one is closed off and the
+// tag reopened on the next.
+function balanceBoldTags(html) {
+  const unclosed = (html.match(/<b>/g) || []).length - (html.match(/<\/b>/g) || []).length;
+  if (unclosed > 0) return html + "</b>".repeat(unclosed);
+  if (unclosed < 0) return "<b>".repeat(-unclosed) + html;
+  return html;
+}
+
+function appendSkillBlocks(container, blocks) {
+  for (const block of blocks) {
+    if (block.text) {
+      const line = document.createElement("p");
+      line.className = "skill-line";
+      line.innerHTML = balanceBoldTags(block.text);
+      container.appendChild(line);
+      continue;
+    }
+    if (block.header) {
+      const condition = document.createElement("p");
+      condition.className = "skill-condition";
+      condition.innerHTML = balanceBoldTags(block.header);
+      container.appendChild(condition);
+    }
+    const actions = document.createElement("ul");
+    actions.className = "skill-actions";
+    for (const item of block.items || block.list) {
+      const action = document.createElement("li");
+      if (block.list) {
+        action.className = "skill-actions-blocks";
+        appendSkillBlocks(action, item);
+      } else {
+        action.innerHTML = balanceBoldTags(item.trim());
+      }
+      actions.appendChild(action);
+    }
+    container.appendChild(actions);
+  }
+}
+
+function appendSkillDescription(container, html) {
+  container.innerHTML = "";
+  for (const section of buildSkillSections(html)) {
+    const name = section.mode || section.mechanic;
+    if (!name) {
+      appendSkillBlocks(container, section.blocks);
+      continue;
+    }
+    const label = document.createElement("p");
+    label.className = "skill-mode";
+    label.textContent = name;
+    const group = document.createElement("div");
+    group.className = "skill-mode-group";
+    for (const element of [label, group]) {
+      element.style.setProperty("--mode-color", section.mechanic ? "var(--accent)" : skillModeColor(name));
+      container.appendChild(element);
+    }
+    appendSkillBlocks(group, section.blocks);
   }
 }
 
@@ -1122,8 +1800,55 @@ function getSkillsForState(ship, isRetrofit, isAugmented, isFateSim) {
   });
 }
 
+// Shared by the "Skills" section header toggle and the per-skill ones. The last state the
+// user picked sticks across re-renders (flipping Retrofit/Augment) and across characters,
+// so the choice only has to be made once per session rather than on every skill of every
+// ship opened.
+let skillsAtMaxLevel = false;
+let skillMaxLevelToggles = [];
+
+function createMaxLevelToggle() {
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "max-level-toggle";
+  const dot = document.createElement("span");
+  dot.className = "max-level-dot";
+  toggle.appendChild(dot);
+  toggle.appendChild(document.createTextNode("Max Level"));
+  return toggle;
+}
+
+function isMaxLevelToggleOn(toggle) {
+  return toggle.getAttribute("aria-pressed") === "true";
+}
+
+function setMaxLevelToggle(toggle, isOn) {
+  toggle.setAttribute("aria-pressed", String(isOn));
+  toggle.classList.toggle("active", isOn);
+}
+
+// The header toggle reads as "on" only while every skill under it is, so flipping the last
+// one by hand keeps the two in agreement instead of leaving the header stale. Skills with
+// no level-scaled value at all carry no toggle, hence no header button either.
+function syncSkillsMaxLevelToggle() {
+  modalSkillsMaxToggle.hidden = skillMaxLevelToggles.length === 0;
+  if (modalSkillsMaxToggle.hidden) return;
+  skillsAtMaxLevel = skillMaxLevelToggles.every(({ toggle }) => isMaxLevelToggleOn(toggle));
+  setMaxLevelToggle(modalSkillsMaxToggle, skillsAtMaxLevel);
+}
+
+modalSkillsMaxToggle.addEventListener("click", () => {
+  skillsAtMaxLevel = !isMaxLevelToggleOn(modalSkillsMaxToggle);
+  setMaxLevelToggle(modalSkillsMaxToggle, skillsAtMaxLevel);
+  for (const { toggle, paintDescription } of skillMaxLevelToggles) {
+    setMaxLevelToggle(toggle, skillsAtMaxLevel);
+    paintDescription(skillsAtMaxLevel);
+  }
+});
+
 function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
   const skills = getSkillsForState(ship, isRetrofit, isAugmented, isFateSim);
+  skillMaxLevelToggles = [];
   if (skills.length === 0) {
     modalSkillsSection.hidden = true;
     return;
@@ -1194,16 +1919,44 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
     if (skill.description) {
       const desc = document.createElement("div");
       desc.className = "skill-desc";
+      const atBase = renderLevelValues(skill.description, false);
+      const atMax = renderLevelValues(skill.description, true);
+      // Only the numbers differ between the two, so the mechanic names are the same either
+      // way and are found once rather than on every repaint.
+      const mechanics = namedMechanics(atBase);
+
       // Description is sanitized at build time to only ever contain plain text and <b> tags,
       // used here to keep the wiki's own "important point" highlighting.
-      desc.innerHTML = skill.description;
-      highlightKeywords(desc);
+      const paintDescription = (atMaxLevel) => {
+        appendSkillDescription(desc, atMaxLevel ? atMax : atBase);
+        highlightKeywords(desc, mechanics);
+      };
+
+      // No toggle on skills whose text holds no level-scaled value at all (a plain
+      // "increases this ship's FP by 5%" reads the same either way), so the button only
+      // shows up where it actually changes something.
+      if (atBase !== atMax) {
+        const maxToggle = createMaxLevelToggle();
+        maxToggle.title = "Show this skill's values at max skill level (Lv.10)";
+        maxToggle.addEventListener("click", () => {
+          setMaxLevelToggle(maxToggle, maxToggle.getAttribute("aria-pressed") !== "true");
+          paintDescription(isMaxLevelToggleOn(maxToggle));
+          syncSkillsMaxLevelToggle();
+        });
+        setMaxLevelToggle(maxToggle, skillsAtMaxLevel);
+        head.appendChild(maxToggle);
+        skillMaxLevelToggles.push({ toggle: maxToggle, paintDescription });
+      }
+
+      paintDescription(skillsAtMaxLevel);
       body.appendChild(desc);
     }
 
     item.appendChild(body);
     modalSkillsList.appendChild(item);
   }
+
+  syncSkillsMaxLevelToggle();
 }
 
 // Shown over the character portrait (left side of the modal) rather than next to the
@@ -1932,7 +2685,7 @@ function buildInteractionItem({ ship: otherShip, skill, text, enhancedSkill, enh
   const desc = document.createElement("p");
   desc.className = "interaction-desc";
   desc.textContent = text;
-  highlightKeywords(desc);
+  highlightKeywords(desc, namedMechanics(text));
   body.appendChild(desc);
 
   if (enhancedText) {
@@ -1940,7 +2693,7 @@ function buildInteractionItem({ ship: otherShip, skill, text, enhancedSkill, enh
     enhancedDesc.className = "interaction-desc interaction-desc-enhanced";
     enhancedDesc.hidden = true;
     enhancedDesc.textContent = enhancedText;
-    highlightKeywords(enhancedDesc);
+    highlightKeywords(enhancedDesc, namedMechanics(enhancedText));
     body.appendChild(enhancedDesc);
 
     const variantToggle = head.querySelector(".interaction-variant-toggle");

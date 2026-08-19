@@ -851,6 +851,18 @@ main {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
+/* Section title carrying a control on its right. The margin lines that control up with
+   the per-skill toggles below it, which sit inside the skill card's own 0.6rem padding
+   and 1px border rather than flush with the list's edge. */
+.modal-section-title-row {
+  display: flex;
+  align-items: center;
+}
+
+.modal-section-title-row .max-level-toggle {
+  margin-right: calc(0.6rem + 1px);
+}
+
 .stat-icon {
   width: 14px;
   height: 14px;
@@ -955,6 +967,7 @@ main {
 }
 
 .skill-body {
+  flex: 1;
   min-width: 0;
 }
 
@@ -989,10 +1002,128 @@ main {
   color: var(--text-muted);
 }
 
+/* Pushed to the far right, past the skill name and its type tags. Carries the same
+   outline-pill-plus-dot shape as the Retrofit/Unique Augment toggles above, since it is
+   the same kind of control — the dot fills in when it's on. */
+.max-level-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: none;
+  cursor: pointer;
+}
+
+.max-level-toggle[hidden] {
+  display: none;
+}
+
+.max-level-toggle:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.max-level-toggle.active {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.max-level-dot {
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+.max-level-toggle.active .max-level-dot {
+  background: currentColor;
+}
+
 .skill-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   font-size: 0.82rem;
   line-height: 1.45;
   color: var(--text-muted);
+}
+
+/* One sentence per block. A condition line is set in the brighter body color so the eye
+   can find where each set of effects starts; its actions keep the muted color. */
+.skill-line,
+.skill-condition {
+  margin: 0;
+}
+
+.skill-condition {
+  color: var(--text);
+}
+
+/* Tighter than the gap between blocks, so a condition reads as attached to its actions
+   rather than floating between two of them. */
+.skill-condition + .skill-actions {
+  margin-top: -0.25rem;
+}
+
+/* Game-mode sections ("Regular" vs "Operation Siren") — two alternative versions of the
+   same skill, only one of which applies at a time. The label and the rail down the side of
+   its block share --mode-color, set per section in JS, so the eye can tell at a glance
+   where one version stops and the other starts. */
+.skill-mode {
+  margin: 0;
+  align-self: flex-start;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--mode-color, var(--text-muted));
+  border-radius: 999px;
+  color: var(--mode-color, var(--text-muted));
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.skill-mode-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: -0.15rem;
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--mode-color, var(--border));
+}
+
+.skill-actions {
+  margin: 0;
+  padding-left: 0.75rem;
+  list-style: none;
+}
+
+.skill-actions li {
+  position: relative;
+  padding-left: 0.7rem;
+}
+
+.skill-actions li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+}
+
+/* A numbered item can carry several sentences, so its blocks stack inside the bullet. */
+.skill-actions-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 .skill-desc b {
@@ -1004,6 +1135,20 @@ main {
    set inline per-word via JS, this just keeps the weight consistent everywhere it's used. */
 .kw {
   font-weight: 600;
+}
+
+/* Named mechanics — the game's own recurring statuses (Burn, Smokescreen, Armor Break) and
+   the ones a single skill coins for itself ("Berserk Mode"). The tint behind the word is
+   what separates them from the other two palettes sharing the same sentence: a stat is
+   colored and bare, a nation is colored and underlined, a mechanic sits on a chip. The
+   tint is derived from the word's own color, so JS still only has to set `color`.
+   The tint bleeds outward through a spread shadow rather than horizontal padding: padding
+   would widen the inline box and leave the comma or period that follows the name floating
+   a space away from it ("enters Berserk Mode ."). */
+.kw-mech {
+  border-radius: 0.2em;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  box-shadow: 0 0 0 0.15em color-mix(in srgb, currentColor 16%, transparent);
 }
 
 /* Skill values (percentages, flat numbers) — made to stand out from the surrounding
@@ -1171,6 +1316,10 @@ main {
 }
 
 .combat-modifier-pill {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  max-width: 15rem;
   font-size: 0.72rem;
   font-weight: 600;
   padding: 0.25rem 0.55rem;
@@ -1178,6 +1327,25 @@ main {
   background: var(--bg);
   border: 1px solid var(--gold);
   color: var(--gold);
+}
+
+/* A restriction ("to Light Armor enemies") wraps onto its own line, and the stadium
+   shape reads badly around two lines of text — squared off only in that case. */
+.combat-modifier-pill.has-target {
+  border-radius: 10px;
+  padding: 0.3rem 0.6rem;
+}
+
+/* The whole pill is a tooltip target: the sentence the bonus came from, with whatever
+   gated it, is too long to sit in the pill itself. */
+.combat-modifier-pill[title] {
+  cursor: help;
+}
+
+.combat-modifier-target {
+  font-size: 0.66rem;
+  font-weight: 500;
+  opacity: 0.85;
 }
 
 /* ---- Interaction ---- */
