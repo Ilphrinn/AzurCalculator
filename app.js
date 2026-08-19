@@ -10,16 +10,11 @@ const RARITY_CLASS = {
 
 const RARITY_ORDER = ["Normal", "Rare", "Elite", "Super Rare", "Priority", "Ultra Rare", "Decisive"];
 
-// Filter chips pair up adjacent progression tiers (SR sits right below Priority, UR
-// right below Decisive) into one clickable option instead of four separate chips —
-// requested to declutter the Rarity row, since the split rarely matters when filtering.
-const RARITY_FILTER_GROUPS = [
-  { label: "Normal", values: ["Normal"] },
-  { label: "Rare", values: ["Rare"] },
-  { label: "Elite", values: ["Elite"] },
-  { label: "SR/Priority", values: ["Super Rare", "Priority"] },
-  { label: "UR/Decisive", values: ["Ultra Rare", "Decisive"] }
-];
+// Priority and Decisive are the Research-ship equivalent of Super Rare / Ultra Rare —
+// kept as their own chips (not merged into SR/UR) but split into a separate "Research"
+// sub-group, set apart with the same "|" separator the class row uses for fleet position.
+const MAIN_RARITIES = ["Normal", "Rare", "Elite", "Super Rare", "Ultra Rare"];
+const RESEARCH_RARITIES = ["Priority", "Decisive"];
 
 const grid = document.getElementById("grid");
 const countEl = document.getElementById("count");
@@ -205,6 +200,41 @@ const MECHANIC_COLOR_GROUPS = [
 ];
 const MECHANIC_COLORS = Object.fromEntries(MECHANIC_COLOR_GROUPS.flatMap(g => g.terms.map(t => [t, g.color])));
 
+// Ammo type and caliber, user-supplied color picks (2026-08-19: "normal -> ocre, HE ->
+// rouge, AP -> bleu, SAP -> orange, High caliber -> rouge"). Unlike every other palette
+// in this file, these terms MUST be matched case-sensitively — the shared regex is
+// otherwise case-insensitive throughout (needed for e.g. "smokescreen" appearing
+// lowercase most of the time), but "HE" collides with the pronoun "he" and "Normal"
+// collides with the ordinary adjective ("returns to normal") the moment case is ignored.
+// Checked against the corpus: exact-case "HE"/"SAP"/"Normal" have zero false positives
+// (0 lowercase-pronoun "He", 0 "normal"-the-adjective matches survive requiring the
+// capital). "AP" alone stays ambiguous even with exact case, since Action Points (a
+// fleet-wide resource, "your fleet gains 10 AP") is written identically — resolved by
+// `apIsAmmoType`, a context check verified against all 105 occurrences in the corpus
+// (71 ammo / 34 Action Points, both counts hand-confirmed): Action Points is always
+// either preceded by a number/"more" ("gains 10 AP", "10 or more AP") or followed by
+// "cost"/"consumption"/"-consuming" ("AP cost", "AP-consuming skill"), neither of which
+// ever precedes/follows the ammo sense. "Large-caliber"/"CA-caliber" (found alongside
+// "high-caliber" while auditing the corpus) were deliberately left out — the user was
+// asked and confined this to high-caliber only. Unlike the 4 abbreviations, "high-caliber"/
+// "high caliber" carries no case-collision risk (checked: all 5 corpus occurrences are
+// already lowercase mid-sentence, none capitalized), so it stays case-insensitive like
+// every other palette — caseSensitive defaults true below and is opted out per-term.
+function apIsAmmoType(text, index) {
+  const before = text.slice(Math.max(0, index - 15), index);
+  if (/\d\s*$/.test(before) || /\bmore\s*$/i.test(before)) return false;
+  const after = text.slice(index + 2, index + 18);
+  return !/^\s*(cost|consumption|-consuming)/i.test(after);
+}
+const AMMO_CALIBER_TERMS = {
+  "Normal": { color: "#D4A83A", caseSensitive: true },
+  "HE": { color: "#E05252", caseSensitive: true },
+  "AP": { color: "#5B7FE8", caseSensitive: true, contextGuard: apIsAmmoType },
+  "SAP": { color: "#E8892E", caseSensitive: true },
+  "high-caliber": { color: "#E05252" },
+  "high caliber": { color: "#E05252" }
+};
+
 // A mechanic a single skill coins for itself — "Berserk Mode", "Frostshred", "Pearl Moon" —
 // gets no palette entry of its own: it appears in one skill, so a color to memorize would
 // mean nothing. They all share --accent, the color the mechanic's own section label already
@@ -223,7 +253,8 @@ const KEYWORD_GROUPS = [
   // capitalizing them all would be the formatting visibly rewriting the text.
   { className: "kw-nation", perTermColor: t => NATION_COLORS[t], underline: true, terms: [...new Set(ships.map(s => nationDisplayName(s.nationality)).filter(Boolean))] },
   { className: "kw-stat", perTermColor: t => STAT_COLORS[t], terms: Object.keys(STAT_COLORS) },
-  { className: "kw-mech", perTermColor: t => MECHANIC_COLORS[t], keepCase: true, terms: Object.keys(MECHANIC_COLORS) }
+  { className: "kw-mech", perTermColor: t => MECHANIC_COLORS[t], keepCase: true, terms: Object.keys(MECHANIC_COLORS) },
+  { className: "kw-ammo", perTermColor: t => AMMO_CALIBER_TERMS[t].color, perTermGuard: t => AMMO_CALIBER_TERMS[t].contextGuard, perTermCaseSensitive: t => AMMO_CALIBER_TERMS[t].caseSensitive, terms: Object.keys(AMMO_CALIBER_TERMS) }
 ];
 
 // Maps lowercase term -> { color, canonical, underline }. "canonical" is the properly-
@@ -236,7 +267,9 @@ for (const g of KEYWORD_GROUPS) {
   for (const t of g.terms) {
     if (KEYWORD_INFO.has(t.toLowerCase())) continue;
     const color = g.perTermColor ? g.perTermColor(t) : g.color;
-    KEYWORD_INFO.set(t.toLowerCase(), { color, canonical: t, className: g.className, underline: !!g.underline, keepCase: !!g.keepCase });
+    const contextGuard = g.perTermGuard ? g.perTermGuard(t) : undefined;
+    const caseSensitive = g.perTermCaseSensitive ? !!g.perTermCaseSensitive(t) : !!g.caseSensitive;
+    KEYWORD_INFO.set(t.toLowerCase(), { color, canonical: t, className: g.className, underline: !!g.underline, keepCase: !!g.keepCase, caseSensitive, contextGuard });
   }
 }
 // Longest term first so e.g. "Max HP" is matched whole rather than leaving a stray "HP".
@@ -265,11 +298,18 @@ function keywordRegExp(names) {
   return new RegExp("\\b(" + alternatives + ")\\b|" + KEYWORD_ALTERNATIVES, "gi");
 }
 
-function keywordInfoFor(matchText) {
+// `fullText`/`matchIndex` are only needed by a `caseSensitive` entry's own exact-case
+// check and by a `contextGuard` (currently just "AP", see AMMO_CALIBER_TERMS) — every
+// other group ignores them.
+function keywordInfoFor(matchText, fullText, matchIndex) {
   const lower = matchText.toLowerCase();
-  if (KEYWORD_INFO.has(lower)) return { ...KEYWORD_INFO.get(lower), plural: false };
-  if (lower.endsWith("s") && KEYWORD_INFO.has(lower.slice(0, -1))) return { ...KEYWORD_INFO.get(lower.slice(0, -1)), plural: true };
-  return null;
+  let info = null, plural = false;
+  if (KEYWORD_INFO.has(lower)) info = KEYWORD_INFO.get(lower);
+  else if (lower.endsWith("s") && KEYWORD_INFO.has(lower.slice(0, -1))) { info = KEYWORD_INFO.get(lower.slice(0, -1)); plural = true; }
+  if (!info) return null;
+  if (info.caseSensitive && matchText !== info.canonical) return null;
+  if (info.contextGuard && !info.contextGuard(fullText, matchIndex)) return null;
+  return { ...info, plural };
 }
 
 // Walks every text node already inside `container` (so it works whether the content was
@@ -313,7 +353,7 @@ function highlightKeywords(container, mechanics) {
         span.textContent = m[4];
         frag.appendChild(span);
       } else {
-        const info = keywordInfoFor(m[0]);
+        const info = keywordInfoFor(m[0], text, m.index);
         if (info) {
           const span = document.createElement("span");
           span.className = info.className ? "kw " + info.className : "kw";
@@ -357,10 +397,6 @@ const active = {
 };
 
 const HULL_ICON_DIR = "assets/hull-icons/";
-
-const FILTER_GROUPS = [
-  { key: "rarity", label: "Rarity", options: RARITY_FILTER_GROUPS.filter(g => g.values.some(v => uniqueValues("rarity").includes(v))) }
-];
 
 // Front-to-back fleet order. Hull types are grouped under their fleet position so the
 // position itself doesn't need its own separate filter row.
@@ -411,28 +447,6 @@ function makeChip(group, value) {
     }
     update();
     syncSubfactionButton();
-  });
-  return chip;
-}
-
-// Same click-to-toggle chip as makeChip, but the chip represents SEVERAL underlying
-// values at once (e.g. "SR/Priority" toggling both "Super Rare" and "Priority" in the
-// active Set together) — used for the Rarity row's paired-tier chips.
-function makeMultiChip(group, values, label) {
-  const chip = document.createElement("button");
-  chip.type = "button";
-  chip.className = "chip";
-  chip.textContent = label;
-  if (values.some(v => active[group].has(v))) chip.classList.add("active");
-  chip.addEventListener("click", () => {
-    if (values.some(v => active[group].has(v))) {
-      values.forEach(v => active[group].delete(v));
-      chip.classList.remove("active");
-    } else {
-      values.forEach(v => active[group].add(v));
-      chip.classList.add("active");
-    }
-    update();
   });
   return chip;
 }
@@ -525,6 +539,36 @@ function buildClassRow() {
   filtersEl.appendChild(wrap);
 }
 
+function buildRarityRow() {
+  const wrap = document.createElement("div");
+  wrap.className = "filter-group";
+
+  const title = document.createElement("span");
+  title.className = "filter-group-label";
+  title.textContent = "Rarity";
+  wrap.appendChild(title);
+
+  const present = uniqueValues("rarity");
+  MAIN_RARITIES.filter(r => present.includes(r)).forEach(r => wrap.appendChild(makeChip("rarity", r)));
+
+  const research = RESEARCH_RARITIES.filter(r => present.includes(r));
+  if (research.length) {
+    const sep = document.createElement("span");
+    sep.className = "category-sep";
+    sep.textContent = "|";
+    wrap.appendChild(sep);
+
+    const researchLabel = document.createElement("span");
+    researchLabel.className = "filter-group-label filter-subgroup-label";
+    researchLabel.textContent = "Research :";
+    wrap.appendChild(researchLabel);
+
+    research.forEach(r => wrap.appendChild(makeChip("rarity", r)));
+  }
+
+  filtersEl.appendChild(wrap);
+}
+
 let subfactionButton = null;
 let subfactionPanel = null;
 
@@ -540,21 +584,7 @@ function buildFilterPanel() {
   filtersEl.innerHTML = "";
 
   buildClassRow();
-
-  for (const group of FILTER_GROUPS) {
-    const wrap = document.createElement("div");
-    wrap.className = "filter-group";
-
-    const title = document.createElement("span");
-    title.className = "filter-group-label";
-    title.textContent = group.label;
-    wrap.appendChild(title);
-
-    for (const option of group.options) {
-      wrap.appendChild(makeMultiChip(group.key, option.values, option.label));
-    }
-    filtersEl.appendChild(wrap);
-  }
+  buildRarityRow();
 
   // Nation row: major nations get a direct chip, everything else lives behind a dropdown
   const counts = nationCounts();
@@ -819,6 +849,7 @@ const modalBarragesSection = document.getElementById("modal-barrages-section");
 const modalBarragesList = document.getElementById("modal-barrages");
 const modalInteractionSection = document.getElementById("modal-interaction-section");
 const modalInteractionList = document.getElementById("modal-interaction");
+const modalInteractionMaxToggle = document.getElementById("modal-interaction-max-toggle");
 const gifPreview = document.getElementById("gif-preview");
 
 let currentShip = null;
@@ -1302,6 +1333,46 @@ function equipmentSlotTypes(slot) {
   return [...new Set((slot.type || []).map(code => EQUIPMENT_TYPE_NAMES[code]).filter(Boolean))];
 }
 
+// Links a ship slot's numeric type code(s) (EQUIPMENT_TYPE_NAMES above) to the matching
+// `category` value(s) in data/equipment.json, so a slot can be filtered to only the gear
+// it can actually mount. Built by hand from the same two vocabularies rather than a name
+// match, since the wording differs on purpose ("DD Main Guns" vs "DD Gun") - this is the
+// single place that ties them together.
+// Code 21 is a duplicate of 6 (see EQUIPMENT_TYPE_NAMES's own note - it never appears
+// alone) so it isn't listed separately here. Code 18 (Cargo) and 20 (Missiles) have no
+// catalog category yet: no "List of Cargo" extraction was done (Cargo isn't combat
+// equipment), and Missiles were expected to live inside the Torpedo catalog page per the
+// user's own note ("les missiles sont dans les torpedoes") but the catalog's Torpedo
+// category was built from "List of Torpedoes" alone and hasn't been checked for missile
+// entries specifically - both are left unmapped rather than guessed.
+const EQUIPMENT_TYPE_CODE_CATEGORIES = {
+  1: ["DD Gun"],
+  2: ["CL Gun"],
+  3: ["CA Gun"],
+  4: ["BB Gun"],
+  5: ["Torpedo"],
+  6: ["AA Gun", "AA Time Fuze Gun"],
+  7: ["Fighter"],
+  8: ["Torpedo Bomber"],
+  9: ["Dive Bomber"],
+  10: ["Auxiliary"],
+  11: ["CB Gun"],
+  12: ["Seaplane"],
+  13: ["Submarine Torpedo"],
+  14: ["ASW"]
+};
+
+// The catalog entries a given ship slot can actually mount, across every type code the
+// slot accepts (a slot can list more than one, e.g. an AA slot also usable for cargo).
+function equipmentOptionsForSlot(slot) {
+  if (!EQUIPMENT_DATA || !slot) return [];
+  const categories = new Set();
+  for (const code of slot.type || []) {
+    for (const cat of EQUIPMENT_TYPE_CODE_CATEGORIES[code] || []) categories.add(cat);
+  }
+  return EQUIPMENT_DATA.filter(item => categories.has(item.category));
+}
+
 // A card is one slot: a square tile where the chosen equipment's image will go once gear
 // selection exists, its name underneath, then its numbers - laid out like a ship card in
 // the catalog grid, which is the picker this will eventually open.
@@ -1694,6 +1765,32 @@ function buildSentenceBlocks(html) {
     }
     blocks.push(buildClauseBlock(sentence));
   }
+  return mergeUlrichProsaicListSentence(blocks);
+}
+
+// Ulrich von Hutten's "Revolutionary's Prosaic" writes its 2-item list as two full
+// sentences (periods) instead of the semicolons every other multi-item list in this
+// dataset uses, so the second item ("Increase the Crit DMG Dealt...") can't be
+// recognized as continuing the first item's list — it falls through to a plain,
+// unbulleted paragraph instead of a second bullet under the same condition (reported:
+// "il manque un -"). A general "a subjectless sentence continues the previous list"
+// rule was tried and rejected: checked against the whole dataset, it produces 65
+// candidates, most of which are NOT continuations (bare-imperative phrasing is just
+// how this dataset writes ANY effect, conditional or not), and at least one — Vanguard's
+// "Scatter, Minions of Darkness!" — would have been merged WRONGLY, since its "next"
+// sentence actually opens its own distinct condition ("30s after that battle starts:")
+// that a blanket rule can't tell apart from a true continuation. Matched on this one
+// skill's exact header text instead, which is safe precisely because it's practically
+// impossible for another skill to carry the same sentence verbatim.
+const ULRICH_PROSAIC_HEADER = "As long as this ship is afloat, whenever ANOTHER fleet engages in one of its first five battles this sortie:";
+function mergeUlrichProsaicListSentence(blocks) {
+  for (let i = 0; i < blocks.length - 1; i++) {
+    if (blocks[i].header === ULRICH_PROSAIC_HEADER && blocks[i + 1].text) {
+      blocks[i].items.push(blocks[i + 1].text);
+      blocks.splice(i + 1, 1);
+      break;
+    }
+  }
   return blocks;
 }
 
@@ -1909,7 +2006,24 @@ function appendSkillBlocks(container, blocks) {
   }
 }
 
+// A source data artifact, not a bug in this app's own markup: 21 skills dataset-wide
+// (Belfast's "Smokescreen: Belfast" the worst, 60 words) have long runs of
+// individually-<b>-wrapped single tokens — "<b>Increases</b> <b>this</b> <b>ship's</b>
+// <b>SPD</b> <b>by</b> <b>10.</b>" — almost certainly the wiki's own auto-linker turning
+// into bold once tags were stripped down, one word at a time wherever it recognized a
+// term. A single tag wrapping a whole phrase together ("<b>(Upon Retrofit)</b>") is the
+// normal, clearly-intentional pattern used everywhere else and is left completely alone —
+// this only strips a run of 2+ back-to-back single-token tags (no space inside any of
+// them), which is what turns an entire sentence gold (`.skill-desc b`/`.interaction-desc
+// b`) with no actual emphasis being communicated. Never changes what text is shown, only
+// removes the accidental bolding.
+const LONE_BOLD_TOKEN_RUN_RE = /(?:<b>[^\s<>]+<\/b>\s*){2,}/g;
+function stripAccidentalWordBoldRuns(html) {
+  return html.replace(LONE_BOLD_TOKEN_RUN_RE, run => run.replace(/<\/?b>/g, ""));
+}
+
 function appendSkillDescription(container, html) {
+  html = stripAccidentalWordBoldRuns(html);
   container.innerHTML = "";
   for (const section of buildSkillSections(html)) {
     const name = section.mode || section.mechanic;
@@ -1999,6 +2113,34 @@ modalSkillsMaxToggle.addEventListener("click", () => {
   for (const { toggle, paintDescription } of skillMaxLevelToggles) {
     setMaxLevelToggle(toggle, skillsAtMaxLevel);
     paintDescription(skillsAtMaxLevel);
+  }
+});
+
+// Same "Max Level" control as Skills, adapted for Interaction's pagination: most entries
+// aren't in the DOM at any given time (only the current page of each category), so unlike
+// skillMaxLevelToggles (one flat array built once per modal open) this reads whatever
+// toggles are ACTUALLY on screen right now via a DOM query, and looks up each one's paint
+// function from a WeakMap keyed on the toggle element itself — populated once per toggle
+// in buildInteractionItem, pruned automatically by GC once its page is replaced, so it
+// never needs manual bookkeeping across page/category changes.
+let interactionAtMaxLevel = false;
+const interactionMaxLevelPaint = new WeakMap();
+
+function syncInteractionMaxLevelToggle() {
+  const toggles = [...modalInteractionList.querySelectorAll(".max-level-toggle")];
+  modalInteractionMaxToggle.hidden = toggles.length === 0;
+  if (modalInteractionMaxToggle.hidden) return;
+  interactionAtMaxLevel = toggles.every(t => isMaxLevelToggleOn(t));
+  setMaxLevelToggle(modalInteractionMaxToggle, interactionAtMaxLevel);
+}
+
+modalInteractionMaxToggle.addEventListener("click", () => {
+  interactionAtMaxLevel = !isMaxLevelToggleOn(modalInteractionMaxToggle);
+  setMaxLevelToggle(modalInteractionMaxToggle, interactionAtMaxLevel);
+  for (const toggle of modalInteractionList.querySelectorAll(".max-level-toggle")) {
+    setMaxLevelToggle(toggle, interactionAtMaxLevel);
+    const paint = interactionMaxLevelPaint.get(toggle);
+    if (paint) paint(interactionAtMaxLevel);
   }
 });
 
@@ -2399,7 +2541,16 @@ const FRONTMOST_POSITION_CUE_RE = /\bin the frontmost position (?:of|in)\s*(?:th
 // prefix) so it does NOT catch genuine target phrasing like "...around your frontmost
 // Vanguard ship" (Admiral Hipper META's second clause, Essex, Elbe) which has no such
 // prefix and must stay matched.
-const IF_CONDITION_PREFIX_RE = /\bif\s+(?:there\s+(?:is|are)|this ship (?:is|has)(?:\s+not)?)\b/i;
+// "placed" is the one status word the wiki also writes with an elided subject ("if
+// placed in the backmost position...", Carabiniere's "Fuoco di Copertura!+") instead of
+// the usual "if this ship is placed..." (her own base "Fuoco di Copertura!", same
+// clause, same meaning) — checked dataset-wide, only 2 occurrences (Carabiniere,
+// Seattle's "Dual Nock"), both genuinely elided "this ship is", so folded in here rather
+// than given its own guard. Without it the base version of a "+" pair could get
+// structurally gated (correctly excluded) while the "+" text describing the identical
+// condition slipped through ungated purely because of this phrasing difference —
+// inconsistent, not a case where the "+" text is actually less conditional.
+const IF_CONDITION_PREFIX_RE = /\bif\s+(?:there\s+(?:is|are)|this ship (?:is|has)(?:\s+not)?|placed)\b/i;
 // Broader fleet-wide target language — if a skill's effect clause (the part after a
 // condition resolves with a colon) mentions any of these, it's a genuine ally-facing
 // buff even though it was reached via an "if there is/are.../if this ship is..."
@@ -2838,18 +2989,32 @@ function buildInteractionItem({ ship: otherShip, skill, text, enhancedSkill, enh
   }
   body.appendChild(head);
 
-  const desc = document.createElement("p");
+  // Same rendering pipeline as the Skills section (appendSkillDescription: bullets,
+  // condition/action grouping, bold "important point" spans preserved) rather than a
+  // flat textContent paragraph — text/enhancedText (stripHtml'd, used for matching by
+  // computeInteractions) are ignored here in favor of skill.description/
+  // enhancedSkill.description, the raw HTML those were always derived from 1:1.
+  const desc = document.createElement("div");
   desc.className = "interaction-desc";
-  desc.textContent = text;
-  highlightKeywords(desc, namedMechanics(text));
+  const baseAtBase = renderLevelValues(skill.description, false);
+  const baseAtMax = renderLevelValues(skill.description, true);
+  const paintBase = (atMax) => {
+    appendSkillDescription(desc, atMax ? baseAtMax : baseAtBase);
+    highlightKeywords(desc, namedMechanics(baseAtBase));
+  };
   body.appendChild(desc);
 
+  let enhancedDesc = null, paintEnhanced = null, enhAtBase = null, enhAtMax = null;
   if (enhancedText) {
-    const enhancedDesc = document.createElement("p");
+    enhancedDesc = document.createElement("div");
     enhancedDesc.className = "interaction-desc interaction-desc-enhanced";
     enhancedDesc.hidden = true;
-    enhancedDesc.textContent = enhancedText;
-    highlightKeywords(enhancedDesc, namedMechanics(enhancedText));
+    enhAtBase = renderLevelValues(enhancedSkill.description, false);
+    enhAtMax = renderLevelValues(enhancedSkill.description, true);
+    paintEnhanced = (atMax) => {
+      appendSkillDescription(enhancedDesc, atMax ? enhAtMax : enhAtBase);
+      highlightKeywords(enhancedDesc, namedMechanics(enhAtBase));
+    };
     body.appendChild(enhancedDesc);
 
     const variantToggle = head.querySelector(".interaction-variant-toggle");
@@ -2860,6 +3025,28 @@ function buildInteractionItem({ ship: otherShip, skill, text, enhancedSkill, enh
       skillName.textContent = showingEnhanced ? enhancedSkill.name : skill.name;
     });
   }
+
+  // One toggle covers both descriptions (paints whichever isn't currently shown too),
+  // so switching the Retrofit/Augment/Fate Simulation variant never lands on the wrong
+  // level. Only shown when at least one of the two actually has a level-scaled value —
+  // matches Skills' own "no toggle where it wouldn't change anything" rule.
+  if (baseAtBase !== baseAtMax || (enhAtBase !== null && enhAtBase !== enhAtMax)) {
+    const maxToggle = createMaxLevelToggle();
+    maxToggle.title = "Show this skill's values at max skill level (Lv.10)";
+    const paintBoth = (atMax) => { paintBase(atMax); if (paintEnhanced) paintEnhanced(atMax); };
+    interactionMaxLevelPaint.set(maxToggle, paintBoth);
+    maxToggle.addEventListener("click", () => {
+      const on = !isMaxLevelToggleOn(maxToggle);
+      setMaxLevelToggle(maxToggle, on);
+      paintBoth(on);
+      syncInteractionMaxLevelToggle();
+    });
+    setMaxLevelToggle(maxToggle, interactionAtMaxLevel);
+    head.appendChild(maxToggle);
+  }
+
+  paintBase(interactionAtMaxLevel);
+  if (paintEnhanced) paintEnhanced(interactionAtMaxLevel);
 
   item.appendChild(body);
   return item;
@@ -2924,6 +3111,10 @@ function renderModalInteraction(ship) {
         prevBtn.disabled = page === 0;
         nextBtn.disabled = page === pageCount - 1;
       }
+      // No-op on the very first call (this category's own `details` isn't attached to
+      // modalInteractionList yet at that point) — harmless, the loop below re-syncs once
+      // everything is attached. Matters for a later prev/next click, where it is attached.
+      syncInteractionMaxLevelToggle();
     }
     if (pager) {
       prevBtn.addEventListener("click", () => { page = Math.max(0, page - 1); renderPage(); });
@@ -2933,6 +3124,8 @@ function renderModalInteraction(ship) {
 
     modalInteractionList.appendChild(details);
   }
+
+  syncInteractionMaxLevelToggle();
 }
 
 function effectiveSkins(ship) {

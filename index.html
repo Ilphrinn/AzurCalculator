@@ -116,7 +116,7 @@
           </div>
 
           <div id="modal-equipment-section" hidden>
-            <h3 class="modal-section-title">Equipment <span class="modal-subsection-hint">, mounts and efficiency at max Limit Break</span></h3>
+            <h3 class="modal-section-title">Equipment</h3>
             <div id="modal-equipment" class="modal-equipment"></div>
           </div>
 
@@ -136,7 +136,12 @@
           </div>
 
           <div id="modal-interaction-section" hidden>
-            <h3 class="modal-section-title">Interaction</h3>
+            <h3 class="modal-section-title modal-section-title-row">
+              Interaction
+              <button type="button" id="modal-interaction-max-toggle" class="max-level-toggle" aria-pressed="false" hidden>
+                <span class="max-level-dot"></span>Max Level
+              </button>
+            </h3>
             <div id="modal-interaction" class="modal-interaction-list"></div>
           </div>
         </div>
@@ -147,6 +152,7 @@
   <img id="gif-preview" class="gif-preview" alt="" hidden>
 
   <script src="data/ships.js"></script>
+  <script src="data/equipment.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

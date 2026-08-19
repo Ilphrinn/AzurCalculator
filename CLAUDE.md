@@ -509,6 +509,136 @@ hasRetrofit, equipment, augmentModules`.
    (pastille fills). `.interaction-variant-badge` and its CSS stay in place as a fallback
    for the (currently never-hit) case where the base skill can't be found on the ship at
    all — but the normal case now always produces a real toggle, not a label.
+
+   **Interaction excerpts brought up to Skills' own formatting/Max Level parity**
+   (2026-08-19, on direct request: "je veux que tu apportes les mêmes règles que dans les
+   skills classiques. Mise en forme, couleur, max level par compétences, et a droite
+   d'intéraction"). Before this, an Interaction excerpt was `desc.textContent = text`
+   (`text` = `stripHtml(skill.description)`) — one flat, unstyled paragraph, no bullets,
+   no bold, no way to see a skill's max-level numbers, even though the exact same
+   underlying skill objects already got all of that in the Skills tab. Color-coding
+   (`highlightKeywords`) was ALREADY applied here beforehand — that part didn't need
+   fixing, only formatting and Max Level were actually missing.
+
+   `buildInteractionItem` now renders `skill.description`/`enhancedSkill.description`
+   (the raw HTML those skills always carry — `entry.text`/`entry.enhancedText` are just
+   `stripHtml()` of the exact same field, confirmed 1:1 by reading `computeInteractions`
+   before touching anything, so swapping the render source changes nothing about what
+   matches) through the identical `renderLevelValues` → `appendSkillDescription` →
+   `highlightKeywords` pipeline Skills already uses — same bullets/condition-action
+   grouping/bold "important point" spans, not a second implementation. `.interaction-desc`
+   gained `display: flex; flex-direction: column` (to hold the same multi-block output
+   `.skill-desc` does) and a `b { color: gold }` rule, copied from `.skill-desc`'s own.
+
+   **Max Level**: a per-item toggle (`createMaxLevelToggle()`, the same button Skills
+   uses) shown in an entry's head row when its text actually has a scaled value, plus a
+   section-header one next to "Interaction" (`#modal-interaction-max-toggle`, same
+   `modal-section-title-row` markup as the Skills `<h3>`). Structurally this can't reuse
+   Skills' `skillMaxLevelToggles` (one flat array built once per modal open) as-is:
+   Interaction paginates, so at most ~20 of a category's possibly-hundreds of entries are
+   ever in the DOM at once, and old array entries would go stale on every page flip.
+   Fixed by never keeping a persistent list at all — `syncInteractionMaxLevelToggle()`
+   queries `modalInteractionList.querySelectorAll(".max-level-toggle")` fresh every time
+   (so it only ever sees what's actually on screen right now), and each toggle's paint
+   function lives in a `WeakMap` keyed on the toggle element itself, populated once in
+   `buildInteractionItem` and pruned automatically by GC when its page gets replaced —
+   no manual bookkeeping needed across page or category changes. The sync call sits
+   inside each category's own `renderPage()` (so a Prev/Next click re-syncs the header)
+   with one more call after the whole category loop in `renderModalInteraction` (the
+   in-`renderPage()` call is a no-op on a category's very first render, since its own
+   `<details>` isn't attached to `modalInteractionList` yet at that point — the query
+   would miss it; the post-loop call is what catches the true initial state).
+
+   A base/"+" pair (the existing per-entry variant toggle from the section above) gets
+   ONE Max Level toggle covering both — clicking it paints base AND enhanced text
+   together (`paintBoth = atMax => { paintBase(atMax); paintEnhanced(atMax); }`), so
+   switching Retrofit/Augment/Fate Simulation with the variant toggle afterward never
+   lands on a stale level. Shown only if at least one of the two actually has a scaled
+   value, same "no toggle where it wouldn't change anything" rule Skills already follows.
+
+   **Bug caught before shipping, twice**, both by testing the actual rendered DOM rather
+   than trusting the diff: the first rewrite of `buildInteractionItem` dropped
+   `body.appendChild(head)` entirely while restructuring the function around it — every
+   entry silently lost its ship name, skill name, variant toggle, AND the new Max Level
+   toggle (the toggle was still being built and given a click handler, just never
+   attached to anything the user could see or click), while the description text still
+   rendered fine — visually looking almost correct in a screenshot, only caught by
+   querying `.interaction-head` in a headless test and getting `null`. `.interaction-desc`
+   gaining `display: flex` also needed the same `[hidden]` override
+   `.max-level-toggle[hidden]` already has (`.interaction-desc[hidden]`/
+   `.interaction-desc-enhanced[hidden] { display: none; }`) — the `[hidden]` attribute's
+   UA-stylesheet rule and an author `display: flex` rule sit at equal specificity, so
+   without the explicit override the base/enhanced text toggle would have shown both
+   paragraphs stacked instead of swapping.
+
+   Verified: full 888-ship open/close regression (0 errors), plus 2B specifically (the
+   documented worst-case for Interaction volume) — 39/40 items on the first visible pages
+   across categories carry a working Max Level toggle, clicking the section header
+   changed all 39, pagination's Next button still works and freshly-rendered items
+   correctly inherit the current Max Level state, and Chapayev's base/+ pair (the
+   documented anchor case from earlier this file) renders correctly with Max Level
+   toggled AND the enhanced text shown simultaneously.
+
+   **The section above missed a real alignment bug that only surfaced once real ship
+   modals were looked at** (2026-08-19, next message: "J'ai des 'Max level' qui ne sont
+   pas a droite de leurs bulle de skill") — the 888-ship regression and the targeted
+   tests all passed because they check FUNCTION (does clicking the toggle change the
+   text) not LAYOUT (is the toggle actually flush with the card's right edge), so this
+   shipped unnoticed. Root cause: `.interaction-body` (the flex child holding the head
+   row + description, sibling to the portrait `.interaction-icon`) never had `flex: 1` —
+   `.skill-body` in the Skills section always has (`flex: 1; min-width: 0;`), but nothing
+   in Interaction previously needed the head row to fill the card's full width, since
+   there was no `margin-left: auto` element inside it before this session's Max Level
+   toggle. Without `flex: 1`, `.interaction-body` (and the `.interaction-head` row
+   inside it) shrank to its own content's width instead of stretching to the card's
+   available width — so `margin-left: auto` on the toggle WAS correctly pushing it to
+   the right edge of that too-narrow box, just not to the card's actual right edge,
+   which is why it only affected entries with a short ship+skill name (long ones
+   happened to be wide enough already to reach, or nearly reach, the true edge, masking
+   the bug). Fixed by adding the same `flex: 1` `.skill-body` already has. Confirmed by
+   measurement, not just a screenshot glance: `getBoundingClientRect()` on 2B's "By Fleet
+   Role" page showed `.interaction-head`'s own right edge exactly matching each toggle's
+   right edge (0.0px gap) even on the broken cards — proving the toggle's own
+   margin-auto logic was never the bug — while `.interaction-head`'s width varied
+   293-556px against a constant 647px card width; after the fix, 0/39 toggles measured
+   more than 30px short of the card's actual right edge (was 13/39 before).
+
+   **"Belfast a la moitié de son texte en jaune sans raison"** (2026-08-19, next message) —
+   reported against Interaction, but reproduced identically in Belfast's own Skills tab
+   (her retrofit "Smokescreen: Belfast"), proving this predates the Interaction rewrite
+   above and simply wasn't visible before: Interaction surfaces the SAME `skill.description`
+   through the SAME `appendSkillDescription` now, so a pre-existing rendering issue only
+   Belfast's own 4 skills could previously trigger now also shows up across the ~40 other
+   ships that reference her. Not a tag-balance bug (`balanceBoldTags` already handles a
+   fragment cut mid-`<b>`) — the SOURCE data itself has long runs of individually-
+   `<b>`-wrapped single words ("`<b>Increases</b> <b>this</b> <b>ship's</b> <b>SPD</b>
+   <b>by</b> <b>10.</b>`"), almost certainly the wiki's own auto-linker turning into bold
+   once tags were stripped, one recognized term at a time — confirmed dataset-wide
+   (21 skills carry a run of 4+ back-to-back single-token `<b>` tags; Belfast's
+   "Smokescreen: Belfast" is the worst at 60 words, Juneau's "Martyr+" — already flagged
+   in an ENUMERATION_SEPARATOR comment elsewhere in this file — second at 44) rather than
+   assumed from the one reported ship. Every sampled case reads as noise, not
+   intentional emphasis: Colorado's "Big Seven" even bolds a stray `(gif)` marker.
+
+   Fixed with `stripAccidentalWordBoldRuns()` (`app.js`, right before
+   `appendSkillDescription`, which now runs it on `html` as its first step) — strips
+   `<b>`/`</b>` off any run of **2 or more consecutive** single-token bold tags
+   (`<b>[^\s<>]+</b>` glued only by whitespace), never touching the text itself. A
+   single `<b>` wrapping a whole phrase together (Belfast's own "All Out Assault":
+   `<b>(Upon Retrofit)</b>`) has a space INSIDE the tag, so it can never match the
+   single-token pattern and is left completely alone — this is what makes the fix safe:
+   the normal, clearly-intentional case (one tag around a real phrase) is structurally
+   different from the artifact case (many tags, one per word), so no denylist or
+   per-skill exception is needed. An ISOLATED single-token tag with plain text on both
+   sides (not touching another bold tag) also survives untouched, since the pattern
+   requires 2+ in a row — e.g. Juneau's "Martyr" keeps 2 of its 9 original tags
+   ("sunk," and "members," both standalone), only the 4-word run at the end
+   ("of their max Health.") gets unwrapped. Applies to both Skills and Interaction at
+   once since both call through the same `appendSkillDescription` — one fix, not two.
+   Verified: Belfast's "Smokescreen: Belfast" now renders as normal text with its
+   condition/bullet structure intact (the wall of bold was very likely also confusing
+   the sentence/bullet splitter, since the fixed version now shows a cleaner "1: ... 2 or
+   more: ..." bullet breakdown than before); full 888-ship regression still 0 errors.
 5. **Keyword color-coding** (`highlightKeywords`, `KEYWORD_GROUPS`, `NATION_COLORS`,
    `STAT_COLORS`): recurring terms in skill descriptions and Interaction excerpts get
    consistent colors. **Only two categories are color-coded at all: nations and stats** —
@@ -645,13 +775,60 @@ hasRetrofit, equipment, augmentModules`.
    greys, Neptunia/Date A Live both purple, several collab pinks; stats: none currently
    close, closest pair Anti-Air/Oxygen at a comfortable margin). Don't reach for the
    `--pairs all` validator on either set — it structurally can't pass at N=15 or N=30 and
-   re-running it just reproduces the already-accepted tradeoff. All three color categories
+   re-running it just reproduces the already-accepted tradeoff. All four color categories
    are per-entity rather than per-group, so the dataviz skill's 8-hue categorical cap
    doesn't apply to anything in this system — there's no shared group left to keep under 8.
-   The one exception is the mechanic palette added 2026-08-19: at N=5 every pair IS worth
-   checking and was (closest pair Special Burn/Smokescreen, a comfortable margin; the
-   original Flooding blue was moved off `--accent` because the two chip colors sat 32 RGB
-   units apart). Do the same for any future set small enough to make it meaningful.
+   Two exceptions, both small enough that every pair IS worth checking by hand: the
+   mechanic palette (N=5, closest pair Special Burn/Smokescreen at a comfortable margin;
+   the original Flooding blue was moved off `--accent` because the two chip colors sat 32
+   RGB units apart), and the ammo/caliber palette added the same day (N=4 distinct colors
+   — ochre/red/blue/orange, `high-caliber` deliberately reuses HE's red per the user's own
+   spec — four different hue families, no close pair possible). Do the same for any future
+   set small enough to make it meaningful.
+
+   - **Ammo type and caliber are a FOURTH category, added 2026-08-19** on direct request
+     ("normal -> ocre, HE -> rouge, AP -> bleu, SAP -> orange, High caliber -> rouge").
+     `AMMO_CALIBER_TERMS` (`app.js`, right after `MECHANIC_COLOR_GROUPS`) holds 6 entries:
+     `Normal`, `HE`, `AP`, `SAP`, `high-caliber`, `high caliber`. Rendered plain (bare
+     colored text, the `.kw-ammo` class carries no chip/underline of its own) — the
+     abbreviations read the same visual weight as `.kw-stat`, which is deliberate.
+
+     **The 4 abbreviations needed case-sensitive matching, which nothing else in this
+     file does** — `KEYWORD_RE` is built with the `i` flag throughout (required for e.g.
+     "smokescreen" appearing lowercase most of the time), but under that flag "HE"
+     matches the pronoun "he" and "Normal" matches the ordinary adjective ("returns to
+     normal") constantly. Checked against the actual corpus before shipping (the same
+     `node -e` frequency-count habit used for every other palette here): exact-case
+     "HE"/"SAP"/"Normal" have **zero** false positives (0 "He" the pronoun, 0 lowercase
+     "normal"-the-adjective survives requiring the capital). `keywordInfoFor` gained a
+     `caseSensitive` check (`matchText !== info.canonical` rejects the match, falling
+     through to plain text) rather than trying to encode case into the shared regex — it
+     stays one `i`-flagged pattern for every group, and only the ammo terms opt into the
+     stricter check (`AMMO_CALIBER_TERMS[t].caseSensitive`, read via `perTermCaseSensitive`
+     on the `KEYWORD_GROUPS` row, same indirection `perTermColor` already uses).
+
+     **"AP" stays ambiguous even with exact case** — Action Points (a fleet-wide airstrike
+     resource, "your fleet gains 10 AP", "AP cost") is written in the identical case as AP
+     ammunition, so case alone can't separate them. `apIsAmmoType(text, index)` is a
+     context check (same `text.slice` pattern `isGenuineAllyMatch`'s guards already use for
+     Interaction) verified against **all 105 occurrences by hand**: Action Points is always
+     either preceded by a digit/"more" ("gains 10 AP", "10 or more AP") or followed by
+     "cost"/"consumption"/"-consuming" ("AP cost", "an AP-consuming skill"); the ammo sense
+     never touches either. 71 ammo / 34 Action Points, both counts confirmed correct by
+     eye before wiring the guard in — this is the same "verify every case, not just the
+     reported one" method the Interaction guards were built with, applied to a fourth
+     color palette this time instead of a matching category.
+
+     **"high-caliber"/"high caliber" needed the opposite fix**: the user wrote "High
+     caliber", but the actual corpus (checked, not assumed) writes it lowercase mid-
+     sentence in all 5 occurrences ("a high-caliber main gun (280mm or higher)") — a
+     capitalized term would have silently matched nothing. No case-collision risk either
+     way (unlike the abbreviations, "high-caliber" as an exact 2-word phrase doesn't
+     collide with ordinary prose), so it's the one entry in the group left
+     case-insensitive. `Large-caliber` and `CA-caliber` (found alongside it, same corpus
+     sweep) were deliberately left uncolored — asked the user directly rather than
+     guessing whether the "same 280mm threshold, different wiki wording" reading was
+     right, and the answer was to scope this to high-caliber only.
 
    **Data quirk found while wiring this up**: `ship.nationality` stores
    `"BLACK★ROCK SHOOTER (Nation)"` (with a literal `" (Nation)"` suffix) for that one
@@ -1009,6 +1186,89 @@ If more mislabeled-scope examples turn up, the fix pattern is: read the bonus's 
 text, not the `scope` field, and add another targeted regex — don't try to re-run or
 "improve" the original extraction script (it doesn't exist in this repo/session anymore).
 
+### Missing statBonuses backfilled (2026-08-19)
+
+The user reported a specific ship gaining no Speed from a skill that clearly should grant
+one. The mislabeled-`scope` issue above assumes an entry EXISTS but points the wrong way;
+this was a different, bigger problem — the original extraction script only ever captured
+the FIRST stat clause in a sentence, silently dropping any further one. Two shapes, both
+confirmed dataset-wide before touching anything:
+
+- **Continuation**: "...FP by 5% (15%) **and SPD by 3 (8)**" — the first clause got an
+  entry, the second (any stat, not just Speed) never did.
+- **Standalone**: a skill whose entire bonus is one self clause — "Increases this ship's
+  SPD by 5." — with nothing else in the description resembling the pattern the original
+  script keyed off, so the skill got zero entries.
+
+Rebuilt both as a scratchpad script (`extract_missing_bonuses.js`, not committed — same
+convention as every other one-off data script this project has used), run to a **fixed
+point per skill** so a 3+ way chain ("X by A, Y by B, and Z by C") gets every link, not
+just the one adjacent to an already-known entry: each pass re-runs both patterns against
+the current known-bonus set, and a pass that finds nothing stops the loop. Deliberately
+narrow to keep it safe:
+- Continuation only fires when a stat token immediately follows the connector
+  (`, `/`and `) — a verb in between ("and **decreases** this ship's SPD") can never match,
+  which is what makes it safe to run unattended rather than needing a target/polarity
+  guard like `isGenuineAllyMatch`'s.
+- Standalone only fires directly off "Increases/Increase this ship's/this boat's" —
+  same reasoning: the possessive binding is what rules out enemy-target and debuff text
+  structurally, not a denylist.
+- Scope is computed the same way `computeEffectiveStats` already resolves it at
+  runtime (self-language in the anchor overrides a mislabeled `scope` field) — baked in
+  at write time so a short new raw fragment ("SPD by 3") doesn't need to independently
+  repeat "this ship's" for the runtime guard to recognize it as self.
+- A trailing `/` right after the amount (Gouden Leeuw: "AVI by 300**/**400/550/700 based
+  on Development level") means a level-progression list, not a (min, max) skill-level
+  pair — skipped rather than guessed at, since nothing else in this app models a
+  "Development level" axis to pick a value from.
+- Restricted to the 11 plain `NUMERIC_STAT_KEYS` stats (the ones the Stats grid actually
+  renders). Combat-modifier stats (Crit Rate, Crit DMG, DMG Dealt, Hit Rate, Weapon
+  Efficiency, Evasion Rate) were deliberately left out — those need the qualifier-aware
+  handling `modifierQualifier` already does for existing entries (see item 3.17 above,
+  the Alvitr case), which a bare continuation/standalone scan can't determine safely.
+
+**Two bugs caught before applying, both by diffing the patched file against the original
+rather than trusting the script's own summary count:**
+1. The sentence-boundary check used to bound a continuation's search window was
+   `/[.:;]/` — which also matches the decimal point in "5.0%", truncating the window
+   mid-number and silently downgrading e.g. Guichen's "EVA by 5.0% (15.0%)" to a flat
+   "+5" with the (15%) upgrade lost entirely. Fixed to `/\.(?!\d)|[:;]/` (a period NOT
+   followed by a digit). Caught by manually re-deriving a few chained entries by hand and
+   finding the numbers didn't match the source text.
+2. The first pass rebuilt every *existing* bonus object from scratch (`{stats, min, max,
+   isPercent, scope, raw}`) before appending new ones — which silently dropped the
+   `unmapped` field 130 existing entries carried (target terms like "light cruisers" the
+   original script couldn't map to a canonical stat key, e.g. on damage-dealt-vs-hull-type
+   bonuses). Not read anywhere in `app.js`, but still authoritative data with no business
+   being deleted as a side effect of an unrelated fix. Caught by a whole-file diff against
+   the pre-patch data (`git diff --stat` showing implausibly many deletions for a supposedly
+   additive change) — fixed by keeping the original bonus objects by reference and only
+   ever pushing new ones, never rebuilding existing ones. **Whenever a script "patches" a
+   large existing JSON structure, diff the full before/after (not just the intended new
+   entries) before writing it back — an additive-looking change can still destroy fields
+   it never intended to touch.**
+
+**Result**: 174 new entries across 132 ships (`speed` 41, `firepower` 35, `reload` 30,
+`evasion` 29, `antiair` 22, `accuracy` 19, `torpedo` 14, `aviation` 4, `luck` 2, `asw` 2),
+verified three ways — a whole-file diff showing only additions (plus the trailing-comma-per-new-
+sibling noise the augmentModules extraction already established as expected, see item 9
+above), the standard full 888-ship `openModal`/`closeModal` regression (0 errors), and a
+direct `computeEffectiveStats` spot-check confirming a non-zero Speed delta at level 125
+for every ship in the original bug report's neighborhood (Blücher, Le Hardi, Minase,
+Algérie, Bayard, Guichen, Mainz).
+
+**Known remaining gap, not chased further**: a handful of skills still carry a self SPD
+(or other stat) increase this pass doesn't reach — mostly a second/third value in a
+3-way list where the middle link doesn't independently qualify as continuation OR
+standalone (e.g. Bayard's "SPD by 20%, EVA by 10% (20%), **and Evasion Rate by 5%
+(15%)**" — the trailing Evasion Rate is a combat-modifier stat, out of scope per the
+restriction above), and a couple of skills that share a name across several ships
+verbatim ("Mobility Mastery") where only some sibling ships' copies matched depending on
+exact punctuation. If another specific ship is reported as still missing a stat, use the
+same method: pull the skill text with `node -e`, confirm the clause is genuinely a flat
+self bonus (not a debuff or enemy-target phrase), and extend the two patterns rather than
+hand-editing `ships.json` for one ship.
+
 ## Known precision guards in `computeInteractions` (built up example-by-example — read before touching)
 
 The user has repeatedly given **specific named counter-examples** (e.g. "Izumo n'interagit
@@ -1230,6 +1490,76 @@ established "must stay matched" precedent set (Howe's and Z14's unconditional
 frontmost-ship targeting, Centaur's action-triggered Main Fleet buff, Chang Chun still
 matching Dragon Empery/Northern Parliament candidates specifically) — all still hold.
 
+### Elided-subject condition gate, "CarabiniereFuoco di Copertura!+ je ne peux pas voir la version normale" (2026-08-19)
+
+Carabiniere's "Fuoco di Copertura!+" showed up in Interaction (role category) as a bare
+`.interaction-variant-badge` — no toggle, no way to see the un-augmented base skill. Root
+cause wasn't a rendering bug: `computeInteractions` had already tried to anchor the entry
+on the base skill "Fuoco di Copertura!" and correctly refused to (`isSafeBaseAnchor`,
+guard #27) because the base's only mention of "Vanguard" is inside "if **this ship is**
+placed in the backmost position of the Vanguard Fleet..." — a guard #25 structural gate
+(`IF_CONDITION_PREFIX_RE`, requires the literal "this ship is/has"). The "+" version
+describes the exact same condition but elides the subject — "if **placed** in the
+backmost position of the Vanguard Fleet..." — so `IF_CONDITION_PREFIX_RE` didn't
+recognize it as a gate at all, and the "+" text's otherwise-identical clause slipped
+through ungated. Base correctly excluded, "+" incorrectly not: the inconsistency (not
+"the toggle is missing") was the actual bug.
+
+Fixed by adding `placed` as a third alternative to `IF_CONDITION_PREFIX_RE` (checked
+dataset-wide first: only 2 occurrences of "if placed" without "this ship is" anywhere,
+Carabiniere and Seattle's "Dual Nock" — Seattle's doesn't affect any current match since
+its clause mentions "Escort Fleet", a role category this app doesn't track, so the fix is
+effectively scoped to the one reported case while still being a general rule rather than
+a name-keyed exception). This makes the "+" clause gated the same as the base, so
+**the whole entry now disappears from Interaction** rather than gaining a working
+toggle — consistent with the standing "conditions assumed met" reversal for Interaction
+(a positional/conditional buff like this was never supposed to count as a genuine
+interaction in the first place, toggle or not). Verified: 0 Carabiniere "Fuoco di
+Copertura" entries remain anywhere in the dataset, and the established must-stay-matched
+precedents (Z14/Howe, Centaur's Airspace Dominance) still hold; full 888-ship regression
+still 0 errors.
+
+### Multi-sentence list continuation is NOT auto-detected — narrow per-skill fix only, "Ulrich von Huttenil manque un -" (2026-08-19)
+
+A skill's colon-introduced list of effects is normally semicolon-separated within one
+sentence ("...: increases X; decreases Y."), which `buildClauseBlock` already turns into
+separate bullets. Ulrich von Hutten's "Revolutionary's Prosaic" instead writes each item
+as its own full sentence — "...this sortie: Decrease damage taken by all Iron Blood
+ships in that fleet by 5.0%. Increase the Crit DMG Dealt for all Iron Blood ships in
+that fleet by 10.0%." — and since `buildSentenceBlocks` splits the whole description
+into independent sentences before block-building ever sees them, the second sentence has
+no colon of its own and falls through to a plain, unbulleted paragraph instead of a
+second "–" bullet under the first condition.
+
+**A general "a subjectless sentence continues the previous list" rule was tried and
+rejected before writing anything skill-specific** — checked against the whole dataset
+(not just the reported case): 242 `{header, items}` blocks are immediately followed by a
+plain-text block, and even after narrowing to "next sentence has no subordinate-clause
+cue and no explicit subject" it's still 65 candidates, most of which are ordinary
+independent statements that merely happen to also open with a bare imperative verb
+(that's just how this dataset writes effects generally, conditional or not — not a
+continuation signal). Tightening further to "shares a repeated trailing noun phrase with
+the prior item" (the closest genuine signal in Ulrich's case — both items end "...ships
+in that fleet by N%") still isn't safe: it found exactly 2 matches, and the second,
+Vanguard's "Scatter, Minions of Darkness!", would have been merged WRONGLY — its "next"
+sentence ("30s after that battle starts: Fire a special barrage...") actually opens its
+own distinct condition that a blanket rule has no way to distinguish from a true
+continuation. Asked the user directly rather than guessing which failure mode was more
+acceptable; the answer was to fix only the reported skill.
+
+Implemented as `mergeUlrichProsaicListSentence()` (`app.js`, called at the end of
+`buildSentenceBlocks`), keyed on this skill's exact header string
+(`"As long as this ship is afloat, whenever ANOTHER fleet engages in one of its first
+five battles this sortie:"`) rather than ship/skill name — self-scoping since no other
+skill in the dataset can plausibly carry the same sentence verbatim, and it reads as a
+general (if narrow) rule rather than a hidden per-ship branch. Verified: Ulrich von
+Hutten's skill now renders both bullets under the shared condition; Vanguard's
+"Scatter, Minions of Darkness!" block structure is byte-identical to before (dumped and
+compared); full 888-ship regression still 0 errors. **If another skill turns out to have
+the same multi-sentence-list shape, don't extend the general heuristic — verify the new
+case the same way (dump its exact block structure, check for a safe distinguishing
+signal) and add another narrowly-keyed merge, or ask again if none is safe.**
+
 ### Interaction pagination (2026-08-18)
 
 Even after the stricter conditional-gating exclusion above, a common category like "By
@@ -1410,20 +1740,150 @@ after the final edit.
 
 ## Unresolved / explicitly deferred
 
-- **Equipment-aware stats** (partially started 2026-08-19 — see feature 9: the slot
-  layout now renders, but nothing is equipped and no gear catalog exists): the user has
-  explicitly said (2026-08-17) more advanced
-  stats that factor in equipment are coming "dès que la partie intéraction et code
-  couleurs sont finis" (once the Interaction and color-coding work is finished) — i.e.
-  this is the acknowledged next major piece of work, not a maybe. `computeEffectiveStats`
-  currently has NO equipment/Meowfficer/Fleet Tech data at all (documented in its own
-  comment block in app.js) — when this is picked up, it likely means either extending
-  `ships.json` with an equipment/gear dataset (doesn't exist yet — `ship.equipment` in the
-  data is loadout SLOT info from the datamine, not a browsable gear item catalog) or
-  building one from scratch from wiki equipment pages, neither of which exists yet. Don't
-  start this speculatively — wait for the explicit go-ahead the user has signaled is
-  coming, since "interaction et code couleurs" being "finished" is the user's call, not an
-  inferrable code state.
+- **Equipment-aware stats — IN PROGRESS, catalog extraction done (2026-08-20)**. End goal,
+  stated directly by the user: a panel to the right of the Equipment section showing
+  potential HP / DPS / AA DPS / ASW DPS, a selector capping the max equipment RARITY
+  considered, and an "Optimize" button that auto-picks, per slot, whichever equipment
+  (at or below that rarity cap) maximizes that slot's relevant raw stat — Main
+  Gun/Torpedo slots for DPS, AA Gun for AA DPS, ASW gear for ASW DPS. This is a
+  per-slot greedy pick, not a multi-objective tradeoff, since each slot's choice only
+  affects its own metric.
+
+  Investigated first whether DPS/eHP could be approximated WITHOUT a gear catalog
+  (barrage `trigger` field, a generic "eHP" formula) — both dead ends: `trigger` holds a
+  qualifier ("enhanced"/"on main gun fire"), never a firing interval, and 2280/2502
+  barrage rows have no trigger at all (tied to the equipped Main Gun's own reload,
+  which is exactly the missing data); the wiki's own eHP formula needs the ATTACKING
+  enemy's Accuracy/Luck, which this app has no source for. Asked the user directly
+  rather than guessing either — chose to build the real equipment catalog first,
+  matching what was already flagged here as the acknowledged next major piece of work.
+
+  **Catalog built**: `data/equipment.json`, 581 records across 15 categories (DD/CL/CA/
+  CB/BB Guns, Torpedoes, Submarine Torpedoes, AA Guns, AA Time Fuze Guns, Fighters,
+  Seaplanes, Dive Bombers, Torpedo Bombers, ASW, Auxiliary), sourced from the wiki's own
+  `List of X Guns`/`List of X` pages the user saved for this. Not committed to the repo
+  yet — verify it renders correctly first (see remaining steps below) before assuming
+  the schema is final.
+
+  **Extraction method** (scripts are scratchpad-only, not committed — same convention as
+  every other one-off data script in this project): each wiki equipment-list page has a
+  MediaWiki "Tabber" widget with 4 panels — `#tabber-Min_Stats`, `#tabber-Max_Stats`,
+  `#tabber-Max_Enhanced`, `#tabber-Max_Rarity` — confirmed by ID, not by DOM position
+  (position happened to match this order too, but the ID is what the script actually
+  reads). Compared the same gun's numbers across all 4 for "12-Pounder Long Guns T3":
+  Min/Max Stats show every T0-T3 tier separately (coefficient 125% both, only Dmg/Rld
+  differ — these are progression references, not "fully invested" states); Max_Enhanced
+  and Max_Rarity each show only ONE row per gun FAMILY (the best tier), with
+  Max_Enhanced's coefficient (148%) actually HIGHER than Max_Rarity's (125%, identical
+  to Max Stats) for this item — i.e. **+13 enhancement, not rarity-conversion, is what
+  actually reaches this gun's ceiling**, and that isn't true for every item, so the
+  extractor keeps the row with the higher DPS/stat total between Max_Enhanced and
+  Max_Rarity per item rather than assuming one tab is always better — the "always max
+  investment" convention this project already uses everywhere else (Cost's limit-break
+  assumption, skill max-level) applied to gear the same way.
+
+  **`--dump-dom` actually works now** — contrary to the note in the Testing Workflow
+  section below (written on an earlier Edge build/invocation), re-verified directly
+  before use: a trivial page dumped its DOM to stdout correctly. This unlocked a much
+  more reliable extraction path than screenshot+read for structured numeric data: the
+  injected script writes the parsed table as JSON text into a hidden `<pre
+  id="__json_out">`, `--dump-dom` captures it, and a small Node script regex-extracts
+  and HTML-entity-decodes that one element rather than trying to OCR a screenshot of
+  hundreds of rows. If dump-dom-based extraction is needed again, re-verify it still
+  works the same way rather than trusting either claim blindly — Edge builds change.
+
+  **Column layout is NOT the same across every "gun" category — caught by direct
+  comparison, not assumed**: DD/CL guns have 21 data columns (rounds/sec present, Range
+  splits into Fr/Sh); CA/CB guns have 20 (rounds/sec present, but Range is ONE value);
+  BB guns have 19 (no rounds/sec column at all, Range is one value). Reusing the DD
+  parser on BB rows silently shifted every trailing field by 1-2 positions — caught
+  because the shifted-in DPS "heavy" value was a suspiciously round 200 for every BB
+  gun and the "Angle" field contained ammo text ("HE 140/110/90") instead of a degree
+  value. Fixed with three separate column-index parsers (`parseGunRow`/
+  `parseCAGunRow`/`parseBBGunRow`); re-audited the whole 581-record catalog afterward
+  for any other out-of-range DPS/reload/armor values (0 found) rather than trusting the
+  fix looked right on the one sample checked.
+
+  **Gear rarity resolved (2026-08-20)**. Asked the user whether to dig further into the
+  Equipment page, have them confirm from memory, or work from a guessed hypothesis
+  (Ultra Rare/Prototype) — they didn't recognize the question at all ("je ne sais pas de
+  quoi tu me parles"), so it was reframed as a concrete, no-game-knowledge-needed ask:
+  save one individual gear page, since those carry an explicit "Rarity" infobox row like
+  ship pages do. The user instead saved something even better — the wiki's own **category
+  listing pages**, one per named rarity: `Category_Common gear`, `Category_Rare gear`,
+  `Category_Elite gear`, `Category_Super Rare gear`, `Category_Ultra Rare gear` (each a
+  plain `<li>` list of page names/titles belonging to that rarity).
+
+  Cross-referenced two independent ways rather than trusting either alone:
+  1. Every gear icon in the `List of X` pages carries a numeric CSS class
+     (`alibox rarity-N-bg rarity-N`, `N` 1-6, duplicated on the cell's own
+     `data-sort-value`) with no color/name attached in the saved HTML (the actual color
+     lives in an external stylesheet this project doesn't have a copy of). Joined each
+     `(name, T-tier)` row from the `Max_Enhanced` panel against the 5 category pages by
+     name; for names appearing in exactly one category, tallied which `rarity-N` value
+     went with which category name. Landed a clean majority at N=3→Rare (164/192),
+     4→Elite (144/206), 5→Super Rare (132/176), 6→Ultra Rare (104/104, zero noise). The
+     minority noise on 3-5 is consistent with a handful of generic gun names (e.g. "Old
+     Heavy Cannon") being reused across genuinely different items on the wiki, not a
+     flaw in the join.
+  2. Independently, the ASW and Auxiliary list pages (which use an explicit ★-count
+     column instead of the T-tier icon system) ALSO carry the item's rarity as a literal
+     inline `background`/`background-color` style on the same row — `powderblue`,
+     `plum`, `palegoldenrod` (matching the Equipment page's own
+     Common/Rare/Elite/Super-Rare color legend, already known from item 9's original
+     extraction work) plus a `linear` (gradient) background found only on 6★ items.
+     Tallied by exact color per star count: 3★=powderblue=Rare, 4★=plum=Elite,
+     5★=palegoldenrod=Super Rare, 6★=linear-gradient=Ultra Rare — this needed no
+     majority vote at all, every sample agreed, and it independently reproduces exactly
+     the same 3/4/5/6→Rare/Elite/SuperRare/UltraRare mapping found method 1.
+
+  `rarity` (one of `"Common"`/`"Rare"`/`"Elite"`/`"Super Rare"`/`"Ultra Rare"`) is now a
+  field on all 581 `data/equipment.json` records — re-matched by the row's visible LINK
+  TEXT rather than its `title=` attribute (the two differ for a handful of items, e.g.
+  "550mm Triple Torpedo Launcher" vs title "...Torpedo Mount", "de Havilland Sea Hornet"
+  vs title-cased "De Havilland...", and the catalog's own `name` field was always built
+  from the link text in the first extraction pass — matching on `title` silently missed
+  8/581 items on the first attempt, caught by checking the unmatched count wasn't zero
+  rather than assuming a partial match was fine). 3 items ended up `"Common"` (guns with
+  only a single, low tier available, e.g. "Twin 120mm (Model 1926)") — expected, not a
+  bug: nothing stops a family's single/best tier from being a low one.
+  `data/equipment.js` (`const EQUIPMENT_DATA = [...]`) was generated from the JSON the
+  same way `ships.js` mirrors `ships.json`, and `index.html` now loads it right after
+  `ships.js`.
+
+  **Catalog linked to ship slots (2026-08-20)**. `EQUIPMENT_TYPE_CODE_CATEGORIES`
+  (app.js, right after `GUN_TYPE_CODES`) maps each numeric slot-type code from
+  `EQUIPMENT_TYPE_NAMES` to the matching `category` string(s) in the catalog — built by
+  hand since the two vocabularies are worded differently on purpose ("DD Main Guns" vs
+  "DD Gun"). `equipmentOptionsForSlot(slot)` returns the catalog subset a given
+  `ship.equipment[slot]` can mount, unioned across every type code the slot accepts.
+  Two codes are deliberately left unmapped rather than guessed: 18 (Cargo — no catalog
+  category exists, `List of Cargo` was saved but never extracted since it isn't combat
+  gear) and 20 (Missiles — the user expected these to live inside the Torpedo catalog
+  category ("les missiles sont dans les torpedoes"), but the catalog's Torpedo category
+  was built from `List of Torpedoes` alone and hasn't actually been checked for missile
+  entries yet). Verified against New Jersey (BB Main Gun slot → 51 BB Gun options
+  spanning Rare through Ultra Rare; AA slot, type codes [6,21] → 68 options merging the
+  AA Gun and AA Time Fuze Gun catalog categories correctly) and a submarine (Albacore —
+  her slot 3 deck gun resolves through type code 1, DD Gun, matching the "subs use a DD
+  gun as their surface deck gun" note already on `EQUIPMENT_SHORT_NAMES`). Full 888-ship
+  open/close regression still 0 errors with `equipment.js` now loaded.
+
+  **Still open, in order**:
+  1. Build the picker UI in the Equipment section (currently empty dashed placeholder
+     tiles, see feature 9) to select/display a real item per slot, using
+     `equipmentOptionsForSlot()`.
+  2. Wire selected gear into `computeEffectiveStats` (flat stat bonuses) and implement
+     the Damage Calculations page's own DPS formula (`WeaponStatMultiplier`,
+     `ReloadTime = WeaponReloadTime × 200/(CurrentReload+100) + VolleyTime +
+     AbsoluteCooldown`) using the ship's LIVE Firepower/Reload rather than the wiki's
+     baseline-100-reload reference numbers stored in `dps`/`aaDps`/`aswDps`.
+  3. The rarity-capped selector + Optimize button, now that `rarity` exists on every
+     catalog record to filter against.
+  4. HP potential panel — revisit once real equipped-gear stats (Evasion/HP/Luck
+     auxiliary bonuses) are available; the "combine HP/Evasion/Luck/Armor, assume a
+     level 100 enemy" approach the user asked for still needs a source for baseline
+     enemy Accuracy/Luck at level 100, which hasn't been found yet either.
 - **Team composition calculator**: the user's stated end goal ("le but est de pouvoir
   afficher les stats réelles dans la composition d'une équipe complète... 3 vanguard, 3
   main") — Effective Stats and Interaction were both built as groundwork for this, but the

@@ -187,6 +187,14 @@ body {
   min-width: 90px;
 }
 
+/* Sub-label for a chip cluster within an existing filter row (e.g. "Research" under
+   Rarity) — smaller and without the row-label's min-width, so it reads as a subset of
+   the same category rather than a second category. */
+.filter-subgroup-label {
+  font-size: 0.65rem;
+  min-width: 0;
+}
+
 .chip {
   padding: 0.28rem 0.65rem;
   border-radius: 999px;
@@ -1514,6 +1522,7 @@ main {
 }
 
 .interaction-body {
+  flex: 1;
   min-width: 0;
 }
 
@@ -1537,10 +1546,21 @@ main {
 }
 
 .interaction-desc {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   font-size: 0.76rem;
   line-height: 1.35;
   color: var(--text-muted);
+}
+
+.interaction-desc b {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.interaction-desc[hidden] {
+  display: none;
 }
 
 /* Per-entry toggle for a matched skill's "+" (Retrofit/Unique Augment/Fate Simulation)
@@ -1610,6 +1630,13 @@ main {
 
 .interaction-desc-enhanced {
   margin-top: 0.3rem;
+}
+
+/* .interaction-desc's own `display: flex` (needed now that it can hold multiple blocks
+   like a skill-mode group) would otherwise outrank the [hidden] attribute's UA-stylesheet
+   `display: none` at equal specificity — same fix already applied to .max-level-toggle. */
+.interaction-desc-enhanced[hidden] {
+  display: none;
 }
 
 @media (max-width: 720px) {
