@@ -1,9 +1,0 @@
-# Raw wiki scrape source (user-saved azurlane.koumakan.jp pages) — huge, and kept local-only
-Site web/
-
-# Local, machine-specific Claude Code settings
-.claude/settings.local.json
-
-# OS junk
-.DS_Store
-Thumbs.db
