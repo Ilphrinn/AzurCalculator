@@ -2604,7 +2604,7 @@ function computeInteractions(ship) {
         // "base text by default, click the marker's own toggle to reveal the +/enhanced
         // text" behavior as every other paired entry, rather than silently showing the
         // "+" text with no way back to what the ship's skill looks like without it
-        // (reported: "je ne peux pas cliquer pour voir la version de base").
+        // (the reported bug was that there was no way to click back to the base version).
         const baseSkillCandidate = isPlusVariant ? entry.ship.skills.find(sk => sk.name === pairName) : null;
         const baseSkill = baseSkillCandidate && isSafeBaseAnchor(baseSkillCandidate, p.category, p.re, ship) ? baseSkillCandidate : null;
         if (baseSkill) {
