@@ -1367,6 +1367,7 @@ main {
 }
 
 .equip-slot {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1423,6 +1424,105 @@ main {
   border-radius: 999px;
   background: var(--card-bg);
   color: var(--text-muted);
+}
+
+.equip-tile-pickable {
+  cursor: pointer;
+}
+
+/* A picked item's tile: rarity-tinted fill/border instead of the empty dashed frame,
+   the item's own name in that same color (no gear icon assets exist in this project). */
+.equip-tile-filled {
+  border-style: solid;
+  border-color: var(--equip-tile-color);
+  background: color-mix(in srgb, var(--equip-tile-color) 16%, var(--bg));
+}
+
+.equip-tile-name {
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--equip-tile-color);
+  padding: 0.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Dropdown list of catalog options for one slot, opened by clicking its tile - anchored
+   under that slot's own card rather than a single shared floating overlay, same
+   "one panel per trigger" shape as the nation-chip subfaction dropdown. */
+.equip-picker {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.35rem;
+  width: 15rem;
+  max-height: 17rem;
+  overflow-y: auto;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 0.3rem;
+  z-index: 60;
+}
+
+.equip-picker-clear {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.35rem 0.5rem;
+  margin-bottom: 0.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.equip-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.equip-picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.3rem 0.5rem;
+  background: transparent;
+  border: none;
+  border-left: 3px solid var(--equip-tile-color);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.equip-picker-row:hover {
+  background: var(--bg);
+}
+
+.equip-picker-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--equip-tile-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.equip-picker-stat {
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
 }
 
 /* ---- Interaction ---- */

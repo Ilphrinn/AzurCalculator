@@ -810,6 +810,7 @@ const STAT_GRID = [
   { key: "accuracy", label: "ACC", icon: "assets/stat-icons/accuracy.png" },
   { key: "luck", label: "LCK", icon: "assets/stat-icons/luck.png" }
 ];
+const STAT_ABBR = Object.fromEntries(STAT_GRID.filter(Boolean).map(d => [d.key, d.label]));
 
 const NUMERIC_STAT_KEYS = STAT_GRID.filter(d => d && !d.text && !d.custom).map(d => d.key);
 
@@ -1373,21 +1374,104 @@ function equipmentOptionsForSlot(slot) {
   return EQUIPMENT_DATA.filter(item => categories.has(item.category));
 }
 
-// A card is one slot: a square tile where the chosen equipment's image will go once gear
-// selection exists, its name underneath, then its numbers - laid out like a ship card in
-// the catalog grid, which is the picker this will eventually open.
-function buildEquipmentSlot(name, tooltip, meta) {
+// Equipment rarity uses its own 5-name scale (Common/Rare/Elite/Super Rare/Ultra Rare)
+// distinct from a ship's 7-name one, but "Common" is the same concept as a ship's
+// "Normal" and the other four names are shared verbatim - reuse RARITY_CLASS's colors
+// rather than defining a second palette.
+const EQUIPMENT_RARITY_ORDER = ["Common", "Rare", "Elite", "Super Rare", "Ultra Rare"];
+function equipmentRarityColor(rarity) {
+  return `var(--${RARITY_CLASS[rarity === "Common" ? "Normal" : rarity] || "rarity-normal"})`;
+}
+
+// The one number worth showing at a glance in the picker list - whichever raw-DPS-ish
+// figure that category actually has. Auxiliary/ASW gear without a dps-shaped stat falls
+// back to its first flat stat bonus, which is the closest equivalent "headline number".
+function equipmentPrimaryStat(item) {
+  if (item.dps) return { label: "DPS", value: item.dps.raw ?? item.dps.light };
+  if (item.aaDps != null) return { label: "AA DPS", value: item.aaDps };
+  if (item.aswDps != null) return { label: "ASW DPS", value: item.aswDps };
+  if (item.preloadDps) return { label: "DPS", value: item.preloadDps.light };
+  if (item.statBonus) {
+    const key = Object.keys(item.statBonus)[0];
+    if (key) return { label: STAT_ABBR[key] || key, value: item.statBonus[key] };
+  }
+  return null;
+}
+
+function equipmentSummaryText(item) {
+  const stat = equipmentPrimaryStat(item);
+  return stat ? `${stat.label} ${stat.value}` : "";
+}
+
+// Best-in-slot first: highest rarity, then highest headline stat within that rarity -
+// the same ordering the eventual "Optimize" button will pick the top entry from.
+function sortEquipmentOptions(options) {
+  return [...options].sort((a, b) => {
+    const rarityDiff = EQUIPMENT_RARITY_ORDER.indexOf(b.rarity) - EQUIPMENT_RARITY_ORDER.indexOf(a.rarity);
+    if (rarityDiff) return rarityDiff;
+    const av = equipmentPrimaryStat(a)?.value ?? -Infinity;
+    const bv = equipmentPrimaryStat(b)?.value ?? -Infinity;
+    if (av !== bv) return bv - av;
+    return a.name.localeCompare(b.name);
+  });
+}
+
+// Per-ship, per-slot picks. In-memory only (not persisted) - same lifetime as the level
+// control's currentLevel, reset on page reload, kept across modal open/close so browsing
+// back to a ship doesn't lose what was picked.
+const equippedGear = {};
+function getEquippedGear(ship, slotKey) {
+  return (equippedGear[ship.id] || {})[slotKey] || null;
+}
+function setEquippedGear(ship, slotKey, item) {
+  if (!equippedGear[ship.id]) equippedGear[ship.id] = {};
+  if (item) equippedGear[ship.id][slotKey] = item;
+  else delete equippedGear[ship.id][slotKey];
+}
+
+// A card is one slot: a square tile showing the picked equipment's name (no gear icon
+// assets exist in this project, so it's text on a rarity-colored tile rather than an
+// image), its slot name underneath, then its numbers - laid out like a ship card in the
+// catalog grid, which this consciously echoes. `gearCtx` (ship/slotKey/slot/options) is
+// only passed for the 5 real gear slots - the Augment card has no picker, since there is
+// no augment catalog in this app, only the ship's own eligible-module list.
+function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
   const card = document.createElement("div");
   card.className = "equip-slot";
 
   const tile = document.createElement("div");
   tile.className = "equip-tile";
-  if (tooltip) tile.title = tooltip;
-  const mark = document.createElement("span");
-  mark.className = "equip-tile-empty";
-  mark.textContent = "+";
-  tile.appendChild(mark);
   card.appendChild(tile);
+
+  function paintTile() {
+    tile.innerHTML = "";
+    tile.classList.remove("equip-tile-filled");
+    tile.style.removeProperty("--equip-tile-color");
+    const equipped = gearCtx ? getEquippedGear(gearCtx.ship, gearCtx.slotKey) : null;
+    if (equipped) {
+      tile.classList.add("equip-tile-filled");
+      tile.style.setProperty("--equip-tile-color", equipmentRarityColor(equipped.rarity));
+      const itemName = document.createElement("span");
+      itemName.className = "equip-tile-name";
+      itemName.textContent = equipped.name;
+      tile.appendChild(itemName);
+      const stat = equipmentSummaryText(equipped);
+      tile.title = [equipped.name, equipped.rarity, stat].filter(Boolean).join(" — ");
+    } else {
+      const mark = document.createElement("span");
+      mark.className = "equip-tile-empty";
+      mark.textContent = "+";
+      tile.appendChild(mark);
+      tile.title = tooltip || "";
+    }
+  }
+  paintTile();
+
+  if (gearCtx && gearCtx.options.length) {
+    tile.classList.add("equip-tile-pickable");
+    tile.tabIndex = 0;
+    tile.addEventListener("click", () => toggleEquipmentPicker(card, gearCtx, paintTile));
+  }
 
   const label = document.createElement("span");
   label.className = "equip-slot-name";
@@ -1405,6 +1489,71 @@ function buildEquipmentSlot(name, tooltip, meta) {
   card.appendChild(foot);
   return card;
 }
+
+// Lazily built, cached on the card itself so re-opening the same tile within one modal
+// render doesn't rebuild its (possibly 165-item) options list every click.
+function toggleEquipmentPicker(card, gearCtx, onPick) {
+  let panel = card.querySelector(".equip-picker");
+  if (!panel) {
+    closeAllEquipmentPickers();
+    panel = document.createElement("div");
+    panel.className = "equip-picker";
+
+    if (getEquippedGear(gearCtx.ship, gearCtx.slotKey)) {
+      const clearRow = document.createElement("button");
+      clearRow.type = "button";
+      clearRow.className = "equip-picker-clear";
+      clearRow.textContent = "Unequip";
+      clearRow.addEventListener("click", () => {
+        setEquippedGear(gearCtx.ship, gearCtx.slotKey, null);
+        onPick();
+        panel.remove();
+      });
+      panel.appendChild(clearRow);
+    }
+
+    const list = document.createElement("div");
+    list.className = "equip-picker-list";
+    for (const item of sortEquipmentOptions(gearCtx.options)) {
+      const row = document.createElement("button");
+      row.type = "button";
+      row.className = "equip-picker-row";
+      row.style.setProperty("--equip-tile-color", equipmentRarityColor(item.rarity));
+
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "equip-picker-name";
+      nameSpan.textContent = item.name;
+      row.appendChild(nameSpan);
+
+      const stat = equipmentSummaryText(item);
+      if (stat) {
+        const statSpan = document.createElement("span");
+        statSpan.className = "equip-picker-stat";
+        statSpan.textContent = stat;
+        row.appendChild(statSpan);
+      }
+
+      row.addEventListener("click", () => {
+        setEquippedGear(gearCtx.ship, gearCtx.slotKey, item);
+        onPick();
+        panel.remove();
+      });
+      list.appendChild(row);
+    }
+    panel.appendChild(list);
+    card.appendChild(panel);
+    return;
+  }
+  panel.remove();
+}
+
+function closeAllEquipmentPickers() {
+  document.querySelectorAll(".equip-picker").forEach(p => p.remove());
+}
+
+document.addEventListener("click", event => {
+  if (!event.target.closest(".equip-slot")) closeAllEquipmentPickers();
+});
 
 // The five gear slots plus the Augment slot, in the game's own order. Nothing is
 // "equipped" here yet - there is no gear catalog in this app's data - so every tile is
@@ -1441,7 +1590,8 @@ function renderModalEquipment(ship) {
     const meta = [];
     if (slot.mount) meta.push({ text: "Mounts \u00d7" + slot.mount });
     if (slot.efficiency) meta.push({ text: "Efficiency " + Math.round(slot.efficiency * 100) + "%" });
-    modalEquipment.appendChild(buildEquipmentSlot(name, tooltip, meta));
+    const gearCtx = { ship, slotKey: key, slot, options: equipmentOptionsForSlot(slot) };
+    modalEquipment.appendChild(buildEquipmentSlot(name, tooltip, meta, gearCtx));
   }
 
   if (modules.length) {

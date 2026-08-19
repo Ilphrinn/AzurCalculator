@@ -1869,18 +1869,46 @@ after the final edit.
   gun as their surface deck gun" note already on `EQUIPMENT_SHORT_NAMES`). Full 888-ship
   open/close regression still 0 errors with `equipment.js` now loaded.
 
+  **Picker UI built (2026-08-20)**. Each of the 5 real gear tiles (not the Augment
+  socket — no augment catalog exists) is now clickable when its slot has at least one
+  catalog option. `buildEquipmentSlot()` takes an optional `gearCtx`
+  (`{ship, slotKey, slot, options}`); clicking the tile calls `toggleEquipmentPicker()`,
+  which lazily builds a `.equip-picker` dropdown anchored under that one card (same
+  "one popup per trigger, closed by a document-level outside-click listener" shape the
+  nation-chip subfaction dropdown already used — reused the pattern rather than adding a
+  second one) and caches it on the card so re-opening the same tile within one modal
+  view doesn't rebuild a possibly-165-row list twice. `sortEquipmentOptions()` orders
+  the list best-first: rarity descending, then `equipmentPrimaryStat()` (whichever
+  dps-shaped number that category actually has —`dps.raw`, `aaDps`, `aswDps`, or the
+  first flat `statBonus` entry for Auxiliary — falling back through in that order) also
+  descending — the same ordering the eventual Optimize button will just take the top of.
+  Picking an item calls `setEquippedGear(ship, slotKey, item)` (a plain
+  `{ship.id: {slotKey: item}}` in-memory map, `equippedGear` — not persisted, same
+  lifetime as `currentLevel`) and repaints only that one tile (`paintTile()`), not a
+  full section rebuild, so other slots' open pickers or picks survive. A tile with a
+  pick shows the item's own name text in its rarity color (no gear icon assets exist in
+  this project, so it's text-on-a-tinted-tile, the same "no image, use color+text"
+  fallback already used throughout — nation logos aside, this app has never had gear
+  art) via `equipmentRarityColor()`, which resolves through the SAME `RARITY_CLASS` /
+  `--rarity-*` custom properties a ship's own rarity tag already uses (`"Common"` reuses
+  `"Normal"`'s slot — equipment has no separate palette). Verified: full 888-ship
+  open/close regression with the picker actually exercised on every ship's first gear
+  slot (open → pick top row → confirm equipped → still 0 errors); targeted New Jersey
+  check confirms 51 sorted BB Gun options, picking updates the tile and
+  `getEquippedGear`, the Unequip row clears it back to the empty "+" tile, and an
+  outside click closes an open picker without picking anything.
+
   **Still open, in order**:
-  1. Build the picker UI in the Equipment section (currently empty dashed placeholder
-     tiles, see feature 9) to select/display a real item per slot, using
-     `equipmentOptionsForSlot()`.
-  2. Wire selected gear into `computeEffectiveStats` (flat stat bonuses) and implement
+  1. Wire selected gear into `computeEffectiveStats` (flat stat bonuses) and implement
      the Damage Calculations page's own DPS formula (`WeaponStatMultiplier`,
      `ReloadTime = WeaponReloadTime × 200/(CurrentReload+100) + VolleyTime +
      AbsoluteCooldown`) using the ship's LIVE Firepower/Reload rather than the wiki's
      baseline-100-reload reference numbers stored in `dps`/`aaDps`/`aswDps`.
-  3. The rarity-capped selector + Optimize button, now that `rarity` exists on every
-     catalog record to filter against.
-  4. HP potential panel — revisit once real equipped-gear stats (Evasion/HP/Luck
+  2. The rarity-capped selector + Optimize button — `equippedGear`/`getEquippedGear`/
+     `setEquippedGear` and `sortEquipmentOptions()`'s best-first ordering already exist
+     to build on; Optimize is just "for each slot, `setEquippedGear` the first entry of
+     `sortEquipmentOptions(options.filter(rarity <= cap))`".
+  3. HP potential panel — revisit once real equipped-gear stats (Evasion/HP/Luck
      auxiliary bonuses) are available; the "combine HP/Evasion/Luck/Armor, assume a
      level 100 enemy" approach the user asked for still needs a source for baseline
      enemy Accuracy/Luck at level 100, which hasn't been found yet either.
