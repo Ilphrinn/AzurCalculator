@@ -1898,12 +1898,50 @@ after the final edit.
   `getEquippedGear`, the Unequip row clears it back to the empty "+" tile, and an
   outside click closes an open picker without picking anything.
 
+  **DPS formula re-read closely (2026-08-20) — CLAUDE.md's own earlier summary of it was
+  wrong, caught before writing any code.** The `ReloadTime` line quoted just above this
+  paragraph (still left as-is, to show exactly what was wrong) drops a **square root**
+  that's actually in the wiki's MathML:
+  `ReloadTime = WeaponReloadTime × √(200/(CurrentReload+100)) + VolleyTime +
+  AbsoluteCooldown` — a flat, non-square-rooted `200/(CurrentReload+100)` (as the earlier
+  note had it) would under-reload every ship at any Reload stat above the 100 baseline,
+  silently inflating every DPS number. Re-derived straight from the page's raw `<math>`
+  source rather than trusting the earlier prose summary, same "don't eyeball a formula,
+  check the markup" instinct as the Cost formula bug earlier this file.
+
+  Two things this needs that the wiki does NOT provide cleanly, found while reading the
+  page fully rather than stopping at the first formula that looked usable:
+  - **`AbsoluteCooldown`** (added on top of the reload time above) is, in the wiki's own
+    words, "theorized to be based on the gun type, and not the gun itself" — no table of
+    per-type values exists anywhere on this page for Guns/Torpedoes (only AA Guns get a
+    stated value, 0.8667s — see the Anti-Air Guns section). Treating it as 0 for
+    Guns/Torpedoes is an approximation this app would be silently making, not a verified
+    number — needs to be disclosed as such if/when this ships, not presented as exact.
+  - **Airstrike reload** (Fighters/Seaplanes/Torpedo Bombers/Dive Bombers) is a DIFFERENT
+    formula entirely (`LaunchCooldown`, a count-weighted average across every plane
+    equipped in the slot, `× 2.2 × √(200/(CurrentReload+100)) + 0.033`) — the
+    Guns/Torpedoes `ReloadTime` formula above does not apply to aircraft at all, so a
+    generic "one reload formula for every category" implementation would be wrong for
+    3 of the 5 gear slots (Fighter/Seaplane share slots; Torpedo Bomber/Dive Bomber
+    share the other). AA Guns and ASW each have their own sections too (Anti-Air Guns,
+    Anti-Submarine Warfare — the latter points at the dedicated
+    `Anti-Submarine Warfare - Azur Lane Wiki.htm` page already used elsewhere in this
+    app) — genuinely 4-5 distinct reload/DPS formula shapes, not one formula with
+    per-category constants.
+
+  Given this — and that the app has no worked example to check a Guns/Torpedoes DPS
+  number against beyond the one solo example already quoted above (which includes enemy-
+  side/combat modifiers this app deliberately never models, per Effective Stats' existing
+  "conditions assumed met, no target" convention) — this was intentionally NOT
+  implemented yet rather than shipping a guessed `AbsoluteCooldown=0` as if it were exact.
   **Still open, in order**:
-  1. Wire selected gear into `computeEffectiveStats` (flat stat bonuses) and implement
-     the Damage Calculations page's own DPS formula (`WeaponStatMultiplier`,
-     `ReloadTime = WeaponReloadTime × 200/(CurrentReload+100) + VolleyTime +
-     AbsoluteCooldown`) using the ship's LIVE Firepower/Reload rather than the wiki's
-     baseline-100-reload reference numbers stored in `dps`/`aaDps`/`aswDps`.
+  1. Wire selected gear's flat `statBonus` into `computeEffectiveStats`, then implement
+     each category's own DPS/reload formula separately (Guns/Torpedoes,
+     Airstrike/aircraft, AA Guns, ASW each need their own — see above) using the ship's
+     LIVE Firepower/Reload rather than the wiki's baseline-100-reload reference numbers
+     already stored in `dps`/`aaDps`/`aswDps`. Disclose the `AbsoluteCooldown=0`
+     approximation for Guns/Torpedoes wherever the resulting number is shown, since it
+     is not a verified constant.
   2. The rarity-capped selector + Optimize button — `equippedGear`/`getEquippedGear`/
      `setEquippedGear` and `sortEquipmentOptions()`'s best-first ordering already exist
      to build on; Optimize is just "for each slot, `setEquippedGear` the first entry of
