@@ -1348,6 +1348,75 @@ main {
   opacity: 0.85;
 }
 
+/* ---- Equipment ---- */
+
+/* One row of slot cards, mirroring the game's Gear panel. Wraps rather than scrolling,
+   since six cards do not fit a narrow modal side by side. */
+.modal-equipment {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.equip-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  width: 7rem;
+}
+
+/* The square that will hold the chosen equipment's image, sized and framed like a ship
+   card's thumbnail so the slot reads as the same kind of pickable tile. Dashed while
+   empty: it describes what the ship can take, not what she carries. */
+.equip-tile {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  overflow: hidden;
+}
+
+/* The augment is a separate round socket in the game, not a sixth gear box. */
+.equip-augment .equip-tile {
+  border-radius: 50%;
+  border-color: color-mix(in srgb, var(--gold) 45%, var(--border));
+}
+
+.equip-tile-empty {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--border);
+}
+
+.equip-slot-name {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+
+.equip-slot-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.equip-slot-meta span {
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text-muted);
+}
+
 /* ---- Interaction ---- */
 
 .modal-interaction-list {

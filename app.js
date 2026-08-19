@@ -810,6 +810,8 @@ const modalLevelSpinDown = document.getElementById("modal-level-spin-down");
 const modalStatsSection = document.getElementById("modal-stats-section");
 const modalStatsTable = document.getElementById("modal-stats-table");
 const modalCombatModifiers = document.getElementById("modal-combat-modifiers");
+const modalEquipmentSection = document.getElementById("modal-equipment-section");
+const modalEquipment = document.getElementById("modal-equipment");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
 const modalSkillsList = document.getElementById("modal-skills");
@@ -1224,6 +1226,160 @@ function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
     cell.appendChild(value);
 
     container.appendChild(cell);
+  }
+}
+
+
+// Equipment slot type codes, as they appear in ship.equipment[slot].type. Read off the
+// saved wiki ship pages rather than guessed: each page's Gear table names what its slots
+// 1-3 accept, so cross-referencing 837 of those tables against the numeric codes in
+// ships.json pins down every code that reaches a listed slot.
+//
+// The auxiliary slots (4 and 5) are the gap - the wiki's table never lists them. 15 and
+// 18 are still named, by the handful of ships that also carry them in a listed slot
+// ("Anti-Air Guns / ASW Bombers", "Auxiliaries / Cargo"); 14 is the DD/CL/CA-only code
+// the ASW page describes as anti-submarine equipment (sonar, depth charges). 17 appears
+// on two ships (Köln, Köln META) with no source anywhere to name it, so it is left out
+// and simply doesn't render - same graceful-degradation as a missing faction logo.
+//
+// 21 never appears alone, only ever glued to 6, and the wiki labels every slot carrying
+// the pair plainly "Anti-Air Guns" - so it maps to the same name and the duplicate is
+// deduped away, which reproduces the wiki exactly without inventing a name for it.
+const EQUIPMENT_TYPE_NAMES = {
+  1: "DD Main Guns",
+  2: "CL Main Guns",
+  3: "CA Main Guns",
+  4: "BB Main Guns",
+  5: "Torpedoes",
+  6: "Anti-Air Guns",
+  7: "Fighters",
+  8: "Torpedo Bombers",
+  9: "Dive Bombers",
+  10: "Auxiliaries",
+  11: "CB Main Guns",
+  12: "Seaplanes",
+  13: "Submarine Torpedoes",
+  14: "Anti-Sub Equipment",
+  15: "ASW Bombers",
+  18: "Cargo",
+  20: "Missiles",
+  21: "Anti-Air Guns"
+};
+
+// The Augmentation page's "Universal Modules" table: two modules per hull class, shared
+// by every ship of that class. Anything else in a ship's augment list is her own unique
+// module, which is the part worth pointing at.
+const UNIVERSAL_AUGMENT_MODULES = new Set([
+  "Hammer", "Dual Swords", "Crossbow", "Sword", "Lance", "Greatsword",
+  "Bowgun", "Officer's Sword", "Scepter", "Hunting Bow", "Kunai", "Dagger"
+]);
+
+// The short name a slot goes by in game terms - what the slot is for, rather than the
+// full list of equipment categories it accepts (which stays in the tile's tooltip).
+// Guns are the one code group that cannot be named from the code alone: a BB's slot 2
+// takes DD guns as her *secondary* battery, while a DD's slot 1 takes the same DD guns
+// as her *main* one. So the first gun-taking slot on a ship is her Main Gun and any
+// later one is a Secondary - which also lands right for submarines, whose deck gun sits
+// in slot 3 behind two torpedo slots.
+const EQUIPMENT_SHORT_NAMES = {
+  5: "Torpedo",
+  6: "AA Gun",
+  7: "Fighter",
+  8: "Torpedo Bomber",
+  9: "Dive Bomber",
+  10: "Auxiliary",
+  12: "Seaplane",
+  13: "Torpedo",
+  14: "Anti-Sub",
+  15: "ASW Plane",
+  18: "Cargo",
+  20: "Missile",
+  21: "AA Gun"
+};
+const GUN_TYPE_CODES = new Set([1, 2, 3, 4, 11]);
+
+function equipmentSlotTypes(slot) {
+  return [...new Set((slot.type || []).map(code => EQUIPMENT_TYPE_NAMES[code]).filter(Boolean))];
+}
+
+// A card is one slot: a square tile where the chosen equipment's image will go once gear
+// selection exists, its name underneath, then its numbers - laid out like a ship card in
+// the catalog grid, which is the picker this will eventually open.
+function buildEquipmentSlot(name, tooltip, meta) {
+  const card = document.createElement("div");
+  card.className = "equip-slot";
+
+  const tile = document.createElement("div");
+  tile.className = "equip-tile";
+  if (tooltip) tile.title = tooltip;
+  const mark = document.createElement("span");
+  mark.className = "equip-tile-empty";
+  mark.textContent = "+";
+  tile.appendChild(mark);
+  card.appendChild(tile);
+
+  const label = document.createElement("span");
+  label.className = "equip-slot-name";
+  label.textContent = name;
+  card.appendChild(label);
+
+  const foot = document.createElement("div");
+  foot.className = "equip-slot-meta";
+  for (const entry of meta) {
+    const chip = document.createElement("span");
+    chip.textContent = entry.text;
+    if (entry.title) chip.title = entry.title;
+    foot.appendChild(chip);
+  }
+  card.appendChild(foot);
+  return card;
+}
+
+// The five gear slots plus the Augment slot, in the game's own order. Nothing is
+// "equipped" here yet - there is no gear catalog in this app's data - so every tile is
+// an empty square and the card carries what ship.equipment actually knows: the slot's
+// name, its mount count and its efficiency. Efficiency is the fully-limit-broken figure
+// (the wiki writes it as a progression, "120% -> 150%"; the datamine keeps only the end
+// value), the same max-investment assumption the stats grid already makes.
+function renderModalEquipment(ship) {
+  const slots = ship.equipment;
+  const modules = ship.augmentModules || [];
+  if (!slots && !modules.length) {
+    modalEquipmentSection.hidden = true;
+    return;
+  }
+  modalEquipmentSection.hidden = false;
+  modalEquipment.innerHTML = "";
+
+  let gunSlotSeen = false;
+  for (const key of Object.keys(slots || {}).sort((a, b) => a - b)) {
+    const slot = slots[key];
+    const primary = (slot.type || [])[0];
+    let name = EQUIPMENT_SHORT_NAMES[primary] || "Slot " + key;
+    if (GUN_TYPE_CODES.has(primary)) {
+      name = gunSlotSeen ? "Secondary" : "Main Gun";
+      gunSlotSeen = true;
+    }
+
+    const types = equipmentSlotTypes(slot);
+    const tooltip = [
+      types.length ? "Accepts: " + types.join(", ") : "",
+      slot.preload ? "Preload " + slot.preload : ""
+    ].filter(Boolean).join(" \u2014 ");
+
+    const meta = [];
+    if (slot.mount) meta.push({ text: "Mounts \u00d7" + slot.mount });
+    if (slot.efficiency) meta.push({ text: "Efficiency " + Math.round(slot.efficiency * 100) + "%" });
+    modalEquipment.appendChild(buildEquipmentSlot(name, tooltip, meta));
+  }
+
+  if (modules.length) {
+    const fits = modules
+      .map(module => UNIVERSAL_AUGMENT_MODULES.has(module) ? module : module + " (unique)")
+      .join(", ");
+    const augment = buildEquipmentSlot("Augment", "Fits: " + fits + " \u2014 requires max Limit Break", []);
+    augment.classList.add("equip-augment");
+    modalEquipment.appendChild(augment);
   }
 }
 
@@ -2884,6 +3040,7 @@ function openModal(ship) {
   renderSkinStrip(ship);
   updateModalImage();
   applyRetrofitState();
+  renderModalEquipment(ship);
   renderModalInteraction(ship);
 
   modalOverlay.hidden = false;
