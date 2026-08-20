@@ -2171,10 +2171,29 @@ after the final edit.
   Verified by geometry rather than by eye: two rows reading `DPS | 33 | DPS ASW | -` and
   `eHP | 1,761 | DPS AA | 48`, four distinct column lefts, 861 x 8 cells.
 
-  At 235x53 the table is barely wider than the 1x4 version it replaced (148px), so the slot
-  row and the table stay side by side from roughly 1870px of window upward. Below that the
-  slot row wraps and the table drops beneath it, which at two rows tall is a cheap
-  fallback.
+  **Sizing, and `align-self: center`** (next message: "un peu plus grand et plus centre par
+  rapport aux equipements"). Fonts went 0.62/0.8rem -> 0.72/0.98rem and padding 0.35/0.55rem
+  -> 0.5/0.7rem; the table is 284x70. It also stopped hugging the top of the row -
+  `align-self: center` on `.combat-metrics` centres it against the slot block while the
+  slots themselves stay at `flex-start`.
+
+  **The two fixed widths were measured, not estimated** - and the measurement that matters
+  is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the
+  widest value at 3.81rem ("2,086"), which would have clipped the moment anything was
+  equipped. Re-run with **Optimize applied at level 125 on every ship**, the real worst case
+  is **4.30rem, "10,669"** (Fubuki (Senran Kagura), eHP) - so the value column is 4.4rem and
+  the name column 4.7rem (widest label cell 4.58rem, "DPS ASW"), both with `document.fonts.
+  ready` awaited first, the same convention as the stats grid's own widths. Checked
+  dataset-wide afterwards: **0 cells clip** (`scrollWidth > clientWidth`) across all 888.
+  **When sizing a column against "the widest value the data produces", produce the data the
+  way the user will - here that means optimised and levelled, not freshly opened.**
+
+  The slot row and the table stay side by side while the row is at least ~1027px, which at
+  this modal's proportions means a window of about 1920px and up. Below that the slot row
+  wraps and the table drops beneath it, which at two rows tall is a cheap fallback.
+  (A probe that tests wrapping as `metrics.top > slots.top` is WRONG now that the table is
+  vertically centred - it is offset downward by half the height difference while still on
+  the same line. Compare the two centres instead.)
 
   **`.equip-slot` stays at 7rem.** The first pass trimmed it to 5.8rem after measuring
   that six slots pushed the table underneath - but that measurement was taken in a 1250px
