@@ -2187,16 +2187,40 @@ after the final edit.
   Verified by measurement: first tile, Augment circle and table all centre on 454.2px,
   where the whole equipment block centres on 482.4px.
 
-  **"Il manque une stat pour l'ASW sans equipement" - checked, and it is missing data, not
-  a missing computation.** Of the 810 anti-submarine slots in the dataset (405 ships), **not
-  one declares a built-in weapon**, and the four depth charges the built-ins page does
-  document (`DC #141`, `DC #147`, `Aux #468`, `DC #470`) are referenced by **no slot at
-  all** - confirmed by grepping `ships.json` for each id. So DPS ASW is legitimately 0 for
-  every unequipped ship: an empty ASW slot really does nothing until depth charges go in it.
-  Rather than invent a default, the `-` now explains itself - `hasAswSlot(ship)` adds a
-  tooltip line on exactly the 405 ships that carry the slot. Verified: 0 of 861 ships show
-  an ASW figure unequipped, 405 carry the note, and equipping (or optimising for Anti-Sub)
-  still produces one.
+  **"Il manque une stat pour l'ASW sans equipement" - the user was right, and I stopped
+  looking one step too early.** The first answer was that DPS ASW is legitimately 0 because
+  none of the 810 anti-submarine slots (405 ships) declares a built-in weapon, and the four
+  depth charges the built-ins page documents (`DC #141`, `DC #147`, `Aux #468`, `DC #470`)
+  are referenced by no slot at all - both facts true, and both checked. What I did not do
+  was ask **why those four orphans exist**. The user pointed at the bottom of
+  `Site web/Anti-Submarine Warfare - Azur Lane Wiki.htm`, which answers it outright:
+
+  > DDs and CLs are equipped with a **default depth charge launcher**.
+  > Destroyers: 15 range, 60 x 2 damage, base cooldown **6.32** seconds
+  > Light cruisers: 15 range, 60 x 2 damage, base cooldown **6.99** seconds
+
+  Those cooldowns identify two of the orphans exactly - `DC #141` is 6.32s and `DC #147` is
+  6.98s, both at 60 damage - and their published DPS confirms the "x 2": 2 x 60 / 6.32 =
+  18.99, which is the figure the table carries. **The launcher is intrinsic to the hull, not
+  a slot**, which is precisely why no slot points at it and why looking only at
+  `ship.equipment` could never find it. `INNATE_DEPTH_CHARGE_BY_HULL` keys it by
+  `hullShort` (DD/CL), and `computeCombatMetrics` adds it **on top of** whatever is equipped,
+  per the same page ("equipping depth charge auxiliary equipment ... will increase ASW damage
+  output considerably").
+
+  Result: **404 of 861 ships now report an ASW figure unequipped - every DD (241/241) and
+  every CL (163/163)**, and no other hull, which is exactly what the page describes.
+  Cross-checked by hand on Ayanami at 125 (ASW 120): 18.99 x 2.2 = **41.778**, matching the
+  app to the digit - and the small gap against a from-scratch 2 x 60 / 6.32 x 2.2 = 41.772
+  is the wiki's own rounding of its DPS column, not an error. Anti-Sub optimisation still
+  stacks on top (41.8 -> 671.8). The two remaining orphans, `Aux #468` (US) and `DC #470`,
+  still have no documented owner and are left alone.
+  `hasAswSlot(ship)` now only explains the genuinely empty case: **Kursk and Tallinn**, the
+  two CAs that carry an ASW slot but no innate launcher.
+
+  **The lesson, since it has now bitten twice in this file:** an orphan record in a
+  reference table is a question, not noise. Both times the data was already there and the
+  mapping was written down somewhere I had not read to the end.
 
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the

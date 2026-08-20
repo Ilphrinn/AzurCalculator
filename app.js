@@ -1459,6 +1459,20 @@ function slotDamage(slot, item, effective) {
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100), unknown: false };
 }
 
+// "DDs and CLs are equipped with a default depth charge launcher" (Anti-Submarine Warfare
+// page): 15 range, 60 x 2 damage, cooldown 6.32s for destroyers and 6.99s for light
+// cruisers. That is not a slot - no anti-submarine slot in the dataset declares a built-in
+// weapon - it is intrinsic to the hull, which is why it is keyed by hull rather than read
+// off ship.equipment. The two ids are the built-in table's own DC rows, matched by those
+// exact figures (#141 at 6.32s, #147 at 6.98s), and their dps already counts both charges.
+// Equipped depth charges add to this launcher rather than replacing it, per the same page.
+const INNATE_DEPTH_CHARGE_BY_HULL = { DD: 141, CL: 147 };
+
+function innateDepthCharge(ship) {
+  const id = INNATE_DEPTH_CHARGE_BY_HULL[ship.hullShort];
+  return id ? DEFAULT_EQUIPMENT_BY_ID.get(id) || null : null;
+}
+
 // The four headline figures. Every slot contributes through whatever it actually fights
 // with - the equipped item if there is one, otherwise the ship's built-in weapon - so a
 // ship with an empty loadout still reports the damage she really does.
@@ -1474,6 +1488,12 @@ function computeCombatMetrics(ship, level, effective) {
     totals[contribution.metric] += contribution.value;
   }
 
+  const launcher = innateDepthCharge(ship);
+  if (launcher) {
+    const contribution = slotDamage({ mount: 1, efficiency: 1 }, launcher, effective);
+    if (contribution && !contribution.unknown) totals[contribution.metric] += contribution.value;
+  }
+
   const hp = effective.stats.health ? effective.stats.health.value : 0;
   const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
   const luck = effective.stats.luck ? effective.stats.luck.value : 0;
@@ -1486,6 +1506,7 @@ function computeCombatMetrics(ship, level, effective) {
     ehp: hp / hitRate,
     hitRate,
     unknownSlots,
+    innateDepthCharge: Boolean(launcher),
   };
 }
 
@@ -1957,10 +1978,9 @@ const COMBAT_METRIC_FIELDS = [
   { key: "dpsAA", label: "DPS AA", hint: "Anti-air damage per second." },
 ];
 
-// An empty anti-submarine slot really does nothing: of the 810 such slots in the dataset,
-// not one declares a built-in weapon, and the four depth charges the built-ins page does
-// document are referenced by no slot at all. So a ship can carry the slot and still report
-// no ASW damage, which reads as a missing figure unless the tooltip says why.
+// A hull with no innate launcher (every CA carrying an ASW slot) really does no anti-
+// submarine damage until depth charges go in the slot, which reads as a missing figure
+// unless the tooltip says why.
 function hasAswSlot(ship) {
   return Object.values(ship.equipment || {}).some(slot => (slot.type || []).includes(14));
 }
@@ -2002,8 +2022,12 @@ function renderCombatMetrics(ship, effective) {
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
         }
-        if (field.key === "dpsASW" && !value && hasAswSlot(ship)) {
-          notes.push("This ship has an anti-submarine slot, but no ship in the data has a built-in weapon in one: equip depth charges, or optimise for Anti-Sub.");
+        if (field.key === "dpsASW") {
+          if (metrics.innateDepthCharge) {
+            notes.push("Includes the default depth charge launcher every DD and CL carries; equipped depth charges add to it.");
+          } else if (!value && hasAswSlot(ship)) {
+            notes.push("Her anti-submarine slot is empty and her hull carries no default launcher: equip depth charges, or optimise for Anti-Sub.");
+          }
         }
       }
       label.title = number.title = notes.join("\n");
