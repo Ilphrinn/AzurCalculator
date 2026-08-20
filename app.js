@@ -773,6 +773,8 @@ const modalEquipmentSection = document.getElementById("modal-equipment-section")
 const modalEquipment = document.getElementById("modal-equipment");
 const modalEquipmentCap = document.getElementById("modal-equipment-cap");
 const modalEquipmentOptimize = document.getElementById("modal-equipment-optimize");
+const modalEquipmentTarget = document.getElementById("modal-equipment-target");
+const modalCombatMetrics = document.getElementById("modal-combat-metrics");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
 const modalSkillsList = document.getElementById("modal-skills");
@@ -1369,6 +1371,232 @@ function equipmentTooltip(item) {
   return [item.name, item.rarity, equipmentSummaryText(item)].filter(Boolean).join(" — ");
 }
 
+// ---------------------------------------------------------------------------
+// Combat metrics: DPS, AA DPS, ASW DPS, eHP
+// ---------------------------------------------------------------------------
+
+// Which stat a weapon scales off, and which of the four figures it feeds. Keyed by both
+// the catalog's `category` and the built-in items' `kind`, since a slot can hold either.
+const WEAPON_ROLES = {
+  "DD Gun": { metric: "dps", stat: "firepower" },
+  "CL Gun": { metric: "dps", stat: "firepower" },
+  "CA Gun": { metric: "dps", stat: "firepower" },
+  "CB Gun": { metric: "dps", stat: "firepower" },
+  "BB Gun": { metric: "dps", stat: "firepower" },
+  "Torpedo": { metric: "dps", stat: "torpedo" },
+  "Submarine Torpedo": { metric: "dps", stat: "torpedo" },
+  "Fighter": { metric: "dps", stat: "aviation" },
+  "Seaplane": { metric: "dps", stat: "aviation" },
+  "Dive Bomber": { metric: "dps", stat: "aviation" },
+  "Torpedo Bomber": { metric: "dps", stat: "aviation" },
+  "AA Gun": { metric: "dpsAA", stat: "antiair" },
+  "AA Time Fuze Gun": { metric: "dpsAA", stat: "antiair" },
+  "ASW": { metric: "dpsASW", stat: "asw" },
+  gun: { metric: "dps", stat: "firepower" },
+  torpedo: { metric: "dps", stat: "torpedo" },
+  aircraft: { metric: "dps", stat: "aviation" },
+  aa: { metric: "dpsAA", stat: "antiair" },
+  asw: { metric: "dpsASW", stat: "asw" },
+};
+
+function weaponRole(item) {
+  return WEAPON_ROLES[item.category] || WEAPON_ROLES[item.kind] || null;
+}
+
+// The item's damage per second BEFORE any ship stat is applied. Verified against the
+// catalog: a gun's dps.raw is exactly dmg x coef x roundsPerSec, with no stat term, so
+// these figures are a stat-0 baseline and the stat multiplier below is not double
+// counting. Where no raw figure exists the mean of the light/medium/heavy columns stands
+// in, so no target armour type is silently assumed.
+function equipmentBaseDps(item) {
+  if (typeof item.aaDps === "number") return item.aaDps;
+  if (typeof item.aswDps === "number") return item.aswDps;
+  if (typeof item.dps === "number") return item.dps;
+  const dps = item.dps;
+  if (dps && typeof dps === "object") {
+    if (typeof dps.raw === "number") return dps.raw;
+    const values = [dps.light, dps.medium, dps.heavy].filter(v => typeof v === "number");
+    if (values.length) return values.reduce((a, b) => a + b, 0) / values.length;
+  }
+  const builtIn = [item.dpsLight, item.dpsMedium, item.dpsHeavy].filter(v => typeof v === "number");
+  if (builtIn.length) return builtIn.reduce((a, b) => a + b, 0) / builtIn.length;
+  return null;
+}
+
+// The reference attacker eHP is measured against. The wiki's HitRate needs the SHOOTER's
+// Accuracy and Luck, which this app has no source for, so a fixed reference stands in and
+// is named in the UI rather than hidden. Its exact value barely affects which ship is
+// tankier than which - it shifts every eHP by roughly the same factor - but it does mean
+// the number is comparative, not an absolute the game would show.
+const EHP_REFERENCE_ACCURACY = 100;
+const EHP_REFERENCE_LUCK = 0;
+
+// HitRate = 0.1 + Hit/(Hit + Eva + 2) + (AttackerLuck - TargetLuck + LevelDiff)/1000,
+// clamped to [0.1, 1]. Level difference is 0: the reference attacker is assumed to be the
+// same level as the ship being looked at.
+function referenceHitRate(evasion, luck) {
+  const raw =
+    0.1 +
+    EHP_REFERENCE_ACCURACY / (EHP_REFERENCE_ACCURACY + evasion + 2) +
+    (EHP_REFERENCE_LUCK - luck) / 1000;
+  return Math.min(1, Math.max(0.1, raw));
+}
+
+// Damage a slot contributes per second: the item's own figure, times how many copies fire
+// (mounts), times the slot's efficiency, times the wiki's WeaponStatMultiplier
+// (1 + ScalingStat/100). WeaponScalingCoefficient is left at its default of 1; the
+// Damage Calculations page gives 0.8 for some bombs and rockets, which the catalog does
+// not distinguish, so aircraft numbers are slightly optimistic.
+function slotDamage(slot, item, effective) {
+  const role = weaponRole(item);
+  if (!role) return null;
+  const base = equipmentBaseDps(item);
+  if (base === null) return { metric: role.metric, value: 0, unknown: true };
+  const statEntry = effective.stats[role.stat];
+  const stat = statEntry ? statEntry.value : 0;
+  const mounts = slot.mount || 1;
+  const efficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
+  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100), unknown: false };
+}
+
+// The four headline figures. Every slot contributes through whatever it actually fights
+// with - the equipped item if there is one, otherwise the ship's built-in weapon - so a
+// ship with an empty loadout still reports the damage she really does.
+function computeCombatMetrics(ship, level, effective) {
+  const totals = { dps: 0, dpsAA: 0, dpsASW: 0 };
+  let unknownSlots = 0;
+  for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    const item = activeEquipmentForSlot(ship, slotKey, slot);
+    if (!item) continue;
+    const contribution = slotDamage(slot, item, effective);
+    if (!contribution) continue;
+    if (contribution.unknown) { unknownSlots++; continue; }
+    totals[contribution.metric] += contribution.value;
+  }
+
+  const hp = effective.stats.health ? effective.stats.health.value : 0;
+  const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
+  const luck = effective.stats.luck ? effective.stats.luck.value : 0;
+  const hitRate = referenceHitRate(evasion, luck);
+
+  return {
+    dps: totals.dps,
+    dpsAA: totals.dpsAA,
+    dpsASW: totals.dpsASW,
+    ehp: hp / hitRate,
+    hitRate,
+    unknownSlots,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Optimisation targets
+// ---------------------------------------------------------------------------
+
+// Two rules from the user drive every weight below.
+// 1. Survivability comes first, then AA - so every target keeps a real weight on
+//    health/evasion and a smaller one on anti-air, even a purely offensive one.
+// 2. Optimising means amplifying what a ship already does well, NOT patching what she is
+//    bad at - the one exception being survivability, which everyone wants. That is why
+//    the offensive weight in "recommended" is chosen from the ship's own strongest
+//    scaling stat rather than her weakest.
+const SURVIVAL_BASE = { health: 0.5, evasion: 0.4 };
+const OPTIMIZE_TARGETS = {
+  auto: { label: "Recommended", weights: null },
+  survival: { label: "Survivability", weights: { health: 1, evasion: 1, antiair: 0.3 } },
+  firepower: { label: "Firepower", weights: { firepower: 1, accuracy: 0.7, antiair: 0.3, ...SURVIVAL_BASE } },
+  torpedo: { label: "Torpedo", weights: { torpedo: 1, antiair: 0.3, ...SURVIVAL_BASE } },
+  aviation: { label: "Aviation", weights: { aviation: 1, accuracy: 0.4, antiair: 0.3, ...SURVIVAL_BASE } },
+  antiair: { label: "Anti-Air", weights: { antiair: 1, ...SURVIVAL_BASE } },
+  asw: { label: "Anti-Sub", weights: { asw: 1, health: 0.4, evasion: 0.3 } },
+};
+
+// Only the Anti-Sub target may pull in anything that boosts ASW, per the user's rule.
+// This covers both halves: ASW equipment proper, and an auxiliary whose bonus is ASW.
+function targetAllowsAsw(targetId) {
+  return targetId === "asw";
+}
+
+function itemBoostsAsw(item) {
+  if (item.category === "ASW") return true;
+  const bonus = item.statBonus || {};
+  return typeof bonus.asw === "number" && bonus.asw > 0;
+}
+
+// The offensive stats a ship can actually scale, read off her real slots rather than a
+// hardcoded hull list - so each hull naturally gets its own set of orientations, and a
+// ship with an unusual loadout is not forced into the wrong one.
+function availableOptimizeTargets(ship) {
+  const ids = new Set(["auto", "survival"]);
+  for (const slot of Object.values(ship.equipment || {})) {
+    for (const item of equipmentOptionsForSlot(slot)) {
+      const role = weaponRole(item);
+      if (!role) continue;
+      if (role.metric === "dpsAA") ids.add("antiair");
+      else if (role.metric === "dpsASW") ids.add("asw");
+      else if (role.stat === "firepower") ids.add("firepower");
+      else if (role.stat === "torpedo") ids.add("torpedo");
+      else if (role.stat === "aviation") ids.add("aviation");
+    }
+  }
+  return Object.keys(OPTIMIZE_TARGETS).filter(id => ids.has(id));
+}
+
+// "Recommended": survivability and AA as a floor, plus whichever scaling stat this ship
+// is already best at. Compared as a share of the ship's own total so the three are
+// measured on the same scale rather than by raw magnitude.
+function recommendedWeights(ship, effective) {
+  const candidates = ["firepower", "torpedo", "aviation"];
+  let best = null, bestValue = 0;
+  for (const key of candidates) {
+    const entry = effective.stats[key];
+    const value = entry ? entry.value : 0;
+    if (value > bestValue) { best = key; bestValue = value; }
+  }
+  const weights = { health: 1, evasion: 0.8, antiair: 0.6 };
+  if (best) {
+    weights[best] = 0.9;
+    if (best === "firepower") weights.accuracy = 0.6;
+  }
+  return weights;
+}
+
+function optimizeWeights(ship, targetId, effective) {
+  if (targetId === "auto") return recommendedWeights(ship, effective);
+  return (OPTIMIZE_TARGETS[targetId] || OPTIMIZE_TARGETS.auto).weights || recommendedWeights(ship, effective);
+}
+
+// Auxiliary bonuses are on wildly different scales - a few hundred HP against a dozen
+// Evasion - so each is expressed as a share of the largest bonus available for that stat.
+// Without that, a weight of 1 on Evasion could never outrank a weight of 0.1 on Health.
+// Computed on first use, not at load: EQUIPMENT_STAT_KEY_ALIASES is declared further down
+// the file, and reading it from a top-level IIFE up here throws on the temporal dead zone
+// - which aborts the whole script silently, leaving every later const uninitialised.
+let auxiliaryStatMax = null;
+function auxiliaryStatMaxima() {
+  if (auxiliaryStatMax) return auxiliaryStatMax;
+  auxiliaryStatMax = {};
+  for (const item of typeof EQUIPMENT_DATA === "undefined" ? [] : EQUIPMENT_DATA) {
+    for (const [rawKey, amount] of Object.entries(item.statBonus || {})) {
+      const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
+      if (typeof amount === "number" && amount > (auxiliaryStatMax[key] || 0)) auxiliaryStatMax[key] = amount;
+    }
+  }
+  return auxiliaryStatMax;
+}
+
+function statPreferenceScore(item, weights) {
+  const maxima = auxiliaryStatMaxima();
+  let score = 0;
+  for (const [rawKey, amount] of Object.entries(item.statBonus || {})) {
+    const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
+    const weight = weights[key];
+    if (!weight || typeof amount !== "number") continue;
+    score += weight * (amount / (maxima[key] || amount));
+  }
+  return score;
+}
+
 // What Optimize maximises: the slot's own damage figure, ignoring rarity entirely.
 // Rarity is NOT a proxy for power here - in 4 of 14 categories the highest-rarity item
 // is not the strongest (a Super Rare Twin 410mm out-damages every Ultra Rare BB gun),
@@ -1396,6 +1624,7 @@ function equipmentOptimizeScore(item) {
 // Global, like the Skills tab's Max Level state: it survives switching ships, because a
 // player comparing two ships means the same cap on both.
 let equipmentRarityCap = "Ultra Rare";
+let equipmentTarget = "auto";
 
 function equipmentWithinCap(item) {
   return EQUIPMENT_RARITY_ORDER.indexOf(item.rarity) <= EQUIPMENT_RARITY_ORDER.indexOf(equipmentRarityCap);
@@ -1404,16 +1633,33 @@ function equipmentWithinCap(item) {
 // Per slot, the highest-scoring option at or below the cap. Slots whose options have no
 // score at all (Auxiliary) are left untouched, and so is any slot with nothing under the
 // cap - clearing it instead would silently throw away a pick the user made by hand.
-function optimizeEquipment(ship) {
+// A weapon slot has one sensible answer - the biggest damage figure it can hold - so the
+// goal does not change it. What the goal decides is the auxiliary slots, which have no
+// damage figure and were previously left empty because "best" was undefined without
+// knowing what the player wants. It also decides whether ASW is on the table at all.
+function optimizeEquipment(ship, effective) {
+  const targetId = OPTIMIZE_TARGETS[equipmentTarget] ? equipmentTarget : "auto";
+  const weights = optimizeWeights(ship, targetId, effective);
+  const allowAsw = targetAllowsAsw(targetId);
   let changed = 0;
+
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
-    let best = null, bestScore = -Infinity;
+    let best = null, bestScore = -Infinity, bestIsWeapon = false;
     for (const item of equipmentOptionsForSlot(slot)) {
       if (!equipmentWithinCap(item)) continue;
-      const score = equipmentOptimizeScore(item);
-      if (score === null || score <= bestScore) continue;
+      if (!allowAsw && itemBoostsAsw(item)) continue;
+      const damage = equipmentOptimizeScore(item);
+      const isWeapon = damage !== null;
+      // A slot that can hold a weapon is always decided by damage; a stat-only item may
+      // only win a slot where nothing else shoots.
+      if (bestIsWeapon && !isWeapon) continue;
+      const score = isWeapon ? damage : statPreferenceScore(item, weights);
+      if (!isWeapon && score <= 0) continue;
+      if (isWeapon && !bestIsWeapon) { best = item; bestScore = score; bestIsWeapon = true; continue; }
+      if (score <= bestScore) continue;
       best = item;
       bestScore = score;
+      bestIsWeapon = isWeapon;
     }
     if (!best) continue;
     setEquippedGear(ship, slotKey, best);
@@ -1629,10 +1875,32 @@ modalEquipmentCap.addEventListener("change", () => {
   equipmentRarityCap = modalEquipmentCap.value;
 });
 
+modalEquipmentTarget.addEventListener("change", () => {
+  equipmentTarget = modalEquipmentTarget.value;
+});
+
+// Rebuilt per ship: the orientations offered depend on what her slots can actually hold.
+// A goal that no longer applies falls back to Recommended rather than silently persisting.
+function syncEquipmentTargetOptions(ship) {
+  const available = availableOptimizeTargets(ship);
+  modalEquipmentTarget.innerHTML = "";
+  for (const id of available) {
+    const option = document.createElement("option");
+    option.value = id;
+    option.textContent = OPTIMIZE_TARGETS[id].label;
+    modalEquipmentTarget.appendChild(option);
+  }
+  if (!available.includes(equipmentTarget)) equipmentTarget = "auto";
+  modalEquipmentTarget.value = equipmentTarget;
+}
+
 modalEquipmentOptimize.addEventListener("click", () => {
   if (!currentShip) return;
   closeAllEquipmentPickers();
-  optimizeEquipment(currentShip);
+  // Weighting reads the ship's CURRENT stats, so "amplify her strongest" reflects
+  // whatever is equipped and toggled right now, not her bare hull.
+  const effective = computeEffectiveStats(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  if (effective) optimizeEquipment(currentShip, effective);
   renderModalEquipment(currentShip);
   refreshStatsAfterGearChange();
 });
@@ -1646,6 +1914,7 @@ function renderModalEquipment(ship) {
   }
   modalEquipmentSection.hidden = false;
   syncEquipmentCapOptions();
+  syncEquipmentTargetOptions(ship);
   modalEquipment.innerHTML = "";
 
   let gunSlotSeen = false;
@@ -1681,6 +1950,50 @@ function renderModalEquipment(ship) {
   }
 }
 
+const COMBAT_METRIC_FIELDS = [
+  { key: "dps", label: "DPS", hint: "Surface damage per second from guns, torpedoes and aircraft." },
+  { key: "ehp", label: "eHP", hint: "Effective HP: how much damage she absorbs once evasion is accounted for." },
+  { key: "dpsASW", label: "DPS ASW", hint: "Anti-submarine damage per second." },
+  { key: "dpsAA", label: "DPS AA", hint: "Anti-air damage per second." },
+];
+
+function renderCombatMetrics(ship, effective) {
+  modalCombatMetrics.innerHTML = "";
+  if (!ship.equipment || !effective) return;
+  const metrics = computeCombatMetrics(ship, currentLevel, effective);
+  for (const field of COMBAT_METRIC_FIELDS) {
+    const value = metrics[field.key];
+    const card = document.createElement("div");
+    card.className = "combat-metric" + (value ? "" : " combat-metric-empty");
+
+    const label = document.createElement("span");
+    label.className = "combat-metric-label";
+    label.textContent = field.label;
+    card.appendChild(label);
+
+    const number = document.createElement("span");
+    number.className = "combat-metric-value";
+    number.textContent = value ? Math.round(value).toLocaleString("en-US") : "\u2014";
+    card.appendChild(number);
+
+    const notes = [field.hint];
+    if (field.key === "ehp") {
+      notes.push(
+        `Against a reference attacker: Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
+        `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
+        "Comparative, not a figure the game shows: the wiki's formula needs the shooter's stats, which this app has no source for."
+      );
+    } else {
+      notes.push("Empty slots count as the ship's built-in weapon.");
+      if (metrics.unknownSlots) {
+        notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
+      }
+    }
+    card.title = notes.join("\n");
+    modalCombatMetrics.appendChild(card);
+  }
+}
+
 function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) {
   const base = computeStats(ship, level, isRetrofit);
   if (!base) {
@@ -1696,6 +2009,7 @@ function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) 
   modalCombatModifiers.innerHTML = "";
 
   buildStatsGrid(modalStatsTable, STAT_GRID, ship, level, base, effective);
+  renderCombatMetrics(ship, effective);
 
   for (const modifier of effective.modifiers) {
     const pill = document.createElement("span");

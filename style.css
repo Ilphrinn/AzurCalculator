@@ -1373,6 +1373,46 @@ main {
   background: color-mix(in srgb, var(--accent) 32%, var(--bg));
 }
 
+/* The four headline figures, under the slots they are computed from. Fixed-width values
+   for the same reason the stats grid uses them: every ship's row must be the same size,
+   or switching ships makes the panel jump. */
+.combat-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.combat-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 7rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: help;
+}
+
+.combat-metric-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.combat-metric-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.combat-metric-empty .combat-metric-value {
+  color: var(--text-muted);
+}
+
 .modal-equipment {
   display: flex;
   flex-wrap: wrap;

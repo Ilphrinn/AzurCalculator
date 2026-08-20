@@ -2076,6 +2076,77 @@ after the final edit.
   Also supplied at the same time and **not yet used**: `Gear Lab`, `Equipment Drop Table`,
   `Research Academy` and `Shops` pages, presumably for where gear can be obtained.
 
+  **The four combat figures and goal-driven optimisation, 2026-08-20** — done.
+  `computeCombatMetrics` returns **DPS / eHP / DPS ASW / DPS AA`, rendered as four cards
+  under the gear slots (`renderCombatMetrics`).
+
+  **DPS.** Per slot: `baseDps x mounts x efficiency x (1 + ScalingStat/100)`, summed.
+  The multiplier is the wiki's `WeaponStatMultiplier`; the scaling stat is FP for guns,
+  TRP for torpedoes, AVI for aircraft, AA for AA guns, ASW for depth charges
+  (`WEAPON_ROLES`). **The catalog figures are a stat-0 baseline, verified rather than
+  assumed**: a gun's `dps.raw` reproduces exactly as `dmg x coef x roundsPerSec` with no
+  stat term, so multiplying by the stat is not double counting.
+  Empty slots contribute their **built-in weapon** via `activeEquipmentForSlot`, per the
+  user's instruction - a bare New Jersey still reads 49 DPS, not 0.
+  Where no `raw` exists the mean of light/medium/heavy stands in, so no target armour is
+  silently assumed. `WeaponScalingCoefficient` is left at 1; the page gives 0.8 for some
+  bombs and rockets, which the catalog does not distinguish, so aircraft run slightly
+  optimistic.
+
+  **eHP.** `HP / HitRate`, with the wiki's formula
+  `HitRate = 0.1 + Hit/(Hit + Eva + 2) + (AttackerLuck - TargetLuck + LevelDiff)/1000`
+  clamped to [0.1, 1]. **This is what used to be blocked**: the formula needs the
+  SHOOTER's Accuracy and Luck, which this app has no source for. Rather than stay
+  unimplemented it now uses a **named reference attacker** -
+  `EHP_REFERENCE_ACCURACY = 100`, `EHP_REFERENCE_LUCK = 0`, level difference 0 - stated in
+  the card's tooltip. The number is **comparative, not something the game would show**;
+  changing the reference shifts every ship by roughly the same factor, so the ranking
+  holds. Worth seeing why it earns its place: Ayanami turns 1313 HP into 3658 eHP (2.8x)
+  while New Jersey turns 6860 into 9242 (1.35x) - exactly the evasion effect the user
+  described.
+
+  **Optimisation goals.** A "Goal" dropdown sits next to the rarity cap. Its options are
+  derived from **what the ship's slots can actually hold**, not a hardcoded hull list, so
+  each hull naturally gets its own set: BB -> firepower/anti-air, DD -> firepower/torpedo/
+  anti-air/anti-sub, CVL -> aviation/anti-air, AR -> anti-air only; plus Recommended and
+  Survivability everywhere.
+
+  The user's two rules shape every weight: **survivability first, then AA** (so every
+  goal keeps a real weight on health/evasion and a smaller one on anti-air, even a purely
+  offensive one), and **amplify what already works rather than patch weaknesses, except
+  survivability** - which is why "Recommended" picks its offensive weight from the ship's
+  own strongest scaling stat (`recommendedWeights`).
+
+  **Weapon slots are not affected by the goal** - a slot that shoots has one sensible
+  answer, its biggest damage figure. **The goal decides the auxiliary slots**, which is
+  what makes them optimisable at all: they were previously skipped precisely because
+  "best" was undefined without knowing the player's intent. Auxiliary bonuses are scored
+  as a share of the largest bonus available for that stat (`auxiliaryStatMaxima`), or a
+  weight of 1 on Evasion could never outrank a weight of 0.1 on Health.
+
+  **ASW is excluded unless the Anti-Sub goal is chosen**, per the user - covering both
+  ASW equipment proper and any auxiliary whose bonus is ASW (`itemBoostsAsw`).
+
+  **A load-order trap worth remembering**: `auxiliaryStatMaxima` was first written as a
+  top-level IIFE reading `EQUIPMENT_STAT_KEY_ALIASES`, which is declared further down the
+  file. That threw on the temporal dead zone **at script load**, which aborts the rest of
+  app.js silently - every later `const` stays uninitialised and the first symptom is an
+  unrelated "cannot access X before initialization" much later. It is lazy now. In a
+  single-file script like this, never read a later `const` from top-level code.
+
+  Verified: eHP and hit rate re-derived by hand for two ships and matching exactly; bare
+  ships reporting non-zero DPS from built-ins; the goal list differing per hull across
+  BB/DD/CVL/SS/AR; Anti-Sub yielding 2 Hedgehogs and 613 ASW DPS while Recommended yields
+  0 of each; New Jersey's auxiliaries changing with the goal (Fire Control Table for
+  firepower, Sail Components for survivability, AA Radar for anti-air - the BB case the
+  user described); and **888 ships measured with 0 non-finite or negative results and
+  0 errors**.
+
+  **Known gap**: the built-in aircraft rows point at ordnance ids that page never
+  documents, so the ~127 ships whose only weapons are default aircraft report 0 surface
+  DPS. The metric tooltip says how many slots were skipped. Equipping or optimising fixes
+  it, since catalog aircraft do carry DPS.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)
