@@ -2076,14 +2076,29 @@ after the final edit.
   name ("BB Gun #103") in small muted text; on request it now reads **"DEFAULT" in white**,
   bold and letter-spaced, because the muted name was hard to read and said less. Which
   weapon it is stays in the tooltip, the same "detail goes in the title, not on the card"
-  rule the rest of this section follows. It sits in the **middle** of the tile, stacked
-  under the "+" rather than pinned to the bottom edge: `.equip-tile` became a column, so the
-  two centre together as one group instead of the label needing absolute positioning.
-  Verified across all 888 ships: 2579 tiles carry the label - exactly the 2579 slots with a
-  resolvable built-in - all reading DEFAULT, all pure white, none clipped, and **0 tiles
-  where the "+"/label group is more than 1.5px off the tile's centre**. The column direction
-  is safe for a filled tile too, checked rather than assumed: an equipped icon still measures
-  the full tile minus its 1px border.
+  rule the rest of this section follows. It went through three passes in one thread: pinned
+  under the "+" at the bottom edge, then centred beside it, then **replacing the "+"** and
+  sized to fill the tile. Replacing it is the right end state - a slot with a built-in weapon
+  is not empty, and the "+" is the invitation to fill a slot that is. 2579 tiles show DEFAULT,
+  2724 show "+", and **0 show both**.
+
+  **The size is measured, and the first measurement was taken wrong.** Target: the word spans
+  ~90% of the tile. Measuring a `cloneNode` appended to `<body>` gave 1.26rem, which rendered
+  at **86.1%** - because in `<body>` the span is inline, while in the tile it is a flex item,
+  and flex items are blockified. Re-measured **on the real element in place**: 1.32rem, and
+  every one of the 2579 labels lands at 90.2% of its tile, none clipped, none off-centre.
+  **Measure the element where it actually lives, not a copy of it somewhere else** - the same
+  lesson as awaiting `document.fonts.ready` for the stats grid's widths.
+
+  The column direction is safe for a filled tile too, checked rather than assumed: an equipped
+  icon still measures the full tile minus its 1px border.
+
+  **A Clear button sits to the right of Optimize** (same pill, neutral rather than accent,
+  since it undoes work rather than proposing any). It clears **only the current ship** -
+  `equippedGear` is keyed by ship, and wiping the map would throw away work done while
+  comparing two of them. Verified: New Jersey's 5 optimised slots and 5 icons go to 0, the
+  DEFAULT labels come back on her 3 weapon slots, the stats grid drops back to its bare
+  value, and Ayanami's own 5 picks are untouched.
   Defaults deliberately do NOT touch the stats grid: the page carries no stat-bonus
   column, and built-in weapons grant none.
 

@@ -1361,12 +1361,12 @@ main {
   cursor: pointer;
 }
 
-.equip-optimize {
+/* Optimize and Clear are the same pill; only the colour separates them, Clear staying
+   neutral because it undoes work rather than proposing any. */
+.equip-optimize,
+.equip-clear {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  border: 1px solid var(--accent);
-  background: color-mix(in srgb, var(--accent) 18%, var(--bg));
-  color: var(--accent);
   font-family: inherit;
   font-size: 0.65rem;
   font-weight: 700;
@@ -1375,8 +1375,25 @@ main {
   cursor: pointer;
 }
 
+.equip-optimize {
+  border: 1px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg));
+  color: var(--accent);
+}
+
 .equip-optimize:hover {
   background: color-mix(in srgb, var(--accent) 32%, var(--bg));
+}
+
+.equip-clear {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-muted);
+}
+
+.equip-clear:hover {
+  background: var(--bg-elevated);
+  color: var(--text);
 }
 
 /* Slots on the left, the four figures immediately right of the Augment socket. The slot
@@ -1502,19 +1519,18 @@ main {
    the DPS figure falls back to. The tile says so in full white rather than naming the
    weapon in muted text - which weapon it is stays in the tooltip, the same rule the rest
    of this section follows.
-   It sits in the middle of the tile, stacked under the "+" rather than pinned to the
-   bottom edge: the tile is a column, so the two centre together as one group. */
+   It replaces the "+" rather than sitting under it - a slot with a built-in weapon is not
+   empty, and the "+" is the invitation to fill a slot that is.
+   The size is measured, not chosen: the word spans about 90% of the tile's inner width. */
 .equip-tile-default {
   max-width: 100%;
-  padding: 0 0.25rem;
-  font-size: 0.62rem;
+  font-size: 1.32rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1.1;
   text-align: center;
   color: #fff;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 

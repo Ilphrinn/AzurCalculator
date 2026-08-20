@@ -775,6 +775,7 @@ const modalEquipmentCap = document.getElementById("modal-equipment-cap");
 const modalEquipmentOptimize = document.getElementById("modal-equipment-optimize");
 const modalEquipmentTarget = document.getElementById("modal-equipment-target");
 const modalEquipmentGearLab = document.getElementById("modal-equipment-gearlab");
+const modalEquipmentClear = document.getElementById("modal-equipment-clear");
 const modalCombatMetrics = document.getElementById("modal-combat-metrics");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
@@ -1738,6 +1739,10 @@ function setEquippedGear(ship, slotKey, item) {
   else delete equippedGear[ship.id][slotKey];
 }
 
+function clearEquippedGear(ship) {
+  delete equippedGear[ship.id];
+}
+
 // data/equipment.json spells Anti-Air "antiAir"; STAT_GRID spells it "antiair". Without
 // this the 106 catalog entries carrying an AA bonus would contribute silently nothing.
 // "oxygen" has no alias on purpose - the stat grid does not track Oxygen at all, so the
@@ -1777,17 +1782,13 @@ function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
       tile.appendChild(equipmentIconImg(equipped, "equip-tile-icon"));
       tile.title = equipmentTooltip(equipped);
     } else {
-      const mark = document.createElement("span");
-      mark.className = "equip-tile-empty";
-      mark.textContent = "+";
-      tile.appendChild(mark);
+      // A slot with a built-in weapon is not empty, so it says DEFAULT instead of showing
+      // the "+" that invites a pick; the "+" is for the slots that really are bare.
       const builtIn = gearCtx ? defaultEquipmentForSlot(gearCtx.slot) : null;
-      if (builtIn) {
-        const label = document.createElement("span");
-        label.className = "equip-tile-default";
-        label.textContent = "DEFAULT";
-        tile.appendChild(label);
-      }
+      const mark = document.createElement("span");
+      mark.className = builtIn ? "equip-tile-default" : "equip-tile-empty";
+      mark.textContent = builtIn ? "DEFAULT" : "+";
+      tile.appendChild(mark);
       tile.title = [tooltip, builtIn && defaultEquipmentTooltip(builtIn)].filter(Boolean).join("\n");
     }
   }
@@ -1955,6 +1956,16 @@ function syncEquipmentTargetOptions(ship) {
   if (!available.includes(equipmentTarget)) equipmentTarget = "auto";
   modalEquipmentTarget.value = equipmentTarget;
 }
+
+// Only this ship's picks: the map is keyed by ship, and clearing every ship would throw
+// away work done while comparing two of them.
+modalEquipmentClear.addEventListener("click", () => {
+  if (!currentShip) return;
+  closeAllEquipmentPickers();
+  clearEquippedGear(currentShip);
+  renderModalEquipment(currentShip);
+  refreshStatsAfterGearChange();
+});
 
 modalEquipmentOptimize.addEventListener("click", () => {
   if (!currentShip) return;
