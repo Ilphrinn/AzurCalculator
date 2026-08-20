@@ -1496,19 +1496,21 @@ main {
   border-color: color-mix(in srgb, var(--gold) 45%, var(--border));
 }
 
-/* An empty slot is not inert: the ship still fires her built-in weapon. Naming it keeps
-   "nothing equipped" from reading as "nothing at all", which matters now that the
-   default is what the DPS figure falls back to. */
+/* An empty slot is not inert: the ship still fires her built-in weapon, and that is what
+   the DPS figure falls back to. The tile says so in full white rather than naming the
+   weapon in muted text - which weapon it is stays in the tooltip, the same rule the rest
+   of this section follows. */
 .equip-tile-default {
   position: absolute;
-  bottom: 0.3rem;
+  bottom: 0.35rem;
   left: 0.25rem;
   right: 0.25rem;
-  font-size: 0.55rem;
-  font-weight: 600;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
   line-height: 1.1;
   text-align: center;
-  color: var(--text-muted);
+  color: #fff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

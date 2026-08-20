@@ -2071,8 +2071,14 @@ after the final edit.
   than read, while guns (995 slots), AA (705) and torpedoes (533) all carry their own DPS
   figures directly.
 
-  An empty tile now names its built-in weapon under the "+", with the numbers in the
-  tooltip — the label is what makes it visible that a slot is never really empty.
+  An empty tile marks itself under the "+", with the numbers in the tooltip - the label is
+  what makes it visible that a slot is never really empty. It first showed the weapon's own
+  name ("BB Gun #103") in small muted text; on request it now reads **"DEFAULT" in white**,
+  bold and letter-spaced, because the muted name was hard to read and said less. Which
+  weapon it is stays in the tooltip, the same "detail goes in the title, not on the card"
+  rule the rest of this section follows. Verified across all 888 ships: 2579 tiles carry the
+  label - exactly the 2579 slots with a resolvable built-in - all reading DEFAULT, all pure
+  white, none clipped.
   Defaults deliberately do NOT touch the stats grid: the page carries no stat-bonus
   column, and built-in weapons grant none.
 

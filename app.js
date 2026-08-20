@@ -1785,7 +1785,7 @@ function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
       if (builtIn) {
         const label = document.createElement("span");
         label.className = "equip-tile-default";
-        label.textContent = builtIn.name;
+        label.textContent = "DEFAULT";
         tile.appendChild(label);
       }
       tile.title = [tooltip, builtIn && defaultEquipmentTooltip(builtIn)].filter(Boolean).join("\n");
