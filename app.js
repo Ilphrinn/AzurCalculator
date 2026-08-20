@@ -1984,6 +1984,13 @@ const COMBAT_METRIC_FIELDS = [
   { key: "dpsAA", label: "DPS AA", hint: "Anti-air damage per second." },
 ];
 
+// The 27 ships imported from their own wiki pages have slots but no built-in weapon ids -
+// the wiki's Gear table names what a slot accepts, never what it comes armed with - so
+// their empty slots really do contribute nothing, unlike a datamined ship's.
+function hasBuiltInWeapons(ship) {
+  return Object.values(ship.equipment || {}).some(slot => slot.default);
+}
+
 // A hull with no innate launcher (every CA carrying an ASW slot) really does no anti-
 // submarine damage until depth charges go in the slot, which reads as a missing figure
 // unless the tooltip says why.
@@ -2026,7 +2033,9 @@ function renderCombatMetrics(ship, effective) {
           "Comparative, not a figure the game shows: the wiki's formula needs the shooter's stats, which this app has no source for."
         );
       } else {
-        notes.push("Empty slots count as the ship's built-in weapon.");
+        notes.push(hasBuiltInWeapons(ship)
+          ? "Empty slots count as the ship's built-in weapon."
+          : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
         }

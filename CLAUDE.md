@@ -2261,6 +2261,46 @@ after the final edit.
   Bofors while New Jersey still gets a Time Fuze gun; and across all 888 ships, Optimize
   fills 4305 slots with **0 Time Fuze guns landing on a slot without code 21**, 0 errors.
 
+  ### The 27 hand-imported ships have equipment now (2026-08-20)
+
+  Reported as a gap: "j'ai des navires comme A2, 2B, 22 qui n'ont pas les equipements".
+  These are the `wiki-*` ships (plus Surrey) that were never in the datamine, so their
+  `equipment` was `null` and the whole section - slots, picker, Optimize, the four figures -
+  simply did not exist for them.
+
+  **Their own saved wiki pages carry a Gear table**, the same one `EQUIPMENT_TYPE_NAMES` was
+  originally derived from: `Slot | Efficiency | Equippable | Max #`, e.g. A2's
+  `1 | 100% -> 110% | CA Main Guns | 2`. A scratchpad script (not committed, same convention
+  as every other data script here) parsed all 27, and the vocabulary came out clean - 9
+  distinct "Equippable" strings, all already in the code's own name-to-code map. Three rows
+  needed care: a slash means two codes (Cherbourg's "CA Main Guns / CB Main Guns", Duncan's
+  "CL Main Guns / DD Main Guns"), and Max Immelmann's "(Dev.20)"/"(Dev.30)" marks a
+  Development-level unlock this app does not model - kept, consistent with assuming max
+  investment everywhere else. Efficiency and mounts take the right-hand side of the
+  "a -> b" progression, the max-limit-break value, matching what the datamine stores.
+
+  **Two things the wiki table does not give, handled differently:**
+  - **The auxiliary slots**, which it never lists (already noted above). Taken from the
+    hull's own majority across every datamined ship - measured, not assumed: the aux pair is
+    98-100% identical within a hull (DD/CL `[10,14]`, CVL `[10,15]`, CA/CB/BB/BC/CV `[10]`).
+    This is the one inferred part of the record.
+  - **The built-in weapon ids**, which it has no column for at all. Left `null` rather than
+    guessed, so these ships report **0 DPS with an empty loadout** where a datamined ship
+    reports her built-ins. `hasBuiltInWeapons(ship)` swaps the metric tooltip to say so
+    instead of repeating "empty slots count as the ship's built-in weapon", which would be
+    a lie for exactly these 27. Their ASW figure does work, because the depth charge
+    launcher is keyed by hull rather than by slot.
+
+  Also inferred, from the rule established just above: an "Anti-Air Guns" slot gets code 21
+  alongside 6 only on BB/BC/BBV - which here is Duncan and Valparaiso.
+
+  Verified: **the Equipment section now renders for 888/888 ships** (was 861), 888 metrics
+  tables at 7104 cells, one table width, 0 clipped, Optimize fills 4440 slots (up exactly
+  135 = 27 x 5), 0 Time Fuze violations, 0 errors. A2 reproduces her wiki page exactly -
+  Main Gun x2 at 110%, Secondary x1 at 70%, AA Gun x1 at 110%. And the write was diffed
+  before committing: **the only lines removed from ships.json are the 27
+  `"equipment": null,`** - every other field byte-identical.
+
   **Everything else about restrictions is not in this repo.** The `List of X` pages carry no
   restriction column (checked: their headers are Name/Image/Stars/stats/Notes, and 0 of the
   581 catalog records mention an equip restriction in `notes`), and `nation` on a catalog
