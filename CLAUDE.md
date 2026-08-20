@@ -2171,11 +2171,32 @@ after the final edit.
   Verified by geometry rather than by eye: two rows reading `DPS | 33 | DPS ASW | -` and
   `eHP | 1,761 | DPS AA | 48`, four distinct column lefts, 861 x 8 cells.
 
-  **Sizing, and `align-self: center`** (next message: "un peu plus grand et plus centre par
+  **Sizing and vertical centring** (next message: "un peu plus grand et plus centre par
   rapport aux equipements"). Fonts went 0.62/0.8rem -> 0.72/0.98rem and padding 0.35/0.55rem
-  -> 0.5/0.7rem; the table is 284x70. It also stopped hugging the top of the row -
-  `align-self: center` on `.combat-metrics` centres it against the slot block while the
-  slots themselves stay at `flex-start`.
+  -> 0.5/0.7rem; the table is 284x70.
+
+  Centring took two goes, and the first one was subtly wrong: `align-self: center` centres
+  the table against the whole **slot card**, which is half again as tall as the tile because
+  it carries the slot's name and its mount/efficiency chips underneath. The table therefore
+  sat ~28px below the squares it belongs to - visible, and exactly what the user came back
+  on ("le centre du tableau doit etre au meme niveau que le centre des equipements").
+  Fixed with `.combat-metrics-anchor`, a wrapper exactly one tile tall that centres the
+  table inside itself; `--equip-tile-size` (7rem, on `.equipment-and-metrics`) drives both
+  it and `.equip-slot`'s width, so the two cannot drift. A hardcoded offset would have
+  worked today and broken the next time the table's font or padding changed.
+  Verified by measurement: first tile, Augment circle and table all centre on 454.2px,
+  where the whole equipment block centres on 482.4px.
+
+  **"Il manque une stat pour l'ASW sans equipement" - checked, and it is missing data, not
+  a missing computation.** Of the 810 anti-submarine slots in the dataset (405 ships), **not
+  one declares a built-in weapon**, and the four depth charges the built-ins page does
+  document (`DC #141`, `DC #147`, `Aux #468`, `DC #470`) are referenced by **no slot at
+  all** - confirmed by grepping `ships.json` for each id. So DPS ASW is legitimately 0 for
+  every unequipped ship: an empty ASW slot really does nothing until depth charges go in it.
+  Rather than invent a default, the `-` now explains itself - `hasAswSlot(ship)` adds a
+  tooltip line on exactly the 405 ships that carry the slot. Verified: 0 of 861 ships show
+  an ASW figure unequipped, 405 carry the note, and equipping (or optimising for Anti-Sub)
+  still produces one.
 
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the

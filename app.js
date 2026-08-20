@@ -1957,6 +1957,14 @@ const COMBAT_METRIC_FIELDS = [
   { key: "dpsAA", label: "DPS AA", hint: "Anti-air damage per second." },
 ];
 
+// An empty anti-submarine slot really does nothing: of the 810 such slots in the dataset,
+// not one declares a built-in weapon, and the four depth charges the built-ins page does
+// document are referenced by no slot at all. So a ship can carry the slot and still report
+// no ASW damage, which reads as a missing figure unless the tooltip says why.
+function hasAswSlot(ship) {
+  return Object.values(ship.equipment || {}).some(slot => (slot.type || []).includes(14));
+}
+
 const COMBAT_METRIC_ROWS = 2;
 
 // Two figures per row, each name in a column of its own with its value in the next one.
@@ -1993,6 +2001,9 @@ function renderCombatMetrics(ship, effective) {
         notes.push("Empty slots count as the ship's built-in weapon.");
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
+        }
+        if (field.key === "dpsASW" && !value && hasAswSlot(ship)) {
+          notes.push("This ship has an anti-submarine slot, but no ship in the data has a built-in weapon in one: equip depth charges, or optimise for Anti-Sub.");
         }
       }
       label.title = number.title = notes.join("\n");

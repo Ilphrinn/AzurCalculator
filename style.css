@@ -1383,6 +1383,19 @@ main {
   gap: 1rem;
 }
 
+/* Aligns the table's centre with the centre of the equipment TILES, not with the centre
+   of the whole slot card - the card is half again as tall, since it carries the slot's
+   name and its mount/efficiency chips under the tile, so centring on it leaves the table
+   visibly low against the squares it belongs to.
+   The anchor is exactly one tile tall and centres the table inside itself, which keeps the
+   two in step through --equip-tile-size rather than through a hardcoded offset that would
+   drift the moment the table's font or padding changed. */
+.combat-metrics-anchor {
+  display: flex;
+  align-items: center;
+  height: var(--equip-tile-size);
+}
+
 .equipment-and-metrics .modal-equipment {
   flex: 1 1 auto;
   min-width: 0;
@@ -1398,11 +1411,9 @@ main {
    are fixed too: otherwise the table resizes per ship and the panel jumps when switching
    between them. The value width is measured against the widest figure the dataset
    actually produces, not estimated.
-   Centred against the slot row rather than pinned to its top, so the table reads as
-   belonging to the slots beside it instead of floating above them. */
+   Vertically centred on the tiles by .combat-metrics-anchor above, not on the slot cards. */
 .combat-metrics {
   flex: 0 0 auto;
-  align-self: center;
   display: grid;
   grid-template-columns: repeat(4, auto);
   gap: 1px;
@@ -1449,13 +1460,19 @@ main {
   gap: 0.6rem;
 }
 
+/* One tile is a square of this size, so this is also the height the combat table centres
+   itself against. Shared rather than repeated, so the two cannot drift apart. */
+.equipment-and-metrics {
+  --equip-tile-size: 7rem;
+}
+
 .equip-slot {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  width: 7rem;
+  width: var(--equip-tile-size);
 }
 
 .equip-tile {
