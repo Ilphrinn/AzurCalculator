@@ -28,8 +28,15 @@ body {
   color: var(--text);
 }
 
-/* Custom scrollbar: slightly wider than the native default, flat (no hover state —
-   deliberately no :hover rules below), with click-to-nudge arrow buttons at both ends. */
+/* Deliberately WebKit-prefixed: the standards-track scrollbar-width and
+   scrollbar-color cannot draw custom arrow buttons, and this app is only ever run
+   in Chromium.
+   There is intentionally NO :hover rule for the thumb. Browsers apply their own
+   hover-darken only to an UNSTYLED scrollbar, so customising the thumb at all is
+   what removes the effect - no extra rule was needed.
+   The arrows are inline SVG data URIs rather than glyphs or image files so they
+   stay crisp at any zoom; the fill repeats --text-muted literally because a custom
+   property cannot be referenced from inside an encoded data URI. */
 ::-webkit-scrollbar {
   width: 16px;
 }
@@ -187,9 +194,6 @@ body {
   min-width: 90px;
 }
 
-/* Sub-label for a chip cluster within an existing filter row (e.g. "Research" under
-   Rarity) — smaller and without the row-label's min-width, so it reads as a subset of
-   the same category rather than a second category. */
 .filter-subgroup-label {
   font-size: 0.65rem;
   min-width: 0;
@@ -435,8 +439,6 @@ main {
   text-align: center;
 }
 
-/* ---- Modal ---- */
-
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -675,9 +677,6 @@ main {
   font-weight: 600;
 }
 
-/* Retrofit/Unique Augment/Fate Simulation toggles share the same pill shape and only
-   differ in their accent color, which also carries through to the custom checkbox dot
-   below (styled via currentColor, so no separate color rule is needed per toggle). */
 .retrofit-checkbox,
 .augment-checkbox,
 .fatesim-checkbox {
@@ -809,9 +808,6 @@ main {
   border-color: var(--accent);
 }
 
-/* Native number-input spinner replaced with .level-spin buttons below, drawn with the
-   same arrow style as the custom scrollbar (::-webkit-scrollbar-button) for a
-   consistent look — same SVG shapes/color, no :hover state on either. */
 .level-input::-webkit-outer-spin-button,
 .level-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -849,6 +845,11 @@ main {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0H10L5 6Z' fill='%238a97b3'/%3E%3C/svg%3E");
 }
 
+/* .modal-info's background is a rarity-coloured gradient, so no single flat text
+   colour stays legible across every rarity - against a Super Rare gold mix, the old
+   muted blue-grey measured about 1.3:1. A dark halo behind bright text works
+   against any backdrop instead, the standard "text over a photo" fix.
+   text-shadow inherits, so nested hint text picks the halo up for free. */
 .modal-section-title {
   margin: 0 0 0.5rem;
   font-size: 0.75rem;
@@ -859,9 +860,6 @@ main {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-/* Section title carrying a control on its right. The margin lines that control up with
-   the per-skill toggles below it, which sit inside the skill card's own 0.6rem padding
-   and 1px border rather than flush with the list's edge. */
 .modal-section-title-row {
   display: flex;
   align-items: center;
@@ -878,10 +876,12 @@ main {
   flex-shrink: 0;
 }
 
-/* One-value-per-stat 3-column grid matching the game's own compact stat panel exactly,
-   rather than a Base/Real row list — a delta (when boosted) is shown inline in the same
-   cell, same as the game does ("478 +178"), since the in-game panel never shows a
-   separate base figure. */
+/* auto columns plus fit-content, NOT a percentage width. 1fr tracks still respect
+   each column's content minimum, so capping the container while the columns demand
+   their full content width pushes the third column past the edge, where overflow
+   hidden silently eats it.
+   Consequence worth knowing: this is an absolute size, so the grid's apparent
+   proportion of the modal shifts with window width. That is expected, not a bug. */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -913,24 +913,21 @@ main {
   color: var(--text-muted);
   white-space: nowrap;
   flex-shrink: 0;
-  /* Fixed width (not just content-sized) so the value that follows lines up at the same
-     spot in every row of a column — "Armor" and "AA" are very different lengths, and
-     without this the values end up staggered instead of forming a straight column. */
   width: 3.8rem;
 }
 
+/* Both the label and the value are fixed-width so every column computes to the same
+   size for every ship. Without that, a ship whose boosted value is long ("286+69
+   (355)") makes her whole grid wider than a ship with short plain numbers, which
+   reads as the app being inconsistent.
+   The width was measured against the real font for the longest content this needs
+   to hold, "12345+12345 (12345)", with document.fonts.ready awaited first - the
+   same measurement taken before fonts settle reads noticeably narrower. */
 .stat-grid-value {
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
-  /* Fixed width sized for the longest realistic content ("12345+12345 (12345)": a
-     5-digit base, 5-digit delta, and 5-digit real value all at once) so every ship's
-     grid comes out the same size — without this, a ship with unusually long boosted
-     values (A2) stretches its columns wider than a ship whose stats stay short and
-     unboosted. Measured directly (getBoundingClientRect() against this exact class,
-     after document.fonts.ready) rather than estimated — 7.40rem for that string in
-     Raleway bold at this font-size, rounded up to 7.6rem for a small safety margin. */
   width: 7.6rem;
 }
 
@@ -938,8 +935,6 @@ main {
   color: var(--text-muted);
   font-weight: 600;
 }
-
-/* ---- Skills ---- */
 
 .modal-skills-list {
   display: flex;
@@ -1010,9 +1005,6 @@ main {
   color: var(--text-muted);
 }
 
-/* Pushed to the far right, past the skill name and its type tags. Carries the same
-   outline-pill-plus-dot shape as the Retrofit/Unique Augment toggles above, since it is
-   the same kind of control — the dot fills in when it's on. */
 .max-level-toggle {
   display: inline-flex;
   align-items: center;
@@ -1067,8 +1059,6 @@ main {
   color: var(--text-muted);
 }
 
-/* One sentence per block. A condition line is set in the brighter body color so the eye
-   can find where each set of effects starts; its actions keep the muted color. */
 .skill-line,
 .skill-condition {
   margin: 0;
@@ -1078,16 +1068,10 @@ main {
   color: var(--text);
 }
 
-/* Tighter than the gap between blocks, so a condition reads as attached to its actions
-   rather than floating between two of them. */
 .skill-condition + .skill-actions {
   margin-top: -0.25rem;
 }
 
-/* Game-mode sections ("Regular" vs "Operation Siren") — two alternative versions of the
-   same skill, only one of which applies at a time. The label and the rail down the side of
-   its block share --mode-color, set per section in JS, so the eye can tell at a glance
-   where one version stops and the other starts. */
 .skill-mode {
   margin: 0;
   align-self: flex-start;
@@ -1127,7 +1111,6 @@ main {
   left: 0;
 }
 
-/* A numbered item can carry several sentences, so its blocks stack inside the bullet. */
 .skill-actions-blocks {
   display: flex;
   flex-direction: column;
@@ -1139,35 +1122,20 @@ main {
   font-weight: 700;
 }
 
-/* Recurring keyword highlighting (nations, hull types, fleet roles, Siren) — color is
-   set inline per-word via JS, this just keeps the weight consistent everywhere it's used. */
 .kw {
   font-weight: 600;
 }
 
-/* Named mechanics — the game's own recurring statuses (Burn, Smokescreen, Armor Break) and
-   the ones a single skill coins for itself ("Berserk Mode"). The tint behind the word is
-   what separates them from the other two palettes sharing the same sentence: a stat is
-   colored and bare, a nation is colored and underlined, a mechanic sits on a chip. The
-   tint is derived from the word's own color, so JS still only has to set `color`.
-   The tint bleeds outward through a spread shadow rather than horizontal padding: padding
-   would widen the inline box and leave the comma or period that follows the name floating
-   a space away from it ("enters Berserk Mode ."). */
 .kw-mech {
   border-radius: 0.2em;
   background: color-mix(in srgb, currentColor 16%, transparent);
   box-shadow: 0 0 0 0.15em color-mix(in srgb, currentColor 16%, transparent);
 }
 
-/* Skill values (percentages, flat numbers) — made to stand out from the surrounding
-   prose via brightness/weight rather than another hue, since the palette already has
-   several colors in play. */
 .kw-num {
   color: #ffffff;
   font-weight: 700;
 }
-
-/* ---- Barrages ---- */
 
 .barrage-table-wrap {
   background: var(--bg);
@@ -1337,15 +1305,11 @@ main {
   color: var(--gold);
 }
 
-/* A restriction ("to Light Armor enemies") wraps onto its own line, and the stadium
-   shape reads badly around two lines of text — squared off only in that case. */
 .combat-modifier-pill.has-target {
   border-radius: 10px;
   padding: 0.3rem 0.6rem;
 }
 
-/* The whole pill is a tooltip target: the sentence the bonus came from, with whatever
-   gated it, is too long to sit in the pill itself. */
 .combat-modifier-pill[title] {
   cursor: help;
 }
@@ -1356,10 +1320,6 @@ main {
   opacity: 0.85;
 }
 
-/* ---- Equipment ---- */
-
-/* One row of slot cards, mirroring the game's Gear panel. Wraps rather than scrolling,
-   since six cards do not fit a narrow modal side by side. */
 .modal-equipment {
   display: flex;
   flex-wrap: wrap;
@@ -1375,9 +1335,6 @@ main {
   width: 7rem;
 }
 
-/* The square that will hold the chosen equipment's image, sized and framed like a ship
-   card's thumbnail so the slot reads as the same kind of pickable tile. Dashed while
-   empty: it describes what the ship can take, not what she carries. */
 .equip-tile {
   width: 100%;
   aspect-ratio: 1;
@@ -1390,7 +1347,6 @@ main {
   overflow: hidden;
 }
 
-/* The augment is a separate round socket in the game, not a sixth gear box. */
 .equip-augment .equip-tile {
   border-radius: 50%;
   border-color: color-mix(in srgb, var(--gold) 45%, var(--border));
@@ -1430,15 +1386,20 @@ main {
   cursor: pointer;
 }
 
-/* A picked item's tile: rarity-tinted fill/border instead of the empty dashed frame,
-   the item's own name in that same color (no gear icon assets exist in this project). */
 .equip-tile-filled {
   border-style: solid;
   border-color: var(--equip-tile-color);
   background: color-mix(in srgb, var(--equip-tile-color) 16%, var(--bg));
 }
 
-.equip-tile-name {
+.equip-tile-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.equip-tile-icon-fallback,
+.equip-picker-icon-fallback {
   font-size: 0.62rem;
   font-weight: 700;
   line-height: 1.15;
@@ -1451,17 +1412,14 @@ main {
   overflow: hidden;
 }
 
-/* Dropdown list of catalog options for one slot, opened by clicking its tile - anchored
-   under that slot's own card rather than a single shared floating overlay, same
-   "one panel per trigger" shape as the nation-chip subfaction dropdown. */
 .equip-picker {
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
   margin-top: 0.35rem;
-  width: 15rem;
-  max-height: 17rem;
+  width: 19rem;
+  max-height: 19rem;
   overflow-y: auto;
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -1485,47 +1443,49 @@ main {
   cursor: pointer;
 }
 
+/* A dense grid of artwork rather than a list of names. Options arrive already
+   sorted best-first, so the rarity-tinted cells also read as bands of descending
+   rarity. */
 .equip-picker-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 4px;
 }
 
-.equip-picker-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  width: 100%;
-  text-align: left;
-  padding: 0.3rem 0.5rem;
-  background: transparent;
-  border: none;
-  border-left: 3px solid var(--equip-tile-color);
-  border-radius: 4px;
+.equip-picker-item {
+  aspect-ratio: 1;
+  padding: 2px;
+  background: color-mix(in srgb, var(--equip-tile-color) 14%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--equip-tile-color) 55%, transparent);
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.equip-picker-row:hover {
-  background: var(--bg);
+.equip-picker-item:hover,
+.equip-picker-item:focus-visible {
+  border-color: var(--equip-tile-color);
+  background: color-mix(in srgb, var(--equip-tile-color) 30%, var(--bg));
+  outline: none;
 }
 
-.equip-picker-name {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--equip-tile-color);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.equip-picker-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
-.equip-picker-stat {
-  font-size: 0.66rem;
+.equip-picker-caption {
+  position: sticky;
+  bottom: 0;
+  min-height: 1.9em;
+  margin-top: 0.3rem;
+  padding: 0.25rem 0.35rem 0;
+  background: var(--card-bg);
+  font-size: 0.68rem;
+  line-height: 1.3;
   color: var(--text-muted);
-  flex-shrink: 0;
 }
-
-/* ---- Interaction ---- */
 
 .modal-interaction-list {
   display: flex;
@@ -1621,6 +1581,10 @@ main {
   flex-shrink: 0;
 }
 
+/* flex: 1 is load-bearing, not cosmetic: without it this box shrinks to its own
+   content, and the Max Level toggle's margin-left auto pushes to the right edge of
+   that narrow box rather than the card's. The bug only shows on entries with a
+   short ship and skill name. */
 .interaction-body {
   flex: 1;
   min-width: 0;
@@ -1663,11 +1627,6 @@ main {
   display: none;
 }
 
-/* Per-entry toggle for a matched skill's "+" (Retrofit/Unique Augment/Fate Simulation)
-   enhanced version — shown as a small pill next to the skill name rather than a
-   section-wide control, so it only affects the one entry it's attached to. Labeled and
-   colored per the same convention as the ship's own Retrofit/Augment/FS toggles
-   (--tag-color set per-instance in JS from skillVariantInfo()). */
 .interaction-variant-toggle {
   padding: 0.05rem 0.5rem;
   border-radius: 999px;
@@ -1700,11 +1659,6 @@ main {
   background: currentColor;
 }
 
-/* Non-interactive counterpart to .interaction-variant-toggle: shown when a matched
-   skill's "+" text has no base version to toggle back to (the base never independently
-   matched, so it was never merged into a paired entry) — the shown text already
-   includes the Retrofit/Augment/Fate Simulation bonus, so the pastille is always filled
-   rather than starting hollow like the toggle's. */
 .interaction-variant-badge {
   display: inline-flex;
   align-items: center;
@@ -1732,9 +1686,6 @@ main {
   margin-top: 0.3rem;
 }
 
-/* .interaction-desc's own `display: flex` (needed now that it can hold multiple blocks
-   like a skill-mode group) would otherwise outrank the [hidden] attribute's UA-stylesheet
-   `display: none` at equal specificity — same fix already applied to .max-level-toggle. */
 .interaction-desc-enhanced[hidden] {
   display: none;
 }
