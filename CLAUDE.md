@@ -2462,9 +2462,22 @@ after the final edit.
   "Effect does not stack" in their own notes. Worth raising before adding a no-duplicates
   rule, since duplicates are legal in game for most auxiliaries.
 
-  The user also kept adding equipment pages while this was being built: the `Used By`
-  extraction went 144 -> 179 pages mid-session, **180 records restricted**. It is
-  re-runnable; just run it again when more arrive.
+  The user kept adding equipment pages throughout: the `Used By` extraction went
+  144 -> 179 -> **347 pages**, and **352 of 581 records** now carry a restriction. It is
+  re-runnable; run it again when more arrive.
+
+  **Two traps when re-running it**, both hit once already:
+  - `patch_equipment.js` rewrites the `gearLab` flag from the raw crafted list, which undoes
+    the "only obtainable there" narrowing. **Always re-run `fix_gearlab.js` after it**, and
+    `patch_unique.js` too; then check the three counts (usedBy / unique / gearLab).
+  - The one page that never matches is **Twin 203mm (Mle 1924 Submarine-mount)**: the user
+    saved it, but no `List of X` page covers that submarine deck gun, so the catalog has no
+    record to attach it to. Expected, not a parse failure.
+
+  Coverage now: every weapon category sits at 70-100%, **AA Time Fuze Guns at 4/4**, and the
+  whole remaining gap is **Auxiliary, 18 of 165**. That is the category where a restriction
+  actually bites, so it is also the one worth finishing. Of the **41 distinct items Optimize
+  can reach**, 18 are covered and 23 are not - 15 of those 23 being auxiliaries.
 
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the
