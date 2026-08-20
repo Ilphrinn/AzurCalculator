@@ -775,6 +775,7 @@ const modalEquipmentCap = document.getElementById("modal-equipment-cap");
 const modalEquipmentOptimize = document.getElementById("modal-equipment-optimize");
 const modalEquipmentTarget = document.getElementById("modal-equipment-target");
 const modalEquipmentGearLab = document.getElementById("modal-equipment-gearlab");
+const modalEquipmentResearch = document.getElementById("modal-equipment-research");
 const modalEquipmentClear = document.getElementById("modal-equipment-clear");
 const modalCombatMetrics = document.getElementById("modal-combat-metrics");
 const modalSkillsSection = document.getElementById("modal-skills-section");
@@ -1668,10 +1669,13 @@ function equipmentOptimizeScore(item) {
 // player comparing two ships means the same cap on both.
 let equipmentRarityCap = "Ultra Rare";
 let equipmentTarget = "auto";
-// Gear Lab gear is crafted, not dropped, so a player who has not unlocked it wants it out
-// of the optimiser's reach. It still shows in the picker: the restriction is about what
-// this player has, not about what the ship may mount.
+// Gear Lab gear is crafted and Research gear has to be researched, so a player who has not
+// unlocked either wants it out of the optimiser's reach. Both flags mean "obtainable ONLY
+// that way" - gear you can also buy or farm is unaffected by turning a source off. They
+// still show in the picker: the restriction is about what this player has, not about what
+// the ship may mount.
 let includeGearLab = true;
+let includeResearch = true;
 
 function equipmentWithinCap(item) {
   return EQUIPMENT_RARITY_ORDER.indexOf(item.rarity) <= EQUIPMENT_RARITY_ORDER.indexOf(equipmentRarityCap);
@@ -1752,6 +1756,7 @@ function optimizeEquipment(ship, effective) {
     for (const item of equipmentOptionsForSlot(slot, ship)) {
       if (!equipmentWithinCap(item)) continue;
       if (!includeGearLab && item.gearLab) continue;
+      if (!includeResearch && item.research) continue;
       if (!allowAsw && itemBoostsAsw(item)) continue;
       if (!equipmentReachable(item, named)) continue;
       const damage = equipmentOptimizeScore(item);
@@ -1979,12 +1984,20 @@ modalEquipmentTarget.addEventListener("change", () => {
   equipmentTarget = modalEquipmentTarget.value;
 });
 
+function syncSourceToggle(button, on, source) {
+  button.classList.toggle("active", on);
+  button.setAttribute("aria-pressed", String(on));
+  button.title = on
+    ? `Optimize may use equipment obtainable only through ${source}. Click to leave it out.`
+    : `Optimize leaves equipment obtainable only through ${source} out. Click to allow it.`;
+}
+
 function syncGearLabToggle() {
-  modalEquipmentGearLab.classList.toggle("active", includeGearLab);
-  modalEquipmentGearLab.setAttribute("aria-pressed", String(includeGearLab));
-  modalEquipmentGearLab.title = includeGearLab
-    ? "Optimize may use Gear Lab equipment. Click to leave it out."
-    : "Optimize leaves Gear Lab equipment out. Click to allow it.";
+  syncSourceToggle(modalEquipmentGearLab, includeGearLab, "the Gear Lab");
+}
+
+function syncResearchToggle() {
+  syncSourceToggle(modalEquipmentResearch, includeResearch, "Research");
 }
 
 modalEquipmentGearLab.addEventListener("click", () => {
@@ -1992,7 +2005,13 @@ modalEquipmentGearLab.addEventListener("click", () => {
   syncGearLabToggle();
 });
 
+modalEquipmentResearch.addEventListener("click", () => {
+  includeResearch = !includeResearch;
+  syncResearchToggle();
+});
+
 syncGearLabToggle();
+syncResearchToggle();
 
 // Rebuilt per ship: the orientations offered depend on what her slots can actually hold.
 // A goal that no longer applies falls back to Recommended rather than silently persisting.

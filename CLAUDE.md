@@ -2474,10 +2474,34 @@ after the final edit.
     saved it, but no `List of X` page covers that submarine deck gun, so the catalog has no
     record to attach it to. Expected, not a parse failure.
 
-  Coverage now: every weapon category sits at 70-100%, **AA Time Fuze Guns at 4/4**, and the
-  whole remaining gap is **Auxiliary, 18 of 165**. That is the category where a restriction
-  actually bites, so it is also the one worth finishing. Of the **41 distinct items Optimize
-  can reach**, 18 are covered and 23 are not - 15 of those 23 being auxiliaries.
+  Coverage after the last batch: **372 pages, 377 of 581 records restricted**. Every weapon
+  category is at 70-100%, AA Time Fuze Guns at 4/4, and the remaining gap is mostly Auxiliary
+  (132 of the 204 uncovered records). The number that matters is smaller: of the **47 distinct
+  items Optimize can reach, 38 are covered and 9 are not** - down from 23.
+
+  ### A Research toggle beside Gear Lab (2026-08-20)
+
+  Asked for as "un tri par Research pour les elements qui s'obtiennent que par les
+  recherches". Same shape as the Gear Lab toggle and the same definition, learned from the
+  correction to that one: `research` means **obtainable ONLY through the Research Academy** -
+  in that page's list, and in none of gear boxes, the Gear Lab, Shops or the drop table.
+  **12 records**, all plausibly research gear: the Prototype guns, the High Performance
+  radars, the Improved Hydraulic Rudder. The two flags are mutually exclusive by construction
+  (each excludes the other's source), verified at 0 records carrying both.
+
+  `syncSourceToggle(button, on, source)` now serves both buttons rather than a copy each.
+
+  **One judgement call worth recording**: obtainability counts every name the Gear Lab page
+  mentions, its INPUT column included, while the `gearLab` flag counts only what it crafts.
+  Tightening obtainability to crafted-only would have marked 8 more records `unique` - Single
+  12.7mm Browning, Gloster Sea Gladiator and similar Rare/Elite starter gear you feed into
+  the lab. Plainly not the event rewards `unique` is for, so their absence from the other
+  four pages reads as a gap in those pages, not as evidence. `unique` stays at 145.
+
+  Verified across all 888 ships, four toggle combinations: 4440 slots filled in every one;
+  both on gives 1728 Gear Lab and 250 Research picks; Research off gives **0 Research picks**
+  and moves 252 slots; Gear Lab off gives **0 Gear Lab picks** and moves 1730; both off gives
+  0 of each. 0 unique leaks, 0 hull violations, 0 Time Fuze violations, 0 errors throughout.
 
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the

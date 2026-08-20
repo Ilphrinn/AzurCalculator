@@ -1666,7 +1666,8 @@
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-5-54-mk-16-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "research": true
   },
   {
     "name": "Twin 127mm (KM40)",
@@ -1750,7 +1751,20 @@
       "heavy": 25
     },
     "id": "dd-gun-twin-127mm-mle-1948-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "research": true
   },
   {
     "name": "Twin 127mm (Type 3 Mod B)",
@@ -4709,7 +4723,12 @@
       "heavy": 85
     },
     "id": "ca-gun-triple-203mm-skc-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Triple 220mm (SM-40 Prototype)",
@@ -5291,7 +5310,8 @@
       "heavy": 65
     },
     "id": "ca-gun-twin-203mm-model-1927-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "research": true
   },
   {
     "name": "Twin 203mm (SK C/34)",
@@ -5816,7 +5836,14 @@
       "heavy": 125
     },
     "id": "bb-gun-quadruple-305mm-sk-c39-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "research": true
   },
   {
     "name": "Quadruple 330mm (Mle 1931)",
@@ -6977,7 +7004,8 @@
       "heavy": 90
     },
     "id": "bb-gun-triple-419mm-mk-i-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "research": true
   },
   {
     "name": "Triple 460mm (Type 94)",
@@ -8508,7 +8536,8 @@
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-triple-torpedo-mount-improved-ammo-mod-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "research": true
   },
   {
     "name": "550mm Twin Torpedo Launcher",
@@ -8618,7 +8647,13 @@
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-quadruple-torpedo-mount-cruiser-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ],
+    "research": true
   },
   {
     "name": "610mm Quadruple Torpedo Mount Kai",
@@ -8880,7 +8915,10 @@
     "ammoType": null,
     "armorMod": null,
     "id": "torpedo-sy-1-missile-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "DD"
+    ]
   },
   {
     "name": "SY-1A Missile",
@@ -8913,7 +8951,10 @@
     "armorMod": null,
     "id": "torpedo-sy-1a-missile-t0",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "DD"
+    ]
   },
   {
     "name": "Improved Submarine-mounted G7e Acoustic Homing Torpedo",
@@ -9912,7 +9953,8 @@
     "aaDps": 28.13,
     "range": 26,
     "id": "aa-gun-single-37mm-aa-70-k-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "research": true
   },
   {
     "name": "Single 37mm AA (Mle 1925)",
@@ -11970,7 +12012,12 @@
     "speed": 48,
     "crashDmg": 156,
     "id": "fighter-lavochkin-la-9-carrier-based-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Messerschmitt Bf 109G (Carrier-based Prototype)",
@@ -12659,7 +12706,14 @@
     "speed": 50,
     "crashDmg": 162,
     "id": "seaplane-grumman-f8f-bearcat-floatplane-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "BBV",
+      "CVL",
+      "DD",
+      "SSV"
+    ]
   },
   {
     "name": "Kawanishi N1K1 Kyoufuu",
@@ -13146,7 +13200,8 @@
     "speed": 52,
     "crashDmg": 208,
     "id": "dive-bomber-focke-wulf-ta-152-c-1-r14-carrier-based-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "research": true
   },
   {
     "name": "Heinkel He 50b",
@@ -13887,7 +13942,11 @@
     "speed": 48,
     "crashDmg": 300,
     "id": "torpedo-bomber-general-motors-tbm-avenger-vt-18-squadron-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Grumman TBF Avenger",
@@ -14416,7 +14475,11 @@
     "notes": null,
     "id": "asw-general-motors-tbm-avenger-vt-51-squadron",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "BB",
+      "CVL"
+    ]
   },
   {
     "name": "General Motors TBM-3 Avenger (ASW)",
@@ -14543,7 +14606,13 @@
     },
     "notes": "Acoustic Preload: When equipped, turns the first wave of torpedoes fired into acoustic torpedoes that deal 5% more damage.",
     "id": "auxiliary-533mm-magnetic-torpedo",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "6CRH Armor Piercing Shell",
@@ -14595,7 +14664,13 @@
     },
     "notes": "Accurate Alignments: Decreases the loading time of the user's first Main Gun volley by 15% and decreases her Main Gun Spread by 2. Limit one of HPFCR or AFCT per ship.",
     "id": "auxiliary-admiralty-fire-control-table",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Aichi AB-3",
@@ -14689,7 +14764,15 @@
     },
     "notes": "Angel's Feather: When equipped by a MNF or FFNF ship, 30 seconds after start of the battle, heal self for 3% of max HP, max 1 proc per battle.",
     "id": "auxiliary-angel-s-feather",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL",
+      "IXM",
+      "IXS",
+      "IXV"
+    ]
   },
   {
     "name": "Ankimo",
@@ -14836,7 +14919,26 @@
     "notes": "Battle Tracto Max: When equipped by Rikka Takarada: improves the pattern of her Grid Beam skill, and replaces her Main Gun with a Special Main Gun.",
     "id": "auxiliary-battle-tracto-max",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Blue Sea Mystery",
@@ -14918,7 +15020,26 @@
     "notes": "Buster Borr: When equipped by Rikka Takarada: improves the pattern of her Grid Beam skill, and replaces her Torpedo with a Special Torpedo.",
     "id": "auxiliary-buster-borr",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Butterflies Fluttering Among Plums",
@@ -14970,7 +15091,13 @@
     },
     "notes": "The Unfulfilled Promise: When equipped by U-556 or U-556 META (In-game only says U-556): increases the time she can stay in combat after surfacing by 4s. Increases her hunting range by 1. When equipped by Bismarck or Bismarck Zwei (In-game only says Bismarck): decreases the effect of the Out of Ammo debuff from 50% to 35% on the main fleet.",
     "id": "auxiliary-certificate-of-sponsorship",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Chest Full of Treasure",
@@ -15024,7 +15151,13 @@
     },
     "notes": "PBY Aerial Recon: Provides aerial reconnaissance, decreasing Ambush chance by 10% and increasing Ambush evasion chance by 10%. Effect does not stack.",
     "id": "auxiliary-consolidated-pby-5a-catalina",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "Corn Lantern",
@@ -15178,7 +15311,26 @@
     "notes": "The Eagle Union's esteemed damage control teams helped prevent many a casualty during the war. Dmg Control (Union): When the ship with this gear equipped is hit by an attack that would otherwise sink it: the ship survives, becomes invulnerable for 8s, and then sinks. Effect only applies to Eagle Union ships.",
     "id": "auxiliary-eagle-union-elite-damage-control",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Echoes of Relinquished Time",
@@ -15524,7 +15676,26 @@
     "notes": "Goldburn: Changes the BGM when equipped. If the ship with this gear equipped is in your Vanguard or is an SSSS collab character: increases the ship's RLD by 38. If your Flagship is a CV or CVL: launches a special support barrage 25s after the battle starts.",
     "id": "auxiliary-goldburn",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Grand Bomb",
@@ -15592,7 +15763,26 @@
     "notes": "Gridman Calibur: When equipped by Rikka Takarada: improves the attack pattern of her Slash & Circus skill, and triggers an additional torpedo barrage every 20s.",
     "id": "auxiliary-gridman-calibur",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Gyroscope",
@@ -15699,7 +15889,24 @@
     },
     "notes": "Aircraft Detection: Decrease likelihood of encountering Ambush/Airstrikes by 12%. Does not improve likelihood of evading Ambushes. Does not stack with SG Radar.",
     "id": "auxiliary-high-performance-anti-air-radar",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS",
+      "SSV"
+    ],
+    "research": true
   },
   {
     "name": "High Performance Fire Control Radar",
@@ -15712,7 +15919,8 @@
     },
     "notes": "Precision Lock-On: Decreases the loading time of the first Main Gun Volley by 15%. Limit one of HPFCR or AFCT per ship.",
     "id": "auxiliary-high-performance-fire-control-radar",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "research": true
   },
   {
     "name": "Homing Beacon",
@@ -15808,7 +16016,8 @@
     },
     "notes": "Powered Evasion: Every 20s: 30% chance for the ship using this gear to evade all enemy attacks for 2s.",
     "id": "auxiliary-improved-hydraulic-rudder",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "research": true
   },
   {
     "name": "Improved Snorkel",
@@ -16106,7 +16315,12 @@
     "notes": "\"The Royal Navy expects that every soldier will do their duty.\" Pennant of Victory: After the battle starts: for 6s, the ship with this gear equipped absorbs 24% of the DMG taken by the ship in the frontmost position of your Vanguard.",
     "id": "auxiliary-nelson-s-pennant-of-victory",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC"
+    ]
   },
   {
     "name": "Ninjutsu Scroll",
@@ -16198,7 +16412,26 @@
     },
     "notes": "Plum-Petal Poetry: When equipped by Yat Sen: scatters plum petals in the breeze; for the first 5 battles every sortie: when the battle starts, deploys a barrier (lasts 30s) that can negate up to 5% of this ship's max HP in DMG.",
     "id": "auxiliary-plum-petal-poetry",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Precious Handkerchief",
@@ -16416,7 +16649,12 @@
     },
     "notes": null,
     "id": "auxiliary-sail-components",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "IXM",
+      "IXS",
+      "IXV"
+    ]
   },
   {
     "name": "Sakuran Summons",
@@ -16580,7 +16818,26 @@
     "notes": "Sky Vitter: When equipped by Rikka Takarada: improves the attack pattern of her Slash & Circus skill, and replaces her Anti-Air Gun with a Special Anti-Air Gun.",
     "id": "auxiliary-sky-vitter",
     "rarity": "Super Rare",
-    "unique": true
+    "unique": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Sneaky-Stealthy Prowler",
