@@ -1269,6 +1269,40 @@ const EQUIPMENT_TYPE_CODE_CATEGORIES = {
 // appears on 446 slots, never together. So the two sets are disjoint and each code takes
 // its own half. Before this split a plain destroyer was offered SY-1A, which Optimize
 // would then have picked because it outscores every real torpedo.
+// Every gear slot has a built-in weapon the ship uses when the slot is empty; its id is
+// already in the ship data as slot.default, and data/default-equipment.js carries the
+// items themselves, extracted from the wiki's User:ArdWar/DefaultEquips page.
+// Resolves 2579 of the 2583 slots that declare a default. The 4 that do not are id 158
+// (Ganj-i-Sawai, Pearl, Queen Anne's Revenge, Sao Martinho), which that page never
+// documented - they degrade to no default rather than to a guessed one.
+//
+// NOTE for the DPS work: the page's aircraft table has no DPS column at all, only
+// Ordnance and reload, so the 346 aircraft slots will need their damage derived rather
+// than read. Guns, torpedoes, AA and ASW all carry their own DPS figures.
+const DEFAULT_EQUIPMENT_BY_ID = new Map(
+  (typeof DEFAULT_EQUIPMENT_DATA === "undefined" ? [] : DEFAULT_EQUIPMENT_DATA).map(item => [item.id, item])
+);
+
+function defaultEquipmentForSlot(slot) {
+  if (!slot || slot.default == null) return null;
+  return DEFAULT_EQUIPMENT_BY_ID.get(slot.default) || null;
+}
+
+// What the slot actually fights with: the equipped item, or the built-in default.
+// Returns null only for a slot with neither, i.e. an empty auxiliary.
+function activeEquipmentForSlot(ship, slotKey, slot) {
+  return getEquippedGear(ship, slotKey) || defaultEquipmentForSlot(slot);
+}
+
+function defaultEquipmentTooltip(item) {
+  const parts = [item.name + " (built-in)"];
+  if (item.dps != null) parts.push("DPS " + item.dps);
+  else if (item.dpsLight != null) parts.push(`DPS ${item.dpsLight}/${item.dpsMedium}/${item.dpsHeavy} (L/M/H)`);
+  else if (item.ordnance != null) parts.push("Ordnance " + item.ordnance);
+  if (item.reload != null) parts.push("Reload " + item.reload + "s");
+  return parts.join(" — ");
+}
+
 const EQUIPMENT_MISSILE_RE = /missile/i;
 function isMissileItem(item) {
   return item.category === "Torpedo" && EQUIPMENT_MISSILE_RE.test(item.name);
@@ -1454,7 +1488,14 @@ function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
       mark.className = "equip-tile-empty";
       mark.textContent = "+";
       tile.appendChild(mark);
-      tile.title = tooltip || "";
+      const builtIn = gearCtx ? defaultEquipmentForSlot(gearCtx.slot) : null;
+      if (builtIn) {
+        const label = document.createElement("span");
+        label.className = "equip-tile-default";
+        label.textContent = builtIn.name;
+        tile.appendChild(label);
+      }
+      tile.title = [tooltip, builtIn && defaultEquipmentTooltip(builtIn)].filter(Boolean).join("\n");
     }
   }
   paintTile();

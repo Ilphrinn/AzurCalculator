@@ -2040,6 +2040,42 @@ after the final edit.
   because the returned entries carry new fields — while base stats, costs, grid, filters,
   Interaction counts and the CSS sweep stay byte-identical.
 
+  **Default (built-in) equipment, 2026-08-20** — the user supplied
+  `Site web/User_ArdWar_DefaultEquips - Azur Lane Wiki.htm` with a standing instruction:
+  **the DPS figure must fall back to a slot's built-in weapon when nothing is equipped.**
+  An empty slot is not inert in this game; the ship still fires her fixed weapon.
+
+  The mapping needed no guessing: `ship.equipment[slot].default` was already in the data
+  as a numeric id, and the page's rows are keyed `fix-<id>`. `data/default-equipment.json`
+  / `.js` hold the 49 items (14 guns, 6 torpedoes, 3 AA, 22 aircraft, 4 DC/Aux), reached
+  through `DEFAULT_EQUIPMENT_BY_ID` / `defaultEquipmentForSlot(slot)`, with
+  `activeEquipmentForSlot(ship, slotKey, slot)` as the "equipped, else built-in" accessor
+  the DPS work should use.
+
+  **Coverage: 2579 of the 2583 slots that declare a default (99.85%).** The 4 misses are
+  all id 158 (Ganj-i-Sawai, Pearl, Queen Anne's Revenge, Sao Martinho) which that page
+  simply never documented — they degrade to no default rather than to an invented one.
+
+  Extraction notes, since the page is not uniform: it holds **5 tables with different
+  column layouts**, so each has its own column map, verified by cell count and then
+  spot-checked value-by-value against the raw rows for ids 100 and 106 before writing.
+  101 rows collapse to 49 items because **13 ids repeat 4x each** (extra ordnance rows for
+  one aircraft); the first row wins, and every repeated id happens to be one no ship
+  actually uses, so nothing is lost.
+
+  **Known gap the DPS work must handle**: the aircraft table has **no DPS column at all**,
+  only Ordnance and reload. So the 346 aircraft slots need their damage derived rather
+  than read, while guns (995 slots), AA (705) and torpedoes (533) all carry their own DPS
+  figures directly.
+
+  An empty tile now names its built-in weapon under the "+", with the numbers in the
+  tooltip — the label is what makes it visible that a slot is never really empty.
+  Defaults deliberately do NOT touch the stats grid: the page carries no stat-bonus
+  column, and built-in weapons grant none.
+
+  Also supplied at the same time and **not yet used**: `Gear Lab`, `Equipment Drop Table`,
+  `Research Academy` and `Shops` pages, presumably for where gear can be obtained.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)

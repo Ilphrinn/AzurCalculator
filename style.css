@@ -1389,6 +1389,7 @@ main {
 }
 
 .equip-tile {
+  position: relative;
   width: 100%;
   aspect-ratio: 1;
   display: flex;
@@ -1403,6 +1404,24 @@ main {
 .equip-augment .equip-tile {
   border-radius: 50%;
   border-color: color-mix(in srgb, var(--gold) 45%, var(--border));
+}
+
+/* An empty slot is not inert: the ship still fires her built-in weapon. Naming it keeps
+   "nothing equipped" from reading as "nothing at all", which matters now that the
+   default is what the DPS figure falls back to. */
+.equip-tile-default {
+  position: absolute;
+  bottom: 0.3rem;
+  left: 0.25rem;
+  right: 0.25rem;
+  font-size: 0.55rem;
+  font-weight: 600;
+  line-height: 1.1;
+  text-align: center;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .equip-tile-empty {
