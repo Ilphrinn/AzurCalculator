@@ -748,12 +748,30 @@ const modalEl = document.querySelector(".modal");
 const modalOverlay = document.getElementById("modal-overlay");
 const modalClose = document.getElementById("modal-close");
 const modalImageCol = document.querySelector(".modal-image-col");
-const modalImage = document.getElementById("modal-image");
+
+// The modal is one element reused for all 888 ships, so these four images have nothing to
+// show until a ship is opened - and an <img> with an empty or absent src is invalid HTML
+// (src="" is worse than invalid: it resolves to the page's own URL, so the browser refetches
+// the document as an image). Creating them here instead keeps them out of the served markup
+// entirely, the same way the catalog's own thumbnails are built with their src already set.
+// Insertion points are not interchangeable: the watermark is absolutely positioned and the
+// hull icon relatively, so the hull icon paints above it only by coming later in the DOM.
+function placeImage(id, className, parent, before, hidden) {
+  const img = document.createElement("img");
+  img.id = id;
+  img.className = className;
+  img.alt = "";
+  if (hidden) img.hidden = true;
+  parent.insertBefore(img, before || null);
+  return img;
+}
+
 const modalSkinNameEl = document.getElementById("modal-skin-name");
+const modalImage = placeImage("modal-image", "modal-image", modalSkinNameEl.parentNode, modalSkinNameEl);
 const modalSkinStrip = document.getElementById("modal-skin-strip");
 const modalName = document.getElementById("modal-name");
-const modalHullIcon = document.getElementById("modal-hull-icon");
-const modalNationWatermark = document.getElementById("modal-nation-watermark");
+const modalHullIcon = placeImage("modal-hull-icon", "modal-hull-icon", modalName.parentNode, modalName, true);
+const modalNationWatermark = placeImage("modal-nation-watermark", "modal-nation-watermark", modalName.parentNode, modalHullIcon, true);
 const modalTags = document.getElementById("modal-tags");
 const modalRetrofitControl = document.getElementById("modal-retrofit-control");
 const modalRetrofitCheckbox = document.getElementById("modal-retrofit-checkbox");
@@ -786,7 +804,7 @@ const modalBarragesList = document.getElementById("modal-barrages");
 const modalInteractionSection = document.getElementById("modal-interaction-section");
 const modalInteractionList = document.getElementById("modal-interaction");
 const modalInteractionMaxToggle = document.getElementById("modal-interaction-max-toggle");
-const gifPreview = document.getElementById("gif-preview");
+const gifPreview = placeImage("gif-preview", "gif-preview", document.body, null, true);
 
 let currentShip = null;
 let currentSkinIndex = 0;

@@ -2807,15 +2807,31 @@ opened. `#modal-image` had `src=""`, and `#modal-nation-watermark`, `#modal-hull
 `#gif-preview` had no `src` at all. An `<img>` is only valid with a non-empty `src` or
 `srcset`.
 
-All four now carry a 1x1 transparent GIF data URI, which the CSP already allows
-(`img-src 'self' data:`) and which costs no request. **`src=""` was not merely invalid**:
-an empty src resolves to the page's own URL, so the browser was re-fetching the whole
-document as an image - the fix is a small performance win as well as a validity one.
+**`src=""` was not merely invalid**: an empty src resolves to the page's own URL, so the
+browser was re-fetching the whole document as an image. Fixing it is a small performance
+win as well as a validity one.
 
-Verified across all 888 ships: every modal shows a real painting (0 left on the
-placeholder), 888 nation watermarks and 888 hull icons resolve to real files, the gif
-preview still swaps its placeholder for the real animation on hover, and all 1071 `<img>`
-elements in a rendered page carry a non-empty `src`. 0 errors.
+First pass gave all four a 1x1 transparent GIF data URI, which the CSP already allows
+(`img-src 'self' data:`) and which costs no request. **The user then asked why they had no
+image at all**, and on hearing the reason - the modal is one element reused for all 888
+ships, so its images have nothing to show until one is opened, the painting in particular
+depending on the selected skin - chose the alternative: **build the four in JS instead**
+(`placeImage`), so they are absent from the served markup entirely. Nothing to validate,
+no base64 in the HTML, and the same shape as the catalog's own thumbnails, which have
+always been created with their `src` already set.
+
+**The insertion points are not interchangeable.** `.modal-nation-watermark` is absolutely
+positioned and `.modal-hull-icon` relatively, so the icon paints above the watermark only
+by coming later in the DOM - reproducing the original order matters. The three that were
+`hidden` in the markup must also start hidden: `.gif-preview` carries a border and a
+background, so a src-less, unhidden one renders as a 2px dot in the corner.
+
+Verified across all 888 ships: heading children still read watermark > hull icon > name,
+every modal shows a real painting and its own name, 888 watermarks and 888 hull icons
+resolve to real files, the gif preview appears on hover and hides again - and the stacking
+was checked by **hit-testing rather than by eye**: `elementFromPoint` at the hull icon's
+centre returns the hull icon, not the watermark. **`index.html` now contains exactly one
+`<img>`, the brand logo**, and 0 errors.
 
 **The warning was fixed too, on the user's standard rather than mine.**
 `<h2 id="modal-name">` was empty in the static markup because `openModal` writes the ship's
