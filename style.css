@@ -1483,8 +1483,10 @@ main {
   width: 100%;
   aspect-ratio: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.15rem;
   border-radius: 10px;
   background: var(--bg);
   border: 1px dashed var(--border);
@@ -1499,12 +1501,12 @@ main {
 /* An empty slot is not inert: the ship still fires her built-in weapon, and that is what
    the DPS figure falls back to. The tile says so in full white rather than naming the
    weapon in muted text - which weapon it is stays in the tooltip, the same rule the rest
-   of this section follows. */
+   of this section follows.
+   It sits in the middle of the tile, stacked under the "+" rather than pinned to the
+   bottom edge: the tile is a column, so the two centre together as one group. */
 .equip-tile-default {
-  position: absolute;
-  bottom: 0.35rem;
-  left: 0.25rem;
-  right: 0.25rem;
+  max-width: 100%;
+  padding: 0 0.25rem;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.08em;

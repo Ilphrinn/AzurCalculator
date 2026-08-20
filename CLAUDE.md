@@ -2076,9 +2076,14 @@ after the final edit.
   name ("BB Gun #103") in small muted text; on request it now reads **"DEFAULT" in white**,
   bold and letter-spaced, because the muted name was hard to read and said less. Which
   weapon it is stays in the tooltip, the same "detail goes in the title, not on the card"
-  rule the rest of this section follows. Verified across all 888 ships: 2579 tiles carry the
-  label - exactly the 2579 slots with a resolvable built-in - all reading DEFAULT, all pure
-  white, none clipped.
+  rule the rest of this section follows. It sits in the **middle** of the tile, stacked
+  under the "+" rather than pinned to the bottom edge: `.equip-tile` became a column, so the
+  two centre together as one group instead of the label needing absolute positioning.
+  Verified across all 888 ships: 2579 tiles carry the label - exactly the 2579 slots with a
+  resolvable built-in - all reading DEFAULT, all pure white, none clipped, and **0 tiles
+  where the "+"/label group is more than 1.5px off the tile's centre**. The column direction
+  is safe for a filled tile too, checked rather than assumed: an equipped icon still measures
+  the full tile minus its 1px border.
   Defaults deliberately do NOT touch the stats grid: the page carries no stat-bonus
   column, and built-in weapons grant none.
 
