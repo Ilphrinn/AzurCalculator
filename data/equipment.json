@@ -1667,7 +1667,12 @@
     },
     "id": "dd-gun-twin-127mm-5-54-mk-16-prototype-t0",
     "rarity": "Super Rare",
-    "research": true
+    "research": true,
+    "usedBy": [
+      "BB",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 127mm (KM40)",
@@ -4839,7 +4844,12 @@
       "heavy": 90
     },
     "id": "ca-gun-triple-254mm-model-1939-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Triple 283mm (SK C/28)",
@@ -6928,7 +6938,13 @@
       "heavy": 120
     },
     "id": "bb-gun-triple-406mm-45-mk-7-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 410mm (10th Year Type Prototype)",
@@ -13201,7 +13217,12 @@
     "crashDmg": 208,
     "id": "dive-bomber-focke-wulf-ta-152-c-1-r14-carrier-based-prototype-t0",
     "rarity": "Ultra Rare",
-    "research": true
+    "research": true,
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Heinkel He 50b",
@@ -14593,7 +14614,12 @@
     },
     "notes": "High-Octane Fuel: Increases the Speed of equipped aircraft by 5, and increases their HP by 140. Effect does not stack.",
     "id": "auxiliary-100-150-aviation-gasoline",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "533mm Magnetic Torpedo",
@@ -16017,7 +16043,23 @@
     "notes": "Powered Evasion: Every 20s: 30% chance for the ship using this gear to evade all enemy attacks for 2s.",
     "id": "auxiliary-improved-hydraulic-rudder",
     "rarity": "Super Rare",
-    "research": true
+    "research": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Improved Snorkel",
@@ -16457,7 +16499,11 @@
     },
     "notes": "Improved Hull Design: Increases a submarine's Speed by 20% and moves it forward another 8 units after it enters battle.",
     "id": "auxiliary-pressure-resistant-hull-design",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Protocol Zero Key",
@@ -16908,7 +16954,12 @@
     },
     "notes": "Super Heavy Shell: Increases Main Gun Crit Rate by 8%.",
     "id": "auxiliary-super-heavy-shell",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC"
+    ]
   },
   {
     "name": "Superior Grimoire",
@@ -17076,7 +17127,14 @@
     },
     "notes": "VH Armor Plating: When equipped by a ship with Heavy armor: decreases its DMG taken from AP ammo by 6% and decreases its DMG taken from HE and Normal ammo by 3% When equipped by a ship with an Armor Type other than Heavy: changes its Armor Type to Heavy",
     "id": "auxiliary-vh-armor-plating",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "CB",
+      "CV"
+    ]
   },
   {
     "name": "Washington Naval Treaty",

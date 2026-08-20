@@ -2474,10 +2474,12 @@ after the final edit.
     saved it, but no `List of X` page covers that submarine deck gun, so the catalog has no
     record to attach it to. Expected, not a parse failure.
 
-  Coverage after the last batch: **372 pages, 377 of 581 records restricted**. Every weapon
+  Coverage after the last batch: **381 pages, 386 of 581 records restricted**. Every weapon
   category is at 70-100%, AA Time Fuze Guns at 4/4, and the remaining gap is mostly Auxiliary
-  (132 of the 204 uncovered records). The number that matters is smaller: of the **47 distinct
-  items Optimize can reach, 38 are covered and 9 are not** - down from 23.
+  (127 of the 195 uncovered records). The number that matters is smaller: of the **45 distinct
+  items Optimize can reach, 39 are covered and 6 are not** - down from 23, then 9.
+  The reachable set itself keeps shifting as scoring changes, so re-measure it rather than
+  reusing an earlier list.
 
   ### A Research toggle beside Gear Lab (2026-08-20)
 
@@ -2502,6 +2504,45 @@ after the final edit.
   both on gives 1728 Gear Lab and 250 Research picks; Research off gives **0 Research picks**
   and moves 252 slots; Gear Lab off gives **0 Gear Lab picks** and moves 1730; both off gives
   0 of each. 0 unique leaks, 0 hull violations, 0 Time Fuze violations, 0 errors throughout.
+
+  ### Optimize scored weapons at zero Firepower (2026-08-20)
+
+  Reported, and a real bug: the optimiser ranked weapons on the catalog's DPS alone, which
+  is a **stat-0 baseline**, so it compared every gun as if the ship had no Firepower. The
+  user's example is the cleanest possible demonstration:
+
+  | | raw DPS | Firepower bonus |
+  |---|---|---|
+  | Prototype Quadruple 152mm Main Gun Mount (UR) | 45.88 | **+65** |
+  | Single 152mm (6"/45 Pattern 1892) (Rare) | 45.89 | +12 |
+
+  The Rare gun won **by 0.01 of raw DPS**, while carrying 53 less Firepower - the very stat
+  that multiplies its own damage. On Cleveland at 125 (FP 113) the real scores are **127.5
+  against 103.3**, the opposite order.
+
+  A weapon is now scored the way `computeCombatMetrics` already renders it - the wiki's
+  `WeaponStatMultiplier`, `(1 + ScalingStat/100)` - with the item's own bonus to that stat
+  added in (`weaponScoreForShip`). **The optimiser and the DPS figure the app displays were
+  disagreeing with each other; they now use the same formula.** Mounts and efficiency stay
+  out: they belong to the slot, are equal for every candidate in it, and cannot change the
+  order.
+
+  **Two second-order effects are knowingly ignored**, and one ship shows why that is a real
+  trade rather than a free win: a gun's Firepower bonus also lifts the ship's OTHER gun
+  slots, and picks are made slot by slot rather than jointly. **Chen Hai** is the single
+  ship in 888 whose surface DPS drops (937 -> 734): her second slot takes a Fairey Spearfish
+  over a Twin 127mm, correctly by that slot's own numbers, but loses the gun's Firepower
+  bonus which was feeding her other slot. Modelling that needs a whole-loadout search.
+
+  Measured against the true previous state (named preference on both sides, so only the
+  scoring differs): **442 ships change loadout, surface DPS better on 441 and worse on 1**,
+  roster total **+4.7%**, 0 errors.
+
+  **Worth knowing about the skill-named preference while reading DPS numbers**: it is
+  absolute, so it can cost a lot of raw damage. Formidable drops 1230 -> 804 by taking the
+  Fairey Albacore her skill names over a Fairey Spearfish. That is what was asked for - the
+  skill bonus is real and this app does not model it - but the metric cannot show the gain,
+  only the loss.
 
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the

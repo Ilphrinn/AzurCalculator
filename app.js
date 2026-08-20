@@ -1665,6 +1665,37 @@ function equipmentOptimizeScore(item) {
   return null;
 }
 
+function itemStatBonus(item, key) {
+  const bonus = item.statBonus || {};
+  for (const [rawKey, amount] of Object.entries(bonus)) {
+    if ((EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey) === key && typeof amount === "number") return amount;
+  }
+  return 0;
+}
+
+// The catalog's DPS is a stat-0 baseline, so ranking on it alone compares guns as if the
+// ship had no Firepower - which is not how any of them will actually fire. A weapon that
+// carries a big stat bonus raises the very stat that multiplies its own damage, and the
+// difference is not marginal: the Prototype Quadruple 152mm (45.88 raw, +65 FP) scored
+// BELOW the Single 152mm (6"/45 Pattern 1892) (45.89 raw, +12 FP) purely on the 0.01 of
+// raw DPS between them, when at any real Firepower it is far ahead.
+//
+// So a weapon is scored the way computeCombatMetrics already renders it - the wiki's
+// WeaponStatMultiplier, (1 + ScalingStat/100) - with the item's own bonus to that stat
+// added in. Mounts and efficiency belong to the slot and are equal for every candidate in
+// it, so they are left out; they would not change the order.
+//
+// Two second-order effects are knowingly ignored: a gun's Firepower bonus also lifts the
+// ship's OTHER gun slots, and the picks are made slot by slot rather than jointly. Both
+// would need a whole-loadout search to model, and neither changes which gun wins a slot.
+function weaponScoreForShip(item, damage, effective) {
+  const role = weaponRole(item);
+  if (!role || !effective) return damage;
+  const entry = effective.stats[role.stat];
+  const stat = (entry ? entry.value : 0) + itemStatBonus(item, role.stat);
+  return damage * (1 + stat / 100);
+}
+
 // Global, like the Skills tab's Max Level state: it survives switching ships, because a
 // player comparing two ships means the same cap on both.
 let equipmentRarityCap = "Ultra Rare";
@@ -1761,7 +1792,9 @@ function optimizeEquipment(ship, effective) {
       if (!equipmentReachable(item, named)) continue;
       const damage = equipmentOptimizeScore(item);
       const isWeapon = damage !== null;
-      const score = isWeapon ? damage : statPreferenceScore(item, weights);
+      const score = isWeapon
+        ? weaponScoreForShip(item, damage, effective)
+        : statPreferenceScore(item, weights);
       if (!isWeapon && score <= 0) continue;
       const candidate = { item, isWeapon, isNamed: named.has(item.name), score };
       if (betterCandidate(candidate, best)) best = candidate;
