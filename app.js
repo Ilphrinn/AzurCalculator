@@ -1243,6 +1243,11 @@ function equipmentSlotTypes(slot) {
 
 // Built by hand because the two vocabularies are worded differently on purpose
 // ("DD Main Guns" here vs "DD Gun" in the catalog).
+// Codes 6 and 21 are NOT the same permission, though the wiki labels both slots plainly
+// "Anti-Air Guns": "Time Fuze AA Guns are special AA Guns only equippable by Battleships
+// and Battlecruisers" (Damage Calculations page), and code 21 appears on BB, BC and BBV
+// slots only - 142 of them, never on any other hull. So 6 grants ordinary AA guns and 21
+// grants the Time Fuze ones; a BB slot carries both codes and gets both.
 // Code 18 (Cargo) stays unmapped: no Cargo category was ever extracted, and it is not
 // combat gear. Code 20 (Missiles) IS mapped, to the Torpedo catalog page - checked, that
 // is where the SY-1 missiles live. equipmentOptionsForSlot then splits that category in
@@ -1254,7 +1259,8 @@ const EQUIPMENT_TYPE_CODE_CATEGORIES = {
   4: ["BB Gun"],
   5: ["Torpedo"],
   20: ["Torpedo"],
-  6: ["AA Gun", "AA Time Fuze Gun"],
+  6: ["AA Gun"],
+  21: ["AA Time Fuze Gun"],
   7: ["Fighter"],
   8: ["Torpedo Bomber"],
   9: ["Dive Bomber"],

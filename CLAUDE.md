@@ -1130,9 +1130,12 @@ hasRetrofit, equipment, augmentModules`.
    anywhere** — 2 ships, Köln and Köln META — so it is deliberately left out of the map and
    simply doesn't render, rather than being given an invented name. 21 never appears alone,
    only glued to 6, and the wiki labels every slot carrying the pair plainly "Anti-Air
-   Guns", so it maps to the same string and the duplicate is deduped away — that reproduces
-   the wiki exactly without asserting what 21 is on its own. If a future dataset adds a
-   code, the unknown-code path is already the graceful one: it disappears from the list.
+   Guns", so **for the display name** it maps to the same string and the duplicate is
+   deduped away — that reproduces the wiki's own label exactly. **This is only true of the
+   label**: for what a slot may actually mount, 6 and 21 are different permissions — see the
+   Time Fuze entry below, where treating them as one was an active bug. If a future dataset
+   adds a code, the unknown-code path is already the graceful one: it disappears from the
+   list.
 
    **`ship.augmentModules` is new data** (`data/ships.json` + regenerated `ships.js`) —
    the augment slot's modules are on each ship's wiki page ("Augment | N/A | Bowgun,
@@ -2229,6 +2232,44 @@ after the final edit.
   are blank, which is now the only affordance on them. `.combat-metric-empty` went with the
   dash rather than being left as a colour rule with nothing to colour.
 
+  ### Equip restrictions: Time Fuze AA guns are BB/BC only (2026-08-20)
+
+  The user asked whether per-item equip restrictions could be recovered ("certains
+  equipement ne peuvent pas etre equipes a certains navires"). One is documented in a page
+  this project already has, and the app was getting it wrong.
+
+  **Damage Calculations page**: "Time Fuze AA Guns are special AA Guns **only equippable by
+  Battleships and Battlecruisers**." `EQUIPMENT_TYPE_CODE_CATEGORIES` mapped code 6 to BOTH
+  `AA Gun` and `AA Time Fuze Gun`, on the earlier reading that code 21 was a harmless
+  duplicate of 6 - so **every** AA slot in the game was offered Time Fuze guns.
+
+  Not cosmetic: the four Time Fuze guns are the **top four AA items by DPS** in the whole
+  catalog (118 / 116.78 / 110.09 / 109.68, ahead of the best ordinary AA gun at 94.59), so
+  Optimize was handing one to every destroyer, cruiser and carrier - 564 slots that cannot
+  mount them.
+
+  **The data already encoded the rule; nothing had to be guessed or keyed off a hull list.**
+  Code 21 appears on **BB (105), BC (35) and BBV (2) slots and nowhere else** - exactly the
+  page's "Battleships and Battlecruisers". So 6 grants ordinary AA guns, 21 grants Time
+  Fuze ones, and a capital ship's slot carries both codes and gets both. The display name
+  (`EQUIPMENT_TYPE_NAMES`) still collapses them to one "Anti-Air Guns", which is what the
+  wiki's own slot label says - **the label and the permission are different questions, and
+  conflating them is what caused this.**
+
+  Verified: Time Fuze guns now reach 142 slots and no others; every other hull sees the
+  same 64-item AA pool with 0 Time Fuze; Optimize gives Ayanami and Unicorn a Twin 57mm
+  Bofors while New Jersey still gets a Time Fuze gun; and across all 888 ships, Optimize
+  fills 4305 slots with **0 Time Fuze guns landing on a slot without code 21**, 0 errors.
+
+  **Everything else about restrictions is not in this repo.** The `List of X` pages carry no
+  restriction column (checked: their headers are Name/Image/Stars/stats/Notes, and 0 of the
+  581 catalog records mention an equip restriction in `notes`), and `nation` on a catalog
+  record is an origin tag, not a lock - 406 records carry one and nothing says it restricts
+  anything. The wiki puts per-item restrictions in each item's **own page** infobox, which
+  would be 581 saved pages. **If more restrictions are wanted, ask the user for a page that
+  states the RULE rather than the per-item pages** - that is how this one was found, and one
+  sentence covered 564 slots.
+
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the
   widest value at 3.81rem ("2,086"), which would have clipped the moment anything was
@@ -2961,7 +3002,11 @@ the only copy.
 > match, since the wording differs on purpose ("DD Main Guns" vs "DD Gun") - this is the
 > single place that ties them together.
 > Code 21 is a duplicate of 6 (see EQUIPMENT_TYPE_NAMES's own note - it never appears
-> alone) so it isn't listed separately here. Code 18 (Cargo) and 20 (Missiles) have no
+> alone) so it isn't listed separately here.
+>
+> **(Superseded 2026-08-20 — this was wrong, and the code no longer says it. 21 is the
+> Time Fuze permission, granted to BB/BC/BBV only; see the Time Fuze entry in the
+> Equipment section.)** Code 18 (Cargo) and 20 (Missiles) have no
 > catalog category yet: no "List of Cargo" extraction was done (Cargo isn't combat
 > equipment), and Missiles were expected to live inside the Torpedo catalog page per the
 > user's own note ("les missiles sont dans les torpedoes") but the catalog's Torpedo
