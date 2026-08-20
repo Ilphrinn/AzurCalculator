@@ -12,9 +12,19 @@ pages can't `fetch()` local files due to CORS, so the dataset is inlined as a `<
 `data/ships.json` is the same data in real JSON, kept for tooling/scripts to read with
 `require()`; **the two must be regenerated together** — `ships.js` is just
 `const SHIPS_DATA = <ships.json content>;`. If you edit ship data, edit `ships.json` and
-regenerate `ships.js` from it (or edit both identically).
+regenerate `ships.js` from it (or edit both identically). `data/equipment.js` /
+`data/equipment.json` are the same arrangement for the gear catalog (`EQUIPMENT_DATA`).
 
-Files: `index.html` (structure), `app.js` (all logic, one file, ~1200+ lines), `style.css`.
+**Both `.js` files are pretty-printed** (2026-08-20, on request: they had been generated
+as one enormous single line each — 3.8 MB and 233 KB — which is unreadable when opened in
+an editor). They now use `JSON.stringify(data, null, 2)`, the same indent their `.json`
+twins already used, so each `.js` is line-for-line identical to its `.json` apart from the
+`const X = ` prefix and the trailing `;` — ships.js and ships.json are both 221 278 lines,
+equipment.js and equipment.json both 13 676. Regenerate the same way; do NOT re-minify
+them, the size difference (ships.js 3.8 MB → 6.1 MB) costs nothing here since the page is
+opened from disk, and the diffability is worth far more when ship data changes.
+
+Files: `index.html` (structure), `app.js` (all logic, one file, ~2700 lines), `style.css`.
 
 ## Data provenance (important — don't try to re-scrape)
 
@@ -1898,6 +1908,64 @@ after the final edit.
   `getEquippedGear`, the Unequip row clears it back to the empty "+" tile, and an
   outside click closes an open picker without picking anything.
 
+  **Gear artwork replaced the text tiles/rows (2026-08-20)**, on direct request ("utiliser
+  les images de chaque équipement au lieu des textes. Quand on clique sur un équipement,
+  qu'on ai pleins de petites images pour choisir"). The note just above ("no gear icon
+  assets exist in this project") is no longer true: the saved wiki `List of X` pages each
+  carry an **Icon column** whose `<img>` is the item's real 128px game art, which the
+  original catalog extraction simply never looked at.
+
+  `assets/equipment-icons/{id}.png`, 581 files, named by the catalog record's own `id` so
+  `app.js` derives the path with no extra data field (`equipmentIconImg()`). Extracted by
+  a scratchpad script (not committed, same convention as every other data script here)
+  that walks **every** tabber panel of each list page — not just `Max_Enhanced` — and
+  indexes rows by `(category, link text, tier)`, taking the largest saved size per key
+  (`srcset`'s 2x, 120px for gun-style pages / 100px for the ASW+Auxiliary ★-column ones).
+  Matched **581/581 exactly**, with the "same family, any tier" fallback the script also
+  implements never once being needed — worth knowing if the catalog grows: an exact
+  (name, tier) hit is the normal path, not a lucky one. Joined on the row's **link text**,
+  not its `title=` attribute, for the same reason the rarity join was (see above — the two
+  differ on ~8 items and `name` was built from the link text).
+  13 files are byte-identical duplicates: a real-life gun listed under two categories
+  (e.g. "Single 102mm QF Mk V" as both a DD Gun and an AA Gun) legitimately shares art.
+  One icon is non-square (`auxiliary-angel-s-feather.png`, 100×117) — `object-fit: contain`
+  handles it, don't "fix" the source.
+
+  **The picker is now a grid of icon cells** (`.equip-picker-list` went `flex column` →
+  `grid`, `repeat(auto-fill, minmax(40px, 1fr))`, ~6 columns in a 19rem panel) instead of
+  a list of name+stat rows; the slot tile holds the picked item's art instead of its name.
+  Name/rarity/headline stat moved into the `title` tooltip (`equipmentTooltip()`), the same
+  "detail goes in the title, not on the card" rule the rest of this section follows. Since
+  a dense grid of unlabelled icons is hard to scan on tooltip delay alone, a
+  `.equip-picker-caption` pinned to the panel's bottom (`position: sticky`) names whatever
+  cell is hovered or focused. Options are still `sortEquipmentOptions()`-ordered, so the
+  rarity-tinted cells also read as bands of descending rarity. `.equip-tile-name`,
+  `.equip-picker-row/-name/-stat` are gone (verified zero remaining references before
+  deleting, per this project's cleanup convention); `equipmentIconImg()`'s `error` handler
+  still swaps in the old text tile, so a future catalog entry without art degrades rather
+  than showing a broken-image box.
+
+  **`clampPickerToSection()` — the panel needed real positioning, and one measurement
+  wasn't enough.** The panel is centred on its own 7rem card but is 19rem wide, so opened
+  from the leftmost slot it hung ~96px outside the Equipment row and was clipped by
+  `.modal-info`'s overflow (visible in the first screenshot as a half-cut caption; the
+  old 15rem text list overhung less and got away with it). It now measures itself against
+  `#modal-equipment` and nudges back inside with a `marginLeft` shift, leaving the CSS
+  centring as the default and only correcting the edge cases. The first pass lands ~4px
+  short — the panel's own scrollbar hasn't settled when `getBoundingClientRect()` runs —
+  so it schedules one `requestAnimationFrame` correction that **accumulates onto the
+  current margin** rather than recomputing from zero, which is what makes the second pass
+  a no-op once the panel is already inside (guarded by `panel.isConnected`, since an
+  outside click can remove it before the frame fires). Verified by measurement, not by
+  eye: all 5 of New Jersey's slots report their panel fully within the section's bounds
+  after the correction (slot 0 converging 92px → 96px, slots 1-4 needing 0).
+
+  Verified: full 888-ship regression exercising open → pick → unequip on each ship's first
+  gear slot — 861 pickers opened, 861 tiles filled with an `<img>`, 861 unequips returning
+  the tile to empty, 0 leftover open pickers, 0 errors (the 27 ships with no picker are the
+  hand-imported `wiki-*` ones, whose `equipment` is `null`); and a separate probe loading
+  all 581 icon files in-page — **581 loaded, 0 failed**.
+
   **DPS formula re-read closely (2026-08-20) — CLAUDE.md's own earlier summary of it was
   wrong, caught before writing any code.** The `ReloadTime` line quoted just above this
   paragraph (still left as-is, to show exactly what was wrong) drops a **square root**
@@ -1978,3 +2046,1660 @@ after the final edit.
   verified before moving on, rather than big upfront specs.
 - Correspondence is in French; code/comments/commit-style content stays in English per the
   existing codebase convention.
+
+## The source files carry no comments any more (2026-08-20)
+
+On direct request ("je veux que tu retires tous les commentaires du code des fichiers. Si
+tu en as besoin migre les dans ton claude.MD"), **every comment was removed from
+`app.js`, `style.css` and `index.html`** and migrated into the appendix below.
+`index.html` turned out to have none to begin with; `app.js` had 821 (65.7 KB of text,
+156 blocks) and `style.css` 34. Line counts: app.js 3528 -> 2706, style.css 1772 -> 1675.
+
+**Superseded the same day** — see "Commenting standard" below. The source files were
+re-commented from scratch against the rules in `programming rules/`, keeping roughly a
+third of what the strip removed. The appendix stays as the full record, but it is no
+longer the only copy of the load-bearing rationales.
+
+**How the strip was done safely.** A naive regex over raw JS would mistake a `//` inside
+a string, a URL or a regex literal for a comment, and this file is dense with regex
+literals. So a small character-level scanner (scratchpad, not committed, same convention
+as every other one-off script here) tokenised `app.js` properly — strings, template
+literals with `${}` interpolation, regex-vs-division, line and block comments — and the
+strip worked from its character ranges, never from a text regex. Two preconditions were
+proven first rather than assumed:
+- **CSS**: every one of the 34 `/*` in `style.css` is a real comment, none sits inside a
+  string or a `url()` (checked with a separate CSS scanner) — which is what makes the
+  plain non-greedy `/*[sS]*?*/` used there exact.
+- **JS**: no template literal in `app.js` spans a newline (verified by counting unescaped
+  backticks per line: the only odd lines were inside comments) — which is what makes it
+  safe to collapse the blank lines that deleting a comment block leaves behind.
+Blank-line collapsing is further restricted to lines that were adjacent to a deleted
+comment, so no other spacing in the files moved.
+
+**Verification was a before/after behavioural fingerprint, not a read-through.** Captured
+BEFORE touching anything and replayed after: all 888 ships' fully rendered modal HTML
+hashed together (73.0 MB of markup), the catalog grid and filter panel hashed, 2B's
+per-category Interaction counts, the six named guard precedents from this file
+(Izumo<-Centaur, Izumo<-Tirpitz, Brest<-Bolzano META, 2B<-Avrora, 2B<-Baltimore μ,
+Chapayev), `computeStats`/`computeEffectiveStats`/`computeOilCost` on seven ships, New
+Jersey's five slot option counts, and a 39-selector computed-style sweep standing in for
+the stylesheet (CSSOM `cssRules` is unreadable under `file://` — SecurityError — so
+computed values are the available proxy). **Every value matched, and the two result
+screenshots are byte-identical (same SHA-256).** If a future mechanical rewrite of these
+files is ever needed, reuse this method: fingerprint first, then change, then replay.
+
+## Commenting standard (2026-08-20) — from `programming rules/`
+
+The user created a `programming rules/` folder (git-ignored, reference material like
+`Site web/`) holding saved articles on two topics, and asked for the code to be updated
+against them. Three are about comments — Stack Overflow's "Best practices for writing
+code comments", Douglas Rocha's "The Art of Commenting", Alibaba Cloud's "The Art of Code
+Comments" — and they converge on one rule, Jeff Atwood's: **code tells you HOW, comments
+tell you WHY.**
+
+**A comment earns its place only if it is one of these:**
+1. **Intent** — the purpose of a block, at a higher level of abstraction than the code.
+2. **Summary** — one or two sentences distilling a paragraph, so the file can be scanned.
+3. **Something code cannot express** — data provenance, a formula's source, a measured
+   figure, a decision that was made and why.
+4. **Unidiomatic code** — a warning that something looks removable but is not. Stack
+   Overflow's Rule 5; in this codebase that is most of `isGenuineAllyMatch`.
+5. **Bug-fix context** — what broke, with the concrete failing case, so a reader can tell
+   whether the fix is still needed and how to test it (Rule 8). **Every guard regex names
+   the ship that made it necessary — that ship IS the regression test.**
+6. **A constant's rationale** — why the value is that value, not merely what it is.
+7. **TODO** for a known-incomplete implementation (Rule 9).
+
+**A comment must NOT be:**
+- a restatement of the code (`i = i + 1; // add one to i`);
+- an excuse for unclear code — rename or restructure instead (Rule 2);
+- an end-of-line note on an ordinary line;
+- **changelog narration** — dates, user quotes, "first we tried X, then Y", verification
+  counts. That is exactly what this file is for, and duplicating it in the source is how
+  comments go stale. This is the single biggest difference from how the code was
+  commented before 2026-08-20.
+
+Both halves matter: the articles are equally firm that too many comments is a failure
+mode and that refusing to write them is one. Roughly a third of the stripped text came
+back; the rest was changelog and stayed here.
+
+**Do not add a comment because a function looks important.** Add one when a reader who
+understands JavaScript would still ask "why is this here?".
+
+## Deployment security (2026-08-20) — also from `programming rules/`
+
+The same folder holds MDN's Content Security Policy reference, an HTTP Observatory scan
+result, and the HSTS preload submission page — the site is deployed to Cloudflare
+(`wrangler.toml`, Workers static assets out of `./dist`) and had **no security headers at
+all**.
+
+The app turned out to need no code changes to accept a strict CSP: **no inline
+`<script>`, no inline `style=` attribute, no `on*` handler, no `eval`/`new Function`, no
+`javascript:` URL, no `fetch`/XHR/WebSocket.** The 18 `innerHTML` writes are either `""`,
+a static string, or bundled skill text — **no user input reaches any of them** (the two
+search fields are only ever lowercased and compared), so there is no DOM-XSS surface to
+fix either. Setting `el.style` from JS is CSSOM, which CSP does not restrict, so no
+`'unsafe-inline'` is needed despite the app styling elements constantly.
+
+`_headers` (repo root) carries the result. It must be copied into `./dist` with the rest
+of the app — Cloudflare consumes it there and does not serve it.
+
+**Verified, not assumed**: a scratchpad static server served this exact app over HTTP
+with these headers while the page listened for `securitypolicyviolation`. Result: **0
+violations, 0 errors, 996/996 card images and every local asset (equipment icons, faction
+logos, stat icons, the inline-SVG scrollbar arrows) loaded.** `file://` would have been
+useless for this — it resolves `'self'` differently. Re-run that check if the app ever
+gains a new kind of resource.
+
+**Two things deliberately NOT done:**
+- **HSTS `preload`** is absent, deliberately. The user enabled HSTS zone-wide in the
+  Cloudflare dashboard (6 months, Apply to subdomains ON, Preload OFF, alongside Always
+  Use HTTPS, Automatic HTTPS Rewrites and Minimum TLS 1.2), so `_headers` was aligned to
+  the same 6-month `max-age` instead of its original 2 years - two HSTS headers on one
+  host that disagree is a trap for later. **Cloudflare is the source of truth for the
+  domain**; the line in `_headers` only matters if the site is ever served elsewhere.
+  Preload stays off because removal from the list takes months, whereas a plain HSTS
+  header simply lapses. Revisit once several subdomains have been live on HTTPS a while.
+
+  **Scope correction worth keeping** (I got this wrong first time and it changed the
+  user's decision): an HSTS header served by `azurcalculator.ilph-creation.party` covers
+  that host and anything BELOW it - NOT the apex `ilph-creation.party`, nor sibling
+  subdomains. Domain-wide HTTPS is a Cloudflare dashboard setting, not something this
+  repo can do. The practical trap once `includeSubDomains` is on: grey-clouding a
+  subdomain in Cloudflare DNS makes it inaccessible unless it serves valid HTTPS itself,
+  so new services should stay orange-clouded.
+  Encryption mode was left on **Automatic SSL/TLS** (running Full): it upgrades toward
+  Full (Strict) on its own and will not break a newly added origin, and for this site the
+  question is moot anyway since Workers static assets have no separate origin.
+- **Google Fonts is still external**, so the CSP has to allow `fonts.googleapis.com`
+  (stylesheet) and `fonts.gstatic.com` (font files). Those two directives are the
+  documented pattern but are the one part that could NOT be network-verified here — this
+  sandbox has no internet, which is also why the font-face check reads false in the test
+  output. **Self-hosting Raleway would let both origins drop out of the CSP entirely**,
+  remove a third-party request, and make the page work offline; it needs the font files,
+  which have to be fetched on a machine with network access.
+
+## PageSpeed findings (2026-08-20) — mostly NOT yet fixed
+
+The user added a PageSpeed Insights run to `programming rules/`. It is the first hard
+evidence of how the deployed site behaves: **https://azurcalculator.ilph-creation.party**,
+mobile, Moto G Power emulation, slow 4G.
+
+    FCP 2.6s | LCP 13.6s | TBT 120ms | CLS 0.172 | SI 2.6s
+
+**The whole problem is images: 5,032 KiB transferred, of which 4,420 KiB is avoidable.**
+- `assets/header-background.png` — **2,076 KiB**, save ~1,738 KiB. This is also the LCP
+  element (`<header class="topbar">` paints it as a CSS background), which is why LCP is
+  13.6s: at 1,638 kbit/s a 2 MB image alone takes ~10s.
+- `assets/icon.png` — 247 KiB at 500x454, **displayed at 89x81**. Save ~239 KiB.
+- Card thumbnails — many at 250-280 KiB each (`242_retrofit.png`, `106_retrofit.png`, ...);
+  `assets/thumbnails/` is **87 MB across 996 files**.
+All flagged for the same two reasons: no modern format (WebP/AVIF) and no resizing to
+displayed dimensions.
+
+**Done, and verified not to change rendering:**
+- `&display=swap` on the Google Fonts URL and a `preconnect` to `fonts.gstatic.com`. The
+  critical chain showed googleapis (144ms) then gstatic (278ms) resolving in series.
+- `width`/`height` on the brand logo. It was the element PageSpeed named as "image of
+  unknown size", and `.brand-logo` sizes by `height: 46px; width: auto`, so nothing
+  reserved its box before load. The attributes only supply the aspect ratio; CSS still
+  sizes it. Card thumbnails already avoid this via `aspect-ratio: 3/4` on the wrapper.
+
+**NOT done — needs a tool this environment does not have.** No ImageMagick, no cwebp, no
+Pillow, no ffmpeg here, so the images could not be re-encoded. This is the fix worth
+almost everything else combined:
+1. Resize `icon.png` to about 2x its displayed size (180x164) and re-encode.
+2. Re-encode `header-background.png` as WebP at a sane width, or drop it for a CSS
+   gradient - it sits under a near-opaque gradient overlay already.
+3. Batch-convert `assets/thumbnails/` to WebP. Because it is a CSS background, the header
+   also cannot be discovered from the initial HTML; a `<link rel="preload" as="image"
+   fetchpriority="high">` would help, but only AFTER the file is small - preloading 2 MB
+   just moves the same 10s earlier.
+
+**A regression this session caused, worth undoing at deploy time:** pretty-printing
+`data/*.js` (readability, done on request) costs **+72 KiB gzipped on ships.js**
+(509 -> 581 KiB), and PageSpeed already lists `/data/ships.js` as the longest
+critical-path request at 547 ms. The right fix is not to re-minify the repo copy - keep it
+diffable - but to minify into `./dist` at deploy time. There is no build step today
+(no `package.json`; `dist/` is populated by hand), so this needs one, together with
+copying `_headers` in.
+
+## Appendix: the source comments, migrated out of the code (2026-08-20)
+
+The user asked for **every comment removed from `app.js`, `style.css` and
+`index.html`**, migrating anything worth keeping here. This appendix is that
+migration, done mechanically rather than by judgement: each entry is one comment
+block, verbatim, under the line of code it sat above (or beside, marked
+*(trailing)*). Nothing was summarised away, because this file's own cleanup notes
+call the guard rationales load-bearing regression documentation - the ship names
+in them are the concrete cases each regex exists for.
+
+Pure section-divider comments (`// ---- Modal ----` and the like) carried no
+information and are not reproduced. Everything else is here.
+
+**When touching one of these functions, read its entry here first.** If a future
+change makes one of these rationales wrong, update it here - this appendix is now
+the only copy.
+
+### `app.js`
+
+**`const MAIN_RARITIES = ["Normal", "Rare", "Elite", "Super Rare", "Ultra Rare"];`**  — L13
+
+> Priority and Decisive are the Research-ship equivalent of Super Rare / Ultra Rare —
+> kept as their own chips (not merged into SR/UR) but split into a separate "Research"
+> sub-group, set apart with the same "|" separator the class row uses for fleet position.
+
+**`const ALL_SKILLS_INDEX = ships.flatMap(s => (s.skills || []).map(skill => ({ ship: s, skill })));`**  — L30
+
+> Flattened once so the Interaction tab can scan every skill in the game without
+> rebuilding this list on every modal open — every skill (base AND "+" enhanced
+> versions) is included; computeInteractions merges a matched base/"+" pair into one
+> entry with a toggle rather than filtering one out up front, since which of the two
+> actually matches a given category can differ (e.g. a "+" skill's added clause can
+> mention a fleet role the base text never does at all).
+
+**`const HULL_TYPE_TEXT = {`**  — L38
+
+> hullType is stored as a single word for two categories, but skill text always spells
+> out the full "Ship" suffix in prose ("Repair Ship", "Munition Ship").
+
+**`const HULL_ABBREVIATIONS = {`**  — L45
+
+> The wiki-standard hull-type abbreviations actually used in skill prose (confirmed
+> against the Damage Calculations page: "BB/BC/BBV only", "your SSs and SSVs", etc.).
+> Shared between the keyword highlighter (colors them like their full name) and the
+> Interaction compound-qualifier check ("Sakura Empire CVs" only applies to CVs).
+
+**`const NATION_COLORS = {`**  — L56
+
+> One color per nation, grounded in each nation's actual Azur Lane / source-franchise
+> branding (majors: national flag/military colors; collabs: the source franchise's own
+> brand color) rather than a generic palette-slot pick. All 30 values individually
+> checked for >=3:1 contrast against this app's dark surface (#0b1120); this can't also
+> be CVD-safe pairwise at N=30 (color theory caps reliable categorical distinction at
+> ~8 hues — see the `dataviz` skill), deliberately overridden in favor of authenticity.
+> 
+> The 13 major/pirate nations use the user-supplied hex values verbatim EXCEPT Vichya
+> Dominion, Iron Blood, and META, whose given hexes measured under 3:1 contrast on this
+> dark surface (2.16/2.47/2.68) and were lightened in HSL space (same hue/saturation,
+> +L only) until they cleared ~4:1 — don't "fix" these back to the literal supplied hex.
+
+**`"Eagle Union": "#2878B5",`**  — L68
+
+> Major WW2 nations — user-supplied hex table (2026-08-17)
+
+**`"Iron Blood": "#d04451",`** *(trailing)*  — L72
+
+> lightened from #9C2732 (2.47:1 -> 4.15:1), same hue/sat
+
+**`"Vichya Dominion": "#bf566e",`** *(trailing)*  — L77
+
+> lightened from #7F3042 (2.16:1 -> 4.28:1), same hue/sat
+
+**`"META": "#8568aa", // lightened from #674D88 (2.68:1 -> 4.09:1), same hue/sat`**  — L81
+
+> Siren / pirate
+
+**`"META": "#8568aa",`** *(trailing)*  — L82
+
+> lightened from #674D88 (2.68:1 -> 4.09:1), same hue/sat
+
+**`"Neptunia": "#9a6fe0",`**  — L84
+
+> Collab nations, colored after their source franchise's own branding
+
+**`const FACTION_LOGO_CODE = {`**  — L103
+
+> Faction logo watermark shown behind the ship name in the modal header. Nations with a
+> genuinely distinct icon on the wiki's own Nations page get their own logo; every
+> collab nation that doesn't have one there shares "Um" — the wiki's own generic
+> collab/Universal-style icon — instead of getting no watermark, since a shared
+> watermark beats none for those.
+> Source files: the wiki's own per-file "File:{code} 1.png" pages (full original
+> resolution, 356-656px depending on nation), copied to `assets/faction-logos/{code}.png`
+> — code mapping read off the Nations page's own table (each icon's wrapping
+> <a title="..."> names its real nation); Universal ("Cm") has no row on that page at
+> all (it's only mentioned in prose above the table) but its own dedicated file page
+> confirms "Cm" is linked from the Universal article.
+
+**`function nationDisplayName(nationality) {`**  — L147
+
+> ship.nationality stores "BLACK★ROCK SHOOTER (Nation)" — the "(Nation)" qualifier
+> disambiguates the nation from other same-named entities in the source data, but never
+> appears in actual skill prose and isn't meant to be shown to the user either (it was
+> leaking into the filter panel and modal tags verbatim before this).
+
+**`const STAT_COLOR_GROUPS = [`**  — L155
+
+> Three things get color-coded: nations, stats, and named mechanics. Hull types, weapon
+> terms, DMG/Damage, healing terms, fleet role (Vanguard/Main Fleet), and Siren are
+> deliberately NOT part of this system — don't re-add one of these without an explicit
+> ask, since it was a deliberate reduction, not an oversight.
+> 
+> One color per stat, user-supplied hex table — verbatim, all 15 already cleared >=3:1
+> contrast on this app's dark surface (#0b1120) with no lightening needed (unlike 3 of
+> the nation colors). Abbreviation and spelled-out form share a color (FP/Firepower
+> alike); each row also picked up whichever OTHER real-text variant the corpus actually
+> uses (Ammo for Ammunition, Max HP for Health, etc — checked by occurrence count, not
+> guessed). "Anti-Air" (hyphenated) is the form matched here, not "Anti Air" — only the
+> hyphenated spelling actually occurs in skill text.
+
+**`const MECHANIC_COLOR_GROUPS = [`**  — L186
+
+> A few status effects are shared game-wide vocabulary rather than one ship's own
+> invention, and recur often enough to be worth learning by color: Burn (98 descriptions),
+> Special Burn (41), Armor Break (40), Smokescreen (32), Flooding (20) — counted over the
+> corpus, not assumed. Hues are mnemonic (fire, water, cracked armor, smoke) but are picks:
+> unlike the nation and stat tables these were not supplied, and no saved wiki page
+> documents what colors the game itself gives these effects, so swap any of them freely.
+> Each row also lists whichever other spelling the corpus actually writes ("Burning",
+> "Armor-broken"); a trailing "s" is already handled by the shared matcher.
+
+**`function apIsAmmoType(text, index) {`**  — L203
+
+> Ammo type and caliber, user-supplied color picks (2026-08-19: "normal -> ocre, HE ->
+> rouge, AP -> bleu, SAP -> orange, High caliber -> rouge"). Unlike every other palette
+> in this file, these terms MUST be matched case-sensitively — the shared regex is
+> otherwise case-insensitive throughout (needed for e.g. "smokescreen" appearing
+> lowercase most of the time), but "HE" collides with the pronoun "he" and "Normal"
+> collides with the ordinary adjective ("returns to normal") the moment case is ignored.
+> Checked against the corpus: exact-case "HE"/"SAP"/"Normal" have zero false positives
+> (0 lowercase-pronoun "He", 0 "normal"-the-adjective matches survive requiring the
+> capital). "AP" alone stays ambiguous even with exact case, since Action Points (a
+> fleet-wide resource, "your fleet gains 10 AP") is written identically — resolved by
+> `apIsAmmoType`, a context check verified against all 105 occurrences in the corpus
+> (71 ammo / 34 Action Points, both counts hand-confirmed): Action Points is always
+> either preceded by a number/"more" ("gains 10 AP", "10 or more AP") or followed by
+> "cost"/"consumption"/"-consuming" ("AP cost", "AP-consuming skill"), neither of which
+> ever precedes/follows the ammo sense. "Large-caliber"/"CA-caliber" (found alongside
+> "high-caliber" while auditing the corpus) were deliberately left out — the user was
+> asked and confined this to high-caliber only. Unlike the 4 abbreviations, "high-caliber"/
+> "high caliber" carries no case-collision risk (checked: all 5 corpus occurrences are
+> already lowercase mid-sentence, none capitalized), so it stays case-insensitive like
+> every other palette — caseSensitive defaults true below and is opted out per-term.
+
+**`const NAMED_MECHANIC_COLOR = "var(--accent)";`**  — L238
+
+> A mechanic a single skill coins for itself — "Berserk Mode", "Frostshred", "Pearl Moon" —
+> gets no palette entry of its own: it appears in one skill, so a color to memorize would
+> mean nothing. They all share --accent, the color the mechanic's own section label already
+> uses, which is what ties the name in the sentence to the block it heads.
+
+**`{ className: "kw-nation", perTermColor: t => NATION_COLORS[t], underline: true, terms: [...new Set(ships.map(s => nationDisplayName(s.nationality)).filter(Boolean))] },`**  — L245
+
+> Nations are underlined (see highlightKeywords) as well as colored, since both
+> nations and stats carry many individual hues — the underline is what tells them
+> apart at a glance rather than relying on memorizing 45 colors. Mechanics get a third
+> treatment, a tinted chip, for the same reason: with three palettes sharing one
+> sentence, hue alone can no longer say which system a colored word belongs to.
+> 
+> Mechanics keep the casing the wiki wrote rather than being normalized to the canonical
+> form the other two use — "smokescreen" is lowercase in 72 of its 87 occurrences, and
+> capitalizing them all would be the formatting visibly rewriting the text.
+
+**`const KEYWORD_INFO = new Map();`**  — L260
+
+> Maps lowercase term -> { color, canonical, underline }. "canonical" is the properly-
+> capitalized form (Destroyer, Light Cruiser, Sakura Empire...) used for display
+> regardless of how the source skill text happened to capitalize it mid-sentence.
+> Abbreviations (DD, FP...) keep their own all-caps canonical form instead of being
+> Title-Cased.
+
+**`const OPERATION_SIREN_TAG_COLOR = "#E8A33D";`**  — L275
+
+> Longest term first so e.g. "Max HP" is matched whole rather than leaving a stray "HP".
+> Each term also accepts an optional trailing "s" (Destroyer/Destroyers, etc.). The
+> alternative after it (group 3) matches bare numbers/percentages ("15%",
+> "3213") so skill values stand out from the surrounding prose — matched in the same
+> pass as the keyword terms so numbers inside an already-colored span (e.g. inside "HP")
+> can't be double-wrapped. The last alternative (group 4) matches the literal
+> "[Operation Siren]" mode tag some skills use to mark roguelike-only behavior —
+> bolded and colored on its own, distinct from the other palettes.
+
+**`let cachedKeywordRe = null;`**  — L289
+
+> Named mechanics are per-skill, so they can't live in the fixed vocabulary above — they
+> come in as an argument and take group 1, ahead of everything else, so that a name
+> starting with a term of its own ("Standard Armor Break") is matched whole rather than
+> losing its first word to the shorter global match. With no names to add, group 1 becomes
+> a pattern that can never match, which keeps every other group's number stable.
+
+**`function keywordInfoFor(matchText, fullText, matchIndex) {`**  — L301
+
+> `fullText`/`matchIndex` are only needed by a `caseSensitive` entry's own exact-case
+> check and by a `contextGuard` (currently just "AP", see AMMO_CALIBER_TERMS) — every
+> other group ignores them.
+
+**`function highlightKeywords(container, mechanics) {`**  — L315
+
+> Walks every text node already inside `container` (so it works whether the content was
+> set via textContent or as sanitized wiki HTML with existing <b> tags) and wraps each
+> recurring keyword in a colored span, without disturbing surrounding markup.
+> `mechanics` are the names this particular skill coins for itself (see namedMechanics).
+
+**`(function warmUpGifDecoder() {`**  — L375
+
+> The very first animated gif decoded on the page seems to pay a one-time browser
+> setup cost (regardless of which file it is), so warm that up immediately on load —
+> long before the user opens any ship and hovers a barrage icon — rather than waiting
+> for a modal to open.
+
+**`const active = {`**  — L391
+
+> active[group] is a Set of selected values; empty Set means "no filter" for that group
+
+**`const ROLE_ORDER = ["Vanguard", "Main", "Submarine"];`**  — L401
+
+> Front-to-back fleet order. Hull types are grouped under their fleet position so the
+> position itself doesn't need its own separate filter row.
+
+**`const MAJOR_NATION_MIN_SHIPS = 20;`**  — L405
+
+> Nations with few ships (mostly one-off collab factions) are tucked into a
+> "Subfactions" dropdown instead of getting their own chip, to keep the header compact.
+
+**`const FORCE_MAJOR_NATIONS = ["Kingdom of Tulipa", "Liga de Pedrería", "Tempesta"];`**  — L409
+
+> These nations stay below the ship-count threshold but are still core factions,
+> not one-off collabs, so they always get their own chip.
+
+**`if (group === "nationality") {`**  — L427
+
+> Filter state stays keyed on the raw nationality value ("...(Nation)" qualifier and
+> all) — only the label shown to the user is cleaned up.
+
+**`function hullShortsByRole() {`**  — L454
+
+> Groups distinct hull-type abbreviations (short codes like "DD", "CVL") under
+> their fleet position, keeping each short code's full name for the tooltip.
+
+**`const counts = nationCounts();`**  — L589
+
+> Nation row: major nations get a direct chip, everything else lives behind a dropdown
+
+**`const STAT_GRID = [`**  — L783
+
+> One single compact grid matching the game's own compact stat panel exactly — a
+> 3-column layout (HP/Armor/RLD, FP/TRP/EVA, AA/AVI/Cost, ASW/·/·, reading order
+> top-left to bottom-right), one value per stat with any skill delta shown inline
+> ("478 +178" in one cell) rather than a separate Base/Real pair, since the in-game
+> panel never shows a base stat on its own. The trailing row (Speed, Accuracy, Luck)
+> isn't part of that in-game grid but renders through the same cell style for visual
+> consistency. Ammunition, Oxygen, and Oil Consumption are omitted entirely — 0/888
+> ships carry any numeric value for them, so every row would've shown "—" forever.
+> `key: "cost"` is a marker only — Cost isn't part of the normal per-level stat
+> pipeline (see computeOilCost), so buildStatsGrid special-cases it. The two `null`
+> entries are blank cells (the game's panel leaves Cost's neighbor and the
+> submarine-only Oxygen slot empty too). Abbreviated labels match the game's own
+> compact wording; the full name is available via the `title` tooltip.
+
+**`function pickStatKeys(point) {`**  — L893
+
+> Ships imported by hand from individual wiki pages (no base/growth/enhance data
+> available) instead carry a handful of known reference points — Base, Lv.100,
+> Lv.120, Lv.125 — read straight off their wiki stat table. We linearly interpolate
+> between whichever two points bracket the requested level.
+> Curve points come straight from a parsed wiki table and carry extra fields
+> (level, ...) beyond the stats we display — always rebuild a clean object
+> restricted to the numeric stats so those don't leak into the UI. Only keys
+> actually present on the point are copied, so e.g. a ship with no oxygen data
+> still has no oxygen data afterwards (renders as "—", not a fake 0).
+
+**`const HULL_COST_BY_SHORT = {`**  — L930
+
+> STATS = enhance + base + growth * max(level-1, 1) / 1000, plus the retrofit's own
+> stat bonus when a Retrofit skin is selected. Speed and Luck have growth = 0 in the
+> source data, so they naturally stay constant across levels. Keys with no source data
+> (oil consumption, oxygen, ammunition — not tracked for the non-custom-imported ships)
+> are left unset rather than defaulted to 0.
+> Sortie oil "Cost" — reintroduced from Site web/Oil Cost - Azur Lane Wiki.htm after
+> having been dropped earlier as untracked data. Unlike every other stat here, Cost
+> isn't level-scaled from a base/growth curve — it's computed from the wiki's own
+> formula: MaxCost (hull type + rarity + a META bonus + the limit-break bonus + a small
+> per-class modifier) combined with the current level. Verified against the wiki's own
+> worked example ("At Limit Break level caps" table, MaxCost=7 row) before trusting it —
+> the naive reading of the MathML ("MaxCost·100 + min(Level,99), all over 200") didn't
+> reproduce that table's numbers; the correct grouping is
+> MaxCost·(100+min(Level,99))/200, confirmed against all 5 columns of that row.
+> 
+> This app has no limit-break tracking at all (no UI concept of duplicate-based star
+> investment — the level control doesn't imply one either, since a ship can be leveled
+> anywhere below its cap independent of how many stars it has). Rather than guess a
+> mid-progression state, the limit-break bonus is always the MAX one (+6 surface / +3
+> submarine) — the same fixed assumption the wiki itself already mandates for PR/DR/UR/
+> META ships regardless of investment, extended here to every ship for one consistent,
+> comparable number. Same "fully invested" spirit as Effective Stats already assuming
+> max skill level — not a guess, just the only stable value with no per-player state.
+
+**`const EXTRA_COST_MODIFIER_BY_NAME = {`**  — L965
+
+> "A few ships also have an extra Oil Cost modifier" (per-class, keyed here by every
+> member ship's own display name from the wiki's "Ships from class" column, rather than
+> by ship.class text, since a couple of these — Minato Aqua, Homura — have no shared
+> class at all).
+
+**`const MODIFIER_TERM_RE = /\b(?:DMG dealt|damage dealt|DMG|damage|crit(?:ical)?(?:\s+(?:rate|dmg|damage))?|evasion rate|hit rate|accuracy|efficiency)\b/gi;`**  — L1034
+
+> A combat modifier is usually restricted to a specific target or weapon: Alvitr's
+> "DMG Dealt +15%" only applies to Light Armor enemies. One summed number per stat hid
+> that restriction, and worse, added together bonuses that never apply to the same shot
+> (an unconditional +10% and a "+15% vs Light Armor" are not a +25%), so bonuses are
+> grouped per (stat, qualifier) and each pill carries its own source sentence.
+> 
+> The qualifier is whatever surrounds the stat term inside the bonus's own captured
+> phrase, once the verb, the possessive and the trailing "by X% (Y%)" are cut away:
+> "Increases this ship's DMG dealt to Light Armor enemies by 5% (15%)" -> target
+> "to Light Armor enemies"; "Increases this ship's Main Gun efficiency by 1% (10%)"
+> -> source "Main Gun".
+
+**`const MODIFIER_SOURCES = {`**  — L1047
+
+> Only a weapon/source name in front of the stat term is a real qualifier — anything
+> else sitting there is a possessive ("this boat's", "Tirpitz's") or another stat riding
+> the same sentence ("FP and Crit Rate"). Cased canonically, since the wiki writes these
+> both ways ("Main Gun efficiency" / "main gun efficiency") and pills sit side by side.
+
+**`const MODIFIER_TARGET_RE = /^(?:to|against|with|from|for|while|during|when|vs\.?)\s/i;`**  — L1067
+
+> A trailing qualifier only counts when it reads as a restriction ("to Sirens",
+> "against Light Armor enemies", "with AP"). "dealt" — left over from "Crit DMG dealt" —
+> and "by self" are just phrasing, not a condition.
+
+**`function modifierLabel(modifier) {`**  — L1113
+
+> "Main Gun" + weaponEfficiency reads as "Main Gun Efficiency", not "Main Gun Weapon
+> Efficiency" — the generic label only stands in when no weapon is named.
+
+**`function modifierSourceText(entry) {`**  — L1123
+
+> The captured phrase drops whatever gated it ("Once per battle, when this barrage
+> scores a total of 3 hits: ..."), which is exactly the context a pill needs to be
+> trustworthy — so the tooltip quotes the whole sentence the bonus was extracted from,
+> at max skill level to match the number the pill shows.
+
+**`const SELF_LANGUAGE_RE = /\b(this ship('s)?|her own|own)\b/i;`**  — L1139
+
+> Implements the wiki's own "CurrentScalingStat" formula (Damage Calculations page):
+> (ShipBaseStat + sum of flat buffs) * (1 + sum of percent buffs) + sum of skill flat buffs.
+> We have no equipment/Meowfficer/Fleet Tech data, so ShipBaseStat is just the already-leveled
+> stat from computeStats/interpolateStatsCurve, and every bonus we fold in comes from the
+> ship's own currently-active self-scope skill bonuses. Two-stage skill values ("10% (30%)")
+> use the max (fully-leveled skill) figure, since this is meant to show best-case potential.
+> Bonuses that require a fleet-composition condition (e.g. "if 3+ Sakura Empire ships")
+> can't be verified without a team context, so they're counted as if met — this is a
+> "full potential" estimate, not a guarantee, and the UI says so.
+> 
+> The build-time skill-text extraction that produced statBonuses isn't perfect: it
+> occasionally (a) captures the same bonus phrase twice off one skill description, (b)
+> tags a bonus "self" even when its own matched text plainly targets other ships ("...of
+> your DDs by 5%"), and (c) the reverse — tags a bonus "fleet" even though its own matched
+> text is self-referential ("increases this ship's EVA by 5%", e.g. Brest's first skill).
+> All three are guarded against here rather than by re-running the extraction, since a
+> runtime text check on the bonus's own captured phrase is enough to catch what matters.
+
+**`function buildStatsGrid(container, gridDefs, ship, level, base, effective) {`**  — L1203
+
+> Builds the compact 3-column grid matching the game's own stat panel — one cell per
+> stat, no header row since the grid IS the layout (each cell carries its own icon +
+> abbreviated label). A `null` entry in gridDefs (see STAT_GRID) renders as an empty
+> cell so the blank slots the game's own panel has (Cost, and the Oxygen-for-submarines
+> slot) still hold their place in the 3-column shape instead of collapsing it. Populates
+> `container` directly rather than building/returning its own wrapper, since the whole
+> stats section is one grid now.
+> 
+> A boosted stat shows "base+delta (real)" — e.g. "286+69 (355)" — rather than just the
+> final real number: showing only the post-skill value with no base in sight makes it
+> ambiguous which number is which, so the base figure is shown explicitly alongside the
+> delta and the real total.
+
+**`const entry = (def.text || def.custom) ? null : effective.stats[def.key];`**  — L1225
+
+> "Cost" isn't part of the normal per-level stat pipeline at all (own formula, no
+> skill-bonus delta), so it skips both the effective-stats lookup and the base block
+> entirely and goes straight through computeOilCost().
+
+**`const EQUIPMENT_TYPE_NAMES = {`**  — L1265
+
+> Equipment slot type codes, as they appear in ship.equipment[slot].type. Read off the
+> saved wiki ship pages rather than guessed: each page's Gear table names what its slots
+> 1-3 accept, so cross-referencing 837 of those tables against the numeric codes in
+> ships.json pins down every code that reaches a listed slot.
+> 
+> The auxiliary slots (4 and 5) are the gap - the wiki's table never lists them. 15 and
+> 18 are still named, by the handful of ships that also carry them in a listed slot
+> ("Anti-Air Guns / ASW Bombers", "Auxiliaries / Cargo"); 14 is the DD/CL/CA-only code
+> the ASW page describes as anti-submarine equipment (sonar, depth charges). 17 appears
+> on two ships (Köln, Köln META) with no source anywhere to name it, so it is left out
+> and simply doesn't render - same graceful-degradation as a missing faction logo.
+> 
+> 21 never appears alone, only ever glued to 6, and the wiki labels every slot carrying
+> the pair plainly "Anti-Air Guns" - so it maps to the same name and the duplicate is
+> deduped away, which reproduces the wiki exactly without inventing a name for it.
+
+**`const UNIVERSAL_AUGMENT_MODULES = new Set([`**  — L1301
+
+> The Augmentation page's "Universal Modules" table: two modules per hull class, shared
+> by every ship of that class. Anything else in a ship's augment list is her own unique
+> module, which is the part worth pointing at.
+
+**`const EQUIPMENT_SHORT_NAMES = {`**  — L1309
+
+> The short name a slot goes by in game terms - what the slot is for, rather than the
+> full list of equipment categories it accepts (which stays in the tile's tooltip).
+> Guns are the one code group that cannot be named from the code alone: a BB's slot 2
+> takes DD guns as her *secondary* battery, while a DD's slot 1 takes the same DD guns
+> as her *main* one. So the first gun-taking slot on a ship is her Main Gun and any
+> later one is a Secondary - which also lands right for submarines, whose deck gun sits
+> in slot 3 behind two torpedo slots.
+
+**`const EQUIPMENT_TYPE_CODE_CATEGORIES = {`**  — L1337
+
+> Links a ship slot's numeric type code(s) (EQUIPMENT_TYPE_NAMES above) to the matching
+> `category` value(s) in data/equipment.json, so a slot can be filtered to only the gear
+> it can actually mount. Built by hand from the same two vocabularies rather than a name
+> match, since the wording differs on purpose ("DD Main Guns" vs "DD Gun") - this is the
+> single place that ties them together.
+> Code 21 is a duplicate of 6 (see EQUIPMENT_TYPE_NAMES's own note - it never appears
+> alone) so it isn't listed separately here. Code 18 (Cargo) and 20 (Missiles) have no
+> catalog category yet: no "List of Cargo" extraction was done (Cargo isn't combat
+> equipment), and Missiles were expected to live inside the Torpedo catalog page per the
+> user's own note ("les missiles sont dans les torpedoes") but the catalog's Torpedo
+> category was built from "List of Torpedoes" alone and hasn't been checked for missile
+> entries specifically - both are left unmapped rather than guessed.
+
+**`function equipmentOptionsForSlot(slot) {`**  — L1366
+
+> The catalog entries a given ship slot can actually mount, across every type code the
+> slot accepts (a slot can list more than one, e.g. an AA slot also usable for cargo).
+
+**`const EQUIPMENT_RARITY_ORDER = ["Common", "Rare", "Elite", "Super Rare", "Ultra Rare"];`**  — L1377
+
+> Equipment rarity uses its own 5-name scale (Common/Rare/Elite/Super Rare/Ultra Rare)
+> distinct from a ship's 7-name one, but "Common" is the same concept as a ship's
+> "Normal" and the other four names are shared verbatim - reuse RARITY_CLASS's colors
+> rather than defining a second palette.
+
+**`function equipmentPrimaryStat(item) {`**  — L1386
+
+> The one number worth showing at a glance in the picker list - whichever raw-DPS-ish
+> figure that category actually has. Auxiliary/ASW gear without a dps-shaped stat falls
+> back to its first flat stat bonus, which is the closest equivalent "headline number".
+
+**`function equipmentIconImg(item, className) {`**  — L1406
+
+> Every catalog record has artwork at assets/equipment-icons/{id}.png, pulled out of the
+> saved wiki "List of X" pages' own Icon column (581/581 matched on category+name+tier).
+> The error handler swaps in the item's name so a catalog entry added later without a
+> file degrades to the text tile this section used before icons existed, rather than
+> leaving a broken-image box.
+
+**`function equipmentTooltip(item) {`**  — L1426
+
+> Name, rarity and headline stat all live in the tooltip: the tile and the picker cells
+> show artwork only, the same way the game's own gear panel does, and the same "detail
+> goes in the title, not on the card" rule the rest of this section already follows.
+
+**`function sortEquipmentOptions(options) {`**  — L1433
+
+> Best-in-slot first: highest rarity, then highest headline stat within that rarity -
+> the same ordering the eventual "Optimize" button will pick the top entry from.
+
+**`const equippedGear = {};`**  — L1446
+
+> Per-ship, per-slot picks. In-memory only (not persisted) - same lifetime as the level
+> control's currentLevel, reset on page reload, kept across modal open/close so browsing
+> back to a ship doesn't lose what was picked.
+
+**`function buildEquipmentSlot(name, tooltip, meta, gearCtx) {`**  — L1459
+
+> A card is one slot: a square tile showing the picked equipment's icon on a
+> rarity-tinted frame, its slot name underneath, then its numbers - laid out like a ship
+> card in the
+> catalog grid, which this consciously echoes. `gearCtx` (ship/slotKey/slot/options) is
+> only passed for the 5 real gear slots - the Augment card has no picker, since there is
+> no augment catalog in this app, only the ship's own eligible-module list.
+
+**`function toggleEquipmentPicker(card, gearCtx, onPick) {`**  — L1516
+
+> Lazily built, cached on the card itself so re-opening the same tile within one modal
+> render doesn't rebuild its (possibly 165-item) options list every click.
+
+**`const caption = document.createElement("div");`**  — L1538
+
+> A hovered/focused cell writes its name here, so a dense grid of unlabelled icons
+> is still identifiable without waiting on the native tooltip delay.
+
+**`function clampPickerToSection(panel) {`**  — L1575
+
+> The panel is centred on its own card, which is far wider than the card - opened from
+> the first or last slot it would hang outside the modal and be clipped by .modal-info's
+> overflow. Nudge it back inside the Equipment row after it is laid out; a plain margin
+> shift keeps the CSS centring as the default and only corrects the edge cases.
+
+**`requestAnimationFrame(() => { if (panel.isConnected) clampPickerToSection(panel); });`**  — L1587
+
+> The first measurement is taken before the panel's own scrollbar settles, which
+> leaves it a few px short; one correcting pass on the next frame lands it exactly.
+> Accumulating onto the current margin (rather than recomputing from zero) is what
+> makes the second pass a no-op once it is already inside.
+
+**`function renderModalEquipment(ship) {`**  — L1602
+
+> The five gear slots plus the Augment slot, in the game's own order. Nothing is
+> "equipped" here yet - there is no gear catalog in this app's data - so every tile is
+> an empty square and the card carries what ship.equipment actually knows: the slot's
+> name, its mount count and its efficiency. Efficiency is the fully-limit-broken figure
+> (the wiki writes it as a progression, "120% -> 150%"; the datamine keeps only the end
+> value), the same max-investment assumption the stats grid already makes.
+
+**`const LEVEL_PAIR_GAP = "(?:\\s|<\\/?b>)*";`**  — L1689
+
+> The wiki writes every level-scaled skill value as "base (max)" — "increases this
+> character's FP by 3.5% (8%)" means 3.5% at skill level 1 and 8% at level 10. Carrying
+> both numbers through every sentence is what makes long descriptions unreadable, so
+> only ever one of the two is shown: the base value by default, the max-level one when
+> the "Max Level" toggle is on. Either way the parentheses themselves disappear.
+> 
+> Descriptions are pre-sanitized to plain text plus <b> tags, and those tags routinely
+> sit between the two numbers ("<b>20%</b> <b> (40%)"). Rather than drop whatever falls
+> inside a match — which would leave unbalanced markup and bold the rest of the
+> paragraph — every tag inside the matched span is carried over into the replacement in
+> its original order, so only the numbers and the parentheses themselves disappear.
+
+**`const LEVEL_PAIR_NUMBER_RE = new RegExp(`**  — L1702
+
+> "3.5% (8%)" → "3.5%" or "8%". A value can be signed, and a penalty shrinking with skill
+> level makes the max the smaller number ("-40% (-20%)", Little Renown's 2nd salvo).
+> Guarded on the two values carrying the same sign and unit, so the wiki's own typos
+> ("for 20s (50)s", "5% (15)%", "-1.5 (6%)") are left untouched rather than mangled.
+
+**`const LEVEL_PAIR_LV_RE = new RegExp(`**  — L1711
+
+> "Lv.1 (Lv.10)" → "Lv.1" or "Lv.10", the level of a skill-scaled barrage. Spacing after
+> "Lv." varies between pages, hence the optional space on both sides.
+
+**`const LEVEL_PAIR_TIER_RE = new RegExp(`**  — L1718
+
+> "All Out Assault - Fletcher Class I (II)" → "... Class I" or "... Class II", the tier
+> the attack reaches at each end of the skill's level range. Some pages use the Unicode
+> numerals Ⅰ/Ⅱ instead of the ASCII letters, and a handful write the pair the other way
+> round ("All Out Assault (I) Ⅱ", base parenthesized instead of max) — both orders mean
+> the same thing, so both collapse to a single numeral.
+
+**`function renderLevelValues(html, atMaxLevel) {`**  — L1736
+
+> `atMaxLevel` picks which half of each pair survives; the other half and the
+> parentheses are dropped.
+
+**`// Every split has to ignore separators inside parentheses — an aside like "(DMG is based`**  — L1753
+
+> Wiki skill descriptions are one unbroken paragraph of prose — up to 8 sentences, with
+> nested conditions and ";"-separated effect lists all running together. These turn that
+> prose into blocks: a condition line followed by its actions as bullets, one block per
+> sentence. Nothing is reworded and no character is dropped except the separators that
+> bullets replace, so the text stays exactly what the wiki says.
+> 
+> This runs on the HTML string rather than the DOM, which is safe here because
+> descriptions are sanitized down to balanced <b> tags with no HTML entities anywhere —
+> so a ";" or ". " found in the string is always prose, never markup. It has to run after
+> renderLevelValues: splitting the raw text instead would trip over the "(8%)" halves the
+> reader never sees.
+
+**`function topLevelMatches(text, separator) {`**  — L1765
+
+> Every split has to ignore separators inside parentheses — an aside like "(DMG is based
+> on the skill's level; can activate up to 2 times per battle)" carries semicolons that
+> are not list separators (Moskva's "Frozen Fortress").
+
+**`const SENTENCE_SEPARATOR = /(?<!\bLv|\bNo|\b[A-Z])\.(?:\s+(?=[A-Z0-9"“(])|(?=[A-Z[]))/gy;`**  — L1798
+
+> Sticky flags: splitTopLevel anchors each test at the position it is inspecting.
+> "…by 5. When the battle starts" is a real sentence end, so digits before the period are
+> deliberately not excluded; the three exceptions that are NOT sentence ends are "Lv. 1"
+> (a spacing variant of the barrage level), "No. 1" (San Diego's skill name) and a lone
+> initial ("Allen M. Sumner", "William D. Porter").
+> The second alternative catches a period the wiki glued straight to the next sentence
+> with no space ("…Detection Gauge value by 10.As long as this ship is afloat:", Albion;
+> "…by 3.5%.[Operation Siren]Every time…", Alabama). All 114 in the dataset are real
+> sentence ends — no abbreviation is ever followed directly by a capital — and missing
+> them let a whole sentence get swallowed into the next one's condition line.
+
+**`const ENUMERATION_SEPARATOR = new RegExp(`**  — L1812
+
+> The wiki numbers parallel effects inline — "gains the following effects: 1) … 2) …"
+> (A2's "Devastating Cleave") — which is a list already, just written as running text.
+> Only "N)" counts: "N." is always a decimal or a sentence end in this dataset (48 cases,
+> no real enumeration among them) and "N:" is a threshold table ("3 to 5: …", Implacable).
+> The optional trailing colon covers the wiki's own "2): Dive Bomber" slip (Béarn META).
+> Tag-tolerant, because Juneau's "Martyr+" wraps every single word in its own <b>, marker
+> included. The lookbehind keeps the marker to a real list number: it must open a token,
+> never trail one, so a stray "…up to 10) " inside prose cannot pass for an item.
+
+**`const SUBORDINATE_CLAUSE_RE = /^(?:and |or |but |then )?(?:when(?:ever)?\b|while\b|during\b|if\b|once\b|after\b|before\b|upon\b|every\b|each time\b|the first time\b|at the (?:start|beginning|end)\b|for (?:every|each)\b|as long as\b)/i;`**  — L1825
+
+> A sentence opening with a run of these is stating conditions, not effects.
+
+**`const ATTACK_NAME_COLON_RE = /all[- ]?out assault\s*(?:i{1,3}|Ⅰ|Ⅱ)?\s*(?:\([^)]*\))?\s*$/i;`**  — L1828
+
+> "Activates All Out Assault I: Moskva once every 12 times…" — this colon ties the tier to
+> the class the attack is named after, it introduces nothing. Only an exact "All Out
+> Assault" + optional tier is excluded, so "All Out Assault II only: …" keeps its colon.
+
+**`function buildClauseBlock(sentence) {`**  — L1852
+
+> Bullets are for the skills that actually need them: two or more actions, or a condition
+> piled up from two or more clauses. A plain "Every 20s: fires a barrage." reads fine as
+> one line and stays one line — 22% of the dataset's descriptions produce bullets.
+
+**`if (items.length && (items.length >= 2 || leadingConditionClauses(header).count >= 2)) {`**  — L1860
+
+> A condition with nothing after its colon has to stay a plain line: it is the caption
+> of whatever follows (a numbered list, usually), and bulleting it would emit an empty
+> list ("When the battle starts, and every 20s:", Sakawa).
+
+**`function governsSegmentList(segments) {`**  — L1876
+
+> A ";" list only reads as a list when a single condition at the front governs all of it.
+> If no segment opens with a condition the segments are independent statements (Albion's
+> "Unblemished White Cliffs"), and if several bring their own condition they are parallel
+> pairs, not items (Nubian's "It's Cleaning Time!"). Both cases become standalone blocks
+> instead of bullets dangling under nothing.
+
+**`function startSentence(html) {`**  — L1886
+
+> Promoting a ";" clause to a block of its own makes it a sentence, so it gets sentence
+> punctuation: the ";" it used to hang off becomes a period, and its first letter is
+> capitalized. Skips any leading tag so "<b>if</b> there are…" is still caught.
+
+**`function firstTopLevelBoundary(text) {`**  — L1893
+
+> A numbered item routinely runs for several sentences (Béarn META's "1) Main Gun: …" spans
+> three), so the list has to be carved out before sentences are split — otherwise each item
+> is scattered across blocks and its "1)" is left stranded mid-paragraph. Items therefore
+> hold blocks of their own rather than a string, and the sentence that introduces the list
+> is lifted out to caption it.
+
+**`let tail = "";`**  — L1914
+
+> Only the last item has no marker after it to bound it, so it would otherwise run to the
+> end of the skill and swallow whatever follows the list (A2's "Berserk Mode lasts for up
+> to 40s…"). Items are parallel by nature, so the last one is cut to the granularity its
+> siblings use: if none of them runs past a sentence end, neither does it.
+
+**`const caption = blocks.length && blocks[blocks.length - 1].text ? blocks.pop().text : null;`**  — L1932
+
+> The sentence right before the list introduces it, so it captions the bullets instead of
+> sitting above them as an unrelated paragraph.
+
+**`blocks.push({ header: caption, list: spans.map(span => buildSentenceBlocks(span.replace(/[;\s]+$/, ""))) });`**  — L1935
+
+> Items are often chained with ";" as well as numbered; the bullet already separates them,
+> so a trailing one would just dangle (Glorious META's "Rosen Mark").
+
+**`const sentence = rawSentences[i].trim() + (i < rawSentences.length - 1 ? "." : "");`**  — L1946
+
+> The separator swallowed the period closing every sentence but the last, so give back
+> exactly those. Testing for a trailing period instead would both miss the ones hidden
+> behind a closing tag ("<b>max Health.</b>", Juneau) and invent one for a description
+> that genuinely ends without it ("(10s cooldown, starts on cooldown)", Atago).
+
+**`const ULRICH_PROSAIC_HEADER = "As long as this ship is afloat, whenever ANOTHER fleet engages in one of its first five battles this sortie:";`**  — L1965
+
+> Ulrich von Hutten's "Revolutionary's Prosaic" writes its 2-item list as two full
+> sentences (periods) instead of the semicolons every other multi-item list in this
+> dataset uses, so the second item ("Increase the Crit DMG Dealt...") can't be
+> recognized as continuing the first item's list — it falls through to a plain,
+> unbulleted paragraph instead of a second bullet under the same condition (reported:
+> "il manque un -"). A general "a subjectless sentence continues the previous list"
+> rule was tried and rejected: checked against the whole dataset, it produces 65
+> candidates, most of which are NOT continuations (bare-imperative phrasing is just
+> how this dataset writes ANY effect, conditional or not), and at least one — Vanguard's
+> "Scatter, Minions of Darkness!" — would have been merged WRONGLY, since its "next"
+> sentence actually opens its own distinct condition ("30s after that battle starts:")
+> that a blanket rule can't tell apart from a true continuation. Matched on this one
+> skill's exact header text instead, which is safe precisely because it's practically
+> impossible for another skill to carry the same sentence verbatim.
+
+**`const SKILL_MODE_TAG_RE = /(?:<\/?b>|\s)*\[(Regular play|Regular|Operation Siren only|Operation Siren|Exercise only|Non-Exercise Only)\](?:<\/?b>|\s)*/gi;`**  — L1991
+
+> Some skills describe two alternative versions of themselves, one per game mode, marked
+> with the wiki's own bracketed tags — Alabama's "Just Gettin' Fired Up" is a full Regular
+> description followed by a full Operation Siren one. Run together they read as a single
+> list of effects, hiding the fact that only half of it applies at a time, so each tag
+> starts its own labelled section.
+> 
+> Only these six tags are modes. Other bracketed spans are status names that belong in the
+> prose ("[Pursued]", "[Expurgating Flame]", "[Venus Concoction]") — they are told apart by
+> this explicit list plus the position check below, since a status name is referenced
+> mid-sentence while all 77 mode tags in the dataset sit at a sentence boundary. Reno's is
+> wrapped in <b>, hence the tags consumed on either side.
+
+**`const MECHANIC_CUE_RES = [`**  — L2009
+
+> Some skills name a mechanic of their own — "Berserk Mode" (A2), "Frostshred" (Moskva),
+> "[Pursued]" (Algérie META) — then spend several sentences describing it, which is what
+> buries the rest of the skill. Those sentences get grouped under the mechanic's name.
+> 
+> Detection is deliberately narrow, since a wrong grouping is worse than none: the name has
+> to be introduced by one of these cue verbs AND reused later, so ordinary capitalized game
+> vocabulary ("Main Guns", "Max HP") can never qualify.
+
+**`const NAMED_MECHANIC_STOPLIST = new Set(["lv", "dmg"]);`**  — L2043
+
+> The cue verbs occasionally pick up bookkeeping instead of a name: "inflicts Lv.1 Holy
+> Judgment" (Alsace) yields "Lv", and "inflicts DMG up to 6 times" (Little Prinz Eugen)
+> yields "DMG". These two are the only ones in the dataset, so they are named outright
+> rather than filtered by a minimum-length rule that would be arbitrary either way.
+
+**`function namedMechanics(html) {`**  — L2049
+
+> The names to color inside one skill's own text. Looser than what earns a section: a name
+> only has to be coined and then reused, whether or not the sentences around it happen to
+> form one uninterrupted run. Mode tags are stripped first so "[Operation Siren]" can't be
+> read as a mechanic by the bracket cue — it has its own color already.
+
+**`const uses = text.match(new RegExp("\\b" + escapeRegExp(name) + "\\b", "gi"));`**  — L2059
+
+> Naming something once is just a sentence — the color has nothing to connect it to.
+
+**`function introducesMechanic(text, name) {`**  — L2065
+
+> Entering the mechanic and leaving it are transitions, not part of the state: each carries
+> its own trigger and reads on its own, so they stay outside the section rather than opening
+> and closing it (A2 — "…: enters Berserk Mode." above, "When Berserk Mode ends: …" below).
+> What the label then covers is only what holds while the mechanic is active.
+> Recognising the entry sentence may be looser than discovering the name in the first place:
+> this only ever shrinks a section that already exists, so an extra verb here cannot invent
+> one anywhere (Momo Belia Deviluke hands out Plan Execution with "gives", which is not a
+> discovery cue — the name is found on a later "grants" instead).
+
+**`function findMechanicRun(blocks) {`**  — L2088
+
+> The blocks describing a mechanic have to form one uninterrupted run that leaves something
+> outside it — a section covering the whole skill explains nothing (Moskva's "Unyielding
+> Valor", where every sentence is about it). A second name inside the run means the split
+> would be arbitrary, so nothing is grouped at all (Oumi's Elegant/Besotted pair).
+
+**`let { first, last } = run;`**  — L2112
+
+> Both eligibility tests above run on the untrimmed run on purpose: trimming only ever
+> shrinks it, so a run rejected for covering the whole skill stays rejected instead of
+> sneaking in through a transition sentence being moved out.
+
+**`function withMechanicSection(blocks) {`**  — L2121
+
+> Mode-split skills are left alone: they already carry a label, and nesting a second one
+> inside would compete with it.
+
+**`const impliesRegular = /Operation Siren/i.test(marks[0].label);`**  — L2148
+
+> Text sitting above an Operation Siren tag with no tag of its own IS the regular
+> version — the three skills that spell both tags out confirm the pairing. An explicit
+> [Regular play] or [Exercise only] section means the opposite: what precedes it is a
+> shared preamble (U-2501, Honoka), so it stays unlabelled.
+
+**`function balanceBoldTags(html) {`**  — L2162
+
+> No <b> currently spans a split point anywhere in the dataset, but a fragment that ends
+> mid-bold would otherwise bold everything after it, so each one is closed off and the
+> tag reopened on the next.
+
+**`const LONE_BOLD_TOKEN_RUN_RE = /(?:<b>[^\s<>]+<\/b>\s*){2,}/g;`**  — L2203
+
+> A source data artifact, not a bug in this app's own markup: 21 skills dataset-wide
+> (Belfast's "Smokescreen: Belfast" the worst, 60 words) have long runs of
+> individually-<b>-wrapped single tokens — "<b>Increases</b> <b>this</b> <b>ship's</b>
+> <b>SPD</b> <b>by</b> <b>10.</b>" — almost certainly the wiki's own auto-linker turning
+> into bold once tags were stripped down, one word at a time wherever it recognized a
+> term. A single tag wrapping a whole phrase together ("<b>(Upon Retrofit)</b>") is the
+> normal, clearly-intentional pattern used everywhere else and is left completely alone —
+> this only strips a run of 2+ back-to-back single-token tags (no space inside any of
+> them), which is what turns an entire sentence gold (`.skill-desc b`/`.interaction-desc
+> b`) with no actual emphasis being communicated. Never changes what text is shown, only
+> removes the accidental bolding.
+
+**`function getSkillsForState(ship, isRetrofit, isAugmented, isFateSim) {`**  — L2241
+
+> Some retrofit skills replace a base skill and say so in their own description,
+> e.g. "(Replaces Burn Order)". We use that text to pick which half of the skill
+> list belongs to the base ship vs. the retrofitted one.
+> The wiki marks each skill's name with "(R)" if it requires retrofit, or "(Aug)" if
+> it's a Unique Augment variant — a separate equipment-like system from retrofit.
+> isModified/isRetrofitVersion (precomputed at build time from "(R)" + "(Replaces X)")
+> tell us which skill a retrofit skill replaces, so the old one can be hidden.
+> Unique Augment and Fate Simulation skills both always immediately follow the base
+> skill they replace in the source data, so that adjacency (not name-matching, which
+> isn't consistent across ships) is what pairs an "(Aug)"/"(FS)" skill with the one it
+> swaps out. Fate Simulation is a Research-ship-only mechanic that (like Augment) only
+> ever changes skills — no stats, art, or rarity change like a real Retrofit.
+
+**`let skillsAtMaxLevel = false;`**  — L2267
+
+> Shared by the "Skills" section header toggle and the per-skill ones. The last state the
+> user picked sticks across re-renders (flipping Retrofit/Augment) and across characters,
+> so the choice only has to be made once per session rather than on every skill of every
+> ship opened.
+
+**`function syncSkillsMaxLevelToggle() {`**  — L2294
+
+> The header toggle reads as "on" only while every skill under it is, so flipping the last
+> one by hand keeps the two in agreement instead of leaving the header stale. Skills with
+> no level-scaled value at all carry no toggle, hence no header button either.
+
+**`let interactionAtMaxLevel = false;`**  — L2313
+
+> Same "Max Level" control as Skills, adapted for Interaction's pagination: most entries
+> aren't in the DOM at any given time (only the current page of each category), so unlike
+> skillMaxLevelToggles (one flat array built once per modal open) this reads whatever
+> toggles are ACTUALLY on screen right now via a DOM query, and looks up each one's paint
+> function from a WeakMap keyed on the toggle element itself — populated once per toggle
+> in buildInteractionItem, pruned automatically by GC once its page is replaced, so it
+> never needs manual bookkeeping across page/category changes.
+
+**`if (isRetrofit && ((skill.isModified && skill.isRetrofitVersion) || skill.isNewOnRetrofit)) {`**  — L2355
+
+> Highlight the skill(s) that changed with this retrofit, framed in the rarity
+> color the ship just gained — covers both skills that replace an older one and
+> skills that are brand new on retrofit, but never its pre-retrofit counterpart
+> or unrelated Unique Augment skills.
+
+**`const mechanics = namedMechanics(atBase);`**  — L2416
+
+> Only the numbers differ between the two, so the mechanic names are the same either
+> way and are found once rather than on every repaint.
+
+**`const paintDescription = (atMaxLevel) => {`**  — L2420
+
+> Description is sanitized at build time to only ever contain plain text and <b> tags,
+> used here to keep the wiki's own "important point" highlighting.
+
+**`if (atBase !== atMax) {`**  — L2427
+
+> No toggle on skills whose text holds no level-scaled value at all (a plain
+> "increases this ship's FP by 5%" reads the same either way), so the button only
+> shows up where it actually changes something.
+
+**`function showGifPreview(path) {`**  — L2454
+
+> Shown over the character portrait (left side of the modal) rather than next to the
+> hovered icon, so the barrage table's numbers on the right stay fully readable while
+> previewing the animation. Anchored to the bottom of the portrait via the CSS `bottom`
+> property (not `top`) so it lines up correctly regardless of the preview's own height,
+> which isn't known until the image finishes loading.
+
+**`function matchSkillForBarrage(ship, barrageSkillName) {`**  — L2478
+
+> A barrage row's skillName can carry extra suffix text the skill itself doesn't have
+> (e.g. "All Out Assault - Leander-class II"), so it's matched the same way barrage
+> rows were originally paired with skills: longest normalized-prefix match.
+
+**`function getBarragesForState(ship, isRetrofit, isAugmented, isFateSim) {`**  — L2494
+
+> Mirrors getSkillsForState: a barrage row for a base skill is hidden once the toggle
+> for whatever replaces it (Retrofit/Unique Augment/Fate Simulation) is switched on,
+> and a barrage row for the replacement skill only shows once that toggle is on.
+
+**`const cell = (text, className, clampClass) => {`**  — L2536
+
+> Multi-line clamped cells (name/notes) need the line-clamp box on an inner wrapper —
+> applying display:-webkit-box directly to a <td> breaks its table-cell layout.
+
+**`const gifWrap = document.createElement("div");`**  — L2560
+
+> The flex row of icons lives on an inner wrapper, not the <td> itself — display:flex
+> directly on a table cell breaks its table-cell participation (it stops respecting
+> vertical-align and can throw off the whole row's height), the same issue as the
+> name/notes cells' line-clamp wrappers.
+
+**`const newGifs = (b.gifs || []).filter(g => !shownGifIds.has(g.id));`**  — L2566
+
+> Rows for the same skill (different armor/level breakdowns) share the same
+> animation — show it once rather than repeating the identical thumbnail down
+> every row.
+
+**`img.src = "assets/gif-icon.png";`**  — L2574
+
+> A single generic "play" icon for every row — the actual per-barrage animated
+> gif only ever appears in the big hover preview.
+
+**`const preloadedGifIds = new Set();`**  — L2614
+
+> Hovering used to trigger a cold fetch+decode of the full animated gif (some run to
+> 300+ frames), which visibly played in slow motion while the browser caught up. Quietly
+> warming the browser's cache for every gif this ship could show — across all
+> Retrofit/Augment/Fate Simulation states, not just what's visible right now — means
+> it's already decoded by the time the user actually hovers.
+
+**`if (preloadImg.decode) preloadImg.decode().catch(() => {});`**  — L2627
+
+> .src alone only guarantees the bytes are fetched — decode() is what forces the
+> browser to actually decode every animation frame ahead of time, off-screen.
+
+**`const SKILL_MARKER_VARIANT = {`**  — L2642
+
+> Same label/color convention already used for the ship's own Retrofit/Unique
+> Augment/Fate Simulation toggles at the top of the modal — reused here for the
+> Interaction tab's per-entry "+" button so it reads as the same concept everywhere,
+> covering all three "+" mechanisms (a handful of "+" skills carry no marker at all —
+> e.g. Drake's "Flintlock Burst (A)+" — those fall back to the generic label/color).
+
+**`function stripHtml(html) {`**  — L2660
+
+> Strips the wiki's "(Replaces Old Skill Name)" build note some retrofit/Aug/FS skills
+> carry — it's bookkeeping about which skill this one swaps out, not battle text, but
+> the replaced skill's own name can coincidentally contain a hull-type word (e.g.
+> "(Replaces Pocket Battleship)"), which would otherwise register as a false interaction.
+
+**`const ENEMY_TARGET_CUE_RE = /\b(damage dealt to|dmg dealt to|damage dealt against|dmg dealt against|damage against|dmg against|deals?\s+to|deals?\b[^.]{0,25}\bdamage to|dmg to|damage to|against enemy|against enemies|dmg taken by enemy|damage taken by enemy|enemy(?:'s|s)?\s+(?:ships?|fleet|vanguard|main fleet))\b/i;`**  — L2668
+
+> Many "Hunter" skills read like "Increase own damage dealt to Battleships by 4%" —
+> bonus damage against an ENEMY of that hull type/nation, not a fleet buff for an ALLY
+> of that type. Since this calculator is ally-team-composition only (no PvP/Exercise
+> matchups), a match is only counted when the local text around it doesn't carry one of
+> these enemy-targeting cues. This is what excludes e.g. Centaur's "damage dealt to
+> Battleships" from showing up as an interaction with Izumo (a Battleship). Covers both
+> "damage dealt/dealt to" phrasing AND the bare "DMG to X" / "DMG this ship deals to X"
+> shorthand the wiki also uses for the same Hunter-bonus concept.
+
+**`const ENEMY_IMMEDIATELY_BEFORE_RE = /\b(an?\s+)?enem(?:y|ies)('s)?\s*$/i;`**  — L2677
+
+> The word "enemy"/"enemies" (optionally with a leading article, e.g. "an enemy") right
+> before ANY category match — "enemy Royal Navy CL", "enemy DDs", "enemy Submarines" —
+> covers every hull-abbreviation/nation combination without enumerating each one.
+
+**`const AGAINST_CUE_RE = /\bagainst\s*$/i;`**  — L2681
+
+> "Hit Rate against DDs" (Warspite) is the same Hunter-bonus concept as "DMG against
+> DDs" but for a different stat — rather than list every stat name, treat "against"
+> immediately before any match as enemy-targeting in general, since nothing in this
+> dataset ever buffs an ally "against" something (that phrasing is PvP-only).
+
+**`const ALL_OUT_ASSAULT_CUE_RE = /all out assault/i;`**  — L2687
+
+> Every ship's first skill is almost always named "All Out Assault", whose own text just
+> names the special-attack variant after the ship's own class ("triggers All Out Assault
+> - Deutschland Class"). That's a barrage's flavor name, never a fleet buff — Deutschland
+> mentioning her own class here doesn't mean she buffs other Deutschland-class ships.
+
+**`const NEGATIVE_CONDITION_CUE_RE = /\b(without|no)\s+(other\s+)?$/i;`**  — L2693
+
+> "If sortied WITHOUT other Battleships: increases OWN damage" (Tirpitz) is a self-only
+> buff gated on the ABSENCE of ships of that type — the opposite of an interaction with
+> one. "fires a barrage FROM battleship Hiranuma" names a summoned unit's own type, not
+> an allied ship in the fleet.
+
+**`const SOLO_FLEET_CUE_RE = /\b(consists|comprised)\b[^.]{0,15}\bonly\b/i;`**  — L2699
+
+> "If your Vanguard consists only of this ship..." (Bolzano META) is also a solo-fleet
+> condition — it only activates when NO OTHER Vanguard ship is present, so it can't be an
+> interaction with one. Checked after the match since the fleet/role word comes first
+> ("your Vanguard consists only of...").
+
+**`const SOLO_FLEET_BEFORE_RE = /\bis\s+the\s+only\s+ship\s+remaining\s+in\s*(?:your\s+|the\s+)?$/i;`**  — L2704
+
+> "...if this ship is the only ship remaining in your Vanguard..." (Acasta) is the same
+> solo-fleet condition as SOLO_FLEET_CUE_RE but phrased the other way round — "only"
+> comes BEFORE the fleet/role word instead of after "consists/comprised" — so it needs
+> its own check against the text immediately preceding the match.
+
+**`const EQUIPMENT_CUE_RE = /\b(gear|aircraft|weapons?|main guns?|equipment)\b/i;`**  — L2709
+
+> "If this ship has Royal Navy gear/aircraft equipped" or "while equipping a CL Main Gun"
+> is about this ship's OWN LOADOUT choice, not about having an allied ship of that
+> nation/hull in the fleet — completely unrelated to team composition. Scanned forward to
+> the next sentence boundary (not just immediately after) since the equipment noun is
+> often past an "or Other Nation"/comma-separated list of acceptable nations
+> ("Eagle Union, Iris Libre, or Vichya Dominion aircraft equipped").
+
+**`const FRONTMOST_POSITION_CUE_RE = /\bin the frontmost position (?:of|in)\s*(?:the|your|this ship's)?\s*$/i;`**  — L2721
+
+> "If this ship is (not) in the frontmost position of/in the/your Vanguard: increases
+> this ship's X" (Deutschland, Hermione, Alfredo Oriani, Admiral Hipper μ) is a
+> self-positional check, not about which OTHER ships share the fleet — unlike
+> "...applied to the frontmost ship of the Vanguard", which does target a (possibly
+> different) ally and must NOT be caught by this guard. Both "of" and "in" precede the
+> fleet word in real skill text ("position of your Vanguard" / "position in your
+> Vanguard"), and the determiner varies ("the"/"your"/"this ship's") — all three are
+> self-referential, so all are accepted here.
+
+**`const IF_CONDITION_PREFIX_RE = /\bif\s+(?:there\s+(?:is|are)|this ship (?:is|has)(?:\s+not)?|placed)\b/i;`**  — L2731
+
+> "If this ship is (NOT) your frontmost {Vanguard/Main Fleet} ship: <self-only effect>"
+> (Dmitri Donskoi, Admiral Hipper META's first clause) is also a self-positional
+> condition — but unlike FRONTMOST_POSITION_CUE_RE it doesn't use the word "position" at
+> all, so it needs a separate cue. Deliberately narrow (requires the "if this ship is"
+> prefix) so it does NOT catch genuine target phrasing like "...around your frontmost
+> Vanguard ship" (Admiral Hipper META's second clause, Essex, Elbe) which has no such
+> prefix and must stay matched.
+> "placed" is the one status word the wiki also writes with an elided subject ("if
+> placed in the backmost position...", Carabiniere's "Fuoco di Copertura!+") instead of
+> the usual "if this ship is placed..." (her own base "Fuoco di Copertura!", same
+> clause, same meaning) — checked dataset-wide, only 2 occurrences (Carabiniere,
+> Seattle's "Dual Nock"), both genuinely elided "this ship is", so folded in here rather
+> than given its own guard. Without it the base version of a "+" pair could get
+> structurally gated (correctly excluded) while the "+" text describing the identical
+> condition slipped through ungated purely because of this phrasing difference —
+> inconsistent, not a case where the "+" text is actually less conditional.
+
+**`const BROADER_FLEET_TARGET_RE = /\b(your vanguard|vanguard fleet|vanguard ships?|main fleet|your fleet|all your ships?|all ships|allied ships?|other ships?|each ship|every ship|frontmost vanguard ship|frontmost main fleet ship|frontmost ship)\b/i;`**  — L2748
+
+> Broader fleet-wide target language — if a skill's effect clause (the part after a
+> condition resolves with a colon) mentions any of these, it's a genuine ally-facing
+> buff even though it was reached via an "if there is/are.../if this ship is..."
+> condition (e.g. "if there are 3 ships in your Vanguard: increases your Vanguard's
+> EVA..."). Its ABSENCE from the effect clause is what flags a self-only buff whose
+> condition merely happened to mention the fleet/role word for headcount/position
+> purposes (Brest, Admiral Hipper μ, Bremerton, Alfredo Oriani's Frontline Scoop).
+
+**`function clauseBefore(text, index) {`**  — L2757
+
+> Returns the text of the clause containing `index` — from the nearest preceding
+> colon/sentence boundary up to `index` — so an "if...:" condition already closed by an
+> earlier colon isn't mistaken for still being open (Baltimore μ's "if there is a CV,
+> CVL, or Muse ship in the same fleet: increases this ship's EVA... and increases your
+> Vanguard's AA..." — the second colon-bounded clause is a plain effect statement, not
+> itself a condition, even though an earlier "if" appears further back in the sentence).
+
+**`function selfOnlyConditionedEffect(text, matchIndex, matchLen) {`**  — L2769
+
+> A match sitting inside an "if there is/are.../if this ship is..." condition, followed
+> immediately by a colon whose effect clause never mentions a fleet-wide target, is a
+> self-only buff that merely used the fleet/role word as a headcount or positional
+> condition (Brest: "if there are 3 ships in your Vanguard: increases this ship's EVA");
+> requiring the colon to sit right after the match is what keeps this from misreading
+> genuine targets like "...will also apply to your Vanguard ship with the lowest HP"
+> (Ganj-i-Sawai), where the match is already inside the effect clause, not the
+> condition, and no colon immediately follows it.
+
+**`const COMMA_SELF_ONLY_EFFECT_RE = /^\s*(?:\([^)]{0,80}\)|\))?\s*,\s*(?:and\s+)?(?:increases?|decreases?|restores?|grants?|gains?)\s+this ship/i;`**  — L2788
+
+> Same self-only-condition idea as selfOnlyConditionedEffect, but for skills that use a
+> comma instead of a colon to separate the condition from the effect (Acasta: "if this
+> ship is the only ship remaining in your Vanguard (The ship that sinks does not have to
+> be in the Vanguard), increase this ship's damage dealt..."). Acasta's clarifying aside
+> repeats "Vanguard" a second time inside the parenthetical itself, so this is checked
+> against EVERY match occurrence (not just the first) — allowing an optional trailing
+> "(...)" aside, or just its closing ")" when the match sits inside one, before the
+> comma and the self-only verb.
+
+**`const FLEET_LEADER_SLOT_RE = /^\s*Fleet Leader\b/i;`**  — L2801
+
+> "Vanguard Fleet Leader (First Slot)" (Bilibili's 22/33 pair) names a SLOT position —
+> being sortied first — not a category of ships; the buff it gates is explicitly scoped
+> to "both 22 and 33" by name, never a general Vanguard-wide effect.
+
+**`function sentenceBefore(text, index) {`**  — L2806
+
+> Per explicit user instruction (2026-08-18): a fleet-wide buff gated behind a
+> compositional/positional/status condition that ISN'T guaranteed simply by the
+> candidate ship's own nation/hull/role — needing a specific OTHER ship type present
+> (Baltimore μ: "if there is a CV, CVL, or Muse ship in the same fleet"), a specific
+> slot/role assignment on the buffing ship (Admiral Zenker: "if this ship is the
+> Flagship" — the fleet's leader slot specifically, distinct from just being "a Main
+> Fleet ship"; frontmost/backmost/center position; Collett: "if this ship has the
+> highest AA amongst your Vanguard"), or a headcount threshold ("if there are 3 ships in
+> your Vanguard") — no longer counts as a genuine interaction AT ALL, even when the
+> effect clause genuinely targets the whole fleet (previously only excluded when the
+> effect turned out to be self-only — see selfOnlyConditionedEffect above). This is a
+> stricter standard than the "conditions assumed met" philosophy Effective Stats still
+> uses; the user drew the line specifically at buffs that depend on something beyond the
+> candidate's own category membership, not at conditions in general (a periodic timer or
+> "when this ship fires her Main Guns" action-trigger still eventually fires regardless
+> of team composition, so those are untouched — only "if there is/are..." and "if this
+> ship is/has..." state-gates are treated as unreliable).
+> 
+> Scoped to the whole SENTENCE (bounded by the nearest preceding period, not just the
+> nearest colon like selfOnlyConditionedEffect uses) since this game's skill text chains
+> multiple colon-separated effect clauses under one earlier "if", using colons as plain
+> clause separators rather than to close the condition — Baltimore μ's "if there is a
+> CV, CVL, or Muse ship in the same fleet: increases this ship's EVA... and increases
+> your Vanguard's AA..." has the match past a SECOND colon, but it's still governed by
+> the "if" before the first.
+
+**`const SORTIED_WITH_GATE_RE = /\bsortied with\b/i;`**  — L2836
+
+> "(While/When/If) sortied with [a ship/equipment]..." (Arizona META: "...while sortied
+> with a ship that has the 'Pearl's Tears' equipped: 50% chance to restore... to the
+> ship in your Vanguard...") is the same third-party dependency as "if there is a
+> CV/CVL/Muse ship" — just phrased as a partner requirement instead of a presence check.
+
+**`const NAME_MATCH_STOPLIST = new Set(["Vanguard", "Fortune", "The 2nd"]);`**  — L2846
+
+> A handful of ships happen to be named after generic game terms or ordinary words
+> ("Vanguard" is a Royal Navy Battleship, "Fortune" a Royal Navy Destroyer, "The 2nd" an
+> SSSS collab ship) — matching their name would mostly catch the word's ordinary use
+> ("the Vanguard fleet", "tells a fortune", "the 2nd time"), not real references to them.
+
+**`function otherNationImmediatelyBefore(text, matchIndex, ownNation) {`**  — L2856
+
+> "Dragon Empery Main Fleet ships" or "Sakura Empire CVs" restrict a buff to ships that
+> are BOTH that nation AND that role/hull — not to every Main Fleet ship, or every CV.
+> A role/hull match immediately preceded by a DIFFERENT nation, or a nation match
+> immediately followed by a DIFFERENT hull, means the compound condition excludes this
+> candidate ship, so it isn't a genuine match for it.
+
+**`const NATION_LIST_CONNECTOR_RE = "(?:ships?|vessels?|forces|fleet members|CLs?|CVs?|CVLs?|CAs?|CBs?|BBs?|BCs?|BBVs?|DDs?|DDGs?|SSs?|SSVs?)";`**  — L2866
+
+> Same compound-restriction idea as above, but for the much more common phrasing where
+> the nation and the role word aren't directly glued together — "Northern Parliament
+> and Dragon Empery ships in the Vanguard Fleet" (Chang Chun), "Iron Blood ships in your
+> Main Fleet" — a short run of connector words (a hull noun, "in"/"of", "the"/"your")
+> sits between the nation list and the match. Captures the whole nation list ending
+> right before the match, then only excludes candidates whose OWN nation isn't among
+> the names actually listed — so a Dragon Empery (or Northern Parliament) candidate
+> still matches Chang Chun correctly, while every other nation is excluded from it.
+
+**`const NATION_LIST_TRIGGER_PREFIX_RE = /\b(when|if|once|whenever|or\s+an?|another|per)\s*$/i;`**  — L2875
+
+> A nation name right before "ship(s) in your Vanguard" isn't always naming who the buff
+> is FOR — "when this ship or a Sardegna Empire ship in your Vanguard falls below 30%
+> max HP..." (Alfredo Oriani) names who can TRIGGER the effect, while the effect itself
+> ("...for all your ships in it") is unrestricted. Only a nation list reached through a
+> beneficiary preposition ("of"/"for"/"all") is an actual restriction; one reached
+> through a condition/alternative word ("when"/"if"/"once"/"or a"/"another"/"per") is
+> just naming a qualifying trigger, not narrowing the recipients.
+
+**`function selfNameRanges(text, skillName) {`**  — L2903
+
+> Where a skill's OWN name literally recurs inside its own description ("Ashen Might -
+> Wichita II only: ..." inside the skill named "Ashen Might - Wichita") — that's the
+> skill echoing its own title, never a reference to another ship, even when the name
+> contains one (Wichita META's own skill mentions "Wichita", her un-retrofitted self).
+> Returns character ranges to skip rather than deleting the text outright, since deleting
+> it would also remove cue phrases other guards depend on (e.g. "All Out Assault").
+
+**`if (text[matchIndex - 1] === "(") return false;`**  — L2927
+
+> A hull abbreviation glued directly onto a preceding word in parentheses, e.g.
+> "Kaga(BB)", disambiguates which FORM of a specific named ship is meant (Kaga has
+> both a Carrier and a hidden Battleship form) — not a reference to Battleships in
+> general.
+
+**`if (category === "name" && ALL_NATION_TERMS.some(nation => nation.length > matchLen && new RegExp('^${escapeRegExp(nation)}\\b', "i").test(text.slice(matchIndex, matchIndex + 30)))) return false;`**  — L2938
+
+> "Eagle" is itself a ship name, but also the first word of the "Eagle Union" nation —
+> without this, every "Eagle Union" mention would double as a false "named ship" match.
+
+**`if (/^\s*guns?\b/i.test(text.slice(matchIndex + matchLen, matchIndex + matchLen + 8))) return false;`**  — L2946
+
+> "AP BB guns" names a weapon/ammo category (Battleship-caliber main guns), not a
+> ship in the fleet.
+
+**`function baseTextMentionsCategory(skill, re) {`**  — L2972
+
+> Used when a "+" skill matched on its own and computeInteractions wants to anchor the
+> entry on its base version instead (see the isPlusVariant branch below). Two different
+> situations both reach here and need different answers:
+> - The base text never mentions the category term at all (Chapayev's "Cavalier of the
+>   Ether" is pure self-buff, no "Vanguard" anywhere) — safe to show as the default,
+>   un-toggled text: it isn't claiming a match of its own, just showing what the skill
+>   looks like without the "+"'s added clause.
+> - The base text DOES mention the term, but only through a clause that fails its own
+>   guards ("if there are 2 or more Tempesta ships afloat...this HP recovery effect will
+>   also apply to your Vanguard ship with the lowest HP", Ganj-i-Sawai) — showing that as
+>   the default, non-toggled text would silently reintroduce exactly the kind of
+>   unreliable match structurallyGatedMatch (and friends) exist to keep out, just one
+>   level removed through the base/+ pairing mechanism. Not safe to anchor on.
+
+**`function isSafeBaseAnchor(skill, category, re, ship) {`**  — L3003
+
+> A base skill is safe to anchor a standalone "+" match on if it either doesn't mention
+> the category term at all, or mentions it AND genuinely qualifies on its own — never
+> when its only mention is one that a guard has disqualified.
+
+**`function computeInteractions(ship) {`**  — L3011
+
+> Finds every OTHER ship whose skill text references this ship's nation, hull type,
+> fleet role (Vanguard/Main), class, or name directly — the interaction surface a
+> team-composition calculator would need to know about. Purely a text-pattern scan
+> over each skill's plain-text description; it can't verify in-battle conditions
+> (fleet composition counts, HP thresholds, etc.), so a match here means "this skill
+> COULD affect this ship", not "always does".
+
+**`const avoidAviationPrefix = !text.startsWith("Aviation ") ? "(?<!Aviation )" : "";`**  — L3026
+
+> "Battleship" and "Submarine" are themselves valid hull types but also plain
+> substrings of the separate "Aviation Battleship"/"Aviation Submarine" hull types —
+> without this guard, an "Aviation Battleship" mention would wrongly count as an
+> interaction for a plain Battleship.
+
+**`const stem = ship.class.replace(/\s*Class$/i, "");`**  — L3039
+
+> ship.class already carries the "Class" suffix ("Izumo Class"), so the pattern is
+> just that stem followed by "class"/"-class"/" class" — not the stem AND the word
+> "class" twice, which is what a naive `${ship.class} class` would require.
+
+**`if (ship.displayName && ship.displayName.length >= 3 && /[a-zA-Z]/.test(ship.displayName) && !NAME_MATCH_STOPLIST.has(ship.displayName)) {`**  — L3045
+
+> Skip very short / purely numeric display names (e.g. "22") — they'd match almost
+> any damage number or percentage in unrelated skill text. Also skip names that
+> collide with a reserved game term ("Vanguard" and "Fortune" are both real ship
+> names too) — virtually every match would be the generic term, not the character.
+
+**`const ownNameRanges = selfNameRanges(text, entry.skill.name);`**  — L3061
+
+> A skill that repeats its own name inline ("Ashen Might - Wichita II only: ...")
+> isn't referencing another ship even if that name contains one — e.g. Wichita
+> META's own skill title contains "Wichita", her un-retrofitted self's name.
+
+**`const isPlusVariant = entry.skill.name.endsWith("+");`**  — L3074
+
+> A skill's "+" enhanced version (Retrofit/Unique Augment/Fate Simulation — "+"
+> shows up under all three, not just Augment) usually just extends the base
+> text, so both independently match the same category and would otherwise show
+> as two near-duplicate rows for the same ship. Merge them into one entry with
+> the base version as the anchor and the "+" text attached for an in-place
+> toggle, rather than showing both (2B x Chang Chun's "Mutual Assistance" /
+> "Mutual Assistance+", a Retrofit pair, was the reported case).
+
+**`const baseSkillCandidate = isPlusVariant ? entry.ship.skills.find(sk => sk.name === pairName) : null;`**  — L3099
+
+> The "+" text matched entirely on its own (its base version's own text has no
+> ally-facing language at all, so it never independently matched anything to
+> merge into — Chapayev's "Cavalier of the Ether" is pure self-buff; only the
+> "+"/Aug version's added clause mentions "a ship in your Vanguard"). Still look
+> up that base skill on the same ship and anchor the entry on IT instead of the
+> "+" skill, exactly like the merge case above — so this renders with the same
+> "base text by default, click the marker's own toggle to reveal the +/enhanced
+> text" behavior as every other paired entry, rather than silently showing the
+> "+" text with no way back to what the ship's skill looks like without it
+> (the reported bug was that there was no way to click back to the base version).
+
+**`const INTERACTION_PAGE_SIZE = 20;`**  — L3128
+
+> How many Interaction entries a category page shows at once — categories like "By
+> Fleet Role" regularly run into the hundreds now that computeInteractions no longer
+> hard-caps results at 100, so the list is paginated instead of dumping everything (or
+> silently truncating it) into one long scroll.
+
+**`const variant = skillVariantInfo(skill.marker);`**  — L3168
+
+> The match only came from the "+" text itself (its base version never
+> independently matched, so there was nothing to merge into — e.g. Chapayev's
+> "Cavalier of the Ether" is purely self-only, only "Cavalier of the Ether+"
+> mentions "a ship in your Vanguard"). There's no un-augmented text to toggle
+> back to here, so this is a plain badge, not a button — but it still needs to
+> say Retrofit/Augment/Fate Simulation, since the shown text already includes
+> that upgrade's bonus and silently showing it as a bare, unmarked skill would
+> misrepresent it as a baseline effect every copy of the ship has.
+
+**`const desc = document.createElement("div");`**  — L3186
+
+> Same rendering pipeline as the Skills section (appendSkillDescription: bullets,
+> condition/action grouping, bold "important point" spans preserved) rather than a
+> flat textContent paragraph — text/enhancedText (stripHtml'd, used for matching by
+> computeInteractions) are ignored here in favor of skill.description/
+> enhancedSkill.description, the raw HTML those were always derived from 1:1.
+
+**`if (baseAtBase !== baseAtMax || (enhAtBase !== null && enhAtBase !== enhAtMax)) {`**  — L3223
+
+> One toggle covers both descriptions (paints whichever isn't currently shown too),
+> so switching the Retrofit/Augment/Fate Simulation variant never lands on the wrong
+> level. Only shown when at least one of the two actually has a level-scaled value —
+> matches Skills' own "no toggle where it wouldn't change anything" rule.
+
+**`syncInteractionMaxLevelToggle();`**  — L3308
+
+> No-op on the very first call (this category's own `details` isn't attached to
+> modalInteractionList yet at that point) — harmless, the loop below re-syncs once
+> everything is attached. Matters for a later prev/next click, where it is attached.
+
+**`return [{ name: "Default", type: "Default", painting: ship.painting || ship.thumbnail, icon: ship.thumbnail }];`**  — L3327
+
+> Custom hand-imported ships have no skin list — fall back to their single known image.
+
+**`function updateLevelControlUI(level) {`**  — L3450
+
+> The level control is a set of "notch" buttons for the levels that actually matter
+> (1 = base, 100 = normal max, 120/125 = the same retrofit/limit-break breakpoints the
+> statsCurve data already uses for hand-imported ships) plus a free-entry number input,
+> rather than a continuous slider that makes you hunt for an arbitrary level. Both
+> controls stay in sync through one shared setLevel() so clicking a notch updates the
+> field and vice versa.
+
+**`if (modalLevelInput.value === "" || Number.isNaN(Number(modalLevelInput.value))) return;`**  — L3478
+
+> Ignore an empty/mid-edit field instead of snapping it to 1 — otherwise clearing the
+> field before typing a new number (a common way to replace "1" with "56") would force
+> it back to "1" on every keystroke.
+
+**`const skins = effectiveSkins(currentShip);`**  — L3496
+
+> Only jump the displayed art when the user is currently looking at the
+> Default/Retrofit pair — browsing an unrelated costume skin stays untouched.
+
+### `style.css`
+
+**`::-webkit-scrollbar {`**  — L31
+
+> Custom scrollbar: slightly wider than the native default, flat (no hover state —
+> deliberately no :hover rules below), with click-to-nudge arrow buttons at both ends.
+
+**`.filter-subgroup-label {`**  — L190
+
+> Sub-label for a chip cluster within an existing filter row (e.g. "Research" under
+> Rarity) — smaller and without the row-label's min-width, so it reads as a subset of
+> the same category rather than a second category.
+
+**`.retrofit-checkbox,`**  — L678
+
+> Retrofit/Unique Augment/Fate Simulation toggles share the same pill shape and only
+> differ in their accent color, which also carries through to the custom checkbox dot
+> below (styled via currentColor, so no separate color rule is needed per toggle).
+
+**`.level-input::-webkit-outer-spin-button,`**  — L812
+
+> Native number-input spinner replaced with .level-spin buttons below, drawn with the
+> same arrow style as the custom scrollbar (::-webkit-scrollbar-button) for a
+> consistent look — same SVG shapes/color, no :hover state on either.
+
+**`.modal-section-title-row {`**  — L862
+
+> Section title carrying a control on its right. The margin lines that control up with
+> the per-skill toggles below it, which sit inside the skill card's own 0.6rem padding
+> and 1px border rather than flush with the list's edge.
+
+**`.stats-grid {`**  — L881
+
+> One-value-per-stat 3-column grid matching the game's own compact stat panel exactly,
+> rather than a Base/Real row list — a delta (when boosted) is shown inline in the same
+> cell, same as the game does ("478 +178"), since the in-game panel never shows a
+> separate base figure.
+
+**`width: 3.8rem;`**  — L916
+
+> Fixed width (not just content-sized) so the value that follows lines up at the same
+>   spot in every row of a column — "Armor" and "AA" are very different lengths, and
+>   without this the values end up staggered instead of forming a straight column.
+
+**`width: 7.6rem;`**  — L927
+
+> Fixed width sized for the longest realistic content ("12345+12345 (12345)": a
+>   5-digit base, 5-digit delta, and 5-digit real value all at once) so every ship's
+>   grid comes out the same size — without this, a ship with unusually long boosted
+>   values (A2) stretches its columns wider than a ship whose stats stay short and
+>   unboosted. Measured directly (getBoundingClientRect() against this exact class,
+>   after document.fonts.ready) rather than estimated — 7.40rem for that string in
+>   Raleway bold at this font-size, rounded up to 7.6rem for a small safety margin.
+
+**`.max-level-toggle {`**  — L1013
+
+> Pushed to the far right, past the skill name and its type tags. Carries the same
+> outline-pill-plus-dot shape as the Retrofit/Unique Augment toggles above, since it is
+> the same kind of control — the dot fills in when it's on.
+
+**`.skill-line,`**  — L1070
+
+> One sentence per block. A condition line is set in the brighter body color so the eye
+> can find where each set of effects starts; its actions keep the muted color.
+
+**`.skill-condition + .skill-actions {`**  — L1081
+
+> Tighter than the gap between blocks, so a condition reads as attached to its actions
+> rather than floating between two of them.
+
+**`.skill-mode {`**  — L1087
+
+> Game-mode sections ("Regular" vs "Operation Siren") — two alternative versions of the
+> same skill, only one of which applies at a time. The label and the rail down the side of
+> its block share --mode-color, set per section in JS, so the eye can tell at a glance
+> where one version stops and the other starts.
+
+**`.skill-actions-blocks {`**  — L1130
+
+> A numbered item can carry several sentences, so its blocks stack inside the bullet.
+
+**`.kw {`**  — L1142
+
+> Recurring keyword highlighting (nations, hull types, fleet roles, Siren) — color is
+> set inline per-word via JS, this just keeps the weight consistent everywhere it's used.
+
+**`.kw-mech {`**  — L1148
+
+> Named mechanics — the game's own recurring statuses (Burn, Smokescreen, Armor Break) and
+> the ones a single skill coins for itself ("Berserk Mode"). The tint behind the word is
+> what separates them from the other two palettes sharing the same sentence: a stat is
+> colored and bare, a nation is colored and underlined, a mechanic sits on a chip. The
+> tint is derived from the word's own color, so JS still only has to set `color`.
+> The tint bleeds outward through a spread shadow rather than horizontal padding: padding
+> would widen the inline box and leave the comma or period that follows the name floating
+> a space away from it ("enters Berserk Mode .").
+
+**`.kw-num {`**  — L1162
+
+> Skill values (percentages, flat numbers) — made to stand out from the surrounding
+> prose via brightness/weight rather than another hue, since the palette already has
+> several colors in play.
+
+**`.combat-modifier-pill.has-target {`**  — L1340
+
+> A restriction ("to Light Armor enemies") wraps onto its own line, and the stadium
+> shape reads badly around two lines of text — squared off only in that case.
+
+**`.combat-modifier-pill[title] {`**  — L1347
+
+> The whole pill is a tooltip target: the sentence the bonus came from, with whatever
+> gated it, is too long to sit in the pill itself.
+
+**`.modal-equipment {`**  — L1361
+
+> One row of slot cards, mirroring the game's Gear panel. Wraps rather than scrolling,
+> since six cards do not fit a narrow modal side by side.
+
+**`.equip-tile {`**  — L1378
+
+> The square that will hold the chosen equipment's image, sized and framed like a ship
+> card's thumbnail so the slot reads as the same kind of pickable tile. Dashed while
+> empty: it describes what the ship can take, not what she carries.
+
+**`.equip-augment .equip-tile {`**  — L1393
+
+> The augment is a separate round socket in the game, not a sixth gear box.
+
+**`.equip-tile-filled {`**  — L1433
+
+> A picked item's tile: rarity-tinted fill/border instead of the empty dashed frame,
+> holding the gear's own artwork.
+
+**`.equip-tile-icon-fallback,`**  — L1447
+
+> Only reached if an icon file is missing - the pre-icons text tile, kept as the
+> graceful fallback equipmentIconImg() swaps in.
+
+**`.equip-picker {`**  — L1463
+
+> Dropdown list of catalog options for one slot, opened by clicking its tile - anchored
+> under that slot's own card rather than a single shared floating overlay, same
+> "one panel per trigger" shape as the nation-chip subfaction dropdown.
+
+**`.equip-picker-list {`**  — L1497
+
+> A dense grid of gear artwork rather than a list of names - the options are already
+> sorted best-first, so rarity-tinted cells also read as bands of decreasing rarity.
+
+**`.equip-picker-caption {`**  — L1528
+
+> Sticks to the panel's bottom edge so it stays readable while the grid scrolls.
+
+**`.interaction-variant-toggle {`**  — L1679
+
+> Per-entry toggle for a matched skill's "+" (Retrofit/Unique Augment/Fate Simulation)
+> enhanced version — shown as a small pill next to the skill name rather than a
+> section-wide control, so it only affects the one entry it's attached to. Labeled and
+> colored per the same convention as the ship's own Retrofit/Augment/FS toggles
+> (--tag-color set per-instance in JS from skillVariantInfo()).
+
+**`.interaction-variant-badge {`**  — L1716
+
+> Non-interactive counterpart to .interaction-variant-toggle: shown when a matched
+> skill's "+" text has no base version to toggle back to (the base never independently
+> matched, so it was never merged into a paired entry) — the shown text already
+> includes the Retrofit/Augment/Fate Simulation bonus, so the pastille is always filled
+> rather than starting hollow like the toggle's.
+
+**`.interaction-desc-enhanced[hidden] {`**  — L1748
+
+> .interaction-desc's own `display: flex` (needed now that it can hold multiple blocks
+> like a skill-mode group) would otherwise outrank the [hidden] attribute's UA-stylesheet
+> `display: none` at equal specificity — same fix already applied to .max-level-toggle.
+
