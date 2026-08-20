@@ -2006,9 +2006,11 @@ function renderCombatMetrics(ship, effective) {
       label.className = "combat-metric-label";
       label.textContent = field.label;
 
+      // A figure a ship simply does not have is left blank rather than dashed. The cell
+      // keeps its width, so the columns still line up, and its tooltip still explains why.
       const number = document.createElement("div");
-      number.className = "combat-metric-value" + (value ? "" : " combat-metric-empty");
-      number.textContent = value ? Math.round(value).toLocaleString("en-US") : "\u2014";
+      number.className = "combat-metric-value";
+      number.textContent = value ? Math.round(value).toLocaleString("en-US") : "";
 
       const notes = [field.hint];
       if (field.key === "ehp") {

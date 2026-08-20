@@ -2222,6 +2222,13 @@ after the final edit.
   reference table is a question, not noise. Both times the data was already there and the
   mapping was written down somewhere I had not read to the end.
 
+  **A figure a ship does not have is blank, not dashed** (on request: "ne mets pas de '-'
+  mets simplement rien"). The cell keeps its fixed width, so the four columns still line up
+  and the table stays one size for every ship - verified across all 888: a single table
+  width, 0 em dashes left, and all 754 blank cells keep the tooltip that explains why they
+  are blank, which is now the only affordance on them. `.combat-metric-empty` went with the
+  dash rather than being left as a colour rule with nothing to colour.
+
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the
   widest value at 3.81rem ("2,086"), which would have clipped the moment anything was
