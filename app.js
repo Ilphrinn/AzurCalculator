@@ -771,6 +771,8 @@ const modalStatsTable = document.getElementById("modal-stats-table");
 const modalCombatModifiers = document.getElementById("modal-combat-modifiers");
 const modalEquipmentSection = document.getElementById("modal-equipment-section");
 const modalEquipment = document.getElementById("modal-equipment");
+const modalEquipmentCap = document.getElementById("modal-equipment-cap");
+const modalEquipmentOptimize = document.getElementById("modal-equipment-optimize");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
 const modalSkillsList = document.getElementById("modal-skills");
@@ -1239,15 +1241,17 @@ function equipmentSlotTypes(slot) {
 
 // Built by hand because the two vocabularies are worded differently on purpose
 // ("DD Main Guns" here vs "DD Gun" in the catalog).
-// Codes 18 (Cargo) and 20 (Missiles) are deliberately unmapped rather than guessed:
-// no Cargo category was ever extracted, and Missiles were expected to live inside
-// the Torpedo catalog but that has not actually been checked.
+// Code 18 (Cargo) stays unmapped: no Cargo category was ever extracted, and it is not
+// combat gear. Code 20 (Missiles) IS mapped, to the Torpedo catalog page - checked, that
+// is where the SY-1 missiles live. equipmentOptionsForSlot then splits that category in
+// two, since a missile slot must not offer torpedoes nor the reverse.
 const EQUIPMENT_TYPE_CODE_CATEGORIES = {
   1: ["DD Gun"],
   2: ["CL Gun"],
   3: ["CA Gun"],
   4: ["BB Gun"],
   5: ["Torpedo"],
+  20: ["Torpedo"],
   6: ["AA Gun", "AA Time Fuze Gun"],
   7: ["Fighter"],
   8: ["Torpedo Bomber"],
@@ -1259,13 +1263,29 @@ const EQUIPMENT_TYPE_CODE_CATEGORIES = {
   14: ["ASW"]
 };
 
+// The Torpedo catalog page also lists the two SY-1 missiles, but a missile is NOT a
+// torpedo as far as slots go: type code 20 (Missiles) appears ALONE on exactly 4 slots
+// (An Shan, Chang Chun, Fu Shun, Tai Yuan - the Fu Shun-class retrofit) and code 5
+// appears on 446 slots, never together. So the two sets are disjoint and each code takes
+// its own half. Before this split a plain destroyer was offered SY-1A, which Optimize
+// would then have picked because it outscores every real torpedo.
+const EQUIPMENT_MISSILE_RE = /missile/i;
+function isMissileItem(item) {
+  return item.category === "Torpedo" && EQUIPMENT_MISSILE_RE.test(item.name);
+}
+
 function equipmentOptionsForSlot(slot) {
   if (!EQUIPMENT_DATA || !slot) return [];
   const categories = new Set();
   for (const code of slot.type || []) {
     for (const cat of EQUIPMENT_TYPE_CODE_CATEGORIES[code] || []) categories.add(cat);
   }
-  return EQUIPMENT_DATA.filter(item => categories.has(item.category));
+  const wantsMissiles = (slot.type || []).includes(20);
+  return EQUIPMENT_DATA.filter(item => {
+    if (!categories.has(item.category)) return false;
+    if (item.category !== "Torpedo") return true;
+    return wantsMissiles === isMissileItem(item);
+  });
 }
 
 const EQUIPMENT_RARITY_ORDER = ["Common", "Rare", "Elite", "Super Rare", "Ultra Rare"];
@@ -1315,6 +1335,61 @@ function equipmentTooltip(item) {
   return [item.name, item.rarity, equipmentSummaryText(item)].filter(Boolean).join(" — ");
 }
 
+// What Optimize maximises: the slot's own damage figure, ignoring rarity entirely.
+// Rarity is NOT a proxy for power here - in 4 of 14 categories the highest-rarity item
+// is not the strongest (a Super Rare Twin 410mm out-damages every Ultra Rare BB gun),
+// so taking the top of sortEquipmentOptions would pick the wrong item.
+//
+// Guns carry dps.raw, the figure before armour modifiers. Torpedoes and aircraft do not,
+// and carry no armorMod either, so raw cannot be recovered - the mean of light/medium/
+// heavy stands in for it. That is deliberately neutral: picking dps.light instead would
+// silently assume the target is light-armoured and reorder the torpedo list.
+// AA guns and ASW gear have their own single figure.
+// Auxiliaries have none, and there is no defensible way to rank HP against Evasion
+// against Accuracy without knowing what the player wants - so they score null and
+// Optimize leaves them alone rather than inventing a preference.
+function equipmentOptimizeScore(item) {
+  if (item.dps) {
+    if (typeof item.dps.raw === "number") return item.dps.raw;
+    const values = [item.dps.light, item.dps.medium, item.dps.heavy].filter(v => typeof v === "number");
+    return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
+  }
+  if (typeof item.aaDps === "number") return item.aaDps;
+  if (typeof item.aswDps === "number") return item.aswDps;
+  return null;
+}
+
+// Global, like the Skills tab's Max Level state: it survives switching ships, because a
+// player comparing two ships means the same cap on both.
+let equipmentRarityCap = "Ultra Rare";
+
+function equipmentWithinCap(item) {
+  return EQUIPMENT_RARITY_ORDER.indexOf(item.rarity) <= EQUIPMENT_RARITY_ORDER.indexOf(equipmentRarityCap);
+}
+
+// Per slot, the highest-scoring option at or below the cap. Slots whose options have no
+// score at all (Auxiliary) are left untouched, and so is any slot with nothing under the
+// cap - clearing it instead would silently throw away a pick the user made by hand.
+function optimizeEquipment(ship) {
+  let changed = 0;
+  for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    let best = null, bestScore = -Infinity;
+    for (const item of equipmentOptionsForSlot(slot)) {
+      if (!equipmentWithinCap(item)) continue;
+      const score = equipmentOptimizeScore(item);
+      if (score === null || score <= bestScore) continue;
+      best = item;
+      bestScore = score;
+    }
+    if (!best) continue;
+    setEquippedGear(ship, slotKey, best);
+    changed++;
+  }
+  return changed;
+}
+
+// Best-in-slot first: highest rarity, then highest headline stat within that rarity.
+// Browsing order only - Optimize does NOT use this, see equipmentOptimizeScore above.
 function sortEquipmentOptions(options) {
   return [...options].sort((a, b) => {
     const rarityDiff = EQUIPMENT_RARITY_ORDER.indexOf(b.rarity) - EQUIPMENT_RARITY_ORDER.indexOf(a.rarity);
@@ -1498,6 +1573,29 @@ document.addEventListener("click", event => {
   if (!event.target.closest(".equip-slot")) closeAllEquipmentPickers();
 });
 
+function syncEquipmentCapOptions() {
+  if (modalEquipmentCap.options.length) return;
+  for (const rarity of [...EQUIPMENT_RARITY_ORDER].reverse()) {
+    const option = document.createElement("option");
+    option.value = rarity;
+    option.textContent = rarity;
+    modalEquipmentCap.appendChild(option);
+  }
+  modalEquipmentCap.value = equipmentRarityCap;
+}
+
+modalEquipmentCap.addEventListener("change", () => {
+  equipmentRarityCap = modalEquipmentCap.value;
+});
+
+modalEquipmentOptimize.addEventListener("click", () => {
+  if (!currentShip) return;
+  closeAllEquipmentPickers();
+  optimizeEquipment(currentShip);
+  renderModalEquipment(currentShip);
+  refreshStatsAfterGearChange();
+});
+
 function renderModalEquipment(ship) {
   const slots = ship.equipment;
   const modules = ship.augmentModules || [];
@@ -1506,6 +1604,7 @@ function renderModalEquipment(ship) {
     return;
   }
   modalEquipmentSection.hidden = false;
+  syncEquipmentCapOptions();
   modalEquipment.innerHTML = "";
 
   let gunSlotSeen = false;

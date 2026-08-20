@@ -1320,6 +1320,59 @@ main {
   opacity: 0.85;
 }
 
+/* Pushed to the far right of the Equipment heading, same place the Skills section puts
+   its Max Level toggle. Normal case is untouched, so the halo the heading carries must
+   not bleed onto the controls. */
+.equip-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  flex-shrink: 0;
+  margin-right: calc(0.6rem + 1px);
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.equip-cap-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+
+.equip-cap-select {
+  padding: 0.15rem 0.35rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.equip-optimize {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg));
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.equip-optimize:hover {
+  background: color-mix(in srgb, var(--accent) 32%, var(--bg));
+}
+
 .modal-equipment {
   display: flex;
   flex-wrap: wrap;

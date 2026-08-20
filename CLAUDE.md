@@ -2047,10 +2047,52 @@ after the final edit.
      reference numbers already stored in `dps`/`aaDps`/`aswDps`. Disclose the
      `AbsoluteCooldown=0` approximation for Guns/Torpedoes wherever the resulting number
      is shown, since it is not a verified constant.
-  2. The rarity-capped selector + Optimize button — `equippedGear`/`getEquippedGear`/
-     `setEquippedGear` and `sortEquipmentOptions()`'s best-first ordering already exist
-     to build on; Optimize is just "for each slot, `setEquippedGear` the first entry of
-     `sortEquipmentOptions(options.filter(rarity <= cap))`".
+  2. ~~The rarity-capped selector + Optimize button~~ **done (2026-08-20)**. A "Max
+     rarity" `<select>` and an "Optimize" button sit on the Equipment heading, in the
+     same place the Skills section puts its Max Level toggle. The cap is global and
+     survives switching ships, like `skillsAtMaxLevel`.
+
+     **The plan quoted above was wrong, and checking is what caught it.** It assumed
+     Optimize could just take the top of `sortEquipmentOptions()`, which orders by rarity
+     first. Measured across the catalog: **in 4 of 14 categories the highest-rarity item
+     is not the strongest.** A Super Rare Twin 410mm (Type 3 Shell) out-damages every
+     Ultra Rare BB gun, and for Fighters the gap is 33.03 vs 42.25. So Optimize uses its
+     own `equipmentOptimizeScore()` and ignores rarity except as a filter;
+     `sortEquipmentOptions()` stays as it was, for browsing only.
+
+     **Scoring is not uniform across categories, and the difference matters.** Guns carry
+     `dps.raw` (pre-armour-modifier). Torpedoes and aircraft carry no `raw` **and no
+     `armorMod`**, so raw cannot be reconstructed — the mean of light/medium/heavy stands
+     in. That choice is deliberate: `dps.light` (what `equipmentPrimaryStat` falls back to)
+     silently assumes a light-armoured target and reorders the torpedo list, since
+     torpedoes do their most damage to heavy armour. AA guns and ASW gear have a single
+     figure of their own.
+
+     **Auxiliary slots are deliberately left untouched.** They have no damage figure, and
+     there is no defensible way to rank HP against Evasion against Accuracy without
+     knowing what the player is optimising for. Optimize skips them rather than inventing
+     a preference — `equipmentPrimaryStat`'s "first key of statBonus" fallback is
+     arbitrary and must not be used to pick. **If the user ever wants auxiliaries filled,
+     ask what to optimise them for; do not guess.**
+
+     **A pre-existing bug surfaced and was fixed on the way**: the Torpedo catalog page
+     also lists the two SY-1 missiles, so every plain torpedo slot was being offered them
+     — and Optimize would have picked SY-1A, which outscores every real torpedo. Type code
+     20 (Missiles) appears **alone** on exactly 4 slots (An Shan, Chang Chun, Fu Shun,
+     Tai Yuan) and code 5 on 446, **never together**, so the two sets are disjoint. Code 20
+     is now mapped to the Torpedo category and `equipmentOptionsForSlot` splits it in
+     half: a missile slot gets only missiles, a torpedo slot only torpedoes. This also
+     closes the "code 20 deliberately unmapped" note from the catalog-linking work.
+     Mapping code 20 without the split gave those 4 slots **zero** options — caught by
+     testing An Shan specifically rather than only the ship in front of me.
+
+     Verified: Ayanami's torpedo slot offers 29 options and 0 missiles; An Shan's slot 2
+     offers exactly the 2 missiles; every one of New Jersey's optimised picks is provably
+     the maximum-scoring option under the cap (0 non-maximal); lowering the cap to Elite
+     changes every pick and produces 0 picks above the cap; and Optimize run over all
+     **861 ships fills 3371 slots with 0 unscorable items and 0 errors**. The standard
+     fingerprint shows stats, costs, grid, filters, Interaction counts and the CSS sweep
+     all byte-identical, with only the modal HTML growing by the new controls.
   3. HP potential panel — revisit once real equipped-gear stats (Evasion/HP/Luck
      auxiliary bonuses) are available; the "combine HP/Evasion/Luck/Armor, assume a
      level 100 enemy" approach the user asked for still needs a source for baseline
