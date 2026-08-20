@@ -32,7 +32,12 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-12-pounder-long-guns-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "IXM",
+      "IXS",
+      "IXV"
+    ]
   },
   {
     "name": "Old Heavy Cannon",
@@ -5321,7 +5326,12 @@ const EQUIPMENT_DATA = [
     },
     "id": "ca-gun-twin-203mm-model-1927-t3",
     "rarity": "Super Rare",
-    "research": true
+    "research": true,
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Twin 203mm (SK C/34)",
@@ -6382,7 +6392,13 @@ const EQUIPMENT_DATA = [
       "heavy": 115
     },
     "id": "bb-gun-triple-380mm-mle-1935-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 380mm (SKC Prototype)",
@@ -13884,7 +13900,11 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 420,
     "id": "torpedo-bomber-fairey-swordfish-818-squadron-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Fieseler Fi 167",
@@ -15394,7 +15414,12 @@ const EQUIPMENT_DATA = [
     },
     "notes": "A Manjuu maintenance team that performs extensive checks for air support capabilities. Hopefully, the extra launch time yields worthwhile results. Precise Maintenance: Increases airstrike DMG by 4%, but increases airstrike loading time by 4%.",
     "id": "auxiliary-elite-aviation-maintenance-manjuu",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Elixir",
@@ -17039,7 +17064,12 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Type 1 Piercing Shell: Increases Main Gun Crit DMG by 25%.",
     "id": "auxiliary-type-1-armor-piercing-shell",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC"
+    ]
   },
   {
     "name": "Type 91 Armor Piercing Shell",

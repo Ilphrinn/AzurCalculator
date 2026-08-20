@@ -2474,12 +2474,16 @@ after the final edit.
     saved it, but no `List of X` page covers that submarine deck gun, so the catalog has no
     record to attach it to. Expected, not a parse failure.
 
-  Coverage after the last batch: **381 pages, 386 of 581 records restricted**. Every weapon
+  Coverage after the last batch: **387 pages, 392 of 581 records restricted**. Every weapon
   category is at 70-100%, AA Time Fuze Guns at 4/4, and the remaining gap is mostly Auxiliary
-  (127 of the 195 uncovered records). The number that matters is smaller: of the **45 distinct
-  items Optimize can reach, 39 are covered and 6 are not** - down from 23, then 9.
-  The reachable set itself keeps shifting as scoring changes, so re-measure it rather than
-  reusing an earlier list.
+  (125 of the 189 uncovered records). The number that matters is smaller: of the **45 distinct
+  items Optimize can reach, 40 are covered and 5 are not**.
+
+  **The uncovered list shrinks but does not empty in one step, and that is expected.** It has
+  gone 23 -> 9 -> 6 -> 5 across four batches. Restricting an item removes it from the hulls
+  its page forbids, which promotes whatever was second on those hulls into the reachable set;
+  changing the scoring moves it too. **Always re-measure the reachable set after applying a
+  batch instead of reusing the previous list** - the names are rarely the same ones.
 
   ### A Research toggle beside Gear Lab (2026-08-20)
 
