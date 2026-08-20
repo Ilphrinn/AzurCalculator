@@ -2799,6 +2799,30 @@ gains a new kind of resource.
   remove a third-party request, and make the page work offline; it needs the font files,
   which have to be fetched on a machine with network access.
 
+## W3C validation (2026-08-20)
+
+`programming rules/` also holds a Nu Html Checker run against the deployed site: **4 errors,
+1 warning**, all on the same thing - `<img>` placeholders that JS fills when a ship is
+opened. `#modal-image` had `src=""`, and `#modal-nation-watermark`, `#modal-hull-icon` and
+`#gif-preview` had no `src` at all. An `<img>` is only valid with a non-empty `src` or
+`srcset`.
+
+All four now carry a 1x1 transparent GIF data URI, which the CSP already allows
+(`img-src 'self' data:`) and which costs no request. **`src=""` was not merely invalid**:
+an empty src resolves to the page's own URL, so the browser was re-fetching the whole
+document as an image - the fix is a small performance win as well as a validity one.
+
+Verified across all 888 ships: every modal shows a real painting (0 left on the
+placeholder), 888 nation watermarks and 888 hull icons resolve to real files, the gif
+preview still swaps its placeholder for the real animation on hover, and all 1071 `<img>`
+elements in a rendered page carry a non-empty `src`. 0 errors.
+
+**The remaining warning is deliberately left**: `<h2 id="modal-name">` is empty in the
+static markup because `openModal` writes the ship's name into it before the dialog is ever
+shown. The accessibility concern behind that warning - a screen reader meeting an empty
+heading - cannot happen here, since the modal is `hidden` until the name is set. Silencing
+it would mean shipping a placeholder word no user ever sees.
+
 ## PageSpeed findings (2026-08-20) — mostly NOT yet fixed
 
 The user added a PageSpeed Insights run to `programming rules/`. It is the first hard
