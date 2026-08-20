@@ -2146,14 +2146,24 @@ after the final edit.
   built as a table in the same construction as `.stats-grid` (1px gaps over a
   border-coloured background) rather than as separate chips. `.equipment-and-metrics` is
   the flex row holding the slots and the table, mirroring `.stats-and-modifiers`.
-  Label and value are appended as **siblings**, not nested in a per-metric card - they are
-  the two columns of one grid, and wrapping them would break the column alignment.
-  Both columns are fixed width for the same reason the stats grid's are: otherwise the
-  table resizes per ship and the panel jumps when switching between them.
-  Six slots at 7rem filled the row on their own and pushed the table underneath, so
-  `.equip-slot` went to **5.8rem** to free the width; the artwork is unaffected, only the
-  tile is smaller. On a narrow modal the slot row wraps and the table drops below, which
-  is the intended fallback rather than horizontal overflow.
+  **The cell shape is the stats grid's too, and getting that wrong was the first pass's
+  mistake**: label and value started as two separate grid columns, which pins the value to
+  the far edge of its own cell and leaves a stretch of empty space between the two. That is
+  the exact readability complaint the stats grid already went through (item 3.7 above), and
+  the user rejected it the same way, pointing at the stats grid as the shape he expected.
+  Each figure is now ONE `.combat-metric-cell` holding both, packed together. Both are
+  still fixed width for the same reason that grid's are: otherwise the table resizes per
+  ship and the panel jumps when switching between them.
+
+  **`.equip-slot` stays at 7rem.** The first pass trimmed it to 5.8rem after measuring
+  that six slots pushed the table underneath - but that measurement was taken in a 1250px
+  test window, where the modal's info panel is only ~640px wide and the row cannot fit six
+  slots at any size. The user's own window is far wider and never had the problem
+  ("Je ne pense pas que tu avais besoin de libéré de la place"). Measured properly: the
+  row needs 727px of slots plus a 148px table, which fits from roughly 1450px of window
+  upward. Below that the slot row wraps and the table drops below it, which is the intended
+  fallback rather than horizontal overflow. **Measure a layout at the width the app is
+  actually used at, not at whatever the test harness defaults to.**
 
   **Known gap**: the built-in aircraft rows point at ordnance ids that page never
   documents, so the ~127 ships whose only weapons are default aircraft report 0 surface
