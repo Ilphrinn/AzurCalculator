@@ -2817,11 +2817,21 @@ placeholder), 888 nation watermarks and 888 hull icons resolve to real files, th
 preview still swaps its placeholder for the real animation on hover, and all 1071 `<img>`
 elements in a rendered page carry a non-empty `src`. 0 errors.
 
-**The remaining warning is deliberately left**: `<h2 id="modal-name">` is empty in the
-static markup because `openModal` writes the ship's name into it before the dialog is ever
-shown. The accessibility concern behind that warning - a screen reader meeting an empty
-heading - cannot happen here, since the modal is `hidden` until the name is set. Silencing
-it would mean shipping a placeholder word no user ever sees.
+**The warning was fixed too, on the user's standard rather than mine.**
+`<h2 id="modal-name">` was empty in the static markup because `openModal` writes the ship's
+name into it. I argued for leaving it - the accessibility concern behind the warning cannot
+occur here, since the modal is `hidden` until the name is set - and the user overruled it:
+at his IUT, a single W3C message meant a zero. **A spotless report is the requirement;
+"technically harmless" does not meet it.**
+
+It now reads `<h2 id="modal-name">Ship</h2>`. The placeholder is unobservable: `openModal`
+sets the name 29 lines before it unhides the overlay, so no frame ever renders the word.
+Verified over all 888 ships - every modal's heading is the ship's own name, 0 exceptions.
+
+The rest of the document was re-read for anything the checker had not seen, since the
+validated deploy predates the Gear Lab, Research and Clear buttons. Nothing else flags: an
+empty `<select>` is valid (its content model allows zero options), and `&display=swap` in
+the fonts URL is not an ambiguous ampersand.
 
 ## PageSpeed findings (2026-08-20) — mostly NOT yet fixed
 
