@@ -2485,6 +2485,48 @@ after the final edit.
   changing the scoring moves it too. **Always re-measure the reachable set after applying a
   batch instead of reusing the previous list** - the names are rarely the same ones.
 
+  **Final batch: 572 pages, 578 of 581 records restricted, 0 of the 44 reachable items
+  uncovered.** The user saved the rest of `Site web/equipment/` (347 -> 572 pages) and asked
+  to have it applied. Same extractor as every prior batch, rewritten fresh in scratchpad since
+  none of the earlier ones survive between sessions: match each page's filename against a
+  catalog name, read its `azltable eq-fits` table, and write the hull codes marked `yes` or
+  `maybe` as that record's `usedBy`.
+
+  **Filename matching needed normalizing this time.** A straight name match landed 486/572 -
+  86 pages fell through because Windows cannot save a file with `"`, `/`, `:`, or similar in
+  the name (`Single 152mm (6"/45 Pattern 1892)` was saved as `Single 152mm (6__45 Pattern
+  1892).htm`). Replacing the same illegal characters with `_` on the catalog side before
+  comparing recovered all but 2: `Twin 203mm (Mle 1924 Submarine-mount)`, the one page that
+  has never matched anything (no `List of X` page covers that submarine deck gun, so there is
+  still no catalog record for it - unchanged from every prior batch), and `Battle Tracto Max
+  Upgrade`, a page that is not gear at all.
+
+  **A real parsing bug, not just coverage, and it was caught by a row count that didn't add
+  up.** The `title` attribute usually reads plainly, `title="Destroyer (DD)"`, but the three
+  Sailing Frigate rows carry a second parenthetical ahead of the code -
+  `title="Sailing Frigate (Vanguard) (IXv)"`. The first regex looked for the code right after
+  the hull name and stopped at the first `(`, so it read as `(Vanguard)` and failed to match at
+  all - silently dropping those 3 rows from every table, on every page, rather than erroring.
+  It went unnoticed until a table came back with 0 allowed hulls for `Sail Components`, a
+  pirate/Sailing-Frigate item whose only "yes" rows are the very ones being dropped - 14 hull
+  rows of `no` and nothing left over reads exactly like a total parse failure, and was one.
+  Fixed by matching the *last* parenthetical group before the closing quote instead of the
+  first (`[^"]*` instead of `[^"(]*`, letting the greedy match back up past `(Vanguard)` to
+  find `(IXv)`) - re-run afterward with 0 remaining 0-row pages, versus 10 before the fix.
+  **A table backing 0 hulls is itself a signal to check, not just a table backing 0 records.**
+
+  One real, expected change in behaviour: **Sail Components is Sailing-Frigate-only**
+  (`IXS`/`IXV`/`IXM`), which the New Jersey example earlier in this file (picked for
+  Survivability before any restriction data existed for it) no longer holds - Optimize now
+  correctly keeps it off a Battleship. Diffed the whole file against the pre-batch commit
+  before writing back: every changed record differs in `usedBy` alone (479 changed, 99 gained
+  the field with the same value they'd already have gotten, 0 other fields touched, record
+  count still 581) - the same convention as every other data patch in this project.
+
+  Verified: **888 ships, every goal, Ultra Rare cap - 21550 slot-picks, 0 hull violations, 0
+  errors.** Every one of the 44 item names Optimize can ever reach across that whole sweep now
+  carries a `usedBy` table - the "45 items, 5 uncovered" gap from the last batch is closed.
+
   ### A Research toggle beside Gear Lab (2026-08-20)
 
   Asked for as "un tri par Research pour les elements qui s'obtiennent que par les
