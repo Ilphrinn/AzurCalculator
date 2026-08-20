@@ -103,7 +103,8 @@ const EQUIPMENT_DATA = [
       "heavy": 25
     },
     "id": "dd-gun-prototype-twin-130mm-model-1936-main-gun-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Quadruple 130mm (Mle 1932)",
@@ -173,7 +174,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-100mm-type-88-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 102mm (QF Mk V)",
@@ -208,7 +210,19 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-102mm-qf-mk-v-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 113mm (QF Mk IV)",
@@ -244,7 +258,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-113mm-qf-mk-iv-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Single 120mm (10th Year Type)",
@@ -280,7 +295,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-single-120mm-10th-year-type-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 120mm (11th Year Type)",
@@ -315,7 +331,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-120mm-11th-year-type-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Single 120mm (QF Mark IX)",
@@ -350,7 +367,20 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-120mm-qf-mark-ix-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Single 120mm (Type 3)",
@@ -385,7 +415,19 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-120mm-type-3-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 127mm (5\"/38 Mk 21)",
@@ -420,7 +462,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-127mm-5-38-mk-21-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Single 127mm (5\"/38 Mk 30)",
@@ -455,7 +498,20 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-single-127mm-5-38-mk-30-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Single 127mm (SK C/34)",
@@ -490,7 +546,19 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-single-127mm-sk-c-34-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 127mm (Type 3 Mod B)",
@@ -526,7 +594,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-127mm-type-3-mod-b-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Single 130mm (B13 Pattern 1936)",
@@ -561,7 +630,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-single-130mm-b13-pattern-1936-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 130mm (Mle 1924)",
@@ -596,7 +666,19 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-130mm-mle-1924-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 130mm (Model 1913)",
@@ -631,7 +713,19 @@ const EQUIPMENT_DATA = [
       "heavy": 25
     },
     "id": "dd-gun-single-130mm-model-1913-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 138.6mm (Mle 1923)",
@@ -666,7 +760,19 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-138-6mm-mle-1923-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 138.6mm (Mle 1927)",
@@ -701,7 +807,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-138-6mm-mle-1927-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 138.6mm (Mle 1929)",
@@ -736,7 +843,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-single-138-6mm-mle-1929-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Single 76mm (3\"/50 caliber gun)",
@@ -771,7 +879,19 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-single-76mm-3-50-caliber-gun-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Triple 102mm (BL 4\" Mk IX)",
@@ -806,7 +926,20 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-triple-102mm-bl-4-mk-ix-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 100mm (Type 98)",
@@ -842,7 +975,20 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-100mm-type-98-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 100mm (Type 98) Kai",
@@ -878,7 +1024,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-100mm-type-98-kai-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 102mm (QF Mk XVI)",
@@ -913,7 +1060,20 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-102mm-qf-mk-xvi-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 102mm (QF Mk XVI*)",
@@ -948,7 +1108,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-102mm-qf-mk-xvi-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 114mm (QF Mk IV)",
@@ -984,7 +1145,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-114mm-qf-mk-iv-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 120mm (Model 1933)",
@@ -1019,7 +1181,19 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-120mm-model-1933-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Twin 120mm (Model 1936)",
@@ -1054,7 +1228,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-120mm-model-1936-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 120mm (QF Mark XI)",
@@ -1090,7 +1265,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-120mm-qf-mark-xi-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 120mm (QF Mark XII)",
@@ -1125,7 +1301,20 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-120mm-qf-mark-xii-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 120mm Gun Mount",
@@ -1160,7 +1349,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-120mm-gun-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (5\"/38 Mk 32)",
@@ -1195,7 +1385,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-5-38-mk-32-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (5\"/38 Mk 38)",
@@ -1231,7 +1422,20 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-5-38-mk-38-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (5\"/54 Mk 16 Prototype)",
@@ -1302,7 +1506,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-twin-127mm-km40-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (Mle 1948 Prototype)",
@@ -1373,7 +1578,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-type-3-mod-b-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (Type 3)",
@@ -1408,7 +1614,20 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-type-3-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (Type 5 Prototype)",
@@ -1444,7 +1663,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-type-5-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (Type D)",
@@ -1480,7 +1700,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-127mm-type-d-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 128mm (SK C/41)",
@@ -1516,7 +1737,20 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-twin-128mm-sk-c-41-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 128mm/45 SK C/41",
@@ -1552,7 +1786,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-twin-128mm-45-sk-c-41-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 130mm (B-2LM)",
@@ -1587,7 +1822,8 @@ const EQUIPMENT_DATA = [
       "heavy": 25
     },
     "id": "dd-gun-twin-130mm-b-2lm-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 130mm (Mle 1935)",
@@ -1622,7 +1858,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-twin-130mm-mle-1935-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 134mm (QF Mark II)",
@@ -1658,7 +1895,20 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-twin-134mm-qf-mark-ii-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 135mm (Model 1938)",
@@ -1694,7 +1944,8 @@ const EQUIPMENT_DATA = [
       "heavy": 25
     },
     "id": "dd-gun-twin-135mm-model-1938-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 137mm (5.4\"/48 Mk 1 Prototype)",
@@ -1730,7 +1981,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "dd-gun-twin-137mm-5-4-48-mk-1-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 138.6mm (Mle 1934)",
@@ -1868,7 +2120,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-prototype-quadruple-152mm-main-gun-mount-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Single 140mm (3rd Year Type)",
@@ -1903,7 +2156,18 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-single-140mm-3rd-year-type-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 150mm (SK C/28)",
@@ -1938,7 +2202,19 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-single-150mm-sk-c-28-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Single 150mm (TbtsK C/36)",
@@ -1973,7 +2249,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-single-150mm-tbtsk-c-36-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 152mm (41st Year Type)",
@@ -2008,7 +2285,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-single-152mm-41st-year-type-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Single 152mm (6\"/45 Pattern 1892)",
@@ -2043,7 +2321,18 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-single-152mm-6-45-pattern-1892-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 152mm (BL 6\" Mk XII)",
@@ -2078,7 +2367,18 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-single-152mm-bl-6-mk-xii-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 155mm (Mle 1920)",
@@ -2113,7 +2413,18 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-single-155mm-mle-1920-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 180mm (B-1-K)",
@@ -2148,7 +2459,8 @@ const EQUIPMENT_DATA = [
       "heavy": 65
     },
     "id": "cl-gun-single-180mm-b-1-k-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Triple 150mm (SK C/25)",
@@ -2183,7 +2495,18 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-triple-150mm-sk-c-25-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Triple 150mm (Type 5 Prototype)",
@@ -2254,7 +2577,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-triple-150mm-improved-sk-c-25-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (6\"/47 Mk 16)",
@@ -2289,7 +2613,19 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-6-47-mk-16-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (6\"/47 Mk 16) Mod 1",
@@ -2324,7 +2660,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-6-47-mk-16-mod-1-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (6\"/47 Mk 17 DP Prototype)",
@@ -2360,7 +2697,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "cl-gun-triple-152mm-6-47-mk-17-dp-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (BL 6\" Mk XXIII)",
@@ -2395,7 +2733,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-triple-152mm-bl-6-mk-xxiii-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (BL 6\" Mk XXV Prototype)",
@@ -2430,7 +2769,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-bl-6-mk-xxv-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (MK-5)",
@@ -2465,7 +2805,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-mk-5-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (Mle 1930 HE)",
@@ -2535,7 +2876,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-triple-152mm-mle-1930-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 152mm (Model 1934)",
@@ -2640,7 +2982,19 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-155mm-3rd-year-type-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Triple 155mm (3rd Year Type) Kai",
@@ -2675,7 +3029,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-155mm-3rd-year-type-kai-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 180mm (B-1-P Pattern 1932)",
@@ -2710,7 +3065,8 @@ const EQUIPMENT_DATA = [
       "heavy": 65
     },
     "id": "cl-gun-triple-180mm-b-1-p-pattern-1932-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 180mm (Improved B-1-P Pattern 1932)",
@@ -2780,7 +3136,19 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-twin-140mm-3rd-year-type-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 150mm (SK C/28 Prototype)",
@@ -2811,7 +3179,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "APC",
     "armorMod": null,
     "id": "cl-gun-twin-150mm-sk-c-28-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 150mm (SK C/28)",
@@ -2846,7 +3215,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-twin-150mm-sk-c-28-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 150mm (TbtsK C/36)",
@@ -2881,7 +3251,19 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-twin-150mm-tbtsk-c-36-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 150mm (TbtsK C/42T Prototype)",
@@ -2951,7 +3333,19 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-twin-152mm-41st-year-type-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 152mm (6\"/53 Mk 15)",
@@ -2986,7 +3380,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-twin-152mm-6-53-mk-15-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 152mm (6\"/53 Mk 18)",
@@ -3021,7 +3416,18 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-twin-152mm-6-53-mk-18-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Twin 152mm (B-38 MK17)",
@@ -3056,7 +3462,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-twin-152mm-b-38-mk17-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 152mm (BL 6\" Mk XXII)",
@@ -3091,7 +3498,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-twin-152mm-bl-6-mk-xxii-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 152mm (BL 6\" Mk XXIII)",
@@ -3126,7 +3534,19 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-twin-152mm-bl-6-mk-xxiii-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 152mm (Pattern 1892)",
@@ -3161,7 +3581,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-twin-152mm-pattern-1892-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 155mm (Mle 1920)",
@@ -3196,7 +3617,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-twin-155mm-mle-1920-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Single 150mm (6\"/47 caliber gun)",
@@ -3264,7 +3686,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "ca-gun-prototype-quadruple-330mm-mle-1931-cb-only-main-gun-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Prototype Triple 203mm/55 Main Gun Mount",
@@ -3334,7 +3757,8 @@ const EQUIPMENT_DATA = [
       "heavy": 95
     },
     "id": "ca-gun-prototype-triple-240mm-main-gun-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Prototype Triple 283mm/54 Main Gun Mount",
@@ -3404,7 +3828,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-8-55-mk-13-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 14)",
@@ -3439,7 +3864,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-triple-203mm-8-55-mk-14-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 15 SHS)",
@@ -3474,7 +3900,8 @@ const EQUIPMENT_DATA = [
       "heavy": 85
     },
     "id": "ca-gun-triple-203mm-8-55-mk-15-shs-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 15)",
@@ -3509,7 +3936,13 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-8-55-mk-15-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 9)",
@@ -3544,7 +3977,12 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-8-55-mk-9-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Triple 203mm (BL 8\" Mk IX Prototype)",
@@ -3579,7 +4017,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-bl-8-mk-ix-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (BL 8\" Mk X Prototype)",
@@ -3614,7 +4053,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-bl-8-mk-x-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (Mle 1934 Prototype)",
@@ -3649,7 +4089,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-mle-1934-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (SK C/34 Prototype)",
@@ -3684,7 +4125,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-triple-203mm-sk-c-34-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 203mm (SKC Prototype)",
@@ -3789,7 +4231,8 @@ const EQUIPMENT_DATA = [
       "heavy": 95
     },
     "id": "ca-gun-triple-234mm-bl-9-2-mk-xii-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 254mm (Model 1939 Prototype)",
@@ -3859,7 +4302,11 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-triple-283mm-sk-c-28-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CA",
+      "CB"
+    ]
   },
   {
     "name": "Triple 305mm (12\"/50 Mk 8)",
@@ -3929,7 +4376,8 @@ const EQUIPMENT_DATA = [
       "heavy": 80
     },
     "id": "ca-gun-triple-305mm-b-50-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 305mm (SK C/39 Prototype)",
@@ -3964,7 +4412,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-triple-305mm-sk-c-39-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 310mm (Type 0 Prototype)",
@@ -3999,7 +4448,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-triple-310mm-type-0-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 203mm (3rd Year Type No. 2)",
@@ -4034,7 +4484,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-twin-203mm-3rd-year-type-no-2-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 203mm (3rd Year Type No. 3 Prototype)",
@@ -4069,7 +4520,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-twin-203mm-3rd-year-type-no-3-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 203mm (3rd Year Type)",
@@ -4104,7 +4556,12 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-twin-203mm-3rd-year-type-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Twin 203mm (BL 8\" Mk VIII)",
@@ -4139,7 +4596,12 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-twin-203mm-bl-8-mk-viii-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Twin 203mm (Mle 1924)",
@@ -4174,7 +4636,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-twin-203mm-mle-1924-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 203mm (Mle 1931)",
@@ -4209,7 +4672,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-twin-203mm-mle-1931-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 203mm (Model 1927)",
@@ -4279,7 +4743,12 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-twin-203mm-sk-c-34-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Twin 203mm SKC (Improved)",
@@ -4349,7 +4818,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "ca-gun-twin-234mm-bl-9-2-mk-xii-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 203mm (Model 1924)",
@@ -4419,7 +4889,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "cb-gun-prototype-quadruple-330mm-mle-1931-cb-only-main-gun-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Prototype Triple 283mm/54 Main Gun Mount",
@@ -4489,7 +4960,11 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "cb-gun-triple-283mm-sk-c-28-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CA",
+      "CB"
+    ]
   },
   {
     "name": "Triple 305mm (12\"/50 Mk 8)",
@@ -4559,7 +5034,8 @@ const EQUIPMENT_DATA = [
       "heavy": 80
     },
     "id": "cb-gun-triple-305mm-b-50-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 305mm (SK C/39 Prototype)",
@@ -4594,7 +5070,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "cb-gun-triple-305mm-sk-c-39-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 310mm (Type 0 Prototype)",
@@ -4629,7 +5106,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "cb-gun-triple-310mm-type-0-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Old Demi-Cannon",
@@ -4769,7 +5247,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-quadruple-330mm-mle-1931-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Quadruple 340mm (Mle 1912)",
@@ -4804,7 +5283,13 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-quadruple-340mm-mle-1912-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Quadruple 356mm (14\"/50 Mark B Prototype)",
@@ -4839,7 +5324,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-quadruple-356mm-14-50-mark-b-prototype-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Quadruple 356mm (BL 14\" Mk VII)",
@@ -4874,7 +5360,14 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-quadruple-356mm-bl-14-mk-vii-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "gearLab": true
   },
   {
     "name": "Quadruple 380mm (Mle 1935)",
@@ -4909,7 +5402,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-quadruple-380mm-mle-1935-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 283mm (SK C/34)",
@@ -4944,7 +5438,13 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-283mm-sk-c-34-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 305mm (Pattern 1907)",
@@ -4979,7 +5479,13 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-305mm-pattern-1907-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 305mm (SK C/39 Prototype)",
@@ -5014,7 +5520,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-305mm-sk-c-39-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 305mm Model 1909 Main Gun Mount",
@@ -5049,7 +5556,13 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-305mm-model-1909-main-gun-mount-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 320mm (Model 1934)",
@@ -5084,7 +5597,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-triple-320mm-model-1934-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 356mm (14\"/50 Mk 11)",
@@ -5119,7 +5633,13 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-356mm-14-50-mk-11-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 356mm (Model 1913)",
@@ -5154,7 +5674,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-356mm-model-1913-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Triple 380mm (Mle 1935 Prototype)",
@@ -5224,7 +5745,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-380mm-skc-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 381mm (BL 15\" Mk III Prototype)",
@@ -5259,7 +5781,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-381mm-bl-15-mk-iii-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 381mm (Model 1934)",
@@ -5294,7 +5817,8 @@ const EQUIPMENT_DATA = [
       "heavy": 115
     },
     "id": "bb-gun-triple-381mm-model-1934-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (16\"/45 Mk 6)",
@@ -5329,7 +5853,14 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-406mm-16-45-mk-6-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (16\"/50 Mark D Mod 0 Prototype)",
@@ -5364,7 +5895,8 @@ const EQUIPMENT_DATA = [
       "heavy": 115
     },
     "id": "bb-gun-triple-406mm-16-50-mark-d-mod-0-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (16\"/50 Mk 2)",
@@ -5399,7 +5931,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-406mm-16-50-mk-2-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (16\"/50 Mk 7)",
@@ -5434,7 +5967,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-406mm-16-50-mk-7-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (BL 16\" Mk I)",
@@ -5469,7 +6003,14 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-triple-406mm-bl-16-mk-i-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (Improved Model 1940 Prototype)",
@@ -5609,7 +6150,8 @@ const EQUIPMENT_DATA = [
       "heavy": 120
     },
     "id": "bb-gun-triple-406mm-mle-1938-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 406mm (Model 1940 Prototype)",
@@ -5644,7 +6186,8 @@ const EQUIPMENT_DATA = [
       "heavy": 50
     },
     "id": "bb-gun-triple-406mm-model-1940-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 406mm/45 (Mk 7 Prototype)",
@@ -5714,7 +6257,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-triple-410mm-10th-year-type-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 419mm (Mk. I Prototype)",
@@ -5854,7 +6398,13 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-356mm-41st-year-type-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 356mm (41st Year Type) Kai",
@@ -5889,7 +6439,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-356mm-41st-year-type-kai-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 356mm (BL 14\" Mk VII)",
@@ -5924,7 +6475,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-356mm-bl-14-mk-vii-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 380mm (SK C/34)",
@@ -5959,7 +6511,14 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-twin-380mm-sk-c-34-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 381mm (BL 15\" Mk I)",
@@ -5994,7 +6553,13 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-twin-381mm-bl-15-mk-i-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 381mm (BL 15\" Mk II)",
@@ -6029,7 +6594,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-381mm-bl-15-mk-ii-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 381mm Model 1914 Main Gun Mount",
@@ -6064,7 +6630,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-twin-381mm-model-1914-main-gun-mount-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 406mm (16\"/45 Mk 1)",
@@ -6099,7 +6666,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-twin-406mm-16-45-mk-1-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 406mm (16\"/45 Mk 5)",
@@ -6134,7 +6702,14 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-twin-406mm-16-45-mk-5-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 406mm (16\"/45 Mk 8)",
@@ -6169,7 +6744,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-twin-406mm-16-45-mk-8-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 406mm (16\"/56 Mk 4 Prototype)",
@@ -6200,7 +6776,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "AP",
     "armorMod": null,
     "id": "bb-gun-twin-406mm-16-56-mk-4-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 406mm (SK C/34 Prototype)",
@@ -6235,7 +6812,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-406mm-sk-c-34-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 410mm (3rd Year Type)",
@@ -6270,7 +6848,14 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-410mm-3rd-year-type-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 410mm (3rd Year Type) Kai",
@@ -6305,7 +6890,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-410mm-3rd-year-type-kai-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 410mm (Mod.A Prototype)",
@@ -6376,7 +6962,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-410mm-type-3-shell-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 457mm (Mark A Prototype)",
@@ -6411,7 +6998,8 @@ const EQUIPMENT_DATA = [
       "heavy": 125
     },
     "id": "bb-gun-twin-457mm-mark-a-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "533mm Improved Quadruple Magnetic Torpedo Mount",
@@ -6475,7 +7063,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Magnetic",
     "armorMod": null,
     "id": "torpedo-533mm-mark-35-torpedo-mount-quad-consecutive-launch-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "533mm Quadruple Homing Torpedo Mount",
@@ -6507,7 +7096,15 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "torpedo-533mm-quadruple-homing-torpedo-mount-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "533mm Quadruple Torpedo Mount",
@@ -6539,7 +7136,14 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-quadruple-torpedo-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "533mm Quadruple Torpedo Mount Mk 17",
@@ -6571,7 +7175,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-quadruple-torpedo-mount-mk-17-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "533mm Quadruple Torpedo Mount Mk IX",
@@ -6603,7 +7208,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-quadruple-torpedo-mount-mk-ix-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "533mm Quintuple Homing Torpedo Mount",
@@ -6635,7 +7241,15 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "torpedo-533mm-quintuple-homing-torpedo-mount-t3",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "533mm Quintuple Torpedo Mount",
@@ -6667,7 +7281,14 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-quintuple-torpedo-mount-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "533mm Quintuple Torpedo Mount Mk 17",
@@ -6699,7 +7320,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-quintuple-torpedo-mount-mk-17-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "533mm Quintuple Torpedo Mount Mk IX",
@@ -6731,7 +7353,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-quintuple-torpedo-mount-mk-ix-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "533mm Triple Homing Torpedo Mount",
@@ -6763,7 +7386,15 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "torpedo-533mm-triple-homing-torpedo-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "533mm Triple Torpedo Mount",
@@ -6827,7 +7458,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-triple-torpedo-mount-mk-17-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "533mm Triple Torpedo Mount Mk IX",
@@ -6859,7 +7491,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-533mm-triple-torpedo-mount-mk-ix-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "550mm Quadruple Torpedo Mount",
@@ -6891,7 +7524,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-quadruple-torpedo-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "550mm Quadruple Torpedo Mount (Ammo Mod)",
@@ -6923,7 +7557,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-quadruple-torpedo-mount-ammo-mod-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "550mm Quadruple Torpedo Mount Improved (Ammo Mod)",
@@ -6955,7 +7590,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-quadruple-torpedo-mount-improved-ammo-mod-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "550mm Torpedo Mount (Twin + Triple)",
@@ -7019,7 +7655,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-triple-torpedo-launcher-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "550mm Triple Torpedo Mount Improved (Ammo Mod)",
@@ -7083,7 +7720,14 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-twin-torpedo-launcher-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "610mm Quadruple Torpedo Mount",
@@ -7115,7 +7759,15 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-quadruple-torpedo-mount-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "610mm Quadruple Torpedo Mount (Cruiser)",
@@ -7179,7 +7831,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-quadruple-torpedo-mount-kai-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "610mm Quintuple Torpedo Mount",
@@ -7211,7 +7864,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-quintuple-torpedo-mount-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "610mm Triple Torpedo Mount",
@@ -7243,7 +7897,15 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-triple-torpedo-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "610mm Triple Torpedo Mount Kai",
@@ -7275,7 +7937,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-triple-torpedo-mount-kai-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "610mm Twin Torpedo Mount",
@@ -7307,7 +7970,14 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-610mm-twin-torpedo-mount-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "Prototype 533mm Quadruple Si270 Torpedo Mount",
@@ -7430,7 +8100,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "submarine-torpedo-improved-submarine-mounted-g7e-acoustic-homing-torpedo-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted 550mm 24V Torpedo",
@@ -7484,7 +8155,11 @@ const EQUIPMENT_DATA = [
     "ammoType": "NormalS",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-g7a-torpedo-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Submarine-mounted G7e Acoustic Homing Torpedo",
@@ -7511,7 +8186,12 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-g7e-acoustic-homing-torpedo-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ],
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Mark 12 Torpedo",
@@ -7538,7 +8218,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-12-torpedo-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Mark 14 Torpedo",
@@ -7565,7 +8246,11 @@ const EQUIPMENT_DATA = [
     "ammoType": "NormalS",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-14-torpedo-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Submarine-mounted Mark 16 Torpedo",
@@ -7592,7 +8277,12 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-16-torpedo-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ],
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Mark 18 Torpedo",
@@ -7619,7 +8309,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal*",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-18-torpedo-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Mark 20S \"Bidder\" Torpedo",
@@ -7646,7 +8337,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal*",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-20s-bidder-torpedo-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Mark 28 Torpedo",
@@ -7673,7 +8365,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-28-torpedo-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Mark VIII Torpedo",
@@ -7727,7 +8420,11 @@ const EQUIPMENT_DATA = [
     "ammoType": "NormalS",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-type-92-battery-powered-torpedo-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Submarine-mounted Type 92 Battery-powered Torpedo Kai",
@@ -7754,7 +8451,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal*",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-type-92-battery-powered-torpedo-kai-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Type 95 Kai Pure Oxygen Torpedo",
@@ -7781,7 +8479,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Oxygen",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-type-95-kai-pure-oxygen-torpedo-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Type 95 Oxygen Torpedo",
@@ -7808,7 +8507,12 @@ const EQUIPMENT_DATA = [
     "ammoType": "Oxygen",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-type-95-oxygen-torpedo-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "SS",
+      "SSV"
+    ],
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Type 96 Oxygen Torpedo",
@@ -7835,7 +8539,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Oxygen",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-type-96-oxygen-torpedo-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Submarine-mounted Si 270 Torpedo",
@@ -7877,7 +8582,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 39,
     "range": 28,
     "id": "aa-gun-65mm-model-1939-anti-air-gun-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Octuple 40mm Pom-Pom",
@@ -7892,7 +8598,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 74.16,
     "range": 25,
     "id": "aa-gun-octuple-40mm-pom-pom-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Prototype Quadruple 30mm AA Gun Mount",
@@ -7907,7 +8628,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 61.45,
     "range": 30,
     "id": "aa-gun-prototype-quadruple-30mm-aa-gun-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Prototype Sextuple 20mm Scotti AA Gun (Model 1941)",
@@ -7937,7 +8659,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 28.88,
     "range": 18,
     "id": "aa-gun-quadruple-20mm-flakvierling-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Quadruple 20mm Oerlikon (Mk 15 Mount)",
@@ -7952,7 +8689,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 39.28,
     "range": 18,
     "id": "aa-gun-quadruple-20mm-oerlikon-mk-15-mount-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Quadruple 28mm Chicago Piano",
@@ -7967,7 +8705,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 43.12,
     "range": 21,
     "id": "aa-gun-quadruple-28mm-chicago-piano-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Quadruple 40mm Bofors (Mk 2 Mount)",
@@ -7982,7 +8735,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 74.26,
     "range": 28,
     "id": "aa-gun-quadruple-40mm-bofors-mk-2-mount-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Quadruple 40mm Pom-Pom",
@@ -7997,7 +8765,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 45.82,
     "range": 25,
     "id": "aa-gun-quadruple-40mm-pom-pom-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Sextuple 40mm Bofors",
@@ -8012,7 +8795,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 86.48,
     "range": 28,
     "id": "aa-gun-sextuple-40mm-bofors-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Single 102mm AA (QF Mark V)",
@@ -8027,7 +8811,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 34.01,
     "range": 32,
     "id": "aa-gun-single-102mm-aa-qf-mark-v-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Single 12.7mm Browning",
@@ -8042,7 +8841,21 @@ const EQUIPMENT_DATA = [
     "aaDps": 13.04,
     "range": 15,
     "id": "aa-gun-single-12-7mm-browning-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Single 120mm AA (QF Mark VIII)",
@@ -8057,7 +8870,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 54.35,
     "range": 32,
     "id": "aa-gun-single-120mm-aa-qf-mark-viii-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 20mm Oerlikon",
@@ -8072,7 +8886,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 15.56,
     "range": 18,
     "id": "aa-gun-single-20mm-oerlikon-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Single 20mm Oerlikon (Mark II)",
@@ -8087,7 +8916,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 28.04,
     "range": 17,
     "id": "aa-gun-single-20mm-oerlikon-mark-ii-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 25mm AA (Type 96)",
@@ -8102,7 +8932,21 @@ const EQUIPMENT_DATA = [
     "aaDps": 15.64,
     "range": 20,
     "id": "aa-gun-single-25mm-aa-type-96-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Single 37mm AA (70-K)",
@@ -8132,7 +8976,21 @@ const EQUIPMENT_DATA = [
     "aaDps": 17.27,
     "range": 26,
     "id": "aa-gun-single-37mm-aa-mle-1925-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Single 37mm Flak (M42)",
@@ -8147,7 +9005,21 @@ const EQUIPMENT_DATA = [
     "aaDps": 16.68,
     "range": 23,
     "id": "aa-gun-single-37mm-flak-m42-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Single 40mm Flak28",
@@ -8162,7 +9034,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 37.56,
     "range": 28,
     "id": "aa-gun-single-40mm-flak28-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 55mm Gerät 58 AA (Prototype)",
@@ -8192,7 +9065,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 32.15,
     "range": 30,
     "id": "aa-gun-single-76mm-aa-3rd-year-type-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 76mm AA (Mk 22 Mount)",
@@ -8207,7 +9081,21 @@ const EQUIPMENT_DATA = [
     "aaDps": 32.15,
     "range": 30,
     "id": "aa-gun-single-76mm-aa-mk-22-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Single 76mm AA (Mk 26 Mount)",
@@ -8222,7 +9110,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 36.74,
     "range": 30,
     "id": "aa-gun-single-76mm-aa-mk-26-mount-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 80mm AA (Type 98)",
@@ -8237,7 +9126,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 46.8,
     "range": 30,
     "id": "aa-gun-single-80mm-aa-type-98-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Single 90mm AA (Model 1939)",
@@ -8252,7 +9142,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 65.46,
     "range": 31,
     "id": "aa-gun-single-90mm-aa-model-1939-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 25mm AA (Type 96 Blast Shield)",
@@ -8267,7 +9158,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 59.55,
     "range": 28,
     "id": "aa-gun-triple-25mm-aa-type-96-blast-shield-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Triple 25mm AA (Type 96)",
@@ -8282,7 +9174,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 37.27,
     "range": 20,
     "id": "aa-gun-triple-25mm-aa-type-96-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 100mm AA (B-54)",
@@ -8327,7 +9234,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 49.6,
     "range": 32,
     "id": "aa-gun-twin-100mm-aa-mle-1937-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 100mm AA (Mle 1945)",
@@ -8342,7 +9250,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 73.14,
     "range": 35,
     "id": "aa-gun-twin-100mm-aa-mle-1945-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 100mm AA (MZ-14)",
@@ -8387,7 +9296,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 73.08,
     "range": 32,
     "id": "aa-gun-twin-105mm-aa-sk-c-33-na-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 105mm AA (SK C/33)",
@@ -8402,7 +9312,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 68.33,
     "range": 32,
     "id": "aa-gun-twin-105mm-aa-sk-c-33-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 113mm AA (QF Mark I)",
@@ -8417,7 +9342,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 68.89,
     "range": 35,
     "id": "aa-gun-twin-113mm-aa-qf-mark-i-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 127mm AA (Type 89 A1 Mod 2)",
@@ -8432,7 +9372,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 61.82,
     "range": 35,
     "id": "aa-gun-twin-127mm-aa-type-89-a1-mod-2-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm AA (Type 89)",
@@ -8447,7 +9388,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 50.55,
     "range": 35,
     "id": "aa-gun-twin-127mm-aa-type-89-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 13.2mm Breda Anti-Air Autocannon",
@@ -8462,7 +9418,21 @@ const EQUIPMENT_DATA = [
     "aaDps": 13.9,
     "range": 15,
     "id": "aa-gun-twin-13-2mm-breda-anti-air-autocannon-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Twin 134mm AA (QF Mark I)",
@@ -8478,7 +9448,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 59.3,
     "range": 35,
     "id": "aa-gun-twin-134mm-aa-qf-mark-i-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 20mm Breda Anti-Air Autocannon",
@@ -8493,7 +9464,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 34.24,
     "range": 17,
     "id": "aa-gun-twin-20mm-breda-anti-air-autocannon-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 20mm Oerlikon",
@@ -8508,7 +9480,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 33.75,
     "range": 18,
     "id": "aa-gun-twin-20mm-oerlikon-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 20mm Oerlikon (Mark V)",
@@ -8523,7 +9510,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 35.06,
     "range": 17,
     "id": "aa-gun-twin-20mm-oerlikon-mark-v-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 25mm AA (Type 96)",
@@ -8538,7 +9526,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 28.17,
     "range": 20,
     "id": "aa-gun-twin-25mm-aa-type-96-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 37mm AA (Mle 1933)",
@@ -8553,7 +9556,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 29.44,
     "range": 26,
     "id": "aa-gun-twin-37mm-aa-mle-1933-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 37mm AA (Model 1932)",
@@ -8568,7 +9572,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 31.2,
     "range": 24,
     "id": "aa-gun-twin-37mm-aa-model-1932-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 37mm AA (SK C/30)",
@@ -8583,7 +9588,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 31.39,
     "range": 23,
     "id": "aa-gun-twin-37mm-aa-sk-c-30-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 37mm ACAD (Mle 1936)",
@@ -8598,7 +9618,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 57.64,
     "range": 28,
     "id": "aa-gun-twin-37mm-acad-mle-1936-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 37mm Flak (M43)",
@@ -8613,7 +9634,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 37.9,
     "range": 25,
     "id": "aa-gun-twin-37mm-flak-m43-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Bofors (Mk 1 Mount)",
@@ -8628,7 +9650,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 38.92,
     "range": 28,
     "id": "aa-gun-twin-40mm-bofors-mk-1-mount-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Bofors (RP Mark I)",
@@ -8643,7 +9680,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 38.92,
     "range": 28,
     "id": "aa-gun-twin-40mm-bofors-rp-mark-i-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Bofors (Type 5)",
@@ -8658,7 +9696,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 65.11,
     "range": 29,
     "id": "aa-gun-twin-40mm-bofors-type-5-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Bofors Hazemeyer",
@@ -8674,7 +9713,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 65.23,
     "range": 30,
     "id": "aa-gun-twin-40mm-bofors-hazemeyer-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Bofors STAAG",
@@ -8690,7 +9730,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 67.97,
     "range": 30,
     "id": "aa-gun-twin-40mm-bofors-staag-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Pom-Pom",
@@ -8705,7 +9746,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 26.79,
     "range": 25,
     "id": "aa-gun-twin-40mm-pom-pom-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 40mm Vickers (Type 91)",
@@ -8720,7 +9776,22 @@ const EQUIPMENT_DATA = [
     "aaDps": 40.8,
     "range": 24,
     "id": "aa-gun-twin-40mm-vickers-type-91-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Twin 57mm Bofors (Mle 1951)",
@@ -8735,7 +9806,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 94.59,
     "range": 30,
     "id": "aa-gun-twin-57mm-bofors-mle-1951-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 76mm AA (Mk 27 Mount)",
@@ -8750,7 +9822,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 69.91,
     "range": 30,
     "id": "aa-gun-twin-76mm-aa-mk-27-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 76mm RF Mk 37 Gun Mount",
@@ -8766,7 +9839,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 89.76,
     "range": 32,
     "id": "aa-gun-twin-76mm-rf-mk-37-gun-mount-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 80mm AA (Type 98)",
@@ -8781,7 +9855,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 58.82,
     "range": 29,
     "id": "aa-gun-twin-80mm-aa-type-98-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 88mm AA (SK C/32)",
@@ -8796,7 +9871,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 47.55,
     "range": 30,
     "id": "aa-gun-twin-88mm-aa-sk-c-32-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Twin 90mm AA (Model 1939 Prototype)",
@@ -8811,7 +9887,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 74.66,
     "range": 31,
     "id": "aa-gun-twin-90mm-aa-model-1939-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 100mm AA (SM-5-1s)",
@@ -8841,7 +9918,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 110.09,
     "range": 130,
     "id": "aa-time-fuze-gun-twin-105mm-aa-sk-c-33-na-time-fuze-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm (5\"/38 Mk 38) (Time Fuze)",
@@ -8857,7 +9935,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 116.78,
     "range": 125,
     "id": "aa-time-fuze-gun-twin-127mm-5-38-mk-38-time-fuze-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 127mm AA (Type 89 A1 Mod 2) (Time Fuze)",
@@ -8872,7 +9951,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 118,
     "range": 118,
     "id": "aa-time-fuze-gun-twin-127mm-aa-type-89-a1-mod-2-time-fuze-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Twin 134mm AA (Time Fuze)",
@@ -8888,7 +9968,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 109.68,
     "range": 135,
     "id": "aa-time-fuze-gun-twin-134mm-aa-time-fuze-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Arado Ar 197",
@@ -8912,7 +9993,12 @@ const EQUIPMENT_DATA = [
     "speed": 49,
     "crashDmg": 40,
     "id": "fighter-arado-ar-197-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Brewster F2A Buffalo",
@@ -8936,7 +10022,12 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 88,
     "id": "fighter-brewster-f2a-buffalo-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Brewster F2A Buffalo (Thach Squadron)",
@@ -8984,7 +10075,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 88,
     "id": "fighter-brewster-xf2a-4-buffalo-prototype-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "de Havilland Sea Hornet",
@@ -9008,7 +10100,8 @@ const EQUIPMENT_DATA = [
     "speed": 60,
     "crashDmg": 190,
     "id": "fighter-de-havilland-sea-hornet-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Dewoitine D.790",
@@ -9032,7 +10125,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 42,
     "id": "fighter-dewoitine-d-790-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Fiat G.50 Freccia",
@@ -9080,7 +10174,8 @@ const EQUIPMENT_DATA = [
     "speed": 51,
     "crashDmg": 70,
     "id": "fighter-focke-wulf-fw-190-a-5-carrier-based-prototype-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Focke-Wulf Fw 190 A-6/R6 (Carrier-based Prototype)",
@@ -9104,7 +10199,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 65,
     "id": "fighter-focke-wulf-fw-190-a-6-r6-carrier-based-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Gloster Sea Gladiator",
@@ -9152,7 +10248,12 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 51,
     "id": "fighter-gourdou-leseurre-gl-2-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Gourdou-Leseurre LGL.32",
@@ -9176,7 +10277,8 @@ const EQUIPMENT_DATA = [
     "speed": 47,
     "crashDmg": 76,
     "id": "fighter-gourdou-leseurre-lgl-32-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Grumman F4F Wildcat",
@@ -9200,7 +10302,13 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 116,
     "id": "fighter-grumman-f4f-wildcat-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Grumman F6F Hellcat",
@@ -9224,7 +10332,13 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 156,
     "id": "fighter-grumman-f6f-hellcat-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Grumman F6F Hellcat (HVAR-Mounted)",
@@ -9272,7 +10386,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 196,
     "id": "fighter-grumman-f7f-tigercat-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Grumman F8F Bearcat",
@@ -9296,7 +10411,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 162,
     "id": "fighter-grumman-f8f-bearcat-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Grumman XF5F Skyrocket",
@@ -9320,7 +10436,8 @@ const EQUIPMENT_DATA = [
     "speed": 47,
     "crashDmg": 136,
     "id": "fighter-grumman-xf5f-skyrocket-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Hawker Sea Fury",
@@ -9344,7 +10461,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 160,
     "id": "fighter-hawker-sea-fury-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Hawker Sea Hurricane",
@@ -9368,7 +10486,8 @@ const EQUIPMENT_DATA = [
     "speed": 47,
     "crashDmg": 76,
     "id": "fighter-hawker-sea-hurricane-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Kawanishi N1K3-A Shiden Kai 2",
@@ -9392,7 +10511,8 @@ const EQUIPMENT_DATA = [
     "speed": 60,
     "crashDmg": 162,
     "id": "fighter-kawanishi-n1k3-a-shiden-kai-2-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Kawanishi N1K4-A Shiden Kai 4",
@@ -9416,7 +10536,8 @@ const EQUIPMENT_DATA = [
     "speed": 60,
     "crashDmg": 162,
     "id": "fighter-kawanishi-n1k4-a-shiden-kai-4-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Lavochkin La-9 (Carrier-based Prototype)",
@@ -9464,7 +10585,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 65,
     "id": "fighter-messerschmitt-bf-109g-carrier-based-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Messerschmitt BF-109T",
@@ -9488,7 +10610,13 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 42,
     "id": "fighter-messerschmitt-bf-109t-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Messerschmitt Me-155A",
@@ -9512,7 +10640,13 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 65,
     "id": "fighter-messerschmitt-me-155a-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Mitsubishi A5M Type 96",
@@ -9536,7 +10670,12 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 86,
     "id": "fighter-mitsubishi-a5m-type-96-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Mitsubishi A6M2 Zero",
@@ -9560,7 +10699,13 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 106,
     "id": "fighter-mitsubishi-a6m2-zero-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Mitsubishi A6M3 Type 0 Model 32",
@@ -9584,7 +10729,8 @@ const EQUIPMENT_DATA = [
     "speed": 53,
     "crashDmg": 120,
     "id": "fighter-mitsubishi-a6m3-type-0-model-32-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Mitsubishi A6M5 Zero",
@@ -9608,7 +10754,13 @@ const EQUIPMENT_DATA = [
     "speed": 55,
     "crashDmg": 140,
     "id": "fighter-mitsubishi-a6m5-zero-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Mitsubishi A7M Reppuu",
@@ -9632,7 +10784,8 @@ const EQUIPMENT_DATA = [
     "speed": 60,
     "crashDmg": 162,
     "id": "fighter-mitsubishi-a7m-reppuu-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Polikarpov I-15",
@@ -9656,7 +10809,12 @@ const EQUIPMENT_DATA = [
     "speed": 42,
     "crashDmg": 76,
     "id": "fighter-polikarpov-i-15-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Prototype Carrier-Based FW-190 G-3/R1",
@@ -9680,7 +10838,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 65,
     "id": "fighter-prototype-carrier-based-fw-190-g-3-r1-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Reggiane Re.2001 Falco II",
@@ -9728,7 +10887,13 @@ const EQUIPMENT_DATA = [
     "speed": 53,
     "crashDmg": 156,
     "id": "fighter-supermarine-seafang-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Supermarine Seafire",
@@ -9752,7 +10917,13 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 100,
     "id": "fighter-supermarine-seafire-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Supermarine Seafire FR Mk 47",
@@ -9776,7 +10947,8 @@ const EQUIPMENT_DATA = [
     "speed": 51,
     "crashDmg": 160,
     "id": "fighter-supermarine-seafire-fr-mk-47-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Vought F4U Corsair",
@@ -9800,7 +10972,13 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 132,
     "id": "fighter-vought-f4u-corsair-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Vought F4U Corsair (VF-17 Squadron)",
@@ -9848,7 +11026,8 @@ const EQUIPMENT_DATA = [
     "speed": 42,
     "crashDmg": 220,
     "id": "fighter-vought-xf5u-flying-flapjack-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Yakovlev Yak-1 (Carrier-based Prototype)",
@@ -9872,7 +11051,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 136,
     "id": "fighter-yakovlev-yak-1-carrier-based-prototype-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Yakovlev Yak-3 (Carrier-based Prototype)",
@@ -9896,7 +11076,8 @@ const EQUIPMENT_DATA = [
     "speed": 42,
     "crashDmg": 120,
     "id": "fighter-yakovlev-yak-3-carrier-based-prototype-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Yakovlev Yak-7 (Carrier-based Prototype)",
@@ -9920,7 +11101,8 @@ const EQUIPMENT_DATA = [
     "speed": 53,
     "crashDmg": 120,
     "id": "fighter-yakovlev-yak-7-carrier-based-prototype-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Aichi E16A Zuiun",
@@ -9944,7 +11126,15 @@ const EQUIPMENT_DATA = [
     "speed": 46,
     "crashDmg": 120,
     "id": "seaplane-aichi-e16a-zuiun-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BBV",
+      "CVL",
+      "DD",
+      "SSV"
+    ],
+    "gearLab": true
   },
   {
     "name": "Aichi M6A Seiran",
@@ -9968,7 +11158,8 @@ const EQUIPMENT_DATA = [
     "speed": 46,
     "crashDmg": 120,
     "id": "seaplane-aichi-m6a-seiran-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "FBA 19",
@@ -10040,7 +11231,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 126,
     "id": "seaplane-kawanishi-n1k1-kyoufuu-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Nakajima A6M2-N",
@@ -10064,7 +11256,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 116,
     "id": "seaplane-nakajima-a6m2-n-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Yokosuka Suisei Model 21",
@@ -10088,7 +11281,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 208,
     "id": "seaplane-yokosuka-suisei-model-21-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Aichi D3A Type 99",
@@ -10111,7 +11305,13 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 180,
     "id": "dive-bomber-aichi-d3a-type-99-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Aichi D3A2 Type 99",
@@ -10134,7 +11334,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 180,
     "id": "dive-bomber-aichi-d3a2-type-99-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Blackburn Skua",
@@ -10157,7 +11358,12 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 156,
     "id": "dive-bomber-blackburn-skua-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Curtiss SB2C Helldiver",
@@ -10180,7 +11386,13 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 180,
     "id": "dive-bomber-curtiss-sb2c-helldiver-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Curtiss XSB3C (Experimental)",
@@ -10203,7 +11415,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 200,
     "id": "dive-bomber-curtiss-xsb3c-experimental-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Douglas A-1 Skyraider",
@@ -10249,7 +11462,13 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 206,
     "id": "dive-bomber-douglas-btd-1-destroyer-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Douglas SBD Dauntless",
@@ -10272,7 +11491,13 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 156,
     "id": "dive-bomber-douglas-sbd-dauntless-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Douglas SBD Dauntless (McClusky)",
@@ -10364,7 +11589,8 @@ const EQUIPMENT_DATA = [
     "speed": 47,
     "crashDmg": 210,
     "id": "dive-bomber-fairey-firefly-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Fairey Firefly (1771 NAS)",
@@ -10410,7 +11636,13 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 200,
     "id": "dive-bomber-fairey-fulmar-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Focke-Wulf Ta 152 C-1/R14 (Carrier-based Prototype)",
@@ -10456,7 +11688,12 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 112,
     "id": "dive-bomber-heinkel-he-50b-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Junkers Ju-87C",
@@ -10479,7 +11716,13 @@ const EQUIPMENT_DATA = [
     "speed": 46,
     "crashDmg": 112,
     "id": "dive-bomber-junkers-ju-87c-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "LBSh",
@@ -10502,7 +11745,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 306,
     "id": "dive-bomber-lbsh-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Loire-Neuport LN.401",
@@ -10525,7 +11769,8 @@ const EQUIPMENT_DATA = [
     "speed": 47,
     "crashDmg": 210,
     "id": "dive-bomber-loire-neuport-ln-401-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Nakajima J5N Tenrai (Dive Bomber Prototype)",
@@ -10548,7 +11793,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 208,
     "id": "dive-bomber-nakajima-j5n-tenrai-dive-bomber-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Prototype Carrier-Based Su-6",
@@ -10571,7 +11817,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 200,
     "id": "dive-bomber-prototype-carrier-based-su-6-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Prototype Su-2",
@@ -10594,7 +11841,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 200,
     "id": "dive-bomber-prototype-su-2-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "R-5",
@@ -10617,7 +11865,12 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 51,
     "id": "dive-bomber-r-5-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "V-156-B1",
@@ -10640,7 +11893,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 180,
     "id": "dive-bomber-v-156-b1-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Yokosuka D4Y Suisei",
@@ -10663,7 +11917,13 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 208,
     "id": "dive-bomber-yokosuka-d4y-suisei-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ],
+    "gearLab": true
   },
   {
     "name": "Yokosuka Suisei Model 12A",
@@ -10686,7 +11946,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 208,
     "id": "dive-bomber-yokosuka-suisei-model-12a-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Aichi B7A Ryuusei",
@@ -10709,7 +11970,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 188,
     "id": "torpedo-bomber-aichi-b7a-ryuusei-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Aichi B7A Ryuusei Kai",
@@ -10755,7 +12017,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 141,
     "id": "torpedo-bomber-arado-ar-195-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Blackburn Firebrand",
@@ -10778,7 +12041,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 420,
     "id": "torpedo-bomber-blackburn-firebrand-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Blackburn Firecrest",
@@ -10801,7 +12065,8 @@ const EQUIPMENT_DATA = [
     "speed": 51,
     "crashDmg": 420,
     "id": "torpedo-bomber-blackburn-firecrest-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Bréguet Br.810",
@@ -10824,7 +12089,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 450,
     "id": "torpedo-bomber-br-guet-br-810-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Douglas TBD Devastator",
@@ -10847,7 +12113,11 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 300,
     "id": "torpedo-bomber-douglas-tbd-devastator-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Douglas XTB2D-1 Skypirate",
@@ -10870,7 +12140,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 206,
     "id": "torpedo-bomber-douglas-xtb2d-1-skypirate-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Fairey Albacore",
@@ -10893,7 +12164,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 306,
     "id": "torpedo-bomber-fairey-albacore-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Fairey Barracuda",
@@ -10916,7 +12188,12 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 480,
     "id": "torpedo-bomber-fairey-barracuda-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Fairey Spearfish (Prototype)",
@@ -10939,7 +12216,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 450,
     "id": "torpedo-bomber-fairey-spearfish-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Fairey Swordfish",
@@ -10962,7 +12240,12 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 306,
     "id": "torpedo-bomber-fairey-swordfish-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Fairey Swordfish (818 Squadron)",
@@ -11008,7 +12291,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 152,
     "id": "torpedo-bomber-fieseler-fi-167-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Focke Wulf FW-190 F-8/U2 (Carrier-based Prototype)",
@@ -11031,7 +12315,8 @@ const EQUIPMENT_DATA = [
     "speed": 51,
     "crashDmg": 168,
     "id": "torpedo-bomber-focke-wulf-fw-190-f-8-u2-carrier-based-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "General Motors TBM Avenger (VT-18 Squadron)",
@@ -11077,7 +12362,12 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 406,
     "id": "torpedo-bomber-grumman-tbf-avenger-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Junkers Ju-87 D-4",
@@ -11100,7 +12390,8 @@ const EQUIPMENT_DATA = [
     "speed": 51,
     "crashDmg": 168,
     "id": "torpedo-bomber-junkers-ju-87-d-4-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Latécoère Late.299",
@@ -11123,7 +12414,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 306,
     "id": "torpedo-bomber-lat-co-re-late-299-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Levasseur PL.10",
@@ -11146,7 +12438,8 @@ const EQUIPMENT_DATA = [
     "speed": 38,
     "crashDmg": 286,
     "id": "torpedo-bomber-levasseur-pl-10-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Levasseur PL.7",
@@ -11169,7 +12462,11 @@ const EQUIPMENT_DATA = [
     "speed": 38,
     "crashDmg": 286,
     "id": "torpedo-bomber-levasseur-pl-7-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Nakajima B5N Type 97",
@@ -11192,7 +12489,11 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 148,
     "id": "torpedo-bomber-nakajima-b5n-type-97-t3",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Nakajima B5N2 Type 97",
@@ -11215,7 +12516,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 148,
     "id": "torpedo-bomber-nakajima-b5n2-type-97-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "gearLab": true
   },
   {
     "name": "Nakajima B6N Tenzan",
@@ -11238,7 +12540,12 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 168,
     "id": "torpedo-bomber-nakajima-b6n-tenzan-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CV",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Nakajima B6N2 Tenzan Model 12A",
@@ -11261,7 +12568,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 168,
     "id": "torpedo-bomber-nakajima-b6n2-tenzan-model-12a-t0",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "gearLab": true
   },
   {
     "name": "Nakajima C6N Saiun (Model 21 Prototype)",
@@ -11284,7 +12592,8 @@ const EQUIPMENT_DATA = [
     "speed": 66,
     "crashDmg": 208,
     "id": "torpedo-bomber-nakajima-c6n-saiun-model-21-prototype-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Polikarpov VIT-2 (Mode Change Prototype)",
@@ -11330,7 +12639,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 480,
     "id": "torpedo-bomber-prototype-vit-2-vk-107-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Douglas TBD Devastator (VT-8)",
@@ -11399,7 +12709,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 450,
     "id": "torpedo-bomber-westland-wyvern-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "gearLab": true
   },
   {
     "name": "Basic Depth Charge",
@@ -11418,7 +12729,11 @@ const EQUIPMENT_DATA = [
     "weaponType": "Depth Charge",
     "notes": null,
     "id": "asw-basic-depth-charge",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "Basic Sonar",
@@ -11437,7 +12752,11 @@ const EQUIPMENT_DATA = [
     "weaponType": "Sonar",
     "notes": "Basic Sonar T3: Decreases the Accuracy of detected enemy submarines by 3%. Effect does not stack.",
     "id": "asw-basic-sonar",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "Fairey Gannet",
@@ -11456,7 +12775,8 @@ const EQUIPMENT_DATA = [
     "weaponType": "ASW Bomber",
     "notes": "Fairey Gannet: Every 10s: launches a Fairey Gannet (equipped with 1 aviation torpedo; DMG is based on the gear's level). Can activate up to 5 times per battle.",
     "id": "asw-fairey-gannet",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "gearLab": true
   },
   {
     "name": "Fairey Swordfish Mk II-ASV (ASW)",
@@ -11475,7 +12795,12 @@ const EQUIPMENT_DATA = [
     "weaponType": "ASW Bomber",
     "notes": null,
     "id": "asw-fairey-swordfish-mk-ii-asv-asw",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Flettner Fl 282 Kolibri",
@@ -11532,7 +12857,12 @@ const EQUIPMENT_DATA = [
     "weaponType": "ASW Bomber",
     "notes": null,
     "id": "asw-general-motors-tbm-3-avenger-asw",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "CVL"
+    ],
+    "gearLab": true
   },
   {
     "name": "Hedgehog",
@@ -11570,7 +12900,11 @@ const EQUIPMENT_DATA = [
     "weaponType": "Depth Charge",
     "notes": null,
     "id": "asw-improved-depth-charge",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "Improved Sonar",
@@ -11589,7 +12923,11 @@ const EQUIPMENT_DATA = [
     "weaponType": "Sonar",
     "notes": "Increases Scan Range by 8. Improved Sonar T3: Decreases the TRP of detected enemy submarines by 5%. Effect does not stack.",
     "id": "asw-improved-sonar",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "\"Fairy Magic\" Poster",
@@ -11702,7 +13040,23 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-air-radar",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Albion's Exercise Report",
@@ -11790,7 +13144,20 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Anti-Torpedo Bulge Ⅲ: Decreases DMG taken from Torpedoes by 30%. Effect does not stack.",
     "id": "auxiliary-anti-torpedo-bulge",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Apocalypse",
@@ -11840,7 +13207,21 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-autoloader",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Awakening Pearl",
@@ -12157,7 +13538,12 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Aviation Oil Tank Ⅲ: Increases the HP of equipped aircraft by 120. Effect does not stack.",
     "id": "auxiliary-drop-tank",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Dynamic Cannon",
@@ -12331,7 +13717,16 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-fire-control-radar",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB"
+    ]
   },
   {
     "name": "Fire Extinguisher",
@@ -12343,7 +13738,26 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Fire Suppressor Ⅲ: Decreases Burn DMG taken by 20%, chance of catching fire by 30%, and Burn Duration by 6s. Effect does not stack.",
     "id": "auxiliary-fire-extinguisher",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Flammi",
@@ -12405,7 +13819,23 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-fuel-filter",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Funkmess-Ortung 25 Radar",
@@ -12543,7 +13973,21 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-gyroscope",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Harmony μ Ticket",
@@ -12669,7 +14113,23 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-hydraulic-steering-gear",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Improved Boiler",
@@ -12682,7 +14142,23 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-improved-boiler",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Improved Hydraulic Rudder",
@@ -12946,7 +14422,26 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-naval-camouflage",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Nelson's Pennant of Victory",
@@ -13112,7 +14607,21 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-rammer",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Random Word Generator",
@@ -13150,7 +14659,26 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Repair Tools Ⅲ: Recovers 1% of max HP every 15s. Effect does not stack.",
     "id": "auxiliary-repair-toolkit",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "IXM",
+      "IXS",
+      "IXV",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Resplendent Astrum",
@@ -13303,7 +14831,21 @@ const EQUIPMENT_DATA = [
     },
     "notes": "SG Radar Ⅲ: Improves likelihood of evading Ambushes by 12%, reduces likelihood of encountering Ambush/Airstrikes by 12%. Effect does not stack.",
     "id": "auxiliary-sg-radar",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Shining Bracelet",
@@ -13353,7 +14895,10 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Repair Ⅲ: Every 5s, restores 15 HP to the most damaged ship. Effect does not stack.",
     "id": "auxiliary-ship-maintenance-crane",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "AR"
+    ]
   },
   {
     "name": "Sky Vitter",
@@ -13416,7 +14961,12 @@ const EQUIPMENT_DATA = [
     },
     "notes": null,
     "id": "auxiliary-steam-catapult",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Super Heavy Shell",
@@ -13517,7 +15067,12 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Type 91 Piercing Shell: Increases Main Gun Crit DMG by 15%.",
     "id": "auxiliary-type-91-armor-piercing-shell",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC"
+    ]
   },
   {
     "name": "Type 93 Pure Oxygen Torpedo",
@@ -13530,7 +15085,15 @@ const EQUIPMENT_DATA = [
     },
     "notes": "In game, this equip is an Auxiliary equip, NOT a Torpedo equip.",
     "id": "auxiliary-type-93-pure-oxygen-torpedo",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL",
+      "DD",
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Type 94 High Angle Director",

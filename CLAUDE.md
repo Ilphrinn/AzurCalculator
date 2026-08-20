@@ -2305,10 +2305,69 @@ after the final edit.
   restriction column (checked: their headers are Name/Image/Stars/stats/Notes, and 0 of the
   581 catalog records mention an equip restriction in `notes`), and `nation` on a catalog
   record is an origin tag, not a lock - 406 records carry one and nothing says it restricts
-  anything. The wiki puts per-item restrictions in each item's **own page** infobox, which
-  would be 581 saved pages. **If more restrictions are wanted, ask the user for a page that
-  states the RULE rather than the per-item pages** - that is how this one was found, and one
-  sentence covered 564 slots.
+  anything. The wiki puts per-item restrictions in each item's **own page** infobox.
+
+  ### Per-item "Used By", and the Gear Lab toggle (2026-08-20)
+
+  The user then saved 144 individual equipment pages into `Site web/equipment/`, and each
+  one answers the question outright: a `<table class="azltable eq-fits">` headed **"Used
+  By"**, one row per hull with a tick, a cross, or a ○. So the Anti-Torpedo Bulge is
+  crossed for Destroyer and every Submarine, which nothing in the slot type codes expresses -
+  a destroyer's auxiliary slot accepts Auxiliaries, just not that one.
+
+  **Parsing notes**: the hull's short code comes from the row's own link title
+  ("Destroyer (DD)", "Sailing Frigate (Vanguard) (IXv)"), not from a hand-written name map -
+  all 397 tables list the same 17 hulls, and every code matches a `hullShort` in the ship
+  data once upper-cased. A page holds one table per tier and **none of the 144 differs
+  between its tiers**, so the restriction is a property of the item family and `usedBy` is
+  written to every catalog record sharing the name. All 144 page titles matched a catalog
+  name exactly.
+
+  **A ○ ("maybe") counts as allowed.** Those rows carry a tooltip naming the only ships
+  that qualify - "(Little) Agir only" for Large Cruisers on a torpedo mount - and the slot's
+  own type code already picks exactly those ships out: **the only BCs and CBs with a torpedo
+  slot in the whole dataset are Odin, Scharnhorst META, Agir and Little Agir**, the wiki's
+  own examples. Checked before deciding, rather than treating ○ as a third state the app
+  would have to model.
+
+  `equipmentAllowedOnHull` gates both the picker and Optimize, since this is a game rule
+  rather than a preference. An item with no `usedBy` stays unrestricted - hiding gear on a
+  guess would be worse than offering it. Verified: **422 037 option offers across every ship
+  and slot, 67 186 of them from a record that has a Used By table, 0 violations.**
+
+  **The Gear Lab toggle** (requested alongside): Gear Lab gear is crafted, not dropped, so a
+  player who has not unlocked it wants it out of the optimiser's reach. `gearLab` is set on
+  the **275 items the Gear Lab page lists in its "Upgrade to" column** - the "Upgrade from"
+  column is ordinary drops and does not count. Matched by link text and case-insensitively,
+  because the catalog's names come from the list pages' link text and a few differ from the
+  page titles (the same trap as the rarity join). One result has no catalog record at all:
+  **Twin 203mm (Mle 1924 Submarine-mount)**, a submarine deck gun no `List of X` page covers.
+
+  The button reuses `.max-level-toggle` verbatim - the app's existing "here is a toggle and
+  its state" pill, gold with a filled dot when on - so it needed no new CSS beyond cancelling
+  the class's `margin-left: auto` inside the tools row. It affects **Optimize only**, like
+  the rarity cap; the picker still offers everything, because this is about what the player
+  owns, not what the ship may mount. Verified: New Jersey optimises to three Gear Lab items
+  with it on and to entirely different gear with it off, and a sweep of all 888 ships with it
+  off fills 4440 slots with **0 Gear Lab items**.
+
+  **What is still missing, and the useful way to count it.** 145 of 581 records have a Used
+  By table, which sounds bad - but Optimize can only ever reach **23 distinct items** across
+  every goal and every ship, and **20 of those 23 have no page saved**. That list, not the
+  436, is what would actually change a result:
+
+  - **Auxiliary**: 533mm Magnetic Torpedo, Admiralty Fire Control Table, Angel's Feather,
+    Frontier Medal, High Performance Anti-Air Radar, Sail Components
+  - **Torpedo**: 610mm Quadruple Torpedo Mount (Cruiser), SY-1A Missile
+  - **Guns**: Twin 127mm (Type 5 Prototype) (DD), Triple 220mm (SM-40 Prototype) (CA),
+    Triple 305mm (12"/50 Mk 8) (CB), Twin 410mm (Type 3 Shell) (BB),
+    Twin 57mm Bofors (Mle 1951) (AA), Twin 127mm AA (Type 89 A1 Mod 2) (Time Fuze)
+  - **Aircraft**: Lavochkin La-9 (Carrier-based Prototype), Fairey Spearfish (Prototype),
+    Nakajima J5N Tenrai (Dive Bomber Prototype), Yokosuka Suisei Model 21
+  - **Other**: Hedgehog (ASW), Improved Submarine-mounted G7e Acoustic Homing Torpedo
+
+  The auxiliaries matter most: they are where a restriction actually bites, since a weapon
+  slot's type code already does most of the gating.
 
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the

@@ -774,6 +774,7 @@ const modalEquipment = document.getElementById("modal-equipment");
 const modalEquipmentCap = document.getElementById("modal-equipment-cap");
 const modalEquipmentOptimize = document.getElementById("modal-equipment-optimize");
 const modalEquipmentTarget = document.getElementById("modal-equipment-target");
+const modalEquipmentGearLab = document.getElementById("modal-equipment-gearlab");
 const modalCombatMetrics = document.getElementById("modal-combat-metrics");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
@@ -1316,7 +1317,20 @@ function isMissileItem(item) {
   return item.category === "Torpedo" && EQUIPMENT_MISSILE_RE.test(item.name);
 }
 
-function equipmentOptionsForSlot(slot) {
+// An item's own wiki page carries a "Used By" table marking every hull that may mount it,
+// which is a real restriction the slot's type code does not express: a Destroyer's
+// auxiliary slot accepts Auxiliaries, but not an Anti-Torpedo Bulge. Only 145 of the 581
+// catalog records have that table saved, so an item without `usedBy` stays unrestricted
+// rather than being hidden on a guess.
+// A hull the page marks "maybe" counts as allowed: those are the ones where only named
+// ships qualify, and the slot's own type already picks exactly those ships out - the two
+// BCs and two CBs with a torpedo slot are Odin, Scharnhorst META, Agir and Little Agir,
+// which are the wiki's own examples.
+function equipmentAllowedOnHull(item, ship) {
+  return !item.usedBy || !ship || item.usedBy.includes(ship.hullShort);
+}
+
+function equipmentOptionsForSlot(slot, ship) {
   if (!EQUIPMENT_DATA || !slot) return [];
   const categories = new Set();
   for (const code of slot.type || []) {
@@ -1325,6 +1339,7 @@ function equipmentOptionsForSlot(slot) {
   const wantsMissiles = (slot.type || []).includes(20);
   return EQUIPMENT_DATA.filter(item => {
     if (!categories.has(item.category)) return false;
+    if (!equipmentAllowedOnHull(item, ship)) return false;
     if (item.category !== "Torpedo") return true;
     return wantsMissiles === isMissileItem(item);
   });
@@ -1556,7 +1571,7 @@ function itemBoostsAsw(item) {
 function availableOptimizeTargets(ship) {
   const ids = new Set(["auto", "survival"]);
   for (const slot of Object.values(ship.equipment || {})) {
-    for (const item of equipmentOptionsForSlot(slot)) {
+    for (const item of equipmentOptionsForSlot(slot, ship)) {
       const role = weaponRole(item);
       if (!role) continue;
       if (role.metric === "dpsAA") ids.add("antiair");
@@ -1652,6 +1667,10 @@ function equipmentOptimizeScore(item) {
 // player comparing two ships means the same cap on both.
 let equipmentRarityCap = "Ultra Rare";
 let equipmentTarget = "auto";
+// Gear Lab gear is crafted, not dropped, so a player who has not unlocked it wants it out
+// of the optimiser's reach. It still shows in the picker: the restriction is about what
+// this player has, not about what the ship may mount.
+let includeGearLab = true;
 
 function equipmentWithinCap(item) {
   return EQUIPMENT_RARITY_ORDER.indexOf(item.rarity) <= EQUIPMENT_RARITY_ORDER.indexOf(equipmentRarityCap);
@@ -1672,8 +1691,9 @@ function optimizeEquipment(ship, effective) {
 
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     let best = null, bestScore = -Infinity, bestIsWeapon = false;
-    for (const item of equipmentOptionsForSlot(slot)) {
+    for (const item of equipmentOptionsForSlot(slot, ship)) {
       if (!equipmentWithinCap(item)) continue;
+      if (!includeGearLab && item.gearLab) continue;
       if (!allowAsw && itemBoostsAsw(item)) continue;
       const damage = equipmentOptimizeScore(item);
       const isWeapon = damage !== null;
@@ -1906,6 +1926,21 @@ modalEquipmentTarget.addEventListener("change", () => {
   equipmentTarget = modalEquipmentTarget.value;
 });
 
+function syncGearLabToggle() {
+  modalEquipmentGearLab.classList.toggle("active", includeGearLab);
+  modalEquipmentGearLab.setAttribute("aria-pressed", String(includeGearLab));
+  modalEquipmentGearLab.title = includeGearLab
+    ? "Optimize may use Gear Lab equipment. Click to leave it out."
+    : "Optimize leaves Gear Lab equipment out. Click to allow it.";
+}
+
+modalEquipmentGearLab.addEventListener("click", () => {
+  includeGearLab = !includeGearLab;
+  syncGearLabToggle();
+});
+
+syncGearLabToggle();
+
 // Rebuilt per ship: the orientations offered depend on what her slots can actually hold.
 // A goal that no longer applies falls back to Recommended rather than silently persisting.
 function syncEquipmentTargetOptions(ship) {
@@ -1963,7 +1998,7 @@ function renderModalEquipment(ship) {
     const meta = [];
     if (slot.mount) meta.push({ text: "Mounts \u00d7" + slot.mount });
     if (slot.efficiency) meta.push({ text: "Efficiency " + Math.round(slot.efficiency * 100) + "%" });
-    const gearCtx = { ship, slotKey: key, slot, options: equipmentOptionsForSlot(slot) };
+    const gearCtx = { ship, slotKey: key, slot, options: equipmentOptionsForSlot(slot, ship) };
     modalEquipment.appendChild(buildEquipmentSlot(name, tooltip, meta, gearCtx));
   }
 

@@ -1335,6 +1335,12 @@ main {
   letter-spacing: normal;
 }
 
+/* The Gear Lab toggle rides in the tools row rather than at the far right of the heading,
+   which is where .max-level-toggle normally pins itself. */
+.equip-tools .max-level-toggle {
+  margin-left: 0;
+}
+
 .equip-cap-label {
   font-size: 0.65rem;
   font-weight: 700;
