@@ -2146,26 +2146,35 @@ after the final edit.
   built as a table in the same construction as `.stats-grid` (1px gaps over a
   border-coloured background) rather than as separate chips. `.equipment-and-metrics` is
   the flex row holding the slots and the table, mirroring `.stats-and-modifiers`.
-  **Shape, settled over three passes.** It started as label and value in two separate grid
-  columns, which pins the value to the far edge of its own cell and leaves a stretch of
-  empty space between the two - the exact readability complaint the stats grid already went
-  through (item 3.7 above), and rejected the same way, the user pointing at the stats grid
-  as the shape he expected. Merging each pair into one cell fixed that but stacked the four
-  figures as a 1x4 list, and the final ask was **4 columns by 2 rows**: each figure is a
-  column, its name above its value, so the four names read across as one header row.
+  **Shape, settled over four passes - and the last two were both me guessing at "4 columns
+  by 2 rows" instead of asking.** The wording fits three different layouts and I picked the
+  wrong one twice before the user drew it:
 
-  That layout needs `grid-auto-flow: column` with two rows, NOT a 4-column row flow: the
-  cells are still appended label-then-value per figure, and only column flow keeps each
-  pair in its own column instead of scattering the names across both rows. Every cell is
-  the same fixed width, for the reason the stats grid's are: otherwise the table resizes
-  per ship and the panel jumps when switching between them. Verified by geometry rather
-  than by eye - all four labels share one top, all four values share the next, and each
-  label sits at the same left as its own value.
+      DPS  |  XXXX  |  DPS ASW  |  XXX
+      EHP  |  XXXX  |  DPS AA   |  XXX
 
-  Cost of the wider shape: the table went 148px -> 244px, so the slot row and the table
-  stay side by side from roughly 1880px of window upward instead of 1785px. Below that the
-  slot row wraps and the table drops beneath it, which at 2 rows tall (49px) is a much
-  cheaper fallback than the 4-row version would have been.
+  Four columns **alternating name and value**, two figures per row - not four figures
+  across with their names as a header row (pass 3), and not one merged name+value cell per
+  figure (pass 2). Pass 1, label and value as two separate grid columns stacked 4 deep, was
+  rejected for a different reason worth keeping: a value pinned to the far edge of its own
+  cell leaves a stretch of empty space between the two, the exact readability complaint the
+  stats grid already went through (item 3.7 above). **A layout described in words is worth
+  one clarifying question - the sketch settled in one message what three passes did not.**
+
+  The pairs are laid out **column-first** (`COMBAT_METRIC_FIELDS[column * ROWS + row]`), so
+  DPS sits above eHP and DPS ASW above DPS AA - the two surface figures share a column and
+  the two specialised ones share the next. The CSS is a plain 4-column row-flow grid; which
+  figure lands where is decided by that index, not by grid flow. Names share one fixed
+  width and values another, for the reason the stats grid's cells are fixed too: otherwise
+  the table resizes per ship and the panel jumps when switching between them.
+
+  Verified by geometry rather than by eye: two rows reading `DPS | 33 | DPS ASW | -` and
+  `eHP | 1,761 | DPS AA | 48`, four distinct column lefts, 861 x 8 cells.
+
+  At 235x53 the table is barely wider than the 1x4 version it replaced (148px), so the slot
+  row and the table stay side by side from roughly 1870px of window upward. Below that the
+  slot row wraps and the table drops beneath it, which at two rows tall is a cheap
+  fallback.
 
   **`.equip-slot` stays at 7rem.** The first pass trimmed it to 5.8rem after measuring
   that six slots pushed the table underneath - but that measurement was taken in a 1250px

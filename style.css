@@ -1389,19 +1389,18 @@ main {
 }
 
 /* Same construction as .stats-grid above: 1px gaps over a border-coloured background,
-   so the cells read as a table rather than as separate chips. Four columns of two rows:
-   each figure is a column, its name above its value, so the four read across as one
-   header row rather than as a stacked list.
-   Column flow, not row flow - the cells are appended label-then-value per figure, and
-   filling by column is what keeps each pair in its own column instead of scattering the
-   names across both rows.
-   Every cell is the same fixed width, for the reason the stats grid's are: otherwise the
-   table resizes per ship and the panel jumps when switching between them. */
+   so the cells read as a table rather than as separate chips. Four columns of two rows,
+   alternating name and value: two figures per row, each name in a column of its own with
+   its value in the next one.
+   Which figure goes where is decided in JS (see renderCombatMetrics), not here - the grid
+   only has to hold four columns.
+   Names share one fixed width and values another, for the reason the stats grid's cells
+   are fixed too: otherwise the table resizes per ship and the panel jumps when switching
+   between them. */
 .combat-metrics {
   flex: 0 0 auto;
   display: grid;
-  grid-template-rows: repeat(2, auto);
-  grid-auto-flow: column;
+  grid-template-columns: repeat(4, auto);
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
@@ -1414,15 +1413,14 @@ main {
 .combat-metric-value {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 3.9rem;
-  padding: 0.35rem 0.45rem;
+  padding: 0.35rem 0.55rem;
   background: var(--bg-elevated);
   white-space: nowrap;
   cursor: help;
 }
 
 .combat-metric-label {
+  width: 4.1rem;
   font-size: 0.62rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1431,6 +1429,7 @@ main {
 }
 
 .combat-metric-value {
+  width: 3.4rem;
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--text);

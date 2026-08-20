@@ -1957,38 +1957,48 @@ const COMBAT_METRIC_FIELDS = [
   { key: "dpsAA", label: "DPS AA", hint: "Anti-air damage per second." },
 ];
 
+const COMBAT_METRIC_ROWS = 2;
+
+// Two figures per row, each name in a column of its own with its value in the next one.
+// The pairs are laid out column-first - DPS above eHP, DPS ASW above DPS AA - so the two
+// surface figures share a column and the two specialised ones share the next, rather than
+// the reading order splitting them across rows.
 function renderCombatMetrics(ship, effective) {
   modalCombatMetrics.innerHTML = "";
   if (!ship.equipment || !effective) return;
   const metrics = computeCombatMetrics(ship, currentLevel, effective);
-  for (const field of COMBAT_METRIC_FIELDS) {
-    const value = metrics[field.key];
-    // Appended label-then-value per figure, into a grid that fills by column: each
-    // figure ends up as its own column, its name above its value.
-    const label = document.createElement("div");
-    label.className = "combat-metric-label";
-    label.textContent = field.label;
+  const columns = Math.ceil(COMBAT_METRIC_FIELDS.length / COMBAT_METRIC_ROWS);
+  for (let row = 0; row < COMBAT_METRIC_ROWS; row++) {
+    for (let column = 0; column < columns; column++) {
+      const field = COMBAT_METRIC_FIELDS[column * COMBAT_METRIC_ROWS + row];
+      if (!field) continue;
+      const value = metrics[field.key];
 
-    const number = document.createElement("div");
-    number.className = "combat-metric-value" + (value ? "" : " combat-metric-empty");
-    number.textContent = value ? Math.round(value).toLocaleString("en-US") : "\u2014";
+      const label = document.createElement("div");
+      label.className = "combat-metric-label";
+      label.textContent = field.label;
 
-    const notes = [field.hint];
-    if (field.key === "ehp") {
-      notes.push(
-        `Against a reference attacker: Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
-        `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
-        "Comparative, not a figure the game shows: the wiki's formula needs the shooter's stats, which this app has no source for."
-      );
-    } else {
-      notes.push("Empty slots count as the ship's built-in weapon.");
-      if (metrics.unknownSlots) {
-        notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
+      const number = document.createElement("div");
+      number.className = "combat-metric-value" + (value ? "" : " combat-metric-empty");
+      number.textContent = value ? Math.round(value).toLocaleString("en-US") : "\u2014";
+
+      const notes = [field.hint];
+      if (field.key === "ehp") {
+        notes.push(
+          `Against a reference attacker: Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
+          `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
+          "Comparative, not a figure the game shows: the wiki's formula needs the shooter's stats, which this app has no source for."
+        );
+      } else {
+        notes.push("Empty slots count as the ship's built-in weapon.");
+        if (metrics.unknownSlots) {
+          notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
+        }
       }
+      label.title = number.title = notes.join("\n");
+      modalCombatMetrics.appendChild(label);
+      modalCombatMetrics.appendChild(number);
     }
-    label.title = number.title = notes.join("\n");
-    modalCombatMetrics.appendChild(label);
-    modalCombatMetrics.appendChild(number);
   }
 }
 
