@@ -1,0 +1,24 @@
+# Security headers for the Cloudflare deployment. Cloudflare consumes this file and
+# does not serve it. It must end up in the directory wrangler.toml points at (./dist),
+# alongside index.html - copy it there with the rest of the app.
+#
+# The CSP below was verified by serving this exact app over HTTP with these headers and
+# watching for securitypolicyviolation events: 0 violations, 0 errors, all 996 card
+# images and every local asset loaded. Re-run that check if the app gains a new kind of
+# resource.
+#
+# max-age is 6 months (15552000s) to match the HSTS setting enabled in the Cloudflare
+# dashboard for the whole zone, so the two do not disagree. Cloudflare is the source of
+# truth for the domain; this line only keeps the site correct if it is ever served from
+# somewhere else. Change both together.
+# No "preload" token on purpose: preload-list removal takes months, unlike this header,
+# which simply lapses. Revisit once several subdomains have been live on HTTPS a while.
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=15552000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), screen-wake-lock=(), usb=(), xr-spatial-tracking=()
