@@ -2142,6 +2142,19 @@ after the final edit.
   user described); and **888 ships measured with 0 non-finite or negative results and
   0 errors**.
 
+  **Layout, on request**: the four figures sit **to the right of the Augment socket**,
+  built as a table in the same construction as `.stats-grid` (1px gaps over a
+  border-coloured background) rather than as separate chips. `.equipment-and-metrics` is
+  the flex row holding the slots and the table, mirroring `.stats-and-modifiers`.
+  Label and value are appended as **siblings**, not nested in a per-metric card - they are
+  the two columns of one grid, and wrapping them would break the column alignment.
+  Both columns are fixed width for the same reason the stats grid's are: otherwise the
+  table resizes per ship and the panel jumps when switching between them.
+  Six slots at 7rem filled the row on their own and pushed the table underneath, so
+  `.equip-slot` went to **5.8rem** to free the width; the artwork is unaffected, only the
+  tile is smaller. On a narrow modal the slot row wraps and the table drops below, which
+  is the intended fallback rather than horizontal overflow.
+
   **Known gap**: the built-in aircraft rows point at ordnance ids that page never
   documents, so the ~127 ships whose only weapons are default aircraft report 0 surface
   DPS. The metric tooltip says how many slots were skipped. Equipping or optimising fixes

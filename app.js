@@ -1963,18 +1963,15 @@ function renderCombatMetrics(ship, effective) {
   const metrics = computeCombatMetrics(ship, currentLevel, effective);
   for (const field of COMBAT_METRIC_FIELDS) {
     const value = metrics[field.key];
-    const card = document.createElement("div");
-    card.className = "combat-metric" + (value ? "" : " combat-metric-empty");
-
-    const label = document.createElement("span");
+    // Label and value are appended as siblings rather than nested in a card: they are
+    // the two columns of one grid, and wrapping them would break the column alignment.
+    const label = document.createElement("div");
     label.className = "combat-metric-label";
     label.textContent = field.label;
-    card.appendChild(label);
 
-    const number = document.createElement("span");
-    number.className = "combat-metric-value";
+    const number = document.createElement("div");
+    number.className = "combat-metric-value" + (value ? "" : " combat-metric-empty");
     number.textContent = value ? Math.round(value).toLocaleString("en-US") : "\u2014";
-    card.appendChild(number);
 
     const notes = [field.hint];
     if (field.key === "ehp") {
@@ -1989,8 +1986,9 @@ function renderCombatMetrics(ship, effective) {
         notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
       }
     }
-    card.title = notes.join("\n");
-    modalCombatMetrics.appendChild(card);
+    label.title = number.title = notes.join("\n");
+    modalCombatMetrics.appendChild(label);
+    modalCombatMetrics.appendChild(number);
   }
 }
 

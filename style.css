@@ -1373,43 +1373,62 @@ main {
   background: color-mix(in srgb, var(--accent) 32%, var(--bg));
 }
 
-/* The four headline figures, under the slots they are computed from. Fixed-width values
-   for the same reason the stats grid uses them: every ship's row must be the same size,
-   or switching ships makes the panel jump. */
-.combat-metrics {
+/* Slots on the left, the four figures immediately right of the Augment socket. The slot
+   row keeps its own wrapping and gives up width first, so on a narrow modal the cards
+   wrap to a second line rather than pushing the table underneath them. */
+.equipment-and-metrics {
   display: flex;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.6rem;
+  gap: 1rem;
 }
 
-.combat-metric {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  min-width: 7rem;
-  padding: 0.35rem 0.6rem;
-  border-radius: 8px;
+.equipment-and-metrics .modal-equipment {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Same construction as .stats-grid above: 1px gaps over a border-coloured background,
+   so the cells read as a table rather than as separate chips. Both columns are fixed
+   width for the reason that grid is too - otherwise the table resizes per ship and the
+   panel jumps when switching between them. */
+.combat-metrics {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 1px;
+  background: var(--border);
   border: 1px solid var(--border);
-  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.combat-metric-label,
+.combat-metric-value {
+  padding: 0.35rem 0.6rem;
+  background: var(--bg-elevated);
   cursor: help;
 }
 
 .combat-metric-label {
-  font-size: 0.6rem;
+  width: 4.4rem;
+  font-size: 0.64rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
 }
 
 .combat-metric-value {
-  font-size: 0.95rem;
+  width: 4.8rem;
+  text-align: right;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--text);
 }
 
-.combat-metric-empty .combat-metric-value {
+.combat-metric-value.combat-metric-empty {
   color: var(--text-muted);
 }
 
@@ -1425,7 +1444,7 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  width: 7rem;
+  width: 5.8rem;
 }
 
 .equip-tile {
@@ -1486,9 +1505,9 @@ main {
 }
 
 .equip-slot-meta span {
-  font-size: 0.66rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  padding: 0.1rem 0.35rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 999px;
   background: var(--card-bg);
   color: var(--text-muted);
