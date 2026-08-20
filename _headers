@@ -7,15 +7,16 @@
 # images and every local asset loaded. Re-run that check if the app gains a new kind of
 # resource.
 #
-# max-age is 6 months (15552000s) to match the HSTS setting enabled in the Cloudflare
-# dashboard for the whole zone, so the two do not disagree. Cloudflare is the source of
+# max-age is 15768000s - the exact "six months" MDN HTTP Observatory tests for, and what
+# the Cloudflare zone-wide HSTS setting sends. 15552000 (180 days) sits just UNDER that
+# threshold, so do not "round down". Cloudflare is the source of
 # truth for the domain; this line only keeps the site correct if it is ever served from
 # somewhere else. Change both together.
 # No "preload" token on purpose: preload-list removal takes months, unlike this header,
 # which simply lapses. Revisit once several subdomains have been live on HTTPS a while.
 /*
   Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
-  Strict-Transport-Security: max-age=15552000; includeSubDomains
+  Strict-Transport-Security: max-age=15768000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
   X-Frame-Options: DENY
