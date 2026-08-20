@@ -2002,14 +2002,51 @@ after the final edit.
   side/combat modifiers this app deliberately never models, per Effective Stats' existing
   "conditions assumed met, no target" convention) — this was intentionally NOT
   implemented yet rather than shipping a guessed `AbsoluteCooldown=0` as if it were exact.
+  **Equipped gear now feeds the stats grid (2026-08-20)** — step 1's first half is done.
+  `equippedGearFlatStats(ship)` sums the `statBonus` of everything equipped, and
+  `computeEffectiveStats` folds it in **as a FlatStatBuff**, which is a specific position
+  in the wiki's formula from the Damage Calculations page:
+
+      CurrentScalingStat = [ (ShipBaseStat × CatStatMultiplier) + Σ FlatStatBuffs ]
+                             × (1 + Σ StatPercentBuffs) + Σ SkillFlatBuffs
+
+  Equipment is a FlatStatBuff, so it is added **before** the percentage and is itself
+  amplified by skill buffs; the flat buffs the code already had are `SkillFlatBuffs`, a
+  separate later term that is not. **The two positions are not interchangeable** — New
+  Jersey at 125 with a Quadruple 305mm equipped comes out at FP 453 the right way round
+  and 436 the wrong way, so this would have been a silent 17-point error.
+  `CatStatMultiplier` stays 1: still no Meowfficer or Fleet Tech data.
+
+  **The key names do not match between the two datasets** and this nearly shipped as a
+  silent zero: `data/equipment.json` writes Anti-Air as `antiAir`, `STAT_GRID` as
+  `antiair`. `EQUIPMENT_STAT_KEY_ALIASES` maps it; without it the 106 catalog entries
+  carrying an AA bonus would have contributed nothing at all, with no error anywhere.
+  `oxygen` (2 items) is deliberately left unmapped — the grid does not track Oxygen.
+  If another stat is ever added to the grid, check the catalog's spelling for it first.
+
+  Mounts do NOT multiply a stat bonus (they decide how many shells fire, not the stat),
+  and efficiency multiplies damage, not the stat either — so each equipped item
+  contributes its `statBonus` exactly once.
+
+  A boosted cell's tooltip (`statBreakdownText`) now spells the terms out — base,
+  equipment, skill %, skill flat, total — because one `+181` can now come from two
+  sources that apply at different points in the formula.
+
+  Verified: the formula re-derived by hand against the app's own numbers; the `antiAir`
+  alias confirmed to land; unequipping restores the original value; and **9768 stat
+  values across all 888 ships reproduce the pre-change formula exactly when nothing is
+  equipped** (0 mismatches). The standard fingerprint changes in exactly two expected
+  ways — modal HTML grows by the new `title` attributes, and the `eff` hashes move
+  because the returned entries carry new fields — while base stats, costs, grid, filters,
+  Interaction counts and the CSS sweep stay byte-identical.
+
   **Still open, in order**:
-  1. Wire selected gear's flat `statBonus` into `computeEffectiveStats`, then implement
-     each category's own DPS/reload formula separately (Guns/Torpedoes,
-     Airstrike/aircraft, AA Guns, ASW each need their own — see above) using the ship's
-     LIVE Firepower/Reload rather than the wiki's baseline-100-reload reference numbers
-     already stored in `dps`/`aaDps`/`aswDps`. Disclose the `AbsoluteCooldown=0`
-     approximation for Guns/Torpedoes wherever the resulting number is shown, since it
-     is not a verified constant.
+  1. The DPS half of step 1: implement each category's own DPS/reload formula separately
+     (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)
+     using the ship's LIVE Firepower/Reload rather than the wiki's baseline-100-reload
+     reference numbers already stored in `dps`/`aaDps`/`aswDps`. Disclose the
+     `AbsoluteCooldown=0` approximation for Guns/Torpedoes wherever the resulting number
+     is shown, since it is not a verified constant.
   2. The rarity-capped selector + Optimize button — `equippedGear`/`getEquippedGear`/
      `setEquippedGear` and `sortEquipmentOptions()`'s best-first ordering already exist
      to build on; Optimize is just "for each slot, `setEquippedGear` the first entry of

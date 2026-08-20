@@ -1061,6 +1061,7 @@ const OTHER_SHIPS_TARGET_RE = /\byour\s+(DDs?|CLs?|CAs?|CBs?|BBs?|BCs?|CVs?|CVLs
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) {
   const base = computeStats(ship, level, isRetrofit);
   if (!base) return null;
+  const equipFlat = equippedGearFlatStats(ship);
 
   const skills = getSkillsForState(ship, isRetrofit, isAugmented, isFateSim);
   const percentSum = {};
@@ -1090,13 +1091,23 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
     }
   }
 
+  // The wiki's CurrentScalingStat, from the Damage Calculations page:
+  //   [ (ShipBaseStat x CatStatMultiplier) + sum(FlatStatBuffs) ]
+  //     x (1 + sum(StatPercentBuffs)) + sum(SkillFlatBuffs)
+  // Equipment is a FlatStatBuff, so it is added BEFORE the percentage and is itself
+  // amplified by skill buffs. Skill flat buffs are a separate, later term and are not.
+  // Getting those two positions the wrong way round changes the result whenever a ship
+  // has both. CatStatMultiplier stays 1: no Meowfficer or Fleet Tech data exists here.
   const stats = {};
   for (const key of NUMERIC_STAT_KEYS) {
     if (!(key in base)) continue;
     const pct = percentSum[key] || 0;
-    const flat = flatSum[key] || 0;
-    const value = pct || flat ? Math.round(base[key] * (1 + pct / 100) + flat) : base[key];
-    stats[key] = { value, delta: value - base[key] };
+    const skillFlat = flatSum[key] || 0;
+    const equip = equipFlat[key] || 0;
+    const value = pct || skillFlat || equip
+      ? Math.round((base[key] + equip) * (1 + pct / 100) + skillFlat)
+      : base[key];
+    stats[key] = { value, delta: value - base[key], base: base[key], equip, pct, skillFlat };
   }
 
   return { stats, modifiers };
@@ -1106,6 +1117,18 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
 // alone: with no Base column anywhere in this section, a lone "355" is impossible
 // to tell from an unboosted base value. An unboosted cell stays a plain number,
 // so the compound form only appears where there is a delta to explain.
+// The grid shows one delta, but it can now come from two different places at once, and
+// they apply at different points in the formula. Spelling the terms out is the only way
+// a reader can tell which gear or which skill is responsible.
+function statBreakdownText(label, entry) {
+  const lines = [`${label}  base ${entry.base}`];
+  if (entry.equip) lines.push(`equipment  ${entry.equip > 0 ? "+" : ""}${entry.equip}`);
+  if (entry.pct) lines.push(`skills  ${entry.pct > 0 ? "+" : ""}${entry.pct}%`);
+  if (entry.skillFlat) lines.push(`skills (flat)  ${entry.skillFlat > 0 ? "+" : ""}${entry.skillFlat}`);
+  lines.push(`= ${entry.value}`);
+  return lines.join("\n");
+}
+
 function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
   for (const def of gridDefs) {
     const cell = document.createElement("div");
@@ -1134,6 +1157,7 @@ function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
     const value = document.createElement("span");
     value.className = "stat-grid-value";
     if (delta) {
+      cell.title = statBreakdownText(def.label, entry);
       value.appendChild(document.createTextNode(formatStatValue(baseRaw)));
       const deltaEl = document.createElement("span");
       deltaEl.className = "stat-delta";
@@ -1312,6 +1336,26 @@ function setEquippedGear(ship, slotKey, item) {
   else delete equippedGear[ship.id][slotKey];
 }
 
+// data/equipment.json spells Anti-Air "antiAir"; STAT_GRID spells it "antiair". Without
+// this the 106 catalog entries carrying an AA bonus would contribute silently nothing.
+// "oxygen" has no alias on purpose - the stat grid does not track Oxygen at all, so the
+// 2 items carrying it are correctly ignored.
+const EQUIPMENT_STAT_KEY_ALIASES = { antiAir: "antiair" };
+
+// Flat stats from everything currently equipped on this ship. Mounts do not multiply it:
+// an item's stat bonus applies once, mounts only decide how many shells leave the ship.
+function equippedGearFlatStats(ship) {
+  const totals = {};
+  for (const item of Object.values(equippedGear[ship.id] || {})) {
+    for (const [rawKey, amount] of Object.entries(item.statBonus || {})) {
+      const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
+      if (!NUMERIC_STAT_KEYS.includes(key) || typeof amount !== "number") continue;
+      totals[key] = (totals[key] || 0) + amount;
+    }
+  }
+  return totals;
+}
+
 function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
   const card = document.createElement("div");
   card.className = "equip-slot";
@@ -1378,6 +1422,7 @@ function toggleEquipmentPicker(card, gearCtx, onPick) {
       clearRow.addEventListener("click", () => {
         setEquippedGear(gearCtx.ship, gearCtx.slotKey, null);
         onPick();
+        refreshStatsAfterGearChange();
         panel.remove();
       });
       panel.appendChild(clearRow);
@@ -1404,6 +1449,7 @@ function toggleEquipmentPicker(card, gearCtx, onPick) {
       cell.addEventListener("click", () => {
         setEquippedGear(gearCtx.ship, gearCtx.slotKey, item);
         onPick();
+        refreshStatsAfterGearChange();
         panel.remove();
       });
       list.appendChild(cell);
@@ -1435,6 +1481,13 @@ function clampPickerToSection(panel) {
   else return;
   panel.style.marginLeft = `${Math.round(shift)}px`;
   requestAnimationFrame(() => { if (panel.isConnected) clampPickerToSection(panel); });
+}
+
+// Equipping feeds computeEffectiveStats, so the grid is stale until it is rebuilt. Only
+// the stats section needs it - the tile repaints itself, and nothing else reads gear.
+function refreshStatsAfterGearChange() {
+  if (!currentShip) return;
+  renderModalStatsTable(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
 }
 
 function closeAllEquipmentPickers() {
