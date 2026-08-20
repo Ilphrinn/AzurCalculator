@@ -2362,20 +2362,34 @@ after the final edit.
   and slot, 67 186 of them from a record that has a Used By table, 0 violations.**
 
   **The Gear Lab toggle** (requested alongside): Gear Lab gear is crafted, not dropped, so a
-  player who has not unlocked it wants it out of the optimiser's reach. `gearLab` is set on
-  the **275 items the Gear Lab page lists in its "Upgrade to" column** - the "Upgrade from"
+  player who has not unlocked it wants it out of the optimiser's reach. `gearLab` starts from
+  the **items the Gear Lab page lists in its "Upgrade to" column** - the "Upgrade from"
   column is ordinary drops and does not count. Matched by link text and case-insensitively,
   because the catalog's names come from the list pages' link text and a few differ from the
   page titles (the same trap as the rarity join). One result has no catalog record at all:
   **Twin 203mm (Mle 1924 Submarine-mount)**, a submarine deck gun no `List of X` page covers.
 
+  **Corrected after the user asked what the flag actually meant** ("l'option gear lab ne
+  concerne que les equipements uniquement obtenables par le gear lab") - it did not, and the
+  answer was no. The flag was on all 280 crafted items, but **112 of those are also listed by
+  the gear boxes, Shops, Research Academy or the campaign drop table**, so a player can own
+  them without ever touching the Gear Lab; excluding them was wrong. `gearLab` now means
+  **obtainable ONLY through the Gear Lab**: crafted, minus everything the other four sources
+  list. **168 records**, down from 280.
+
+  The difference is visible on one ship: New Jersey used to lose her Twin 410mm (Type 3
+  Shell) when the toggle went off, even though that gun drops elsewhere. Now she keeps it,
+  and only the two genuinely Gear-Lab-only picks change. **A flag named after a source must
+  mean "only from that source" if it is used to exclude things** - anything obtainable two
+  ways is not excluded by removing one of them.
+
   The button reuses `.max-level-toggle` verbatim - the app's existing "here is a toggle and
   its state" pill, gold with a filled dot when on - so it needed no new CSS beyond cancelling
   the class's `margin-left: auto` inside the tools row. It affects **Optimize only**, like
   the rarity cap; the picker still offers everything, because this is about what the player
-  owns, not what the ship may mount. Verified: New Jersey optimises to three Gear Lab items
-  with it on and to entirely different gear with it off, and a sweep of all 888 ships with it
-  off fills 4440 slots with **0 Gear Lab items**.
+  owns, not what the ship may mount. Verified after the correction below: a sweep of all 888
+  ships fills 4440 slots either way, with **0 Gear-Lab-only picks** when the toggle is off,
+  and 1538 slots changing between the two states.
 
   **What is still missing, and the useful way to count it.** 145 of 581 records have a Used
   By table, which sounds bad - but Optimize can only ever reach **23 distinct items** across

@@ -104,8 +104,7 @@
       "heavy": 25
     },
     "id": "dd-gun-prototype-twin-130mm-model-1936-main-gun-mount-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Quadruple 130mm (Mle 1932)",
@@ -381,8 +380,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Single 120mm (Type 3)",
@@ -524,8 +522,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Single 127mm (SK C/34)",
@@ -644,8 +641,7 @@
       "heavy": 60
     },
     "id": "dd-gun-single-130mm-b13-pattern-1936-t3",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "Single 130mm (Mle 1924)",
@@ -952,8 +948,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 100mm (Type 98)",
@@ -1001,8 +996,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 100mm (Type 98) Kai",
@@ -1086,8 +1080,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 102mm (QF Mk XVI*)",
@@ -1159,8 +1152,7 @@
       "heavy": 20
     },
     "id": "dd-gun-twin-114mm-qf-mk-iv-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 120mm (Model 1933)",
@@ -1242,8 +1234,7 @@
       "heavy": 20
     },
     "id": "dd-gun-twin-120mm-model-1936-t3",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "Twin 120mm (QF Mark XI)",
@@ -1327,8 +1318,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 120mm Gun Mount",
@@ -1460,8 +1450,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 127mm (5\"/54 Mk 16 Prototype)",
@@ -1652,8 +1641,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 127mm (Type 5 Prototype)",
@@ -1848,8 +1836,7 @@
       "heavy": 25
     },
     "id": "dd-gun-twin-130mm-b-2lm-t3",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 130mm (Mle 1935)",
@@ -1933,8 +1920,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 135mm (Model 1938)",
@@ -2154,8 +2140,7 @@
       "heavy": 70
     },
     "id": "cl-gun-prototype-quadruple-152mm-main-gun-mount-t0",
-    "rarity": "Ultra Rare",
-    "gearLab": true
+    "rarity": "Ultra Rare"
   },
   {
     "name": "Single 140mm (3rd Year Type)",
@@ -2247,8 +2232,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Single 150mm (TbtsK C/36)",
@@ -2658,8 +2642,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Triple 152mm (6\"/47 Mk 16) Mod 1",
@@ -2743,7 +2726,6 @@
     },
     "id": "cl-gun-triple-152mm-6-47-mk-17-dp-prototype-t0",
     "rarity": "Super Rare",
-    "gearLab": true,
     "usedBy": [
       "BB",
       "BC",
@@ -2825,8 +2807,7 @@
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-bl-6-mk-xxv-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 152mm (MK-5)",
@@ -2861,8 +2842,7 @@
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-mk-5-t3",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 152mm (Mle 1930 HE)",
@@ -3051,8 +3031,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Triple 155mm (3rd Year Type) Kai",
@@ -3205,8 +3184,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 150mm (SK C/28 Prototype)",
@@ -3320,8 +3298,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 150mm (TbtsK C/42T Prototype)",
@@ -3402,8 +3379,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 152mm (6\"/53 Mk 15)",
@@ -3614,8 +3590,7 @@
       "CVL",
       "DD",
       "SS"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 152mm (Pattern 1892)",
@@ -3756,8 +3731,7 @@
       "heavy": 90
     },
     "id": "ca-gun-prototype-quadruple-330mm-mle-1931-cb-only-main-gun-mount-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Prototype Triple 203mm/55 Main Gun Mount",
@@ -4027,8 +4001,7 @@
       "CA",
       "CB",
       "CL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 9)",
@@ -4175,8 +4148,7 @@
       "heavy": 70
     },
     "id": "ca-gun-triple-203mm-mle-1934-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 203mm (SK C/34 Prototype)",
@@ -4211,8 +4183,7 @@
       "heavy": 75
     },
     "id": "ca-gun-triple-203mm-sk-c-34-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 203mm (SKC Prototype)",
@@ -4318,8 +4289,7 @@
       "heavy": 95
     },
     "id": "ca-gun-triple-234mm-bl-9-2-mk-xii-prototype-t0",
-    "rarity": "Ultra Rare",
-    "gearLab": true
+    "rarity": "Ultra Rare"
   },
   {
     "name": "Triple 254mm (Model 1939 Prototype)",
@@ -4500,8 +4470,7 @@
       "heavy": 75
     },
     "id": "ca-gun-triple-305mm-sk-c-39-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 310mm (Type 0 Prototype)",
@@ -4536,8 +4505,7 @@
       "heavy": 75
     },
     "id": "ca-gun-triple-310mm-type-0-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 203mm (3rd Year Type No. 2)",
@@ -4608,8 +4576,7 @@
       "heavy": 70
     },
     "id": "ca-gun-twin-203mm-3rd-year-type-no-3-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 203mm (3rd Year Type)",
@@ -4907,8 +4874,7 @@
       "heavy": 90
     },
     "id": "ca-gun-twin-234mm-bl-9-2-mk-xii-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 203mm (Model 1924)",
@@ -4979,8 +4945,7 @@
       "heavy": 90
     },
     "id": "cb-gun-prototype-quadruple-330mm-mle-1931-cb-only-main-gun-mount-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Prototype Triple 283mm/54 Main Gun Mount",
@@ -5161,8 +5126,7 @@
       "heavy": 75
     },
     "id": "cb-gun-triple-305mm-sk-c-39-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 310mm (Type 0 Prototype)",
@@ -5197,8 +5161,7 @@
       "heavy": 75
     },
     "id": "cb-gun-triple-310mm-type-0-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Old Demi-Cannon",
@@ -5340,8 +5303,7 @@
       "heavy": 110
     },
     "id": "bb-gun-quadruple-330mm-mle-1931-t3",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "Quadruple 340mm (Mle 1912)",
@@ -5465,8 +5427,7 @@
       "BBV",
       "BC",
       "BM"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Quadruple 380mm (Mle 1935)",
@@ -5501,8 +5462,7 @@
       "heavy": 90
     },
     "id": "bb-gun-quadruple-380mm-mle-1935-t3",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 283mm (SK C/34)",
@@ -5619,8 +5579,7 @@
       "heavy": 90
     },
     "id": "bb-gun-triple-305mm-sk-c-39-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 305mm Model 1909 Main Gun Mount",
@@ -5696,8 +5655,7 @@
       "heavy": 110
     },
     "id": "bb-gun-triple-320mm-model-1934-t0",
-    "rarity": "Rare",
-    "gearLab": true
+    "rarity": "Rare"
   },
   {
     "name": "Triple 356mm (14\"/50 Mk 11)",
@@ -5880,8 +5838,7 @@
       "heavy": 90
     },
     "id": "bb-gun-triple-381mm-bl-15-mk-iii-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 381mm (Model 1934)",
@@ -5916,8 +5873,7 @@
       "heavy": 115
     },
     "id": "bb-gun-triple-381mm-model-1934-t3",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 406mm (16\"/45 Mk 6)",
@@ -5958,8 +5914,7 @@
       "BBV",
       "BC",
       "BM"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Triple 406mm (16\"/50 Mark D Mod 0 Prototype)",
@@ -6126,8 +6081,7 @@
       "BBV",
       "BC",
       "BM"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Triple 406mm (Improved Model 1940 Prototype)",
@@ -6269,8 +6223,7 @@
       "heavy": 120
     },
     "id": "bb-gun-triple-406mm-mle-1938-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 406mm (Model 1940 Prototype)",
@@ -6305,8 +6258,7 @@
       "heavy": 50
     },
     "id": "bb-gun-triple-406mm-model-1940-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 406mm/45 (Mk 7 Prototype)",
@@ -6376,8 +6328,7 @@
       "heavy": 110
     },
     "id": "bb-gun-triple-410mm-10th-year-type-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Triple 419mm (Mk. I Prototype)",
@@ -6638,8 +6589,7 @@
       "BBV",
       "BC",
       "BM"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 381mm (BL 15\" Mk I)",
@@ -6715,8 +6665,7 @@
       "heavy": 90
     },
     "id": "bb-gun-twin-381mm-bl-15-mk-ii-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 381mm Model 1914 Main Gun Mount",
@@ -6835,8 +6784,7 @@
       "BBV",
       "BC",
       "BM"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 406mm (16\"/45 Mk 8)",
@@ -6951,8 +6899,7 @@
       "heavy": 90
     },
     "id": "bb-gun-twin-406mm-sk-c-34-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 410mm (3rd Year Type)",
@@ -6993,8 +6940,7 @@
       "BBV",
       "BC",
       "BM"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 410mm (3rd Year Type) Kai",
@@ -7101,8 +7047,7 @@
       "heavy": 90
     },
     "id": "bb-gun-twin-410mm-type-3-shell-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 457mm (Mark A Prototype)",
@@ -7138,7 +7083,6 @@
     },
     "id": "bb-gun-twin-457mm-mark-a-prototype-t0",
     "rarity": "Ultra Rare",
-    "gearLab": true,
     "usedBy": [
       "BB",
       "BBV",
@@ -7256,8 +7200,7 @@
       "CB",
       "CL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "533mm Quadruple Torpedo Mount",
@@ -7408,8 +7351,7 @@
       "CB",
       "CL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "533mm Quintuple Torpedo Mount",
@@ -7560,8 +7502,7 @@
       "CB",
       "CL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "533mm Triple Torpedo Mount",
@@ -7830,8 +7771,7 @@
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-triple-torpedo-launcher-t3",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "550mm Triple Torpedo Mount Improved (Ammo Mod)",
@@ -7941,8 +7881,7 @@
       "CB",
       "CL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "610mm Quadruple Torpedo Mount (Cruiser)",
@@ -8079,8 +8018,7 @@
       "CB",
       "CL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "610mm Triple Torpedo Mount Kai",
@@ -8367,8 +8305,7 @@
     "usedBy": [
       "SS",
       "SSV"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Submarine-mounted Mark 12 Torpedo",
@@ -8458,8 +8395,7 @@
     "usedBy": [
       "SS",
       "SSV"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Submarine-mounted Mark 18 Torpedo",
@@ -8696,8 +8632,7 @@
     "usedBy": [
       "SS",
       "SSV"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Submarine-mounted Type 96 Oxygen Torpedo",
@@ -8798,8 +8733,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Prototype Quadruple 30mm AA Gun Mount",
@@ -8814,8 +8748,7 @@
     "aaDps": 61.45,
     "range": 30,
     "id": "aa-gun-prototype-quadruple-30mm-aa-gun-mount-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Prototype Sextuple 20mm Scotti AA Gun (Model 1941)",
@@ -8949,8 +8882,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Quadruple 40mm Pom-Pom",
@@ -8995,8 +8927,7 @@
     "aaDps": 86.48,
     "range": 28,
     "id": "aa-gun-sextuple-40mm-bofors-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Single 102mm AA (QF Mark V)",
@@ -9789,8 +9720,7 @@
     "aaDps": 31.2,
     "range": 24,
     "id": "aa-gun-twin-37mm-aa-model-1932-t3",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "Twin 37mm AA (SK C/30)",
@@ -9819,8 +9749,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 37mm ACAD (Mle 1936)",
@@ -9930,8 +9859,7 @@
     "aaDps": 65.23,
     "range": 30,
     "id": "aa-gun-twin-40mm-bofors-hazemeyer-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 40mm Bofors STAAG",
@@ -9947,8 +9875,7 @@
     "aaDps": 67.97,
     "range": 30,
     "id": "aa-gun-twin-40mm-bofors-staag-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 40mm Pom-Pom",
@@ -9977,8 +9904,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Twin 40mm Vickers (Type 91)",
@@ -10132,8 +10058,7 @@
     "aaDps": 74.66,
     "range": 31,
     "id": "aa-gun-twin-90mm-aa-model-1939-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Twin 100mm AA (SM-5-1s)",
@@ -10381,8 +10306,7 @@
     "speed": 50,
     "crashDmg": 42,
     "id": "fighter-dewoitine-d-790-t0",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "Fiat G.50 Freccia",
@@ -10564,8 +10488,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Grumman F6F Hellcat",
@@ -10594,8 +10517,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Grumman F6F Hellcat (HVAR-Mounted)",
@@ -10705,7 +10627,6 @@
     "crashDmg": 136,
     "id": "fighter-grumman-xf5f-skyrocket-t0",
     "rarity": "Elite",
-    "gearLab": true,
     "usedBy": [
       "BBV",
       "CV",
@@ -10734,8 +10655,7 @@
     "speed": 52,
     "crashDmg": 160,
     "id": "fighter-hawker-sea-fury-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Hawker Sea Hurricane",
@@ -10858,8 +10778,7 @@
     "speed": 50,
     "crashDmg": 65,
     "id": "fighter-messerschmitt-bf-109g-carrier-based-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Messerschmitt BF-109T",
@@ -10888,8 +10807,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Messerschmitt Me-155A",
@@ -10918,8 +10836,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Mitsubishi A5M Type 96",
@@ -10977,8 +10894,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Mitsubishi A6M3 Type 0 Model 32",
@@ -11032,8 +10948,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Mitsubishi A7M Reppuu",
@@ -11057,8 +10972,7 @@
     "speed": 60,
     "crashDmg": 162,
     "id": "fighter-mitsubishi-a7m-reppuu-t3",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Polikarpov I-15",
@@ -11166,8 +11080,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Supermarine Seafire",
@@ -11196,8 +11109,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Supermarine Seafire FR Mk 47",
@@ -11251,8 +11163,7 @@
       "BBV",
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Vought F4U Corsair (VF-17 Squadron)",
@@ -11412,8 +11323,7 @@
       "CVL",
       "DD",
       "SSV"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Aichi M6A Seiran",
@@ -11437,8 +11347,7 @@
     "speed": 46,
     "crashDmg": 120,
     "id": "seaplane-aichi-m6a-seiran-t0",
-    "rarity": "Elite",
-    "gearLab": true
+    "rarity": "Elite"
   },
   {
     "name": "FBA 19",
@@ -11590,8 +11499,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Aichi D3A2 Type 99",
@@ -11671,8 +11579,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Curtiss XSB3C (Experimental)",
@@ -11753,8 +11660,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Douglas SBD Dauntless",
@@ -11782,8 +11688,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Douglas SBD Dauntless (McClusky)",
@@ -11876,8 +11781,7 @@
     "speed": 47,
     "crashDmg": 210,
     "id": "dive-bomber-fairey-firefly-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Fairey Firefly (1771 NAS)",
@@ -11929,8 +11833,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Focke-Wulf Ta 152 C-1/R14 (Carrier-based Prototype)",
@@ -12009,8 +11912,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "LBSh",
@@ -12081,8 +11983,7 @@
     "speed": 52,
     "crashDmg": 208,
     "id": "dive-bomber-nakajima-j5n-tenrai-dive-bomber-prototype-t0",
-    "rarity": "Ultra Rare",
-    "gearLab": true
+    "rarity": "Ultra Rare"
   },
   {
     "name": "Prototype Carrier-Based Su-6",
@@ -12129,8 +12030,7 @@
     "speed": 45,
     "crashDmg": 200,
     "id": "dive-bomber-prototype-su-2-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "R-5",
@@ -12210,8 +12110,7 @@
       "CV",
       "CVL",
       "DD"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Yokosuka Suisei Model 12A",
@@ -12258,8 +12157,7 @@
     "speed": 52,
     "crashDmg": 188,
     "id": "torpedo-bomber-aichi-b7a-ryuusei-t3",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Aichi B7A Ryuusei Kai",
@@ -12330,8 +12228,7 @@
     "speed": 50,
     "crashDmg": 420,
     "id": "torpedo-bomber-blackburn-firebrand-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Blackburn Firecrest",
@@ -12378,8 +12275,7 @@
     "speed": 52,
     "crashDmg": 450,
     "id": "torpedo-bomber-br-guet-br-810-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Douglas TBD Devastator",
@@ -12485,8 +12381,7 @@
     "usedBy": [
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Fairey Spearfish (Prototype)",
@@ -12537,8 +12432,7 @@
     "usedBy": [
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Fairey Swordfish (818 Squadron)",
@@ -12659,8 +12553,7 @@
     "usedBy": [
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Junkers Ju-87 D-4",
@@ -12837,8 +12730,7 @@
     "usedBy": [
       "CV",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Nakajima B6N2 Tenzan Model 12A",
@@ -12885,8 +12777,7 @@
     "speed": 66,
     "crashDmg": 208,
     "id": "torpedo-bomber-nakajima-c6n-saiun-model-21-prototype-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Polikarpov VIT-2 (Mode Change Prototype)",
@@ -12932,8 +12823,7 @@
     "speed": 45,
     "crashDmg": 480,
     "id": "torpedo-bomber-prototype-vit-2-vk-107-t0",
-    "rarity": "Super Rare",
-    "gearLab": true
+    "rarity": "Super Rare"
   },
   {
     "name": "Douglas TBD Devastator (VT-8)",
@@ -13094,8 +12984,7 @@
     "usedBy": [
       "BB",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Flettner Fl 282 Kolibri",
@@ -13157,8 +13046,7 @@
     "usedBy": [
       "BB",
       "CVL"
-    ],
-    "gearLab": true
+    ]
   },
   {
     "name": "Hedgehog",
