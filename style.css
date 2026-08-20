@@ -1389,16 +1389,19 @@ main {
 }
 
 /* Same construction as .stats-grid above: 1px gaps over a border-coloured background,
-   so the cells read as a table rather than as separate chips - and the same cell shape,
-   label and value together in one cell rather than in two columns of their own. A value
-   pinned to the far edge of its own cell leaves a stretch of empty space between the two,
-   which is the readability complaint the stats grid already went through.
-   Both are still fixed width, for the reason that grid's are: otherwise the table
-   resizes per ship and the panel jumps when switching between them. */
+   so the cells read as a table rather than as separate chips. Four columns of two rows:
+   each figure is a column, its name above its value, so the four read across as one
+   header row rather than as a stacked list.
+   Column flow, not row flow - the cells are appended label-then-value per figure, and
+   filling by column is what keeps each pair in its own column instead of scattering the
+   names across both rows.
+   Every cell is the same fixed width, for the reason the stats grid's are: otherwise the
+   table resizes per ship and the panel jumps when switching between them. */
 .combat-metrics {
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: auto;
+  grid-template-rows: repeat(2, auto);
+  grid-auto-flow: column;
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
@@ -1407,29 +1410,30 @@ main {
   width: fit-content;
 }
 
-.combat-metric-cell {
+.combat-metric-label,
+.combat-metric-value {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.75rem;
+  justify-content: center;
+  width: 3.9rem;
+  padding: 0.35rem 0.45rem;
   background: var(--bg-elevated);
+  white-space: nowrap;
   cursor: help;
 }
 
 .combat-metric-label {
-  width: 4.2rem;
-  font-size: 0.68rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: var(--text-muted);
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .combat-metric-value {
-  width: 3.4rem;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--text);
-  white-space: nowrap;
 }
 
 .combat-metric-value.combat-metric-empty {
