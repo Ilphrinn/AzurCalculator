@@ -1680,37 +1680,89 @@ function equipmentWithinCap(item) {
 // Per slot, the highest-scoring option at or below the cap. Slots whose options have no
 // score at all (Auxiliary) are left untouched, and so is any slot with nothing under the
 // cap - clearing it instead would silently throw away a pick the user made by hand.
+// A handful of skills call out a specific piece of equipment by name - Jean Bart's
+// "If this ship is equipped with the Quadruple 380mm (Mle 1935) gun...", Helena's "When
+// this ship has an SG Radar equipped...". 15 catalog names appear across the dataset's
+// skills, and the ship whose skill names one is exactly the ship meant to carry it.
+// Two things follow, both asked for directly:
+//  - Optimize prefers a named item over an unnamed one, ahead of any score.
+//  - An item flagged `unique` (see below) is off the table entirely unless named here.
+// Matched per ship rather than globally: a unique event item named in someone else's
+// skill is no reason to hand it to this ship.
+let equipmentNameRe = null;
+const equipmentNameByLower = new Map();
+const skillNamedCache = new Map();
+
+function equipmentNamePattern() {
+  if (equipmentNameRe) return equipmentNameRe;
+  const names = [...new Set(EQUIPMENT_DATA.map(i => i.name))].sort((a, b) => b.length - a.length);
+  for (const n of names) equipmentNameByLower.set(n.toLowerCase(), n);
+  // Longest first, so "Twin 127mm (5\"/38 Mk 38)" is not shadowed by a shorter sibling.
+  equipmentNameRe = new RegExp("(?<![A-Za-z])(?:" + names.map(escapeRegExp).join("|") + ")(?![A-Za-z])", "gi");
+  return equipmentNameRe;
+}
+
+function skillNamedEquipment(ship) {
+  if (skillNamedCache.has(ship.id)) return skillNamedCache.get(ship.id);
+  const found = new Set();
+  const re = equipmentNamePattern();
+  for (const skill of ship.skills || []) {
+    const text = stripHtml(skill.description) + " " + (skill.name || "");
+    re.lastIndex = 0;
+    for (const m of text.matchAll(re)) {
+      const canonical = equipmentNameByLower.get(m[0].toLowerCase());
+      if (canonical) found.add(canonical);
+    }
+  }
+  skillNamedCache.set(ship.id, found);
+  return found;
+}
+
+// `unique` marks an item that none of the five obtainable-gear pages lists - gear boxes,
+// Gear Lab, Research Academy, Shops, and the campaign Equipment Drop Table. What is left
+// is event rewards and event-shop gear, which a player cannot simply go and get, so the
+// optimiser only reaches for one when a skill names it.
+function equipmentReachable(item, named) {
+  return !item.unique || named.has(item.name);
+}
 // A weapon slot has one sensible answer - the biggest damage figure it can hold - so the
 // goal does not change it. What the goal decides is the auxiliary slots, which have no
 // damage figure and were previously left empty because "best" was undefined without
 // knowing what the player wants. It also decides whether ASW is on the table at all.
+// Candidates are ranked on three keys in order, because the later ones are only
+// comparable within the earlier: a slot that can hold a weapon is always decided by
+// damage, so a stat-only item may only win a slot where nothing else shoots; then a
+// skill-named item outranks an unnamed one; then the score decides.
+function betterCandidate(a, b) {
+  if (!b) return true;
+  if (a.isWeapon !== b.isWeapon) return a.isWeapon;
+  if (a.isNamed !== b.isNamed) return a.isNamed;
+  return a.score > b.score;
+}
+
 function optimizeEquipment(ship, effective) {
   const targetId = OPTIMIZE_TARGETS[equipmentTarget] ? equipmentTarget : "auto";
   const weights = optimizeWeights(ship, targetId, effective);
   const allowAsw = targetAllowsAsw(targetId);
+  const named = skillNamedEquipment(ship);
   let changed = 0;
 
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
-    let best = null, bestScore = -Infinity, bestIsWeapon = false;
+    let best = null;
     for (const item of equipmentOptionsForSlot(slot, ship)) {
       if (!equipmentWithinCap(item)) continue;
       if (!includeGearLab && item.gearLab) continue;
       if (!allowAsw && itemBoostsAsw(item)) continue;
+      if (!equipmentReachable(item, named)) continue;
       const damage = equipmentOptimizeScore(item);
       const isWeapon = damage !== null;
-      // A slot that can hold a weapon is always decided by damage; a stat-only item may
-      // only win a slot where nothing else shoots.
-      if (bestIsWeapon && !isWeapon) continue;
       const score = isWeapon ? damage : statPreferenceScore(item, weights);
       if (!isWeapon && score <= 0) continue;
-      if (isWeapon && !bestIsWeapon) { best = item; bestScore = score; bestIsWeapon = true; continue; }
-      if (score <= bestScore) continue;
-      best = item;
-      bestScore = score;
-      bestIsWeapon = isWeapon;
+      const candidate = { item, isWeapon, isNamed: named.has(item.name), score };
+      if (betterCandidate(candidate, best)) best = candidate;
     }
     if (!best) continue;
-    setEquippedGear(ship, slotKey, best);
+    setEquippedGear(ship, slotKey, best.item);
     changed++;
   }
   return changed;

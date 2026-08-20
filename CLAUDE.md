@@ -2395,6 +2395,63 @@ after the final edit.
   The auxiliaries matter most: they are where a restriction actually bites, since a weapon
   slot's type code already does most of the gating.
 
+  ### Obtainable vs unique gear, and skill-named preference (2026-08-20)
+
+  Two rules from the user, both about what Optimize is allowed to reach for.
+
+  **1. Obtainability.** Gear a player can actually go and get is whatever appears on the
+  five sources named: gear boxes (`Equipment`), `Gear Lab`, `Research Academy`, `Shops`, and
+  the campaign `Equipment Drop Table`. Collected by matching every link on those pages
+  against the catalog on three independent cues - the link's `title`, its visible text, and
+  the page name in its `href` - because a list page often renders an item as a bare icon
+  with no text at all. A first pass that read only `title` found **1** item on the Gear Lab
+  page instead of 328; the giveaway was a number too small to be plausible, not an error.
+  Result: **429 of 581 names obtainable**, and the remaining **145 records carry
+  `unique: true`** - event rewards and event-shop gear. They are overwhelmingly Auxiliary
+  (104 of them), which is exactly where event gear lives.
+
+  A unique item is **off the optimiser's table entirely unless a skill names it**.
+
+  **2. Skill-named preference.** A few skills call out a specific piece of equipment:
+  Jean Bart's "If this ship is equipped with the Quadruple 380mm (Mle 1935) gun...",
+  Helena's "When this ship has an SG Radar equipped...". Scanning every skill for every
+  catalog name finds **15 names across the dataset**, and every one reads as deliberate -
+  no false positive to filter out. Optimize now ranks a named item above an unnamed one,
+  ahead of any score.
+
+  **Matched per ship, not globally** - the one judgement call here. Read globally, rule 1
+  would hand Nelson's Pennant of Victory to any ship with a free auxiliary slot, since
+  *some* skill names it. Read per ship, the two rules agree with the game: the ship whose
+  skill names an item is exactly the ship meant to carry it. 6 of the 15 named items are
+  unique, and each is named by its own ship (Nelson, Rikka Takarada, Namiko...).
+
+  **Ranking is three keys in order**, replacing an inline chain of `continue`s with
+  `betterCandidate`: weapon over non-weapon (a slot that can shoot is decided by damage,
+  so a stat-only item may only win a slot where nothing else shoots), then named over
+  unnamed, then score. The keys have to be ordered because the later ones are only
+  comparable within the earlier - a damage figure and a stat-preference score are not on
+  the same scale.
+
+  `skillNamedEquipment(ship)` builds one alternation regex over all 581 names, longest
+  first, and caches per ship id. Built lazily, for the load-order reason recorded above.
+
+  Verified: the in-app index reproduces the offline scan exactly (15 names, same ships);
+  Jean Bart takes the Quadruple 380mm, Gangut the Triple 305mm (Pattern 1907), Formidable
+  the Fairey Albacore, Helena the SG Radar, and Nelson and Rikka Takarada their unique
+  event items - while New Jersey, whose skills name nothing, is unchanged. Dataset-wide:
+  4440 slots filled, 25 skill-named picks, 12 unique picks **all named by their own ship**,
+  **0 unique picks that are not**, 0 hull violations across 421 505 option offers, and the
+  Gear Lab toggle still holds on top of both rules. 0 errors.
+
+  **Known and not addressed** (pre-dates this change): Optimize can fill two auxiliary
+  slots with the same item - Helena ends up with two SG Radars - and some auxiliaries say
+  "Effect does not stack" in their own notes. Worth raising before adding a no-duplicates
+  rule, since duplicates are legal in game for most auxiliaries.
+
+  The user also kept adding equipment pages while this was being built: the `Used By`
+  extraction went 144 -> 179 pages mid-session, **180 records restricted**. It is
+  re-runnable; just run it again when more arrive.
+
   **The two fixed widths were measured, not estimated** - and the measurement that matters
   is not the one taken on a bare ship. A first pass over all 888 unequipped ships put the
   widest value at 3.81rem ("2,086"), which would have clipped the moment anything was

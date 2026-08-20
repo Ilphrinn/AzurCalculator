@@ -67,7 +67,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "dd-gun-old-heavy-cannon-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Prototype Twin 130mm Model 1936 Main Gun Mount",
@@ -139,7 +140,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-quadruple-130mm-mle-1932-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "unique": true
   },
   {
     "name": "Single 100mm (Type 88)",
@@ -463,7 +465,19 @@ const EQUIPMENT_DATA = [
     },
     "id": "dd-gun-single-127mm-5-38-mk-21-t0",
     "rarity": "Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Single 127mm (5\"/38 Mk 30)",
@@ -1386,7 +1400,19 @@ const EQUIPMENT_DATA = [
     },
     "id": "dd-gun-twin-127mm-5-38-mk-32-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "AE",
+      "BB",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Twin 127mm (5\"/38 Mk 38)",
@@ -1982,7 +2008,12 @@ const EQUIPMENT_DATA = [
     },
     "id": "dd-gun-twin-137mm-5-4-48-mk-1-prototype-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 138.6mm (Mle 1934)",
@@ -2017,7 +2048,8 @@ const EQUIPMENT_DATA = [
       "heavy": 55
     },
     "id": "dd-gun-twin-138-6mm-mle-1934-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Twin 120mm (Model 1926)",
@@ -2052,7 +2084,8 @@ const EQUIPMENT_DATA = [
       "heavy": 20
     },
     "id": "dd-gun-twin-120mm-model-1926-t1",
-    "rarity": "Common"
+    "rarity": "Common",
+    "unique": true
   },
   {
     "name": "Battle Tracto Max Special Main Gun",
@@ -2085,7 +2118,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-battle-tracto-max-special-main-gun-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Prototype Quadruple 152mm Main Gun Mount",
@@ -2661,7 +2695,18 @@ const EQUIPMENT_DATA = [
     },
     "id": "cl-gun-triple-152mm-6-47-mk-16-mod-1-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Triple 152mm (6\"/47 Mk 17 DP Prototype)",
@@ -2698,7 +2743,18 @@ const EQUIPMENT_DATA = [
     },
     "id": "cl-gun-triple-152mm-6-47-mk-17-dp-prototype-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Triple 152mm (BL 6\" Mk XXIII)",
@@ -2841,7 +2897,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "cl-gun-triple-152mm-mle-1930-he-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Triple 152mm (Mle 1930)",
@@ -2912,7 +2969,8 @@ const EQUIPMENT_DATA = [
       "heavy": 60
     },
     "id": "cl-gun-triple-152mm-model-1934-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Triple 152mm (Model 1936 Prototype)",
@@ -3381,7 +3439,18 @@ const EQUIPMENT_DATA = [
     },
     "id": "cl-gun-twin-152mm-6-53-mk-15-t0",
     "rarity": "Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD",
+      "SS"
+    ]
   },
   {
     "name": "Twin 152mm (6\"/53 Mk 18)",
@@ -3651,7 +3720,8 @@ const EQUIPMENT_DATA = [
       "heavy": 40
     },
     "id": "cl-gun-single-150mm-6-47-caliber-gun-t1",
-    "rarity": "Common"
+    "rarity": "Common",
+    "unique": true
   },
   {
     "name": "Prototype Quadruple 330mm Mle 1931 (CB Only) Main Gun Mount",
@@ -3722,7 +3792,8 @@ const EQUIPMENT_DATA = [
       "heavy": 70
     },
     "id": "ca-gun-prototype-triple-203mm-55-main-gun-mount-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Prototype Triple 240mm Main Gun Mount",
@@ -3829,7 +3900,12 @@ const EQUIPMENT_DATA = [
     },
     "id": "ca-gun-triple-203mm-8-55-mk-13-t0",
     "rarity": "Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 14)",
@@ -3865,7 +3941,12 @@ const EQUIPMENT_DATA = [
     },
     "id": "ca-gun-triple-203mm-8-55-mk-14-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 15 SHS)",
@@ -3901,7 +3982,12 @@ const EQUIPMENT_DATA = [
     },
     "id": "ca-gun-triple-203mm-8-55-mk-15-shs-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "CA",
+      "CB",
+      "CL"
+    ]
   },
   {
     "name": "Triple 203mm (8\"/55 Mk 15)",
@@ -4196,7 +4282,8 @@ const EQUIPMENT_DATA = [
       "heavy": 85
     },
     "id": "ca-gun-triple-220mm-sm-40-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Triple 234mm (BL 9.2\" Mk XII Prototype)",
@@ -4341,7 +4428,8 @@ const EQUIPMENT_DATA = [
       "heavy": 100
     },
     "id": "ca-gun-triple-305mm-12-50-mk-8-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Triple 305mm (B-50)",
@@ -4783,7 +4871,8 @@ const EQUIPMENT_DATA = [
       "heavy": 75
     },
     "id": "ca-gun-twin-203mm-skc-improved-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Twin 234mm (BL 9.2\" Mk XII Prototype)",
@@ -4854,7 +4943,8 @@ const EQUIPMENT_DATA = [
       "heavy": 50
     },
     "id": "ca-gun-twin-203mm-model-1924-t1",
-    "rarity": "Common"
+    "rarity": "Common",
+    "unique": true
   },
   {
     "name": "Prototype Quadruple 330mm Mle 1931 (CB Only) Main Gun Mount",
@@ -4999,7 +5089,8 @@ const EQUIPMENT_DATA = [
       "heavy": 100
     },
     "id": "cb-gun-triple-305mm-12-50-mk-8-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Triple 305mm (B-50)",
@@ -5142,7 +5233,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-old-demi-cannon-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Prototype Triple 406mm Mk.II Main Gun Mount",
@@ -5177,7 +5269,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-prototype-triple-406mm-mk-ii-main-gun-mount-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Quadruple 305mm (SK C39 Prototype)",
@@ -5325,7 +5418,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-quadruple-356mm-14-50-mark-b-prototype-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Quadruple 356mm (BL 14\" Mk VII)",
@@ -5896,7 +5995,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-triple-406mm-16-50-mark-d-mod-0-prototype-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 406mm (16\"/50 Mk 2)",
@@ -5932,7 +6037,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-triple-406mm-16-50-mk-2-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 406mm (16\"/50 Mk 7)",
@@ -5968,7 +6079,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-triple-406mm-16-50-mk-7-t0",
     "rarity": "Ultra Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Triple 406mm (BL 16\" Mk I)",
@@ -6045,7 +6162,8 @@ const EQUIPMENT_DATA = [
       "heavy": 50
     },
     "id": "bb-gun-triple-406mm-improved-model-1940-prototype-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Triple 406mm (Mk 6 Prototype)",
@@ -6115,7 +6233,8 @@ const EQUIPMENT_DATA = [
       "heavy": 110
     },
     "id": "bb-gun-triple-406mm-mk-1-t3",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Triple 406mm (Mle 1938 Prototype)",
@@ -6328,7 +6447,8 @@ const EQUIPMENT_DATA = [
       "heavy": 135
     },
     "id": "bb-gun-triple-460mm-type-94-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Twin 305mm (41st Year Type)",
@@ -6363,7 +6483,8 @@ const EQUIPMENT_DATA = [
       "heavy": 90
     },
     "id": "bb-gun-twin-305mm-41st-year-type-t0",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "unique": true
   },
   {
     "name": "Twin 356mm (41st Year Type)",
@@ -6667,7 +6788,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-twin-406mm-16-45-mk-1-t0",
     "rarity": "Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 406mm (16\"/45 Mk 5)",
@@ -6745,7 +6872,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-twin-406mm-16-45-mk-8-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 406mm (16\"/56 Mk 4 Prototype)",
@@ -6777,7 +6910,13 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "bb-gun-twin-406mm-16-56-mk-4-prototype-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "Twin 406mm (SK C/34 Prototype)",
@@ -6999,7 +7138,13 @@ const EQUIPMENT_DATA = [
     },
     "id": "bb-gun-twin-457mm-mark-a-prototype-t0",
     "rarity": "Ultra Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC",
+      "BM"
+    ]
   },
   {
     "name": "533mm Improved Quadruple Magnetic Torpedo Mount",
@@ -7031,7 +7176,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "torpedo-533mm-improved-quadruple-magnetic-torpedo-mount-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "533mm Mark 35 Torpedo Mount (Quad Consecutive Launch)",
@@ -7064,7 +7210,14 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "torpedo-533mm-mark-35-torpedo-mount-quad-consecutive-launch-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "533mm Quadruple Homing Torpedo Mount",
@@ -7176,7 +7329,14 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "torpedo-533mm-quadruple-torpedo-mount-mk-17-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "533mm Quadruple Torpedo Mount Mk IX",
@@ -7321,7 +7481,14 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "torpedo-533mm-quintuple-torpedo-mount-mk-17-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "533mm Quintuple Torpedo Mount Mk IX",
@@ -7459,7 +7626,14 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "torpedo-533mm-triple-torpedo-mount-mk-17-t0",
     "rarity": "Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BC",
+      "CA",
+      "CB",
+      "CL",
+      "DD"
+    ]
   },
   {
     "name": "533mm Triple Torpedo Mount Mk IX",
@@ -7623,7 +7797,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Normal",
     "armorMod": null,
     "id": "torpedo-550mm-torpedo-mount-twin-triple-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "550mm Triple Torpedo Launcher",
@@ -8073,7 +8248,8 @@ const EQUIPMENT_DATA = [
     "ammoType": null,
     "armorMod": null,
     "id": "torpedo-sy-1a-missile-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Improved Submarine-mounted G7e Acoustic Homing Torpedo",
@@ -8128,7 +8304,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "NormalS",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-550mm-24v-torpedo-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Submarine-mounted G7a Torpedo",
@@ -8310,7 +8487,11 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-18-torpedo-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Submarine-mounted Mark 20S \"Bidder\" Torpedo",
@@ -8366,7 +8547,11 @@ const EQUIPMENT_DATA = [
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-mark-28-torpedo-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "SS",
+      "SSV"
+    ]
   },
   {
     "name": "Submarine-mounted Mark VIII Torpedo",
@@ -8567,7 +8752,8 @@ const EQUIPMENT_DATA = [
     "ammoType": "Acoustic",
     "armorMod": null,
     "id": "submarine-torpedo-submarine-mounted-si-270-torpedo-t1",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "unique": true
   },
   {
     "name": "65mm Model 1939 Anti-Air Gun",
@@ -8690,7 +8876,21 @@ const EQUIPMENT_DATA = [
     "range": 18,
     "id": "aa-gun-quadruple-20mm-oerlikon-mk-15-mount-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Quadruple 28mm Chicago Piano",
@@ -9111,7 +9311,21 @@ const EQUIPMENT_DATA = [
     "range": 30,
     "id": "aa-gun-single-76mm-aa-mk-26-mount-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Single 80mm AA (Type 98)",
@@ -9204,7 +9418,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 49.59,
     "range": 32,
     "id": "aa-gun-twin-100mm-aa-b-54-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Twin 100mm AA (Mle 1931)",
@@ -9266,7 +9481,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 51.82,
     "range": 33,
     "id": "aa-gun-twin-100mm-aa-mz-14-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Twin 100mm AA (Type 98)",
@@ -9281,7 +9497,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 69.26,
     "range": 32,
     "id": "aa-gun-twin-100mm-aa-type-98-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Twin 105mm AA (SK C/33 na)",
@@ -9823,7 +10040,21 @@ const EQUIPMENT_DATA = [
     "range": 30,
     "id": "aa-gun-twin-76mm-aa-mk-27-mount-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Twin 76mm RF Mk 37 Gun Mount",
@@ -9840,7 +10071,21 @@ const EQUIPMENT_DATA = [
     "range": 32,
     "id": "aa-gun-twin-76mm-rf-mk-37-gun-mount-t0",
     "rarity": "Ultra Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "AE",
+      "AR",
+      "BB",
+      "BBV",
+      "BC",
+      "BM",
+      "CA",
+      "CB",
+      "CL",
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Twin 80mm AA (Type 98)",
@@ -9903,7 +10148,8 @@ const EQUIPMENT_DATA = [
     "aaDps": 28.85,
     "range": 34,
     "id": "aa-gun-twin-100mm-aa-sm-5-1s-t1",
-    "rarity": "Rare"
+    "rarity": "Rare",
+    "unique": true
   },
   {
     "name": "Twin 105mm AA (SK C/33 na) (Time Fuze)",
@@ -9936,7 +10182,12 @@ const EQUIPMENT_DATA = [
     "range": 125,
     "id": "aa-time-fuze-gun-twin-127mm-5-38-mk-38-time-fuze-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BB",
+      "BBV",
+      "BC"
+    ]
   },
   {
     "name": "Twin 127mm AA (Type 89 A1 Mod 2) (Time Fuze)",
@@ -10076,7 +10327,12 @@ const EQUIPMENT_DATA = [
     "crashDmg": 88,
     "id": "fighter-brewster-xf2a-4-buffalo-prototype-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "de Havilland Sea Hornet",
@@ -10150,7 +10406,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 160,
     "id": "fighter-fiat-g-50-freccia-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Focke-Wulf Fw 190 A-5 (Carrier-based Prototype)",
@@ -10362,7 +10619,8 @@ const EQUIPMENT_DATA = [
     "speed": 50,
     "crashDmg": 156,
     "id": "fighter-grumman-f6f-hellcat-hvar-mounted-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Grumman F7F Tigercat",
@@ -10387,7 +10645,12 @@ const EQUIPMENT_DATA = [
     "crashDmg": 196,
     "id": "fighter-grumman-f7f-tigercat-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Grumman F8F Bearcat",
@@ -10412,7 +10675,12 @@ const EQUIPMENT_DATA = [
     "crashDmg": 162,
     "id": "fighter-grumman-f8f-bearcat-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Grumman XF5F Skyrocket",
@@ -10437,7 +10705,12 @@ const EQUIPMENT_DATA = [
     "crashDmg": 136,
     "id": "fighter-grumman-xf5f-skyrocket-t0",
     "rarity": "Elite",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Hawker Sea Fury",
@@ -10863,7 +11136,8 @@ const EQUIPMENT_DATA = [
     "speed": 46,
     "crashDmg": 148,
     "id": "fighter-reggiane-re-2001-falco-ii-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Supermarine Seafang",
@@ -11027,7 +11301,12 @@ const EQUIPMENT_DATA = [
     "crashDmg": 220,
     "id": "fighter-vought-xf5u-flying-flapjack-prototype-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "BBV",
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Yakovlev Yak-1 (Carrier-based Prototype)",
@@ -11183,7 +11462,8 @@ const EQUIPMENT_DATA = [
     "speed": 46,
     "crashDmg": 120,
     "id": "seaplane-fba-19-t3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Grumman F8F Bearcat (Floatplane Prototype)",
@@ -11416,7 +11696,12 @@ const EQUIPMENT_DATA = [
     "crashDmg": 200,
     "id": "dive-bomber-curtiss-xsb3c-experimental-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "CV",
+      "CVL",
+      "DD"
+    ]
   },
   {
     "name": "Douglas A-1 Skyraider",
@@ -11439,7 +11724,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 206,
     "id": "dive-bomber-douglas-a-1-skyraider-t0",
-    "rarity": "Ultra Rare"
+    "rarity": "Ultra Rare",
+    "unique": true
   },
   {
     "name": "Douglas BTD-1 Destroyer",
@@ -11543,7 +11829,8 @@ const EQUIPMENT_DATA = [
     "speed": 45,
     "crashDmg": 200,
     "id": "dive-bomber-f4u-vbf-94-squadron-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Fairey Barracuda (831 Squadron)",
@@ -11613,7 +11900,8 @@ const EQUIPMENT_DATA = [
     "speed": 47,
     "crashDmg": 210,
     "id": "dive-bomber-fairey-firefly-1771-nas-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Fairey Fulmar",
@@ -11994,7 +12282,8 @@ const EQUIPMENT_DATA = [
     "speed": 52,
     "crashDmg": 208,
     "id": "torpedo-bomber-aichi-b7a-ryuusei-kai-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Arado Ar 195",
@@ -12141,7 +12430,11 @@ const EQUIPMENT_DATA = [
     "crashDmg": 206,
     "id": "torpedo-bomber-douglas-xtb2d-1-skypirate-t0",
     "rarity": "Super Rare",
-    "gearLab": true
+    "gearLab": true,
+    "usedBy": [
+      "CV",
+      "CVL"
+    ]
   },
   {
     "name": "Fairey Albacore",
@@ -12663,7 +12956,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 300,
     "id": "torpedo-bomber-douglas-tbd-devastator-vt-8-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Grumman TBF Avenger (VT-8)",
@@ -12686,7 +12980,8 @@ const EQUIPMENT_DATA = [
     "speed": 48,
     "crashDmg": 300,
     "id": "torpedo-bomber-grumman-tbf-avenger-vt-8-t0",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Westland Wyvern",
@@ -12838,7 +13133,8 @@ const EQUIPMENT_DATA = [
     "weaponType": "ASW Bomber",
     "notes": null,
     "id": "asw-general-motors-tbm-avenger-vt-51-squadron",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "General Motors TBM-3 Avenger (ASW)",
@@ -12881,7 +13177,8 @@ const EQUIPMENT_DATA = [
     "weaponType": "Depth Charge",
     "notes": "The average damage is shown; actual damage ranges from 2/3 to 4/3 this value. Only creates one explosion that does actual damage. The individual projectiles are merely cosmetic.",
     "id": "asw-hedgehog",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Improved Depth Charge",
@@ -12991,7 +13288,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Action Report - Frostfall: When equipped by a Northern Parliament ship: increases her LCK by 3.",
     "id": "auxiliary-action-report-frostfall",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Action Report: Operation AF",
@@ -13028,7 +13326,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Aerial Recon: Provides recon from the Ning Hai, decreasing chance of being ambushed by 8% and increases chance to avoid ambushes by 8%. Effect does not stack.",
     "id": "auxiliary-aichi-ab-3",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Air Radar",
@@ -13081,7 +13380,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Alizarin Support Towel: When the battle starts: the ship equipping this gear gains 3% increased FP, TRP, AVI, and RLD for 15s.",
     "id": "auxiliary-alizarin-support-towel",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "All Work, All Play Robot",
@@ -13094,7 +13394,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "All Work, All Play Robot: Every 20s: increases the wearer's DMG dealt by 1% (can activate up to 3 times per battle).",
     "id": "auxiliary-all-work-all-play-robot",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Angel's Feather",
@@ -13120,7 +13421,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Ankimo: When sortieing with a ship equipping this gear: changes the battle background music.",
     "id": "auxiliary-ankimo",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Anti-EM Commands",
@@ -13132,7 +13434,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Simulation Command: When equipped: activates a randomly chosen Command effect every 15s (all Command effects have an equal chance of being selected; only 1 Command effect will get triggered per skill activation). Possible Command effects: Gain a barrier that can block 3% of this ship's max HP. Heal 2% of this ship's max HP. Fire a special torpedo barrage (DMG scales on this ship's TRP stat). Fire a special barrage (DMG scales on this ship's FP stat).",
     "id": "auxiliary-anti-em-commands",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Anti-Torpedo Bulge",
@@ -13169,7 +13472,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Soulstealer's Engraving: When equipped by an Atelier Ryza collab character: 30s after the battle starts, deducts 30 HP from this ship and performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack that inflicts the Item Mark debuff to enemies hit for 5s and decreases their FP, TRP, and AVI by 3% for 30s.",
     "id": "auxiliary-apocalypse",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Ascension Box",
@@ -13181,7 +13485,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Ascension Box: If your Flagship is a BB, BC, or BBV: decreases that ship's Main Gun Spread Angle by 2.",
     "id": "auxiliary-ascension-box",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Auction Invitation",
@@ -13194,7 +13499,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Auction Invitation: Equip to set off electronic fireworks and create a festive mood.",
     "id": "auxiliary-auction-invitation",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Autoloader",
@@ -13234,7 +13540,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Venus Awakening Gem: When equipped by a Venus Vacation collab character: increases that ship's DMG dealt by 3%.",
     "id": "auxiliary-awakening-pearl",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Battle Tracto Max",
@@ -13247,7 +13554,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Battle Tracto Max: When equipped by Rikka Takarada: improves the pattern of her Grid Beam skill, and replaces her Main Gun with a Special Main Gun.",
     "id": "auxiliary-battle-tracto-max",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Blue Sea Mystery",
@@ -13260,7 +13568,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Blue Sea Mystery: Changes the combat BGM when equipped. If additional gear that changes the BGM is equipped at the same time, only a randomly chosen one will take effect.",
     "id": "auxiliary-blue-sea-mystery",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Boundary-Crossing Permit",
@@ -13273,7 +13582,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "A permit that allows the wielder to cross into the domain of the exercise area. It seems to be made out of a special material, and feels strange to the touch. When equipped by a Sakura Empire ship: when the battle starts, deploys a shield that can absorb up to 100 DMG around the ship equipping this gear.",
     "id": "auxiliary-boundary-crossing-permit",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Bouquet of Tulips",
@@ -13285,7 +13595,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Bouquet of Tulips: When the battle starts: the wearer's DMG taken is decreased by 5% for 40s.",
     "id": "auxiliary-bouquet-of-tulips",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Bubble Bullet",
@@ -13298,7 +13609,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Bubbly Prison: When equipped by an Atelier Ryza collab character: 30s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack that inflicts the Item Mark debuff to enemies hit for 5s and decreases their Evasion by 10% for 5s. When also equipped with Genesis Hammer: 35s after the battle starts, activates \"Core Drive - Gravity Press.\"",
     "id": "auxiliary-bubble-bullet",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Bubbly-Boily Chef",
@@ -13311,7 +13623,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Bubbly-Boily Chef: Every 20s: restores 1% of the wearer's max HP (can activate up to 3 times per battle).",
     "id": "auxiliary-bubbly-boily-chef",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Buster Borr",
@@ -13323,7 +13636,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Buster Borr: When equipped by Rikka Takarada: improves the pattern of her Grid Beam skill, and replaces her Torpedo with a Special Torpedo.",
     "id": "auxiliary-buster-borr",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Butterflies Fluttering Among Plums",
@@ -13335,7 +13649,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Butterflies Fluttering Among Plums: When equipped by Chao Ho: creates a backdrop of plum blossoms fluttering in the air.",
     "id": "auxiliary-butterflies-fluttering-among-plums",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Butterflies Playing with Bamboo",
@@ -13347,7 +13662,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Butterflies Playing with Bamboo: When equipped by Ying Swei: creates a backdrop of bamboo leaves fluttering in the air.",
     "id": "auxiliary-butterflies-playing-with-bamboo",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Celestial Body",
@@ -13359,7 +13675,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Celestial Body: Ships equipped with this are classified as \"µ\" ships.",
     "id": "auxiliary-celestial-body",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Certificate of Sponsorship",
@@ -13385,7 +13702,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Chest Full of Treasure: When the battle starts: spawns a treasure chest. While this treasure chest is on the battlefield: every 5s, a random ship in your fleet recovers 10 HP.",
     "id": "auxiliary-chest-full-of-treasure",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Clover of Happiness",
@@ -13398,7 +13716,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Clover of Happiness: Every 20s during battle: restores 1% Max HP to the wearer (can be activated up to 3 times per battle).",
     "id": "auxiliary-clover-of-happiness",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Compressed Oxygen Cylinder",
@@ -13437,7 +13756,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Corn Lantern: When equipped by a Hololive ship: decreases their DMG taken by 4%.",
     "id": "auxiliary-corn-lantern",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Corona Preferita",
@@ -13450,7 +13770,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Corona Preferita: When equipped by Marco Polo: increases your Sardegna Empire shipgirls' FP and EVA by 3%.",
     "id": "auxiliary-corona-preferita",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Cosmic Kicks",
@@ -13463,7 +13784,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Cosmic Kicks: Ships equipped with this are classified as \"µ\" ships.",
     "id": "auxiliary-cosmic-kicks",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Cross Brooch",
@@ -13475,7 +13797,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Cross Brooch: When equipped by a Vanguard ship: if your Flagship is a Vichya Dominion BB or BC, when your Flagship fires her Main Guns: fires an additional special barrage.",
     "id": "auxiliary-cross-brooch",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Crystal Ice Bomb",
@@ -13487,7 +13810,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Slowdown: When equipped by Reisalin Stout: 15s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack (DMG is based on the equipping character's FP) that inflicts the Item Mark debuff to enemies hit for 5s and decreases their SPD by 30% for 5s.",
     "id": "auxiliary-crystal-ice-bomb",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Cyanidin Support Towel",
@@ -13499,7 +13823,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Cyanidin Support Towel: When the battle starts: deploys a barrier (lasts 15s) that can negate DMG equal to 2% max HP of the ship equipping this gear.",
     "id": "auxiliary-cyanidin-support-towel",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Damaged Speech Manuscript",
@@ -13512,7 +13837,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Damaged Speech Manuscript: When equipped by a Royal Navy ship, increases her LCK by 3.",
     "id": "auxiliary-damaged-speech-manuscript",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Director's Screenplay",
@@ -13525,7 +13851,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Director's Screenplay: When the battle starts, and every 30s, for 30s inflict self with (25% chance each): DMG dealt +1% EVA +3% HIT +3% Heal 1%",
     "id": "auxiliary-director-s-screenplay",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Drop Tank",
@@ -13555,7 +13882,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Dynamic Cannon: Changes the BGM when equipped. If the frontmost ship of your Vanguard is a CL, CA, or CB: launches a special support barrage 12s after the battle starts.",
     "id": "auxiliary-dynamic-cannon",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Eagle Union Elite Damage Control",
@@ -13568,7 +13896,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "The Eagle Union's esteemed damage control teams helped prevent many a casualty during the war. Dmg Control (Union): When the ship with this gear equipped is hit by an attack that would otherwise sink it: the ship survives, becomes invulnerable for 8s, and then sinks. Effect only applies to Eagle Union ships.",
     "id": "auxiliary-eagle-union-elite-damage-control",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Echoes of Relinquished Time",
@@ -13580,7 +13909,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Echoes of Relinquished Time: When equipped to Akagi [only]: increases this ship's DMG dealt by 12%; the first time this ship launches an airstrike during battle: increases her Detection Gauge value by an additional 50; 45 seconds after the battle starts, this ship loses 300 HP, and her Detection Gauge value will be reset to 0.",
     "id": "auxiliary-echoes-of-relinquished-time",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Electrifying Deco-Pen",
@@ -13592,7 +13922,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Electrifying Deco-Pen: Changes the BGM when equipped. If other gear that changes the BGM is active simultaneously, only a randomly chosen one will take effect.",
     "id": "auxiliary-electrifying-deco-pen",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Elite Aviation Maintenance Manjuu",
@@ -13616,7 +13947,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "HP Recovery: Once per battle, when equipped by an Atelier Ryza collab character: 50s after the battle starts, all your Atelier Ryza collab characters recover 5% of their max HP.",
     "id": "auxiliary-elixir",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Embroidered Charm Pouch",
@@ -13628,7 +13960,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Embroidered Charm Pouch: When equipped by a Sakura Empire ship: increases your Sakura Empire ships' LCK by 1 (does not stack).",
     "id": "auxiliary-embroidered-charm-pouch",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Endemeteo",
@@ -13641,7 +13974,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Endemeteo: When equipped by Yumia Liessfeldt: 25s after the battle starts, activates the Item effect. Item effect: performs a special attack that inflicts special Armour Break (increases aircraft DMG taken by 10%) for 5s on the enemy hit (DMG is based on this ship's AVI stat; Mana Flow can improve this attack).",
     "id": "auxiliary-endemeteo",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Energianica",
@@ -13654,7 +13988,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Glorious Melody: Changes the BGM when equipped. If additional gear that changes the BGM is active at the same time, only a randomly chosen one will take effect.",
     "id": "auxiliary-energianica",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Enfer Cube",
@@ -13667,7 +14002,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Enfer Cube: When equipped by an Atelier Yumia collab character: 20s after the battle starts, activates the Item effect. Item effect: decreases a random enemy's DMG dealt by 8% for 5s (prioritizes humanoid enemies; when multiple DMG-decreasing effects are applied, only the biggest one is used; Mana Flow can improve this effect into: decreases the enemy's DMG dealt by 10% and decreases their EVA and AA by 5% for 5s).",
     "id": "auxiliary-enfer-cube",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Enigmata \"D\"",
@@ -13679,7 +14015,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Enigmata \"D\": A curious machine that periodically emits a strange sound during battle.",
     "id": "auxiliary-enigmata-d",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Error XIII",
@@ -13691,7 +14028,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Error XIII: When equipped by Collett: 13s after the battle starts, randomly targets one enemy and reduces its SPD to 0 for 1.3s.",
     "id": "auxiliary-error-xiii",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Fargo Direct Drone",
@@ -13704,7 +14042,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Fargo Direct Drone: 15s after the battle starts: deploys a Fargo Direct Drone.",
     "id": "auxiliary-fargo-direct-drone",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Fire Control Radar",
@@ -13769,7 +14108,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Flammi: Changes the combat BGM when equipped. If additional gear that changes the BGM is equipped at the same time, only a randomly chosen one will take effect. If equipped by Yumia Liessfeldt: makes Flammi appear and increases her AVI by 118.",
     "id": "auxiliary-flammi",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Frontier Medal",
@@ -13782,7 +14122,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "A medal given to aviation tactics pioneers. As the age of big ships with big guns draws to a close, the era of naval aerial control is ushered in. Frontier Medal: [Naval Exercise Gear; only 1 gear of this type will work if multiple are equipped] When equipped by your Flagship: increases the DMG dealt by both sides' CVs and CVLs by 10%, and decreases the DMG dealt by both sides' BBs and BCs by 10%.",
     "id": "auxiliary-frontier-medal",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Fruit Rations",
@@ -13806,7 +14147,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Fu Po's Flawless Plan: When equipped by Fu Po, Fei Yuen, or Fu Shun: increases the wearer's TRP by 5%. Once per battle, 30s after the battle starts: restores 2% of the wearer's max HP.",
     "id": "auxiliary-fu-po-s-battleplan",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Fuel Filter",
@@ -13860,7 +14202,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Gamers Mark: Any ship equipping this gear will be treated as part of the Hololive faction.",
     "id": "auxiliary-gamers-mark",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Genesis Hammer",
@@ -13872,7 +14215,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Echoing Seas: When equipped by an Atelier Ryza collab character: 20s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack that inflicts the Item Mark debuff to enemies hit for 5s and decreases their Crit Rate by 10% for 5s.",
     "id": "auxiliary-genesis-hammer",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Giant Onigiri",
@@ -13885,7 +14229,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Giant Onigiri: During battle, every 30s: restores 1% HP for the wearer and all Date A Live collab units in the fleet (can be activated up to 3 times per battle).",
     "id": "auxiliary-giant-onigiri",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Goldburn",
@@ -13897,7 +14242,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Goldburn: Changes the BGM when equipped. If the ship with this gear equipped is in your Vanguard or is an SSSS collab character: increases the ship's RLD by 38. If your Flagship is a CV or CVL: launches a special support barrage 25s after the battle starts.",
     "id": "auxiliary-goldburn",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Grand Bomb",
@@ -13910,7 +14256,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Inflict Burns: When equipped by Reisalin Stout: 10s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack (DMG is based on the equipping character's FP) that inflicts a special Burn and the Item Mark debuff to enemies hit for 5s. If equipped in Reisalin Stout's second gear slot, she gains a special Torpedo Equipment (attacks from this Torpedo Equipment are not treated as Item attacks).",
     "id": "auxiliary-grand-bomb",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Granshine",
@@ -13922,7 +14269,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Granshine: When equipped by Yumia Liessfeldt: adds a special Anti-Air Gun and, 25s after the battle starts, activates the Item effect. Item effect: performs a special attack (DMG is based on this ship's AVI stat; Mana Flow can improve this attack) that applies one of the following effects to the enemy hit based on the element used for 5s (this effect cannot stack): 1) Fire: inflicts a special Burn ailment; 2) Air: increases DMG taken by 5%; 3) Ice: decreases SPD by 30%; 4) Bolt: decreases Crit Rate by 10%.",
     "id": "auxiliary-granshine",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Grapeshot",
@@ -13935,7 +14283,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Grapeshot: During battle, decreases the RLD and ACC of enemies within 30 units of the wearer by 3.5%.",
     "id": "auxiliary-grapeshot",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Gravure Photocard",
@@ -13948,7 +14297,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Gravure Photocard: When equipped by a Venus Vacation ship: increases the wearer's Main Gun, Torpedo, and Airstrike Crit Rate by 3%.",
     "id": "auxiliary-gravure-photocard",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Gridman Calibur",
@@ -13960,7 +14310,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Gridman Calibur: When equipped by Rikka Takarada: improves the attack pattern of her Slash & Circus skill, and triggers an additional torpedo barrage every 20s.",
     "id": "auxiliary-gridman-calibur",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Gyroscope",
@@ -14000,7 +14351,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Harmony μ Ticket: Changes the BGM when equipped. If multiple gear which change the BGM are equipped at the same time, the one in effect will be chosen randomly.",
     "id": "auxiliary-harmony-ticket",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Healing Cat's Paw",
@@ -14012,7 +14364,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Cat Potency: When equipped by Akashi: increases the potency of all her healing by 20%.",
     "id": "auxiliary-healing-cat-s-paw",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Heart Key",
@@ -14025,7 +14378,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Heart Key: When sortieing with a character equipped with this gear: changes the battle music.",
     "id": "auxiliary-heart-key",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Heavenly Armillary",
@@ -14037,7 +14391,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Heavenly Armillary: When equipped by an Atelier Yumia collab character: every 10s, activates the Item effect. Item effect: accumulates 10% Environmental Mana (Mana Flow can improve this effect into: accumulates 25% Environmental Mana).",
     "id": "auxiliary-heavenly-armillary",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Her Majesty's Top-Secret Itinerary",
@@ -14050,7 +14405,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "A detailed, top-secret list of the Queen's plans, for the eyes of a select few only. When equipped by Queen Elizabeth or Queen Elizabeth META: she enters Rest Mode, recovering 3% of her max HP when she fires her Main Guns. When equipped by any other Royal Navy ship: with every odd-numbered volley Queen Elizabeth or her META variant fires, the respective ship enters Work Mode, increasing all your Royal Navy ships' DMG dealt by 3% (Ingame incorrectly states 8%) for 8s (This effect doesn't stack if both Queen Elizabeths enter Work Mode); after this effect ends, the respective ship enters Rest Mode.",
     "id": "auxiliary-her-majesty-s-top-secret-itinerary",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "High Performance Anti-Air Radar",
@@ -14222,7 +14578,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "The sole expedition log salvaged from an almost completely-destroyed voyage record. Its contents describe an identification signal captured during the expedition. Anti-Siren Tactics Ⅰ: The ship equipping this gear takes 6% less DMG from Sirens. Does not stack with skills that have similar effect; only the highest source of DMG reduction applies.",
     "id": "auxiliary-intel-report-expedition-log",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Intelligence Chip",
@@ -14235,7 +14592,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "A plugin chip that Kizuna AI uses to...? --No talking shit! For the duration of the Kizuna AI Collaboration event, changes the auto battle movement pattern to a diamond shape.",
     "id": "auxiliary-intelligence-chip",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Invitation to Islas de Libertád",
@@ -14247,7 +14605,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Invitation to Islas de Libertád: When equipped by a Tempesta ship: increases that ship's Main Gun efficiency by 5% in battle.",
     "id": "auxiliary-invitation-to-islas-de-libert-d",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "J-class Crown",
@@ -14273,7 +14632,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "At the start of battle: increases the entire fleet's SPD by 2 and reduces their DMG taken by 2% for 20s.",
     "id": "auxiliary-key-to-the-tribunal-s-hand",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Laute Plajig",
@@ -14285,7 +14645,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Senselessness: When equipped by Reisalin Stout: 20s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack (DMG is based on the equipping character's FP) that inflicts the Item Mark debuff to enemies hit for 5s and decreases their Crit Rate by 10% for 5s. If equipped in Reisalin Stout's third gear slot, she gains a special Anti-Air Gun (attacks from this Anti-Air Gun are not treated as Item attacks).",
     "id": "auxiliary-laute-plajig",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Limited-Edition Joint Exercise Coin",
@@ -14297,7 +14658,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Limited-Edition Joint Exercise Coin: Decreases the ship equipping this item's cannon DMG taken from Sardegna Empire, Iris Libre, and Vichya Dominion ships by 3%.",
     "id": "auxiliary-limited-edition-joint-exercise-coin",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Little Beaver Squadron Tag",
@@ -14310,7 +14672,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Beaver Squad: Increases your entire fleet's Speed by 20%.",
     "id": "auxiliary-little-beaver-squadron-tag",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Master Detective's Hat",
@@ -14322,7 +14685,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Master Detective's Hat: When equipped to Essex: during battle, increases this ship's ACC by 30.",
     "id": "auxiliary-master-detective-s-hat",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Master of Laughter",
@@ -14334,7 +14698,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Master of Laughter: Changes the BGM when equipped. If other gear that changes the BGM is active simultaneously, only a randomly chosen one will take effect.",
     "id": "auxiliary-master-of-laughter",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Michael",
@@ -14346,7 +14711,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Michael: Changes the combat BGM to DATE A LANE Theme BGM when equipped. If additional gear that changes the BGM is equipped at the same time, only a randomly chosen one will take effect.",
     "id": "auxiliary-michael",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "More-y Glory Aura Booster",
@@ -14358,7 +14724,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "More-y Glory Aura Booster: The wearer emits a special, charismatic aura during battle.",
     "id": "auxiliary-more-y-glory-aura-booster",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "My Precious Whale",
@@ -14370,7 +14737,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "My Precious Whale: Changes the battle BGM when equipped. If there are several BGM-altering gear equipped at the same time, only one will apply at random.",
     "id": "auxiliary-my-precious-whale",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Mystic Robe",
@@ -14383,7 +14751,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Evasion Up: When equipped by an Atelier Ryza collab character: increases all your Atelier Ryza collab characters' Evasion Rate by 3% for 50s. If Elixir and this equipment are equipped together: when the battle starts, activates \"Core Drive - Angelic Embrace\" and deploys a barrier around the frontmost ship in your Vanguard (barrier lasts 20s and can negate DMG equal to 5% of the equipping character's max HP).",
     "id": "auxiliary-mystic-robe",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "N/A",
@@ -14396,7 +14765,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Infinite Explosion: When equipped by an Atelier Ryza collab character: 40s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack that inflicts the Item Mark debuff to enemies hit for 5s and increases their damage taken by 5% for 10s. If Reisalin Stout is in the fleet, and when equipped with Apocalypse: activates \"Core Drive - Testament Meteor\" 50s after the battle starts",
     "id": "auxiliary-n-a",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Nautical Telescope",
@@ -14454,7 +14824,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "\"The Royal Navy expects that every soldier will do their duty.\" Pennant of Victory: After the battle starts: for 6s, the ship with this gear equipped absorbs 24% of the DMG taken by the ship in the frontmost position of your Vanguard.",
     "id": "auxiliary-nelson-s-pennant-of-victory",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Ninjutsu Scroll",
@@ -14467,7 +14838,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Ninjutsu Scroll: When equipped by a Senran Kagura collab character: 30s after the battle starts, fires a special barrage from your Vanguard's frontmost ship (DMG is based on the FP stat of the ship equipping this gear; if equipped by a Senran Kagura submarine: performs this special barrage when the submarines enter the battle (Ingame states at the start of the battle) instead).",
     "id": "auxiliary-ninjutsu-scroll",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "NY City Coast Recon Report",
@@ -14519,7 +14891,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Panacea Sphere: When equipped by an Atelier Yumia collab character: 40s after the battle starts, activates the Item effect. Item effect: restores 1% of your Vanguard's HP (Mana Flow can improve this effect into: restores 2.5% of your Vanguard's HP and additionally restores 40 HP for the ship with the lowest current HP in your Vanguard).",
     "id": "auxiliary-panacea-sphere",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Pearl Tears",
@@ -14531,7 +14904,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Pearl Tears: Heals all friendlies for 10% of their max HP when the ship with this item sinks.",
     "id": "auxiliary-pearl-tears",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Plum-Petal Poetry",
@@ -14555,7 +14929,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Memphis' Blues: When equipped by a particular character: 20s after the battle starts, deploys a barrier (lasts 20s) around a random ship in your Vanguard that can negate DMG equal to 2% max HP.",
     "id": "auxiliary-precious-handkerchief",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Pressure-Resistant Hull Design",
@@ -14581,7 +14956,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Protocol Zero Key: When the wearer takes DMG: increases the wearer's DMG dealt by 3% and DMG taken by 1% for 20s (30s cooldown between activations).",
     "id": "auxiliary-protocol-zero-key",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Pyoko-Pyoko",
@@ -14594,7 +14970,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Kizuna AI's headband. It's a flippy-floppy wing-dang-doodle of a honkin' good time that goes on your head. Adds an additional KizunaAI nationality to the equipped ship. Original nationality still applies.",
     "id": "auxiliary-pyoko-pyoko",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Rammer",
@@ -14634,7 +15011,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "A helpful tool for planning. Rumor has it, when the moon is full, the seas are clear, and the time is right, it will speak to you...? Adds random Kizuna AI weapon skins to your equipment during sorties. Only applies to KizunaAI ships.",
     "id": "auxiliary-random-word-generator",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Realm of Oneiric Snow",
@@ -14647,7 +15025,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "An expertly crafted snow globe. The snowflakes inside flutter around beautifully when you shake it. Realm of Oneiric Snow: Creates a snowy landscape when equipped by Anchorage or Little Anchorage.",
     "id": "auxiliary-realm-of-oneiric-snow",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Repair Toolkit",
@@ -14716,7 +15095,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "RPG Adventure Interface: Grants a strange power during battle. At the start of the battle, activates one of the following effects chosen at random: 15s after battle begins, flagship fires a special barrage (DMG scales on total Fleet Power). Increases all stats (FP, TRP, AA, AVI, RLD, ACC, EVA) of entire fleet by 1% per different faction in the fleet. FFNF and MNF are treated as one combined faction; META is treated as a separate faction; Tulipa, Tempesta and Collab ships don't count. Every 35s, heals the Vanguard Fleet for 1% of their max Health. Note: When equipping 2 of these on different ships, they roll independently, in case they roll the same effect, the heal stacks, the stat buffs stack (max 10 stacks), the barrage does not stack.",
     "id": "auxiliary-rpg-adventure-interface",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Rum Keg",
@@ -14728,7 +15108,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Rum Keg: Once per battle, when the wearer has taken a total of 5% of her max HP in DMG: for 15s, decreases the wearer's ACC by 1% and increases her DMG dealt by 5%.",
     "id": "auxiliary-rum-keg",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Sacred Lumière",
@@ -14767,7 +15148,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "I hope this letter finds you well, Commander – from Unzen. Sakuran Summons: When equipped by a non-Sakura Empire ship who's sortied with Unzen, activates the following effects: 1) When the battle starts, increases this ship's SPD by 5 for 8s and deploys a shield (lasting 8s; can negate up to 6 enemy shells); 2) When the battle starts, for 30s, increases this ship's DMG dealt with HE ammo by 5%.",
     "id": "auxiliary-sakuran-summons",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Sales Boosta-Bot",
@@ -14780,7 +15162,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Sales Boosta-Bot: When the battle starts: increases the wearer's ACC by 3.5% for 50s.",
     "id": "auxiliary-sales-boosta-bot",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Sea of Stars Area B20 Access Pass",
@@ -14793,7 +15176,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Sea of Stars Area B20 Access Pass: When equipped by Princeton or Princeton META: 8s after her airstrike finishes loading, launches an interceptive airstrike.",
     "id": "auxiliary-sea-of-stars-area-b20-access-pass",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Seal of the Four Gods",
@@ -14818,7 +15202,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Sephira Crystal: When equipped by a ship: treats that ship as a Date A Live collab unit.",
     "id": "auxiliary-sephira-crystal",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "SG Radar",
@@ -14858,7 +15243,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Shining Bracelet: When equipped by a The Idolmaster collab ship: at the start of the battle, for 76s, decreases said ship's DMG taken by 5%.",
     "id": "auxiliary-shining-bracelet",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Shinobi Attire",
@@ -14870,7 +15256,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Shinobi Attire: The ship equipping this gear is treated as a Senran Kagura collab character.",
     "id": "auxiliary-shinobi-attire",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Shinobi Medal",
@@ -14883,7 +15270,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Shinobi Medal: Changes the battle music when equipped. If additional gear that changes the battle music is active at the same time, only a randomly chose n one will take effect.",
     "id": "auxiliary-shinobi-medal",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Ship Maintenance Crane",
@@ -14910,7 +15298,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Sky Vitter: When equipped by Rikka Takarada: improves the attack pattern of her Slash & Circus skill, and replaces her Anti-Air Gun with a Special Anti-Air Gun.",
     "id": "auxiliary-sky-vitter",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Sneaky-Stealthy Prowler",
@@ -14923,7 +15312,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Sneaky-Stealthy Prowler: Once per battle, when the wearer has taken DMG equal to a total of 25% of her max HP: the wearer enters Stealth mode and evades all attacks for 1.5s.",
     "id": "auxiliary-sneaky-stealthy-prowler",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Speedy Sprouty Botanist",
@@ -14935,7 +15325,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Speedy Sprouty Botanist: Might make the enemy grow a little bigger.",
     "id": "auxiliary-speedy-sprouty-botanist",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Spooky Scary Specter",
@@ -14948,7 +15339,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Spooky Scary Specter: When the wearer fires her Main Guns: makes the mood kinda spooky.",
     "id": "auxiliary-spooky-scary-specter",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Steam Catapult",
@@ -14990,7 +15382,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Superior Grimoire: When equipped by Yumia Liessfeldt: decreases the loading time of this ship's first airstrike by 20% and, 25s after the battle starts, activates the Item effect. Item effect: performs a special attack (DMG is based on this ship's AVI stat; Mana Flow can improve this attack).",
     "id": "auxiliary-superior-grimoire",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Systemwide Bounty",
@@ -15003,7 +15396,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Systemwide Bounty: Reduces the wearer's Evasion Rate by 1%. Once per battle, when the wearer's HP falls beneath 80% as a result of DMG taken: negates the Evasion Rate reduction effect of this gear, and increases the entire fleet's ACC by 3% until the end of battle.",
     "id": "auxiliary-systemwide-bounty",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Team Emblem",
@@ -15016,7 +15410,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Team Emblem: When equipped by a Hololive ship: increases their DMG dealt by 3%.",
     "id": "auxiliary-team-emblem",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Tempesta Banner",
@@ -15041,7 +15436,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "The Vagabond: 5s after the start of battle, if all ships in the fleet are of different factions: reduces the entire fleet's DMG taken by 4% until the end of battle.",
     "id": "auxiliary-the-vagabond",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Type 1 Armor Piercing Shell",
@@ -15155,7 +15551,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "\"Our nations have resolved, with a view to accomplishing these purposes, to conclude a treaty to limit their respective naval armament.\" Naval Treaty: [Naval Exercise Gear; only 1 gear of this type will work if multiple are equipped] When equipped by your Flagship: decreases the DMG dealt by both sides' ships by 15%.",
     "id": "auxiliary-washington-naval-treaty",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "Watatsumi Research Notes",
@@ -15168,7 +15565,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Watatsumi Research Notes: The ship with this gear equipped deals 5% more DMG against META ships.",
     "id": "auxiliary-watatsumi-research-notes",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "White-Hot Verheerender",
@@ -15194,7 +15592,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Maximum Wind: When equipped by Reisalin Stout: 25s after the battle starts, performs an Item (Equipped \"Atelier Ryza\" Faction Gear) attack (DMG is based on the equipping character's FP) that inflicts the Item Mark debuff to enemies hit for 5s. If Grand Bomb, Crystal Ice Bomb, Laute Plajig, and this equipment are all equipped together: increases this ship's FP and TRP by 10% and activates \"Core Drive - Four-Star Aurora\" 30s after the battle starts.",
     "id": "auxiliary-wirbel-luft",
-    "rarity": "Super Rare"
+    "rarity": "Super Rare",
+    "unique": true
   },
   {
     "name": "World Expo Commemorative Ticket",
@@ -15207,7 +15606,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "Welcome to the closing ceremony of the World Expo! Buona giornata! World Expo Commemorative Ticket: Increases LCK by 2 when equipped on a ship.",
     "id": "auxiliary-world-expo-commemorative-ticket",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "World Expo Invitation",
@@ -15220,7 +15620,8 @@ const EQUIPMENT_DATA = [
     },
     "notes": "An exquisite invitation from Sardegna. Grants access to all exclusive VIP areas at the World Expo. If equipped on non-Sardegna Empire ship and Vittorio Veneto is in the same fleet: If equipped on a vanguard ship, increase ship's FP, TRP, and EVA by 10%. If equipped on a main fleet ship, increase ship's FP, AVI, and ACC by 8%.",
     "id": "auxiliary-world-expo-invitation",
-    "rarity": "Elite"
+    "rarity": "Elite",
+    "unique": true
   },
   {
     "name": "Z Flag",
