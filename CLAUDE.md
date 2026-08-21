@@ -2842,9 +2842,10 @@ after the final edit.
   carry such a qualifier. The wiki also writes the attack's own name into some triggers
   ("All Out Assault enhanced"), which is not a condition and is stripped first.
 
-  **One oddity that is the data, not the code**: Algérie META's barrage gets SMALLER after
-  the upgrade - `unenhanced 12x40` becomes `enhanced 8x25`, 408 -> 170. Reported as read
-  rather than "corrected"; if that is wrong it is wrong on the wiki.
+  **What looked like an oddity was a gap in the model.** Algérie META's barrage gets
+  SMALLER after the upgrade - `unenhanced 12x40` becomes `enhanced 8x25`, 408 -> 170 - and
+  it was reported here as "the data, not the code". The user corrected that: the enhanced
+  version gains a burn, which is why it is the upgrade. See the next section.
 
   Verified: Kumano 412.5 -> 776.4 across level 100 with her rows swapping and never
   stacking; Kronshtadt 3 -> 4 rows across level 30; **0 groups anywhere mix a barrage with
@@ -2860,6 +2861,55 @@ after the final edit.
   **Note for anything else level-dependent**: `setLevel` used to repaint only the stats
   table (which pulls the four combat figures with it). It now repaints the barrages too.
   Equipment and Skills still do not follow the level - nothing in them depends on it yet.
+
+  #### A barrage's burn is damage too (2026-08-21)
+
+  "C'est normal pour Algerie Meta, elle gagne un effet de brulure sur le barrage. Cela
+  ajoute 8/1.5*186 degats." The section above had filed her shrinking barrage as a wiki
+  quirk. It was not: her `effect` column reads **"100%: Inflicts Special Burn (186 DMG
+  with 1 tick every 1.5s for 8s, ID: 800871)"**, so the enhanced version trades 238 points
+  of direct damage for **992** of burn. The DMG columns never carry it, and the barrage
+  term was reading only those columns.
+
+  **Do not file a number as a data quirk before reading the row's other columns.** The
+  answer was in `effect`, one field along, on the same row.
+
+  `barrageDot()` reads the two shapes that occur - a scaling one, "DMG equal to 5 +
+  Barrage DMG * (1 + (FP / 100)) * 0.6", and a flat one, "186 DMG" - each written as a
+  per-tick figure with an interval and a duration, behind a chance prefix. It returns them
+  as terms in the same `{stat, multiplier, damage}` shape the row damage already uses,
+  because a scaling burn splits exactly into a flat part and a stat-scaled one, so nothing
+  downstream needed a second code path.
+
+  Three decisions worth keeping:
+  - **The chance is applied.** A 30% burn counts for 30% of its total. Kumano's is an 8%
+    Standard Burn, so it contributes 2.0 flat plus 7.2 scaled, not 25 and 91.
+  - **A burn of the same id does not stack, so it is counted once**, taking the largest of
+    the rows that apply it - Alsace writes id 150028 three times over. Different ids DO
+    stack, which is why Azuma's 311 and 357 both count.
+  - **Only Burn and Flood are read.** Armor Break, "increase DMG taken", a smokescreen
+    and the rest are debuffs on a target this app has never modelled.
+  Hass's row REMOVES burns rather than setting them, which the plain pattern would have
+  read backwards as damage; `BARRAGE_DOT_REMOVAL_RE` is there for that one row.
+
+  Coverage: **277 of the 282 rows** that mention a burn or a flood parse, 1 is the removal
+  above, and **4 are left deliberately unparsed** - all Shizuku, whose text reads "fixed
+  119 DMG every 3s, decreases FP, TRP, AVI by 5% for 30s". The 30s belongs to the debuff,
+  not to the burn, so the burn has no stated duration and guessing one would invent
+  damage.
+
+  Verified: Algérie META's burn parses to **992**, reproducing the user's own 8/1.5x186 to
+  the digit, and her barrage now reads 408 before the limit break and **1162** after -
+  the upgrade is an upgrade again. Kumano's scaling burn re-derived by hand
+  (0.08 x 5.033 ticks x 5 = 2.01 flat, x 30 x 0.6 = 7.25 scaled) and matching. Full
+  888-ship regression at 0 errors.
+
+  **Effect on the app is smaller than the parse count suggests, and the reason is worth
+  recording**: 104 of the 502 volley-barrage ships carry a burn *somewhere*, but most
+  carry it on a barrage that is not the volley-triggered one, so only **43 ships' DPS
+  figures move at all** (Yuudachi META +62, Algérie META +21, Azuma +16) and **2 change a
+  loadout slot**. Aggregate +0.02%. A count of rows parsed is not a count of figures
+  changed.
 
   **Still open on this thread**: the `equipped` family is read but still not *sought* -
   Optimize does not try to satisfy a gear condition. The user has already chosen how it

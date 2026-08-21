@@ -2048,6 +2048,62 @@ function barragesAtLevel(ship, rows, level) {
   return dropped.size ? rows.filter(row => !dropped.has(row)) : rows;
 }
 
+// A barrage row's `effect` can set a burn or a flood, which is real damage none of the
+// row's own DMG columns carry. Algérie META's enhanced barrage is SMALLER than the one
+// it replaces - 8x25 against 12x40 - and still the upgrade, because it sets a burn of
+// 186 DMG every 1.5s for 8s: 8/1.5 x 186, near a thousand damage the columns never show.
+//
+// Two shapes occur. A scaling one, "DMG equal to 5 + Barrage DMG * (1 + (FP / 100)) *
+// 0.6", and a flat one, "186 DMG". Both are written as a per-tick figure with an
+// interval and a duration, and both are prefixed by the chance of applying at all.
+// Everything else an effect can say - Armor Break, "increase DMG taken", a smokescreen -
+// is a debuff on a target this app never models, so only these two are read.
+const BARRAGE_DOT_RE = /(?:Standard|Special)\s+(?:Burn|Flood)/i;
+// Hass REMOVES burns rather than setting them, which the plain pattern would read
+// backwards as damage dealt.
+const BARRAGE_DOT_REMOVAL_RE = /\bremoves?\s+(?:standard|special)\s+(?:burn|flood)/i;
+const BARRAGE_DOT_CHANCE_RE = /^\s*(\d+(?:\.\d+)?)\s*%\s*:/;
+// The interval is written "every 3 seconds", "every 1.5s", or just "every second".
+const BARRAGE_DOT_SCALED_RE = /DMG equal to\s+([\d.]+)\s*\+\s*Barrage DMG\s*\*\s*\(1\s*\+\s*\((FP|TRP|AVI|AA|ASW)\s*\/\s*100\)\)\s*\*\s*([\d.]+)[^)]*?every\s*([\d.]+)?\s*(?:s\b|seconds?)[^)]*?for\s+([\d.]+)\s*s/i;
+const BARRAGE_DOT_FLAT_RE = /\(\s*([\d.]+)\s+DMG[^)]*?every\s*([\d.]+)?\s*(?:s\b|seconds?)[^)]*?for\s+([\d.]+)\s*s/i;
+const BARRAGE_DOT_ID_RE = /ID:\s*(\d+)/i;
+const DOT_STAT_KEY = { FP: "firepower", TRP: "torpedo", AVI: "aviation", AA: "antiair", ASW: "asw" };
+
+// Returns the burn as terms in the same shape the row damage uses, so it needs no
+// separate handling downstream: a scaling burn splits cleanly into a flat part and a
+// stat-scaled one, and a flat burn is all flat. The chance is applied here, so a 30%
+// burn counts for 30% of its total - counting a chance-gated burn in full would flatter
+// whichever ships happen to have one.
+function barrageDot(row) {
+  const effect = String(row.effect || "");
+  if (!BARRAGE_DOT_RE.test(effect) || BARRAGE_DOT_REMOVAL_RE.test(effect)) return null;
+  const chanceMatch = BARRAGE_DOT_CHANCE_RE.exec(effect);
+  const chance = chanceMatch ? Number(chanceMatch[1]) / 100 : 1;
+  const idMatch = BARRAGE_DOT_ID_RE.exec(effect);
+  let flat = 0, scaled = null, interval, duration;
+  const s = BARRAGE_DOT_SCALED_RE.exec(effect);
+  if (s) {
+    interval = Number(s[4]) || 1;
+    duration = Number(s[5]);
+    flat = Number(s[1]);
+    scaled = { stat: DOT_STAT_KEY[s[2].toUpperCase()], damage: (Number(row.baseDmg) || 0) * Number(s[3]) };
+  } else {
+    const f = BARRAGE_DOT_FLAT_RE.exec(effect);
+    if (!f) return null;
+    interval = Number(f[2]) || 1;
+    duration = Number(f[3]);
+    flat = Number(f[1]);
+  }
+  if (!interval || !duration) return null;
+  const ticks = chance * (duration / interval);
+  const terms = [];
+  if (flat) terms.push({ stat: null, multiplier: 0, damage: flat * ticks });
+  if (scaled && scaled.stat && scaled.damage) terms.push({ stat: scaled.stat, multiplier: 1, damage: scaled.damage * ticks });
+  if (!terms.length) return null;
+  // No id means nothing to key the no-stacking rule on, so the effect text stands in.
+  return { id: idMatch ? idMatch[1] : effect, terms, size: terms.reduce((a, t) => a + t.damage, 0) };
+}
+
 const volleyBarrageCache = new Map();
 
 // The barrage rows belonging to a skill, found by running the existing row-to-skill
@@ -2068,12 +2124,28 @@ function volleyBarrage(ship, level) {
     const n = Number(m[2] || m[1]);
     if (!n) continue;
     const mine = rows.filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
-    // One share per alternative: summing every qualifier would credit the ship with a
-    // barrage she can only fire one version of.
-    const alternatives = new Set(mine.map(barrageQualifier)).size || 1;
     const terms = new Map();
     let damage = 0;
+    const addTerm = (stat, multiplier, amount) => {
+      if (!amount) return;
+      const key = stat + "|" + multiplier;
+      const term = terms.get(key) || { stat, multiplier: Number(multiplier) || 0, damage: 0 };
+      term.damage += amount;
+      terms.set(key, term);
+      damage += amount;
+    };
+    // Rows sharing a qualifier are one pattern; different qualifiers are alternatives
+    // the ship picks between, so each gets a share rather than all of them being summed.
+    const byQualifier = new Map();
     for (const b of mine) {
+      const q = barrageQualifier(b);
+      if (!byQualifier.has(q)) byQualifier.set(q, []);
+      byQualifier.get(q).push(b);
+    }
+    const share = 1 / (byQualifier.size || 1);
+    for (const group of byQualifier.values()) {
+    const dots = new Map();
+    for (const b of group) {
       // A row is only counted when it plainly belongs to this trigger. Rows whose name
       // carries a qualifier past the skill name do not: they are alternatives rather
       // than components (Asuka fires ONE of "New Link Chance! (Variant 1..5)", not all
@@ -2097,14 +2169,19 @@ function volleyBarrage(ship, level) {
       const armour = [b.lightDmg, b.mediumDmg, b.heavyDmg].map(Number).filter(v => Number.isFinite(v));
       const rowDamage = (armour.length
         ? armour.reduce((a, c) => a + c, 0) / armour.length
-        : (Number(b.count) || 0) * (Number(b.baseDmg) || 0)) / alternatives;
-      if (!rowDamage) continue;
-      damage += rowDamage;
+        : (Number(b.count) || 0) * (Number(b.baseDmg) || 0)) * share;
       const scaling = b.statScaling || {};
-      const key = scaling.stat + "|" + scaling.multiplier;
-      const term = terms.get(key) || { stat: scaling.stat, multiplier: Number(scaling.multiplier) || 0, damage: 0 };
-      term.damage += rowDamage;
-      terms.set(key, term);
+      addTerm(scaling.stat, scaling.multiplier, rowDamage);
+      // A burn of a given id refreshes rather than stacks, so a barrage that applies
+      // the same one from several rows still only burns once - Alsace writes id 150028
+      // three times over. Different ids are different effects and do stack, which is
+      // why Azuma's 311 and 357 both count.
+      const dot = barrageDot(b);
+      if (dot && (!dots.has(dot.id) || dots.get(dot.id).size < dot.size)) dots.set(dot.id, dot);
+    }
+    for (const dot of dots.values()) {
+      for (const t of dot.terms) addTerm(t.stat, t.multiplier, t.damage * share);
+    }
     }
     if (damage > 0 && (!best || damage / n > best.damage / best.n)) {
       best = { n, damage, terms: [...terms.values()] };
