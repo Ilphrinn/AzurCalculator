@@ -1263,6 +1263,101 @@ main {
   display: none;
 }
 
+.equip-info-tooltip {
+  position: fixed;
+  z-index: 250;
+  width: 20rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--equip-tile-color, var(--accent));
+  background: var(--bg-elevated);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.equip-info-tooltip[hidden] {
+  display: none;
+}
+
+.equip-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.equip-info-icon {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 2px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--equip-tile-color) 16%, var(--bg));
+  border: 1px solid color-mix(in srgb, var(--equip-tile-color) 55%, transparent);
+}
+
+.equip-info-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.equip-info-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.equip-info-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--equip-tile-color, var(--text));
+}
+
+.equip-info-rarity {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.equip-info-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.equip-info-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--equip-tile-color) 14%, var(--bg));
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.equip-info-stat-icon {
+  width: 12px;
+  height: 12px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.equip-info-notes {
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--border);
+}
+
+.equip-info-notes[hidden] {
+  display: none;
+}
+
 .modal-subsection-hint {
   text-transform: none;
   letter-spacing: normal;
@@ -1274,6 +1369,12 @@ main {
   font-size: 0.72rem;
   font-weight: 700;
   color: var(--accent);
+}
+
+.stat-delta-equip {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
 }
 
 .stats-and-modifiers {
@@ -1301,8 +1402,8 @@ main {
   padding: 0.25rem 0.55rem;
   border-radius: 999px;
   background: var(--bg);
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  border: 1px solid var(--accent);
+  color: var(--accent);
 }
 
 .combat-modifier-pill.has-target {

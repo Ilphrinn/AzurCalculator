@@ -574,12 +574,18 @@ function applyFilters(list) {
   });
 }
 
+// Diacritics stripped on both sides so "agir" finds "Ägir" - NFD splits a letter
+// from its own combining accent mark, which the U+0300-U+036F range then removes.
+function foldAccents(str) {
+  return str.normalize("NFD").replace(new RegExp("[\u0300-\u036f]", "g"), "");
+}
+
 function applySearch(list) {
-  const q = searchEl.value.trim().toLowerCase();
-  const qClass = searchClassEl.value.trim().toLowerCase();
+  const q = foldAccents(searchEl.value.trim().toLowerCase());
+  const qClass = foldAccents(searchClassEl.value.trim().toLowerCase());
   let result = list;
-  if (q) result = result.filter(s => s.displayName.toLowerCase().includes(q));
-  if (qClass) result = result.filter(s => (s.class || "").toLowerCase().includes(qClass));
+  if (q) result = result.filter(s => foldAccents(s.displayName.toLowerCase()).includes(q));
+  if (qClass) result = result.filter(s => foldAccents((s.class || "").toLowerCase()).includes(qClass));
   return result;
 }
 
@@ -806,6 +812,32 @@ const modalInteractionList = document.getElementById("modal-interaction");
 const modalInteractionMaxToggle = document.getElementById("modal-interaction-max-toggle");
 const gifPreview = placeImage("gif-preview", "gif-preview", document.body, null, true);
 
+const equipInfoTooltip = document.createElement("div");
+equipInfoTooltip.className = "equip-info-tooltip";
+equipInfoTooltip.hidden = true;
+
+const equipInfoHeader = document.createElement("div");
+equipInfoHeader.className = "equip-info-header";
+const equipInfoIconWrap = document.createElement("div");
+equipInfoIconWrap.className = "equip-info-icon";
+const equipInfoTitle = document.createElement("div");
+equipInfoTitle.className = "equip-info-title";
+const equipInfoName = document.createElement("div");
+equipInfoName.className = "equip-info-name";
+const equipInfoRarity = document.createElement("div");
+equipInfoRarity.className = "equip-info-rarity";
+equipInfoTitle.append(equipInfoName, equipInfoRarity);
+equipInfoHeader.append(equipInfoIconWrap, equipInfoTitle);
+
+const equipInfoStats = document.createElement("div");
+equipInfoStats.className = "equip-info-stats";
+
+const equipInfoNotes = document.createElement("div");
+equipInfoNotes.className = "skill-desc equip-info-notes";
+
+equipInfoTooltip.append(equipInfoHeader, equipInfoStats, equipInfoNotes);
+document.body.appendChild(equipInfoTooltip);
+
 let currentShip = null;
 let currentSkinIndex = 0;
 let currentLevel = 1;
@@ -965,10 +997,17 @@ const COMBAT_MODIFIER_LABELS = {
   damageDealt: "DMG Dealt",
   weaponEfficiency: "Weapon Efficiency",
   hitRate: "Hit Rate",
-  evasionRate: "Evasion Rate"
+  evasionRate: "Evasion Rate",
+  damageTaken: "DMG Taken"
 };
 
-const MODIFIER_TERM_RE = /\b(?:DMG dealt|damage dealt|DMG|damage|crit(?:ical)?(?:\s+(?:rate|dmg|damage))?|evasion rate|hit rate|accuracy|efficiency)\b/gi;
+// The one modifier that is a reduction rather than a gain: a "DMG Taken" bonus is
+// captured as a positive magnitude ("decreases ... by 15%" -> amount 15), but showing
+// it with the same leading "+" every other pill uses would read as MORE damage taken,
+// the opposite of what the skill does.
+const REDUCTION_MODIFIER_KEYS = new Set(["damageTaken"]);
+
+const MODIFIER_TERM_RE = /\b(?:DMG dealt|damage dealt|DMG taken|damage taken|DMG|damage|crit(?:ical)?(?:\s+(?:rate|dmg|damage))?|evasion rate|hit rate|accuracy|efficiency)\b/gi;
 
 // A qualifier's "source" half only counts if it names a weapon from this list.
 // That is what rejects possessives ("this boat's", "Tirpitz's") and other stats
@@ -1004,7 +1043,7 @@ const MODIFIER_TARGET_RE = /^(?:to|against|with|from|for|while|during|when|vs\.?
 function modifierQualifier(raw) {
   const phrase = (raw || "")
     .replace(/\s*\bby\s+[-+\d.]+\s*%?[\s\S]*$/i, "")
-    .replace(/^\s*(?:increase[sd]?|raise[sd]?|boost(?:s|ed)?)\s+/i, "")
+    .replace(/^\s*(?:increase[sd]?|decrease[sd]?|raise[sd]?|boost(?:s|ed)?)\s+/i, "")
     .replace(/^\s*(?:this ship(?:'s)?|this character(?:'s)?|this boat(?:'s)?|her|his|its|their|own|the)\s+/i, "")
     .trim();
 
@@ -1052,18 +1091,19 @@ function modifierLabel(modifier) {
 
 // raw drops whatever gated the bonus, and that gate is often the real precision
 // ("Once per battle, when this barrage scores a total of 3 hits: ..."). So the
-// tooltip quotes the whole sentence the number came from, at max skill level to
-// match the figure on the pill.
+// tooltip quotes the whole sentence the number came from, at whichever skill level
+// this skill's own Max Level toggle is currently showing, to match the pill's figure.
 function modifierSourceText(entry) {
+  const atMax = isSkillAtMaxLevel(entry.skill);
   const text = stripHtml(entry.skill.description || "").replace(/\s+/g, " ").trim();
   const needle = (entry.raw || "").replace(/\s+/g, " ").trim();
   const at = text.toLowerCase().indexOf(needle.toLowerCase());
-  if (at < 0) return `${entry.skill.name} — ${renderLevelValues(needle, true)}`;
+  if (at < 0) return `${entry.skill.name} — ${renderLevelValues(needle, atMax)}`;
   const start = text.lastIndexOf(". ", at);
   let end = text.indexOf(". ", at + needle.length);
   end = end < 0 ? text.length : end + 1;
   const sentence = text.slice(start < 0 ? 0 : start + 2, end).trim();
-  return `${entry.skill.name} — ${renderLevelValues(sentence, true)}`;
+  return `${entry.skill.name} — ${renderLevelValues(sentence, atMax)}`;
 }
 
 // statBonuses[].scope was auto-extracted from skill text by a one-off script and is
@@ -1077,10 +1117,207 @@ function modifierSourceText(entry) {
 const SELF_LANGUAGE_RE = /\b(this ship('s)?|her own|own)\b/i;
 const OTHER_SHIPS_TARGET_RE = /\byour\s+(DDs?|CLs?|CAs?|CBs?|BBs?|BCs?|CVs?|CVLs?|SSs?|SSVs?|Vanguard|Main Fleet|fleet)\b/i;
 
-// Skill bonuses only. There is NO equipment, Meowfficer or Fleet Tech contribution
-// here yet, and conditions are assumed met - a skill that needs a CV in the fleet
-// is counted as active. Follows the wiki's CurrentScalingStat formula from the
-// Damage Calculations page.
+// Some skills grant a bonus only while a particular kind of gear is equipped, and a
+// few grant a DIFFERENT bonus depending on which branch applies - "If equipped with a
+// Sakura Empire aircraft: AVI/ACC... If not equipped with any Sakura Empire aircraft:
+// AA/ACC... instead" (Hakuryuu's "The Great One's Shadow"). Summing every self bonus
+// unconditionally, as this whole section otherwise does, would double-count both
+// branches at once now that equipped gear is real data instead of an unknown. 25
+// skills in the dataset carry an "equipped with X" clause governing a self bonus
+// (surveyed with a node -e scan over ships.json before writing this).
+//
+// A condition this cannot confidently parse is left ungated (returns true) rather
+// than excluded - this only ADDS precision for the shapes recognised below, it never
+// takes away a bonus that used to count under the old "assumed met" behaviour.
+const AIRCRAFT_CATEGORIES = ["Fighter", "Seaplane", "Dive Bomber", "Torpedo Bomber"];
+const GUN_CATEGORY_SUFFIX_RE = /Gun$/;
+
+function shipGunSlotKeys(ship) {
+  const slots = ship.equipment || {};
+  return Object.keys(slots)
+    .sort((a, b) => a - b)
+    .filter(k => GUN_TYPE_CODES.has((slots[k].type || [])[0]));
+}
+
+function shipActiveEquippedItems(ship, categories) {
+  const slots = ship.equipment || {};
+  const items = [];
+  for (const [key, slot] of Object.entries(slots)) {
+    const item = activeEquipmentForSlot(ship, key, slot);
+    if (item && (!categories || categories.includes(item.category))) items.push(item);
+  }
+  return items;
+}
+
+function equipCaliberMm(item) {
+  const m = /(\d+)\s*mm/i.exec(item.name || "");
+  return m ? Number(m[1]) : null;
+}
+
+function resolveEquipNationTerm(text) {
+  const t = text.trim();
+  return ALL_NATION_TERMS.find(n => n.toLowerCase() === t.toLowerCase())
+    || ALL_NATION_TERMS.find(n => new RegExp(`\\b${escapeRegExp(n)}\\b`, "i").test(t));
+}
+
+// A skill's own text is the only source for a catalog item name ("the Quadruple 380mm
+// (Mle 1935) gun", "an F6F Hellcat"), and it does not always spell the name the way
+// the catalog does - the catalog keeps "Grumman"/"Consolidated" prefixes the skill
+// text drops - so this checks both directions instead of assuming the catalog name is
+// a literal substring of the skill text.
+function equipTargetNamesCatalogItem(strippedTarget) {
+  if (strippedTarget.length < 5) return null;
+  const needle = strippedTarget.toLowerCase();
+  return EQUIPMENT_DATA.find(item => {
+    const name = item.name.toLowerCase();
+    return name.includes(needle) || needle.includes(name);
+  }) || null;
+}
+
+function equipConditionClauseForRaw(plainText, raw) {
+  if (!raw) return null;
+  const lower = plainText.toLowerCase();
+  const idx = lower.indexOf(raw.toLowerCase().trim());
+  if (idx < 0) return null;
+  let sentStart = plainText.lastIndexOf(". ", idx);
+  sentStart = sentStart < 0 ? 0 : sentStart + 2;
+  const clause = plainText.slice(sentStart, idx);
+  return /equipped|otherwise/i.test(clause) ? clause : null;
+}
+
+// clause is everything from the sentence start up to (not including) the bonus's own
+// raw text - "otherwise" only ever shows up in that span when it is negating an equip
+// condition stated earlier in the SAME sentence (Gneisenau META), never the bonus's
+// own condition, so its mere presence is enough to flip negate without needing to
+// re-parse which branch it belongs to.
+function parseEquipCondition(clause) {
+  const equipMatch = /equipped\s+with\s+((?:at least one\s+)?(?:a|an|the|any)?\s*[^,:;.]+)/i.exec(clause);
+  if (!equipMatch) return null;
+  const negate = /\botherwise\b/i.test(clause) || /\bnot\s+equipped\b|\bisn'?t\s+equipped\b/i.test(clause);
+  const rawTarget = equipMatch[1]
+    .replace(/^(?:at least one|a|an|the|any)\s+/i, "")
+    .replace(/\bhigh[- ]explosive\b/gi, "HE")
+    .replace(/\bsemi[- ]armor[- ]piercing\b/gi, "SAP")
+    .replace(/\barmor[- ]piercing\b/gi, "AP")
+    .trim();
+
+  // Béarn and Seattle point at a specific SLOT rather than "her" gear in general, so
+  // the target category has to be checked against that one slot, not the ship's
+  // Main Gun (the default every other shape below assumes).
+  if (/third slot/i.test(clause)) {
+    const wantDiveBomber = /dive bomber/i.test(rawTarget);
+    return { negate, test: ship => {
+      const item = activeEquipmentForSlot(ship, "3", (ship.equipment || {})["3"]);
+      if (!item) return false;
+      return wantDiveBomber ? item.category === "Dive Bomber" : GUN_CATEGORY_SUFFIX_RE.test(item.category);
+    } };
+  }
+  if (/secondary weapon slot/i.test(clause)) {
+    // Seattle (the only ship with this phrasing) has her "Secondary Weapon slot" typed
+    // as a plain AA slot (code 6) in the data, so shipGunSlotKeys() - which only looks
+    // at gun-type codes - can never find it; it is always the ship's physical slot "2".
+    const wantAA = /anti-air gun/i.test(rawTarget);
+    return { negate, test: ship => {
+      const item = activeEquipmentForSlot(ship, "2", (ship.equipment || {})["2"]);
+      if (!item) return false;
+      return wantAA ? /AA/i.test(item.category) : GUN_CATEGORY_SUFFIX_RE.test(item.category) && !/AA/i.test(item.category);
+    } };
+  }
+
+  // Nation-restricted gun of a specific hull category, e.g. Kitakaze's "an IJN
+  // (Sakura Empire) DD Gun" - the nation sits in a parenthetical alias here, so that
+  // is tried before falling back to a plain nation name elsewhere in the target.
+  const gunCategoryNames = ["DD Gun", "CL Gun", "CA Gun", "BB Gun", "CB Gun"];
+  const gunCategory = gunCategoryNames.find(c => new RegExp(`\\b${c}\\b`, "i").test(rawTarget));
+  if (gunCategory) {
+    const paren = /\(([^)]+)\)/.exec(rawTarget);
+    const nation = (paren && resolveEquipNationTerm(paren[1]))
+      || resolveEquipNationTerm(rawTarget.replace(new RegExp(gunCategory, "i"), ""));
+    if (nation) {
+      return { negate, test: ship => shipActiveEquippedItems(ship, [gunCategory]).some(i => i.nation === nation) };
+    }
+  }
+
+  if (/high[- ]?caliber/i.test(rawTarget)) {
+    const mmMatch = /(\d+)\s*mm/i.exec(rawTarget);
+    const threshold = mmMatch ? Number(mmMatch[1]) : 280;
+    return { negate, test: ship => {
+      const key = shipGunSlotKeys(ship)[0];
+      if (key == null) return false;
+      const item = activeEquipmentForSlot(ship, key, ship.equipment[key]);
+      const mm = item && equipCaliberMm(item);
+      return mm != null && mm >= threshold;
+    } };
+  }
+
+  const ammoTypes = rawTarget.match(/\b(Normal|AP|HE|SAP)\b/gi);
+  if (ammoTypes && /main gun/i.test(rawTarget)) {
+    const wanted = new Set(ammoTypes.map(a => a.toUpperCase()));
+    return { negate, test: ship => {
+      const key = shipGunSlotKeys(ship)[0];
+      if (key == null) return false;
+      const item = activeEquipmentForSlot(ship, key, ship.equipment[key]);
+      return !!item && wanted.has((item.ammoType || "").toUpperCase());
+    } };
+  }
+
+  let m = /aircraft\b/i.test(rawTarget) && /^([\w\s]+?)\s+aircraft\b/i.exec(rawTarget);
+  if (m) {
+    const nation = resolveEquipNationTerm(m[1]);
+    if (nation) {
+      return { negate, test: ship => shipActiveEquippedItems(ship, AIRCRAFT_CATEGORIES).some(i => i.nation === nation) };
+    }
+  }
+
+  m = /gear\b/i.test(rawTarget) && /^([\w\s]+?)\s+gear\b/i.exec(rawTarget);
+  if (m) {
+    const nation = resolveEquipNationTerm(m[1]);
+    if (nation) {
+      return { negate, test: ship => shipActiveEquippedItems(ship, null).some(i => i.nation === nation) };
+    }
+  }
+
+  m = /main gun\b/i.test(rawTarget) && /^([\w\s,]+?)\s+main gun\b/i.exec(rawTarget);
+  if (m) {
+    const nations = m[1].split(/\s*,\s*|\s+or\s+/i).map(resolveEquipNationTerm).filter(Boolean);
+    if (nations.length) {
+      return { negate, test: ship => {
+        const key = shipGunSlotKeys(ship)[0];
+        if (key == null) return false;
+        const item = activeEquipmentForSlot(ship, key, ship.equipment[key]);
+        return !!item && nations.includes(item.nation);
+      } };
+    }
+  }
+
+  // Fuzzy named-item match, tried last since it is the least exact: a bare category
+  // word ("gun", "aircraft") would otherwise risk matching some unrelated catalog name
+  // that happens to share a short substring with it.
+  const isGenericCategoryPhrase = /^(gun|main gun|dive bomber|aircraft|gear|anti-air gun)$/i.test(rawTarget);
+  if (!isGenericCategoryPhrase) {
+    const named = equipTargetNamesCatalogItem(rawTarget);
+    if (named) {
+      const needle = named.name.toLowerCase();
+      return { negate, test: ship => shipActiveEquippedItems(ship, null).some(i => i.name.toLowerCase() === needle) };
+    }
+  }
+
+  return null;
+}
+
+function equipConditionAllows(ship, plainText, raw) {
+  const clause = equipConditionClauseForRaw(plainText, raw);
+  if (!clause) return true;
+  const parsed = parseEquipCondition(clause);
+  if (!parsed) return true;
+  const result = parsed.test(ship);
+  return parsed.negate ? !result : result;
+}
+
+// Skill bonuses, plus flat stat contributions from equipped gear (equipFlat below).
+// No Meowfficer or Fleet Tech data exists here. Conditions are assumed met UNLESS the
+// condition is specifically about equipped gear (equipConditionAllows above) - that is
+// the one category this app can actually check against a real loadout, so it does.
 // Note this "conditions assumed met" stance is deliberately NOT shared with the
 // Interaction section, which excludes conditionally gated buffs entirely.
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) {
@@ -1096,14 +1333,19 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
   const seenRaw = new Set();
 
   for (const skill of skills) {
+    const plainDesc = skill.description ? stripHtml(skill.description) : "";
     for (const b of (skill.statBonuses || [])) {
       const isSelfScoped = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
       if (!isSelfScoped) continue;
       if (b.raw && OTHER_SHIPS_TARGET_RE.test(b.raw)) continue;
+      if (!equipConditionAllows(ship, plainDesc, b.raw)) continue;
       const dedupeKey = `${skill.name}::${b.raw}::${b.min}::${b.max}`;
       if (seenRaw.has(dedupeKey)) continue;
       seenRaw.add(dedupeKey);
-      const amount = typeof b.max === "number" ? b.max : b.min;
+      const atMax = isSkillAtMaxLevel(skill);
+      const amount = atMax
+        ? (typeof b.max === "number" ? b.max : b.min)
+        : (typeof b.min === "number" ? b.min : b.max);
       if (typeof amount !== "number") continue;
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
@@ -1184,10 +1426,20 @@ function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
     if (delta) {
       cell.title = statBreakdownText(def.label, entry);
       value.appendChild(document.createTextNode(formatStatValue(baseRaw)));
-      const deltaEl = document.createElement("span");
-      deltaEl.className = "stat-delta";
-      deltaEl.textContent = delta > 0 ? `+${delta}` : `${delta}`;
-      value.appendChild(deltaEl);
+      const equipDelta = entry.equip || 0;
+      const skillDelta = delta - equipDelta;
+      if (equipDelta) {
+        const equipEl = document.createElement("span");
+        equipEl.className = "stat-delta-equip";
+        equipEl.textContent = equipDelta > 0 ? `+${equipDelta}` : `${equipDelta}`;
+        value.appendChild(equipEl);
+      }
+      if (skillDelta) {
+        const deltaEl = document.createElement("span");
+        deltaEl.className = "stat-delta";
+        deltaEl.textContent = skillDelta > 0 ? `+${skillDelta}` : `${skillDelta}`;
+        value.appendChild(deltaEl);
+      }
       const realEl = document.createElement("span");
       realEl.className = "stat-grid-real";
       realEl.textContent = ` (${entry.value})`;
@@ -1262,6 +1514,25 @@ function equipmentSlotTypes(slot) {
   return [...new Set((slot.type || []).map(code => EQUIPMENT_TYPE_NAMES[code]).filter(Boolean))];
 }
 
+// A slot's short name used to collapse to whatever its FIRST type code meant, which
+// hides real dual-purpose slots - Rikka Takarada's and Reisalin Stout's "Main Gun"
+// slot also takes an Auxiliary (code 10 riding alongside the gun code), and it showed
+// as a plain gun slot with no visible hint of that. Every distinct short name across
+// ALL of a slot's codes is now listed, gun codes collapsed to the one gunLabel the
+// caller already worked out (Main Gun/Secondary) so [1,2] (two gun families) still
+// reads as one slot rather than "Main Gun / Main Gun".
+function equipmentSlotLabel(slot, gunLabel) {
+  const codes = slot.type || [];
+  const parts = [];
+  if (gunLabel) parts.push(gunLabel);
+  for (const code of codes) {
+    if (GUN_TYPE_CODES.has(code)) continue;
+    const name = EQUIPMENT_SHORT_NAMES[code];
+    if (name && !parts.includes(name)) parts.push(name);
+  }
+  return parts.join(" / ");
+}
+
 // Built by hand because the two vocabularies are worded differently on purpose
 // ("DD Main Guns" here vs "DD Gun" in the catalog).
 // Codes 6 and 21 are NOT the same permission, though the wiki labels both slots plainly
@@ -1323,15 +1594,6 @@ function activeEquipmentForSlot(ship, slotKey, slot) {
   return getEquippedGear(ship, slotKey) || defaultEquipmentForSlot(slot);
 }
 
-function defaultEquipmentTooltip(item) {
-  const parts = [item.name + " (built-in)"];
-  if (item.dps != null) parts.push("DPS " + item.dps);
-  else if (item.dpsLight != null) parts.push(`DPS ${item.dpsLight}/${item.dpsMedium}/${item.dpsHeavy} (L/M/H)`);
-  else if (item.ordnance != null) parts.push("Ordnance " + item.ordnance);
-  if (item.reload != null) parts.push("Reload " + item.reload + "s");
-  return parts.join(" — ");
-}
-
 const EQUIPMENT_MISSILE_RE = /missile/i;
 function isMissileItem(item) {
   return item.category === "Torpedo" && EQUIPMENT_MISSILE_RE.test(item.name);
@@ -1368,6 +1630,45 @@ function equipmentOptionsForSlot(slot, ship) {
 const EQUIPMENT_RARITY_ORDER = ["Common", "Rare", "Elite", "Super Rare", "Ultra Rare"];
 function equipmentRarityColor(rarity) {
   return `var(--${RARITY_CLASS[rarity === "Common" ? "Normal" : rarity] || "rarity-normal"})`;
+}
+
+const STAT_ICON_BY_KEY = Object.fromEntries(STAT_GRID.filter(Boolean).map(d => [d.key, d.icon]));
+
+// Every numeric figure worth showing for an item: its combat headline (DPS/AA DPS/
+// ASW DPS, whichever it has) plus every flat stat it grants - not just the one
+// equipmentPrimaryStat() picks as the single at-a-glance figure for a picker cell.
+// A built-in default weapon (data/default-equipment.json) is a different schema -
+// dpsLight/dpsMedium/dpsHeavy as flat fields instead of a dps object, no rarity, no
+// statBonus - so its own DPS is read from there instead of being left blank.
+function equipmentStatRows(item) {
+  const rows = [];
+  // Ammo type first for a gun - which armor type a shot is actually good against
+  // depends on it, and the user asked for it named up front rather than left to the
+  // armorMod numbers to imply.
+  if (item.ammoType) rows.push({ label: "Ammo", value: item.ammoType });
+  if (item.dps) {
+    const value = typeof item.dps.raw === "number" ? item.dps.raw : `${item.dps.light}/${item.dps.medium}/${item.dps.heavy}`;
+    rows.push({ label: "DPS", value });
+    // Per-hull-type damage, spelled out rather than left folded into the single DPS
+    // figure above (which is the no-armor baseline, not what any of the three
+    // actually take) - Light/Medium/Heavy in that fixed order every time.
+    if (typeof item.dps.light === "number") {
+      rows.push({ label: "DMG L/M/H", value: `${item.dps.light}/${item.dps.medium}/${item.dps.heavy}` });
+    }
+  } else if (typeof item.dpsLight === "number") {
+    rows.push({ label: "DPS", value: `${item.dpsLight}/${item.dpsMedium}/${item.dpsHeavy}` });
+  }
+  if (typeof item.aaDps === "number") rows.push({ label: "AA DPS", value: item.aaDps });
+  if (typeof item.dmg === "number") rows.push({ label: "DMG", value: item.dmg });
+  if (typeof item.aswDps === "number") rows.push({ label: "ASW DPS", value: item.aswDps });
+  if (typeof item.ordnance === "number") rows.push({ label: "Ordnance", value: item.ordnance });
+  if (typeof item.reload === "number") rows.push({ label: "Reload", value: `${item.reload}s` });
+  for (const [rawKey, amount] of Object.entries(item.statBonus || {})) {
+    if (typeof amount !== "number") continue;
+    const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
+    rows.push({ label: STAT_ABBR[key] || rawKey, value: `+${amount}`, icon: STAT_ICON_BY_KEY[key] });
+  }
+  return rows;
 }
 
 function equipmentPrimaryStat(item) {
@@ -1552,12 +1853,160 @@ function computeCombatMetrics(ship, level, effective) {
 }
 
 // ---------------------------------------------------------------------------
+// Hull role - drives which weight profile and which special-cased slot logic
+// (CV aircraft orientation, the AA gun's fast-vs-slow pick, BB skipping
+// survivability) applies. Read off hullShort rather than kept as one shared
+// profile, per the user's own breakdown of how differently each role gears up.
+// ---------------------------------------------------------------------------
+function shipOptimizeRole(ship) {
+  switch (ship.hullShort) {
+    case "CV": case "CVL": return "carrier";
+    case "CL": return "cl";
+    case "CA": return "ca";
+    case "CB": return "cb";
+    case "BB": case "BC": case "BM": case "BBV": return "bb";
+    case "SS": case "SSV": return "sub";
+    default: return "general";
+  }
+}
+
+// AA guns split into two playstyles the user named directly: a few fast, low-damage
+// guns that always have a target to shoot at, and most guns which hit harder but
+// reload slower. Reload is the cleanest signal the catalog has for this (no separate
+// "fast/slow" field exists), so "fast" is simply below the AA Gun category's own
+// median reload - a real split measured from the 68 AA Gun/AA Time Fuze Gun records
+// (0.32s-1.97s, median 0.9s), not a guessed cutoff.
+let aaGunReloadMedianCache = null;
+function aaGunReloadMedian() {
+  if (aaGunReloadMedianCache != null) return aaGunReloadMedianCache;
+  const reloads = EQUIPMENT_DATA
+    .filter(i => (i.category === "AA Gun" || i.category === "AA Time Fuze Gun") && typeof i.reload === "number")
+    .map(i => i.reload)
+    .sort((a, b) => a - b);
+  aaGunReloadMedianCache = reloads.length ? reloads[Math.floor(reloads.length / 2)] : 1;
+  return aaGunReloadMedianCache;
+}
+function isFastFiringAaGun(item) {
+  return typeof item.reload === "number" && item.reload <= aaGunReloadMedian();
+}
+
+function shipHasSelfStatSkill(ship, statKey) {
+  for (const skill of ship.skills || []) {
+    for (const b of skill.statBonuses || []) {
+      const isSelf = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
+      if (isSelf && (b.stats || []).includes(statKey)) return true;
+    }
+  }
+  return false;
+}
+
+// "Low AA" is read off the whole roster rather than an arbitrary flat number, cached
+// once since it is the same lookup for every ship: base AA (no skills, no gear) at
+// level 125, ranked against every other ship's. Below the median is "low" - a ship
+// with no AA-boosting skill either then wants a fast gun that always has something to
+// shoot, per the user's rule, rather than a hard-hitting one she is slow to use.
+let antiairBaselineSorted = null;
+function shipHasLowAntiAir(ship) {
+  if (!antiairBaselineSorted) {
+    antiairBaselineSorted = SHIPS_DATA
+      .map(s => { const st = computeStats(s, 125, false); return st ? st.antiair : null; })
+      .filter(v => typeof v === "number")
+      .sort((a, b) => a - b);
+  }
+  const base = computeStats(ship, 125, false);
+  const value = base ? base.antiair : 0;
+  const median = antiairBaselineSorted[Math.floor(antiairBaselineSorted.length / 2)];
+  return value <= median;
+}
+
+// 20 skills dataset-wide reduce an enemy's own SPD (survey done before writing this) -
+// the signal the user gave for when placing a Torpedo Bomber is worth it, since her
+// slower torpedo runs actually land more often against a slowed target.
+const ENEMY_SLOW_RE = /\b(?:reduces?|decreases?)\b[^.;]{0,40}\benemy[^.;]{0,20}\bSPD\b|\bSPD\b[^.;]{0,20}\bof\b[^.;]{0,20}\benemy|slows? (?:down )?(?:the )?enem/i;
+function shipHasEnemySlowSkill(ship) {
+  return (ship.skills || []).some(sk => ENEMY_SLOW_RE.test(stripHtml(sk.description || "")));
+}
+
+// A BB/BC/BM/BBV's special barrage is either a per-shot roll ("40% (70%) chance to
+// fire a barrage") or a fixed timer ("Every 15s: fires a barrage"), and which one she
+// has decides whether her Main/Secondary Gun and Firepower auxiliary should chase
+// firing FREQUENCY (more rolls) or raw per-shot POWER (a timer fires regardless of
+// how fast she reloads, so only the hit's own size matters). "Proc" is checked before
+// "timer" since a gated timer ("every 20s: 45% chance...") reads as a proc first -
+// verified dataset-wide before writing this (149 BB-family ships: 77 proc, 15 timer,
+// 57 with neither pattern, which fall back to ordinary damage-based scoring).
+const BARRAGE_PROC_RE = /\d+%\s*\(\d+%\)\s*chance\s+to\s+(?:launch|fire|trigger)\b.{0,60}?\bbarrage/i;
+const BARRAGE_TIMER_RE = /\bevery\s+\d+(?:\.\d+)?s\b.{0,80}?\b(?:fires?|launches?)\b.{0,40}?\bbarrage/i;
+function shipBarrageTriggerType(ship) {
+  const texts = (ship.skills || []).map(sk => stripHtml(sk.description || ""));
+  if (texts.some(t => BARRAGE_PROC_RE.test(t))) return "proc";
+  if (texts.some(t => BARRAGE_TIMER_RE.test(t))) return "timer";
+  return null;
+}
+
+function findEquipmentByName(name) {
+  return EQUIPMENT_DATA.find(i => i.name === name) || null;
+}
+
+// The one item the user singled out by name: Repair Toolkit's own passive HP regen is
+// real value the single-hit eHP formula below cannot represent (it only ever compares
+// one hit against current HP/Evasion, never sustained recovery over a fight), so a
+// candidate whose notes promise it gets a deliberate score bump on top of its eHP.
+// General on the notes' own wording rather than hardcoded to Repair Toolkit's id, in
+// case a similar item is added later - checked dataset-wide, only Repair Toolkit and
+// the unrelated, collab-gated Elixir mention "recovers ... HP" at all, and Elixir's
+// phrasing (no recurring "every Ns") does not match this pattern.
+const HP_REGEN_NOTES_RE = /recovers?\s+\d+(?:\.\d+)?%\s+of\s+(?:this ship'?s\s+)?max\s*HP\s+every\s+\d+(?:\.\d+)?s/i;
+function itemGrantsHpRegen(item) {
+  return !!(item && item.notes && HP_REGEN_NOTES_RE.test(item.notes));
+}
+const HP_REGEN_SCORE_BONUS = 1.15;
+
+// Simulates equipping one candidate into one slot and reads back the REAL resulting
+// eHP (same HP/HitRate formula computeCombatMetrics renders) rather than approximating
+// it from the item's own flat numbers - a flat HP/Evasion bonus is added before the
+// ship's own skill percentages apply, so an approximation would not track a boosted
+// ship correctly. Cheap enough to call once per candidate: this only runs from an
+// explicit Optimize click, not on every render.
+function candidateEhp(ship, slotKey, item) {
+  const original = getEquippedGear(ship, slotKey);
+  setEquippedGear(ship, slotKey, item);
+  const eff = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  const hp = eff.stats.health ? eff.stats.health.value : 0;
+  const evasion = eff.stats.evasion ? eff.stats.evasion.value : 0;
+  const luck = eff.stats.luck ? eff.stats.luck.value : 0;
+  let ehp = hp / referenceHitRate(evasion, luck);
+  if (itemGrantsHpRegen(item)) ehp *= HP_REGEN_SCORE_BONUS;
+  if (original) setEquippedGear(ship, slotKey, original);
+  else setEquippedGear(ship, slotKey, null);
+  return ehp;
+}
+
+const SURVIVAL_STAT_KEYS = new Set(["health", "evasion", "luck"]);
+// CA is the one role the user gave an explicit override for: "quasiment que des
+// auxiliaire d'augmentation de HP théorique" - almost only HP-boosting auxiliaries,
+// not the general stat-driven eHP simulation everyone else gets (which is what
+// already produces "destroyers usually prefer HP over Evasion" on its own, since a
+// DD's already-high base Evasion means an EVA item's eHP return is small next to a
+// flat HP item's). So a CA's candidate pool is narrowed to items that grant HP at
+// all (an HP+Evasion hybrid like Improved Hydraulic Rudder still qualifies) rather
+// than opened to pure-Evasion options the simulation might otherwise prefer.
+function itemIsSurvivalCandidate(item, role) {
+  if (item.category !== "Auxiliary") return false;
+  const bonus = item.statBonus || {};
+  const keys = Object.keys(bonus).map(rawKey => EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey);
+  if (role === "ca" || role === "cb") return keys.includes("health");
+  return keys.some(key => SURVIVAL_STAT_KEYS.has(key));
+}
+
+// ---------------------------------------------------------------------------
 // Optimisation targets
 // ---------------------------------------------------------------------------
 
 // Two rules from the user drive every weight below.
 // 1. Survivability comes first, then AA - so every target keeps a real weight on
 //    health/evasion and a smaller one on anti-air, even a purely offensive one.
+//    BB is the deliberate exception - see roleRecommendedWeights.
 // 2. Optimising means amplifying what a ship already does well, NOT patching what she is
 //    bad at - the one exception being survivability, which everyone wants. That is why
 //    the offensive weight in "recommended" is chosen from the ship's own strongest
@@ -1571,6 +2020,12 @@ const OPTIMIZE_TARGETS = {
   aviation: { label: "Aviation", weights: { aviation: 1, accuracy: 0.4, antiair: 0.3, ...SURVIVAL_BASE } },
   antiair: { label: "Anti-Air", weights: { antiair: 1, ...SURVIVAL_BASE } },
   asw: { label: "Anti-Sub", weights: { asw: 1, health: 0.4, evasion: 0.3 } },
+  // Carrier-only: her aviation-stat slots can hold Fighter/Seaplane, Dive Bomber or
+  // Torpedo Bomber families that a single "aviation" weight cannot tell apart, since
+  // all three scale off the same stat. Dispatched by pickCarrierAircraft, not weights.
+  cvFighter: { label: "Fighter (AA)", weights: null, carrierOrientation: "fighter" },
+  cvBomber: { label: "Dive Bomber", weights: null, carrierOrientation: "bomber" },
+  cvTorpedo: { label: "Torpedo Bomber", weights: null, carrierOrientation: "torpedo" },
 };
 
 // Only the Anti-Sub target may pull in anything that boosts ASW, per the user's rule.
@@ -1587,9 +2042,13 @@ function itemBoostsAsw(item) {
 
 // The offensive stats a ship can actually scale, read off her real slots rather than a
 // hardcoded hull list - so each hull naturally gets its own set of orientations, and a
-// ship with an unusual loadout is not forced into the wrong one.
+// ship with an unusual loadout is not forced into the wrong one. Carriers get their
+// three dedicated aircraft orientations instead of the single generic "Aviation" -
+// Fighter, Dive Bomber and Torpedo Bomber all scale off the same stat, so one weight
+// can never tell them apart the way pickCarrierAircraft's category preference can.
 function availableOptimizeTargets(ship) {
   const ids = new Set(["auto", "survival"]);
+  const isCarrier = shipOptimizeRole(ship) === "carrier";
   for (const slot of Object.values(ship.equipment || {})) {
     for (const item of equipmentOptionsForSlot(slot, ship)) {
       const role = weaponRole(item);
@@ -1598,16 +2057,23 @@ function availableOptimizeTargets(ship) {
       else if (role.metric === "dpsASW") ids.add("asw");
       else if (role.stat === "firepower") ids.add("firepower");
       else if (role.stat === "torpedo") ids.add("torpedo");
-      else if (role.stat === "aviation") ids.add("aviation");
+      else if (role.stat === "aviation" && !isCarrier) ids.add("aviation");
     }
   }
+  if (isCarrier) { ids.add("cvFighter"); ids.add("cvBomber"); ids.add("cvTorpedo"); }
   return Object.keys(OPTIMIZE_TARGETS).filter(id => ids.has(id));
 }
 
 // "Recommended": survivability and AA as a floor, plus whichever scaling stat this ship
-// is already best at. Compared as a share of the ship's own total so the three are
-// measured on the same scale rather than by raw magnitude.
+// is already best at, compared as a share of the ship's own total so the three are on
+// the same scale rather than raw magnitude - EXCEPT the three roles the user described
+// as needing their own emphasis regardless of what "already good" happens to compute
+// to: CL leans on Anti-Air (she is usually the fleet's AA platform), CA leans hard on
+// Firepower and HP over Evasion (a tank amplifies raw damage and theoretical HP, not
+// dodge), and BB drops survivability to near nothing (she leans on Firepower/Accuracy
+// and is not expected to carry a defensive auxiliary except when nothing else scores).
 function recommendedWeights(ship, effective) {
+  const role = shipOptimizeRole(ship);
   const candidates = ["firepower", "torpedo", "aviation"];
   let best = null, bestValue = 0;
   for (const key of candidates) {
@@ -1615,6 +2081,29 @@ function recommendedWeights(ship, effective) {
     const value = entry ? entry.value : 0;
     if (value > bestValue) { best = key; bestValue = value; }
   }
+
+  if (role === "bb") {
+    const weights = { firepower: 1, accuracy: 0.8, health: 0.05, evasion: 0.05, antiair: 0.2 };
+    return weights;
+  }
+  if (role === "ca" || role === "cb") {
+    // CB adds nothing to the CA profile here - her own difference (heavy-caliber gun,
+    // hard-hitting AA) is a weapon-slot rule, not an auxiliary weight.
+    const weights = { health: 1, firepower: 0.9, evasion: 0.3, antiair: 0.4 };
+    return weights;
+  }
+  if (role === "cl") {
+    const weights = { health: 1, evasion: 0.8, antiair: 0.9 };
+    if (best) { weights[best] = 0.9; if (best === "firepower") weights.accuracy = 0.6; }
+    return weights;
+  }
+  // Carrier: no survivability weight at all, per the user's own instruction - purely
+  // raw Aviation (Steam Catapult's own preference is applied directly in
+  // optimizeEquipment, ahead of any weight here).
+  if (role === "carrier") {
+    return { aviation: 1, accuracy: 0.3, antiair: 0.2 };
+  }
+
   const weights = { health: 1, evasion: 0.8, antiair: 0.6 };
   if (best) {
     weights[best] = 0.9;
@@ -1647,14 +2136,33 @@ function auxiliaryStatMaxima() {
   return auxiliaryStatMax;
 }
 
-function statPreferenceScore(item, weights) {
+// HP/Evasion/Luck cannot be ranked by raw magnitude the way Firepower or Aviation
+// can - Evasion has diminishing returns baked into the HitRate formula, so 49
+// Evasion is not "worth less than" 640 flat HP just because 640 is the bigger
+// number. That comparison is exactly what put Plum-Petal Poetry's flat 640 HP ahead
+// of Improved Hydraulic Rudder's 72 HP + 49 Evasion on Roon, when a real eHP
+// simulation the guaranteed survivability slot already ran shows the Rudder is
+// ahead by ~1400 eHP. So every aux slot compares its survival-stat candidates by
+// real simulated eHP, not the proportional-to-maximum heuristic the other stats
+// still use (there is no equivalent diminishing-returns effect to get wrong there).
+function statPreferenceScore(item, weights, ship, slotKey, baseEhp) {
   const maxima = auxiliaryStatMaxima();
+  const bonus = item.statBonus || {};
   let score = 0;
-  for (const [rawKey, amount] of Object.entries(item.statBonus || {})) {
+  let hasSurvivalStat = false;
+  for (const [rawKey, amount] of Object.entries(bonus)) {
     const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
+    if (SURVIVAL_STAT_KEYS.has(key)) { hasSurvivalStat = true; continue; }
     const weight = weights[key];
     if (!weight || typeof amount !== "number") continue;
     score += weight * (amount / (maxima[key] || amount));
+  }
+  if (hasSurvivalStat && ship && slotKey && baseEhp) {
+    const survivalWeight = Math.max(weights.health || 0, weights.evasion || 0, weights.luck || 0);
+    if (survivalWeight > 0) {
+      const ehp = candidateEhp(ship, slotKey, item);
+      score += survivalWeight * ((ehp - baseEhp) / baseEhp);
+    }
   }
   return score;
 }
@@ -1793,32 +2301,247 @@ function betterCandidate(a, b) {
   return a.score > b.score;
 }
 
+// A BB's AA Gun slot is picked for what it ALSO gives her, not for its own AA damage -
+// only 6 of 68 AA guns carry a secondary Accuracy or Firepower bonus, so that bonus
+// dominates the score when present; aaDps is kept only as the tiebreaker so a BB with
+// no such option available still gets her strongest AA gun rather than none at all.
+function bbAntiAirScore(item) {
+  const secondary = itemStatBonus(item, "accuracy") + itemStatBonus(item, "firepower");
+  return secondary * 1000 + (equipmentOptimizeScore(item) || 0);
+}
+
+const AIRCRAFT_CATEGORIES_CV = ["Fighter", "Seaplane", "Dive Bomber", "Torpedo Bomber"];
+const CV_ORIENTATION_CATEGORIES = {
+  fighter: ["Fighter", "Seaplane"],
+  bomber: ["Dive Bomber"],
+  torpedo: ["Torpedo Bomber"],
+};
+
+function slotAircraftCategories(slot, ship) {
+  return [...new Set(equipmentOptionsForSlot(slot, ship).map(i => i.category).filter(c => AIRCRAFT_CATEGORIES_CV.includes(c)))];
+}
+
+const AIRCRAFT_ROCKET_ORDNANCE_RE = /\brocket/i;
+
+function bestAircraftForSlot(ship, slot, categories, effective, filterItem, named) {
+  // Only checked once per slot, not per candidate - shipHasEnemySlowSkill re-scans
+  // every skill's text each call, and a slot's candidate list can run into the
+  // hundreds.
+  const preferSlowSynergy = shipHasEnemySlowSkill(ship);
+  let best = null;
+  for (const item of equipmentOptionsForSlot(slot, ship)) {
+    if (!categories.includes(item.category)) continue;
+    if (!filterItem(item)) continue;
+    const damage = equipmentOptimizeScore(item);
+    if (damage === null) continue;
+    let score = weaponScoreForShip(item, damage, effective);
+    // When this ship can actually slow the enemy her torpedoes need that for, Sakura
+    // Empire torpedo bombers and rocket-armed fighters are the named preference.
+    if (preferSlowSynergy) {
+      if (item.category === "Torpedo Bomber" && item.nation === "Sakura Empire") score += 1;
+      if (item.category === "Fighter" && item.ordnance && AIRCRAFT_ROCKET_ORDNANCE_RE.test(item.ordnance)) score += 1;
+    }
+    const candidate = { item, isWeapon: true, isNamed: named.has(item.name), score };
+    if (betterCandidate(candidate, best)) best = candidate;
+  }
+  return best ? best.item : null;
+}
+
+// Fighter/Dive Bomber/Torpedo Bomber all scale off the same Aviation stat, so a slot's
+// own accepted categories - not a stat weight - decide what actually differs between
+// them. A picked orientation (fighter/bomber/torpedo) tries every eligible slot for
+// that family first, falling back to whatever the slot accepts if it cannot take it.
+// "Recommended" instead spreads the three families across her slots, best-efficiency
+// slot first, per the user's own "mets le bon avion sur la meilleure efficiency" -
+// and only offers Torpedo Bomber where a slot cannot do anything else, unless this
+// ship actually has a way to slow the enemy her torpedoes need that for.
+function pickCarrierAircraft(ship, effective, orientation, filterItem, named) {
+  const slots = Object.entries(ship.equipment || {})
+    .map(([key, slot]) => ({ key, slot, categories: slotAircraftCategories(slot, ship) }))
+    .filter(s => s.categories.length > 0);
+  const picks = {};
+  if (!slots.length) return picks;
+
+  if (orientation === "fighter" || orientation === "bomber" || orientation === "torpedo") {
+    const preferred = CV_ORIENTATION_CATEGORIES[orientation];
+    for (const s of slots) {
+      const wantCats = s.categories.filter(c => preferred.includes(c));
+      picks[s.key] = bestAircraftForSlot(ship, s.slot, wantCats.length ? wantCats : s.categories, effective, filterItem, named);
+    }
+    return picks;
+  }
+
+  const allowTorpedo = shipHasEnemySlowSkill(ship);
+  const ordered = [...slots].sort((a, b) => (b.slot.efficiency || 1) - (a.slot.efficiency || 1));
+  const rotation = ["Fighter", "Dive Bomber", "Torpedo Bomber"];
+  let rotationIndex = 0;
+  for (const s of ordered) {
+    let chosen = null;
+    for (let tries = 0; tries < rotation.length && !chosen; tries++) {
+      const candidate = rotation[(rotationIndex + tries) % rotation.length];
+      const mandatory = s.categories.length === 1 && s.categories[0] === "Torpedo Bomber";
+      if (candidate === "Torpedo Bomber" && !allowTorpedo && !mandatory) continue;
+      const matchCats = candidate === "Fighter" ? ["Fighter", "Seaplane"] : [candidate];
+      const reachable = s.categories.filter(c => matchCats.includes(c));
+      if (reachable.length) { chosen = reachable; rotationIndex = (rotationIndex + tries + 1) % rotation.length; }
+    }
+    if (!chosen) {
+      chosen = s.categories.filter(c => c !== "Torpedo Bomber" || allowTorpedo);
+      if (!chosen.length) chosen = s.categories;
+    }
+    picks[s.key] = bestAircraftForSlot(ship, s.slot, chosen, effective, filterItem, named);
+  }
+  return picks;
+}
+
 function optimizeEquipment(ship, effective) {
   const targetId = OPTIMIZE_TARGETS[equipmentTarget] ? equipmentTarget : "auto";
+  const targetDef = OPTIMIZE_TARGETS[targetId] || OPTIMIZE_TARGETS.auto;
   const weights = optimizeWeights(ship, targetId, effective);
   const allowAsw = targetAllowsAsw(targetId);
   const named = skillNamedEquipment(ship);
+  const role = shipOptimizeRole(ship);
+  // CB never wants the fast-AA preference - "ok but not critical, prefer whatever
+  // hits harder" is the opposite bias, which is just the ordinary damage-based score
+  // this exclusion falls back to.
+  const wantFastAa = role !== "bb" && role !== "cb" && shipHasLowAntiAir(ship) && !shipHasSelfStatSkill(ship, "antiair");
+  const barrageTrigger = role === "bb" ? shipBarrageTriggerType(ship) : null;
   let changed = 0;
 
+  const filterItem = item =>
+    equipmentWithinCap(item) &&
+    (includeGearLab || !item.gearLab) &&
+    (includeResearch || !item.research) &&
+    (allowAsw || !itemBoostsAsw(item)) &&
+    equipmentReachable(item, named);
+
+  // Carrier aircraft slots are dispatched separately - Fighter/Dive Bomber/Torpedo
+  // Bomber cannot be told apart by a stat weight, see pickCarrierAircraft.
+  const carrierPicks = role === "carrier"
+    ? pickCarrierAircraft(ship, effective, targetDef.carrierOrientation || "auto", filterItem, named)
+    : {};
+
+  const usedAuxNames = new Set();
+  const auxSlotKeys = Object.entries(ship.equipment || {})
+    .filter(([, slot]) => (slot.type || []).includes(10))
+    .map(([key]) => key);
+
+  // Submarines run on Oxygen, not HP - Improved Snorkel (Oxygen+Accuracy) and Type 93
+  // Pure Oxygen Torpedo (a Torpedo+Reload bonus filed under Auxiliary, not Torpedo, in
+  // the catalog) are the named pair the user asked for, tried on her two aux slots in
+  // that order before anything else gets a chance to fill them.
+  const subPicks = {};
+  if (role === "sub" && auxSlotKeys.length) {
+    const subNamed = [findEquipmentByName("Improved Snorkel"), findEquipmentByName("Type 93 Pure Oxygen Torpedo")].filter(Boolean);
+    const remainingSlots = [...auxSlotKeys];
+    for (const item of subNamed) {
+      if (!remainingSlots.length || !filterItem(item)) continue;
+      const options = equipmentOptionsForSlot(ship.equipment[remainingSlots[0]], ship);
+      if (!options.some(i => i.name === item.name)) continue;
+      subPicks[remainingSlots.shift()] = item;
+    }
+  }
+
+  // Exactly one aux slot is reserved for a guaranteed survivability pick, skipped for
+  // BB (near-zero survivability weight already covers "except when nothing else
+  // scores" - see recommendedWeights), for carriers (no survivability tool at all in
+  // Recommended, purely AVI - see the Steam Catapult preference below), and for
+  // submarines (their aux slots are Oxygen-driven, handled by subPicks above).
+  // Real eHP is simulated per candidate rather than approximated from its own stat
+  // numbers, since a flat bonus is amplified by this ship's own skill percentages
+  // before it becomes real eHP. The reserved slot is the ship's first
+  // Auxiliary-capable slot; efficiency does not apply to a flat stat bonus, so which
+  // of her aux slots holds it changes nothing about the result.
+  const survivalSlotKey = role !== "bb" && role !== "carrier" && role !== "sub" && auxSlotKeys.length
+    ? auxSlotKeys[0]
+    : null;
+  if (survivalSlotKey) {
+    const slot = ship.equipment[survivalSlotKey];
+    let bestItem = null, bestEhp = -Infinity;
+    for (const item of equipmentOptionsForSlot(slot, ship)) {
+      if (!filterItem(item) || !itemIsSurvivalCandidate(item, role)) continue;
+      const ehp = candidateEhp(ship, survivalSlotKey, item);
+      if (ehp > bestEhp) { bestEhp = ehp; bestItem = item; }
+    }
+    if (bestItem) {
+      setEquippedGear(ship, survivalSlotKey, bestItem);
+      usedAuxNames.add(bestItem.name);
+      changed++;
+    }
+  }
+
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    if (carrierPicks[slotKey] !== undefined) {
+      if (carrierPicks[slotKey]) { setEquippedGear(ship, slotKey, carrierPicks[slotKey]); changed++; }
+      continue;
+    }
+    if (subPicks[slotKey]) {
+      setEquippedGear(ship, slotKey, subPicks[slotKey]);
+      usedAuxNames.add(subPicks[slotKey].name);
+      changed++;
+      continue;
+    }
+    if (slotKey === survivalSlotKey) continue;
+
+    const isBbAntiAir = role === "bb" && (slot.type || []).some(c => c === 6 || c === 21);
+    const isAuxSlot = auxSlotKeys.includes(slotKey);
+    // Baseline for this slot's own real eHP comparisons (see statPreferenceScore) -
+    // computed once per slot, not per candidate, since it never depends on the item
+    // being scored.
+    const baseEhp = isAuxSlot ? candidateEhp(ship, slotKey, null) : null;
+
     let best = null;
     for (const item of equipmentOptionsForSlot(slot, ship)) {
-      if (!equipmentWithinCap(item)) continue;
-      if (!includeGearLab && item.gearLab) continue;
-      if (!includeResearch && item.research) continue;
-      if (!allowAsw && itemBoostsAsw(item)) continue;
-      if (!equipmentReachable(item, named)) continue;
-      const damage = equipmentOptimizeScore(item);
+      if (!filterItem(item)) continue;
+      // Auxiliaries stacking the same passive on one ship is a bug the user asked to
+      // close, not a feature - "Effect does not stack" is written on most of them, and
+      // even the ones that do not say so rarely benefit from two identical copies.
+      // A carrier's two aux slots are the deliberate exception: Steam Catapult (the
+      // strongest non-unique Aviation auxiliary in the catalog, see the note below)
+      // is meant to fill BOTH of them.
+      const isCarrierCatapult = role === "carrier" && item.name === "Steam Catapult";
+      if (isAuxSlot && item.category === "Auxiliary" && usedAuxNames.has(item.name) && !isCarrierCatapult) continue;
+
+      const damage = isBbAntiAir ? null : equipmentOptimizeScore(item);
       const isWeapon = damage !== null;
-      const score = isWeapon
-        ? weaponScoreForShip(item, damage, effective)
-        : statPreferenceScore(item, weights);
-      if (!isWeapon && score <= 0) continue;
-      const candidate = { item, isWeapon, isNamed: named.has(item.name), score };
+      let score;
+      if (isBbAntiAir) score = bbAntiAirScore(item);
+      else if (isWeapon) {
+        score = weaponScoreForShip(item, damage, effective);
+        if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
+          if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
+        }
+        // BB/BC/BM/BBV: a proc barrage wants more rolls of the dice (a faster reload),
+        // a timer barrage fires regardless of reload so only the hit's own size
+        // matters and the ordinary damage-based score already rewards that.
+        if (barrageTrigger === "proc" && GUN_TYPE_CODES.has((slot.type || [])[0]) && typeof item.reload === "number" && item.reload > 0) {
+          score *= 1 / item.reload;
+        }
+        // CB: always a heavy-caliber main gun - the single rule the user called
+        // "hyper important" for this hull, applied as a strong multiplier rather than
+        // a hard filter so a CB with nothing 280mm+ reachable still gets her best gun.
+        if (role === "cb" && (item.category === "CA Gun" || item.category === "CB Gun")) {
+          const mm = equipCaliberMm(item);
+          score *= mm != null && mm >= 280 ? 1.5 : 0.4;
+        }
+      } else {
+        score = statPreferenceScore(item, weights, ship, slotKey, baseEhp);
+        // Same proc/timer split, for the one auxiliary each rewards: Admiralty Fire
+        // Control Table cuts the first volley's reload (more rolls for a proc),
+        // Super Heavy Shell raises Main Gun Crit Rate (bigger single hits for a
+        // timer). Neither is tracked as its own stat, so this is a direct name match
+        // rather than something statPreferenceScore's weights could express.
+        if (role === "bb" && barrageTrigger === "proc" && item.name === "Admiralty Fire Control Table") score += 1;
+        if (role === "bb" && barrageTrigger === "timer" && item.name === "Super Heavy Shell") score += 1;
+        if (isCarrierCatapult) score += 1;
+      }
+      if (!isWeapon && !isBbAntiAir && score <= 0) continue;
+      const candidate = { item, isWeapon: isWeapon || isBbAntiAir, isNamed: named.has(item.name), score };
       if (betterCandidate(candidate, best)) best = candidate;
     }
     if (!best) continue;
     setEquippedGear(ship, slotKey, best.item);
+    if (isAuxSlot && best.item.category === "Auxiliary") usedAuxNames.add(best.item.name);
     changed++;
   }
   return changed;
@@ -1888,7 +2611,6 @@ function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
       tile.classList.add("equip-tile-filled");
       tile.style.setProperty("--equip-tile-color", equipmentRarityColor(equipped.rarity));
       tile.appendChild(equipmentIconImg(equipped, "equip-tile-icon"));
-      tile.title = equipmentTooltip(equipped);
     } else {
       // A slot with a built-in weapon is not empty, so it says DEFAULT instead of showing
       // the "+" that invites a pick; the "+" is for the slots that really are bare.
@@ -1897,10 +2619,21 @@ function buildEquipmentSlot(name, tooltip, meta, gearCtx) {
       mark.className = builtIn ? "equip-tile-default" : "equip-tile-empty";
       mark.textContent = builtIn ? "DEFAULT" : "+";
       tile.appendChild(mark);
-      tile.title = [tooltip, builtIn && defaultEquipmentTooltip(builtIn)].filter(Boolean).join("\n");
+      // A genuinely empty slot has nothing for showEquipInfoTooltip to show (no item),
+      // so it keeps the plain title naming what the slot accepts. A slot with a
+      // built-in weapon does not need it repeated here - the rich tooltip covers it.
+      tile.title = builtIn ? "" : tooltip;
     }
   }
   paintTile();
+
+  if (gearCtx) {
+    const currentTileItem = () => getEquippedGear(gearCtx.ship, gearCtx.slotKey) || defaultEquipmentForSlot(gearCtx.slot);
+    tile.addEventListener("mouseenter", () => showEquipInfoTooltip(currentTileItem(), tile));
+    tile.addEventListener("focus", () => showEquipInfoTooltip(currentTileItem(), tile));
+    tile.addEventListener("mouseleave", hideEquipInfoTooltip);
+    tile.addEventListener("blur", hideEquipInfoTooltip);
+  }
 
   if (gearCtx && gearCtx.options.length) {
     tile.classList.add("equip-tile-pickable");
@@ -1942,6 +2675,7 @@ function toggleEquipmentPicker(card, gearCtx, onPick) {
         onPick();
         refreshStatsAfterGearChange();
         panel.remove();
+        hideEquipInfoTooltip();
       });
       panel.appendChild(clearRow);
     }
@@ -1957,22 +2691,27 @@ function toggleEquipmentPicker(card, gearCtx, onPick) {
       cell.type = "button";
       cell.className = "equip-picker-item";
       cell.style.setProperty("--equip-tile-color", equipmentRarityColor(item.rarity));
-      cell.title = equipmentTooltip(item);
       cell.appendChild(equipmentIconImg(item, "equip-picker-icon"));
 
-      const describe = () => { caption.textContent = equipmentTooltip(item); };
+      const describe = () => {
+        caption.textContent = equipmentTooltip(item);
+        showEquipInfoTooltip(item, cell);
+      };
       cell.addEventListener("mouseenter", describe);
       cell.addEventListener("focus", describe);
+      cell.addEventListener("mouseleave", hideEquipInfoTooltip);
+      cell.addEventListener("blur", hideEquipInfoTooltip);
 
       cell.addEventListener("click", () => {
         setEquippedGear(gearCtx.ship, gearCtx.slotKey, item);
         onPick();
         refreshStatsAfterGearChange();
         panel.remove();
+        hideEquipInfoTooltip();
       });
       list.appendChild(cell);
     }
-    list.addEventListener("mouseleave", () => { caption.textContent = ""; });
+    list.addEventListener("mouseleave", () => { caption.textContent = ""; hideEquipInfoTooltip(); });
     panel.appendChild(list);
     panel.appendChild(caption);
     card.appendChild(panel);
@@ -2010,6 +2749,7 @@ function refreshStatsAfterGearChange() {
 
 function closeAllEquipmentPickers() {
   document.querySelectorAll(".equip-picker").forEach(p => p.remove());
+  hideEquipInfoTooltip();
 }
 
 document.addEventListener("click", event => {
@@ -2115,12 +2855,13 @@ function renderModalEquipment(ship) {
   let gunSlotSeen = false;
   for (const key of Object.keys(slots || {}).sort((a, b) => a - b)) {
     const slot = slots[key];
-    const primary = (slot.type || [])[0];
-    let name = EQUIPMENT_SHORT_NAMES[primary] || "Slot " + key;
-    if (GUN_TYPE_CODES.has(primary)) {
-      name = gunSlotSeen ? "Secondary" : "Main Gun";
+    const codes = slot.type || [];
+    let gunLabel = null;
+    if (codes.some(c => GUN_TYPE_CODES.has(c))) {
+      gunLabel = gunSlotSeen ? "Secondary" : "Main Gun";
       gunSlotSeen = true;
     }
+    const name = equipmentSlotLabel(slot, gunLabel) || "Slot " + key;
 
     const types = equipmentSlotTypes(slot);
     const tooltip = [
@@ -2247,7 +2988,8 @@ function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) 
 
     const value = document.createElement("span");
     value.className = "combat-modifier-value";
-    value.textContent = `${modifierLabel(modifier)} +${Math.round(modifier.amount * 100) / 100}%`;
+    const sign = REDUCTION_MODIFIER_KEYS.has(modifier.key) ? "-" : "+";
+    value.textContent = `${modifierLabel(modifier)} ${sign}${Math.round(modifier.amount * 100) / 100}%`;
     pill.appendChild(value);
 
     if (modifier.target) {
@@ -2706,8 +3448,17 @@ function getSkillsForState(ship, isRetrofit, isAugmented, isFateSim) {
   });
 }
 
-let skillsAtMaxLevel = false;
+let skillsAtMaxLevel = true;
 let skillMaxLevelToggles = [];
+// Per-skill override so toggling one skill's Max Level button (leaving others alone)
+// also moves that skill's own contribution to the stats grid and combat-modifier
+// pills - computeEffectiveStats reads this, not just the header's skillsAtMaxLevel.
+// Keyed by the skill object itself (stable across a modal's re-renders), not a
+// string, so no per-ship bookkeeping is needed and nothing to clear on ship switch.
+const skillLevelState = new WeakMap();
+function isSkillAtMaxLevel(skill) {
+  return skillLevelState.has(skill) ? skillLevelState.get(skill) : skillsAtMaxLevel;
+}
 
 function createMaxLevelToggle() {
   const toggle = document.createElement("button");
@@ -2739,10 +3490,12 @@ function syncSkillsMaxLevelToggle() {
 modalSkillsMaxToggle.addEventListener("click", () => {
   skillsAtMaxLevel = !isMaxLevelToggleOn(modalSkillsMaxToggle);
   setMaxLevelToggle(modalSkillsMaxToggle, skillsAtMaxLevel);
-  for (const { toggle, paintDescription } of skillMaxLevelToggles) {
+  for (const { toggle, paintDescription, skill } of skillMaxLevelToggles) {
     setMaxLevelToggle(toggle, skillsAtMaxLevel);
     paintDescription(skillsAtMaxLevel);
+    skillLevelState.set(skill, skillsAtMaxLevel);
   }
+  renderModalStatsTable(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
 });
 
 let interactionAtMaxLevel = false;
@@ -2851,15 +3604,19 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
 
       if (atBase !== atMax) {
         const maxToggle = createMaxLevelToggle();
-        maxToggle.title = "Show this skill's values at max skill level (Lv.10)";
+        maxToggle.title = "Show this skill's values (and its contribution to Stats) at max skill level (Lv.10)";
         maxToggle.addEventListener("click", () => {
-          setMaxLevelToggle(maxToggle, maxToggle.getAttribute("aria-pressed") !== "true");
-          paintDescription(isMaxLevelToggleOn(maxToggle));
+          const isOn = maxToggle.getAttribute("aria-pressed") !== "true";
+          setMaxLevelToggle(maxToggle, isOn);
+          paintDescription(isOn);
+          skillLevelState.set(skill, isOn);
           syncSkillsMaxLevelToggle();
+          renderModalStatsTable(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
         });
         setMaxLevelToggle(maxToggle, skillsAtMaxLevel);
+        skillLevelState.set(skill, skillsAtMaxLevel);
         head.appendChild(maxToggle);
-        skillMaxLevelToggles.push({ toggle: maxToggle, paintDescription });
+        skillMaxLevelToggles.push({ toggle: maxToggle, paintDescription, skill });
       }
 
       paintDescription(skillsAtMaxLevel);
@@ -2890,6 +3647,63 @@ function showGifPreview(path) {
 
 function hideGifPreview() {
   gifPreview.hidden = true;
+}
+
+// Icon, name, rarity and every numeric figure the item carries, plus its Notes (when
+// it has one) run through the same rendering pipeline as skill text - bullets,
+// condition/action grouping, keyword colors - rather than a plain title attribute,
+// which cannot carry any of that. The border is tinted to the item's own rarity color,
+// the same --equip-tile-color convention the tile and picker cell already use.
+function showEquipInfoTooltip(item, anchorEl) {
+  if (!item) return;
+  equipInfoTooltip.style.setProperty("--equip-tile-color", equipmentRarityColor(item.rarity));
+
+  equipInfoIconWrap.innerHTML = "";
+  equipInfoIconWrap.appendChild(equipmentIconImg(item, "equip-info-icon-img"));
+  equipInfoName.textContent = item.name;
+  equipInfoRarity.textContent = item.rarity || "Built-in";
+
+  equipInfoStats.innerHTML = "";
+  for (const row of equipmentStatRows(item)) {
+    const el = document.createElement("span");
+    el.className = "equip-info-stat";
+    if (row.icon) {
+      const icon = document.createElement("img");
+      icon.className = "equip-info-stat-icon";
+      icon.src = row.icon;
+      icon.alt = "";
+      el.appendChild(icon);
+    }
+    el.appendChild(document.createTextNode(`${row.label} ${row.value}`));
+    equipInfoStats.appendChild(el);
+  }
+
+  equipInfoNotes.hidden = !item.notes;
+  if (item.notes) {
+    appendSkillDescription(equipInfoNotes, item.notes);
+    highlightKeywords(equipInfoNotes, namedMechanics(item.notes));
+  }
+
+  equipInfoTooltip.hidden = false;
+
+  const rect = anchorEl.getBoundingClientRect();
+  const margin = 10;
+  equipInfoTooltip.style.left = "0px";
+  equipInfoTooltip.style.top = "0px";
+  const tw = equipInfoTooltip.offsetWidth;
+  const th = equipInfoTooltip.offsetHeight;
+  let left = rect.right + margin;
+  if (left + tw > window.innerWidth - margin) left = rect.left - tw - margin;
+  left = Math.max(margin, left);
+  let top = rect.top;
+  if (top + th > window.innerHeight - margin) top = window.innerHeight - th - margin;
+  top = Math.max(margin, top);
+  equipInfoTooltip.style.left = `${left}px`;
+  equipInfoTooltip.style.top = `${top}px`;
+}
+
+function hideEquipInfoTooltip() {
+  equipInfoTooltip.hidden = true;
 }
 
 // A barrage row names its skill inconsistently (extra suffixes, hyphen and spacing
@@ -3622,8 +4436,12 @@ function applyRetrofitState() {
   const rarity = currentRarity();
 
   renderModalTags(ship, rarity);
-  renderModalStatsTable(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  // Skills first: it resets each toggle-bearing skill's Max Level override to the
+  // current skillsAtMaxLevel default, which computeEffectiveStats reads - rendering
+  // Stats first would compute off whatever override a previous view of this ship's
+  // modal left behind in skillLevelState.
   renderModalSkills(ship, retrofitApplied, augmentApplied, fateSimApplied);
+  renderModalStatsTable(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
   renderModalBarrages(ship, retrofitApplied, augmentApplied, fateSimApplied);
   modalEl.style.setProperty("--modal-rarity-color", `var(--${RARITY_CLASS[rarity] || "rarity-normal"})`);
 }
@@ -3706,6 +4524,7 @@ function closeModal() {
   modalOverlay.hidden = true;
   document.body.style.overflow = "";
   currentShip = null;
+  hideEquipInfoTooltip();
 }
 
 grid.addEventListener("click", event => {
