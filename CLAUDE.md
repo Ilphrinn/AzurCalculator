@@ -29,7 +29,9 @@ share them with `app.js`. The build also emits external `.map` files for every m
 script; keep their `sourceMappingURL` comments and the maps together in `dist/` so
 production debugging and Lighthouse can resolve the original sources. Run `npm ci` before
 the build on a clean checkout. Wrangler runs this build through `wrangler.toml` before
-deployment. It also creates WebP derivatives only in `dist/`: `icon-small.webp` at
+deployment. Raleway is served as `assets/fonts/raleway-latin.woff2`, preloaded from the
+same origin to avoid a late font swap and its resulting layout shift. It also creates WebP
+derivatives only in `dist/`: `icon-small.webp` at
 92x84 plus 144x192 and 288x384 (`@2x`) thumbnails for every
 `assets/thumbnails-card/*.jpg`. The app uses responsive WebP candidates only when
 `dist/index.html` marks them as available; the source page keeps using the original

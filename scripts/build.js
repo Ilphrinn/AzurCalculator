@@ -10,7 +10,7 @@ if (!output.startsWith(`${root}${sep}`)) {
   throw new Error("Build output must stay inside the project directory.");
 }
 
-const inputs = ["index.html", "app.js", "style.css", "font-loader.js", "data", "assets", "_headers"];
+const inputs = ["index.html", "app.js", "style.css", "data", "assets", "_headers"];
 
 for (const input of inputs) {
   const source = join(root, input);
@@ -27,7 +27,6 @@ for (const input of inputs) {
 
 const minifiedFiles = [
   ["style.css", "css"],
-  ["font-loader.js", "js"],
   ["app.js", "js"],
   ["data/ships.js", "js"],
   ["data/equipment.js", "js"],
@@ -116,7 +115,7 @@ const requiredOutputs = [
   "index.html",
   "app.js",
   "style.css",
-  "font-loader.js",
+  "assets/fonts/raleway-latin.woff2",
   "data/ships.js",
   "data/ships.js.map",
   "app.js.map",
