@@ -1815,6 +1815,27 @@ function innateDepthCharge(ship) {
   return id ? DEFAULT_EQUIPMENT_BY_ID.get(id) || null : null;
 }
 
+// A barrage that fires every N main gun volleys is damage these figures used to ignore
+// entirely, and ignoring it made the optimiser and the displayed DPS contradict each
+// other: a ship handed a faster gun so she fires her barrage twice as often would show
+// a LOWER DPS than before. It is not a slot - no slot declares it - so it is added here,
+// the same way the innate depth charge launcher above is.
+//
+// The gun's catalog reload stands in for the true volley interval. That is the same
+// baseline-100-reload approximation every other figure here already makes, and it is
+// what the optimiser scores against, so the two agree.
+function volleyBarrageDps(ship, effective) {
+  const barrage = volleyBarrage(ship);
+  if (!barrage) return 0;
+  const key = shipGunSlotKeys(ship)[0];
+  if (key == null) return 0;
+  const gun = activeEquipmentForSlot(ship, key, ship.equipment[key]);
+  if (!gun) return 0;
+  const cycle = (gun.reload || 0) + (gun.volleyTime || 0);
+  if (cycle <= 0) return 0;
+  return (volleyBarrageDamage(barrage, effective, null) / barrage.n) / cycle;
+}
+
 // The four headline figures. Every slot contributes through whatever it actually fights
 // with - the equipped item if there is one, otherwise the ship's built-in weapon - so a
 // ship with an empty loadout still reports the damage she really does.
@@ -1836,6 +1857,9 @@ function computeCombatMetrics(ship, level, effective) {
     if (contribution && !contribution.unknown) totals[contribution.metric] += contribution.value;
   }
 
+  const barrageDps = volleyBarrageDps(ship, effective);
+  totals.dps += barrageDps;
+
   const hp = effective.stats.health ? effective.stats.health.value : 0;
   const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
   const luck = effective.stats.luck ? effective.stats.luck.value : 0;
@@ -1848,6 +1872,7 @@ function computeCombatMetrics(ship, level, effective) {
     ehp: hp / hitRate,
     hitRate,
     unknownSlots,
+    volleyBarrageDps: barrageDps,
     innateDepthCharge: Boolean(launcher),
   };
 }
@@ -1942,6 +1967,82 @@ function shipBarrageTriggerType(ship) {
   if (texts.some(t => BARRAGE_PROC_RE.test(t))) return "proc";
   if (texts.some(t => BARRAGE_TIMER_RE.test(t))) return "timer";
   return null;
+}
+
+// How a skill switches on decides what its ship should carry, so the optimiser reads
+// the activation clause rather than the effect. The full vocabulary this was drawn
+// from is in CLAUDE.md; the one family that changes a gun choice is here.
+//
+// A barrage costing "every N times the main gun is fired" is paid for in VOLLEYS, not
+// in seconds, so a faster gun fires it more often. That makes the barrage worth a
+// share of every volley, which is what lets a fast gun beat a harder-hitting one on
+// arithmetic instead of on a rule. The pair in "Every 15 (10) times" is skill level 1
+// (max), so the max-level figure is the one taken, as renderLevelValues() does.
+const MAIN_GUN_VOLLEY_RE = /\bevery\s+(\d+)\s*(?:\((\d+)\))?\s*(?:nd|rd|th|st)?\s*times?\b[^.]{0,45}?\bmain\s+gun/i;
+
+const volleyBarrageCache = new Map();
+
+// The barrage rows belonging to a skill, found by running the existing row-to-skill
+// matcher backwards rather than writing a second name match. Where a ship has more
+// than one such barrage, the one worth most PER VOLLEY wins - a small barrage every 2
+// volleys can beat a large one every 10.
+function volleyBarrage(ship) {
+  if (volleyBarrageCache.has(ship.id)) return volleyBarrageCache.get(ship.id);
+  let best = null;
+  for (const skill of ship.skills || []) {
+    const m = MAIN_GUN_VOLLEY_RE.exec(stripHtml(skill.description || ""));
+    if (!m) continue;
+    const n = Number(m[2] || m[1]);
+    if (!n) continue;
+    const terms = new Map();
+    let damage = 0;
+    for (const b of ship.barrages || []) {
+      if (matchSkillForBarrage(ship, b.skillName) !== skill) continue;
+      // A row is only counted when it plainly belongs to this trigger. Rows whose name
+      // carries a qualifier past the skill name do not: they are alternatives rather
+      // than components (Asuka fires ONE of "New Link Chance! (Variant 1..5)", not all
+      // five), or they are a second trigger the same skill also has ("Happy D (every
+      // 5s)" alongside her every-2-volleys attack). Summing either inflates the barrage
+      // and hands the ship a gun she does not want, so an ambiguous row is dropped -
+      // unless its own trigger field names the main gun, which settles it outright.
+      // Costs 8% of the counted damage across the roster and leaves 502 of 507 ships
+      // with a figure; the 5 that lose it fall back to no barrage term at all.
+      const suffix = b.skillName.toLowerCase().startsWith(skill.name.toLowerCase())
+        ? b.skillName.slice(skill.name.length)
+        : b.skillName;
+      if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) continue;
+      const rowDamage = (Number(b.count) || 0) * (Number(b.baseDmg) || 0);
+      if (!rowDamage) continue;
+      damage += rowDamage;
+      const scaling = b.statScaling || {};
+      const key = scaling.stat + "|" + scaling.multiplier;
+      const term = terms.get(key) || { stat: scaling.stat, multiplier: Number(scaling.multiplier) || 0, damage: 0 };
+      term.damage += rowDamage;
+      terms.set(key, term);
+    }
+    if (damage > 0 && (!best || damage / n > best.damage / best.n)) {
+      best = { n, damage, terms: [...terms.values()] };
+    }
+  }
+  volleyBarrageCache.set(ship.id, best);
+  return best;
+}
+
+// Most volley barrages scale off Firepower exactly as the gun does, but 83 rows across
+// 64 ships scale off Torpedo instead - a destroyer whose All Out Assault launches
+// torpedoes - so applying Firepower to everything would overstate them. Each term keeps
+// its own stat and the wiki's own coefficient for it; with a coefficient of 1 this is
+// the gun's own (1 + stat/100). A row whose stat is not one this app tracks contributes
+// its flat damage and nothing more, rather than being dropped.
+// `item` is the gun being considered: its own stat bonus lifts the barrage too.
+function volleyBarrageDamage(barrage, effective, item) {
+  let total = 0;
+  for (const term of barrage.terms) {
+    const entry = term.stat ? effective.stats[term.stat] : null;
+    const stat = (entry ? entry.value : 0) + (item ? itemStatBonus(item, term.stat) : 0);
+    total += term.damage * (1 + term.multiplier * stat / 100);
+  }
+  return total;
 }
 
 function findEquipmentByName(name) {
@@ -2214,12 +2315,31 @@ function itemStatBonus(item, key) {
 // Two second-order effects are knowingly ignored: a gun's Firepower bonus also lifts the
 // ship's OTHER gun slots, and the picks are made slot by slot rather than jointly. Both
 // would need a whole-loadout search to model, and neither changes which gun wins a slot.
-function weaponScoreForShip(item, damage, effective) {
+// barragePerVolley is what this ship's volley-triggered barrage adds to each main gun
+// volley - 0 for every other slot and every ship without one. Dividing it by the
+// candidate's own cycle time puts it on the same footing as the gun's DPS, before the
+// ship's stat multiplies both, which is right: these barrages scale off Firepower
+// exactly as the gun does.
+//
+// slotFactor is the slot's mounts x efficiency. It used to be left out on the grounds
+// that it multiplies every candidate in a slot equally and so cannot change their
+// order - true until the barrage term arrived, and false afterwards: a gun fires from
+// every mount at the slot's efficiency, while the barrage is one fixed pattern that
+// neither touches. Omitting it made the barrage look mounts x efficiency times more
+// important than it is - about 4.5x on a typical 3-mount 150% slot - and handed 137
+// ships a weaker gun. It also keeps this identical to slotDamage(), which is what makes
+// the optimiser and the displayed DPS agree.
+function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFactor) {
   const role = weaponRole(item);
   if (!role || !effective) return damage;
   const entry = effective.stats[role.stat];
   const stat = (entry ? entry.value : 0) + itemStatBonus(item, role.stat);
-  return damage * (1 + stat / 100);
+  let dps = damage * (slotFactor || 1) * (1 + stat / 100);
+  if (barragePerVolley) {
+    const cycle = (item.reload || 0) + (item.volleyTime || 0);
+    if (cycle > 0) dps += barragePerVolley / cycle;
+  }
+  return dps;
 }
 
 // Global, like the Skills tab's Max Level state: it survives switching ships, because a
@@ -2406,6 +2526,10 @@ function optimizeEquipment(ship, effective) {
   // this exclusion falls back to.
   const wantFastAa = role !== "bb" && role !== "cb" && shipHasLowAntiAir(ship) && !shipHasSelfStatSkill(ship, "antiair");
   const barrageTrigger = role === "bb" ? shipBarrageTriggerType(ship) : null;
+  // Only the FIRST gun slot fires the barrage: the trigger counts main gun volleys,
+  // and a later gun slot is a secondary battery (see EQUIPMENT_SHORT_NAMES).
+  const volley = volleyBarrage(ship);
+  const mainGunSlotKey = volley ? shipGunSlotKeys(ship)[0] : null;
   let changed = 0;
 
   const filterItem = item =>
@@ -2507,7 +2631,11 @@ function optimizeEquipment(ship, effective) {
       let score;
       if (isBbAntiAir) score = bbAntiAirScore(item);
       else if (isWeapon) {
-        score = weaponScoreForShip(item, damage, effective);
+        const barragePerVolley = slotKey === mainGunSlotKey
+          ? volleyBarrageDamage(volley, effective, item) / volley.n
+          : 0;
+        const slotFactor = (slot.mount || 1) * (typeof slot.efficiency === "number" ? slot.efficiency : 1);
+        score = weaponScoreForShip(item, damage, effective, barragePerVolley, slotFactor);
         if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
           if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
         }
@@ -2947,6 +3075,9 @@ function renderCombatMetrics(ship, effective) {
           : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
+        }
+        if (field.key === "dps" && metrics.volleyBarrageDps) {
+          notes.push(`Includes ${Math.round(metrics.volleyBarrageDps).toLocaleString("en-US")} DPS from her volley-triggered barrage, which fires off the main gun: a faster gun fires it more often.`);
         }
         if (field.key === "dpsASW") {
           if (metrics.innateDepthCharge) {

@@ -2623,6 +2623,143 @@ after the final edit.
   DPS. The metric tooltip says how many slots were skipped. Equipping or optimising fixes
   it, since catalog aircraft do carry DPS.
 
+  ### Reading a skill's activation condition to choose gear (2026-08-21)
+
+  Asked for as the next big piece: "lecture de skill pour adapter les equipements". The
+  instruction was to **write the vocabulary of conditional keywords first, take the time
+  over it, and only then compare it against skills when picking equipment** - so the
+  taxonomy below is the deliverable, not a by-product.
+
+  **What already existed and what did not.** The commit before this one added a reader
+  for equip-gated bonuses (`equipConditionClauseForRaw` -> `parseEquipCondition` ->
+  `equipConditionAllows`), but it has exactly one caller, `computeEffectiveStats`. So
+  conditions were **evaluated and never sought**: Kitakaze gains 15% weapon efficiency
+  with a Sakura Empire DD gun, Optimize took whatever gun had the highest raw damage,
+  and the stats panel then honestly reported the bonus as not applying. Self-consistent,
+  and leaving the bonus on the floor.
+
+  #### The vocabulary
+
+  Derived from the corpus, not invented: 3577 condition clauses pulled out of all 2688
+  skills by taking, per sentence, everything before its first top-level colon (or before
+  the first comma when the sentence opens on a subordinate cue). **92.3% fall into the
+  families below**, and 96% of the distinct clauses left over appear exactly once each -
+  per-ship named mechanics (phantoms, clones, mana, Holy Judgment), not a missing family.
+
+  *Weapon-driven - the skill is paid for in shots, so firing FASTER is worth more:*
+  `mainGunVolley` 566 clauses / 525 ships (`every N times ... main gun`, `main gun is
+  fired`, `all out assault`) - `mainGunFire` 251/172 (`fires|firing ... main gun`,
+  `finishes loading|reloading`, `fires a salvo`) - `secondaryVolley` 10/7 -
+  `torpedoFire` 94/79 - `airstrike` 182/116 - `aaFire` 60/53 - `hitCount` 6/5.
+
+  *Cadence-independent - firing faster changes nothing, so raw power wins:*
+  `timer` 502/379 (`every Ns`, `Ns after`) - `battleStart` 447/317 - `always` 151/131.
+
+  *Defensive - she is built to be hit:* `damageTaken` 224/169 (`hp falls|drops
+  below|under|beneath`, `takes dmg`, `is attacked`) - `barrierBroken` 25/22 - `hpState`
+  16/10.
+
+  *Equipment:* `equipped` 147 clauses / **105 ships** (`equipped with`, `equipping`,
+  `equips`, `uses a ... that fires ... ammo`). That is the real ceiling for the existing
+  parser, which currently reaches 19.
+
+  *Neutral for gear, classified only so they cannot pollute the rest:* `fleetComp`
+  224/176, `effectChain` 93/78, `enemyType` 80/75, `positional` 57/51, `killEnemy` 46/39,
+  `submarine` 36/29, `stacks` 33/24, `battleEnd` 9/8, `ammoState` 8/8, `selfCategory` 2/2.
+
+  *A separate axis, not a family:* **limiters** - `once per battle`, `up to N times`,
+  `only once`, `for the first N` - 169 clauses. A limiter caps an already-triggered
+  effect, so it should damp a frequency-driven weight rather than select one.
+
+  **Two findings that decided the design.**
+  1. **Classifying per SHIP does not work.** Of 888 ships, 240 are cadence-driven only,
+     247 timer only, 119 neither - and **248 are both**. A rule of the form "this ship is
+     cadence-driven, give her a fast gun" is ambiguous for 28% of the roster.
+  2. **Classifying per BONUS does work**, and the anchoring is exact: locating a bonus by
+     its own `raw` text and reading the sentence before it succeeds for **1972 of 1972**
+     self-scope bonuses. 642 are sentence-initial (unconditional), 923 classify.
+
+  A result worth keeping before building on it: of those 923, only **78 are gun-driven**
+  against 279 `battleStart` and 206 `timer`. **Stat bonuses are mostly permanent; the
+  cadence signal lives in the BARRAGES, not in `statBonuses`.** The two halves of the
+  vocabulary therefore serve different consumers - `equipped` gates bonuses, the
+  weapon-driven families steer gun choice.
+
+  #### What was built: the barrage pays for the gun
+
+  Asked whether a "every N volleys" ship should really chase cadence over per-shell
+  damage, the user answered **"cela depend des valeurs de barrages listes en dessous"** -
+  read the numbers, do not write a rule. Which turns out to remove the need for a rule
+  entirely: a volley barrage is paid for in volleys, so it is worth a fixed share of
+  EVERY volley, and adding that share to a gun's score makes fast-versus-hard fall out
+  of arithmetic.
+
+      score = (gunDps x mounts x efficiency x (1 + stat/100)) + barragePerVolley / cycle
+
+  `MAIN_GUN_VOLLEY_RE` + `volleyBarrage()` read N from the skill text (the pair in "Every
+  15 (10) times" is level 1 (max), so the max figure is taken) and total the barrage rows
+  by running `matchSkillForBarrage` backwards. N's distribution confirms it reads the
+  game correctly: **10 for destroyers, 8 for light cruisers, 6 for heavy cruisers**.
+  502 ships end up with a figure.
+
+  **Three bugs, each caught by a measurement rather than by reading the diff:**
+
+  1. **Mounts and efficiency had to come into the score.** They were deliberately left
+     out ("equal for every candidate in a slot, cannot change the order") - true until a
+     term arrived that they do NOT multiply. A gun fires from every mount at the slot's
+     efficiency; the barrage is one fixed pattern. Omitting the factor made the barrage
+     look about 4.5x more important than it is on a typical 3-mount 150% slot, and handed
+     137 ships a weaker gun. Caught because the optimiser and the displayed DPS disagreed
+     139 times. **My own offline estimate of "median 34% barrage share" had the same
+     omission and was inflated by the same factor.**
+  2. **83 of 719 volley-barrage rows scale off Torpedo, not Firepower**, and 64 ships mix
+     both in one barrage - a destroyer whose All Out Assault launches torpedoes. Each term
+     now keeps its own stat and the wiki's own coefficient.
+  3. **Barrage rows are not all additive.** `matchSkillForBarrage` is a prefix match, so
+     every row starting with the skill's name was being summed - including
+     `Happy D (every 5s)`, a *timer* barrage belonging to the same skill as William D.
+     Porter's every-2-volleys attack, and `New Link Chance! (Variant 1..5)`, of which
+     Asuka fires exactly ONE. A row is now counted only when nothing follows the skill
+     name in parentheses, unless its own `trigger` field names the main gun outright.
+     Costs 8% of the counted damage and 5 of 507 ships, and collapses the two headline
+     results that had been artefacts: William D. Porter 870 -> 105 damage per volley,
+     Isla von Duerer 1073 -> 200. **An outlier is a thing to verify, not to celebrate.**
+
+  **The displayed DPS had to move too.** `computeCombatMetrics` ignored barrages entirely,
+  so a ship given a faster gun to fire hers more often would have shown a LOWER DPS than
+  before - the same optimiser-versus-metric split this file already recorded for weapon
+  scoring. `volleyBarrageDps()` adds it as a ship-level term, the way `innateDepthCharge`
+  already does, and the tooltip says how much of the figure it is.
+
+  **Result, measured by diffing the committed baseline's own picks against the new ones
+  and judging both under the same metric: 48 ships change their main gun, 48 improve, 0
+  regress, +10.78% on the ships that moved.** The gains are all the same shape - Kumano
+  +40.4% and Suzuya +26.4% swap a 7.32s heavy-cruiser gun for a 1.38s light-cruiser one;
+  Regensburg +30.6% and Momo Belia Deviluke +29.1% drop the Prototype Quadruple 152mm
+  (3.1s) for a Single 150mm (1.38s). Nothing else moved: the pre-existing
+  optimiser-versus-metric disagreements stay at **232, exactly the baseline**, while DPS
+  left on the table improves 1.695% -> 1.619%. Full 888-ship open/close at 0 errors, 888
+  optimised filling 4431 slots with 0 non-finite results, 0 barrage terms leaking onto a
+  ship without one, and William D. Porter's arithmetic re-derived by hand against her own
+  data (expected 543.10 barrage DPS, reported 543.10).
+
+  12 ships carry a barrage but contribute nothing until something is equipped - their main
+  gun slot declares no built-in weapon (22, 33, Surrey, Cherbourg: the hand-imported ones).
+  Correct, and it resolves itself on Optimize.
+
+  **A trap that cost a cycle here.** A heredoc writing a patch script ate one level of
+  backslash, so `\b` reached the file as a literal backspace and `\s`/`\d` as plain
+  letters - a regex that parsed, matched nothing, and reported 0 ships. **Write patch
+  scripts containing regexes with the Write tool, never a shell heredoc** (the same rule
+  this file already states for injected test scripts), and print the written line back
+  to prove it survived. app.js is CRLF throughout, so multi-line anchors must be too.
+
+  **Still open on this thread**: the `equipped` family is read but still not *sought* -
+  Optimize does not try to satisfy a gear condition. The user has already chosen how it
+  should behave when it does: **evaluate the best gun that satisfies the condition with
+  its bonus against the best gun overall without it, and keep whichever wins on the real
+  numbers** - no invented rule, the DPS decides. 105 ships are in scope.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)
