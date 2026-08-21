@@ -2754,6 +2754,53 @@ after the final edit.
   this file already states for injected test scripts), and print the written line back
   to prove it survived. app.js is CRLF throughout, so multi-line anchors must be too.
 
+  #### Armour-neutral damage on both sides (same day, after a clarification)
+
+  "Valeur de barrage, je voulais dire les degats qu'inflige le barrage, ils sont presents
+  en dessous des skills" - the earlier answer's "listes en dessous" meant **the Barrages
+  table in the modal**, below Skills. That is the table the work above already reads, but
+  the clarification exposed a sub-choice made without asking: that table shows `Base DMG`,
+  `Count`, then `Light DMG / Medium DMG / Heavy DMG`, and the barrage was being totalled
+  from the first two - the figure BEFORE the armour modifier.
+
+  Not a wash: **295 of 680 counted rows** have an armour modifier that makes the displayed
+  columns differ from `Count x Base DMG` (only 88 rows are 100/100/100), and the effect is
+  not a constant factor - `mean(L,M,H) / pre-armour` runs from **0.567** (Jintsuu,
+  Hatsuharu, Ariake - barrages punished by armour) to **1.200** (Prinz Eugen mu, Eldridge -
+  torpedo barrages rewarded by it). It decides which ships deserve a faster gun, not merely
+  how big the term is.
+
+  Asked which figure to use, the user chose **the mean of the three columns on both sides**.
+  So `equipmentBaseDps` now prefers `mean(dps.light, dps.medium, dps.heavy)` over `dps.raw`
+  (raw stays as the fallback for an item with no per-armour breakdown), and `volleyBarrage`
+  averages the same three columns per row. `raw` is the figure at a 100% armour modifier,
+  which almost no ammunition has, so comparing two items on it quietly favours whichever is
+  tuned for a target that is not there - the same reasoning this file already recorded for
+  `dps.light` and the torpedo list, now applied as the default rather than the fallback.
+
+  **It barely moves the picks and it moves the figures.** Only **2 slots of 4431** change,
+  a mirror pair - the mean rescales gun and barrage in the same direction, so the ranking
+  mostly survives. The displayed DPS is where it shows: aggregate **-7.4%**, per-ship ratio
+  0.73 to 1.08. Sailing Frigates fall hardest (Amity 706 -> 517) and torpedo-heavy ships
+  rise (Prinz Eugen mu 962 -> 1036, Scharnhorst META 394 -> 419). **AA, ASW and eHP are
+  byte-identical**, which is the check that the change reached only what it should: those
+  categories carry a single figure with no per-armour breakdown.
+
+  **One measured regression, understood rather than excused.** The optimiser-versus-metric
+  disagreement count rises **232 -> 285** and DPS left on the table **1.619% -> 1.761%**.
+  Diagnosed instead of assumed: **every disagreement in both versions is on a ship with
+  more than one damage-contributing slot - 232/232 and 285/285, zero single-slot cases.**
+  So it is entirely the known cross-slot effect (a gun's Firepower bonus lifts the ship's
+  OTHER weapon slots, which a per-slot score cannot see - the Chen Hai case recorded above),
+  amplified rather than introduced: base DPS shrank while stat bonuses did not, so the
+  cross-slot term is proportionally larger and trips the detector more often. The tail
+  actually tightened (p90 loss 5.11% -> 4.28%, max unchanged at 63.65%). The real fix is
+  the whole-loadout search this file already defers.
+
+  Full 888-ship regression at 0 errors, 4431 slots filled, 0 non-finite results, 502 ships
+  with a barrage and 0 leaks; William D. Porter's arithmetic re-derived by hand against her
+  own rows (expected 584.96 barrage DPS, reported 584.96).
+
   **Still open on this thread**: the `equipped` family is read but still not *sought* -
   Optimize does not try to satisfy a gear condition. The user has already chosen how it
   should behave when it does: **evaluate the best gun that satisfies the condition with

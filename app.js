@@ -1748,17 +1748,24 @@ function weaponRole(item) {
 // The item's damage per second BEFORE any ship stat is applied. Verified against the
 // catalog: a gun's dps.raw is exactly dmg x coef x roundsPerSec, with no stat term, so
 // these figures are a stat-0 baseline and the stat multiplier below is not double
-// counting. Where no raw figure exists the mean of the light/medium/heavy columns stands
-// in, so no target armour type is silently assumed.
+// counting.
+//
+// The mean of the light/medium/heavy columns is what is used, NOT dps.raw, so no target
+// armour type is assumed. raw is the figure at a 100% armour modifier, which almost no
+// ammunition actually has - HE is punished against heavy armour and torpedoes rewarded -
+// so comparing two items on raw quietly favours whichever is tuned for a target that is
+// not there. This matters most where a gun is weighed against a barrage: their ammo
+// types differ, and their armour modifiers with them. raw remains the fallback for an
+// item that has no per-armour breakdown.
 function equipmentBaseDps(item) {
   if (typeof item.aaDps === "number") return item.aaDps;
   if (typeof item.aswDps === "number") return item.aswDps;
   if (typeof item.dps === "number") return item.dps;
   const dps = item.dps;
   if (dps && typeof dps === "object") {
-    if (typeof dps.raw === "number") return dps.raw;
     const values = [dps.light, dps.medium, dps.heavy].filter(v => typeof v === "number");
     if (values.length) return values.reduce((a, b) => a + b, 0) / values.length;
+    if (typeof dps.raw === "number") return dps.raw;
   }
   const builtIn = [item.dpsLight, item.dpsMedium, item.dpsHeavy].filter(v => typeof v === "number");
   if (builtIn.length) return builtIn.reduce((a, b) => a + b, 0) / builtIn.length;
@@ -2011,7 +2018,17 @@ function volleyBarrage(ship) {
         ? b.skillName.slice(skill.name.length)
         : b.skillName;
       if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) continue;
-      const rowDamage = (Number(b.count) || 0) * (Number(b.baseDmg) || 0);
+      // The Light/Medium/Heavy columns of the Barrages table, averaged - the same
+      // armour-neutral figure equipmentBaseDps() uses for gear, so the two are
+      // comparable. Each already includes the row's Count, so this is the whole row.
+      // Count x Base DMG would be the pre-armour figure instead, and the difference is
+      // not a constant: it runs from 0.567x (Jintsuu, whose barrage is punished by
+      // armour) to 1.200x (Prinz Eugen mu, whose torpedo barrage is rewarded by it), so
+      // it decides which ships are worth a faster gun rather than merely rescaling them.
+      const armour = [b.lightDmg, b.mediumDmg, b.heavyDmg].map(Number).filter(v => Number.isFinite(v));
+      const rowDamage = armour.length
+        ? armour.reduce((a, c) => a + c, 0) / armour.length
+        : (Number(b.count) || 0) * (Number(b.baseDmg) || 0);
       if (!rowDamage) continue;
       damage += rowDamage;
       const scaling = b.statScaling || {};
