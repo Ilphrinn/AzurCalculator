@@ -613,6 +613,11 @@ function applySort(list) {
   return sorted;
 }
 
+function cardThumbnailPath(path) {
+  if (!path.startsWith("assets/thumbnails/")) return path;
+  return path.replace("assets/thumbnails/", "assets/thumbnails-card/").replace(/\.png$/, ".jpg");
+}
+
 function render(list) {
   grid.innerHTML = "";
   countEl.textContent = `${list.length} character${list.length > 1 ? "s" : ""}`;
@@ -629,6 +634,9 @@ function render(list) {
     const card = document.createElement("article");
     card.className = ship.hasRetrofit && ship.retrofitIcon ? "card has-retrofit" : "card";
     card.dataset.id = String(ship.id);
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `View ${ship.displayName} details`);
 
     const strip = document.createElement("div");
     strip.className = "rarity-strip";
@@ -646,24 +654,33 @@ function render(list) {
 
     const baseImg = document.createElement("img");
     baseImg.className = "thumb-base";
-    baseImg.src = ship.thumbnail;
+    baseImg.src = cardThumbnailPath(ship.thumbnail);
     baseImg.alt = ship.displayName;
+    baseImg.width = 3;
+    baseImg.height = 4;
     baseImg.loading = "lazy";
+    baseImg.decoding = "async";
     thumbWrap.appendChild(baseImg);
 
     if (ship.hasRetrofit && ship.retrofitIcon) {
-      const retrofitImg = document.createElement("img");
-      retrofitImg.className = "thumb-retrofit";
-      retrofitImg.src = ship.retrofitIcon;
-      retrofitImg.alt = `${ship.displayName} (retrofit)`;
-      retrofitImg.loading = "lazy";
-      thumbWrap.appendChild(retrofitImg);
-
       const badge = document.createElement("span");
       badge.className = "retrofit-badge";
       badge.title = "Retrofit available — hover to preview";
       badge.textContent = "⟲";
       thumbWrap.appendChild(badge);
+
+      const loadRetrofitPreview = () => {
+        if (thumbWrap.querySelector(".thumb-retrofit")) return;
+        const retrofitImg = document.createElement("img");
+        retrofitImg.className = "thumb-retrofit";
+        retrofitImg.src = cardThumbnailPath(ship.retrofitIcon);
+        retrofitImg.alt = `${ship.displayName} (retrofit)`;
+        retrofitImg.width = 3;
+        retrofitImg.height = 4;
+        retrofitImg.decoding = "async";
+        thumbWrap.insertBefore(retrofitImg, badge);
+      };
+      card.addEventListener("pointerenter", loadRetrofitPreview, { once: true });
     }
 
     const info = document.createElement("div");
@@ -4828,6 +4845,15 @@ function closeModal() {
 grid.addEventListener("click", event => {
   const card = event.target.closest(".card");
   if (!card) return;
+  const ship = shipsById.get(card.dataset.id);
+  if (ship) openModal(ship);
+});
+
+grid.addEventListener("keydown", event => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const card = event.target.closest(".card");
+  if (!card) return;
+  event.preventDefault();
   const ship = shipsById.get(card.dataset.id);
   if (ship) openModal(ship);
 });

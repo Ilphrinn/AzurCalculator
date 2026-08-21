@@ -73,7 +73,7 @@ body {
   z-index: 10;
   background:
     linear-gradient(180deg, rgba(6, 10, 20, 0.88) 0%, rgba(11, 17, 32, 0.96) 75%, var(--bg) 100%),
-    url("assets/header-background.png");
+    url("assets/header-background.jpg");
   background-size: cover;
   background-position: center 30%;
   border-bottom: 1px solid var(--border);
@@ -132,6 +132,22 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 1.1rem;
+}
+
+.control-label {
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .search-box {
@@ -224,7 +240,7 @@ body {
 
 .chip.nation-chip {
   border-color: var(--tag-color, var(--border));
-  color: var(--tag-color, var(--text-muted));
+  color: color-mix(in srgb, var(--tag-color, var(--text-muted)) 70%, white);
 }
 
 .chip.nation-chip:hover {
@@ -326,12 +342,14 @@ main {
 }
 
 .count {
+  min-height: 1.2rem;
   color: var(--text-muted);
   font-size: 0.85rem;
   margin: 0 0 1rem;
 }
 
 .grid {
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 1rem;
@@ -350,6 +368,12 @@ main {
 
 .card:hover {
   transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
   border-color: var(--accent);
 }
 
