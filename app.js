@@ -624,6 +624,33 @@ function cardThumbnailPath(path) {
   return path.replace("assets/thumbnails/", "assets/thumbnails-card/").replace(/\.png$/, ".jpg");
 }
 
+function cardThumbnailWebpPath(path) {
+  return cardThumbnailPath(path).replace(/\.jpg$/, ".webp");
+}
+
+function createCardThumbnail(path, className, alt) {
+  const image = document.createElement("img");
+  image.className = className;
+  image.src = cardThumbnailPath(path);
+  image.alt = alt;
+  image.width = 3;
+  image.height = 4;
+  image.loading = "lazy";
+  image.decoding = "async";
+
+  if (document.documentElement.dataset.webpAssets !== "true") {
+    return { picture: image, image };
+  }
+
+  const picture = document.createElement("picture");
+  const source = document.createElement("source");
+  source.srcset = cardThumbnailWebpPath(path);
+  source.type = "image/webp";
+  picture.appendChild(source);
+  picture.appendChild(image);
+  return { picture, image };
+}
+
 let renderToken = 0;
 const INITIAL_CARD_BATCH_SIZE = 24;
 const CARD_BATCH_SIZE = 72;
@@ -649,15 +676,8 @@ function createCard(ship) {
   const thumbWrap = document.createElement("div");
   thumbWrap.className = "thumb-wrap";
 
-  const baseImg = document.createElement("img");
-  baseImg.className = "thumb-base";
-  baseImg.src = cardThumbnailPath(ship.thumbnail);
-  baseImg.alt = ship.displayName;
-  baseImg.width = 3;
-  baseImg.height = 4;
-  baseImg.loading = "lazy";
-  baseImg.decoding = "async";
-  thumbWrap.appendChild(baseImg);
+  const baseThumbnail = createCardThumbnail(ship.thumbnail, "thumb-base", ship.displayName);
+  thumbWrap.appendChild(baseThumbnail.picture);
 
   if (ship.hasRetrofit && ship.retrofitIcon) {
     const badge = document.createElement("span");
@@ -668,14 +688,8 @@ function createCard(ship) {
 
     const loadRetrofitPreview = () => {
       if (thumbWrap.querySelector(".thumb-retrofit")) return;
-      const retrofitImg = document.createElement("img");
-      retrofitImg.className = "thumb-retrofit";
-      retrofitImg.src = cardThumbnailPath(ship.retrofitIcon);
-      retrofitImg.alt = `${ship.displayName} (retrofit)`;
-      retrofitImg.width = 3;
-      retrofitImg.height = 4;
-      retrofitImg.decoding = "async";
-      thumbWrap.insertBefore(retrofitImg, badge);
+      const retrofitThumbnail = createCardThumbnail(ship.retrofitIcon, "thumb-retrofit", `${ship.displayName} (retrofit)`);
+      thumbWrap.insertBefore(retrofitThumbnail.picture, badge);
     };
     card.addEventListener("pointerenter", loadRetrofitPreview, { once: true });
   }

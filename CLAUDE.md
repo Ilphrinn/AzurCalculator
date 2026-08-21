@@ -25,8 +25,14 @@ them in the source tree: the size difference costs nothing when the page is open
 disk, and the diffability is worth far more when ship data changes. `npm run build` copies
 the app to `dist/` and minifies CSS and JavaScript there only; it must preserve the global
 names `SHIPS_DATA`, `EQUIPMENT_DATA`, and `DEFAULT_EQUIPMENT_DATA` because classic scripts
-share them with `app.js`. Run `npm ci` before the build on a clean checkout. Wrangler runs
-this build through `wrangler.toml` before deployment.
+share them with `app.js`. The build also emits external `.map` files for every minified
+script; keep their `sourceMappingURL` comments and the maps together in `dist/` so
+production debugging and Lighthouse can resolve the original sources. Run `npm ci` before
+the build on a clean checkout. Wrangler runs this build through `wrangler.toml` before
+deployment. It also creates WebP derivatives only in `dist/`: `icon-small.webp` at
+100x91 and one 288x384 thumbnail for every `assets/thumbnails-card/*.jpg`. The app uses
+these WebP files only when `dist/index.html` marks them as available; the source page keeps
+using the original PNG/JPG directly. Do not replace or delete the readable source assets.
 
 Files: `index.html` (structure), `app.js` (all logic, one file), `style.css`, and
 `scripts/build.js` (production output). `data/equipment.js` is loaded only when a ship
