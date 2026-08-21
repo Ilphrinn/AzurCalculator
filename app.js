@@ -31,7 +31,13 @@ const shipsById = new Map(ships.map(s => [String(s.id), s]));
 // without rebuilding the list on each modal open. Both base and "+" enhanced skills
 // are kept: which of the two matches a given category can differ, since a "+" text
 // often adds a clause the base never had.
-const ALL_SKILLS_INDEX = ships.flatMap(s => (s.skills || []).map(skill => ({ ship: s, skill })));
+let allSkillsIndex;
+function getAllSkillsIndex() {
+  if (!allSkillsIndex) {
+    allSkillsIndex = ships.flatMap(s => (s.skills || []).map(skill => ({ ship: s, skill })));
+  }
+  return allSkillsIndex;
+}
 
 // hullType stores one word for these two, but skill prose always spells out the
 // "Ship" suffix, so matching needs the long form.
@@ -618,89 +624,111 @@ function cardThumbnailPath(path) {
   return path.replace("assets/thumbnails/", "assets/thumbnails-card/").replace(/\.png$/, ".jpg");
 }
 
+let renderToken = 0;
+const INITIAL_CARD_BATCH_SIZE = 24;
+const CARD_BATCH_SIZE = 72;
+
+function createCard(ship) {
+  const hasRarityShift = ship.hasRetrofit && ship.retrofitRarity !== ship.rarity;
+
+  const card = document.createElement("article");
+  card.className = ship.hasRetrofit && ship.retrofitIcon ? "card has-retrofit" : "card";
+  card.dataset.id = String(ship.id);
+
+  const strip = document.createElement("div");
+  strip.className = "rarity-strip";
+  const baseColor = `var(--${RARITY_CLASS[ship.rarity] || "rarity-normal"})`;
+  if (hasRarityShift) {
+    const retrofitColor = `var(--${RARITY_CLASS[ship.retrofitRarity] || "rarity-normal"})`;
+    strip.style.background = `linear-gradient(90deg, ${baseColor} 0%, ${baseColor} 38%, ${retrofitColor} 62%, ${retrofitColor} 100%)`;
+  } else {
+    strip.style.background = baseColor;
+  }
+  card.appendChild(strip);
+
+  const thumbWrap = document.createElement("div");
+  thumbWrap.className = "thumb-wrap";
+
+  const baseImg = document.createElement("img");
+  baseImg.className = "thumb-base";
+  baseImg.src = cardThumbnailPath(ship.thumbnail);
+  baseImg.alt = ship.displayName;
+  baseImg.width = 3;
+  baseImg.height = 4;
+  baseImg.loading = "lazy";
+  baseImg.decoding = "async";
+  thumbWrap.appendChild(baseImg);
+
+  if (ship.hasRetrofit && ship.retrofitIcon) {
+    const badge = document.createElement("span");
+    badge.className = "retrofit-badge";
+    badge.title = "Retrofit available — hover to preview";
+    badge.textContent = "⟲";
+    thumbWrap.appendChild(badge);
+
+    const loadRetrofitPreview = () => {
+      if (thumbWrap.querySelector(".thumb-retrofit")) return;
+      const retrofitImg = document.createElement("img");
+      retrofitImg.className = "thumb-retrofit";
+      retrofitImg.src = cardThumbnailPath(ship.retrofitIcon);
+      retrofitImg.alt = `${ship.displayName} (retrofit)`;
+      retrofitImg.width = 3;
+      retrofitImg.height = 4;
+      retrofitImg.decoding = "async";
+      thumbWrap.insertBefore(retrofitImg, badge);
+    };
+    card.addEventListener("pointerenter", loadRetrofitPreview, { once: true });
+  }
+
+  const info = document.createElement("div");
+  info.className = "info";
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = ship.displayName;
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  meta.textContent = hasRarityShift
+    ? `${ship.hullType} · ${ship.rarity} → ${ship.retrofitRarity}`
+    : `${ship.hullType} · ${ship.rarity}`;
+  info.appendChild(name);
+  info.appendChild(meta);
+
+  card.appendChild(thumbWrap);
+  card.appendChild(info);
+
+  const activateButton = document.createElement("button");
+  activateButton.className = "card-activate";
+  activateButton.type = "button";
+  activateButton.setAttribute("aria-label", `View ${ship.displayName} details`);
+  card.appendChild(activateButton);
+
+  return card;
+}
+
 function render(list) {
-  grid.innerHTML = "";
+  const token = ++renderToken;
+  grid.replaceChildren();
   countEl.textContent = `${list.length} character${list.length > 1 ? "s" : ""}`;
 
   if (list.length === 0) {
-    grid.innerHTML = `<p class="empty">No character matches these filters.</p>`;
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "No character matches these filters.";
+    grid.appendChild(empty);
     return;
   }
 
-  const fragment = document.createDocumentFragment();
-  for (const ship of list) {
-    const hasRarityShift = ship.hasRetrofit && ship.retrofitRarity !== ship.rarity;
+  let offset = 0;
+  const renderBatch = batchSize => {
+    if (token !== renderToken) return;
+    const fragment = document.createDocumentFragment();
+    const end = Math.min(offset + batchSize, list.length);
+    for (; offset < end; offset++) fragment.appendChild(createCard(list[offset]));
+    grid.appendChild(fragment);
+    if (offset < list.length) requestAnimationFrame(() => renderBatch(CARD_BATCH_SIZE));
+  };
 
-    const card = document.createElement("article");
-    card.className = ship.hasRetrofit && ship.retrofitIcon ? "card has-retrofit" : "card";
-    card.dataset.id = String(ship.id);
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-label", `View ${ship.displayName} details`);
-
-    const strip = document.createElement("div");
-    strip.className = "rarity-strip";
-    const baseColor = `var(--${RARITY_CLASS[ship.rarity] || "rarity-normal"})`;
-    if (hasRarityShift) {
-      const retrofitColor = `var(--${RARITY_CLASS[ship.retrofitRarity] || "rarity-normal"})`;
-      strip.style.background = `linear-gradient(90deg, ${baseColor} 0%, ${baseColor} 38%, ${retrofitColor} 62%, ${retrofitColor} 100%)`;
-    } else {
-      strip.style.background = baseColor;
-    }
-    card.appendChild(strip);
-
-    const thumbWrap = document.createElement("div");
-    thumbWrap.className = "thumb-wrap";
-
-    const baseImg = document.createElement("img");
-    baseImg.className = "thumb-base";
-    baseImg.src = cardThumbnailPath(ship.thumbnail);
-    baseImg.alt = ship.displayName;
-    baseImg.width = 3;
-    baseImg.height = 4;
-    baseImg.loading = "lazy";
-    baseImg.decoding = "async";
-    thumbWrap.appendChild(baseImg);
-
-    if (ship.hasRetrofit && ship.retrofitIcon) {
-      const badge = document.createElement("span");
-      badge.className = "retrofit-badge";
-      badge.title = "Retrofit available — hover to preview";
-      badge.textContent = "⟲";
-      thumbWrap.appendChild(badge);
-
-      const loadRetrofitPreview = () => {
-        if (thumbWrap.querySelector(".thumb-retrofit")) return;
-        const retrofitImg = document.createElement("img");
-        retrofitImg.className = "thumb-retrofit";
-        retrofitImg.src = cardThumbnailPath(ship.retrofitIcon);
-        retrofitImg.alt = `${ship.displayName} (retrofit)`;
-        retrofitImg.width = 3;
-        retrofitImg.height = 4;
-        retrofitImg.decoding = "async";
-        thumbWrap.insertBefore(retrofitImg, badge);
-      };
-      card.addEventListener("pointerenter", loadRetrofitPreview, { once: true });
-    }
-
-    const info = document.createElement("div");
-    info.className = "info";
-    const name = document.createElement("div");
-    name.className = "name";
-    name.textContent = ship.displayName;
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    meta.textContent = hasRarityShift
-      ? `${ship.hullType} · ${ship.rarity} → ${ship.retrofitRarity}`
-      : `${ship.hullType} · ${ship.rarity}`;
-    info.appendChild(name);
-    info.appendChild(meta);
-
-    card.appendChild(thumbWrap);
-    card.appendChild(info);
-    fragment.appendChild(card);
-  }
-  grid.appendChild(fragment);
+  renderBatch(INITIAL_CARD_BATCH_SIZE);
 }
 
 function update() {
@@ -827,6 +855,30 @@ const modalBarragesList = document.getElementById("modal-barrages");
 const modalInteractionSection = document.getElementById("modal-interaction-section");
 const modalInteractionList = document.getElementById("modal-interaction");
 const modalInteractionMaxToggle = document.getElementById("modal-interaction-max-toggle");
+
+let equipmentLoadPromise;
+function setEquipmentControlsDisabled(disabled) {
+  [modalEquipmentCap, modalEquipmentTarget, modalEquipmentGearLab, modalEquipmentResearch, modalEquipmentOptimize, modalEquipmentClear]
+    .forEach(control => { control.disabled = disabled; });
+}
+
+function loadEquipmentData() {
+  if (typeof EQUIPMENT_DATA !== "undefined") return Promise.resolve();
+  if (equipmentLoadPromise) return equipmentLoadPromise;
+
+  equipmentLoadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "data/equipment.js";
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Unable to load equipment data."));
+    document.head.appendChild(script);
+  }).catch(error => {
+    equipmentLoadPromise = null;
+    throw error;
+  });
+
+  return equipmentLoadPromise;
+}
 const gifPreview = placeImage("gif-preview", "gif-preview", document.body, null, true);
 
 const equipInfoTooltip = document.createElement("div");
@@ -3156,6 +3208,20 @@ function renderModalEquipment(ship) {
     return;
   }
   modalEquipmentSection.hidden = false;
+  if (typeof EQUIPMENT_DATA === "undefined") {
+    setEquipmentControlsDisabled(true);
+    modalEquipment.textContent = "Loading equipment...";
+    loadEquipmentData().then(() => {
+      if (currentShip === ship && !modalOverlay.hidden) renderModalEquipment(ship);
+    }).catch(() => {
+      if (currentShip === ship && !modalOverlay.hidden) {
+        modalEquipment.textContent = "Equipment data could not be loaded.";
+      }
+    });
+    return;
+  }
+
+  setEquipmentControlsDisabled(false);
   syncEquipmentCapOptions();
   syncEquipmentTargetOptions(ship);
   modalEquipment.innerHTML = "";
@@ -4492,7 +4558,7 @@ function computeInteractions(ship) {
   const totals = { nation: 0, hull: 0, role: 0, class: 0, name: 0 };
   if (!patterns.length) return { results, totals };
 
-  for (const entry of ALL_SKILLS_INDEX) {
+  for (const entry of getAllSkillsIndex()) {
     if (entry.ship === ship) continue;
     const text = stripHtml(entry.skill.description);
     if (!text) continue;
@@ -4845,15 +4911,6 @@ function closeModal() {
 grid.addEventListener("click", event => {
   const card = event.target.closest(".card");
   if (!card) return;
-  const ship = shipsById.get(card.dataset.id);
-  if (ship) openModal(ship);
-});
-
-grid.addEventListener("keydown", event => {
-  if (event.key !== "Enter" && event.key !== " ") return;
-  const card = event.target.closest(".card");
-  if (!card) return;
-  event.preventDefault();
   const ship = shipsById.get(card.dataset.id);
   if (ship) openModal(ship);
 });

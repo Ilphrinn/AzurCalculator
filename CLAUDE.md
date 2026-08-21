@@ -5,8 +5,8 @@ in this project. It captures state that isn't obvious from the code alone.
 
 ## What this is
 
-A local static web app (plain HTML/CSS/vanilla JS, **no build tools**) cataloging every
-Azur Lane character. Opened directly via `file://index.html` — no server. This is why
+A local static web app (plain HTML/CSS/vanilla JS) cataloging every Azur Lane character.
+The source can still be opened directly via `file://index.html` — no server. This is why
 data lives in `data/ships.js` (`SHIPS_DATA` global var, not `fetch`ed JSON): `file://`
 pages can't `fetch()` local files due to CORS, so the dataset is inlined as a `<script>`.
 `data/ships.json` is the same data in real JSON, kept for tooling/scripts to read with
@@ -21,10 +21,16 @@ an editor). They now use `JSON.stringify(data, null, 2)`, the same indent their 
 twins already used, so each `.js` is line-for-line identical to its `.json` apart from the
 `const X = ` prefix and the trailing `;` — ships.js and ships.json are both 221 278 lines,
 equipment.js and equipment.json both 13 676. Regenerate the same way; do NOT re-minify
-them, the size difference (ships.js 3.8 MB → 6.1 MB) costs nothing here since the page is
-opened from disk, and the diffability is worth far more when ship data changes.
+them in the source tree: the size difference costs nothing when the page is opened from
+disk, and the diffability is worth far more when ship data changes. `npm run build` copies
+the app to `dist/` and minifies CSS and JavaScript there only; it must preserve the global
+names `SHIPS_DATA`, `EQUIPMENT_DATA`, and `DEFAULT_EQUIPMENT_DATA` because classic scripts
+share them with `app.js`. Run `npm ci` before the build on a clean checkout. Wrangler runs
+this build through `wrangler.toml` before deployment.
 
-Files: `index.html` (structure), `app.js` (all logic, one file, ~2700 lines), `style.css`.
+Files: `index.html` (structure), `app.js` (all logic, one file), `style.css`, and
+`scripts/build.js` (production output). `data/equipment.js` is loaded only when a ship
+modal needs its equipment catalog, keeping it out of the initial page load.
 
 ## Data provenance (important — don't try to re-scrape)
 
