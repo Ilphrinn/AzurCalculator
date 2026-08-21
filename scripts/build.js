@@ -63,23 +63,34 @@ async function buildImageVariants() {
     .map(entry => entry.name);
 
   await sharp(join(root, "assets", "icon-small.png"))
-    .resize(100, 91, { fit: "inside", withoutEnlargement: true })
-    .webp({ quality: 82, effort: 4 })
+    .resize(92, 84, { fit: "inside", withoutEnlargement: true })
+    .webp({ quality: 70, effort: 4 })
     .toFile(join(output, "assets", "icon-small.webp"));
 
   for (let index = 0; index < thumbnails.length; index += 8) {
-    await Promise.all(thumbnails.slice(index, index + 8).map(name =>
-      sharp(join(sourceDirectory, name))
-        .resize(288, 384, { fit: "cover", position: "centre" })
-        .webp({ quality: 78, effort: 4 })
-        .toFile(join(outputDirectory, name.replace(/\.jpg$/, ".webp")))
-    ));
+    await Promise.all(thumbnails.slice(index, index + 8).flatMap(name => {
+      const source = join(sourceDirectory, name);
+      const outputName = name.replace(/\.jpg$/, ".webp");
+      const highDensityOutputName = name.replace(/\.jpg$/, "@2x.webp");
+
+      return [
+        sharp(source)
+          .resize(144, 192, { fit: "cover", position: "centre" })
+          .webp({ quality: 78, effort: 4 })
+          .toFile(join(outputDirectory, outputName)),
+        sharp(source)
+          .resize(288, 384, { fit: "cover", position: "centre" })
+          .webp({ quality: 78, effort: 4 })
+          .toFile(join(outputDirectory, highDensityOutputName))
+      ];
+    }));
   }
 
   const generatedCount = readdirSync(outputDirectory, { withFileTypes: true })
     .filter(entry => entry.isFile() && entry.name.endsWith(".webp")).length;
-  if (generatedCount !== thumbnails.length) {
-    throw new Error(`Expected ${thumbnails.length} WebP thumbnails, generated ${generatedCount}.`);
+  const expectedCount = thumbnails.length * 2;
+  if (generatedCount !== expectedCount) {
+    throw new Error(`Expected ${expectedCount} WebP thumbnails, generated ${generatedCount}.`);
   }
 }
 
@@ -114,6 +125,7 @@ const requiredOutputs = [
   "assets/header-background.jpg",
   "assets/thumbnails-card/1.jpg",
   "assets/thumbnails-card/1.webp",
+  "assets/thumbnails-card/1@2x.webp",
   "_headers"
 ];
 

@@ -30,9 +30,10 @@ script; keep their `sourceMappingURL` comments and the maps together in `dist/` 
 production debugging and Lighthouse can resolve the original sources. Run `npm ci` before
 the build on a clean checkout. Wrangler runs this build through `wrangler.toml` before
 deployment. It also creates WebP derivatives only in `dist/`: `icon-small.webp` at
-100x91 and one 288x384 thumbnail for every `assets/thumbnails-card/*.jpg`. The app uses
-these WebP files only when `dist/index.html` marks them as available; the source page keeps
-using the original PNG/JPG directly. Do not replace or delete the readable source assets.
+92x84 plus 144x192 and 288x384 (`@2x`) thumbnails for every
+`assets/thumbnails-card/*.jpg`. The app uses responsive WebP candidates only when
+`dist/index.html` marks them as available; the source page keeps using the original
+PNG/JPG directly. Do not replace or delete the readable source assets.
 
 Files: `index.html` (structure), `app.js` (all logic, one file), `style.css`, and
 `scripts/build.js` (production output). `data/equipment.js` is loaded only when a ship

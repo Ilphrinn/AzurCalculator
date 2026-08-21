@@ -624,8 +624,8 @@ function cardThumbnailPath(path) {
   return path.replace("assets/thumbnails/", "assets/thumbnails-card/").replace(/\.png$/, ".jpg");
 }
 
-function cardThumbnailWebpPath(path) {
-  return cardThumbnailPath(path).replace(/\.jpg$/, ".webp");
+function cardThumbnailWebpPath(path, suffix = "") {
+  return cardThumbnailPath(path).replace(/\.jpg$/, `${suffix}.webp`);
 }
 
 function createCardThumbnail(path, className, alt) {
@@ -644,7 +644,8 @@ function createCardThumbnail(path, className, alt) {
 
   const picture = document.createElement("picture");
   const source = document.createElement("source");
-  source.srcset = cardThumbnailWebpPath(path);
+  source.srcset = `${cardThumbnailWebpPath(path)} 144w, ${cardThumbnailWebpPath(path, "@2x")} 288w`;
+  source.sizes = "143px";
   source.type = "image/webp";
   picture.appendChild(source);
   picture.appendChild(image);
