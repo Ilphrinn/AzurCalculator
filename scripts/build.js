@@ -1,3 +1,4 @@
+const { createHash } = require("node:crypto");
 const { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } = require("node:fs");
 const { basename, join, resolve, sep } = require("node:path");
 const { transformSync } = require("esbuild");
@@ -93,15 +94,33 @@ async function buildImageVariants() {
   }
 }
 
-function enableProductionWebpAssets() {
+function finalizeProductionHtml() {
   const indexPath = join(output, "index.html");
-  const index = readFileSync(indexPath, "utf8")
+  const css = readFileSync(join(output, "style.css"), "utf8");
+  const cssHash = createHash("sha256").update(css).digest("base64");
+  const stylesheetLink = '<link rel="stylesheet" href="style.css">';
+  const sourceIndex = readFileSync(indexPath, "utf8");
+  if (!sourceIndex.includes(stylesheetLink)) {
+    throw new Error("Production stylesheet link is missing from index.html.");
+  }
+  if (css.includes("</style>")) {
+    throw new Error("CSS cannot be safely inlined into index.html.");
+  }
+  const index = sourceIndex
     .replace('<html lang="en">', '<html lang="en" data-webp-assets="true">')
+    .replace(stylesheetLink, `<style>${css}</style>`)
     .replace(
       '<img src="assets/icon-small.png" alt="AzurCalc" class="brand-logo" width="180" height="164" fetchpriority="high">',
       '<picture><source srcset="assets/icon-small.webp" type="image/webp"><img src="assets/icon-small.png" alt="AzurCalc" class="brand-logo" width="180" height="164" fetchpriority="high"></picture>'
     );
   writeFileSync(indexPath, index);
+
+  const headersPath = join(output, "_headers");
+  const headers = readFileSync(headersPath, "utf8");
+  if (!headers.includes("__CRITICAL_CSS_HASH__")) {
+    throw new Error("CSP hash placeholder is missing from _headers.");
+  }
+  writeFileSync(headersPath, headers.replace("__CRITICAL_CSS_HASH__", cssHash));
 }
 
 function fileCount(directory) {
@@ -129,7 +148,7 @@ const requiredOutputs = [
 ];
 
 buildImageVariants().then(() => {
-  enableProductionWebpAssets();
+  finalizeProductionHtml();
   for (const outputFile of requiredOutputs) {
     if (!existsSync(join(output, outputFile))) throw new Error(`Build output missing: ${outputFile}`);
   }

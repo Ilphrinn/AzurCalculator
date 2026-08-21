@@ -35,7 +35,9 @@ derivatives only in `dist/`: `icon-small.webp` at
 92x84 plus 144x192 and 288x384 (`@2x`) thumbnails for every
 `assets/thumbnails-card/*.jpg`. The app uses responsive WebP candidates only when
 `dist/index.html` marks them as available; the source page keeps using the original
-PNG/JPG directly. Do not replace or delete the readable source assets.
+PNG/JPG directly. The build also inlines the minified CSS into `dist/index.html` to remove
+the critical stylesheet request, then replaces the CSP hash placeholder in `dist/_headers`.
+Do not replace or delete the readable source assets.
 
 Files: `index.html` (structure), `app.js` (all logic, one file), `style.css`, and
 `scripts/build.js` (production output). `data/equipment.js` is loaded only when a ship

@@ -15,7 +15,7 @@
 # No "preload" token on purpose: preload-list removal takes months, unlike this header,
 # which simply lapses. Revisit once several subdomains have been live on HTTPS a while.
 /*
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'sha256-__CRITICAL_CSS_HASH__'; font-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
   Strict-Transport-Security: max-age=15768000; includeSubDomains
   X-Content-Type-Options: nosniff
   Referrer-Policy: no-referrer
