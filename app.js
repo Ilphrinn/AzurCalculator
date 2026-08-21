@@ -1831,8 +1831,8 @@ function innateDepthCharge(ship) {
 // The gun's catalog reload stands in for the true volley interval. That is the same
 // baseline-100-reload approximation every other figure here already makes, and it is
 // what the optimiser scores against, so the two agree.
-function volleyBarrageDps(ship, effective) {
-  const barrage = volleyBarrage(ship);
+function volleyBarrageDps(ship, effective, level) {
+  const barrage = volleyBarrage(ship, level);
   if (!barrage) return 0;
   const key = shipGunSlotKeys(ship)[0];
   if (key == null) return 0;
@@ -1864,7 +1864,7 @@ function computeCombatMetrics(ship, level, effective) {
     if (contribution && !contribution.unknown) totals[contribution.metric] += contribution.value;
   }
 
-  const barrageDps = volleyBarrageDps(ship, effective);
+  const barrageDps = volleyBarrageDps(ship, effective, level);
   totals.dps += barrageDps;
 
   const hp = effective.stats.health ? effective.stats.health.value : 0;
@@ -1987,24 +1987,93 @@ function shipBarrageTriggerType(ship) {
 // (max), so the max-level figure is the one taken, as renderLevelValues() does.
 const MAIN_GUN_VOLLEY_RE = /\bevery\s+(\d+)\s*(?:\((\d+)\))?\s*(?:nd|rd|th|st)?\s*times?\b[^.]{0,45}?\bmain\s+gun/i;
 
+// Limit break ranks unlock at these levels. They are three of the level control's own
+// notches, which is what makes the control read as a progression rather than a scale.
+const LIMIT_BREAK_LEVEL = { first: 30, second: 70, third: 100 };
+
+// A barrage row tagged "enhanced" is the post-limit-break version of its skill's
+// barrage, and that skill's untagged rows are the version before it: Kumano fires
+// 15x30 until her third limit break and 15x35 plus a piercing volley after it, never
+// both. Which rank grants the upgrade is written on each ship's own wiki page under
+// "Limit Break ranks" - the Third for 22 of the 23 ships whose table names an upgrade
+// outright, the exception being Kronshtadt, whose FIRST rank reads "Improves special
+// barrage". The ships whose table names no upgrade at all reach their enhanced row
+// through a mount or aircraft count that those same tables put at the Third, so Third
+// is the measured default rather than a guess.
+const BARRAGE_ENHANCED_AT_LEVEL = { "Kronshtadt": LIMIT_BREAK_LEVEL.first };
+
+function barrageEnhancedLevel(ship) {
+  return BARRAGE_ENHANCED_AT_LEVEL[ship.displayName] || LIMIT_BREAK_LEVEL.third;
+}
+
+// What a row's trigger says BEYOND plain enhanced/unenhanced. Rows sharing a qualifier
+// are components of one pattern; rows with different qualifiers are alternatives the
+// ship picks between - Azuma fires her Close OR her Far pattern, never both, and summing
+// them doubled her barrage. The wiki sometimes writes the attack's name into the trigger
+// too ("All Out Assault enhanced"), which is not a condition, so it is stripped first.
+function barrageQualifier(row) {
+  return String(row.trigger || "")
+    .replace(/^all out assault\s+/i, "")
+    .replace(/\b(un)?enhanced?\b/ig, "")
+    .replace(/[,\s]+/g, " ")
+    .trim()
+    .toLowerCase();
+}
+
+function isEnhancedBarrageRow(row) {
+  const trigger = String(row.trigger || "");
+  return /enhanc/i.test(trigger) && !/unenhanc/i.test(trigger);
+}
+
+// The rows that actually fire at this level. Within one skill the enhanced rows REPLACE
+// the plain ones from the upgrade level onward - counting both would add a barrage to
+// its own replacement, which is what the DPS figure was doing. A skill whose rows are
+// ALL enhanced has no recorded "before" version (3 of the 56 such groups), so its rows
+// always show: hiding them would make the barrage vanish rather than downgrade.
+function barragesAtLevel(ship, rows, level) {
+  const upgraded = level >= barrageEnhancedLevel(ship);
+  const groups = new Map();
+  for (const row of rows) {
+    const skill = matchSkillForBarrage(ship, row.skillName);
+    const key = skill ? skill.name : row.skillName;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(row);
+  }
+  const dropped = new Set();
+  for (const group of groups.values()) {
+    const enhanced = group.filter(isEnhancedBarrageRow);
+    if (!enhanced.length || enhanced.length === group.length) continue;
+    for (const row of group) if (isEnhancedBarrageRow(row) !== upgraded) dropped.add(row);
+  }
+  return dropped.size ? rows.filter(row => !dropped.has(row)) : rows;
+}
+
 const volleyBarrageCache = new Map();
 
 // The barrage rows belonging to a skill, found by running the existing row-to-skill
 // matcher backwards rather than writing a second name match. Where a ship has more
 // than one such barrage, the one worth most PER VOLLEY wins - a small barrage every 2
 // volleys can beat a large one every 10.
-function volleyBarrage(ship) {
-  if (volleyBarrageCache.has(ship.id)) return volleyBarrageCache.get(ship.id);
+// Level-aware because a limit break swaps which rows fire, so the cache is keyed on the
+// one bit of the level that can change the answer rather than on the level itself.
+function volleyBarrage(ship, level) {
+  const upgraded = (level || 0) >= barrageEnhancedLevel(ship);
+  const cacheKey = ship.id + (upgraded ? "@lb" : "");
+  if (volleyBarrageCache.has(cacheKey)) return volleyBarrageCache.get(cacheKey);
+  const rows = barragesAtLevel(ship, ship.barrages || [], level || 0);
   let best = null;
   for (const skill of ship.skills || []) {
     const m = MAIN_GUN_VOLLEY_RE.exec(stripHtml(skill.description || ""));
     if (!m) continue;
     const n = Number(m[2] || m[1]);
     if (!n) continue;
+    const mine = rows.filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
+    // One share per alternative: summing every qualifier would credit the ship with a
+    // barrage she can only fire one version of.
+    const alternatives = new Set(mine.map(barrageQualifier)).size || 1;
     const terms = new Map();
     let damage = 0;
-    for (const b of ship.barrages || []) {
-      if (matchSkillForBarrage(ship, b.skillName) !== skill) continue;
+    for (const b of mine) {
       // A row is only counted when it plainly belongs to this trigger. Rows whose name
       // carries a qualifier past the skill name do not: they are alternatives rather
       // than components (Asuka fires ONE of "New Link Chance! (Variant 1..5)", not all
@@ -2026,9 +2095,9 @@ function volleyBarrage(ship) {
       // armour) to 1.200x (Prinz Eugen mu, whose torpedo barrage is rewarded by it), so
       // it decides which ships are worth a faster gun rather than merely rescaling them.
       const armour = [b.lightDmg, b.mediumDmg, b.heavyDmg].map(Number).filter(v => Number.isFinite(v));
-      const rowDamage = armour.length
+      const rowDamage = (armour.length
         ? armour.reduce((a, c) => a + c, 0) / armour.length
-        : (Number(b.count) || 0) * (Number(b.baseDmg) || 0);
+        : (Number(b.count) || 0) * (Number(b.baseDmg) || 0)) / alternatives;
       if (!rowDamage) continue;
       damage += rowDamage;
       const scaling = b.statScaling || {};
@@ -2041,7 +2110,7 @@ function volleyBarrage(ship) {
       best = { n, damage, terms: [...terms.values()] };
     }
   }
-  volleyBarrageCache.set(ship.id, best);
+  volleyBarrageCache.set(cacheKey, best);
   return best;
 }
 
@@ -2531,7 +2600,7 @@ function pickCarrierAircraft(ship, effective, orientation, filterItem, named) {
   return picks;
 }
 
-function optimizeEquipment(ship, effective) {
+function optimizeEquipment(ship, effective, level = currentLevel) {
   const targetId = OPTIMIZE_TARGETS[equipmentTarget] ? equipmentTarget : "auto";
   const targetDef = OPTIMIZE_TARGETS[targetId] || OPTIMIZE_TARGETS.auto;
   const weights = optimizeWeights(ship, targetId, effective);
@@ -2545,7 +2614,7 @@ function optimizeEquipment(ship, effective) {
   const barrageTrigger = role === "bb" ? shipBarrageTriggerType(ship) : null;
   // Only the FIRST gun slot fires the barrage: the trigger counts main gun volleys,
   // and a later gun slot is a secondary battery (see EQUIPMENT_SHORT_NAMES).
-  const volley = volleyBarrage(ship);
+  const volley = volleyBarrage(ship, level);
   const mainGunSlotKey = volley ? shipGunSlotKeys(ship)[0] : null;
   let changed = 0;
 
@@ -3870,9 +3939,10 @@ function matchSkillForBarrage(ship, barrageSkillName) {
   return best;
 }
 
-function getBarragesForState(ship, isRetrofit, isAugmented, isFateSim) {
+function getBarragesForState(ship, isRetrofit, isAugmented, isFateSim, level) {
   const skills = ship.skills || [];
-  return (ship.barrages || []).filter(b => {
+  const rows = level == null ? (ship.barrages || []) : barragesAtLevel(ship, ship.barrages || [], level);
+  return rows.filter(b => {
     const matched = matchSkillForBarrage(ship, b.skillName);
     if (!matched) return true;
     if (matched.marker === "R") return isRetrofit;
@@ -3887,8 +3957,8 @@ function getBarragesForState(ship, isRetrofit, isAugmented, isFateSim) {
   });
 }
 
-function renderModalBarrages(ship, isRetrofit, isAugmented, isFateSim) {
-  const barrages = getBarragesForState(ship, isRetrofit, isAugmented, isFateSim);
+function renderModalBarrages(ship, isRetrofit, isAugmented, isFateSim, level) {
+  const barrages = getBarragesForState(ship, isRetrofit, isAugmented, isFateSim, level);
   if (barrages.length === 0) {
     modalBarragesSection.hidden = true;
     return;
@@ -3953,6 +4023,9 @@ function renderModalBarrages(ship, isRetrofit, isAugmented, isFateSim) {
       const triggerEl = document.createElement("span");
       triggerEl.className = "barrage-trigger";
       triggerEl.textContent = b.trigger;
+      if (isEnhancedBarrageRow(b)) {
+        triggerEl.title = `Replaces the plain version from level ${barrageEnhancedLevel(ship)}, when the limit break that upgrades this barrage lands.`;
+      }
       nameTd.appendChild(triggerEl);
     }
     tr.appendChild(nameTd);
@@ -4590,7 +4663,7 @@ function applyRetrofitState() {
   // modal left behind in skillLevelState.
   renderModalSkills(ship, retrofitApplied, augmentApplied, fateSimApplied);
   renderModalStatsTable(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
-  renderModalBarrages(ship, retrofitApplied, augmentApplied, fateSimApplied);
+  renderModalBarrages(ship, retrofitApplied, augmentApplied, fateSimApplied, currentLevel);
   modalEl.style.setProperty("--modal-rarity-color", `var(--${RARITY_CLASS[rarity] || "rarity-normal"})`);
 }
 
@@ -4695,6 +4768,8 @@ function setLevel(newLevel) {
   updateLevelControlUI(clamped);
   if (!currentShip) return;
   renderModalStatsTable(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  // A limit break swaps which barrage rows fire, so the table has to follow the level.
+  renderModalBarrages(currentShip, retrofitApplied, augmentApplied, fateSimApplied, currentLevel);
 }
 
 modalLevelNotches.addEventListener("click", event => {

@@ -2801,6 +2801,66 @@ after the final edit.
   with a barrage and 0 leaks; William D. Porter's arithmetic re-derived by hand against her
   own rows (expected 584.96 barrage DPS, reported 584.96).
 
+  #### Limit breaks: a barrage has a before and an after (2026-08-21)
+
+  Reported against Kumano: "son barrage s'ameliore a partir du niveau 100 ... tu as un
+  tableau Limit Break Rank et le 3 qui correspond donc a 100 et +, donne All Out Assault -
+  Suzuya II (enhanced) que tu retrouve dans barrage", with the mapping stated outright -
+  **First -> 30, Second -> 70, Third -> 100**. Those are three of the level control's own
+  notches, which is why that control reads as a progression rather than an arbitrary scale.
+
+  **This was a real double-count.** Kumano carries three barrage rows: `15x30` untagged,
+  and `15x35` + `8x35` tagged `enhanced`. The untagged row is what she fires BEFORE her
+  third limit break and the tagged pair is what replaces it after - never both. The
+  barrage term was summing all three, so her per-activation damage read 1188.9 where the
+  truth is 412.5 below level 100 and 776.4 at or above it.
+
+  `barragesAtLevel()` groups a skill's rows and keeps the enhanced ones from the upgrade
+  level onward, the plain ones before it. It gates the Barrages table and the damage sum
+  alike, and `setLevel` now repaints the table - moving the level notch visibly swaps
+  Kumano's one row for her two. A skill whose rows are ALL enhanced has no recorded
+  "before" (3 of 56 such groups), so its rows always show: hiding them would make the
+  barrage vanish rather than downgrade.
+
+  **Which rank grants the upgrade was measured, not assumed.** Each ship's saved wiki page
+  carries a "Limit Break ranks" table. Of the 23 ships whose table names an upgrade
+  outright ("Upgrades All Out Assault I->II", "Improve..."), **22 put it at the Third** and
+  one does not: **Kronshtadt**, whose First rank reads "Main gun efficiency +5% / Improves
+  special barrage". She is the single entry in `BARRAGE_ENHANCED_AT_LEVEL`; everything else
+  defaults to the Third. The other 19 ships with an enhanced row have no upgrade wording at
+  all - they reach it through a mount or aircraft count that those same tables also put at
+  the Third - so the default is the measured answer rather than a convenient one.
+
+  **A second double-count surfaced while checking the first, on Azuma.** Her enhanced rows
+  are tagged `Enhanced, Close` and `Enhanced, Far`: two range patterns she picks BETWEEN,
+  not two halves of one barrage. Summing them put her at 1698 where 849 is right.
+  `barrageQualifier()` reads whatever a trigger says beyond plain enhanced/unenhanced;
+  rows sharing a qualifier are components and are summed, different qualifiers are
+  alternatives and are averaged - the same refusal to assume a case as the armour-neutral
+  mean. Dropping them instead was tried and rejected: it left Azuma at **0** from level 100
+  while she had 384 at 99, which is worse than either estimate. 26 rows across 9 ships
+  carry such a qualifier. The wiki also writes the attack's own name into some triggers
+  ("All Out Assault enhanced"), which is not a condition and is stripped first.
+
+  **One oddity that is the data, not the code**: Algérie META's barrage gets SMALLER after
+  the upgrade - `unenhanced 12x40` becomes `enhanced 8x25`, 408 -> 170. Reported as read
+  rather than "corrected"; if that is wrong it is wrong on the wiki.
+
+  Verified: Kumano 412.5 -> 776.4 across level 100 with her rows swapping and never
+  stacking; Kronshtadt 3 -> 4 rows across level 30; **0 groups anywhere mix a barrage with
+  its own replacement**, across 52 ships at five levels; the rendered table follows the
+  level control (1 row at 99, 2 at 125); 8 of the 502 volley-barrage ships change damage at
+  their limit break; full 888-ship regression at 0 errors and 4431 slots filled.
+
+  Effect on picks, measured against the previous commit at level 125: **4 ships change one
+  slot each** and their DPS falls (Suzuya 851 -> 700, Prinz Eugen mu 1036 -> 890) - which
+  is the correction, not a regression: they had been handed a fast gun on a barrage figure
+  that counted a barrage and its own replacement together. Aggregate -0.17%.
+
+  **Note for anything else level-dependent**: `setLevel` used to repaint only the stats
+  table (which pulls the four combat figures with it). It now repaints the barrages too.
+  Equipment and Skills still do not follow the level - nothing in them depends on it yet.
+
   **Still open on this thread**: the `equipped` family is read but still not *sought* -
   Optimize does not try to satisfy a gear condition. The user has already chosen how it
   should behave when it does: **evaluate the best gun that satisfies the condition with
