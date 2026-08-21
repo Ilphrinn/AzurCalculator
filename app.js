@@ -23,6 +23,7 @@ const searchClassEl = document.getElementById("search-class");
 const sortEl = document.getElementById("sort-select");
 const filtersEl = document.getElementById("filters");
 const refreshBtn = document.getElementById("refresh-btn");
+const mainEl = document.querySelector("main");
 
 const ships = SHIPS_DATA;
 const shipsById = new Map(ships.map(s => [String(s.id), s]));
@@ -652,10 +653,6 @@ function createCardThumbnail(path, className, alt) {
   return { picture, image };
 }
 
-let renderToken = 0;
-const INITIAL_CARD_BATCH_SIZE = 24;
-const CARD_BATCH_SIZE = 72;
-
 function createCard(ship) {
   const hasRarityShift = ship.hasRetrofit && ship.retrofitRarity !== ship.rarity;
 
@@ -721,7 +718,6 @@ function createCard(ship) {
 }
 
 function render(list) {
-  const token = ++renderToken;
   grid.replaceChildren();
   countEl.textContent = `${list.length} character${list.length > 1 ? "s" : ""}`;
 
@@ -733,17 +729,9 @@ function render(list) {
     return;
   }
 
-  let offset = 0;
-  const renderBatch = batchSize => {
-    if (token !== renderToken) return;
-    const fragment = document.createDocumentFragment();
-    const end = Math.min(offset + batchSize, list.length);
-    for (; offset < end; offset++) fragment.appendChild(createCard(list[offset]));
-    grid.appendChild(fragment);
-    if (offset < list.length) requestAnimationFrame(() => renderBatch(CARD_BATCH_SIZE));
-  };
-
-  renderBatch(INITIAL_CARD_BATCH_SIZE);
+  const fragment = document.createDocumentFragment();
+  for (const ship of list) fragment.appendChild(createCard(ship));
+  grid.appendChild(fragment);
 }
 
 function update() {
@@ -775,6 +763,7 @@ refreshBtn.addEventListener("click", () => {
 
 buildFilterPanel();
 update();
+mainEl.removeAttribute("aria-busy");
 
 // Reproduces the game's own compact stat panel: a 3-column grid read left to right,
 // HP/Armor/RLD, FP/TRP/EVA, AA/AVI/Cost, ASW/./., then SPD/ACC/LCK. The two nulls

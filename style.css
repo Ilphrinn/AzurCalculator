@@ -349,6 +349,12 @@ main {
   padding: 1.25rem 2rem 3rem;
 }
 
+/* Filters and the first card batch are created after ships.js loads. Keeping this
+   region out of the first paint prevents the expanding header from shifting it. */
+main[aria-busy="true"] {
+  visibility: hidden;
+}
+
 .count {
   min-height: 1.2rem;
   color: var(--text-muted);
