@@ -70,15 +70,18 @@ modal needs its equipment catalog, keeping it out of the initial page load.
   (`/db/static/json/maps.json`) carries a `boss` object with real per-encounter enemy
   stats (`hit`, `eva`, `luck`, `level`, `hp`, `armor`) for essentially every stage/raid in
   the game — the exact data this app's eHP/crit formulas needed and had no source for
-  before (see `EHP_REFERENCE_ACCURACY`/`CRIT_REFERENCE_EVASION` in app.js). Used with the
-  user's explicit go-ahead after flagging that the site's own HTML carries an "All Rights
-  Reserved / unauthorized copying prohibited" notice — unlike the wiki or the
-  Fernando2603 datamine, this source is not established as freely reusable, so don't
-  pull more of it into the repo (equipments.json, augments.json, gear_lab.json, etc. were
-  also found there and are NOT yet integrated) without the same explicit check-in first.
-  `cdn.mrlar.dev/al_ehp` is the same site's own precomputed community eHP chart (columns
-  per raid tier: W14/15, Challenge, META, Arbiter, Abyssal, Stronghold) — not used
-  directly, since it's a derived ratio from their own formula, not a raw enemy stat.
+  before (see `EHP_REFERENCE_ACCURACY`/`CRIT_REFERENCE_EVASION` in app.js). The user's
+  explicit call: the raw numbers here are Azur Lane's own game data (extracted from the
+  game's servers/client, same as every other stat in this app), not mrlar.dev's own
+  creative work — the site's copyright notice covers its code/presentation, the same way
+  Fernando2603's datamine repo carries no special claim over the numbers it republishes.
+  The line not to cross is copying the SITE (its UI, its own derived charts/formulas,
+  wholesale file dumps as a shortcut) rather than the underlying game data — `equipments.
+  json`, `augments.json`, `gear_lab.json`, etc. found the same way are fair game the same
+  way, just not yet integrated. `cdn.mrlar.dev/al_ehp` is the site's own precomputed
+  community eHP chart (columns per raid tier: W14/15, Challenge, META, Arbiter, Abyssal,
+  Stronghold) — not used, since it's a derived ratio from their own formula, not a raw
+  game stat; take the boss numbers straight from `maps.json` instead.
 
 ## Ship data shape (`data/ships.json`, flat array, 888 ships)
 
