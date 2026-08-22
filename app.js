@@ -1796,12 +1796,11 @@ function weaponEfficiencyBonus(effective, ship, slotKey, item) {
 //
 // CriticalRate's own formula needs the TARGET's Evasion/Luck, which this app has no source
 // for — a fixed reference target stands in, the same unknown-opponent gap eHP solves with
-// EHP_REFERENCE_ACCURACY/LUCK just below. Both reference sets are read off the same named
-// boss, Akagi META (Extra difficulty, level 125, from mrlar.dev's own boss database — see
-// EHP_REFERENCE_ACCURACY's comment), so a ship's eHP and crit rate here both answer "against
-// this specific fight", not two unrelated guesses.
-const CRIT_REFERENCE_EVASION = 25;
-const CRIT_REFERENCE_LUCK = 66;
+// EHP_REFERENCE_ACCURACY/LUCK just below. Both reference sets are averaged from the same
+// composite boss (see EHP_REFERENCE_ACCURACY's comment), so a ship's eHP and crit rate here
+// both answer "against a typical current raid boss", not two unrelated guesses.
+const CRIT_REFERENCE_EVASION = 26;
+const CRIT_REFERENCE_LUCK = 39;
 
 function weaponDamageMultiplier(effective, ship, slotKey, item) {
   const role = weaponRole(item);
@@ -1853,15 +1852,17 @@ function equipmentBaseDps(item) {
 }
 
 // The reference attacker eHP is measured against — the wiki's HitRate formula needs the
-// SHOOTER's Accuracy and Luck, which this app has no source for. Named in the UI rather
-// than an arbitrary round number: Akagi META (Extra difficulty, level 125)'s real combat
-// stats (Hit 120, Evasion 25, Luck 66), found on mrlar.dev's own boss database
-// (cdn.mrlar.dev/al_ehp and /db/static/json/maps.json, map id 1850026, "Ode of Everblooming
-// Crimson-EXTRA") — a current, well-known endgame raid boss, not a made-up placeholder. The
-// two scripted "cannot be hit" phases of the same fight (Hit 9999) were excluded as
-// non-representative.
-const EHP_REFERENCE_ACCURACY = 120;
-const EHP_REFERENCE_LUCK = 66;
+// SHOOTER's Accuracy and Luck, which this app has no source for. Averaged from 4 real
+// level-125 raid bosses on mrlar.dev's own boss database (/db/static/json/maps.json), one
+// per main hull type that has a clean (non-scripted) recent solo raid boss in that level
+// range: Akagi META (CV, Hit 120/Eva 25/Luck 66), Lion (BB, 80/20/25), Pamiat' Merkuria META
+// (CL, 120/60/40), Moskva (CA, 120/0/25) — DD has no comparable solo raid boss in this
+// dataset, so it's left out rather than filled with an unrepresentative Extreme Challenge or
+// templated event mini-boss. Moskva's Evasion 0 might itself be a scripted "cannot evade"
+// mechanic rather than a true combat stat; kept in the average anyway since her Hit is
+// otherwise a normal, non-scripted value. Average: Hit 110, Evasion 26.25, Luck 39.
+const EHP_REFERENCE_ACCURACY = 110;
+const EHP_REFERENCE_LUCK = 39;
 
 // HitRate = 0.1 + Hit/(Hit + Eva + 2) + (AttackerLuck - TargetLuck + LevelDiff)/1000,
 // clamped to [0.1, 1]. Level difference is 0: the reference attacker is assumed to be the
@@ -3277,15 +3278,15 @@ function renderCombatMetrics(ship, effective) {
       const notes = [field.hint];
       if (field.key === "ehp") {
         notes.push(
-          `Against Akagi META (Extra, Lv.125): Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
+          `Against a Lv.125 raid boss (avg. of Akagi META/Lion/Pamiat' Merkuria META/Moskva): Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
           `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
-          "One named boss stands in for \"a real enemy\" rather than an arbitrary guess, but a different fight would still give a different number."
+          "A real boss average stands in for \"a typical enemy\" rather than an arbitrary guess, but any specific fight would still give a different number."
         );
       } else {
         notes.push(hasBuiltInWeapons(ship)
           ? "Empty slots count as the ship's built-in weapon."
           : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
-        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes the target is Akagi META (Extra, Lv.125): ${CRIT_REFERENCE_EVASION} Evasion, ${CRIT_REFERENCE_LUCK} Luck.`);
+        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes a Lv.125 raid boss target (avg. of Akagi META/Lion/Pamiat' Merkuria META/Moskva): ${CRIT_REFERENCE_EVASION} Evasion, ${CRIT_REFERENCE_LUCK} Luck.`);
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
         }

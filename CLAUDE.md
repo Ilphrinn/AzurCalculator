@@ -3240,6 +3240,35 @@ after the final edit.
   from the entry above still compute correctly with the new constants. Full 888-ship
   regression (open, Optimize, close) still 0 errors, 0 non-finite/negative values.
 
+  #### One boss became four, averaged, after the user pointed at mrlar.dev's own boss list (2026-08-22)
+
+  Asked to look at `azurlane.mrlar.dev/db/bosses` and pull one level-115-125 boss per main
+  hull type (BB/CV/CL/CA/DD), to check whether Akagi META alone was actually representative.
+  It wasn't obviously so — one CV boss says nothing about how a BB or CL raid boss compares —
+  so rather than defending a single pick, averaged across every hull type that HAD a clean
+  answer: **Akagi META (CV, Hit 120/Eva 25/Luck 66), Lion (BB, 80/20/25), Pamiat' Merkuria
+  META (CL, 120/60/40), Moskva (CA, 120/0/25)**, all level 125, all from `maps.json`.
+
+  **DD has no comparable boss and is left out, not filled in.** Every DD-hull entry in the
+  115-125 range is either an "Extreme Challenge" gauntlet (Yukikaze, Hit 150/Eva 100/Luck
+  100 — deliberately extreme stats, not a typical fight) or a "Coalition" event mini-boss
+  reusing the same templated stats across several unrelated ships (76/65/30-style) — neither
+  reads as a real solo raid boss the way the other four do. Padding the average with either
+  would have been worse than a smaller, honest sample.
+
+  New average: `EHP_REFERENCE_ACCURACY = 110` (Hit), `EHP_REFERENCE_LUCK = 39` (Luck),
+  `CRIT_REFERENCE_EVASION = 26` (Evasion, rounded down from 26.25), same Luck. **Moskva's
+  Evasion 0 might itself be a scripted "cannot evade" mechanic rather than a real combat
+  stat** (the same shape as the two Hit-9999 phases excluded from the original Akagi pick) —
+  kept in the average anyway since nothing else about her row looks scripted (Hit 120 is an
+  ordinary value, not a sentinel like 9999), but worth revisiting if a future boss survey
+  turns up a cleaner CA candidate.
+
+  Re-verified the same way as the single-boss version: hand-derived eHP for New Jersey/
+  Ayanami/Ägir outside the app matches its own output to the digit, and a full 888-ship
+  regression (open, Optimize, close) still shows 0 errors, 0 non-finite/negative combat
+  metrics.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)
