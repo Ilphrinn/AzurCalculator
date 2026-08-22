@@ -2991,6 +2991,96 @@ after the final edit.
      auxiliary bonuses) are available; the "combine HP/Evasion/Luck/Armor, assume a
      level 100 enemy" approach the user asked for still needs a source for baseline
      enemy Accuracy/Luck at level 100, which hasn't been found yet either.
+
+  ### Equip-conditioned skills, a real equipment tooltip, hull-role Optimize, and an eHP bug fix (2026-08-21)
+
+  **Skill bonuses gated on the ship's own gear are now actually checked, not assumed
+  met.** 25 skills in the dataset read like Kitakaze's "if equipped with a Sakura
+  Empire DD Gun" or Béarn's "if this ship's third slot has a Dive Bomber equipped" —
+  a condition on the ship's LOADOUT, not on team composition, so it doesn't fall under
+  Interaction's "conditions assumed met" convention at all: it's checkable, so it's
+  checked. `parseEquipCondition(clause)` turns the clause into `{ negate, test(ship) }`
+  and `equipConditionAllows` gates the bonus in `computeEffectiveStats`. Two ships
+  needed their own shape rather than the general "ship's gun slot" reading: Béarn and
+  Seattle name a specific physical slot ("third slot", "Secondary Weapon slot") instead
+  of "her gear" in general — Seattle's in particular is typed as a plain AA slot (code
+  6) in the data, so `shipGunSlotKeys()` could never find it by gun-type code; both are
+  read straight off the named slot index instead. A nation-restricted gun reading like
+  Kitakaze's "an IJN (Sakura Empire) DD Gun" needs the nation resolved out of a
+  parenthetical alias before the general nation-in-target reading is tried.
+
+  **79 missing self "decreases DMG Taken" bonuses were backfilled**, the same gap
+  shape as the 2026-08-19 missing-statBonuses pass (see above) but for a modifier
+  stat rather than a plain one — the original extraction never captured this clause
+  at all. A `damageTaken` modifier was added so these render as their own pill,
+  colored blue like every other skill-only modifier (equipment never grants this one,
+  so there was no existing convention to clash with).
+
+  **Equipment tooltip is a real popup, not the native `title`** — `showEquipInfoTooltip`
+  builds icon, name, a rarity-colored border, every stat the item grants
+  (`equipmentStatRows`, each with its own stat icon), ammo type, per-hull damage for
+  guns, and the item's own Notes text run through the same `appendSkillDescription` +
+  `highlightKeywords` pipeline skills use — so a note that names a mechanic or a nation
+  gets the same color-coding a skill description would. Positioned off the hovered
+  tile with a flip-to-the-left-edge / clamp-to-viewport fallback, the same shape as the
+  Interaction picker's clamp logic from 2026-08-20.
+
+  **Optimize is now hull-role aware instead of one shared weight profile**
+  (`shipOptimizeRole`, keyed off `hullShort`) — a BB and a CL were being scored by the
+  same generic preference weights despite wanting genuinely different gear:
+  - **BB/BC/BM/BBV**: `shipBarrageTriggerType` reads the ship's own special-barrage
+    skill text for a proc-chance cue (`BARRAGE_PROC_RE`, "X% chance to launch...
+    barrage") vs. a fixed-timer cue (`BARRAGE_TIMER_RE`, "every Ns:... fires...
+    barrage") and picks a fast-reloading gun + Fire Control Table for the proc case
+    (more chances to roll) or a hard-hitting gun + Super Heavy Shell for the timer
+    case (the barrage fires regardless, so raw damage wins). The AA Gun slot is scored
+    by its secondary Accuracy/Firepower bonus (`bbAntiAirScore`) rather than AA DPS —
+    only 6 of 68 AA guns carry one, so it dominates when present and AA DPS is kept
+    only as the tiebreaker so a BB with none still gets her strongest AA gun.
+  - **CB**: always a 280mm+ main gun, hard-hitting (not fast) AA — reuses the BB
+    timer-case gun logic unconditionally rather than checking her own barrage text.
+  - **CA**: auxiliary candidates are HP-only, not Evasion — heavy Firepower weight.
+  - **CL**: Anti-Air weighted as a fleet-support role.
+  - **CV**: no survivability item at all (a carrier's real defense is not being hit);
+    Steam Catapult in both aux slots (the strongest non-unique Aviation item);
+    `pickCarrierAircraft` is aware of which slots can take which family
+    (`slotAircraftCategories`, `CV_ORIENTATION_CATEGORIES`) and avoids Torpedo Bomber
+    unless the ship can slow an enemy (`shipHasEnemySlowSkill`, checks her own skill
+    text for a "reduces enemy SPD" cue) or has no other option; Sakura Empire
+    torpedoes/rocket fighters are preferred when the ship can take them.
+  - **SS/SSV**: Improved Snorkel + Type 93 Pure Oxygen Torpedo instead of the general
+    survivability pick — submarines don't want the same aux profile a surface ship does.
+  - Auxiliaries no longer duplicate across a ship's own slots (the known gap flagged in
+    the 2026-08-20 entry, e.g. Helena ending up with two SG Radars — fixed by tracking
+    picks already made this optimize pass, not by a "no duplicates" game rule).
+
+  **A real eHP bug, reported against Roon.** The guaranteed-survivability aux slot
+  already ran a true eHP simulation (`candidateEhp`: equip the candidate, call
+  `computeEffectiveStats`, compute HP / hit-rate) — but a SECOND aux slot compared
+  HP/Evasion candidates by raw `statPreferenceScore` stat magnitude instead, which
+  picked a flat +640 HP item over a smaller HP+Evasion item that actually produces
+  more real eHP once Evasion's effect on hit rate is accounted for. Root cause: two
+  different code paths were answering the same question ("which of these helps
+  survivability more?") with two different methods, and only one of them was correct.
+  Fixed by having every aux slot that considers a survival-stat item
+  (`SURVIVAL_STAT_KEYS`: health/evasion/luck) route through `candidateEhp` via
+  `statPreferenceScore`'s new `hasSurvivalStat` branch, rather than approximating with
+  the stat's own weighted magnitude — one method, used everywhere the question is
+  actually "which item raises effective HP more", not two disagreeing ones.
+
+  **Also**: ship search folds accents (`foldAccents`, `str.normalize("NFD")` then strip
+  combining marks) on both the name and class query, so e.g. searching without a
+  diacritic still matches a name that has one. Equipment slot labels now list every
+  category a hybrid slot accepts (`equipmentSlotLabel`, e.g. "Main Gun / Auxiliary")
+  instead of only the first — a slot carrying more than one type code was silently
+  showing just one of its real names before this.
+
+  Verified per the standard convention: existing named regression precedents
+  re-checked (Kitakaze/Béarn/Seattle's own gated bonuses toggle correctly on
+  equip/unequip in a headless pass), Roon's second aux slot now matches the true-eHP
+  winner rather than the raw-magnitude one, full 888-ship open/close regression still
+  0 errors.
+
 - **Team composition calculator**: the user's stated end goal ("le but est de pouvoir
   afficher les stats réelles dans la composition d'une équipe complète... 3 vanguard, 3
   main") — Effective Stats and Interaction were both built as groundwork for this, but the
@@ -3098,6 +3188,51 @@ back; the rest was changelog and stayed here.
 
 **Do not add a comment because a function looks important.** Add one when a reader who
 understands JavaScript would still ask "why is this here?".
+
+### Second commenting pass: hard cap at 1-2 sentences (2026-08-22)
+
+The user asked for a general cleanup/simplification pass on `app.js`/`style.css` post
+the 2026-08-21 equip-conditioned-skills/hull-role-Optimize commit, with one explicit,
+stricter constraint on top of the standard above: **never over-comment, max 1-2
+sentences per comment**. The 2026-08-20 re-commenting pass had already applied the WHY-
+only rule, but many blocks were still small paragraphs (3-6 sentences) rather than 1-2 —
+77 of 146 comment blocks in `app.js` and 8 of 14 in `style.css` measured over that bar.
+
+Condensed all 85 by hand (a script located and applied the edits, but every replacement
+was authored to preserve the actual regression anchor) rather than deleting content
+wholesale — every guard's ship name (Izumo/Centaur, Roon, Ganj-i-Sawai, etc.) and every
+load-bearing WHY survived, with worked examples, redundant restatements, and verification
+counts (already in this file) cut to fit 1-2 sentences. Two blocks that mixed two
+unrelated facts (the STAT_GRID intro, the SY-1 missile split + default-equipment note)
+were split into two adjacent short comments instead of one padded-out paragraph.
+
+Re-wrapped every resulting single-line comment back to this file's own ~92-char width
+convention afterward — the condensed text was first written as one long line each, which
+would have been a step backward for readability despite being fewer words. Formula lines
+(Cost, CurrentScalingStat) were left un-rewrapped, detected by their own extra leading
+indent, so wrapping never broke an aligned equation across lines.
+
+Also fixed one genuine duplication surfaced while scanning for reuse: `.equipment-and-
+metrics` was declared twice in `style.css` (layout rule, then a second rule 70 lines
+later solely to set `--equip-tile-size`) — merged into one rule. A full dead-code sweep
+(every top-level `function`/`const` name cross-referenced against the rest of the file)
+found nothing else: 0 of 361 declarations are unused, consistent with this project's
+established pattern of removing superseded code inline as each feature replaces the last
+rather than leaving old versions behind.
+
+**The hull-role Optimize logic (the bulk of the 2026-08-21 commit) was deliberately left
+structurally untouched** — its per-hull branches look repetitive at a glance, but each
+one encodes a specific, user-approved gameplay rule (see the Equipment section above),
+and CLAUDE.md's own standing guidance is not to restructure a guard-heavy section without
+a concrete reason. "Concise" here meant cutting prose, not merging logic that only
+coincidentally looks similar.
+
+Verified with the project's standard headless-Edge regression (open/close all 888 ships)
+after the comment edits, after the CSS merge, and again after the line-rewrap pass — 0
+errors each time, and a fingerprint check (`.combat-metric-value` count, stats-grid cell
+count, equipment-slot count per ship) matched across all three runs, confirming the pass
+touched only comments/whitespace and one redundant CSS rule, nothing behavioral.
+`app.js` went 4607 → 4401 lines, `style.css` 1992 → 1960.
 
 ## Deployment security (2026-08-20) — also from `programming rules/`
 

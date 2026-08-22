@@ -57,15 +57,9 @@ const HULL_ABBREVIATIONS = {
 };
 const HULL_TEXT_TO_ABBR = Object.fromEntries(Object.entries(HULL_ABBREVIATIONS).map(([a, t]) => [t, a]));
 
-// One color per nation. The 13 major/pirate nations use hex values supplied by the
-// user verbatim, except Vichya Dominion, Iron Blood and META, whose given values
-// measured under 3:1 contrast on this dark surface (2.16 / 2.47 / 2.68) and were
-// lightened in HSL space, hue and saturation untouched. Do not "correct" those
-// three back to the literal supplied hex.
-// The remaining collab nations are picks from each source franchise's own branding.
-// 30 hues cannot be pairwise CVD-safe (reliable categorical distinction caps around
-// 8) - that trade was made deliberately for authenticity, so the --pairs validator
-// will never pass here and re-running it just reproduces the known result.
+// Hex values are user-supplied, except Vichya Dominion/Iron Blood/META, lightened in HSL
+// space after measuring under 3:1 contrast on this dark surface — don't revert those three.
+// 30 hues can't be pairwise CVD-safe; that trade was made deliberately for authenticity.
 const NATION_COLORS = {
   "Eagle Union": "#2878B5",
   "Royal Navy": "#D8AE52",
@@ -99,12 +93,9 @@ const NATION_COLORS = {
   "NieR:Automata": "#c9c4b8"
 };
 
-// Maps a nation to its faction-logo asset. Keyed by the wiki's own short code
-// rather than the nation name, so accented and starred names (Liga de Pedreria,
-// BLACK*ROCK SHOOTER) never become filenames.
-// The 13 collabs mapped to "Um" genuinely share one generic icon on the wiki - it
-// is not a placeholder standing in for missing art, and there is no per-franchise
-// logo to find.
+// Keyed by the wiki's own short code, not the nation name, so accented/starred names never
+// become filenames. The 13 collabs mapped to "Um" genuinely share one wiki icon, not a
+// placeholder for missing art.
 const FACTION_LOGO_CODE = {
   "Eagle Union": "Us",
   "Royal Navy": "En",
@@ -146,12 +137,9 @@ function nationDisplayName(nationality) {
   return nationality ? nationality.replace(/\s*\([^)]*\)$/, "") : nationality;
 }
 
-// Hex values supplied by the user verbatim; all 15 clear 3:1 on this surface.
-// Each row also lists whichever spelling the corpus actually uses, chosen by
-// occurrence count: "Anti-Air" hyphenated (63 uses) because the unhyphenated form
-// appears zero times, "FP", "Ammo", "HP"/"Max HP" likewise.
-// "Oil Consumption" never appears in skill prose at all - it is here for
-// completeness with the supplied table and currently highlights nothing.
+// Hex values are user-supplied; each row also lists whichever spelling the corpus actually
+// uses (only hyphenated "Anti-Air" occurs, for example). Oil Consumption never appears in
+// skill prose — kept for completeness, it just never highlights anything.
 const STAT_COLOR_GROUPS = [
   { color: "#E3C45B", terms: ["Luck", "LCK"] },
   { color: "#8C9AAA", terms: ["Armor"] },
@@ -171,12 +159,9 @@ const STAT_COLOR_GROUPS = [
 ];
 const STAT_COLORS = Object.fromEntries(STAT_COLOR_GROUPS.flatMap(g => g.terms.map(t => [t, g.color])));
 
-// The five statuses that are game-wide vocabulary, picked by corpus frequency:
-// Burn (98 descriptions), Special Burn (41), Armor Break (40), Smokescreen (32),
-// Flooding (20). Alternate spellings are the ones actually counted in the corpus.
-// Unlike the nation and stat tables, THESE FIVE HUES ARE GUESSES - no user table
-// and no wiki page documents the game's own colors for these effects. Replace them
-// verbatim if real values ever turn up.
+// Picked by corpus frequency (Burn 98, Special Burn 41, Armor Break 40, Smokescreen 32,
+// Flooding 20). Unlike the nation/stat tables these hues are guesses, not sourced from the
+// wiki — replace them if real values ever turn up.
 const MECHANIC_COLOR_GROUPS = [
   { color: "#F2603C", terms: ["Burn", "Burning"] },
   { color: "#CE72E8", terms: ["Special Burn"] },
@@ -186,24 +171,19 @@ const MECHANIC_COLOR_GROUPS = [
 ];
 const MECHANIC_COLORS = Object.fromEntries(MECHANIC_COLOR_GROUPS.flatMap(g => g.terms.map(t => [t, g.color])));
 
-// "AP" is written identically for AP ammunition and for Action Points, so case
-// cannot separate them. Checked by hand against all 105 occurrences: Action Points
-// is always either preceded by a digit or "more" ("gains 10 AP") or followed by
-// "cost"/"consumption"/"-consuming"; the ammunition sense never touches either.
-// Split is 71 ammo / 34 Action Points.
+// "AP" is written identically for ammo and Action Points; checked by hand against all 105
+// occurrences, Action Points always sits after a number/"more" or before
+// "cost"/"consumption".
 function apIsAmmoType(text, index) {
   const before = text.slice(Math.max(0, index - 15), index);
   if (/\d\s*$/.test(before) || /\bmore\s*$/i.test(before)) return false;
   const after = text.slice(index + 2, index + 18);
   return !/^\s*(cost|consumption|-consuming)/i.test(after);
 }
-// caseSensitive exists only for this group: KEYWORD_ALTERNATIVES compiles with the
-// "i" flag (needed because "smokescreen" is lowercase in most of its uses), and
-// under that flag "HE" matches the pronoun "he" and "Normal" matches the ordinary
-// adjective. Requiring exact case removes every false positive here.
-// "high-caliber" is the one entry left case-insensitive: the user wrote it
-// capitalised but all 5 corpus occurrences are lowercase mid-sentence, and the
-// two-word phrase cannot collide with ordinary prose the way an abbreviation can.
+// caseSensitive exists because the shared regex is case-insensitive, under which "HE"
+// matches "he" and "Normal" matches the ordinary adjective. "high-caliber" stays
+// case-insensitive since every corpus occurrence is already lowercase and can't collide
+// with prose.
 const AMMO_CALIBER_TERMS = {
   "Normal": { color: "#D4A83A", caseSensitive: true },
   "HE": { color: "#E05252", caseSensitive: true },
@@ -215,12 +195,9 @@ const AMMO_CALIBER_TERMS = {
 
 const NAMED_MECHANIC_COLOR = "var(--accent)";
 
-// Four palettes share one sentence, so hue alone cannot say which system a colored
-// word belongs to. The treatments are what disambiguate: a stat is bare, a nation
-// is underlined, a mechanic sits on a tinted chip, an ammo type is bare. That is
-// also why per-mechanic hues sitting close to stat hues is safe.
-// Mechanics set keepCase because "smokescreen" is lowercase in 72 of 87 uses, and
-// normalising them would be the formatter visibly rewriting the wiki's text.
+// Four palettes share one sentence, so the treatment — bare, underlined, or a tinted chip —
+// is what tells them apart, not the hue. Mechanics keep the wiki's own casing rather than
+// normalizing it, since "smokescreen" is lowercase in most uses.
 const KEYWORD_GROUPS = [
   { className: "kw-nation", perTermColor: t => NATION_COLORS[t], underline: true, terms: [...new Set(ships.map(s => nationDisplayName(s.nationality)).filter(Boolean))] },
   { className: "kw-stat", perTermColor: t => STAT_COLORS[t], terms: Object.keys(STAT_COLORS) },
@@ -244,12 +221,9 @@ const KEYWORD_ALTERNATIVES =
   "|(\\d+(?:\\.\\d+)?%?)" +
   "|(\\[Operation Siren\\])";
 
-// Per-skill mechanic names must match AHEAD of the fixed vocabulary, or a name
-// starting with a global term ("Standard Armor Break") loses its first word to the
-// shorter match. With no names to insert, group 1 compiles to "((?!))" - a group
-// that can never match - so every later group keeps its number instead of the
-// regex having two different shapes. The no-names case is cached because the
-// Interaction list rebuilds it once per rendered entry.
+// Per-skill mechanic names must match ahead of the fixed vocabulary, or a name like
+// "Standard Armor Break" loses its first word to the shorter global term. The no-names case
+// is cached since Interaction rebuilds this once per rendered entry.
 let cachedKeywordRe = null;
 function keywordRegExp(names) {
   if (!names || !names.length) return cachedKeywordRe || (cachedKeywordRe = new RegExp("((?!))|" + KEYWORD_ALTERNATIVES, "gi"));
@@ -765,17 +739,9 @@ buildFilterPanel();
 update();
 mainEl.removeAttribute("aria-busy");
 
-// Reproduces the game's own compact stat panel: a 3-column grid read left to right,
-// HP/Armor/RLD, FP/TRP/EVA, AA/AVI/Cost, ASW/./., then SPD/ACC/LCK. The two nulls
-// are slots the game leaves empty for surface ships; they render as blank cells
-// rather than collapsing, or the columns stop lining up.
-// Ammunition, Oxygen and Oil Consumption are deliberately absent: all three are
-// 0/888 ships with any numeric value, so they would show "-" forever. Before
-// removing another stat, count it across data/ships.json the same way rather than
-// assuming it is empty.
-// "text" marks a non-numeric value (Armor is Light/Medium/Heavy), "custom" one that
-// is computed rather than read from ship.stats - which is why NUMERIC_STAT_KEYS
-// excludes both.
+// Reproduces the game's own compact 3-column panel; the two null slots are deliberately
+// blank so the columns still line up. Ammunition, Oxygen and Oil Consumption are omitted —
+// all three are 0/888 ships with any numeric value.
 const STAT_GRID = [
   { key: "health", label: "HP", icon: "assets/stat-icons/health.png" },
   { key: "armor", label: "Armor", icon: "assets/stat-icons/armor.png", text: true },
@@ -804,13 +770,10 @@ const modalOverlay = document.getElementById("modal-overlay");
 const modalClose = document.getElementById("modal-close");
 const modalImageCol = document.querySelector(".modal-image-col");
 
-// The modal is one element reused for all 888 ships, so these four images have nothing to
-// show until a ship is opened - and an <img> with an empty or absent src is invalid HTML
-// (src="" is worse than invalid: it resolves to the page's own URL, so the browser refetches
-// the document as an image). Creating them here instead keeps them out of the served markup
-// entirely, the same way the catalog's own thumbnails are built with their src already set.
-// Insertion points are not interchangeable: the watermark is absolutely positioned and the
-// hull icon relatively, so the hull icon paints above it only by coming later in the DOM.
+// The modal is reused for all 888 ships, so these images start with no src — building them
+// in JS keeps an invalid empty-src <img> out of the served markup, the same way catalog
+// thumbnails already work. The watermark is absolutely positioned and the hull icon
+// relative, so insertion order controls which paints on top.
 function placeImage(id, className, parent, before, hidden) {
   const img = document.createElement("img");
   img.id = id;
@@ -976,11 +939,10 @@ function interpolateStatsCurve(curve, level) {
   return pickStatKeys(last);
 }
 
-// Oil cost inputs, from the wiki's Oil Cost page. MaxCost is hull + rarity, plus a
-// Decisive-and-Main-Fleet bonus, a META bonus, the limit-break bonus, and a small
-// per-ship modifier the wiki lists under "Ships from class".
-// EXTRA_COST_MODIFIER_BY_NAME is keyed by display name, not ship.class, because two
-// entries (Minato Aqua, Homura) share no class at all.
+// Oil cost inputs, from the wiki's Oil Cost page — MaxCost is hull + rarity, a
+// Decisive-and-Main-Fleet bonus, a META bonus, the limit-break bonus, and a small per-ship
+// modifier. EXTRA_COST_MODIFIER_BY_NAME is keyed by display name, not ship.class, since
+// Minato Aqua and Homura share no class at all.
 const HULL_COST_BY_SHORT = {
   DD: 1, IXS: 1, SS: 1, SSV: 1,
   CL: 2, AE: 2, AR: 2, BM: 2, IXV: 2,
@@ -1006,15 +968,9 @@ const EXTRA_COST_MODIFIER_BY_NAME = {
 // Cost is a formula, not a base/growth curve like every other stat here:
 //   surface:   floor(MaxCost * (100 + min(Level, 99)) / 200) + 1
 //   submarine: floor((MaxCost + 1) * (100 + min(Level, 99)) / 200)
-// Read off the Oil Cost page's raw MathML, not its rendered text - the flat-looking
-// reading (MaxCost*100 + Level) / 200 is a different formula and does not reproduce
-// the page's own worked example. Verified against all 5 columns of the MaxCost=7
-// row (LB0/Lv.70 -> 1, LB1/Lv.80 -> 3, LB2/Lv.90 -> 5, MLB/Lv.100 -> 7), and
-// against a real in-game screenshot (New Jersey at 125 shows 17).
-// This app has no concept of limit-break investment, so the MAX limit-break bonus
-// is assumed for every ship - the same fixed assumption the wiki itself mandates
-// for PR/DR/UR/META, extended to all rarities for one comparable number, and
-// consistent with skills already being shown at max level.
+// Read off the Oil Cost page's raw MathML — verified against its own worked example and a
+// real screenshot (New Jersey at 125 shows 17). This app has no limit-break tracking, so
+// every ship assumes the MAX bonus, same as the wiki mandates for PR/DR/UR/META.
 function computeOilCost(ship, level) {
   const hullCost = ship.hullShort ? HULL_COST_BY_SHORT[ship.hullShort] : undefined;
   const rarityCost = ship.rarity ? RARITY_COST[ship.rarity] : undefined;
@@ -1082,11 +1038,10 @@ const REDUCTION_MODIFIER_KEYS = new Set(["damageTaken"]);
 
 const MODIFIER_TERM_RE = /\b(?:DMG dealt|damage dealt|DMG taken|damage taken|DMG|damage|crit(?:ical)?(?:\s+(?:rate|dmg|damage))?|evasion rate|hit rate|accuracy|efficiency)\b/gi;
 
-// A qualifier's "source" half only counts if it names a weapon from this list.
-// That is what rejects possessives ("this boat's", "Tirpitz's") and other stats
-// riding the same sentence ("FP and Crit Rate"). The values also fix casing, since
-// the wiki writes both "Main Gun efficiency" and "main gun efficiency" and the
-// resulting pills sit side by side.
+// A qualifier's "source" half only counts if it names a weapon from this list, which is
+// what rejects possessives ("Tirpitz's") and other stats riding the same sentence. Values
+// also fix casing, since the wiki writes both "Main Gun efficiency" and "main gun
+// efficiency" and the pills sit side by side.
 const MODIFIER_SOURCES = {
   "main gun": "Main Gun",
   "secondary gun": "Secondary Gun",
@@ -1105,14 +1060,10 @@ const MODIFIER_SOURCE_RE = new RegExp(`\\b(?:${Object.keys(MODIFIER_SOURCES).joi
 
 const MODIFIER_TARGET_RE = /^(?:to|against|with|from|for|while|during|when|vs\.?)\s/i;
 
-// A combat-modifier pill is worthless without its restriction: Alvitr's "DMG Dealt
-// +15%" only applies to Light Armor enemies, and summing it with an unconditional
-// +10% would produce a "+25%" that applies to nothing. So bonuses are grouped per
-// (stat, qualifier) rather than per stat.
-// The qualifier is recovered from the bonus's own raw phrase - a target after the
-// stat term ("to Light Armor enemies", "with AP") and a source weapon before it.
-// A target only counts if it opens with a restriction preposition, which is what
-// drops the "dealt" left over from "Crit DMG dealt".
+// A pill is worthless without its restriction: Alvitr's "DMG Dealt +15%" only applies to
+// Light Armor enemies, so bonuses are grouped per (stat, qualifier) rather than summed per
+// stat. The qualifier is recovered from the bonus's own raw phrase — a target after the
+// stat term, a source weapon before it.
 function modifierQualifier(raw) {
   const phrase = (raw || "")
     .replace(/\s*\bby\s+[-+\d.]+\s*%?[\s\S]*$/i, "")
@@ -1179,29 +1130,20 @@ function modifierSourceText(entry) {
   return `${entry.skill.name} — ${renderLevelValues(sentence, atMax)}`;
 }
 
-// statBonuses[].scope was auto-extracted from skill text by a one-off script and is
-// wrong in both directions, so it is never trusted alone - the bonus's own raw text
-// decides.
-// SELF_LANGUAGE_RE catches "fleet" entries that are really self (Brest: "increases
-// this ship's EVA by 5%"); OTHER_SHIPS_TARGET_RE catches "self" entries that are
-// really about other ships (Shinano: "increases the FP, EVA, and ASW of your DDs").
-// If another mislabelled case turns up, add a targeted pattern here - do not try to
-// re-run the original extraction script, it no longer exists.
+// statBonuses[].scope was auto-extracted and is wrong in both directions, so the bonus's
+// own raw text decides instead — SELF_LANGUAGE_RE catches "fleet" entries that are really
+// self (Brest), OTHER_SHIPS_TARGET_RE catches "self" entries that are really about others
+// (Shinano). If another mislabelled case turns up, add a targeted pattern rather than
+// trying to re-run the (no longer existing) extraction script.
 const SELF_LANGUAGE_RE = /\b(this ship('s)?|her own|own)\b/i;
 const OTHER_SHIPS_TARGET_RE = /\byour\s+(DDs?|CLs?|CAs?|CBs?|BBs?|BCs?|CVs?|CVLs?|SSs?|SSVs?|Vanguard|Main Fleet|fleet)\b/i;
 
-// Some skills grant a bonus only while a particular kind of gear is equipped, and a
-// few grant a DIFFERENT bonus depending on which branch applies - "If equipped with a
-// Sakura Empire aircraft: AVI/ACC... If not equipped with any Sakura Empire aircraft:
-// AA/ACC... instead" (Hakuryuu's "The Great One's Shadow"). Summing every self bonus
-// unconditionally, as this whole section otherwise does, would double-count both
-// branches at once now that equipped gear is real data instead of an unknown. 25
-// skills in the dataset carry an "equipped with X" clause governing a self bonus
-// (surveyed with a node -e scan over ships.json before writing this).
-//
-// A condition this cannot confidently parse is left ungated (returns true) rather
-// than excluded - this only ADDS precision for the shapes recognised below, it never
-// takes away a bonus that used to count under the old "assumed met" behaviour.
+// A few skills grant a DIFFERENT self bonus depending on which equip-condition branch
+// applies (Hakuryuu's "The Great One's Shadow"), so summing every self bonus
+// unconditionally would double-count both branches now that equipped gear is real data — 25
+// skills carry this shape. A condition this can't confidently parse is left ungated rather
+// than excluded, since this only adds precision, never removes a bonus the old "assumed
+// met" behavior counted.
 const AIRCRAFT_CATEGORIES = ["Fighter", "Seaplane", "Dive Bomber", "Torpedo Bomber"];
 const GUN_CATEGORY_SUFFIX_RE = /Gun$/;
 
@@ -1233,11 +1175,10 @@ function resolveEquipNationTerm(text) {
     || ALL_NATION_TERMS.find(n => new RegExp(`\\b${escapeRegExp(n)}\\b`, "i").test(t));
 }
 
-// A skill's own text is the only source for a catalog item name ("the Quadruple 380mm
-// (Mle 1935) gun", "an F6F Hellcat"), and it does not always spell the name the way
-// the catalog does - the catalog keeps "Grumman"/"Consolidated" prefixes the skill
-// text drops - so this checks both directions instead of assuming the catalog name is
-// a literal substring of the skill text.
+// A skill's own text is the only source for a catalog item name, and it doesn't always
+// spell it the way the catalog does (the catalog keeps "Grumman"/"Consolidated" prefixes
+// skill text drops) — so this checks both directions instead of assuming a literal
+// substring.
 function equipTargetNamesCatalogItem(strippedTarget) {
   if (strippedTarget.length < 5) return null;
   const needle = strippedTarget.toLowerCase();
@@ -1258,11 +1199,9 @@ function equipConditionClauseForRaw(plainText, raw) {
   return /equipped|otherwise/i.test(clause) ? clause : null;
 }
 
-// clause is everything from the sentence start up to (not including) the bonus's own
-// raw text - "otherwise" only ever shows up in that span when it is negating an equip
-// condition stated earlier in the SAME sentence (Gneisenau META), never the bonus's
-// own condition, so its mere presence is enough to flip negate without needing to
-// re-parse which branch it belongs to.
+// clause spans from the sentence start up to the bonus's own raw text, since "otherwise"
+// only shows up there when negating an equip condition stated earlier in the SAME sentence
+// (Gneisenau META) — its mere presence is enough to flip negate.
 function parseEquipCondition(clause) {
   const equipMatch = /equipped\s+with\s+((?:at least one\s+)?(?:a|an|the|any)?\s*[^,:;.]+)/i.exec(clause);
   if (!equipMatch) return null;
@@ -1387,12 +1326,10 @@ function equipConditionAllows(ship, plainText, raw) {
   return parsed.negate ? !result : result;
 }
 
-// Skill bonuses, plus flat stat contributions from equipped gear (equipFlat below).
-// No Meowfficer or Fleet Tech data exists here. Conditions are assumed met UNLESS the
-// condition is specifically about equipped gear (equipConditionAllows above) - that is
-// the one category this app can actually check against a real loadout, so it does.
-// Note this "conditions assumed met" stance is deliberately NOT shared with the
-// Interaction section, which excludes conditionally gated buffs entirely.
+// Skill bonuses plus flat stat contributions from equipped gear; no Meowfficer or Fleet
+// Tech data exists. Conditions are assumed met UNLESS specifically about equipped gear,
+// which is the one category this app can actually check — Interaction, by contrast,
+// excludes conditionally gated buffs entirely.
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) {
   const base = computeStats(ship, level, isRetrofit);
   if (!base) return null;
@@ -1432,12 +1369,11 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
   }
 
   // The wiki's CurrentScalingStat, from the Damage Calculations page:
-  //   [ (ShipBaseStat x CatStatMultiplier) + sum(FlatStatBuffs) ]
-  //     x (1 + sum(StatPercentBuffs)) + sum(SkillFlatBuffs)
-  // Equipment is a FlatStatBuff, so it is added BEFORE the percentage and is itself
-  // amplified by skill buffs. Skill flat buffs are a separate, later term and are not.
-  // Getting those two positions the wrong way round changes the result whenever a ship
-  // has both. CatStatMultiplier stays 1: no Meowfficer or Fleet Tech data exists here.
+  //   [ (ShipBaseStat x CatStatMultiplier) + sum(FlatStatBuffs) ] x (1 + sum(StatPercentBuffs)) + sum(SkillFlatBuffs)
+  // Equipment is a FlatStatBuff, added before the percentage and itself amplified by skill
+  // buffs, unlike the later SkillFlatBuffs term — swapping the two changes the result
+  // whenever a ship has both. CatStatMultiplier stays 1 since no Meowfficer or Fleet Tech
+  // data exists here.
   const stats = {};
   for (const key of NUMERIC_STAT_KEYS) {
     if (!(key in base)) continue;
@@ -1453,13 +1389,10 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
   return { stats, modifiers };
 }
 
-// A boosted cell renders as "{base}+{delta} ({real})" rather than the final number
-// alone: with no Base column anywhere in this section, a lone "355" is impossible
-// to tell from an unboosted base value. An unboosted cell stays a plain number,
-// so the compound form only appears where there is a delta to explain.
-// The grid shows one delta, but it can now come from two different places at once, and
-// they apply at different points in the formula. Spelling the terms out is the only way
-// a reader can tell which gear or which skill is responsible.
+// A boosted cell renders as "{base}+{delta} ({real})" rather than the final number alone,
+// since with no Base column anywhere a lone "355" can't be told apart from an unboosted
+// value. It can now come from two different sources applying at different points in the
+// formula, so spelling both out is the only way to tell which is responsible.
 function statBreakdownText(label, entry) {
   const lines = [`${label}  base ${entry.base}`];
   if (entry.equip) lines.push(`equipment  ${entry.equip > 0 ? "+" : ""}${entry.equip}`);
@@ -1526,14 +1459,11 @@ function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
   }
 }
 
-// Slot type codes are bare numbers in the datamine. These names were derived, not
-// guessed: 837 saved wiki ship pages name what their slots 1-3 accept, and
-// cross-referencing those against the codes made every listed code unambiguous.
-// The wiki never lists the auxiliary slots 4-5, which is where the leftovers live.
-// Code 17 has no source anywhere (2 ships, Koln and Koln META) so it is deliberately
-// absent and simply does not render - better than an invented name. Code 21 never
-// appears alone, only glued to 6, and the wiki labels every slot carrying the pair
-// plainly "Anti-Air Guns", so it maps to the same string and dedupes away.
+// Slot type codes are bare numbers in the datamine, derived (not guessed) by
+// cross-referencing 837 saved wiki ship pages naming what their slots 1-3 accept — the wiki
+// never lists the auxiliary slots 4-5, which is where the leftovers live. Code 17 has no
+// source (Koln, Koln META) and is left out entirely; code 21 never appears alone and
+// dedupes into the same "Anti-Air Guns" label as 6.
 const EQUIPMENT_TYPE_NAMES = {
   1: "DD Main Guns",
   2: "CL Main Guns",
@@ -1560,12 +1490,11 @@ const UNIVERSAL_AUGMENT_MODULES = new Set([
   "Bowgun", "Officer's Sword", "Scepter", "Hunting Bow", "Kunai", "Dagger"
 ]);
 
-// A slot's type code alone cannot name it: a BB's slot 2 takes DD guns as her
-// SECONDARY battery while a DD's slot 1 takes the same DD guns as her MAIN one.
-// Rule: the first gun-taking slot is "Main Gun", any later one "Secondary".
-// Checked against all 156 distinct (hull, slot, types) combinations - it also lands
-// right on the awkward ones: a submarine's deck gun sits in slot 3 behind two
-// torpedo slots and still reads "Main Gun", and Akashi's slot 1 reads "Auxiliary".
+// A slot's type code alone can't name it: a BB's slot 2 takes DD guns as her SECONDARY
+// battery while a DD's slot 1 takes the same guns as her MAIN one, so the first gun-taking
+// slot is always "Main Gun" and any later one "Secondary". Checked against all 156 distinct
+// (hull, slot, types) combinations, including submarines (deck gun in slot 3 still reads
+// "Main Gun").
 const EQUIPMENT_SHORT_NAMES = {
   5: "Torpedo",
   6: "AA Gun",
@@ -1587,13 +1516,10 @@ function equipmentSlotTypes(slot) {
   return [...new Set((slot.type || []).map(code => EQUIPMENT_TYPE_NAMES[code]).filter(Boolean))];
 }
 
-// A slot's short name used to collapse to whatever its FIRST type code meant, which
-// hides real dual-purpose slots - Rikka Takarada's and Reisalin Stout's "Main Gun"
-// slot also takes an Auxiliary (code 10 riding alongside the gun code), and it showed
-// as a plain gun slot with no visible hint of that. Every distinct short name across
-// ALL of a slot's codes is now listed, gun codes collapsed to the one gunLabel the
-// caller already worked out (Main Gun/Secondary) so [1,2] (two gun families) still
-// reads as one slot rather than "Main Gun / Main Gun".
+// A slot's short name used to collapse to whatever its FIRST type code meant, hiding real
+// dual-purpose slots (Rikka Takarada's "Main Gun" slot also takes an Auxiliary). Every
+// distinct short name across all of a slot's codes is now listed, with gun codes collapsed
+// to the one gunLabel the caller already worked out.
 function equipmentSlotLabel(slot, gunLabel) {
   const codes = slot.type || [];
   const parts = [];
@@ -1606,17 +1532,10 @@ function equipmentSlotLabel(slot, gunLabel) {
   return parts.join(" / ");
 }
 
-// Built by hand because the two vocabularies are worded differently on purpose
-// ("DD Main Guns" here vs "DD Gun" in the catalog).
-// Codes 6 and 21 are NOT the same permission, though the wiki labels both slots plainly
-// "Anti-Air Guns": "Time Fuze AA Guns are special AA Guns only equippable by Battleships
-// and Battlecruisers" (Damage Calculations page), and code 21 appears on BB, BC and BBV
-// slots only - 142 of them, never on any other hull. So 6 grants ordinary AA guns and 21
-// grants the Time Fuze ones; a BB slot carries both codes and gets both.
-// Code 18 (Cargo) stays unmapped: no Cargo category was ever extracted, and it is not
-// combat gear. Code 20 (Missiles) IS mapped, to the Torpedo catalog page - checked, that
-// is where the SY-1 missiles live. equipmentOptionsForSlot then splits that category in
-// two, since a missile slot must not offer torpedoes nor the reverse.
+// Built by hand since the two vocabularies are worded differently on purpose ("DD Main
+// Guns" vs the catalog's "DD Gun"). Codes 6 and 21 are NOT the same permission despite an
+// identical wiki label — 21 (Time Fuze AA Guns) is BB/BC/BBV only — and code 20 (Missiles)
+// maps to the Torpedo category, split from ordinary torpedoes by equipmentOptionsForSlot.
 const EQUIPMENT_TYPE_CODE_CATEGORIES = {
   1: ["DD Gun"],
   2: ["CL Gun"],
@@ -1636,22 +1555,15 @@ const EQUIPMENT_TYPE_CODE_CATEGORIES = {
   14: ["ASW"]
 };
 
-// The Torpedo catalog page also lists the two SY-1 missiles, but a missile is NOT a
-// torpedo as far as slots go: type code 20 (Missiles) appears ALONE on exactly 4 slots
-// (An Shan, Chang Chun, Fu Shun, Tai Yuan - the Fu Shun-class retrofit) and code 5
-// appears on 446 slots, never together. So the two sets are disjoint and each code takes
-// its own half. Before this split a plain destroyer was offered SY-1A, which Optimize
-// would then have picked because it outscores every real torpedo.
-// Every gear slot has a built-in weapon the ship uses when the slot is empty; its id is
-// already in the ship data as slot.default, and data/default-equipment.js carries the
-// items themselves, extracted from the wiki's User:ArdWar/DefaultEquips page.
-// Resolves 2579 of the 2583 slots that declare a default. The 4 that do not are id 158
-// (Ganj-i-Sawai, Pearl, Queen Anne's Revenge, Sao Martinho), which that page never
-// documented - they degrade to no default rather than to a guessed one.
+// The Torpedo catalog page also lists two SY-1 missiles, but a missile is not a torpedo as
+// far as slots go — type code 20 appears alone on exactly 4 slots and code 5 on 446, never
+// together, so equipmentOptionsForSlot splits them into disjoint offers. Before this split,
+// every plain torpedo slot was also offered SY-1A, which outscores every real torpedo.
 //
-// NOTE for the DPS work: the page's aircraft table has no DPS column at all, only
-// Ordnance and reload, so the 346 aircraft slots will need their damage derived rather
-// than read. Guns, torpedoes, AA and ASW all carry their own DPS figures.
+// Every gear slot has a built-in weapon it uses when empty (slot.default, resolved against
+// data/default-equipment.js, extracted from the wiki's User:ArdWar/DefaultEquips page).
+// Resolves 2579 of 2583 slots that declare one — the 4 that don't (id 158) are undocumented
+// on that page and degrade to no default rather than a guessed one.
 const DEFAULT_EQUIPMENT_BY_ID = new Map(
   (typeof DEFAULT_EQUIPMENT_DATA === "undefined" ? [] : DEFAULT_EQUIPMENT_DATA).map(item => [item.id, item])
 );
@@ -1672,15 +1584,11 @@ function isMissileItem(item) {
   return item.category === "Torpedo" && EQUIPMENT_MISSILE_RE.test(item.name);
 }
 
-// An item's own wiki page carries a "Used By" table marking every hull that may mount it,
-// which is a real restriction the slot's type code does not express: a Destroyer's
-// auxiliary slot accepts Auxiliaries, but not an Anti-Torpedo Bulge. Only 145 of the 581
-// catalog records have that table saved, so an item without `usedBy` stays unrestricted
-// rather than being hidden on a guess.
-// A hull the page marks "maybe" counts as allowed: those are the ones where only named
-// ships qualify, and the slot's own type already picks exactly those ships out - the two
-// BCs and two CBs with a torpedo slot are Odin, Scharnhorst META, Agir and Little Agir,
-// which are the wiki's own examples.
+// An item's own wiki page carries a "Used By" table marking every hull that may mount it —
+// a real restriction the slot's type code doesn't express (a Destroyer's aux slot accepts
+// Auxiliaries, but not an Anti-Torpedo Bulge). Only 145 of 581 records have that table, so
+// an item without usedBy stays unrestricted; a "maybe" hull counts as allowed since the
+// slot's own type already narrows it to the wiki's own named exceptions.
 function equipmentAllowedOnHull(item, ship) {
   return !item.usedBy || !ship || item.usedBy.includes(ship.hullShort);
 }
@@ -1707,12 +1615,10 @@ function equipmentRarityColor(rarity) {
 
 const STAT_ICON_BY_KEY = Object.fromEntries(STAT_GRID.filter(Boolean).map(d => [d.key, d.icon]));
 
-// Every numeric figure worth showing for an item: its combat headline (DPS/AA DPS/
-// ASW DPS, whichever it has) plus every flat stat it grants - not just the one
-// equipmentPrimaryStat() picks as the single at-a-glance figure for a picker cell.
-// A built-in default weapon (data/default-equipment.json) is a different schema -
-// dpsLight/dpsMedium/dpsHeavy as flat fields instead of a dps object, no rarity, no
-// statBonus - so its own DPS is read from there instead of being left blank.
+// Every numeric figure worth showing for an item, not just the one equipmentPrimaryStat()
+// picks for a picker cell. A built-in default weapon uses a different schema
+// (dpsLight/dpsMedium/dpsHeavy as flat fields, no rarity, no statBonus), so its DPS is read
+// from there instead of being left blank.
 function equipmentStatRows(item) {
   const rows = [];
   // Ammo type first for a gun - which armor type a shot is actually good against
@@ -1818,18 +1724,14 @@ function weaponRole(item) {
   return WEAPON_ROLES[item.category] || WEAPON_ROLES[item.kind] || null;
 }
 
-// The item's damage per second BEFORE any ship stat is applied. Verified against the
-// catalog: a gun's dps.raw is exactly dmg x coef x roundsPerSec, with no stat term, so
-// these figures are a stat-0 baseline and the stat multiplier below is not double
-// counting.
+// The item's damage per second before any ship stat is applied — a stat-0 baseline verified
+// against the catalog (dps.raw is exactly dmg x coef x roundsPerSec, no stat term), so the
+// stat multiplier below isn't double-counting.
 //
-// The mean of the light/medium/heavy columns is what is used, NOT dps.raw, so no target
-// armour type is assumed. raw is the figure at a 100% armour modifier, which almost no
-// ammunition actually has - HE is punished against heavy armour and torpedoes rewarded -
-// so comparing two items on raw quietly favours whichever is tuned for a target that is
-// not there. This matters most where a gun is weighed against a barrage: their ammo
-// types differ, and their armour modifiers with them. raw remains the fallback for an
-// item that has no per-armour breakdown.
+// The mean of light/medium/heavy is used instead of dps.raw, since raw assumes a 100%
+// armour modifier almost no real ammunition has (HE is punished against heavy armour,
+// torpedoes rewarded) — this matters most when weighing a gun against a barrage of a
+// different ammo type. raw is only the fallback for an item with no per-armour breakdown.
 function equipmentBaseDps(item) {
   if (typeof item.aaDps === "number") return item.aaDps;
   if (typeof item.aswDps === "number") return item.aswDps;
@@ -1845,11 +1747,10 @@ function equipmentBaseDps(item) {
   return null;
 }
 
-// The reference attacker eHP is measured against. The wiki's HitRate needs the SHOOTER's
-// Accuracy and Luck, which this app has no source for, so a fixed reference stands in and
-// is named in the UI rather than hidden. Its exact value barely affects which ship is
-// tankier than which - it shifts every eHP by roughly the same factor - but it does mean
-// the number is comparative, not an absolute the game would show.
+// The reference attacker eHP is measured against — the wiki's HitRate formula needs the
+// SHOOTER's Accuracy and Luck, which this app has no source for, so a fixed,
+// named-in-the-UI reference stands in instead. Its exact value barely changes which ship is
+// tankier than which; the number is comparative, not an absolute the game would show.
 const EHP_REFERENCE_ACCURACY = 100;
 const EHP_REFERENCE_LUCK = 0;
 
@@ -1864,11 +1765,11 @@ function referenceHitRate(evasion, luck) {
   return Math.min(1, Math.max(0.1, raw));
 }
 
-// Damage a slot contributes per second: the item's own figure, times how many copies fire
-// (mounts), times the slot's efficiency, times the wiki's WeaponStatMultiplier
-// (1 + ScalingStat/100). WeaponScalingCoefficient is left at its default of 1; the
-// Damage Calculations page gives 0.8 for some bombs and rockets, which the catalog does
-// not distinguish, so aircraft numbers are slightly optimistic.
+// Damage a slot contributes per second: the item's own figure, times mounts, times
+// efficiency, times the wiki's WeaponStatMultiplier (1 + ScalingStat/100).
+// WeaponScalingCoefficient stays at 1, so aircraft numbers run slightly optimistic since
+// the Damage Calculations page gives 0.8 for some bombs/rockets the catalog doesn't
+// distinguish.
 function slotDamage(slot, item, effective) {
   const role = weaponRole(item);
   if (!role) return null;
@@ -1881,13 +1782,11 @@ function slotDamage(slot, item, effective) {
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100), unknown: false };
 }
 
-// "DDs and CLs are equipped with a default depth charge launcher" (Anti-Submarine Warfare
-// page): 15 range, 60 x 2 damage, cooldown 6.32s for destroyers and 6.99s for light
-// cruisers. That is not a slot - no anti-submarine slot in the dataset declares a built-in
-// weapon - it is intrinsic to the hull, which is why it is keyed by hull rather than read
-// off ship.equipment. The two ids are the built-in table's own DC rows, matched by those
-// exact figures (#141 at 6.32s, #147 at 6.98s), and their dps already counts both charges.
-// Equipped depth charges add to this launcher rather than replacing it, per the same page.
+// DDs and CLs carry a default depth charge launcher intrinsic to the hull, not a slot
+// (Anti-Submarine Warfare page: 60x2 damage, 6.32s/6.99s cooldown) — keyed by hullShort
+// rather than read off ship.equipment. The two ids are the built-in table's own DC rows,
+// matched by those exact figures; equipped depth charges add to this launcher rather than
+// replacing it.
 const INNATE_DEPTH_CHARGE_BY_HULL = { DD: 141, CL: 147 };
 
 function innateDepthCharge(ship) {
@@ -1957,12 +1856,9 @@ function computeCombatMetrics(ship, level, effective) {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Hull role - drives which weight profile and which special-cased slot logic
-// (CV aircraft orientation, the AA gun's fast-vs-slow pick, BB skipping
-// survivability) applies. Read off hullShort rather than kept as one shared
-// profile, per the user's own breakdown of how differently each role gears up.
-// ---------------------------------------------------------------------------
+// Hull role drives which weight profile and slot-specific logic (CV aircraft orientation,
+// the AA gun's fast/slow pick, BB skipping survivability) Optimize applies below, read off
+// hullShort per the user's own breakdown of how each role gears up.
 function shipOptimizeRole(ship) {
   switch (ship.hullShort) {
     case "CV": case "CVL": return "carrier";
@@ -1975,12 +1871,9 @@ function shipOptimizeRole(ship) {
   }
 }
 
-// AA guns split into two playstyles the user named directly: a few fast, low-damage
-// guns that always have a target to shoot at, and most guns which hit harder but
-// reload slower. Reload is the cleanest signal the catalog has for this (no separate
-// "fast/slow" field exists), so "fast" is simply below the AA Gun category's own
-// median reload - a real split measured from the 68 AA Gun/AA Time Fuze Gun records
-// (0.32s-1.97s, median 0.9s), not a guessed cutoff.
+// AA guns split into two playstyles: a few fast, low-damage guns that always have a target,
+// and most which hit harder but reload slower. "Fast" is simply below the AA Gun category's
+// own median reload (0.32s-1.97s, median 0.9s) — measured from the catalog, not guessed.
 let aaGunReloadMedianCache = null;
 function aaGunReloadMedian() {
   if (aaGunReloadMedianCache != null) return aaGunReloadMedianCache;
@@ -2005,11 +1898,10 @@ function shipHasSelfStatSkill(ship, statKey) {
   return false;
 }
 
-// "Low AA" is read off the whole roster rather than an arbitrary flat number, cached
-// once since it is the same lookup for every ship: base AA (no skills, no gear) at
-// level 125, ranked against every other ship's. Below the median is "low" - a ship
-// with no AA-boosting skill either then wants a fast gun that always has something to
-// shoot, per the user's rule, rather than a hard-hitting one she is slow to use.
+// "Low AA" is read off the whole roster rather than an arbitrary flat number: base AA at
+// level 125, ranked against every other ship, cached once since it's the same lookup for
+// all. A ship below the median with no AA-boosting skill wants a fast gun that always has
+// something to shoot, rather than a hard-hitting one she's slow to use.
 let antiairBaselineSorted = null;
 function shipHasLowAntiAir(ship) {
   if (!antiairBaselineSorted) {
@@ -2032,14 +1924,11 @@ function shipHasEnemySlowSkill(ship) {
   return (ship.skills || []).some(sk => ENEMY_SLOW_RE.test(stripHtml(sk.description || "")));
 }
 
-// A BB/BC/BM/BBV's special barrage is either a per-shot roll ("40% (70%) chance to
-// fire a barrage") or a fixed timer ("Every 15s: fires a barrage"), and which one she
-// has decides whether her Main/Secondary Gun and Firepower auxiliary should chase
-// firing FREQUENCY (more rolls) or raw per-shot POWER (a timer fires regardless of
-// how fast she reloads, so only the hit's own size matters). "Proc" is checked before
-// "timer" since a gated timer ("every 20s: 45% chance...") reads as a proc first -
-// verified dataset-wide before writing this (149 BB-family ships: 77 proc, 15 timer,
-// 57 with neither pattern, which fall back to ordinary damage-based scoring).
+// A BB/BC/BM/BBV's special barrage is either a per-shot roll ("chance to fire a barrage")
+// or a fixed timer ("every 15s: fires"), and which one she has decides whether her guns/aux
+// chase firing frequency or raw per-shot power. "Proc" is checked before "timer" since a
+// gated timer reads as a proc first — verified against all 149 BB-family ships (77 proc, 15
+// timer, 57 neither).
 const BARRAGE_PROC_RE = /\d+%\s*\(\d+%\)\s*chance\s+to\s+(?:launch|fire|trigger)\b.{0,60}?\bbarrage/i;
 const BARRAGE_TIMER_RE = /\bevery\s+\d+(?:\.\d+)?s\b.{0,80}?\b(?:fires?|launches?)\b.{0,40}?\bbarrage/i;
 function shipBarrageTriggerType(ship) {
@@ -2285,26 +2174,21 @@ function findEquipmentByName(name) {
   return EQUIPMENT_DATA.find(i => i.name === name) || null;
 }
 
-// The one item the user singled out by name: Repair Toolkit's own passive HP regen is
-// real value the single-hit eHP formula below cannot represent (it only ever compares
-// one hit against current HP/Evasion, never sustained recovery over a fight), so a
-// candidate whose notes promise it gets a deliberate score bump on top of its eHP.
-// General on the notes' own wording rather than hardcoded to Repair Toolkit's id, in
-// case a similar item is added later - checked dataset-wide, only Repair Toolkit and
-// the unrelated, collab-gated Elixir mention "recovers ... HP" at all, and Elixir's
-// phrasing (no recurring "every Ns") does not match this pattern.
+// Repair Toolkit's own passive HP regen is real value the single-hit eHP formula can't
+// represent, so a candidate whose notes promise it gets a deliberate score bump on top of
+// its eHP. Matched on the notes' own wording rather than hardcoded to one item's id —
+// checked dataset-wide, only Repair Toolkit and the unrelated Elixir mention HP recovery at
+// all, and Elixir's phrasing doesn't match.
 const HP_REGEN_NOTES_RE = /recovers?\s+\d+(?:\.\d+)?%\s+of\s+(?:this ship'?s\s+)?max\s*HP\s+every\s+\d+(?:\.\d+)?s/i;
 function itemGrantsHpRegen(item) {
   return !!(item && item.notes && HP_REGEN_NOTES_RE.test(item.notes));
 }
 const HP_REGEN_SCORE_BONUS = 1.15;
 
-// Simulates equipping one candidate into one slot and reads back the REAL resulting
-// eHP (same HP/HitRate formula computeCombatMetrics renders) rather than approximating
-// it from the item's own flat numbers - a flat HP/Evasion bonus is added before the
-// ship's own skill percentages apply, so an approximation would not track a boosted
-// ship correctly. Cheap enough to call once per candidate: this only runs from an
-// explicit Optimize click, not on every render.
+// Simulates equipping one candidate and reads back the REAL resulting eHP, rather than
+// approximating from the item's own flat numbers, since a flat bonus is amplified by the
+// ship's own skill percentages before it becomes real eHP. Cheap enough to call per
+// candidate since this only runs from an explicit Optimize click, never on render.
 function candidateEhp(ship, slotKey, item) {
   const original = getEquippedGear(ship, slotKey);
   setEquippedGear(ship, slotKey, item);
@@ -2320,14 +2204,10 @@ function candidateEhp(ship, slotKey, item) {
 }
 
 const SURVIVAL_STAT_KEYS = new Set(["health", "evasion", "luck"]);
-// CA is the one role the user gave an explicit override for: "quasiment que des
-// auxiliaire d'augmentation de HP théorique" - almost only HP-boosting auxiliaries,
-// not the general stat-driven eHP simulation everyone else gets (which is what
-// already produces "destroyers usually prefer HP over Evasion" on its own, since a
-// DD's already-high base Evasion means an EVA item's eHP return is small next to a
-// flat HP item's). So a CA's candidate pool is narrowed to items that grant HP at
-// all (an HP+Evasion hybrid like Improved Hydraulic Rudder still qualifies) rather
-// than opened to pure-Evasion options the simulation might otherwise prefer.
+// CA is the one role given an explicit override: almost only HP-boosting auxiliaries, not
+// the general eHP simulation every other role gets (which already favors HP over Evasion
+// for most hulls on its own). A CA's candidate pool is narrowed to items granting HP at
+// all, rather than opened to pure-Evasion options the simulation might otherwise prefer.
 function itemIsSurvivalCandidate(item, role) {
   if (item.category !== "Auxiliary") return false;
   const bonus = item.statBonus || {};
@@ -2340,14 +2220,11 @@ function itemIsSurvivalCandidate(item, role) {
 // Optimisation targets
 // ---------------------------------------------------------------------------
 
-// Two rules from the user drive every weight below.
-// 1. Survivability comes first, then AA - so every target keeps a real weight on
-//    health/evasion and a smaller one on anti-air, even a purely offensive one.
-//    BB is the deliberate exception - see roleRecommendedWeights.
-// 2. Optimising means amplifying what a ship already does well, NOT patching what she is
-//    bad at - the one exception being survivability, which everyone wants. That is why
-//    the offensive weight in "recommended" is chosen from the ship's own strongest
-//    scaling stat rather than her weakest.
+// Two rules drive every weight below: survivability comes first, then AA (a real weight on
+// health/evasion everywhere, even offense-only builds — BB is the deliberate exception),
+// and optimizing means amplifying what a ship already does well, not patching a weakness
+// (except survivability, which everyone wants) — which is why "recommended"'s offensive
+// weight comes from the ship's own strongest scaling stat.
 const SURVIVAL_BASE = { health: 0.5, evasion: 0.4 };
 const OPTIMIZE_TARGETS = {
   auto: { label: "Recommended", weights: null },
@@ -2378,11 +2255,10 @@ function itemBoostsAsw(item) {
 }
 
 // The offensive stats a ship can actually scale, read off her real slots rather than a
-// hardcoded hull list - so each hull naturally gets its own set of orientations, and a
-// ship with an unusual loadout is not forced into the wrong one. Carriers get their
-// three dedicated aircraft orientations instead of the single generic "Aviation" -
-// Fighter, Dive Bomber and Torpedo Bomber all scale off the same stat, so one weight
-// can never tell them apart the way pickCarrierAircraft's category preference can.
+// hardcoded hull list, so an unusual loadout isn't forced into the wrong orientation.
+// Carriers get three dedicated aircraft orientations instead of one generic "Aviation",
+// since Fighter/Dive Bomber/Torpedo Bomber all scale off the same stat and a single weight
+// can't tell them apart.
 function availableOptimizeTargets(ship) {
   const ids = new Set(["auto", "survival"]);
   const isCarrier = shipOptimizeRole(ship) === "carrier";
@@ -2401,14 +2277,10 @@ function availableOptimizeTargets(ship) {
   return Object.keys(OPTIMIZE_TARGETS).filter(id => ids.has(id));
 }
 
-// "Recommended": survivability and AA as a floor, plus whichever scaling stat this ship
-// is already best at, compared as a share of the ship's own total so the three are on
-// the same scale rather than raw magnitude - EXCEPT the three roles the user described
-// as needing their own emphasis regardless of what "already good" happens to compute
-// to: CL leans on Anti-Air (she is usually the fleet's AA platform), CA leans hard on
-// Firepower and HP over Evasion (a tank amplifies raw damage and theoretical HP, not
-// dodge), and BB drops survivability to near nothing (she leans on Firepower/Accuracy
-// and is not expected to carry a defensive auxiliary except when nothing else scores).
+// "Recommended" weighs survivability and AA as a floor plus whichever scaling stat the ship
+// is already best at, as a share of her own total — except CL (leans on Anti-Air, her usual
+// fleet role), CA (leans on Firepower and HP over Evasion, a tank amplifies damage not
+// dodge), and BB (drops survivability to near zero), per the user's own per-role breakdown.
 function recommendedWeights(ship, effective) {
   const role = shipOptimizeRole(ship);
   const candidates = ["firepower", "torpedo", "aviation"];
@@ -2454,12 +2326,11 @@ function optimizeWeights(ship, targetId, effective) {
   return (OPTIMIZE_TARGETS[targetId] || OPTIMIZE_TARGETS.auto).weights || recommendedWeights(ship, effective);
 }
 
-// Auxiliary bonuses are on wildly different scales - a few hundred HP against a dozen
-// Evasion - so each is expressed as a share of the largest bonus available for that stat.
-// Without that, a weight of 1 on Evasion could never outrank a weight of 0.1 on Health.
-// Computed on first use, not at load: EQUIPMENT_STAT_KEY_ALIASES is declared further down
-// the file, and reading it from a top-level IIFE up here throws on the temporal dead zone
-// - which aborts the whole script silently, leaving every later const uninitialised.
+// Auxiliary bonuses sit on wildly different scales (a few hundred HP vs. a dozen Evasion),
+// so each is expressed as a share of the largest bonus available for that stat — otherwise
+// a weight of 1 on Evasion could never outrank 0.1 on Health. Computed lazily rather than
+// at load, since EQUIPMENT_STAT_KEY_ALIASES is declared later in the file and reading it
+// from a top-level IIFE here throws on the temporal dead zone.
 let auxiliaryStatMax = null;
 function auxiliaryStatMaxima() {
   if (auxiliaryStatMax) return auxiliaryStatMax;
@@ -2473,15 +2344,12 @@ function auxiliaryStatMaxima() {
   return auxiliaryStatMax;
 }
 
-// HP/Evasion/Luck cannot be ranked by raw magnitude the way Firepower or Aviation
-// can - Evasion has diminishing returns baked into the HitRate formula, so 49
-// Evasion is not "worth less than" 640 flat HP just because 640 is the bigger
-// number. That comparison is exactly what put Plum-Petal Poetry's flat 640 HP ahead
-// of Improved Hydraulic Rudder's 72 HP + 49 Evasion on Roon, when a real eHP
-// simulation the guaranteed survivability slot already ran shows the Rudder is
-// ahead by ~1400 eHP. So every aux slot compares its survival-stat candidates by
-// real simulated eHP, not the proportional-to-maximum heuristic the other stats
-// still use (there is no equivalent diminishing-returns effect to get wrong there).
+// HP/Evasion/Luck can't be ranked by raw magnitude the way Firepower can, since Evasion has
+// diminishing returns baked into the HitRate formula — that comparison is exactly what put
+// a flat 640 HP item ahead of a smaller HP+Evasion item on Roon, when a real simulation
+// shows the latter is ahead by ~1400 eHP. So every aux slot compares survival-stat
+// candidates by simulated eHP instead of the proportional-to-maximum heuristic the other
+// stats still use.
 function statPreferenceScore(item, weights, ship, slotKey, baseEhp) {
   const maxima = auxiliaryStatMaxima();
   const bonus = item.statBonus || {};
@@ -2504,19 +2372,11 @@ function statPreferenceScore(item, weights, ship, slotKey, baseEhp) {
   return score;
 }
 
-// What Optimize maximises: the slot's own damage figure, ignoring rarity entirely.
-// Rarity is NOT a proxy for power here - in 4 of 14 categories the highest-rarity item
-// is not the strongest (a Super Rare Twin 410mm out-damages every Ultra Rare BB gun),
-// so taking the top of sortEquipmentOptions would pick the wrong item.
-//
-// Guns carry dps.raw, the figure before armour modifiers. Torpedoes and aircraft do not,
-// and carry no armorMod either, so raw cannot be recovered - the mean of light/medium/
-// heavy stands in for it. That is deliberately neutral: picking dps.light instead would
-// silently assume the target is light-armoured and reorder the torpedo list.
-// AA guns and ASW gear have their own single figure.
-// Auxiliaries have none, and there is no defensible way to rank HP against Evasion
-// against Accuracy without knowing what the player wants - so they score null and
-// Optimize leaves them alone rather than inventing a preference.
+// What Optimize maximizes: the slot's own damage figure, ignoring rarity — in 4 of 14
+// categories the highest-rarity item isn't the strongest, so taking the top of
+// sortEquipmentOptions would pick wrong. Guns carry dps.raw (pre-armor); torpedoes/aircraft
+// have neither raw nor armorMod so the light/medium/heavy mean stands in, and Auxiliaries
+// score null since there's no way to rank HP against Evasion without knowing player intent.
 function equipmentOptimizeScore(item) {
   if (item.dps) {
     if (typeof item.dps.raw === "number") return item.dps.raw;
@@ -2537,34 +2397,22 @@ function itemStatBonus(item, key) {
 }
 
 // The catalog's DPS is a stat-0 baseline, so ranking on it alone compares guns as if the
-// ship had no Firepower - which is not how any of them will actually fire. A weapon that
-// carries a big stat bonus raises the very stat that multiplies its own damage, and the
-// difference is not marginal: the Prototype Quadruple 152mm (45.88 raw, +65 FP) scored
-// BELOW the Single 152mm (6"/45 Pattern 1892) (45.89 raw, +12 FP) purely on the 0.01 of
-// raw DPS between them, when at any real Firepower it is far ahead.
+// ship had no Firepower — a weapon is scored instead the way computeCombatMetrics renders
+// it, WeaponStatMultiplier with the item's own stat bonus added in, since mounts/efficiency
+// are equal for every candidate in a slot and don't affect the order. Two second-order
+// effects are knowingly ignored: a gun's Firepower bonus also lifts the ship's other slots,
+// and picks are made slot by slot rather than jointly.
 //
-// So a weapon is scored the way computeCombatMetrics already renders it - the wiki's
-// WeaponStatMultiplier, (1 + ScalingStat/100) - with the item's own bonus to that stat
-// added in. Mounts and efficiency belong to the slot and are equal for every candidate in
-// it, so they are left out; they would not change the order.
-//
-// Two second-order effects are knowingly ignored: a gun's Firepower bonus also lifts the
-// ship's OTHER gun slots, and the picks are made slot by slot rather than jointly. Both
-// would need a whole-loadout search to model, and neither changes which gun wins a slot.
 // barragePerVolley is what this ship's volley-triggered barrage adds to each main gun
-// volley - 0 for every other slot and every ship without one. Dividing it by the
-// candidate's own cycle time puts it on the same footing as the gun's DPS, before the
-// ship's stat multiplies both, which is right: these barrages scale off Firepower
-// exactly as the gun does.
+// volley (0 for every other slot/ship) — divided by the candidate's own cycle time and
+// added before the stat multiplier, since these barrages scale off Firepower exactly as
+// the gun does.
 //
-// slotFactor is the slot's mounts x efficiency. It used to be left out on the grounds
-// that it multiplies every candidate in a slot equally and so cannot change their
-// order - true until the barrage term arrived, and false afterwards: a gun fires from
-// every mount at the slot's efficiency, while the barrage is one fixed pattern that
-// neither touches. Omitting it made the barrage look mounts x efficiency times more
-// important than it is - about 4.5x on a typical 3-mount 150% slot - and handed 137
-// ships a weaker gun. It also keeps this identical to slotDamage(), which is what makes
-// the optimiser and the displayed DPS agree.
+// slotFactor (mounts x efficiency) used to be left out since it multiplies every candidate
+// in a slot equally — true until the barrage term arrived: a gun fires from every mount
+// while the barrage is one fixed pattern neither touches, and omitting it handed 137 ships
+// a weaker gun. It also keeps this identical to slotDamage(), which is what makes the
+// optimiser and displayed DPS agree.
 function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFactor) {
   const role = weaponRole(item);
   if (!role || !effective) return damage;
@@ -2582,11 +2430,10 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
 // player comparing two ships means the same cap on both.
 let equipmentRarityCap = "Ultra Rare";
 let equipmentTarget = "auto";
-// Gear Lab gear is crafted and Research gear has to be researched, so a player who has not
-// unlocked either wants it out of the optimiser's reach. Both flags mean "obtainable ONLY
-// that way" - gear you can also buy or farm is unaffected by turning a source off. They
-// still show in the picker: the restriction is about what this player has, not about what
-// the ship may mount.
+// Gear Lab and Research flags both mean "obtainable ONLY that way" — gear also buyable or
+// farmable is unaffected by turning a source off, since a player who hasn't unlocked either
+// just wants it out of the optimizer's reach. They still show in the picker, since this is
+// about what the player has, not what the ship may mount.
 let includeGearLab = true;
 let includeResearch = true;
 
@@ -2594,18 +2441,12 @@ function equipmentWithinCap(item) {
   return EQUIPMENT_RARITY_ORDER.indexOf(item.rarity) <= EQUIPMENT_RARITY_ORDER.indexOf(equipmentRarityCap);
 }
 
-// Per slot, the highest-scoring option at or below the cap. Slots whose options have no
-// score at all (Auxiliary) are left untouched, and so is any slot with nothing under the
-// cap - clearing it instead would silently throw away a pick the user made by hand.
-// A handful of skills call out a specific piece of equipment by name - Jean Bart's
-// "If this ship is equipped with the Quadruple 380mm (Mle 1935) gun...", Helena's "When
-// this ship has an SG Radar equipped...". 15 catalog names appear across the dataset's
-// skills, and the ship whose skill names one is exactly the ship meant to carry it.
-// Two things follow, both asked for directly:
-//  - Optimize prefers a named item over an unnamed one, ahead of any score.
-//  - An item flagged `unique` (see below) is off the table entirely unless named here.
-// Matched per ship rather than globally: a unique event item named in someone else's
-// skill is no reason to hand it to this ship.
+// Per slot, the highest-scoring option at or below the cap; a slot with no scored options
+// (Auxiliary) or nothing under the cap is left untouched rather than clearing a pick the
+// user made by hand. A handful of skills name a specific item (Jean Bart's Quadruple 380mm,
+// Helena's SG Radar) — Optimize prefers a named item over an unnamed one ahead of any
+// score, and a `unique` item is off the table entirely unless named by THIS ship's own
+// skill.
 let equipmentNameRe = null;
 const equipmentNameByLower = new Map();
 const skillNamedCache = new Map();
@@ -2642,14 +2483,11 @@ function skillNamedEquipment(ship) {
 function equipmentReachable(item, named) {
   return !item.unique || named.has(item.name);
 }
-// A weapon slot has one sensible answer - the biggest damage figure it can hold - so the
-// goal does not change it. What the goal decides is the auxiliary slots, which have no
-// damage figure and were previously left empty because "best" was undefined without
-// knowing what the player wants. It also decides whether ASW is on the table at all.
-// Candidates are ranked on three keys in order, because the later ones are only
-// comparable within the earlier: a slot that can hold a weapon is always decided by
-// damage, so a stat-only item may only win a slot where nothing else shoots; then a
-// skill-named item outranks an unnamed one; then the score decides.
+// A weapon slot has one sensible answer — the biggest damage figure — so the goal only
+// decides the auxiliary slots (which have no damage figure) and whether ASW is on the table
+// at all. Candidates rank on three keys in order, since later ones are only comparable
+// within the earlier: weapon-slot damage first, then a skill-named item over an unnamed
+// one, then score.
 function betterCandidate(a, b) {
   if (!b) return true;
   if (a.isWeapon !== b.isWeapon) return a.isWeapon;
@@ -2703,14 +2541,12 @@ function bestAircraftForSlot(ship, slot, categories, effective, filterItem, name
   return best ? best.item : null;
 }
 
-// Fighter/Dive Bomber/Torpedo Bomber all scale off the same Aviation stat, so a slot's
-// own accepted categories - not a stat weight - decide what actually differs between
-// them. A picked orientation (fighter/bomber/torpedo) tries every eligible slot for
-// that family first, falling back to whatever the slot accepts if it cannot take it.
-// "Recommended" instead spreads the three families across her slots, best-efficiency
-// slot first, per the user's own "mets le bon avion sur la meilleure efficiency" -
-// and only offers Torpedo Bomber where a slot cannot do anything else, unless this
-// ship actually has a way to slow the enemy her torpedoes need that for.
+// Fighter/Dive Bomber/Torpedo Bomber all scale off the same Aviation stat, so a slot's own
+// accepted categories — not a stat weight — decide what differs between them; a picked
+// orientation tries every eligible slot for that family first, falling back to whatever the
+// slot accepts. "Recommended" instead spreads the three families across her slots,
+// best-efficiency slot first, and only offers Torpedo Bomber where nothing else fits unless
+// the ship can actually slow an enemy.
 function pickCarrierAircraft(ship, effective, orientation, filterItem, named) {
   const slots = Object.entries(ship.equipment || {})
     .map(([key, slot]) => ({ key, slot, categories: slotAircraftCategories(slot, ship) }))
@@ -2802,16 +2638,12 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     }
   }
 
-  // Exactly one aux slot is reserved for a guaranteed survivability pick, skipped for
-  // BB (near-zero survivability weight already covers "except when nothing else
-  // scores" - see recommendedWeights), for carriers (no survivability tool at all in
-  // Recommended, purely AVI - see the Steam Catapult preference below), and for
-  // submarines (their aux slots are Oxygen-driven, handled by subPicks above).
-  // Real eHP is simulated per candidate rather than approximated from its own stat
-  // numbers, since a flat bonus is amplified by this ship's own skill percentages
-  // before it becomes real eHP. The reserved slot is the ship's first
-  // Auxiliary-capable slot; efficiency does not apply to a flat stat bonus, so which
-  // of her aux slots holds it changes nothing about the result.
+  // Exactly one aux slot is reserved for a guaranteed survivability pick — skipped for BB
+  // (near-zero survivability weight already covers it), carriers (no survivability tool in
+  // Recommended, see the Steam Catapult preference below), and submarines (Oxygen-driven,
+  // handled by subPicks). Real eHP is simulated per candidate rather than approximated,
+  // since a flat bonus is amplified by the ship's own skill percentages before it becomes
+  // real eHP.
   const survivalSlotKey = role !== "bb" && role !== "carrier" && role !== "sub" && auxSlotKeys.length
     ? auxSlotKeys[0]
     : null;
@@ -2853,12 +2685,10 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     let best = null;
     for (const item of equipmentOptionsForSlot(slot, ship)) {
       if (!filterItem(item)) continue;
-      // Auxiliaries stacking the same passive on one ship is a bug the user asked to
-      // close, not a feature - "Effect does not stack" is written on most of them, and
-      // even the ones that do not say so rarely benefit from two identical copies.
-      // A carrier's two aux slots are the deliberate exception: Steam Catapult (the
-      // strongest non-unique Aviation auxiliary in the catalog, see the note below)
-      // is meant to fill BOTH of them.
+      // Auxiliaries stacking the same passive on one ship is a bug, not a feature — most
+      // say "Effect does not stack" and rarely benefit from two copies. A carrier's two aux
+      // slots are the deliberate exception: Steam Catapult, the strongest non-unique
+      // Aviation auxiliary, is meant to fill both.
       const isCarrierCatapult = role === "carrier" && item.name === "Steam Catapult";
       if (isAuxSlot && item.category === "Auxiliary" && usedAuxNames.has(item.name) && !isCarrierCatapult) continue;
 
@@ -2890,11 +2720,10 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
         }
       } else {
         score = statPreferenceScore(item, weights, ship, slotKey, baseEhp);
-        // Same proc/timer split, for the one auxiliary each rewards: Admiralty Fire
-        // Control Table cuts the first volley's reload (more rolls for a proc),
-        // Super Heavy Shell raises Main Gun Crit Rate (bigger single hits for a
-        // timer). Neither is tracked as its own stat, so this is a direct name match
-        // rather than something statPreferenceScore's weights could express.
+        // Same proc/timer split as the gun pick, for the one auxiliary each rewards:
+        // Admiralty Fire Control Table cuts reload for more rolls, Super Heavy Shell raises
+        // Crit Rate for a bigger single hit. Neither is a tracked stat, so this is a direct
+        // name match rather than something statPreferenceScore's weights could express.
         if (role === "bb" && barrageTrigger === "proc" && item.name === "Admiralty Fire Control Table") score += 1;
         if (role === "bb" && barrageTrigger === "timer" && item.name === "Super Heavy Shell") score += 1;
         if (isCarrierCatapult) score += 1;
@@ -2938,10 +2767,10 @@ function clearEquippedGear(ship) {
   delete equippedGear[ship.id];
 }
 
-// data/equipment.json spells Anti-Air "antiAir"; STAT_GRID spells it "antiair". Without
-// this the 106 catalog entries carrying an AA bonus would contribute silently nothing.
-// "oxygen" has no alias on purpose - the stat grid does not track Oxygen at all, so the
-// 2 items carrying it are correctly ignored.
+// data/equipment.json spells Anti-Air "antiAir"; STAT_GRID spells it "antiair" — without
+// this alias the 106 catalog entries carrying an AA bonus would silently contribute
+// nothing. "oxygen" has no alias on purpose, since the stat grid doesn't track Oxygen at
+// all.
 const EQUIPMENT_STAT_KEY_ALIASES = { antiAir: "antiair" };
 
 // Flat stats from everything currently equipped on this ship. Mounts do not multiply it:
@@ -3085,14 +2914,11 @@ function toggleEquipmentPicker(card, gearCtx, onPick) {
   panel.remove();
 }
 
-// The panel is centred on its own 7rem card but is far wider, so opened from an
-// edge slot it hangs outside the Equipment row and is clipped by .modal-info's
-// overflow. A margin shift keeps the CSS centring as the default and corrects only
-// the edge cases.
-// The first measurement lands a few px short because the panel's own scrollbar has
-// not settled yet, hence one correcting pass on the next frame. It ACCUMULATES onto
-// the current margin instead of recomputing from zero, which is what makes the
-// second pass a no-op once the panel is already inside.
+// The panel is centred on its own 7rem card but is far wider, so opened from an edge slot
+// it hangs outside the Equipment row and gets clipped — a margin shift keeps the CSS
+// centring as the default and corrects only the edge cases. The first measurement lands a
+// few px short since the panel's own scrollbar hasn't settled, so one correction pass on
+// the next frame accumulates onto the current margin rather than recomputing from zero.
 function clampPickerToSection(panel) {
   const bounds = modalEquipment.getBoundingClientRect();
   const rect = panel.getBoundingClientRect();
@@ -3384,11 +3210,10 @@ function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) 
   }
 }
 
-// Skill text writes scaled values as "5% (15%)" - level 1 then max level. The gap
-// pattern allows <b> tags between the two, because the wiki's own markup often
-// opens or closes bold in the middle of the pair.
-// keepTags re-emits whatever tags sat in a discarded gap, so dropping the unused
-// half can never leave the surrounding bold unbalanced.
+// Skill text writes scaled values as "5% (15%)" — level 1 then max level — and the gap
+// pattern allows <b> tags between the two since the wiki's markup often opens/closes bold
+// mid-pair. keepTags re-emits whatever tags sat in the discarded half, so dropping it can
+// never leave the surrounding bold unbalanced.
 const LEVEL_PAIR_GAP = "(?:\\s|<\\/?b>)*";
 
 const LEVEL_PAIR_NUMBER_RE = new RegExp(
@@ -3461,11 +3286,10 @@ function splitTopLevel(text, separator) {
   return parts.filter(part => part.trim());
 }
 
-// The lookbehind keeps "Lv.1", "No.3" and single-initial abbreviations from being
-// read as sentence ends.
-// ENUMERATION_SEPARATOR handles the "1) ... 2) ..." lists a few skills use; it has
-// to tolerate <b> tags around the digit because the wiki bolds those markers
-// inconsistently (Juneau's "Martyr+" is the messiest case).
+// The lookbehind keeps "Lv.1", "No.3" and single-initial abbreviations from being read as
+// sentence ends. ENUMERATION_SEPARATOR (for "1) ... 2) ..." lists) tolerates <b> tags
+// around the digit, since the wiki bolds those markers inconsistently (Juneau's "Martyr+"
+// is the messiest case).
 const SENTENCE_SEPARATOR = /(?<!\bLv|\bNo|\b[A-Z])\.(?:\s+(?=[A-Z0-9"“(])|(?=[A-Z[]))/gy;
 const SEMICOLON_SEPARATOR = /;\s*/gy;
 const CLAUSE_SEPARATOR = /,\s+/gy;
@@ -3582,16 +3406,12 @@ function buildSentenceBlocks(html) {
   return mergeUlrichProsaicListSentence(blocks);
 }
 
-// One skill writes a colon-introduced effect list as separate sentences instead of
-// semicolon-separated clauses, so its second item loses its bullet.
-// A general "a subjectless sentence continues the previous list" rule was tried and
-// REJECTED against the whole dataset: even narrowed hard it still matched 65
-// candidates, mostly ordinary independent statements that merely open with a bare
-// imperative verb, and the tightest version wrongly merged Vanguard's "Scatter,
-// Minions of Darkness!", whose next sentence opens its own distinct condition.
-// Keyed on the header string rather than a ship name, since no other skill can
-// carry that sentence verbatim. If another skill shows the same shape, verify it
-// the same way and add another narrow merge - do not generalise this.
+// One skill (Ulrich von Hutten's "Revolutionary's Prosaic") writes a colon-introduced
+// effect list as separate sentences instead of semicolon-separated clauses, so its second
+// item loses its bullet — a general "subjectless sentence continues the list" rule was
+// tried and REJECTED (it wrongly merged Vanguard's "Scatter, Minions of Darkness!"). Keyed
+// on the exact header string since no other skill can carry it verbatim; verify any new
+// case the same way rather than generalizing this.
 const ULRICH_PROSAIC_HEADER = "As long as this ship is afloat, whenever ANOTHER fleet engages in one of its first five battles this sortie:";
 function mergeUlrichProsaicListSentence(blocks) {
   for (let i = 0; i < blocks.length - 1; i++) {
@@ -3642,13 +3462,11 @@ function mechanicNames(text) {
   return [...names];
 }
 
-// The only two things the cues pick up that are not names: "Lv" (from Alsace's
-// "inflicts Lv.1 Holy Judgment" - note the real mechanic there is what the cue
-// MISSES) and "DMG" (Little Prinz Eugen's "inflicts DMG up to 6 times"). Named
-// outright rather than filtered by a minimum length, which would be arbitrary in
-// both directions.
-// The >= 2 use test is the "qui reviennent" rule: a name must actually recur in the
-// skill to be worth colouring, and it is cheap protection against a loose cue.
+// The only two things the mechanic-name cues pick up that aren't real names: "Lv" (Alsace's
+// "inflicts Lv.1 Holy Judgment") and "DMG" (Little Prinz Eugen's "inflicts DMG up to 6
+// times") — named outright rather than filtered by length, which would be arbitrary. The
+// >=2 use test is the "qui reviennent" rule: a name must actually recur to be worth
+// coloring.
 const NAMED_MECHANIC_STOPLIST = new Set(["lv", "dmg"]);
 
 function namedMechanics(html) {
@@ -3779,15 +3597,11 @@ function appendSkillBlocks(container, blocks) {
   }
 }
 
-// Some source descriptions bold every word individually ("<b>Increases</b>
-// <b>this</b> <b>ship's</b> <b>SPD</b>"), almost certainly the wiki's auto-linker
-// surviving a tag strip. 21 skills carry such a run; Belfast's "Smokescreen:
-// Belfast" is the worst at 60 words. Every sampled case is noise, not emphasis -
-// Colorado's "Big Seven" even bolds a stray "(gif)" marker.
-// Requiring 2+ CONSECUTIVE single-token tags is what makes this safe: one <b>
-// around a real phrase contains a space, so it can never match, and an isolated
-// single-word tag with plain text on both sides survives too. No per-skill
-// denylist is needed.
+// Some source descriptions bold every word individually ("<b>Increases</b> <b>this</b>
+// <b>ship's</b>"), almost certainly the wiki's auto-linker surviving a tag strip — 21
+// skills carry such a run, every sampled case is noise rather than emphasis. Requiring 2+
+// CONSECUTIVE single-token tags is what makes this safe: a real phrase wrapped in one <b>
+// contains a space and can never match, so no per-skill denylist is needed.
 const LONE_BOLD_TOKEN_RUN_RE = /(?:<b>[^\s<>]+<\/b>\s*){2,}/g;
 function stripAccidentalWordBoldRuns(html) {
   return html.replace(LONE_BOLD_TOKEN_RUN_RE, run => run.replace(/<\/?b>/g, ""));
@@ -3831,11 +3645,10 @@ function getSkillsForState(ship, isRetrofit, isAugmented, isFateSim) {
 
 let skillsAtMaxLevel = true;
 let skillMaxLevelToggles = [];
-// Per-skill override so toggling one skill's Max Level button (leaving others alone)
-// also moves that skill's own contribution to the stats grid and combat-modifier
-// pills - computeEffectiveStats reads this, not just the header's skillsAtMaxLevel.
-// Keyed by the skill object itself (stable across a modal's re-renders), not a
-// string, so no per-ship bookkeeping is needed and nothing to clear on ship switch.
+// Per-skill override so toggling one skill's Max Level button also moves that skill's own
+// contribution to the stats grid and combat-modifier pills — computeEffectiveStats reads
+// this, not just the header's skillsAtMaxLevel. Keyed by the skill object itself, stable
+// across a modal's re-renders, so nothing needs clearing on ship switch.
 const skillLevelState = new WeakMap();
 function isSkillAtMaxLevel(skill) {
   return skillLevelState.has(skill) ? skillLevelState.get(skill) : skillsAtMaxLevel;
@@ -3880,11 +3693,10 @@ modalSkillsMaxToggle.addEventListener("click", () => {
 });
 
 let interactionAtMaxLevel = false;
-// Interaction paginates, so at most one page of toggles is ever in the DOM and a
-// persistent array like the Skills tab's would go stale on every page flip.
-// Instead nothing is kept: the sync queries the live DOM each time, and each
-// toggle's paint function hangs off a WeakMap keyed on the toggle element, pruned
-// by GC when its page is replaced.
+// Interaction paginates, so at most one page of toggles is ever in the DOM and a persistent
+// array (like the Skills tab's) would go stale on every page flip. Instead nothing is kept:
+// the sync queries the live DOM each time, and each toggle's paint function hangs off a
+// WeakMap keyed on the toggle element, pruned by GC when its page is replaced.
 const interactionMaxLevelPaint = new WeakMap();
 
 function syncInteractionMaxLevelToggle() {
@@ -4030,11 +3842,11 @@ function hideGifPreview() {
   gifPreview.hidden = true;
 }
 
-// Icon, name, rarity and every numeric figure the item carries, plus its Notes (when
-// it has one) run through the same rendering pipeline as skill text - bullets,
-// condition/action grouping, keyword colors - rather than a plain title attribute,
-// which cannot carry any of that. The border is tinted to the item's own rarity color,
-// the same --equip-tile-color convention the tile and picker cell already use.
+// Icon, name, rarity and every numeric figure the item carries, plus its Notes, run through
+// the same rendering pipeline as skill text (bullets, condition/action grouping, keyword
+// colors) rather than a plain title attribute, which can't carry any of that. The border is
+// tinted to the item's own rarity color, the same --equip-tile-color convention the tile
+// and picker cell already use.
 function showEquipInfoTooltip(item, anchorEl) {
   if (!item) return;
   equipInfoTooltip.style.setProperty("--equip-tile-color", equipmentRarityColor(item.rarity));
@@ -4237,11 +4049,10 @@ const INTERACTION_CATEGORY_LABELS = {
   name: "By Name"
 };
 
-// A marked skill always sits IMMEDIATELY AFTER the base skill it replaces in the
-// array - that adjacency, not name matching, is how the two are paired, because
-// replacement names follow no consistent convention.
-// A few "+" skills carry no marker at all (3 in the dataset, e.g. Drake's
-// "Flintlock Burst (A)+"), which is what the generic fallback is for.
+// A marked skill always sits IMMEDIATELY AFTER the base skill it replaces, since
+// replacement names follow no consistent convention — that adjacency, not name matching, is
+// how the two are paired. A few "+" skills carry no marker at all (Drake's "Flintlock Burst
+// (A)+"), which is what the generic fallback is for.
 const SKILL_MARKER_VARIANT = {
   R: { label: "Retrofit", colorVar: "--accent" },
   Aug: { label: "Augment", colorVar: "--gold" },
@@ -4262,24 +4073,18 @@ function stripHtml(html) {
   return (html || "").replace(/<[^>]+>/g, "").replace(/\(Replaces [^)]+\)/gi, "");
 }
 
-// Interaction is ALLY-team-composition only. Everything from here down to
-// isGenuineAllyMatch exists to reject a specific false positive found by reading a
-// reported counter-example; the ship named in each comment IS that regression case,
-// so keep them when editing.
-// Hunter-type bonuses read as fleet buffs unless caught: "damage dealt to CVs" is
-// a bonus AGAINST enemy carriers (Centaur wrongly matched Izumo). Some skills skip
-// the word "dealt" entirely ("this ship's DMG to CVs", I-26/U-73/Noshiro; "the DMG
-// this ship deals to BBs", Murmansk), hence the bare "dmg to"/"deals to" branches.
-// The 100-char lookback window matters: a long nation list ("DMG dealt to Iron
-// Blood, Sardegna Empire, Sakura Empire, and META ships") pushes the nation past a
-// shorter one.
+// Interaction is ALLY-team-composition only; every guard from here to isGenuineAllyMatch
+// rejects a specific false positive found from a reported counter-example, and the ship
+// named in each one IS that regression case.
+//
+// Hunter-type bonuses read as fleet buffs unless caught — "damage dealt to CVs" targets
+// enemy carriers, not allies (Centaur wrongly matched Izumo) — and the 100-char lookback
+// exists because a long nation list can push the real target past a shorter window.
 const ENEMY_TARGET_CUE_RE = /\b(damage dealt to|dmg dealt to|damage dealt against|dmg dealt against|damage against|dmg against|deals?\s+to|deals?\b[^.]{0,25}\bdamage to|dmg to|damage to|against enemy|against enemies|dmg taken by enemy|damage taken by enemy|enemy(?:'s|s)?\s+(?:ships?|fleet|vanguard|main fleet))\b/i;
-// ENEMY_TARGET_CUE_RE only knows "enemy" plus a few generic nouns, so it misses
-// every hull/nation combination that can follow it - "enemy Royal Navy CL" (Z16),
-// "enemy Submarines" (Roma, Mogador, Cooper, San Jacinto).
-// "against" immediately before any match is always PvP phrasing in this dataset
-// ("Hit Rate against DDs", Warspite), generalised rather than enumerating every
-// stat name that can precede it.
+// ENEMY_TARGET_CUE_RE only knows "enemy" plus a few generic nouns, so it misses hull/nation
+// combinations that can follow it ("enemy Royal Navy CL", Z16). "against" immediately
+// before any match is always PvP phrasing in this dataset ("Hit Rate against DDs",
+// Warspite), generalized rather than enumerating every stat name that can precede it.
 const ENEMY_IMMEDIATELY_BEFORE_RE = /\b(an?\s+)?enem(?:y|ies)('s)?\s*$/i;
 const AGAINST_CUE_RE = /\bagainst\s*$/i;
 
@@ -4288,43 +4093,36 @@ const AGAINST_CUE_RE = /\bagainst\s*$/i;
 // buffs allies.
 const ALL_OUT_ASSAULT_CUE_RE = /all out assault/i;
 
-// Buffs that trigger on the ABSENCE of a type, or on a summoned unit's own type,
-// are the opposite of an interaction:
-//   "without other Battleships"          -> Tirpitz wrongly matched Izumo
-//   "fires a barrage from battleship X"  -> Natori/Hiranuma wrongly matched Izumo
-//   "if your Vanguard consists only of this ship" -> Bolzano META matched Brest
-// SOLO_FLEET_BEFORE_RE is the reversed phrasing of the same idea ("is the only ship
-// remaining in your Vanguard").
+// Buffs that trigger on the ABSENCE of a type, or on a summoned unit's own type, are the
+// opposite of an interaction — "without other Battleships" (Tirpitz wrongly matched Izumo)
+// and "fires a barrage from battleship X" (Natori/Hiranuma wrongly matched Izumo).
+// SOLO_FLEET_BEFORE_RE is the reversed phrasing of the same solo-fleet idea ("is the only
+// ship remaining in your Vanguard").
 const NEGATIVE_CONDITION_CUE_RE = /\b(without|no)\s+(other\s+)?$/i;
 const FROM_SOURCE_CUE_RE = /\bfrom\s+$/i;
 const SOLO_FLEET_CUE_RE = /\b(consists|comprised)\b[^.]{0,15}\bonly\b/i;
 const SOLO_FLEET_BEFORE_RE = /\bis\s+the\s+only\s+ship\s+remaining\s+in\s*(?:your\s+|the\s+)?$/i;
-// "If this ship has Royal Navy gear equipped" is about the ship's own LOADOUT, not
-// about allies. This single pattern accounted for roughly half the false positives
-// left in the full-dataset audit.
-// The scan runs to the next sentence boundary rather than the next word, because
-// the equipment noun often sits past a branch or a comma list ("Eagle Union, Iris
-// Libre, or Vichya Dominion aircraft equipped").
+// "If this ship has Royal Navy gear equipped" is about the ship's own LOADOUT, not about
+// allies — this single pattern accounted for roughly half the false positives left in the
+// full-dataset audit. The scan runs to the next sentence boundary rather than the next
+// word, since the equipment noun often sits past a branch or a comma list.
 const EQUIPMENT_CUE_RE = /\b(gear|aircraft|weapons?|main guns?|equipment)\b/i;
 function equipmentConditionFollows(text, matchIndex, matchLen) {
   const after = text.slice(matchIndex + matchLen, matchIndex + matchLen + 70);
   const boundary = after.search(/[.;]/);
   return EQUIPMENT_CUE_RE.test(boundary === -1 ? after : after.slice(0, boundary));
 }
-// "if this ship is in the frontmost position of the Vanguard" is a self-positional
-// check, not a statement about who else is in the fleet (Deutschland, Hermione).
-// Real text varies both the preposition and the determiner ("position of your
-// Vanguard", Alfredo Oriani; "position in your Vanguard", Admiral Hipper mu).
-// Deliberately narrow so it does NOT catch phrasing that genuinely targets another
-// ship by position - "applied to the frontmost ship of the Vanguard" (Z14) and
-// "this ship AND the frontmost Vanguard ship's..." (Howe) must stay matched.
+// "if this ship is in the frontmost position of the Vanguard" is a self-positional check,
+// not a statement about who else is in the fleet (Deutschland, Hermione) — real text varies
+// both the preposition and the determiner. Deliberately narrow so it does NOT catch
+// phrasing that genuinely targets another ship by position ("applied to the frontmost ship
+// of the Vanguard", Z14; Howe), which must stay matched.
 const FRONTMOST_POSITION_CUE_RE = /\bin the frontmost position (?:of|in)\s*(?:the|your|this ship's)?\s*$/i;
 
-// The word "Vanguard" appears constantly inside self-referential headcount and
-// position conditions that say nothing about who the buff targets. "placed" is a
-// third alternative because one phrasing elides the subject entirely - Carabiniere's
-// "if placed in the backmost position of the Vanguard Fleet".
-// BROADER_FLEET_TARGET_RE is the counter-test: if the effect clause names a
+// "Vanguard" appears constantly inside self-referential headcount/position conditions that
+// say nothing about who the buff targets; "placed" is a third alternative since one
+// phrasing elides the subject entirely (Carabiniere's "if placed in the backmost
+// position"). BROADER_FLEET_TARGET_RE is the counter-test — if the effect clause names a
 // fleet-wide target, the fleet word was not merely a gate.
 const IF_CONDITION_PREFIX_RE = /\bif\s+(?:there\s+(?:is|are)|this ship (?:is|has)(?:\s+not)?|placed)\b/i;
 const BROADER_FLEET_TARGET_RE = /\b(your vanguard|vanguard fleet|vanguard ships?|main fleet|your fleet|all your ships?|all ships|allied ships?|other ships?|each ship|every ship|frontmost vanguard ship|frontmost main fleet ship|frontmost ship)\b/i;
@@ -4339,14 +4137,11 @@ function clauseBefore(text, index) {
   return before.slice(boundary + 1);
 }
 
-// A match inside an "if there is/are..." condition, with a colon right after it and
-// no fleet-wide target in the effect that follows, is a self-only buff that merely
-// used the fleet word as a headcount gate (Brest: "if there are 3 ships in your
-// Vanguard: increases this ship's EVA").
-// Requiring the colon IMMEDIATELY after the match is what avoids misreading a
-// genuine target reached through a comma instead - Ganj-i-Sawai's "...afloat in
-// this fleet, this HP recovery effect will also apply to your Vanguard ship with
-// the lowest current HP" has no colon there, so this guard correctly stays out.
+// A match inside an "if there is/are..." condition, with a colon right after it and no
+// fleet-wide target in the effect that follows, is a self-only buff using the fleet word as
+// a headcount gate (Brest: "if there are 3 ships in your Vanguard: increases this ship's
+// EVA"). Requiring the colon IMMEDIATELY after the match avoids misreading a genuine target
+// reached through a comma instead (Ganj-i-Sawai, which correctly stays out).
 function selfOnlyConditionedEffect(text, matchIndex, matchLen) {
   if (!IF_CONDITION_PREFIX_RE.test(clauseBefore(text, matchIndex))) return false;
   const after = text.slice(matchIndex + matchLen, matchIndex + matchLen + 15);
@@ -4379,15 +4174,11 @@ function sentenceBefore(text, index) {
   const boundary = before.lastIndexOf(". ");
   return before.slice(boundary + 1);
 }
-// Interaction requires a buff to be guaranteed by the candidate ship's own nation,
-// hull or role membership - a buff additionally gated on some OTHER ship being
-// present, on a slot, or on a headcount does not count. This is a STRICTER standard
-// than computeEffectiveStats uses; do not backport it there.
-// "sortied with a ship that has X equipped" (Arizona META) is the same third-party
-// dependency phrased as a partner requirement.
-// Action triggers ("when this ship fires her Main Guns", "every 20s") are
-// deliberately NOT gates - they fire regardless of team composition, so Centaur's
-// Airspace Dominance and Andrea Doria META still match.
+// Interaction requires a buff to be guaranteed by the candidate ship's own nation/hull/role
+// membership — one additionally gated on another ship's presence, a slot, or a headcount
+// doesn't count. This is STRICTER than computeEffectiveStats (don't backport it there);
+// action triggers like "every 20s" are NOT gates, since they fire regardless of team
+// composition (Centaur's Airspace Dominance still matches).
 const SORTIED_WITH_GATE_RE = /\bsortied with\b/i;
 function structurallyGatedMatch(text, matchIndex) {
   const sentence = sentenceBefore(text, matchIndex);
@@ -4404,22 +4195,21 @@ const ALL_NATION_TERMS = [...new Set(ships.map(s => nationDisplayName(s.national
 const ALL_HULL_TERMS = [...new Set(ships.map(s => HULL_TYPE_TEXT[s.hullType] || s.hullType).filter(Boolean))]
   .flatMap(text => HULL_TEXT_TO_ABBR[text] ? [text, HULL_TEXT_TO_ABBR[text]] : [text]);
 
-// A compound qualifier restricts a buff to BOTH a nation AND a role/hull, so a
-// candidate must satisfy the whole condition, not one half of it.
-// Strict adjacency ("Dragon Empery Main Fleet ships") misses the far commoner form
-// with connectors in between - Chang Chun's "Northern Parliament and Dragon Empery
-// ships in the Vanguard Fleet" - which is what compoundNationListExcludes handles.
+// A compound qualifier restricts a buff to BOTH a nation AND a role/hull, so a candidate
+// must satisfy the whole condition, not one half. Strict adjacency ("Dragon Empery Main
+// Fleet ships") misses the commoner form with connectors in between (Chang Chun's "Northern
+// Parliament and Dragon Empery ships in the Vanguard Fleet"), which
+// compoundNationListExcludes handles.
 function otherNationImmediatelyBefore(text, matchIndex, ownNation) {
   const before = text.slice(Math.max(0, matchIndex - 30), matchIndex);
   if (ALL_NATION_TERMS.some(nation => nation !== ownNation && new RegExp(`\\b${escapeRegExp(nation)}\\s*$`, "i").test(before))) return true;
   return compoundNationListExcludes(text, matchIndex, ownNation);
 }
-// NATION_LIST_TRIGGER_PREFIX_RE is a guard on the guard: a nation named before
-// "ship in your Vanguard" is not always who the buff is FOR. In Alfredo Oriani's
-// "when this ship or a Sardegna Empire ship in your Vanguard falls below 30% max
-// HP...", the nation names who can TRIGGER a smokescreen that then benefits all
-// ships in it, unrestricted. Reached through when/if/once/whenever/or a/another/per
-// it is a trigger condition, not a beneficiary list.
+// NATION_LIST_TRIGGER_PREFIX_RE guards the guard above: a nation named before "ship in your
+// Vanguard" isn't always who the buff is FOR — Alfredo Oriani's "this ship or a Sardegna
+// Empire ship...falls below 30% HP" names who can TRIGGER an unrestricted smokescreen, not
+// a beneficiary list. Reached through when/if/once/or a/another/per, it's a trigger
+// condition, not a target restriction.
 const NATION_LIST_CONNECTOR_RE = "(?:ships?|vessels?|forces|fleet members|CLs?|CVs?|CVLs?|CAs?|CBs?|BBs?|BCs?|BBVs?|DDs?|DDGs?|SSs?|SSVs?)";
 const NATION_LIST_TRIGGER_PREFIX_RE = /\b(when|if|once|whenever|or\s+an?|another|per)\s*$/i;
 function compoundNationListExcludes(text, matchIndex, ownNation) {
@@ -4442,12 +4232,11 @@ function otherHullImmediatelyAfter(text, matchIndex, matchLen, ownHullText, ownH
   return ALL_HULL_TERMS.some(hull => hull !== ownHullText && hull !== ownHullAbbr && new RegExp(`^\\s*${escapeRegExp(hull)}s?\\b`, "i").test(after));
 }
 
-// A skill that echoes its own name inline is not referencing another ship, even
-// when that name contains one - Wichita META's "Ashen Might - Wichita II only:"
-// sits inside the skill titled "Ashen Might - Wichita".
-// Computed as ranges to SKIP rather than by deleting the substring: an earlier
-// version deleted it and also erased the literal "All Out Assault" text that its
-// own guard depends on, sending class false positives from 33 to 224.
+// A skill that echoes its own name inline is not referencing another ship, even when that
+// name contains one (Wichita META's "Ashen Might - Wichita II only:" sits inside the skill
+// titled "Ashen Might - Wichita"). Computed as ranges to SKIP rather than deleting the
+// substring — an earlier version deleted it and also erased the "All Out Assault" text its
+// own guard depends on, sending false positives from 33 to 224.
 function selfNameRanges(text, skillName) {
   if (!skillName) return [];
   const ranges = [];
@@ -4521,13 +4310,12 @@ function hasGenuineMatch(skill, category, re, ship) {
   }
   return false;
 }
-// When a "+" skill matches alone, the entry is anchored on its base skill so the
-// toggle can show both. But blindly anchoring re-introduces exactly what the
-// structural gate excludes, one level removed: Ganj-i-Sawai's base skill mentions
-// "Vanguard" only inside a gated clause.
-// So a base skill is a safe anchor only if it either never mentions the category
-// (Chapayev - makes no claim of its own) or mentions it AND independently passes
-// isGenuineAllyMatch. Otherwise the entry falls back to the "+" skill alone.
+// When a "+" skill matches alone, the entry anchors on its base skill so the toggle can
+// show both — but blindly anchoring re-introduces exactly what the structural gate
+// excludes, one level removed (Ganj-i-Sawai's base mentions "Vanguard" only inside a gated
+// clause). A base is a safe anchor only if it never mentions the category (Chapayev) or
+// mentions it AND independently passes isGenuineAllyMatch; otherwise the entry falls back
+// to the "+" skill alone.
 function isSafeBaseAnchor(skill, category, re, ship) {
   if (!baseTextMentionsCategory(skill, re)) return true;
   return hasGenuineMatch(skill, category, re, ship);
