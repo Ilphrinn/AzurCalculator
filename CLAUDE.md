@@ -63,6 +63,22 @@ modal needs its equipment catalog, keeping it out of the initial page load.
   formula from the Damage Calculations page. If you need another formula (e.g. eventual
   damage-per-second output), these pages are the source of truth — read them, don't
   guess.
+- **Enemy/boss stats (2026-08-22)**: `mrlar.dev` (`azurlane.mrlar.dev/db`), a third-party
+  Azur Lane database site, whose React SPA loads its data from a plain JSON API rather
+  than server-rendering it — found by downloading its main JS bundle and grepping for
+  `fetch(`/static asset paths, not by scraping the rendered page. Its `maps.json`
+  (`/db/static/json/maps.json`) carries a `boss` object with real per-encounter enemy
+  stats (`hit`, `eva`, `luck`, `level`, `hp`, `armor`) for essentially every stage/raid in
+  the game — the exact data this app's eHP/crit formulas needed and had no source for
+  before (see `EHP_REFERENCE_ACCURACY`/`CRIT_REFERENCE_EVASION` in app.js). Used with the
+  user's explicit go-ahead after flagging that the site's own HTML carries an "All Rights
+  Reserved / unauthorized copying prohibited" notice — unlike the wiki or the
+  Fernando2603 datamine, this source is not established as freely reusable, so don't
+  pull more of it into the repo (equipments.json, augments.json, gear_lab.json, etc. were
+  also found there and are NOT yet integrated) without the same explicit check-in first.
+  `cdn.mrlar.dev/al_ehp` is the same site's own precomputed community eHP chart (columns
+  per raid tier: W14/15, Challenge, META, Arbiter, Abyssal, Stronghold) — not used
+  directly, since it's a derived ratio from their own formula, not a raw enemy stat.
 
 ## Ship data shape (`data/ships.json`, flat array, 888 ships)
 
@@ -3192,6 +3208,34 @@ after the final edit.
 
   Full 888-ship regression (open, Optimize, close) at 0 errors, 0 non-finite or negative
   combat-metric values across all four figures on every ship.
+
+  #### The reference target is now a real boss, not an invented number (2026-08-22)
+
+  The user asked directly how to get real enemy stats, since `EHP_REFERENCE_ACCURACY`/
+  `LUCK` (100/0) and `CRIT_REFERENCE_EVASION`/`LUCK` (100/0) above were both admittedly
+  made-up placeholders. Answer found on a third-party site the user pointed at
+  (`mrlar.dev` — see the new Data Provenance bullet): `maps.json` carries every boss's
+  real `hit`/`eva`/`luck`/`level`. Asked the user whether to pick one fixed boss or add a
+  full selector; the answer was one fixed boss, kept simple.
+
+  **Picked Akagi META (Extra difficulty, level 125)** — the most recent META raid boss in
+  the file (map id `1850026`, sorted numerically against every other META entry), and
+  META bosses are the recurring, best-known "endgame gear check" content in this game,
+  unlike the more niche Operation Siren-only Arbiter/Abyssal/Stronghold modes also in the
+  file. Her real stats: Hit 120, Evasion 25, Luck 66. Two other rows at the same map id
+  read Hit 9999/Evasion 0 — a scripted "cannot be hit" mechanic phase of the same fight,
+  not a real combat stat — excluded as non-representative.
+
+  One boss feeds both constants, which is why `CRIT_REFERENCE_EVASION`/`LUCK` and
+  `EHP_REFERENCE_ACCURACY`/`LUCK` now share a Luck value (66) instead of each guessing
+  independently: eHP asks "how hard does this boss hit ME" (her Hit + Luck), crit rate
+  asks "how easily do I crit HER" (her Evasion + Luck) — same fight, two directions.
+
+  Verified by re-deriving both formulas by hand outside the app's own functions and
+  matching to the digit on three ships (New Jersey, Ayanami, Ägir) for eHP, and
+  re-checking the Ägir/Jean Bart/Murmansk/Pensacola/Richelieu/Tallinn/Zara multipliers
+  from the entry above still compute correctly with the new constants. Full 888-ship
+  regression (open, Optimize, close) still 0 errors, 0 non-finite/negative values.
 
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately

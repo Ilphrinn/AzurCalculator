@@ -1795,11 +1795,13 @@ function weaponEfficiencyBonus(effective, ship, slotKey, item) {
 // skipped outright: this app tracks no enemy armor/hull to condition it on.
 //
 // CriticalRate's own formula needs the TARGET's Evasion/Luck, which this app has no source
-// for — a fixed reference target (CRIT_REFERENCE_EVASION/LUCK) stands in, the same
-// unknown-opponent gap eHP already solved with EHP_REFERENCE_ACCURACY/LUCK. The number is
-// comparative, not what the game would show for any specific enemy.
-const CRIT_REFERENCE_EVASION = 100;
-const CRIT_REFERENCE_LUCK = 0;
+// for — a fixed reference target stands in, the same unknown-opponent gap eHP solves with
+// EHP_REFERENCE_ACCURACY/LUCK just below. Both reference sets are read off the same named
+// boss, Akagi META (Extra difficulty, level 125, from mrlar.dev's own boss database — see
+// EHP_REFERENCE_ACCURACY's comment), so a ship's eHP and crit rate here both answer "against
+// this specific fight", not two unrelated guesses.
+const CRIT_REFERENCE_EVASION = 25;
+const CRIT_REFERENCE_LUCK = 66;
 
 function weaponDamageMultiplier(effective, ship, slotKey, item) {
   const role = weaponRole(item);
@@ -1851,11 +1853,15 @@ function equipmentBaseDps(item) {
 }
 
 // The reference attacker eHP is measured against — the wiki's HitRate formula needs the
-// SHOOTER's Accuracy and Luck, which this app has no source for, so a fixed,
-// named-in-the-UI reference stands in instead. Its exact value barely changes which ship is
-// tankier than which; the number is comparative, not an absolute the game would show.
-const EHP_REFERENCE_ACCURACY = 100;
-const EHP_REFERENCE_LUCK = 0;
+// SHOOTER's Accuracy and Luck, which this app has no source for. Named in the UI rather
+// than an arbitrary round number: Akagi META (Extra difficulty, level 125)'s real combat
+// stats (Hit 120, Evasion 25, Luck 66), found on mrlar.dev's own boss database
+// (cdn.mrlar.dev/al_ehp and /db/static/json/maps.json, map id 1850026, "Ode of Everblooming
+// Crimson-EXTRA") — a current, well-known endgame raid boss, not a made-up placeholder. The
+// two scripted "cannot be hit" phases of the same fight (Hit 9999) were excluded as
+// non-representative.
+const EHP_REFERENCE_ACCURACY = 120;
+const EHP_REFERENCE_LUCK = 66;
 
 // HitRate = 0.1 + Hit/(Hit + Eva + 2) + (AttackerLuck - TargetLuck + LevelDiff)/1000,
 // clamped to [0.1, 1]. Level difference is 0: the reference attacker is assumed to be the
@@ -3271,15 +3277,15 @@ function renderCombatMetrics(ship, effective) {
       const notes = [field.hint];
       if (field.key === "ehp") {
         notes.push(
-          `Against a reference attacker: Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
+          `Against Akagi META (Extra, Lv.125): Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
           `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
-          "Comparative, not a figure the game shows: the wiki's formula needs the shooter's stats, which this app has no source for."
+          "One named boss stands in for \"a real enemy\" rather than an arbitrary guess, but a different fight would still give a different number."
         );
       } else {
         notes.push(hasBuiltInWeapons(ship)
           ? "Empty slots count as the ship's built-in weapon."
           : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
-        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes a reference target with ${CRIT_REFERENCE_EVASION} Evasion and ${CRIT_REFERENCE_LUCK} Luck, since this app has no enemy data.`);
+        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes the target is Akagi META (Extra, Lv.125): ${CRIT_REFERENCE_EVASION} Evasion, ${CRIT_REFERENCE_LUCK} Luck.`);
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
         }
