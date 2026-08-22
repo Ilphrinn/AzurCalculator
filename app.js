@@ -1794,15 +1794,12 @@ function innateDepthCharge(ship) {
   return id ? DEFAULT_EQUIPMENT_BY_ID.get(id) || null : null;
 }
 
-// A barrage that fires every N main gun volleys is damage these figures used to ignore
-// entirely, and ignoring it made the optimiser and the displayed DPS contradict each
-// other: a ship handed a faster gun so she fires her barrage twice as often would show
-// a LOWER DPS than before. It is not a slot - no slot declares it - so it is added here,
-// the same way the innate depth charge launcher above is.
-//
-// The gun's catalog reload stands in for the true volley interval. That is the same
-// baseline-100-reload approximation every other figure here already makes, and it is
-// what the optimiser scores against, so the two agree.
+// A barrage that fires every N main gun volleys is damage these figures used to ignore, and
+// ignoring it made a ship handed a faster gun show a LOWER DPS despite firing it more often
+// — it isn't a slot, so it's added here like the innate depth charge launcher above. The
+// gun's catalog reload stands in for the true volley interval, the same baseline-100-reload
+// approximation every other figure here makes, so the optimiser scores against the same
+// number this displays.
 function volleyBarrageDps(ship, effective, level) {
   const barrage = volleyBarrage(ship, level);
   if (!barrage) return 0;
@@ -1888,6 +1885,24 @@ function isFastFiringAaGun(item) {
   return typeof item.reload === "number" && item.reload <= aaGunReloadMedian();
 }
 
+// An equip-gated bonus only ever changes a NUMERIC_STAT_KEYS entry here — weaponEfficiency,
+// critRate and damageDealt-type modifiers are gated correctly by equipConditionAllows but
+// never reach weaponScoreForShip's stat lookup, so seeking them would score identically
+// either way. Scoped to what can actually move a pick today (August von Parseval, Hakuryuu,
+// Pensacola, Seattle); wiring those modifier types into the DPS formula is separate work.
+function shipHasSeekableEquipGate(ship) {
+  for (const skill of ship.skills || []) {
+    const plainDesc = skill.description ? stripHtml(skill.description) : "";
+    for (const b of skill.statBonuses || []) {
+      const isSelf = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
+      if (!isSelf || !(b.stats || []).some(k => NUMERIC_STAT_KEYS.includes(k))) continue;
+      const clause = equipConditionClauseForRaw(plainDesc, b.raw);
+      if (clause && parseEquipCondition(clause)) return true;
+    }
+  }
+  return false;
+}
+
 function shipHasSelfStatSkill(ship, statKey) {
   for (const skill of ship.skills || []) {
     for (const b of skill.statBonuses || []) {
@@ -1938,41 +1953,35 @@ function shipBarrageTriggerType(ship) {
   return null;
 }
 
-// How a skill switches on decides what its ship should carry, so the optimiser reads
-// the activation clause rather than the effect. The full vocabulary this was drawn
-// from is in CLAUDE.md; the one family that changes a gun choice is here.
-//
-// A barrage costing "every N times the main gun is fired" is paid for in VOLLEYS, not
-// in seconds, so a faster gun fires it more often. That makes the barrage worth a
-// share of every volley, which is what lets a fast gun beat a harder-hitting one on
-// arithmetic instead of on a rule. The pair in "Every 15 (10) times" is skill level 1
-// (max), so the max-level figure is the one taken, as renderLevelValues() does.
+// How a skill switches on decides what its ship should carry, so the optimiser reads the
+// activation clause rather than the effect (full vocabulary in CLAUDE.md) — a barrage
+// costing "every N times the main gun is fired" is paid for in VOLLEYS, so it's worth a
+// fixed share of every volley, letting a fast gun beat a harder-hitting one on arithmetic
+// rather than a rule. The pair in "Every 15 (10) times" takes the max-level figure, the
+// same as renderLevelValues() does.
 const MAIN_GUN_VOLLEY_RE = /\bevery\s+(\d+)\s*(?:\((\d+)\))?\s*(?:nd|rd|th|st)?\s*times?\b[^.]{0,45}?\bmain\s+gun/i;
 
 // Limit break ranks unlock at these levels. They are three of the level control's own
 // notches, which is what makes the control read as a progression rather than a scale.
 const LIMIT_BREAK_LEVEL = { first: 30, second: 70, third: 100 };
 
-// A barrage row tagged "enhanced" is the post-limit-break version of its skill's
-// barrage, and that skill's untagged rows are the version before it: Kumano fires
-// 15x30 until her third limit break and 15x35 plus a piercing volley after it, never
-// both. Which rank grants the upgrade is written on each ship's own wiki page under
-// "Limit Break ranks" - the Third for 22 of the 23 ships whose table names an upgrade
-// outright, the exception being Kronshtadt, whose FIRST rank reads "Improves special
-// barrage". The ships whose table names no upgrade at all reach their enhanced row
-// through a mount or aircraft count that those same tables put at the Third, so Third
-// is the measured default rather than a guess.
+// A barrage row tagged "enhanced" is the post-limit-break version of its skill's barrage,
+// replacing its untagged rows rather than adding to them (Kumano: 15x30 before her third
+// limit break, 15x35 plus a piercing volley after, never both). Which rank grants the
+// upgrade is read off each ship's own wiki page — the Third for 22 of 23 ships whose table
+// names one outright (Kronshtadt's own FIRST rank does instead), and the Third by default
+// for the rest, who reach it through a mount/aircraft count their table already puts there.
 const BARRAGE_ENHANCED_AT_LEVEL = { "Kronshtadt": LIMIT_BREAK_LEVEL.first };
 
 function barrageEnhancedLevel(ship) {
   return BARRAGE_ENHANCED_AT_LEVEL[ship.displayName] || LIMIT_BREAK_LEVEL.third;
 }
 
-// What a row's trigger says BEYOND plain enhanced/unenhanced. Rows sharing a qualifier
-// are components of one pattern; rows with different qualifiers are alternatives the
-// ship picks between - Azuma fires her Close OR her Far pattern, never both, and summing
-// them doubled her barrage. The wiki sometimes writes the attack's name into the trigger
-// too ("All Out Assault enhanced"), which is not a condition, so it is stripped first.
+// What a row's trigger says beyond plain enhanced/unenhanced: rows sharing a qualifier are
+// components of one pattern, rows with different qualifiers are alternatives the ship
+// picks between (Azuma fires her Close OR Far pattern, never both — summing them doubled
+// her barrage). The wiki sometimes writes the attack's own name into the trigger too ("All
+// Out Assault enhanced"), which isn't a condition and is stripped first.
 function barrageQualifier(row) {
   return String(row.trigger || "")
     .replace(/^all out assault\s+/i, "")
@@ -1987,11 +1996,10 @@ function isEnhancedBarrageRow(row) {
   return /enhanc/i.test(trigger) && !/unenhanc/i.test(trigger);
 }
 
-// The rows that actually fire at this level. Within one skill the enhanced rows REPLACE
-// the plain ones from the upgrade level onward - counting both would add a barrage to
-// its own replacement, which is what the DPS figure was doing. A skill whose rows are
-// ALL enhanced has no recorded "before" version (3 of the 56 such groups), so its rows
-// always show: hiding them would make the barrage vanish rather than downgrade.
+// The rows that actually fire at this level — within one skill, enhanced rows REPLACE the
+// plain ones from the upgrade level onward, since counting both added a barrage to its own
+// replacement. A skill whose rows are ALL enhanced has no recorded "before" (3 of 56 such
+// groups), so its rows always show rather than vanishing.
 function barragesAtLevel(ship, rows, level) {
   const upgraded = level >= barrageEnhancedLevel(ship);
   const groups = new Map();
@@ -2011,15 +2019,11 @@ function barragesAtLevel(ship, rows, level) {
 }
 
 // A barrage row's `effect` can set a burn or a flood, which is real damage none of the
-// row's own DMG columns carry. Algérie META's enhanced barrage is SMALLER than the one
-// it replaces - 8x25 against 12x40 - and still the upgrade, because it sets a burn of
-// 186 DMG every 1.5s for 8s: 8/1.5 x 186, near a thousand damage the columns never show.
-//
-// Two shapes occur. A scaling one, "DMG equal to 5 + Barrage DMG * (1 + (FP / 100)) *
-// 0.6", and a flat one, "186 DMG". Both are written as a per-tick figure with an
-// interval and a duration, and both are prefixed by the chance of applying at all.
-// Everything else an effect can say - Armor Break, "increase DMG taken", a smokescreen -
-// is a debuff on a target this app never models, so only these two are read.
+// row's own DMG columns carry — Algérie META's enhanced barrage reads SMALLER than the one
+// it replaces (8x25 vs 12x40) only because the columns miss the burn it sets (186 DMG every
+// 1.5s for 8s, ~1000 damage). Two shapes occur, a scaling one and a flat one, each written
+// as a per-tick figure behind a chance prefix; only Burn and Flood are read, since
+// everything else an effect can say is a debuff on a target this app never models.
 const BARRAGE_DOT_RE = /(?:Standard|Special)\s+(?:Burn|Flood)/i;
 // Hass REMOVES burns rather than setting them, which the plain pattern would read
 // backwards as damage dealt.
@@ -2069,11 +2073,10 @@ function barrageDot(row) {
 const volleyBarrageCache = new Map();
 
 // The barrage rows belonging to a skill, found by running the existing row-to-skill
-// matcher backwards rather than writing a second name match. Where a ship has more
-// than one such barrage, the one worth most PER VOLLEY wins - a small barrage every 2
-// volleys can beat a large one every 10.
-// Level-aware because a limit break swaps which rows fire, so the cache is keyed on the
-// one bit of the level that can change the answer rather than on the level itself.
+// matcher backwards — where a ship has more than one such barrage, the one worth most PER
+// VOLLEY wins (a small barrage every 2 volleys can beat a large one every 10). Cached per
+// level-bracket rather than per level, since a limit break is the only thing that can
+// change which rows fire.
 function volleyBarrage(ship, level) {
   const upgraded = (level || 0) >= barrageEnhancedLevel(ship);
   const cacheKey = ship.id + (upgraded ? "@lb" : "");
@@ -2108,26 +2111,23 @@ function volleyBarrage(ship, level) {
     for (const group of byQualifier.values()) {
     const dots = new Map();
     for (const b of group) {
-      // A row is only counted when it plainly belongs to this trigger. Rows whose name
-      // carries a qualifier past the skill name do not: they are alternatives rather
-      // than components (Asuka fires ONE of "New Link Chance! (Variant 1..5)", not all
-      // five), or they are a second trigger the same skill also has ("Happy D (every
-      // 5s)" alongside her every-2-volleys attack). Summing either inflates the barrage
-      // and hands the ship a gun she does not want, so an ambiguous row is dropped -
-      // unless its own trigger field names the main gun, which settles it outright.
-      // Costs 8% of the counted damage across the roster and leaves 502 of 507 ships
-      // with a figure; the 5 that lose it fall back to no barrage term at all.
+      // A row is only counted when it plainly belongs to this trigger — one whose name
+      // carries a qualifier past the skill name is either an alternative (Asuka fires ONE
+      // of "New Link Chance! (Variant 1..5)", not all five) or a second trigger the same
+      // skill also has ("Happy D (every 5s)" alongside her every-2-volleys attack), so
+      // summing it would hand the ship a gun she doesn't want — unless the row's own
+      // trigger names the main gun outright. Costs 8% of the counted damage roster-wide,
+      // leaving 502 of 507 ships with a figure.
       const suffix = b.skillName.toLowerCase().startsWith(skill.name.toLowerCase())
         ? b.skillName.slice(skill.name.length)
         : b.skillName;
       if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) continue;
-      // The Light/Medium/Heavy columns of the Barrages table, averaged - the same
-      // armour-neutral figure equipmentBaseDps() uses for gear, so the two are
-      // comparable. Each already includes the row's Count, so this is the whole row.
-      // Count x Base DMG would be the pre-armour figure instead, and the difference is
-      // not a constant: it runs from 0.567x (Jintsuu, whose barrage is punished by
-      // armour) to 1.200x (Prinz Eugen mu, whose torpedo barrage is rewarded by it), so
-      // it decides which ships are worth a faster gun rather than merely rescaling them.
+      // The Light/Medium/Heavy columns of the Barrages table, averaged — the same
+      // armour-neutral figure equipmentBaseDps() uses for gear, each already including the
+      // row's own Count. The alternative, Count x Base DMG, is the pre-armour figure
+      // instead, and the gap isn't constant (0.567x for an armour-punished barrage like
+      // Jintsuu's to 1.200x for a rewarded one like Prinz Eugen mu's torpedoes) — it
+      // decides which ships deserve a faster gun, not merely how big the term is.
       const armour = [b.lightDmg, b.mediumDmg, b.heavyDmg].map(Number).filter(v => Number.isFinite(v));
       const rowDamage = (armour.length
         ? armour.reduce((a, c) => a + c, 0) / armour.length
@@ -2153,13 +2153,11 @@ function volleyBarrage(ship, level) {
   return best;
 }
 
-// Most volley barrages scale off Firepower exactly as the gun does, but 83 rows across
-// 64 ships scale off Torpedo instead - a destroyer whose All Out Assault launches
-// torpedoes - so applying Firepower to everything would overstate them. Each term keeps
-// its own stat and the wiki's own coefficient for it; with a coefficient of 1 this is
-// the gun's own (1 + stat/100). A row whose stat is not one this app tracks contributes
-// its flat damage and nothing more, rather than being dropped.
-// `item` is the gun being considered: its own stat bonus lifts the barrage too.
+// Most volley barrages scale off Firepower exactly as the gun does, but 83 rows across 64
+// ships scale off Torpedo instead (a destroyer whose All Out Assault launches torpedoes),
+// so each term keeps its own stat and the wiki's own coefficient rather than assuming
+// Firepower for all. A row whose stat isn't tracked here contributes its flat damage only,
+// and `item` is the gun under consideration — its own stat bonus lifts the barrage too.
 function volleyBarrageDamage(barrage, effective, item) {
   let total = 0;
   for (const term of barrage.terms) {
@@ -2201,6 +2199,20 @@ function candidateEhp(ship, slotKey, item) {
   if (original) setEquippedGear(ship, slotKey, original);
   else setEquippedGear(ship, slotKey, null);
   return ehp;
+}
+
+// A self bonus gated on "if equipped with X" only unlocks once X is actually equipped, so
+// scoring every candidate against one effective snapshot (frozen at whatever happened to
+// already be in the slot) can never let a candidate's own bonus win or lose it. Simulated
+// per candidate exactly like candidateEhp above, and only called for ships that carry this
+// shape at all (shipHasSeekableEquipGate) — every other ship keeps the cheap, shared effective.
+function weaponCandidateEffective(ship, slotKey, item, level) {
+  const original = getEquippedGear(ship, slotKey);
+  setEquippedGear(ship, slotKey, item);
+  const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied);
+  if (original) setEquippedGear(ship, slotKey, original);
+  else setEquippedGear(ship, slotKey, null);
+  return eff;
 }
 
 const SURVIVAL_STAT_KEYS = new Set(["health", "evasion", "luck"]);
@@ -2517,7 +2529,7 @@ function slotAircraftCategories(slot, ship) {
 
 const AIRCRAFT_ROCKET_ORDNANCE_RE = /\brocket/i;
 
-function bestAircraftForSlot(ship, slot, categories, effective, filterItem, named) {
+function bestAircraftForSlot(ship, slotKey, slot, categories, effective, filterItem, named, level, seekEquipGate) {
   // Only checked once per slot, not per candidate - shipHasEnemySlowSkill re-scans
   // every skill's text each call, and a slot's candidate list can run into the
   // hundreds.
@@ -2528,7 +2540,8 @@ function bestAircraftForSlot(ship, slot, categories, effective, filterItem, name
     if (!filterItem(item)) continue;
     const damage = equipmentOptimizeScore(item);
     if (damage === null) continue;
-    let score = weaponScoreForShip(item, damage, effective);
+    const itemEffective = seekEquipGate ? weaponCandidateEffective(ship, slotKey, item, level) : effective;
+    let score = weaponScoreForShip(item, damage, itemEffective);
     // When this ship can actually slow the enemy her torpedoes need that for, Sakura
     // Empire torpedo bombers and rocket-armed fighters are the named preference.
     if (preferSlowSynergy) {
@@ -2547,7 +2560,7 @@ function bestAircraftForSlot(ship, slot, categories, effective, filterItem, name
 // slot accepts. "Recommended" instead spreads the three families across her slots,
 // best-efficiency slot first, and only offers Torpedo Bomber where nothing else fits unless
 // the ship can actually slow an enemy.
-function pickCarrierAircraft(ship, effective, orientation, filterItem, named) {
+function pickCarrierAircraft(ship, effective, orientation, filterItem, named, level, seekEquipGate) {
   const slots = Object.entries(ship.equipment || {})
     .map(([key, slot]) => ({ key, slot, categories: slotAircraftCategories(slot, ship) }))
     .filter(s => s.categories.length > 0);
@@ -2558,7 +2571,7 @@ function pickCarrierAircraft(ship, effective, orientation, filterItem, named) {
     const preferred = CV_ORIENTATION_CATEGORIES[orientation];
     for (const s of slots) {
       const wantCats = s.categories.filter(c => preferred.includes(c));
-      picks[s.key] = bestAircraftForSlot(ship, s.slot, wantCats.length ? wantCats : s.categories, effective, filterItem, named);
+      picks[s.key] = bestAircraftForSlot(ship, s.key, s.slot, wantCats.length ? wantCats : s.categories, effective, filterItem, named, level, seekEquipGate);
     }
     return picks;
   }
@@ -2581,7 +2594,7 @@ function pickCarrierAircraft(ship, effective, orientation, filterItem, named) {
       chosen = s.categories.filter(c => c !== "Torpedo Bomber" || allowTorpedo);
       if (!chosen.length) chosen = s.categories;
     }
-    picks[s.key] = bestAircraftForSlot(ship, s.slot, chosen, effective, filterItem, named);
+    picks[s.key] = bestAircraftForSlot(ship, s.key, s.slot, chosen, effective, filterItem, named, level, seekEquipGate);
   }
   return picks;
 }
@@ -2597,6 +2610,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
   // hits harder" is the opposite bias, which is just the ordinary damage-based score
   // this exclusion falls back to.
   const wantFastAa = role !== "bb" && role !== "cb" && shipHasLowAntiAir(ship) && !shipHasSelfStatSkill(ship, "antiair");
+  const seekEquipGate = shipHasSeekableEquipGate(ship);
   const barrageTrigger = role === "bb" ? shipBarrageTriggerType(ship) : null;
   // Only the FIRST gun slot fires the barrage: the trigger counts main gun volleys,
   // and a later gun slot is a secondary battery (see EQUIPMENT_SHORT_NAMES).
@@ -2614,7 +2628,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
   // Carrier aircraft slots are dispatched separately - Fighter/Dive Bomber/Torpedo
   // Bomber cannot be told apart by a stat weight, see pickCarrierAircraft.
   const carrierPicks = role === "carrier"
-    ? pickCarrierAircraft(ship, effective, targetDef.carrierOrientation || "auto", filterItem, named)
+    ? pickCarrierAircraft(ship, effective, targetDef.carrierOrientation || "auto", filterItem, named, level, seekEquipGate)
     : {};
 
   const usedAuxNames = new Set();
@@ -2697,11 +2711,12 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       let score;
       if (isBbAntiAir) score = bbAntiAirScore(item);
       else if (isWeapon) {
+        const itemEffective = seekEquipGate ? weaponCandidateEffective(ship, slotKey, item, level) : effective;
         const barragePerVolley = slotKey === mainGunSlotKey
-          ? volleyBarrageDamage(volley, effective, item) / volley.n
+          ? volleyBarrageDamage(volley, itemEffective, item) / volley.n
           : 0;
         const slotFactor = (slot.mount || 1) * (typeof slot.efficiency === "number" ? slot.efficiency : 1);
-        score = weaponScoreForShip(item, damage, effective, barragePerVolley, slotFactor);
+        score = weaponScoreForShip(item, damage, itemEffective, barragePerVolley, slotFactor);
         if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
           if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
         }

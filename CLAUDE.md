@@ -2934,6 +2934,62 @@ after the final edit.
   its bonus against the best gun overall without it, and keep whichever wins on the real
   numbers** - no invented rule, the DPS decides. 105 ships are in scope.
 
+  #### Optimize now seeks equip-gated bonuses, for the slice the parser already reaches (2026-08-22)
+
+  Resumed this exact thread. Of the 105 ships the vocabulary work counted, `parseEquipCondition`
+  itself only recognizes ~19-27 individual bonus clauses across a smaller set of ships (checked
+  directly rather than assumed) - seeking only makes sense for a condition the app can actually
+  evaluate, so that ceiling, not 105, is this change's real scope.
+
+  **Simulated per candidate, the same shape as `candidateEhp`.** `weaponCandidateEffective(ship,
+  slotKey, item, level)` temporarily equips one candidate, calls `computeEffectiveStats`, and
+  restores whatever was there - so a self bonus gated on "if equipped with X" is evaluated
+  against what THIS candidate would actually unlock, not against whatever happened to be
+  equipped when the outer `effective` snapshot was taken before Optimize started. Gated behind
+  `shipHasSeekableEquipGate(ship)` so the ~750 ships with no such bonus keep the cheap, shared
+  `effective` - this only runs the extra `computeEffectiveStats` call per candidate for ships
+  that can actually benefit from it. Wired into both the general per-slot loop and
+  `pickCarrierAircraft`/`bestAircraftForSlot`, since two of the four ships that benefit today
+  (August von Parseval, Hakuryuu) are carriers, which never go through the general loop.
+
+  **Checked every one of the 27 equip-gated self bonuses in the dataset by hand before deciding
+  scope, and most don't reach the DPS formula at all.** `weaponScoreForShip` only reads
+  `effective.stats[role.stat]` - a NUMERIC_STAT_KEYS entry - so a bonus canonicalized as
+  `critRate`, `damageDealt`, or `weaponEfficiency` (Ägir, Jean Bart, Murmansk, Pensacola's own
+  AP-modifier line, Richelieu, Tallinn, Zara, Azuma, Kitakaze) changes nothing no matter how
+  faithfully it's simulated, since none of those modifier types are wired into the DPS math at
+  all today (crit isn't modeled anywhere in this app; `weaponEfficiency` is extracted, colored,
+  and pilled, but never multiplies a slot's damage). Three more (Bataan's fighter efficiency,
+  Béarn's slot efficiency, Graf Zeppelin's aircraft-slot efficiency) have no canonical `stats`
+  entry at all - the original extraction left them `unmapped`, so there is nothing for either
+  the old or the new code path to read. Wiring `weaponEfficiency` into `slotDamage`/
+  `weaponScoreForShip` (it is conceptually the same multiplier the slot's own `efficiency`
+  field already is, just skill-granted) is a clean, well-scoped next step, but a separate one -
+  not attempted here, so as not to silently half-do it alongside the seek mechanism itself.
+
+  **Result: 4 ships actually move today** - August von Parseval and Hakuryuu (both CV, an
+  Aviation bonus), Pensacola (Firepower/Evasion/Antiair, three branches of one condition), and
+  Seattle (Antiair, mislabeled at extraction time from "Anti-Air Gun Efficiency" - a pre-existing
+  data quirk this change doesn't touch, just correctly seeks around). Verified two ways: for all
+  four, every weapon slot's candidate was independently re-scored outside `optimizeEquipment`
+  using the same `weaponCandidateEffective` + `weaponScoreForShip` pair, and the argmax matched
+  Optimize's own pick on **12 of 12 slots** (a first pass without replicating `filterItem`
+  mismatched on 2, which turned out to be `unique`/hull-restricted items the real filter already
+  excludes - a test bug, not a code one). Separately, dumping Seattle's own slot-2 candidates
+  confirmed the simulation genuinely fires (antiair 199 unsimulated -> 213-274 simulated,
+  varying per candidate's own stat) rather than silently no-opping.
+
+  **None of the four change their actual pick** - the condition each carries turned out to be
+  satisfied broadly enough (any AA gun for Seattle's slot, seemingly every candidate for
+  Pensacola's) that the winner was already decided before the bonus was added in. Honest
+  outcome, not a bug: "no invented rule, the DPS decides" also means deciding not to move
+  when the numbers don't ask for it. The mechanism will matter the moment a narrower condition
+  (a specific nation, a specific named item) is what's standing between two closely-scored
+  candidates.
+
+  Full 888-ship regression - opening every modal AND clicking Optimize on each, not just
+  open/close - at 0 errors.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)
@@ -3233,6 +3289,15 @@ errors each time, and a fingerprint check (`.combat-metric-value` count, stats-g
 count, equipment-slot count per ship) matched across all three runs, confirming the pass
 touched only comments/whitespace and one redundant CSS rule, nothing behavioral.
 `app.js` went 4607 → 4401 lines, `style.css` 1992 → 1960.
+
+**A second, smaller round the same push (2026-08-22)**: this commit had to be rebased onto
+four intervening barrage/DPS commits pushed independently (see the "Optimize now seeks
+equip-gated bonuses" entry above), which added their own long-form comments never subjected
+to the 1-2 sentence rule. Condensed the 9 that measured over it (volley-barrage timing,
+limit-break row swapping, burn/flood damage, the armour-neutral mean) the same way, keeping
+every concrete ship name and measured figure. Two rebase conflicts (both comment-vs-comment,
+one signature change) resolved by keeping the newer logic and re-condensing its comment
+rather than reverting to the pre-rebase text.
 
 ## Deployment security (2026-08-20) — also from `programming rules/`
 
