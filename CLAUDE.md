@@ -2990,6 +2990,49 @@ after the final edit.
   Full 888-ship regression - opening every modal AND clicking Optimize on each, not just
   open/close - at 0 errors.
 
+  #### weaponEfficiency now multiplies a slot's damage, in both the display and the optimiser (2026-08-22)
+
+  The gap flagged above, picked up first since it's the cleaner of the two: `weaponEfficiency`
+  modifiers were extracted, colored, and pilled, but never reached the DPS formula at all -
+  `slotDamage` and `weaponScoreForShip` only ever read the slot's own gear `efficiency`, never
+  a skill's. Surveying every `weaponEfficiency` modifier dataset-wide (not just the four
+  equip-gated ships from the entry above) found **23 ships**, most with an unconditional
+  bonus that was equally inert - Gangut's own is the largest in the game at +80%.
+
+  `weaponEfficiencyBonus(effective, ship, slotKey, item)` sums the applicable modifiers and
+  is applied as `slot.efficiency * (1 + bonus/100)`, the same relative-increase convention
+  every other percent bonus in this app already uses. Matched by **weapon role**
+  (firepower/antiair/torpedo), not a raw category string, so it reads a built-in weapon's
+  `kind` the same way it reads a catalog item's `category`. "Main Gun" and "Secondary Gun"
+  are `role.stat === "firepower"` split on whether the slot is `shipGunSlotKeys(ship)[0]` -
+  the same main/secondary convention the volley-barrage work already established. A compound
+  source ("Main Gun and Torpedo", "Main Gun and Secondary Gun" - 6 of the 23 ships) applies
+  wherever either half matches, since `modifierQualifier` already folds both terms into one
+  string with a literal "and".
+
+  Wired into `slotDamage` (now takes `ship`/`slotKey` so it can look the modifier up) and
+  into the optimiser's own `slotFactor` computation, so the two stay in agreement the same
+  way the mounts x efficiency fix earlier in this file already established as the rule.
+  `bestAircraftForSlot` (carrier aircraft) was deliberately left untouched - no ship in the
+  dataset carries an Aircraft/Airstrike-sourced `weaponEfficiency` bonus today, and carrier
+  slots don't factor gear efficiency into their score at all yet, which is a separate,
+  pre-existing gap this change doesn't reach.
+
+  **`shipHasSeekableEquipGate` had to widen too.** Kitakaze's and Azuma's own
+  `weaponEfficiency` bonuses are equip-gated (Kitakaze: "if equipped with a Sakura Empire DD
+  gun"), and the seek mechanism from the entry above explicitly excluded `weaponEfficiency`
+  from its definition of "seekable" on the grounds that it couldn't move a score yet - true
+  when it was written, false the moment this landed. Left unwidened, Optimize would now
+  correctly SCORE a `weaponEfficiency` bonus once equipped, but still never SEEK a gun that
+  would unlock one. Added `k === "weaponEfficiency"` alongside the `NUMERIC_STAT_KEYS` check.
+
+  Verified: Gangut's main gun slot reports `bonusPercent: 80`, her secondary `0`; Queen
+  Elizabeth META's "Secondary Gun"-sourced bonus reports `0` on her main slot and `50` on her
+  secondary (proving the main/secondary split, not just that a bonus applies somewhere);
+  Cleopatra's compound "Main Gun and Torpedo" bonus reaches both her gun AND her torpedo slot
+  (built-in weapons, no gear equipped) and correctly skips her AA slot. Full 888-ship
+  regression - open, Optimize, close - at 0 errors.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)

@@ -1724,6 +1724,32 @@ function weaponRole(item) {
   return WEAPON_ROLES[item.category] || WEAPON_ROLES[item.kind] || null;
 }
 
+// A skill's "Main/Secondary Gun", "AA Gun" or "Torpedo efficiency" bonus is the same
+// multiplier the slot's own gear efficiency already is, just skill-granted — matched by
+// weapon role (firepower/antiair/torpedo) rather than a raw category string so it reads
+// built-in weapons the same way. A compound source ("Main Gun and Torpedo") applies
+// wherever either half matches; sources this dataset never produces (Aircraft, Cannon)
+// are left unmatched rather than guessed at.
+function weaponEfficiencyBonus(effective, ship, slotKey, item) {
+  const role = weaponRole(item);
+  if (!role || !effective) return 0;
+  const mainGunKey = shipGunSlotKeys(ship)[0];
+  let bonus = 0;
+  for (const modifier of effective.modifiers) {
+    if (modifier.key !== "weaponEfficiency") continue;
+    const parts = modifier.source.toLowerCase().split(/\s+and\s+/).map(p => p.trim());
+    const applies = parts.some(part => {
+      if (part === "main gun") return role.stat === "firepower" && slotKey === mainGunKey;
+      if (part === "secondary gun") return role.stat === "firepower" && slotKey !== mainGunKey;
+      if (part === "aa gun") return role.stat === "antiair";
+      if (part === "torpedo") return role.stat === "torpedo";
+      return false;
+    });
+    if (applies) bonus += modifier.amount;
+  }
+  return bonus;
+}
+
 // The item's damage per second before any ship stat is applied — a stat-0 baseline verified
 // against the catalog (dps.raw is exactly dmg x coef x roundsPerSec, no stat term), so the
 // stat multiplier below isn't double-counting.
@@ -1770,7 +1796,7 @@ function referenceHitRate(evasion, luck) {
 // WeaponScalingCoefficient stays at 1, so aircraft numbers run slightly optimistic since
 // the Damage Calculations page gives 0.8 for some bombs/rockets the catalog doesn't
 // distinguish.
-function slotDamage(slot, item, effective) {
+function slotDamage(slot, item, effective, ship, slotKey) {
   const role = weaponRole(item);
   if (!role) return null;
   const base = equipmentBaseDps(item);
@@ -1778,7 +1804,8 @@ function slotDamage(slot, item, effective) {
   const statEntry = effective.stats[role.stat];
   const stat = statEntry ? statEntry.value : 0;
   const mounts = slot.mount || 1;
-  const efficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
+  const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
+  const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100), unknown: false };
 }
 
@@ -1821,7 +1848,7 @@ function computeCombatMetrics(ship, level, effective) {
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
     if (!item) continue;
-    const contribution = slotDamage(slot, item, effective);
+    const contribution = slotDamage(slot, item, effective, ship, slotKey);
     if (!contribution) continue;
     if (contribution.unknown) { unknownSlots++; continue; }
     totals[contribution.metric] += contribution.value;
@@ -1829,7 +1856,7 @@ function computeCombatMetrics(ship, level, effective) {
 
   const launcher = innateDepthCharge(ship);
   if (launcher) {
-    const contribution = slotDamage({ mount: 1, efficiency: 1 }, launcher, effective);
+    const contribution = slotDamage({ mount: 1, efficiency: 1 }, launcher, effective, ship, null);
     if (contribution && !contribution.unknown) totals[contribution.metric] += contribution.value;
   }
 
@@ -1885,17 +1912,17 @@ function isFastFiringAaGun(item) {
   return typeof item.reload === "number" && item.reload <= aaGunReloadMedian();
 }
 
-// An equip-gated bonus only ever changes a NUMERIC_STAT_KEYS entry here — weaponEfficiency,
-// critRate and damageDealt-type modifiers are gated correctly by equipConditionAllows but
-// never reach weaponScoreForShip's stat lookup, so seeking them would score identically
-// either way. Scoped to what can actually move a pick today (August von Parseval, Hakuryuu,
-// Pensacola, Seattle); wiring those modifier types into the DPS formula is separate work.
+// An equip-gated bonus only moves a pick if it reaches weaponScoreForShip's math at all —
+// a NUMERIC_STAT_KEYS entry or weaponEfficiency both do now, but critRate/damageDealt-type
+// modifiers still don't, so seeking those would score identically either way and isn't
+// worth the extra simulation.
 function shipHasSeekableEquipGate(ship) {
   for (const skill of ship.skills || []) {
     const plainDesc = skill.description ? stripHtml(skill.description) : "";
     for (const b of skill.statBonuses || []) {
       const isSelf = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
-      if (!isSelf || !(b.stats || []).some(k => NUMERIC_STAT_KEYS.includes(k))) continue;
+      const isSeekable = (b.stats || []).some(k => NUMERIC_STAT_KEYS.includes(k) || k === "weaponEfficiency");
+      if (!isSelf || !isSeekable) continue;
       const clause = equipConditionClauseForRaw(plainDesc, b.raw);
       if (clause && parseEquipCondition(clause)) return true;
     }
@@ -2715,7 +2742,9 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
         const barragePerVolley = slotKey === mainGunSlotKey
           ? volleyBarrageDamage(volley, itemEffective, item) / volley.n
           : 0;
-        const slotFactor = (slot.mount || 1) * (typeof slot.efficiency === "number" ? slot.efficiency : 1);
+        const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
+        const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
+        const slotFactor = (slot.mount || 1) * efficiency;
         score = weaponScoreForShip(item, damage, itemEffective, barragePerVolley, slotFactor);
         if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
           if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
