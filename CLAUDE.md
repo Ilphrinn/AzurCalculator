@@ -77,11 +77,12 @@ modal needs its equipment catalog, keeping it out of the initial page load.
   Fernando2603's datamine repo carries no special claim over the numbers it republishes.
   The line not to cross is copying the SITE (its UI, its own derived charts/formulas,
   wholesale file dumps as a shortcut) rather than the underlying game data — `equipments.
-  json`, `augments.json`, `gear_lab.json`, etc. found the same way are fair game the same
-  way, just not yet integrated. `cdn.mrlar.dev/al_ehp` is the site's own precomputed
-  community eHP chart (columns per raid tier: W14/15, Challenge, META, Arbiter, Abyssal,
-  Stronghold) — not used, since it's a derived ratio from their own formula, not a raw
-  game stat; take the boss numbers straight from `maps.json` instead.
+  json` and `gear_lab.json`, found the same way, are fair game the same way but not yet
+  integrated; `augments.json` IS integrated as of the same day (see the Augment Module
+  stats entry further down) via `data/augments.json`/`.js`. `cdn.mrlar.dev/al_ehp` is the
+  site's own precomputed community eHP chart (columns per raid tier: W14/15, Challenge,
+  META, Arbiter, Abyssal, Stronghold) — not used, since it's a derived ratio from their own
+  formula, not a raw game stat; take the boss numbers straight from `maps.json` instead.
 
 ## Ship data shape (`data/ships.json`, flat array, 888 ships)
 
@@ -3268,6 +3269,73 @@ after the final edit.
   Ayanami/Ägir outside the app matches its own output to the digit, and a full 888-ship
   regression (open, Optimize, close) still shows 0 errors, 0 non-finite/negative combat
   metrics.
+
+  #### Real Augment Module stats, from mrlar.dev's `augments.json` (2026-08-22)
+
+  This app's Augment slot had shown which modules a ship could fit since 2026-08-20 (item
+  9 of this section), but never what any of them actually GRANTED — no augment stat catalog
+  existed anywhere in this project. `mrlar.dev/db/static/json/augments.json` (252 records)
+  is exactly that catalog, matched against this app's own `ship.augmentModules` names by
+  name/alias: **238 of 238 matched**, one only after a spelling-alias fix ("Night Princess'
+  Caprice" vs. mrlar's "Night Princess's Caprice").
+
+  **Every stat has two parts, per the Augmentation wiki page's own Conversion section**: a
+  fixed value that scales with the module's Enhancement Level (0-10, mrlar's `values[]`
+  array), and a separately-grindable "conversion stat" capped at a fixed maximum (mrlar's
+  `random` field — not a dice roll, a stat that "always improves" with Conversion Stones
+  until it hits that cap). Per this project's standing "assume max investment" convention
+  (Cost's limit-break assumption, max skill level, max gear efficiency), each stat is stored
+  as `values[10] + random` — both fully invested, not the un-upgraded base number.
+
+  **The 12 universal augments (Hammer, Crossbow, Lance, ...) exist as two catalog rows
+  each** — a Rare base form and its Elite "Uncapped" upgrade (again, the wiki's own
+  Uncapping section) — so the higher-rarity row is always the one kept, for the same
+  max-investment reason. Rarity codes (3/4/5) were mapped to Rare/Elite/Super Rare by
+  cross-referencing mrlar's own numeric ship-rarity field against this app's own ship
+  rarity STRINGS on 861 known ships, not guessed.
+
+  `data/augments.json`/`.js` hold the 238 records as `{id, name, rarity, statBonus}` — the
+  exact same shape an Auxiliary-category equipment item with no `dps` already has
+  (`equipmentPrimaryStat`/`equipmentStatRows`/`equipmentIconImg`/`showEquipInfoTooltip` all
+  already handle that shape gracefully, including the icon `error` fallback to a text tile,
+  since no augment icon assets exist anywhere in this project). Because of that overlap, the
+  equipped augment is stored under `equippedGear[ship.id]["augment"]` — literally reusing
+  the SAME map real gear slots use, with `"augment"` as an ordinary slot key — rather than a
+  parallel state system. This one decision is what let the entire existing picker
+  (`buildEquipmentSlot`/`toggleEquipmentPicker`), its tooltip, `statPreferenceScore`'s real
+  eHP simulation (`candidateEhp`), and the Clear button all work on augments with **zero
+  special-casing** — `equippedGearFlatStats` already sums every equipped item regardless of
+  slot key, so `computeEffectiveStats` needed no change at all beyond a one-line comment.
+
+  **Optimize picks the augment slot the same way it picks an auxiliary**: every fitting
+  module scored by `statPreferenceScore` against the ship's own current weight vector (goal,
+  hull role), survival stats (HP/Evasion/Luck) going through the real eHP simulation,
+  everything else through the proportional-to-maximum heuristic — reusing
+  `auxiliaryStatMaxima()` as the normalizer even though it is built from `EQUIPMENT_DATA`'s
+  own scale, not augments'; a known simplification, harmless since augments only ever
+  compete against OTHER augments for this one slot, never against equipment. The rarity cap
+  and Gear Lab/Research toggles apply to augments too where they overlap in meaning (rarity
+  cap: yes, both scales use the same 5 names; Gear Lab/Research: always pass, since no
+  augment record carries those flags) — `equipmentReachable`'s `unique` check also always
+  passes, so this first pass does not yet distinguish an event-exclusive augment from an
+  ordinary one, unlike equipment's own `unique`/Gear Lab/Research system.
+
+  **A ship's own signature augment does not automatically win, and that is correct, not a
+  bug** — Laffey's own "Huggy Pillow of Bravery" (FP+32/Accuracy+18) loses Optimize's pick to
+  the universal "Hammer" (Torpedo+35/Accuracy+10) on her, because her own build weighs
+  Torpedo (her actual strongest scaling stat) and Firepower isn't weighted at all for a
+  torpedo-focused DD — the same "no invented rule, the numbers decide" principle already
+  applied to skill-named equipment (Bataan's own higher-raw-damage Prototype fighter beating
+  her named Hellcat, see above).
+
+  Verified: 238/238 names resolved with 0 leftover; Laffey's own FlatStatBuff formula
+  hand-derived outside the app and matching its own output to the digit
+  (`(base + 32) * (1 + pct/100) + skillFlat`, pct=40% from her own kit); a full 888-ship
+  open + Optimize + close regression at 0 errors, with all 863 ships that have a resolvable
+  augment (the same 863 established in item 9's original extraction) actually getting one
+  picked; visually confirmed on Laffey — the round tile wraps a long augment name across two
+  lines legibly, and the stats grid's equip-column delta updates correctly when one is
+  picked or cleared.
 
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately

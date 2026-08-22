@@ -846,6 +846,25 @@ function loadEquipmentData() {
 
   return equipmentLoadPromise;
 }
+
+let augmentLoadPromise;
+function loadAugmentData() {
+  if (typeof AUGMENTS_DATA !== "undefined") return Promise.resolve();
+  if (augmentLoadPromise) return augmentLoadPromise;
+
+  augmentLoadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "data/augments.js";
+    script.onload = resolve;
+    script.onerror = () => reject(new Error("Unable to load augment data."));
+    document.head.appendChild(script);
+  }).catch(error => {
+    augmentLoadPromise = null;
+    throw error;
+  });
+
+  return augmentLoadPromise;
+}
 const gifPreview = placeImage("gif-preview", "gif-preview", document.body, null, true);
 
 const equipInfoTooltip = document.createElement("div");
@@ -1342,6 +1361,9 @@ function equipConditionAllows(ship, plainText, raw) {
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) {
   const base = computeStats(ship, level, isRetrofit);
   if (!base) return null;
+  // The equipped Augment Module lives in the same equippedGear map as gear (slot key
+  // "augment") since it is a FlatStatBuff in the wiki's formula too, the same category -
+  // equippedGearFlatStats already sums every equipped item regardless of slot key.
   const equipFlat = equippedGearFlatStats(ship);
 
   const skills = getSkillsForState(ship, isRetrofit, isAugmented, isFateSim);
@@ -2874,6 +2896,23 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     if (isAuxSlot && best.item.category === "Auxiliary") usedAuxNames.add(best.item.name);
     changed++;
   }
+
+  // The Augment Module slot scores exactly like an auxiliary — same weights, same
+  // proportional-to-maximum/real-eHP split via statPreferenceScore — reusing "augment" as
+  // the slot key in the same equippedGear map every other gearCtx already uses.
+  const augmentOptions = augmentOptionsForShip(ship).filter(filterItem);
+  if (augmentOptions.length) {
+    const baseAugEhp = candidateEhp(ship, "augment", null);
+    let bestAug = null, bestAugScore = -Infinity;
+    for (const item of augmentOptions) {
+      const score = statPreferenceScore(item, weights, ship, "augment", baseAugEhp);
+      if (score > bestAugScore) { bestAugScore = score; bestAug = item; }
+    }
+    if (bestAug) {
+      setEquippedGear(ship, "augment", bestAug);
+      changed++;
+    }
+  }
   return changed;
 }
 
@@ -2902,6 +2941,26 @@ function setEquippedGear(ship, slotKey, item) {
 
 function clearEquippedGear(ship) {
   delete equippedGear[ship.id];
+}
+
+// AUGMENTS_DATA's own statBonus keys are already canonical (built that way from mrlar.dev's
+// raw hp/fp/trp/aa/avi/rld/hit/eva/luck/asw at data-build time), so no alias map is needed
+// the way equipment's EQUIPMENT_STAT_KEY_ALIASES is. Named by the ship's own augmentModules
+// string, which is always the wiki's own spelling and matches every catalog entry exactly.
+// An augment shares equipmentPrimaryStat/equipmentStatRows/equipmentIconImg's existing
+// {id, name, rarity, statBonus} shape (the same one an Auxiliary item with no dps already
+// has), so it is stored under slotKey "augment" in the SAME equippedGear map as real gear
+// rather than a parallel one - the generic tile/picker/tooltip code and Clear button all
+// already work on any slot key without changes.
+let augmentByNameCache = null;
+function augmentByName(name) {
+  if (!augmentByNameCache) augmentByNameCache = new Map(AUGMENTS_DATA.map(a => [a.name, a]));
+  return augmentByNameCache.get(name) || null;
+}
+
+function augmentOptionsForShip(ship) {
+  if (typeof AUGMENTS_DATA === "undefined") return [];
+  return (ship.augmentModules || []).map(augmentByName).filter(Boolean);
 }
 
 // data/equipment.json spells Anti-Air "antiAir"; STAT_GRID spells it "antiair" — without
@@ -3175,10 +3234,10 @@ function renderModalEquipment(ship) {
     return;
   }
   modalEquipmentSection.hidden = false;
-  if (typeof EQUIPMENT_DATA === "undefined") {
+  if (typeof EQUIPMENT_DATA === "undefined" || (modules.length && typeof AUGMENTS_DATA === "undefined")) {
     setEquipmentControlsDisabled(true);
     modalEquipment.textContent = "Loading equipment...";
-    loadEquipmentData().then(() => {
+    Promise.all([loadEquipmentData(), modules.length ? loadAugmentData() : Promise.resolve()]).then(() => {
       if (currentShip === ship && !modalOverlay.hidden) renderModalEquipment(ship);
     }).catch(() => {
       if (currentShip === ship && !modalOverlay.hidden) {
@@ -3221,7 +3280,9 @@ function renderModalEquipment(ship) {
     const fits = modules
       .map(module => UNIVERSAL_AUGMENT_MODULES.has(module) ? module : module + " (unique)")
       .join(", ");
-    const augment = buildEquipmentSlot("Augment", "Fits: " + fits + " \u2014 requires max Limit Break", []);
+    const options = augmentOptionsForShip(ship);
+    const augCtx = options.length ? { ship, slotKey: "augment", slot: {}, options } : null;
+    const augment = buildEquipmentSlot("Augment", "Fits: " + fits + " \u2014 requires max Limit Break", [], augCtx);
     augment.classList.add("equip-augment");
     modalEquipment.appendChild(augment);
   }
