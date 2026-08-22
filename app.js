@@ -1169,6 +1169,15 @@ function equipCaliberMm(item) {
   return m ? Number(m[1]) : null;
 }
 
+// The catalog's ammoType carries a variant suffix (AP+, APB, APC, APK, HE*, Normal^...)
+// an "if equipped with an AP/HE main gun" condition doesn't distinguish — only the
+// leading AP/HE/SAP/Normal family matters. Caught while verifying Ägir's own AP/HE-gated
+// bonuses: her best gun's ammoType is "APB", which an exact-string "AP" match rejected.
+function ammoTypeFamily(ammoType) {
+  const m = /^(AP|HE|SAP|Normal)/i.exec(ammoType || "");
+  return m ? m[1].toUpperCase() : "";
+}
+
 function resolveEquipNationTerm(text) {
   const t = text.trim();
   return ALL_NATION_TERMS.find(n => n.toLowerCase() === t.toLowerCase())
@@ -1269,7 +1278,7 @@ function parseEquipCondition(clause) {
       const key = shipGunSlotKeys(ship)[0];
       if (key == null) return false;
       const item = activeEquipmentForSlot(ship, key, ship.equipment[key]);
-      return !!item && wanted.has((item.ammoType || "").toUpperCase());
+      return !!item && wanted.has(ammoTypeFamily(item.ammoType));
     } };
   }
 
@@ -1744,10 +1753,28 @@ const WEAPON_EFFICIENCY_OVERRIDE_BY_SKILL = {
   "Sacrament: Holy Bombardment": (ship, slotKey) => slotKey === "3",
 };
 
+// Shared by weaponEfficiencyBonus and weaponDamageMultiplier: does a modifier's own
+// source phrase (e.g. "Main Gun and Torpedo") cover this slot's weapon role? A modifier
+// with no source at all applies everywhere. "Burn"/"Barrage"-sourced bonuses (seen on
+// damageDealt) match nothing here since neither is a slot-level weapon this app models.
+function weaponModifierApplies(source, role, ship, slotKey) {
+  if (!source) return true;
+  const mainGunKey = shipGunSlotKeys(ship)[0];
+  const parts = source.toLowerCase().split(/,|\band\b/).map(p => p.trim()).filter(Boolean);
+  return parts.some(part => {
+    if (part === "main gun") return role.stat === "firepower" && slotKey === mainGunKey;
+    if (part === "secondary gun") return role.stat === "firepower" && slotKey !== mainGunKey;
+    if (part === "cannon") return role.stat === "firepower";
+    if (part === "aa gun") return role.stat === "antiair";
+    if (part === "torpedo") return role.stat === "torpedo";
+    if (part === "aircraft" || part === "airstrike") return role.stat === "aviation";
+    return false;
+  });
+}
+
 function weaponEfficiencyBonus(effective, ship, slotKey, item) {
   const role = weaponRole(item);
   if (!role || !effective) return 0;
-  const mainGunKey = shipGunSlotKeys(ship)[0];
   let bonus = 0;
   for (const modifier of effective.modifiers) {
     if (modifier.key !== "weaponEfficiency") continue;
@@ -1756,17 +1783,48 @@ function weaponEfficiencyBonus(effective, ship, slotKey, item) {
       if (override(ship, slotKey, item, role)) bonus += modifier.amount;
       continue;
     }
-    const parts = modifier.source.toLowerCase().split(/\s+and\s+/).map(p => p.trim());
-    const applies = parts.some(part => {
-      if (part === "main gun") return role.stat === "firepower" && slotKey === mainGunKey;
-      if (part === "secondary gun") return role.stat === "firepower" && slotKey !== mainGunKey;
-      if (part === "aa gun") return role.stat === "antiair";
-      if (part === "torpedo") return role.stat === "torpedo";
-      return false;
-    });
-    if (applies) bonus += modifier.amount;
+    if (weaponModifierApplies(modifier.source, role, ship, slotKey)) bonus += modifier.amount;
   }
   return bonus;
+}
+
+// CriticalRate/CriticalModifier and DMG Dealt, from the Damage Calculations page's Critical
+// Hits and Final Damage Dealt sections — the one other modifier family (besides
+// weaponEfficiency) that skill text grants but nothing here ever multiplied into a slot's
+// damage. A target-qualified bonus (Alvitr's "DMG Dealt +15% to Light Armor enemies") is
+// skipped outright: this app tracks no enemy armor/hull to condition it on.
+//
+// CriticalRate's own formula needs the TARGET's Evasion/Luck, which this app has no source
+// for — a fixed reference target (CRIT_REFERENCE_EVASION/LUCK) stands in, the same
+// unknown-opponent gap eHP already solved with EHP_REFERENCE_ACCURACY/LUCK. The number is
+// comparative, not what the game would show for any specific enemy.
+const CRIT_REFERENCE_EVASION = 100;
+const CRIT_REFERENCE_LUCK = 0;
+
+function weaponDamageMultiplier(effective, ship, slotKey, item) {
+  const role = weaponRole(item);
+  if (!role || !effective) return 1;
+  let critRateBonus = 0;
+  let critDamageBonus = 0;
+  let damageDealtBonus = 0;
+  for (const modifier of effective.modifiers) {
+    if (modifier.target) continue;
+    if (!weaponModifierApplies(modifier.source, role, ship, slotKey)) continue;
+    if (modifier.key === "critRate") critRateBonus += modifier.amount;
+    else if (modifier.key === "critDamage") critDamageBonus += modifier.amount;
+    else if (modifier.key === "damageDealt") damageDealtBonus += modifier.amount;
+  }
+  const accuracy = effective.stats.accuracy ? effective.stats.accuracy.value : 0;
+  const luck = effective.stats.luck ? effective.stats.luck.value : 0;
+  const critRate = Math.min(1, Math.max(0,
+    0.05 +
+    accuracy / (accuracy + CRIT_REFERENCE_EVASION + 2000) +
+    (luck - CRIT_REFERENCE_LUCK) / 5000 +
+    critRateBonus / 100
+  ));
+  const criticalModifier = 1 + critRate * (0.5 + critDamageBonus / 100);
+  const damageDealtModifier = 1 + damageDealtBonus / 100;
+  return criticalModifier * damageDealtModifier;
 }
 
 // The item's damage per second before any ship stat is applied — a stat-0 baseline verified
@@ -1811,10 +1869,10 @@ function referenceHitRate(evasion, luck) {
 }
 
 // Damage a slot contributes per second: the item's own figure, times mounts, times
-// efficiency, times the wiki's WeaponStatMultiplier (1 + ScalingStat/100).
-// WeaponScalingCoefficient stays at 1, so aircraft numbers run slightly optimistic since
-// the Damage Calculations page gives 0.8 for some bombs/rockets the catalog doesn't
-// distinguish.
+// efficiency, times the wiki's WeaponStatMultiplier (1 + ScalingStat/100), times the average
+// Critical/DMG Dealt multiplier (weaponDamageMultiplier). WeaponScalingCoefficient stays at
+// 1, so aircraft numbers run slightly optimistic since the Damage Calculations page gives
+// 0.8 for some bombs/rockets the catalog doesn't distinguish.
 function slotDamage(slot, item, effective, ship, slotKey) {
   const role = weaponRole(item);
   if (!role) return null;
@@ -1825,7 +1883,8 @@ function slotDamage(slot, item, effective, ship, slotKey) {
   const mounts = slot.mount || 1;
   const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
   const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
-  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100), unknown: false };
+  const damageMultiplier = weaponDamageMultiplier(effective, ship, slotKey, item);
+  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier, unknown: false };
 }
 
 // DDs and CLs carry a default depth charge launcher intrinsic to the hull, not a slot
@@ -1932,15 +1991,16 @@ function isFastFiringAaGun(item) {
 }
 
 // An equip-gated bonus only moves a pick if it reaches weaponScoreForShip's math at all —
-// a NUMERIC_STAT_KEYS entry or weaponEfficiency both do now, but critRate/damageDealt-type
-// modifiers still don't, so seeking those would score identically either way and isn't
-// worth the extra simulation.
+// a NUMERIC_STAT_KEYS entry, weaponEfficiency, and now critRate/critDamage/damageDealt all
+// do (weaponDamageMultiplier), which is exactly the shape of Ägir/Jean Bart/Murmansk/
+// Pensacola/Richelieu/Tallinn/Zara's own "if equipped with a HE/AP main gun" bonuses.
 function shipHasSeekableEquipGate(ship) {
   for (const skill of ship.skills || []) {
     const plainDesc = skill.description ? stripHtml(skill.description) : "";
     for (const b of skill.statBonuses || []) {
       const isSelf = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
-      const isSeekable = (b.stats || []).some(k => NUMERIC_STAT_KEYS.includes(k) || k === "weaponEfficiency");
+      const isSeekable = (b.stats || []).some(k =>
+        NUMERIC_STAT_KEYS.includes(k) || k === "weaponEfficiency" || k === "critRate" || k === "critDamage" || k === "damageDealt");
       if (!isSelf || !isSeekable) continue;
       const clause = equipConditionClauseForRaw(plainDesc, b.raw);
       if (clause && parseEquipCondition(clause)) return true;
@@ -2471,12 +2531,16 @@ function itemStatBonus(item, key) {
 // while the barrage is one fixed pattern neither touches, and omitting it handed 137 ships
 // a weaker gun. It also keeps this identical to slotDamage(), which is what makes the
 // optimiser and displayed DPS agree.
-function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFactor) {
+//
+// ship/slotKey are only needed for weaponDamageMultiplier's crit/DMG Dealt lookup; a caller
+// with no ship in scope (there is none today) can omit them and score without that factor.
+function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFactor, ship, slotKey) {
   const role = weaponRole(item);
   if (!role || !effective) return damage;
   const entry = effective.stats[role.stat];
   const stat = (entry ? entry.value : 0) + itemStatBonus(item, role.stat);
-  let dps = damage * (slotFactor || 1) * (1 + stat / 100);
+  const damageMultiplier = ship ? weaponDamageMultiplier(effective, ship, slotKey, item) : 1;
+  let dps = damage * (slotFactor || 1) * (1 + stat / 100) * damageMultiplier;
   if (barragePerVolley) {
     const cycle = (item.reload || 0) + (item.volleyTime || 0);
     if (cycle > 0) dps += barragePerVolley / cycle;
@@ -2590,7 +2654,7 @@ function bestAircraftForSlot(ship, slotKey, slot, categories, effective, filterI
     const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
     const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
     const slotFactor = (slot.mount || 1) * efficiency;
-    let score = weaponScoreForShip(item, damage, itemEffective, 0, slotFactor);
+    let score = weaponScoreForShip(item, damage, itemEffective, 0, slotFactor, ship, slotKey);
     // When this ship can actually slow the enemy her torpedoes need that for, Sakura
     // Empire torpedo bombers and rocket-armed fighters are the named preference.
     if (preferSlowSynergy) {
@@ -2767,7 +2831,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
         const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
         const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
         const slotFactor = (slot.mount || 1) * efficiency;
-        score = weaponScoreForShip(item, damage, itemEffective, barragePerVolley, slotFactor);
+        score = weaponScoreForShip(item, damage, itemEffective, barragePerVolley, slotFactor, ship, slotKey);
         if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
           if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
         }
@@ -3215,6 +3279,7 @@ function renderCombatMetrics(ship, effective) {
         notes.push(hasBuiltInWeapons(ship)
           ? "Empty slots count as the ship's built-in weapon."
           : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
+        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes a reference target with ${CRIT_REFERENCE_EVASION} Evasion and ${CRIT_REFERENCE_LUCK} Luck, since this app has no enemy data.`);
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
         }

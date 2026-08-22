@@ -3100,6 +3100,99 @@ after the final edit.
   Full 888-ship regression - open, Optimize, close - at 0 errors, run once right after the
   data patch and again after the `bestAircraftForSlot` fix.
 
+  #### Crit Rate, Crit DMG and DMG Dealt now multiply a slot's damage too (2026-08-22)
+
+  The last of the three modifier types that were extracted, pilled, and never wired into
+  DPS at all (weaponEfficiency was fixed above) — Ägir, Jean Bart, Murmansk, Pensacola,
+  Richelieu, Tallinn and Zara each carry an equip-gated critRate/critDamage/damageDealt
+  bonus and none of it ever changed a number. 388 self-scope bonuses across the dataset
+  use one of these three keys (70 critRate, 296 damageDealt, 22 critDamage) — most
+  unconditional, some equip-gated like the seven ships above, some Hunter-type ("DMG
+  dealt to Destroyers", 151 of the 296 damageDealt entries carry a `target`).
+
+  **Formula, straight off the Damage Calculations page's Critical Hits and Final Damage
+  Dealt sections**: `CriticalRate = 0.05 + Hit/(Hit+TargetEvasion+2000) +
+  (Luck-TargetLuck+LevelDiff)/5000 + sum(CriticalRateBuffs)`, clamped [0,1];
+  `CriticalModifier (averaged over many hits) = 1 + CriticalRate * (0.5 +
+  sum(CriticalDMGBuffs))`; DMG Dealt is a separate, simpler multiplier,
+  `1 + sum(DamageDealtBuffs)`. `weaponDamageMultiplier(effective, ship, slotKey, item)`
+  computes both and returns their product; `slotDamage` and `weaponScoreForShip` both
+  multiply by it, the same "optimiser and display must agree" rule every prior DPS term
+  here has followed.
+
+  **TargetEvasion/TargetLuck need an enemy this app has no source for — the same gap eHP
+  already solved.** `CRIT_REFERENCE_EVASION = 100` / `CRIT_REFERENCE_LUCK = 0` mirror
+  `EHP_REFERENCE_ACCURACY`/`EHP_REFERENCE_LUCK` exactly: a named, disclosed stand-in, not
+  a real enemy, so the number is comparative between ships rather than what the game
+  would show for a specific target. Disclosed in the combat-metric tooltip alongside the
+  existing built-in-weapon and volley-barrage notes.
+
+  **A target-qualified bonus is skipped outright** (`if (modifier.target) continue;`) —
+  Alvitr's "DMG Dealt +15% to Light Armor enemies" can't be verified against an armor
+  type this app doesn't track per-target, so it's treated the same conservative way as
+  every other unmodelable Hunter bonus, rather than assumed to always apply. A
+  `Burn`/`Barrage`-sourced bonus (2 ships) also contributes nothing: `weaponModifierApplies`
+  (factored out of `weaponEfficiencyBonus`'s old per-slot source matching, now shared by
+  both) only recognizes gun/torpedo/AA/aircraft source words, so neither term matches and
+  the bonus is silently excluded rather than misapplied to a slot's raw gun damage.
+
+  **A real, pre-existing bug surfaced while verifying the exact ships this was built
+  for.** Ägir's optimizer-picked main gun has `ammoType: "APB"`, and her skill's condition
+  ("If this ship is equipped with a **Normal or AP** main gun: +12% Crit Rate") was
+  testing `wanted.has(item.ammoType.toUpperCase())` — an exact string match that rejects
+  every AP variant the catalog actually uses (`AP+`, `APB`, `APC`, `APK`, `APM`, `APMKD`,
+  `AP^`), so her bonus silently never applied to ANY AP-family gun, not just this one.
+  This predates today's change — `equipConditionAllows` already used the same exact match
+  for gating the pill display — but it only became visible once seeking for this bonus
+  actually mattered. Fixed with `ammoTypeFamily(ammoType)` (strips the variant suffix,
+  keeping the leading AP/HE/SAP/Normal family) used in place of the raw string compare.
+
+  **`shipHasSeekableEquipGate` widened** to also recognize critRate/critDamage/damageDealt
+  as seekable (alongside NUMERIC_STAT_KEYS and weaponEfficiency from the entry above) —
+  this is what makes Optimize actually try each candidate gun's ammo type/nation/name
+  against the seven ships' own conditions via the existing `weaponCandidateEffective`
+  simulation, rather than only ever scoring against whatever happened to be equipped
+  before Optimize ran.
+
+  **Verified end to end on Ägir specifically**, since her skill has three independent
+  equip-gated branches (Normal-or-AP → Crit Rate, HE → DMG Dealt, high-caliber → Weapon
+  Efficiency) plus an unconditional "DMG to Sirens" pill with a target — the single
+  hardest case in the dataset to get right. Hand-computed the whole formula from her own
+  `effective.stats.accuracy`/`.luck` and modifier list outside the app's own function and
+  got the identical multiplier (1.0954895104895104) to the digit: her AP-family gun
+  correctly unlocks the +12% Crit Rate branch, correctly does NOT unlock the HE-gated DMG
+  Dealt branch, and her unconditional "DMG to Sirens" bonus is correctly excluded for
+  carrying a `target`.
+
+  **Dataset-wide, measured against the true previous state** (same picks compared,
+  before vs. after, via `git stash` on `app.js` alone): 884 of 888 ships' displayed DPS
+  changes (883 up, 1 down — even a ship with no skill bonus at all now shows the
+  documented base 5% Crit Rate / 50% Crit DMG, previously silently 0), roster-wide
+  surface DPS **+8.39%**, and only **4 ships' Optimize picks change at all** — the
+  mechanism mostly makes already-correct picks show their true damage rather than
+  picking anything new, the same honest "confirmed live, rarely changes the winner"
+  result the equip-gated efficiency work above found for its own 4 ships. The single
+  biggest riser, Warspite, carries an unconditional, uncapped "+130% DMG dealt" bonus
+  that was simply inert before — not a bug, a real skill this app had never been able to
+  show the effect of.
+
+  **The one ship whose DPS drops, Kimberly META, is a real second-order interaction, not
+  a scoring mistake.** She carries no equip-gated bonus at all — her +10% Crit Rate and
+  +6% DMG Dealt apply as the same constant multiplier to every candidate in her main gun
+  slot, so they can't flip a ranking on their own. What flips it: she also fires a
+  volley-triggered barrage (`barragePerVolley`), which is added to a candidate's score
+  as a flat, UN-multiplied term (per the existing "barrage is one fixed pattern neither
+  mounts/efficiency/stat touches" rule) alongside the now-larger, multiplied gun-damage
+  term. Scaling up the gun term without touching the barrage term shifts their relative
+  weight, which is enough to swap her optimal gun. This is the same class of gap this
+  file already defers under "the real fix is the whole-loadout search" — the wiki's own
+  formula says Crit/DMG Dealt should apply to barrage damage too, and not applying it
+  there is an inconsistency this change introduces without chasing further, same as
+  Chen Hai's cross-slot case above.
+
+  Full 888-ship regression (open, Optimize, close) at 0 errors, 0 non-finite or negative
+  combat-metric values across all four figures on every ship.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)
