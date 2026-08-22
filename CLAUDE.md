@@ -3033,6 +3033,73 @@ after the final edit.
   (built-in weapons, no gear equipped) and correctly skips her AA slot. Full 888-ship
   regression - open, Optimize, close - at 0 errors.
 
+  #### The three unmapped efficiency bonuses, patched at the data layer plus three named exceptions (2026-08-22)
+
+  Bataan, Béarn and Graf Zeppelin's own efficiency bonuses had `stats: []` and an `unmapped`
+  field instead of `weaponEfficiency` - the original extraction script's phrase-matcher
+  expects a source term to sit right before "efficiency" ("Main Gun efficiency"), and none of
+  these three do: "fighter efficiency" names a word (`fighter`) the source vocabulary doesn't
+  have, "slot efficiency" (Béarn) names no category at all, and "efficiency of this ship's
+  aircraft slots" (Graf Zeppelin) puts its category word AFTER "efficiency" instead of before.
+
+  **Data fix, the same one-off-script-plus-diff convention every prior statBonuses patch in
+  this file has used**: added `"stats": ["weaponEfficiency"]` and removed the now-stale
+  `unmapped` entry on the exact 4 bonus objects (Bataan x1, Béarn x1, Graf Zeppelin x2 for the
+  base and "+" skill) in `data/ships.json`, regenerated `data/ships.js` identically, diffed
+  the whole file before writing back - **only those 4 objects changed**, confirmed by `git
+  diff` reading as a clean 4-hunk change plus nothing else.
+
+  **Getting a `source` out of these three still needed code, and generalizing
+  `modifierQualifier` for them was rejected as too risky.** That function derives the pill
+  label for every modifier type on every ship, not just these three - stretching its
+  TERM-before/after regex to also catch "fighter" or to search the text after "efficiency"
+  when before comes up empty risks changing some OTHER ship's already-correct Crit Rate or
+  Hit Rate pill as a side effect, for a shape that doesn't even generalize across these three
+  bonuses to begin with. `WEAPON_EFFICIENCY_OVERRIDE_BY_SKILL` instead keys the three skill
+  names directly to a predicate `(ship, slotKey, item, role) => boolean`, checked in
+  `weaponEfficiencyBonus` before falling through to the normal source-string parsing - the
+  same "named exception over a stretched general rule" instinct this project has used
+  throughout (Béarn and Seattle's own "third slot"/"secondary weapon slot" equip-condition
+  branches are the direct precedent).
+
+  Read each ship's actual equip condition before writing its predicate, rather than guessing
+  from the bonus text alone:
+  - **Bataan** - "If equipped with an F6F Hellcat" (a named-item condition, already handled by
+    `parseEquipCondition`'s fuzzy catalog match) - the predicate is `item.category ===
+    "Fighter"`, since the bonus text says "fighter efficiency" applies broadly once any
+    Hellcat is equipped, not only to the Hellcat itself.
+  - **Graf Zeppelin** - "When this ship is equipped with at least one Iron Blood aircraft" -
+    the predicate is `role.stat === "aviation"`, matching every aircraft category, per "this
+    ship's aircraft slots" (plural, unqualified).
+  - **Béarn** - "If this ship's third slot is equipped with a gun" - the predicate is
+    `slotKey === "3"` outright. Her own slot 3 accepts either a CL Gun or a Dive Bomber
+    (a hybrid slot), and the condition only ever produces this modifier when a GUN is actually
+    there - so by the time the predicate runs, the gate has already resolved to true for
+    exactly that slot; the predicate does not need to re-check what occupies it.
+
+  **Carrier aircraft scoring had no `slotFactor` at all until this landed**, which is why the
+  first verification pass showed `bonusPercent: 30` on a simulated Hellcat but Optimize still
+  never picked one - `bestAircraftForSlot` computed a score with `weaponScoreForShip(item,
+  damage, itemEffective)`, three arguments, mounts and efficiency silently defaulting to 1
+  inside that function. Added the same `slotFactor` computation the general per-slot loop and
+  `slotDamage` already use. This is a real, if narrow, scope expansion beyond "wire in the
+  three ships' bonuses" - every carrier's aircraft picks now also account for a slot's own
+  gear efficiency and mount count for the first time, not just a skill bonus - but doing it
+  partially (skill bonus only, still ignoring gear efficiency) would have left the same kind
+  of display/optimizer disagreement this file has flagged as a bug every other time it's
+  appeared.
+
+  **None of the three ships' final Optimize pick actually changes** - verified directly
+  rather than inferred: equipping Bataan's Grumman F6F Hellcat by hand does unlock +30%
+  efficiency (score 515 vs. 557 for her un-bonused Prototype fighter), but the Prototype's
+  own higher raw damage still wins outright. Same shape as the four ships in the entry above -
+  the mechanism is confirmed live (Graf Zeppelin's Iron Blood fighter reaches both her aircraft
+  slots at +30% each; Béarn's gun-in-slot-3 reaches only slot 3, +45%, and leaves her fighter
+  slot at 0%), it simply doesn't happen to move any of these three ships' current best pick.
+
+  Full 888-ship regression - open, Optimize, close - at 0 errors, run once right after the
+  data patch and again after the `bestAircraftForSlot` fix.
+
   **Still open, in order**:
   1. The DPS half of step 1: implement each category's own DPS/reload formula separately
      (Guns/Torpedoes, Airstrike/aircraft, AA Guns, ASW each need their own — see above)

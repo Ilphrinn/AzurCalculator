@@ -1730,6 +1730,20 @@ function weaponRole(item) {
 // built-in weapons the same way. A compound source ("Main Gun and Torpedo") applies
 // wherever either half matches; sources this dataset never produces (Aircraft, Cannon)
 // are left unmatched rather than guessed at.
+// Three bonuses read as "unmapped" at extraction time because their text doesn't fit the
+// TERM-before/after-"efficiency" shape modifierQualifier expects at all - "fighter
+// efficiency" names no recognized source word, "efficiency of this ship's aircraft slots"
+// puts the category after "efficiency" instead of before, and Béarn's "ITS efficiency"
+// refers back to whichever slot her own equip condition names (slot 3), not a category.
+// Named directly rather than stretching modifierQualifier to cover three unrelated shapes
+// and risking every other modifier type's pill label along with them.
+const WEAPON_EFFICIENCY_OVERRIDE_BY_SKILL = {
+  "Hellcat's Roar": (ship, slotKey, item, role) => item.category === "Fighter",
+  "Iron Blood Hawk": (ship, slotKey, item, role) => role.stat === "aviation",
+  "Iron Blood Hawk+": (ship, slotKey, item, role) => role.stat === "aviation",
+  "Sacrament: Holy Bombardment": (ship, slotKey) => slotKey === "3",
+};
+
 function weaponEfficiencyBonus(effective, ship, slotKey, item) {
   const role = weaponRole(item);
   if (!role || !effective) return 0;
@@ -1737,6 +1751,11 @@ function weaponEfficiencyBonus(effective, ship, slotKey, item) {
   let bonus = 0;
   for (const modifier of effective.modifiers) {
     if (modifier.key !== "weaponEfficiency") continue;
+    const override = modifier.sources.map(s => WEAPON_EFFICIENCY_OVERRIDE_BY_SKILL[s.skill.name]).find(Boolean);
+    if (override) {
+      if (override(ship, slotKey, item, role)) bonus += modifier.amount;
+      continue;
+    }
     const parts = modifier.source.toLowerCase().split(/\s+and\s+/).map(p => p.trim());
     const applies = parts.some(part => {
       if (part === "main gun") return role.stat === "firepower" && slotKey === mainGunKey;
@@ -2568,7 +2587,10 @@ function bestAircraftForSlot(ship, slotKey, slot, categories, effective, filterI
     const damage = equipmentOptimizeScore(item);
     if (damage === null) continue;
     const itemEffective = seekEquipGate ? weaponCandidateEffective(ship, slotKey, item, level) : effective;
-    let score = weaponScoreForShip(item, damage, itemEffective);
+    const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
+    const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
+    const slotFactor = (slot.mount || 1) * efficiency;
+    let score = weaponScoreForShip(item, damage, itemEffective, 0, slotFactor);
     // When this ship can actually slow the enemy her torpedoes need that for, Sakura
     // Empire torpedo bombers and rocket-armed fighters are the named preference.
     if (preferSlowSynergy) {
