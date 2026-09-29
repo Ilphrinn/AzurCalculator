@@ -420,6 +420,23 @@ textarea {
   font-size: 0.6rem;
 }
 
+/* Sort control: a pixel "sort" glyph (shrinking bars, down arrow) instead of the words, which stay
+   in the markup for screen readers and the tooltip. */
+.sort-label {
+  display: inline-flex;
+  align-items: center;
+  align-self: stretch;
+  padding: 0 0.55rem;
+}
+
+.sort-label::before {
+  content: "";
+  width: 22px;
+  height: 16px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 11 8' shape-rendering='crispEdges' fill='%23e8edf7'><path d='M1 0h1v6H1zM0 5h3v1H0zM1 6h1v1H1zM4 0h7v1H4zM4 3h5v1H4zM4 6h3v1H4z'/></svg>") center / 22px 16px no-repeat;
+  image-rendering: pixelated;
+}
+
 .chip {
   padding: 0.28rem 0.65rem;
   border: 1px solid var(--border);

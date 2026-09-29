@@ -57,7 +57,10 @@ que le projet originel" meant this app's colours, not the hub's orange). What ca
 - **Header labels over the sea**: RARITY/NATION/SORT BY/RESEARCH sit on dark framed plates
   (`.filter-group-label`, matching the chips). A brighter colour plus a text halo was tried
   first and was still unreadable on the light crests - only an opaque plate is independent of
-  what scrolls behind. "Sort by" is wrapped in a `.sort-label` span for this. It is skipped below 220 cells (880px), where it
+  what scrolls behind. "Sort by" then became an icon on request: `.sort-label` draws a pixel
+  sort glyph (shrinking bars and a down arrow) in `::before`, with the words kept in a
+  visually hidden span and the `title`. A sort glyph rather than a funnel, since the menu
+  sorts and does not filter. It is skipped below 220 cells (880px), where it
   would land on the title and controls.
 - **Faction watermark contrast** (reported unreadable on some strips): opacity 0.14 -> 0.4
   plus a dark `drop-shadow` rim. White alone washed out on the light nation tints (Royal
