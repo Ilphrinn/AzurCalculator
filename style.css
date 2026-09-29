@@ -1,9 +1,35 @@
+/* Self-hosted, never Google Fonts. JetBrains Mono ships only 400 and 500, so the 500 file also
+   serves every bolder weight rather than letting the browser synthesise a smeared faux bold. */
 @font-face {
-  font-family: "Raleway";
+  font-family: "JetBrains Mono";
   font-style: normal;
-  font-weight: 400 800;
+  font-weight: 100 400;
   font-display: optional;
-  src: url("assets/fonts/raleway-latin.woff2") format("woff2");
+  src: url("assets/fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500 900;
+  font-display: optional;
+  src: url("assets/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+  src: url("assets/fonts/silkscreen-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 700;
+  font-display: optional;
+  src: url("assets/fonts/silkscreen-latin-700-normal.woff2") format("woff2");
 }
 
 :root {
@@ -23,64 +49,174 @@
   --rarity-priority: #ff9f5a;
   --rarity-ultra: #ff6ec7;
   --rarity-decisive: #ff5d5d;
+
+  --hairline: color-mix(in srgb, var(--accent) 18%, transparent);
+  --hairline-strong: color-mix(in srgb, var(--accent) 45%, transparent);
+  --font-pixel: "Silkscreen", "Courier New", monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+  color-scheme: dark;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: "Raleway", "Segoe UI", Roboto, system-ui, sans-serif;
+html {
   background: var(--bg);
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  background:
+    var(--dither-halo, radial-gradient(ellipse 80% 50% at 70% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%)) 0 0 / var(--dither-halo-size, 100% 100%) no-repeat,
+    repeating-conic-gradient(color-mix(in srgb, var(--accent) 5%, transparent) 0% 25%, transparent 0% 50%) 0 0 / 3px 3px,
+    var(--bg);
+  background-attachment: fixed;
+  image-rendering: pixelated;
   color: var(--text);
 }
 
-/* Deliberately WebKit-prefixed, since the standards-track scrollbar-width/color can't draw custom
-   arrow buttons and this app only runs in Chromium. There is no :hover rule for the thumb -
-   customising it at all already removes the browser's own hover-darken effect on an unstyled scrollbar. */
+/* The dithered backgrounds are drawn at a quarter size and scaled up nearest-neighbour; resetting
+   right below each of them keeps ship art and icons from inheriting that sampling. */
+body > *,
+.modal-info > *,
+.modal-heading > * {
+  image-rendering: auto;
+}
+
+/* Film grain tinted to the accent; the data: URI is allowed by the CSP's img-src. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .31 0 0 0 0 .76 0 0 0 0 .97 0 0 0 1.2 -.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Pixel scrollbars: dotted track, bevelled square thumb and stepped arrows on both axes. WebKit-
+   prefixed because the standard scrollbar-color cannot draw arrow buttons, and this app runs in
+   Chromium. There is deliberately no :hover rule, so the thumb never changes under the cursor. */
 ::-webkit-scrollbar {
-  width: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-elevated);
+  background:
+    repeating-conic-gradient(color-mix(in srgb, var(--accent) 14%, transparent) 0% 25%, transparent 0% 50%) 0 0 / 4px 4px,
+    var(--bg);
+}
+
+::-webkit-scrollbar-track:vertical {
+  box-shadow: inset 1px 0 0 var(--hairline-strong);
+}
+
+::-webkit-scrollbar-track:horizontal {
+  box-shadow: inset 0 1px 0 var(--hairline-strong);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border: 3px solid var(--bg-elevated);
-  border-radius: 8px;
+  border: 2px solid transparent;
+  background: color-mix(in srgb, var(--accent) 45%, var(--bg-elevated)) padding-box;
+  box-shadow:
+    inset 2px 2px 0 color-mix(in srgb, var(--accent) 85%, white),
+    inset -2px -2px 0 color-mix(in srgb, var(--accent) 25%, var(--bg));
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-button {
   display: block;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background-color: var(--bg-elevated);
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 10px 6px;
+  box-shadow: inset 1px 1px 0 var(--hairline-strong), inset -1px -1px 0 var(--bg);
+}
+
+/* Chromium also draws a second pair of buttons beside each arrow unless told not to. */
+::-webkit-scrollbar-button:start:increment,
+::-webkit-scrollbar-button:end:decrement {
+  display: none;
+}
+
+::-webkit-scrollbar-button:horizontal {
+  background-size: 6px 10px;
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M5 0L10 6H0Z' fill='%238a97b3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3' shape-rendering='crispEdges' fill='%234fc3f7'><path d='M2 0h1v1H2zM1 1h3v1H1zM0 2h5v1H0z'/></svg>");
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:increment {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0H10L5 6Z' fill='%238a97b3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3' shape-rendering='crispEdges' fill='%234fc3f7'><path d='M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z'/></svg>");
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 5' shape-rendering='crispEdges' fill='%234fc3f7'><path d='M0 2h1v1H0zM1 1h1v3H1zM2 0h1v5H2z'/></svg>");
+}
+
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 5' shape-rendering='crispEdges' fill='%234fc3f7'><path d='M0 0h1v5H0zM1 1h1v3H1zM2 2h1v1H2z'/></svg>");
 }
 
 .topbar {
   position: sticky;
   top: 0;
   z-index: 10;
-  background:
-    linear-gradient(180deg, rgba(6, 10, 20, 0.88) 0%, rgba(11, 17, 32, 0.96) 75%, var(--bg) 100%),
-    url("assets/header-background.jpg");
-  background-size: cover;
-  background-position: center 30%;
-  border-bottom: 1px solid var(--border);
+  background: url("assets/header-background.jpg") center 30% / cover;
+  border-bottom: 1px solid var(--hairline-strong);
   padding: 0.9rem 2rem 0.75rem;
-  backdrop-filter: blur(6px);
+}
+
+/* The dark veil over the header art, on its own layer so only the veil is sampled as pixels. */
+.topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--dither-topbar, linear-gradient(180deg, rgba(6, 10, 20, 0.88) 0%, rgba(11, 17, 32, 0.96) 75%, var(--bg) 100%)) 0 0 / var(--dither-topbar-size, 100% 100%) no-repeat;
+  image-rendering: pixelated;
+}
+
+/* The field sits between the header art and its content; the art itself is fully opaque, so the
+   backdrop blur the header used to carry had nothing to blur and was dropped. */
+#field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  image-rendering: pixelated;
+  opacity: 0.7;
+}
+
+.topbar > :not(#field) {
+  position: relative;
+  z-index: 1;
 }
 
 .topbar-inner {
@@ -95,7 +231,6 @@ body {
   border: none;
   padding: 0;
   cursor: pointer;
-  border-radius: 50%;
   line-height: 0;
 }
 
@@ -122,11 +257,47 @@ body {
 
 .brand-text h1 {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-family: var(--font-pixel);
+  font-size: clamp(1.1rem, 5vw, 1.7rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-shadow: 0 0 22px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* Silkscreen has no Greek, so the alpha keeps the body face rather than a random fallback. */
+.title-tag {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.8em;
+  text-transform: none;
   color: var(--gold);
-  text-shadow: 0 0 18px rgba(244, 211, 94, 0.35);
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.eyebrow a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.eyebrow a:hover,
+.eyebrow a:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.eyebrow-dim {
+  color: var(--text-muted);
 }
 
 .controls {
@@ -152,42 +323,62 @@ body {
   border: 0;
 }
 
+.control-label {
+  position: relative;
+}
+
+/* The hub's "> query" prompt, drawn in CSS so the markup stays a plain labelled input. */
+.control-label::before {
+  content: ">";
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-weight: 500;
+  pointer-events: none;
+}
+
 .search-box {
   width: 100%;
   max-width: 360px;
-  padding: 0.55rem 0.9rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg);
+  padding: 0.55rem 0.9rem 0.55rem 1.8rem;
+  border: 1px solid var(--hairline-strong);
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
+  caret-color: var(--accent);
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.search-box:focus {
+.search-box::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.search-box:focus,
+.sort-control select:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 0 24px color-mix(in srgb, var(--accent) 25%, transparent);
 }
 
 .sort-control {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  gap: 0.6rem;
 }
 
 .sort-control select {
   padding: 0.5rem 0.7rem;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--hairline-strong);
   background: var(--bg);
   color: var(--text);
-  font-size: 0.9rem;
-}
-
-.sort-control select:focus {
-  outline: none;
-  border-color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: normal;
+  text-transform: none;
+  text-shadow: none;
 }
 
 .filters {
@@ -204,26 +395,37 @@ body {
   gap: 0.4rem;
 }
 
+/* The header labels sit on the animated sea, whose light crests defeat any text colour alone, so
+   each one gets its own dark plate framed like the chips beside it. */
 .filter-group-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
   min-width: 90px;
+  padding: 0.32rem 0.5rem;
+  border: 1px solid var(--hairline-strong);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  font-family: var(--font-pixel);
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+
+.filter-subgroup-label,
+.sort-label {
+  min-width: 0;
 }
 
 .filter-subgroup-label {
-  font-size: 0.65rem;
-  min-width: 0;
+  font-size: 0.6rem;
 }
 
 .chip {
   padding: 0.28rem 0.65rem;
-  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-muted);
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   cursor: pointer;
   transition: all 0.12s ease;
 }
@@ -280,14 +482,14 @@ body {
 
 .category-label {
   padding: 0.28rem 0.7rem;
-  border-radius: 6px;
   border: 1px solid var(--gold);
   background: transparent;
   color: var(--gold);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-family: var(--font-pixel);
+  font-size: 0.65rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.12em;
   cursor: pointer;
   transition: all 0.12s ease;
 }
@@ -303,7 +505,7 @@ body {
 }
 
 .category-sep {
-  color: var(--border);
+  color: var(--text-muted);
   font-size: 0.9rem;
   margin: 0 0.15rem;
   user-select: none;
@@ -330,9 +532,8 @@ body {
   max-width: 320px;
   padding: 0.6rem;
   background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 4px 4px 0 var(--hairline-strong);
 }
 
 .subfaction-panel[hidden] {
@@ -349,35 +550,92 @@ main[aria-busy="true"] {
   visibility: hidden;
 }
 
+/* "// 888 CHARACTERS" followed by a hairline rule, the hub's section heading. */
 .count {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
   min-height: 1.2rem;
-  color: var(--text-muted);
-  font-size: 0.85rem;
   margin: 0 0 1rem;
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
+.count::before {
+  content: "//";
+  color: var(--accent);
+}
+
+.count::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+/* The min-height reserves the viewport against layout shift while cards load; align-content keeps
+   a short filtered result from stretching its one row down to fill it. */
 .grid {
   min-height: 100vh;
   display: grid;
+  align-content: start;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 1rem;
 }
 
+/* Hub card: square hairline frame, bracket corners top-left and bottom-right, and on hover a lift
+   with a hard offset shadow and a dotted fill. */
 .card {
+  --bracket: var(--hairline-strong);
   position: relative;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: transform 0.12s ease, border-color 0.12s ease;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  border-color: var(--accent);
+.card::before,
+.card::after,
+.modal::before,
+.modal::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--bracket);
+  pointer-events: none;
+  transition: border-color 0.15s ease;
+}
+
+.card::before {
+  top: -1px;
+  left: -1px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.card::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.card:hover,
+.card:focus-within {
+  --bracket: var(--gold);
+  transform: translate(-2px, -2px);
+  border-color: var(--hairline-strong);
+  background:
+    repeating-conic-gradient(color-mix(in srgb, var(--accent) 12%, transparent) 0% 25%, transparent 0% 50%) 0 0 / 3px 3px,
+    var(--card-bg);
+  box-shadow: 4px 4px 0 var(--accent);
 }
 
 .card-activate {
@@ -385,19 +643,24 @@ main[aria-busy="true"] {
   inset: 0;
   z-index: 1;
   border: 0;
-  border-radius: inherit;
   background: transparent;
   cursor: pointer;
 }
 
 .card-activate:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
+  outline: none;
 }
 
 .card .rarity-strip {
-  height: 5px;
+  height: 4px;
   background: var(--border);
+}
+
+/* A rarity change on retrofit hands over through a band of 2px checker instead of a blend. */
+.card .rarity-strip.rarity-shift {
+  background:
+    linear-gradient(90deg, var(--strip-from) 0 40%, transparent 40% 60%, var(--strip-to) 60%),
+    repeating-conic-gradient(var(--strip-from) 0% 25%, var(--strip-to) 0% 50%) 0 0 / 4px 4px;
 }
 
 .card .thumb-wrap {
@@ -437,7 +700,6 @@ main[aria-busy="true"] {
   right: 6px;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
   background: rgba(11, 17, 32, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.25);
   display: flex;
@@ -458,8 +720,8 @@ main[aria-busy="true"] {
 }
 
 .card .name {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 500;
   line-height: 1.25;
   white-space: nowrap;
   overflow: hidden;
@@ -468,7 +730,7 @@ main[aria-busy="true"] {
 
 .card .meta {
   margin-top: 0.15rem;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
@@ -504,16 +766,30 @@ main[aria-busy="true"] {
 }
 
 .modal {
+  --bracket: var(--gold);
   position: relative;
   display: flex;
   width: 90vw;
   height: 90vh;
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 6px 6px 0 var(--hairline-strong), 0 20px 60px rgba(0, 0, 0, 0.5);
   animation: modal-pop-in 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.2);
   overflow: hidden;
+}
+
+.modal::before {
+  top: 0;
+  left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.modal::after {
+  bottom: 0;
+  right: 0;
+  border-left: 0;
+  border-top: 0;
 }
 
 @keyframes modal-pop-in {
@@ -528,8 +804,7 @@ main[aria-busy="true"] {
   z-index: 2;
   width: 34px;
   height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--hairline-strong);
   background: rgba(4, 7, 15, 0.55);
   color: var(--text);
   font-size: 1.3rem;
@@ -543,7 +818,8 @@ main[aria-busy="true"] {
 
 .modal-close:hover {
   background: rgba(4, 7, 15, 0.85);
-  transform: scale(1.08);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .modal-image-col {
@@ -553,7 +829,6 @@ main[aria-busy="true"] {
   display: flex;
   flex-direction: column;
   background: var(--bg);
-  border-radius: 14px 0 0 14px;
   overflow: hidden;
 }
 
@@ -581,7 +856,6 @@ main[aria-busy="true"] {
   left: 0.6rem;
   bottom: 0.6rem;
   padding: 0.25rem 0.6rem;
-  border-radius: 999px;
   background: rgba(4, 7, 15, 0.65);
   color: var(--text);
   font-size: 0.72rem;
@@ -606,7 +880,6 @@ main[aria-busy="true"] {
   flex-shrink: 0;
   width: 42px;
   height: 42px;
-  border-radius: 6px;
   overflow: hidden;
   border: 2px solid var(--border);
   cursor: pointer;
@@ -636,8 +909,10 @@ main[aria-busy="true"] {
   height: 100%;
   min-width: 0;
   overflow-y: auto;
-  background: linear-gradient(165deg, color-mix(in srgb, var(--modal-rarity-color, var(--border)) 55%, var(--card-bg)) 0%, var(--card-bg) 95%);
-  transition: background 0.25s ease;
+  background:
+    var(--dither-info, linear-gradient(165deg, color-mix(in srgb, var(--modal-rarity-color, var(--border)) 55%, var(--card-bg)) 0%, var(--card-bg) 95%)) 0 0 / var(--dither-info-size, 100% 100%) no-repeat,
+    var(--card-bg);
+  image-rendering: pixelated;
 }
 
 .modal-info-scroll {
@@ -653,12 +928,16 @@ main[aria-busy="true"] {
   align-items: center;
   gap: 0.55rem;
   padding: 0.55rem 1rem;
-  background: linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--modal-nation-color, var(--border)) 55%, transparent) 100%), var(--card-bg);
+  background:
+    var(--dither-heading, linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--modal-nation-color, var(--border)) 55%, transparent) 100%)) 0 0 / var(--dither-heading-size, 100% 100%) no-repeat,
+    var(--card-bg);
+  image-rendering: pixelated;
   border: 1px solid var(--border);
-  border-radius: 8px;
   overflow: hidden;
 }
 
+/* White silhouette with a dark rim: the rim is what keeps it readable on the light nation tints
+   (Royal Navy gold, the grey collabs), where white alone washes out. */
 .modal-nation-watermark {
   position: absolute;
   top: 50%;
@@ -668,8 +947,8 @@ main[aria-busy="true"] {
   width: auto;
   max-width: 55%;
   object-fit: contain;
-  opacity: 0.14;
-  filter: brightness(0) invert(1);
+  opacity: 0.4;
+  filter: brightness(0) invert(1) drop-shadow(0 0 1px #000) drop-shadow(0 0 3px rgba(0, 0, 0, 0.7));
   pointer-events: none;
 }
 
@@ -680,7 +959,11 @@ main[aria-busy="true"] {
 .modal-heading h2 {
   position: relative;
   margin: 0;
-  font-size: 1.4rem;
+  font-family: var(--font-pixel);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--modal-rarity-color, var(--gold));
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5);
 }
@@ -705,7 +988,6 @@ main[aria-busy="true"] {
 
 .modal-tag {
   padding: 0.3rem 0.7rem;
-  border-radius: 999px;
   border: 1px solid var(--border);
   font-size: 0.78rem;
   color: var(--text-muted);
@@ -727,7 +1009,6 @@ main[aria-busy="true"] {
   gap: 0.45rem;
   width: fit-content;
   padding: 0.35rem 0.7rem;
-  border-radius: 999px;
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
@@ -764,7 +1045,6 @@ main[aria-busy="true"] {
   height: 12px;
   min-width: 12px;
   margin: 0;
-  border-radius: 50%;
   border: 1.5px solid currentColor;
   background: transparent;
   cursor: pointer;
@@ -774,6 +1054,7 @@ main[aria-busy="true"] {
 .augment-checkbox input:checked,
 .fatesim-checkbox input:checked {
   background: currentColor;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .toggle-row {
@@ -793,8 +1074,11 @@ main[aria-busy="true"] {
 }
 
 .modal-level-control-label {
-  font-size: 0.8rem;
-  font-weight: 700;
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   color: var(--text);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5);
   white-space: nowrap;
@@ -807,7 +1091,6 @@ main[aria-busy="true"] {
 
 .level-notch {
   padding: 0.3rem 0.65rem;
-  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-muted);
@@ -835,7 +1118,6 @@ main[aria-busy="true"] {
 .level-input {
   width: 4.2rem;
   padding: 0.3rem 1.05rem 0.3rem 0.5rem;
-  border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
@@ -871,38 +1153,58 @@ main[aria-busy="true"] {
   min-height: 0;
   padding: 0;
   border: none;
-  border-radius: 2px;
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 8px 5px;
+  background-size: 10px 6px;
   cursor: pointer;
 }
 
 .level-spin-up {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M5 0L10 6H0Z' fill='%238a97b3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3' shape-rendering='crispEdges' fill='%234fc3f7'><path d='M2 0h1v1H2zM1 1h3v1H1zM0 2h5v1H0z'/></svg>");
 }
 
 .level-spin-down {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0H10L5 6Z' fill='%238a97b3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 3' shape-rendering='crispEdges' fill='%234fc3f7'><path d='M0 0h5v1H0zM1 1h3v1H1zM2 2h1v1H2z'/></svg>");
 }
 
 /* No single flat text colour stays legible against every rarity-tinted gradient background - a dark
    halo behind bright text works against any backdrop instead, the standard "text over a photo" fix.
    text-shadow inherits, so nested hint text picks it up for free. */
 .modal-section-title {
+  display: flex;
+  align-items: center;
   margin: 0 0 0.5rem;
+  font-family: var(--font-pixel);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.2em;
   color: var(--text);
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85), 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.modal-section-title-row {
-  display: flex;
-  align-items: center;
+/* "// STATS" then a hairline running to the edge, the hub's section heading. Controls in a title
+   row are ordered after the rule so it stops short of them instead of running underneath. */
+.modal-section-title::before {
+  content: "//";
+  margin-right: 0.7em;
+  color: var(--accent);
+}
+
+.modal-section-title::after {
+  content: "";
+  order: 1;
+  flex: 1;
+  height: 1px;
+  margin-left: 0.8rem;
+  background: var(--hairline-strong);
+}
+
+.modal-section-title-row > .equip-tools,
+.modal-section-title-row > .max-level-toggle {
+  order: 2;
+  margin-left: 0.8rem;
 }
 
 .modal-section-title-row .max-level-toggle {
@@ -926,7 +1228,6 @@ main[aria-busy="true"] {
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
-  border-radius: 8px;
   overflow: hidden;
   width: fit-content;
 }
@@ -947,7 +1248,7 @@ main[aria-busy="true"] {
   display: flex;
   align-items: center;
   gap: 0.22rem;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   color: var(--text-muted);
   white-space: nowrap;
   flex-shrink: 0;
@@ -963,7 +1264,7 @@ main[aria-busy="true"] {
   font-weight: 700;
   color: var(--text);
   white-space: nowrap;
-  width: 7.6rem;
+  width: 8.8rem;
 }
 
 .stat-grid-real {
@@ -984,7 +1285,6 @@ main[aria-busy="true"] {
   background: var(--bg);
   border: 1px solid var(--border);
   border-left: 3px solid var(--skill-color, var(--border));
-  border-radius: 8px;
 }
 
 .skill-item.skill-offense { --skill-color: #ff6b6b; }
@@ -999,7 +1299,6 @@ main[aria-busy="true"] {
 .skill-icon {
   width: 36px;
   height: 36px;
-  border-radius: 6px;
   flex-shrink: 0;
   object-fit: cover;
 }
@@ -1028,10 +1327,9 @@ main[aria-busy="true"] {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.1rem 0.45rem;
-  border-radius: 999px;
   color: #0b1120;
   background: var(--skill-color, var(--text-muted));
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .skill-type-tag.skill-type-aug {
@@ -1047,14 +1345,14 @@ main[aria-busy="true"] {
   margin-left: auto;
   flex-shrink: 0;
   padding: 0.15rem 0.5rem;
-  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text-muted);
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-shadow: none;
   cursor: pointer;
 }
@@ -1077,12 +1375,12 @@ main[aria-busy="true"] {
   width: 9px;
   height: 9px;
   min-width: 9px;
-  border-radius: 50%;
   border: 1.5px solid currentColor;
 }
 
 .max-level-toggle.active .max-level-dot {
   background: currentColor;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .skill-desc {
@@ -1112,7 +1410,6 @@ main[aria-busy="true"] {
   align-self: flex-start;
   padding: 0.1rem 0.45rem;
   border: 1px solid var(--mode-color, var(--text-muted));
-  border-radius: 999px;
   color: var(--mode-color, var(--text-muted));
   font-size: 0.65rem;
   font-weight: 700;
@@ -1162,7 +1459,6 @@ main[aria-busy="true"] {
 }
 
 .kw-mech {
-  border-radius: 0.2em;
   background: color-mix(in srgb, currentColor 16%, transparent);
   box-shadow: 0 0 0 0.15em color-mix(in srgb, currentColor 16%, transparent);
 }
@@ -1175,14 +1471,13 @@ main[aria-busy="true"] {
 .barrage-table-wrap {
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
 }
 
 .barrage-table {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
-  font-size: 0.76rem;
+  font-size: 0.7rem;
 }
 
 .barrage-table th:nth-child(1), .barrage-table td:nth-child(1) { width: 76px; }
@@ -1207,13 +1502,13 @@ main[aria-busy="true"] {
   letter-spacing: 0.03em;
   font-weight: 700;
   text-align: left;
-  padding: 0.5rem 0.5rem;
+  padding: 0.5rem 0.4rem;
   border-bottom: 1px solid var(--border);
   white-space: normal;
 }
 
 .barrage-table td {
-  padding: 0.35rem 0.5rem;
+  padding: 0.35rem 0.4rem;
   color: var(--text);
   border-bottom: 1px solid var(--border);
   vertical-align: middle;
@@ -1272,7 +1567,6 @@ main[aria-busy="true"] {
   height: 28px;
   object-fit: cover;
   object-position: left center;
-  border-radius: 6px;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
   cursor: zoom-in;
@@ -1287,10 +1581,9 @@ main[aria-busy="true"] {
   position: fixed;
   z-index: 200;
   height: auto;
-  border-radius: 10px;
   border: 1px solid var(--accent);
   background: var(--bg-elevated);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 4px 4px 0 var(--hairline-strong);
   pointer-events: none;
 }
 
@@ -1308,10 +1601,9 @@ main[aria-busy="true"] {
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.6rem 0.7rem;
-  border-radius: 8px;
   border: 1px solid var(--equip-tile-color, var(--accent));
   background: var(--bg-elevated);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 4px 4px 0 var(--hairline-strong);
   pointer-events: none;
 }
 
@@ -1330,7 +1622,6 @@ main[aria-busy="true"] {
   width: 2.4rem;
   height: 2.4rem;
   padding: 2px;
-  border-radius: 6px;
   background: color-mix(in srgb, var(--equip-tile-color) 16%, var(--bg));
   border: 1px solid color-mix(in srgb, var(--equip-tile-color) 55%, transparent);
 }
@@ -1370,7 +1661,6 @@ main[aria-busy="true"] {
   align-items: center;
   gap: 0.25rem;
   padding: 0.15rem 0.4rem;
-  border-radius: 999px;
   background: color-mix(in srgb, var(--equip-tile-color) 14%, var(--bg));
   font-size: 0.68rem;
   font-weight: 600;
@@ -1435,14 +1725,12 @@ main[aria-busy="true"] {
   font-size: 0.72rem;
   font-weight: 600;
   padding: 0.25rem 0.55rem;
-  border-radius: 999px;
   background: var(--bg);
   border: 1px solid var(--accent);
   color: var(--accent);
 }
 
 .combat-modifier-pill.has-target {
-  border-radius: 10px;
   padding: 0.3rem 0.6rem;
 }
 
@@ -1461,10 +1749,12 @@ main[aria-busy="true"] {
    not bleed onto the controls. */
 .equip-tools {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: 0.4rem;
   margin-left: auto;
-  flex-shrink: 0;
+  min-width: 0;
   margin-right: calc(0.6rem + 1px);
   text-shadow: none;
   text-transform: none;
@@ -1478,37 +1768,50 @@ main[aria-busy="true"] {
 }
 
 .equip-cap-label {
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   color: var(--text);
 }
 
 .equip-cap-select {
   padding: 0.15rem 0.35rem;
-  border-radius: 6px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
-  font-family: inherit;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 
 /* Optimize and Clear are the same pill; only the colour separates them, Clear staying
    neutral because it undoes work rather than proposing any. */
+/* The hub's button: a hover lift onto a hard offset shadow. */
+.equip-optimize,
+.equip-clear,
+.interaction-pager-btn {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
 .equip-optimize,
 .equip-clear {
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  font-family: inherit;
-  font-size: 0.65rem;
-  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  font-family: var(--font-pixel);
+  font-size: 0.58rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  cursor: pointer;
+  letter-spacing: 0.08em;
+}
+
+.equip-optimize:hover,
+.equip-clear:hover,
+.interaction-pager-btn:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 3px 3px 0 var(--accent);
 }
 
 .equip-optimize {
@@ -1569,7 +1872,6 @@ main[aria-busy="true"] {
   gap: 1px;
   background: var(--border);
   border: 1px solid var(--border);
-  border-radius: 8px;
   overflow: hidden;
   width: fit-content;
 }
@@ -1585,16 +1887,17 @@ main[aria-busy="true"] {
 }
 
 .combat-metric-label {
-  width: 4.7rem;
-  font-size: 0.72rem;
-  font-weight: 700;
+  width: 5.1rem;
+  font-family: var(--font-pixel);
+  font-size: 0.62rem;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
 .combat-metric-value {
-  width: 4.4rem;
+  width: 5.1rem;
   font-size: 0.98rem;
   font-weight: 700;
   color: var(--text);
@@ -1625,7 +1928,6 @@ main[aria-busy="true"] {
   align-items: center;
   justify-content: center;
   gap: 0.15rem;
-  border-radius: 10px;
   background: var(--bg);
   border: 1px dashed var(--border);
   overflow: hidden;
@@ -1642,8 +1944,9 @@ main[aria-busy="true"] {
    of the tile's inner width. */
 .equip-tile-default {
   max-width: 100%;
-  font-size: 1.32rem;
-  font-weight: 700;
+  font-family: var(--font-pixel);
+  font-size: 1.16rem;
+  font-weight: 400;
   letter-spacing: 0.08em;
   line-height: 1.1;
   text-align: center;
@@ -1677,7 +1980,6 @@ main[aria-busy="true"] {
   font-size: 0.66rem;
   font-weight: 600;
   padding: 0.1rem 0.3rem;
-  border-radius: 999px;
   background: var(--card-bg);
   color: var(--text-muted);
 }
@@ -1722,9 +2024,8 @@ main[aria-busy="true"] {
   max-height: 19rem;
   overflow-y: auto;
   background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--hairline-strong);
+  box-shadow: 4px 4px 0 var(--hairline-strong);
   padding: 0.3rem;
   z-index: 60;
 }
@@ -1737,7 +2038,6 @@ main[aria-busy="true"] {
   margin-bottom: 0.25rem;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
   color: var(--text-muted);
   font-size: 0.72rem;
   cursor: pointer;
@@ -1757,7 +2057,6 @@ main[aria-busy="true"] {
   padding: 2px;
   background: color-mix(in srgb, var(--equip-tile-color) 14%, var(--bg));
   border: 1px solid color-mix(in srgb, var(--equip-tile-color) 55%, transparent);
-  border-radius: 6px;
   cursor: pointer;
 }
 
@@ -1795,7 +2094,6 @@ main[aria-busy="true"] {
 
 .interaction-group {
   border: 1px solid var(--border);
-  border-radius: 8px;
   background: var(--bg);
   padding: 0.5rem 0.65rem;
 }
@@ -1838,7 +2136,6 @@ main[aria-busy="true"] {
 
 .interaction-pager-btn {
   padding: 0.3rem 0.7rem;
-  border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--bg-elevated);
   color: var(--text);
@@ -1870,13 +2167,11 @@ main[aria-busy="true"] {
   padding: 0.5rem;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 8px;
 }
 
 .interaction-icon {
   width: 40px;
   height: 40px;
-  border-radius: 6px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -1928,7 +2223,6 @@ main[aria-busy="true"] {
 
 .interaction-variant-toggle {
   padding: 0.05rem 0.5rem;
-  border-radius: 999px;
   border: 1px solid var(--tag-color, var(--gold));
   background: transparent;
   color: var(--tag-color, var(--gold));
@@ -1943,7 +2237,6 @@ main[aria-busy="true"] {
   display: inline-block;
   width: 7px;
   height: 7px;
-  border-radius: 50%;
   border: 1.5px solid currentColor;
   background: transparent;
   margin-right: 0.35em;
@@ -1956,13 +2249,13 @@ main[aria-busy="true"] {
 
 .interaction-variant-toggle.active::before {
   background: currentColor;
+  box-shadow: 0 0 6px currentColor;
 }
 
 .interaction-variant-badge {
   display: inline-flex;
   align-items: center;
   padding: 0.05rem 0.5rem;
-  border-radius: 999px;
   border: 1px solid var(--tag-color, var(--gold));
   color: var(--tag-color, var(--gold));
   font-size: 0.68rem;
@@ -1975,7 +2268,6 @@ main[aria-busy="true"] {
   display: inline-block;
   width: 7px;
   height: 7px;
-  border-radius: 50%;
   background: currentColor;
   margin-right: 0.35em;
   vertical-align: middle;
@@ -1999,10 +2291,18 @@ main[aria-busy="true"] {
   .modal-image-col {
     width: 100%;
     flex: 0 0 42%;
-    border-radius: 14px 14px 0 0;
   }
 
   .modal-info {
     flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

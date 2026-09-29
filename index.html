@@ -7,17 +7,20 @@
   <meta name="description" content="AzurCalculator lets you browse Azur Lane ships, inspect stats, skills, barrages and interactions, and optimize equipment builds.">
   <link rel="icon" href="assets/icon-small.png" type="image/png">
   <link rel="preload" as="image" href="assets/header-background.jpg" type="image/jpeg" fetchpriority="high">
-  <link rel="preload" as="font" href="assets/fonts/raleway-latin.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="assets/fonts/silkscreen-latin-700-normal.woff2" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
+    <canvas id="field" aria-hidden="true"></canvas>
     <div class="topbar-inner">
       <button id="refresh-btn" class="brand-logo-btn" type="button" title="Refresh the ship list" aria-label="Refresh the ship list">
         <img src="assets/icon-small.png" alt="AzurCalc" class="brand-logo" width="180" height="164" fetchpriority="high">
       </button>
       <div class="brand-text">
-        <h1>AzurCalculator α</h1>
+        <p class="eyebrow"><span class="eyebrow-dim">[</span> <a href="https://ilph-creation.party">ilph-creation.party</a> <span class="eyebrow-dim">] //</span> AzurCalculator</p>
+        <h1>AzurCalculator <span class="title-tag">α</span></h1>
       </div>
     </div>
 
@@ -33,7 +36,7 @@
       </label>
 
       <label class="sort-control">
-        Sort by
+        <span class="filter-group-label sort-label">Sort by</span>
         <select id="sort-select" name="sort-ships">
           <option value="name-asc">Name (A → Z)</option>
           <option value="name-desc">Name (Z → A)</option>
@@ -174,6 +177,7 @@
     </div>
   </div>
 
+  <script src="pixel.js" defer></script>
   <script src="data/ships.js" defer></script>
   <script src="data/default-equipment.js" defer></script>
   <script src="app.js" defer></script>

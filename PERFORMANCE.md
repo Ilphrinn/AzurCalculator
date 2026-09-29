@@ -17,8 +17,11 @@ This file records the production optimizations that are easy to undo by accident
   `style.css` request. The source page still links `style.css` for local development.
 - `_headers` contains a CSP placeholder. The build replaces it with the SHA-256 hash
   of the exact inline CSS. Do not use `unsafe-inline` as a shortcut.
-- Raleway is hosted at `assets/fonts/raleway-latin.woff2` and preloaded from the same
-  origin. Do not restore the deferred Google Fonts loader.
+- JetBrains Mono (body) and Silkscreen (pixel headings) are self-hosted in `assets/fonts/`;
+  the 400 body face and the 700 title face are preloaded from the same origin. Never load
+  fonts from Google Fonts.
+- `dist/index.html` versions every `<script src>` with a content hash (`?v=`), because the
+  Cloudflare zone caches scripts for 4h regardless of `max-age`.
 - Production cards use responsive WebP thumbnails: 144x192 by default and 288x384
   `@2x` for high-density displays. Source HTML continues to use PNG/JPG fallbacks so
   it works directly from disk.

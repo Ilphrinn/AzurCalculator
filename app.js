@@ -639,7 +639,9 @@ function createCard(ship) {
   const baseColor = `var(--${RARITY_CLASS[ship.rarity] || "rarity-normal"})`;
   if (hasRarityShift) {
     const retrofitColor = `var(--${RARITY_CLASS[ship.retrofitRarity] || "rarity-normal"})`;
-    strip.style.background = `linear-gradient(90deg, ${baseColor} 0%, ${baseColor} 38%, ${retrofitColor} 62%, ${retrofitColor} 100%)`;
+    strip.classList.add("rarity-shift");
+    strip.style.setProperty("--strip-from", baseColor);
+    strip.style.setProperty("--strip-to", retrofitColor);
   } else {
     strip.style.background = baseColor;
   }

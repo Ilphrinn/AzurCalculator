@@ -3,6 +3,83 @@
 Written by Claude to resume work after a PC change. Read this before doing anything else
 in this project. It captures state that isn't obvious from the code alone.
 
+## ILPH theme (2026-09-29)
+
+The app wears the ilph-creation.party hub's look, integrated from the (since deleted) `ilph-theme/` kit,
+**but keeps AzurCalc's own blue palette** - the user's explicit choice ("les mêmes teintes
+que le projet originel" meant this app's colours, not the hub's orange). What came over:
+- **Type**: JetBrains Mono for all text (the user picked the hub's body face over Raleway,
+  which was deleted), Silkscreen for short uppercase labels and headings only - never for
+  stat values, skill text or tables. Both self-hosted in `assets/fonts/`. JetBrains Mono
+  ships only 400/500, so the 500 file is declared for 500-900 to stop faux-bold smearing.
+  Silkscreen has no Greek: the title's alpha is a `.title-tag` span in the mono face.
+- **Shapes**: no `border-radius` anywhere, with one deliberate exception - the Augment
+  socket stays round, since it is a different kind of slot in game. Cards and the modal
+  have bracket corners; cards and buttons lift onto a hard offset shadow on hover; popups
+  use a hard shadow instead of a blur. Toggle dots are square LEDs that glow when on.
+- **Headings**: `// SECTION` plus a hairline rule (`.modal-section-title`, `.count`).
+  Controls in a title row are ordered after the rule (`order: 2`).
+- **Background**: accent halo, 3px dot checker, fixed grain overlay (`body::after`), and
+  the hub's Bayer-dithered pixel field, re-tinted blue, drawn into `<canvas id="field">`
+  inside the sticky header over the Azur Lane art (user's choice: art + pixels). The
+  header's `backdrop-filter` was removed: its background is opaque.
+- **No smooth gradients** (asked for right after, "un aspect pixel"): `pixel.js` (was
+  `field.js`) renders every gradient as flat colour bands with 4x4 Bayer-dithered edges, in
+  4px cells, into a data-URL PNG written to a CSS custom property; the stylesheet reads it as
+  `var(--dither-x, <the old smooth gradient>)`, so the smooth version is only the first-paint
+  fallback. Targets: page halo (`--dither-halo`, sized from the window), header veil
+  (`--dither-topbar`, on `.topbar::before` so the art itself is not sampled as pixels), modal
+  panel (`--dither-info`, rarity) and name strip (`--dither-heading`, nation). Names are per
+  target because custom properties inherit. Sizes come from ResizeObserver; colours are
+  re-read when app.js rewrites the modal's inline style (a MutationObserver), so app.js
+  needed no hook. Data URLs, not blob URLs: the CSP's img-src allows `data:` only.
+  `image-rendering: pixelated` is set on each dithered element and reset to `auto` on its
+  direct children, or ship art and icons would inherit nearest-neighbour scaling. The field
+  lost its smooth CSS mask and fades out through its own dithering instead. The card rarity
+  strip of a ship whose retrofit changes rarity hands over through a 2px checker band
+  (`.rarity-shift`, colours in `--strip-from/--strip-to`) instead of a blend.
+- **Scrollbars**: pixel style on both axes - dotted track, bevelled square thumb, stepped
+  arrows drawn as crisp-edged SVG rects (also used by the level spinner). Chromium draws a
+  second button pair beside each arrow unless `:start:increment`/`:end:decrement` are
+  hidden - they showed as empty boxes. Still no `:hover` on the thumb.
+- **Kept**: rarity colours and ship thumbnails in their true colours, English UI, logo.
+- **Header sea and warship** (replaced the hub's blotchy "cloud" field on request): the
+  field is now a swell - crest bands packed tight under a horizon row (`HORIZON`, 60px) and
+  spreading downwards for perspective, sky left empty above it, which also clears the strip
+  behind the title. A pixel-art aircraft carrier (`SHIP`, one "x" per 4px cell) sits on the
+  horizon at ~74% of the width, bobs with the swell, smokes from its island funnel and leaves
+  a flickering wake. Shaded only in the sea's own blues (the user's rule: relief, "mais en
+  bleu"), after a multi-coloured battleship and then a flat silhouette came first:
+  `SHIP_SHADING` lights it from the upper left, with a shadow line under the flight deck and
+  a hull kept light, since a dark hull vanished into the dark sea below it. It casts a
+  rippling dithered reflection under the keel and only heaves gently: a pitching version (bow
+  and stern rising in turn, a stepped tilt on the 4px grid) was tried and rejected as ugly.
+- **Header labels over the sea**: RARITY/NATION/SORT BY/RESEARCH sit on dark framed plates
+  (`.filter-group-label`, matching the chips). A brighter colour plus a text halo was tried
+  first and was still unreadable on the light crests - only an opaque plate is independent of
+  what scrolls behind. "Sort by" is wrapped in a `.sort-label` span for this. It is skipped below 220 cells (880px), where it
+  would land on the title and controls.
+- **Faction watermark contrast** (reported unreadable on some strips): opacity 0.14 -> 0.4
+  plus a dark `drop-shadow` rim. White alone washed out on the light nation tints (Royal
+  Navy gold, the grey NieR/Universal/collab strips); the rim is what fixes those. Checked
+  on a board of all 17 logo codes side by side, before and after.
+
+**Fixed widths re-measured for the new fonts** (same method as before: on the real
+element, after `document.fonts.ready`): `.stat-grid-value` 8.8rem (worst case
+"12345+12345 (12345)" needs 8.67), `.combat-metric-label/-value` 5.1rem each (need 4.93),
+`.equip-tile-default` 1.16rem (Silkscreen "DEFAULT" at 90% of the tile). Verified over all
+888 ships optimised at level 125: 0 clipped cells, 0 errors. The barrage table dropped to
+0.7rem since mono digits are wider.
+
+The build versions every `<script src>` with a content hash (`?v=`) because the Cloudflare
+zone caches JS for 4h regardless of `max-age`; `data/equipment.js` and `augments.js` are
+loaded lazily by app.js and are not versioned. `pixel.js` is built/minified like app.js.
+Verified the built `dist/` served with the real `_headers`: 0 CSP violations.
+
+The `ilph-theme/` kit was deleted once integrated (its `reference/hub-source/` was identical
+to `Dev/Domaine`, the hub's own repo). A French write-up of this app's take on the style, for
+the hub side, lives in `Dev/Domaine/docs/style-azurcalculator.md`.
+
 ## What this is
 
 A local static web app (plain HTML/CSS/vanilla JS) cataloging every Azur Lane character.
@@ -29,8 +106,9 @@ share them with `app.js`. The build also emits external `.map` files for every m
 script; keep their `sourceMappingURL` comments and the maps together in `dist/` so
 production debugging and Lighthouse can resolve the original sources. Run `npm ci` before
 the build on a clean checkout. Wrangler runs this build through `wrangler.toml` before
-deployment. Raleway is served as `assets/fonts/raleway-latin.woff2`, preloaded from the
-same origin to avoid a late font swap and its resulting layout shift. It also creates WebP
+deployment. JetBrains Mono and Silkscreen are served from `assets/fonts/`, the two faces the
+first paint needs preloaded from the same origin to avoid a late font swap and its layout
+shift. It also creates WebP
 derivatives only in `dist/`: `icon-small.webp` at
 92x84 plus 144x192 and 288x384 (`@2x`) thumbnails for every
 `assets/thumbnails-card/*.jpg`. The app uses responsive WebP candidates only when
@@ -1664,6 +1742,13 @@ a guard, then verify with a headless-browser test against both the reported fals
 AND a handful of known-good matches to confirm nothing legitimate got excluded.
 
 ## Testing workflow used throughout this project
+
+**Machine change (2026-09-29)**: this PC has no Edge and no system Node. Headless testing
+uses **Ungoogled Chromium** (installed via winget on request, `eloston.ungoogled-chromium`):
+`%LOCALAPPDATA%/Chromium/Application/chrome.exe`, same flags as Edge below, and
+`--dump-dom` works on it. The build ran on a checksum-verified portable Node 22 unzipped
+into the session scratchpad (Python `zipfile` needs a `\\?\` prefix for npm's long paths).
+LibreWolf is also installed, but its HTTPS-only default blocks local HTTP servers.
 
 No test framework — verification is done via headless Edge:
 

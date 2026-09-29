@@ -11,7 +11,7 @@ if (!output.startsWith(`${root}${sep}`)) {
   throw new Error("Build output must stay inside the project directory.");
 }
 
-const inputs = ["index.html", "app.js", "style.css", "data", "assets", "_headers"];
+const inputs = ["index.html", "app.js", "pixel.js", "style.css", "data", "assets", "_headers"];
 
 for (const input of inputs) {
   const source = join(root, input);
@@ -29,6 +29,7 @@ for (const input of inputs) {
 const minifiedFiles = [
   ["style.css", "css"],
   ["app.js", "js"],
+  ["pixel.js", "js"],
   ["data/ships.js", "js"],
   ["data/equipment.js", "js"],
   ["data/default-equipment.js", "js"]
@@ -106,7 +107,13 @@ function finalizeProductionHtml() {
   if (css.includes("</style>")) {
     throw new Error("CSS cannot be safely inlined into index.html.");
   }
-  const index = sourceIndex
+  // Cloudflare caches scripts for hours regardless of max-age, so each URL carries a content hash
+  // and a deploy can never pair new HTML with a stale script.
+  const versionedIndex = sourceIndex.replace(/<script src="([^"?]+)"/g, (tag, file) => {
+    const hash = createHash("sha256").update(readFileSync(join(output, file))).digest("hex").slice(0, 10);
+    return `<script src="${file}?v=${hash}"`;
+  });
+  const index = versionedIndex
     .replace('<html lang="en">', '<html lang="en" data-webp-assets="true">')
     .replace(stylesheetLink, `<style>${css}</style>`)
     .replace(
@@ -134,7 +141,12 @@ const requiredOutputs = [
   "index.html",
   "app.js",
   "style.css",
-  "assets/fonts/raleway-latin.woff2",
+  "pixel.js",
+  "pixel.js.map",
+  "assets/fonts/jetbrains-mono-latin-400-normal.woff2",
+  "assets/fonts/jetbrains-mono-latin-500-normal.woff2",
+  "assets/fonts/silkscreen-latin-400-normal.woff2",
+  "assets/fonts/silkscreen-latin-700-normal.woff2",
   "data/ships.js",
   "data/ships.js.map",
   "app.js.map",
