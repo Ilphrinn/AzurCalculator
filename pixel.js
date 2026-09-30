@@ -34,31 +34,109 @@
     });
   }
 
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
+  // The PNG is encoded by hand instead of read back from a canvas: browsers that resist
+  // fingerprinting (LibreWolf, Firefox with resistFingerprinting) answer toDataURL() with random
+  // pixels, which turned every dithered gradient into coloured noise.
+  const PNG_SIGNATURE = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
+  const CRC_TABLE = Array.from({ length: 256 }, (_, n) => {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    return c >>> 0;
+  });
 
-  function renderDither(width, height, ramp, tAt) {
+  function crc32(bytes) {
+    let c = 0xffffffff;
+    for (const b of bytes) c = CRC_TABLE[(c ^ b) & 255] ^ (c >>> 8);
+    return (c ^ 0xffffffff) >>> 0;
+  }
+
+  function pngChunk(type, data) {
+    const out = new Uint8Array(12 + data.length);
+    const view = new DataView(out.buffer);
+    view.setUint32(0, data.length);
+    for (let i = 0; i < 4; i++) out[4 + i] = type.charCodeAt(i);
+    out.set(data, 8);
+    view.setUint32(8 + data.length, crc32(out.subarray(4, 8 + data.length)));
+    return out;
+  }
+
+  // Uncompressed deflate blocks in a zlib wrapper, for browsers without CompressionStream.
+  function zlibStored(raw) {
+    const blocks = Math.max(1, Math.ceil(raw.length / 65535));
+    const out = new Uint8Array(2 + raw.length + blocks * 5 + 4);
+    out[0] = 0x78;
+    out[1] = 0x01;
+    let o = 2;
+    for (let i = 0; i < blocks; i++) {
+      const part = raw.subarray(i * 65535, (i + 1) * 65535);
+      out[o] = i === blocks - 1 ? 1 : 0;
+      out[o + 1] = part.length & 255;
+      out[o + 2] = part.length >>> 8;
+      out[o + 3] = ~part.length & 255;
+      out[o + 4] = (~part.length >>> 8) & 255;
+      out.set(part, o + 5);
+      o += 5 + part.length;
+    }
+    let a = 1;
+    let b = 0;
+    for (const v of raw) {
+      a = (a + v) % 65521;
+      b = (b + a) % 65521;
+    }
+    new DataView(out.buffer).setUint32(o, ((b << 16) | a) >>> 0);
+    return out;
+  }
+
+  async function zlib(raw) {
+    if (typeof CompressionStream === "undefined") return zlibStored(raw);
+    const stream = new Blob([raw]).stream().pipeThrough(new CompressionStream("deflate"));
+    return new Uint8Array(await new Response(stream).arrayBuffer());
+  }
+
+  // An 8-bit palette PNG: a ramp never has more than a handful of levels, and tRNS carries alpha.
+  async function encodePng(cols, rows, scanlines, ramp) {
+    const header = new Uint8Array(13);
+    const view = new DataView(header.buffer);
+    view.setUint32(0, cols);
+    view.setUint32(4, rows);
+    header[8] = 8;
+    header[9] = 3;
+    const palette = new Uint8Array(ramp.length * 3);
+    const alpha = new Uint8Array(ramp.length);
+    ramp.forEach((c, i) => {
+      palette.set(c.slice(0, 3), i * 3);
+      alpha[i] = c[3];
+    });
+    const parts = [
+      PNG_SIGNATURE,
+      pngChunk("IHDR", header),
+      pngChunk("PLTE", palette),
+      pngChunk("tRNS", alpha),
+      pngChunk("IDAT", await zlib(scanlines)),
+      pngChunk("IEND", new Uint8Array(0))
+    ];
+    let binary = "";
+    for (const part of parts) {
+      for (let i = 0; i < part.length; i += 0x8000) binary += String.fromCharCode(...part.subarray(i, i + 0x8000));
+    }
+    return `data:image/png;base64,${btoa(binary)}`;
+  }
+
+  async function renderDither(width, height, ramp, tAt) {
     const cols = Math.max(1, Math.ceil(width / CELL));
     const rows = Math.max(1, Math.ceil(height / CELL));
-    canvas.width = cols;
-    canvas.height = rows;
-    const image = ctx.createImageData(cols, rows);
-    const p = image.data;
+    const scanlines = new Uint8Array(rows * (cols + 1));
     const n = ramp.length - 1;
     for (let y = 0; y < rows; y++) {
+      const row = y * (cols + 1);
       for (let x = 0; x < cols; x++) {
         const v = Math.min(1, Math.max(0, tAt((x + 0.5) * CELL, (y + 0.5) * CELL))) * n;
         const base = Math.floor(v);
-        const c = ramp[Math.min(n, base + (v - base > threshold(x, y) ? 1 : 0))];
-        const o = (y * cols + x) * 4;
-        p[o] = c[0];
-        p[o + 1] = c[1];
-        p[o + 2] = c[2];
-        p[o + 3] = c[3];
+        scanlines[row + 1 + x] = Math.min(n, base + (v - base > threshold(x, y) ? 1 : 0));
       }
     }
-    ctx.putImageData(image, 0, 0);
-    return { url: `url("${canvas.toDataURL()}")`, size: `${cols * CELL}px ${rows * CELL}px` };
+    const png = await encodePng(cols, rows, scanlines, ramp);
+    return { url: `url("${png}")`, size: `${cols * CELL}px ${rows * CELL}px` };
   }
 
   // The same geometry as a CSS linear-gradient(<angle>deg, ...), so the dithered version lines up
@@ -75,10 +153,14 @@
   // a smooth gradient as the fallback. Names are per target because custom properties inherit.
   function ditherBackground(el, name, spec) {
     let size = null;
-    const paint = () => {
+    let latest = 0;
+    const paint = async () => {
       if (!size || !size[0] || !size[1]) return;
+      const job = ++latest;
       const { ramp, tAt } = spec(size[0], size[1]);
-      const { url, size: px } = renderDither(size[0], size[1], ramp, tAt);
+      const { url, size: px } = await renderDither(size[0], size[1], ramp, tAt);
+      // Encoding is async, so a resize or recolour started meanwhile must win over this one.
+      if (job !== latest) return;
       el.style.setProperty(`--${name}`, url);
       el.style.setProperty(`--${name}-size`, px);
     };
@@ -129,13 +211,16 @@
   // The page halo is fixed to the viewport, so it is sized from the window rather than an element.
   const root = document.documentElement;
   let haloFrame = 0;
-  const paintHalo = () => {
+  let haloJob = 0;
+  const paintHalo = async () => {
     haloFrame = 0;
+    const job = ++haloJob;
     const w = innerWidth;
     const h = innerHeight;
     const accent = parseColor(token(root, "--accent"));
     const ramp = buildRamp([[[...accent.slice(0, 3), 26], 0], [[...accent.slice(0, 3), 0], 0.7], [[0, 0, 0, 0], 1]], 5);
-    const { url, size } = renderDither(w, h, ramp, (x, y) => Math.hypot((x - 0.7 * w) / (0.8 * w), y / (0.5 * h)));
+    const { url, size } = await renderDither(w, h, ramp, (x, y) => Math.hypot((x - 0.7 * w) / (0.8 * w), y / (0.5 * h)));
+    if (job !== haloJob) return;
     root.style.setProperty("--dither-halo", url);
     root.style.setProperty("--dither-halo-size", size);
   };

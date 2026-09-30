@@ -38,6 +38,13 @@ que le projet originel" meant this app's colours, not the hub's orange). What ca
   lost its smooth CSS mask and fades out through its own dithering instead. The card rarity
   strip of a ship whose retrofit changes rarity hands over through a 2px checker band
   (`.rarity-shift`, colours in `--strip-from/--strip-to`) instead of a blend.
+  **The PNG is encoded by hand (2026-09-30), never read back from a canvas**: LibreWolf's
+  `resistFingerprinting` answers `toDataURL()` with random pixels, which turned every
+  dithered gradient into coloured noise. `encodePng` writes an 8-bit palette PNG (tRNS for
+  alpha), compressed through `CompressionStream("deflate")`, with stored deflate blocks as the
+  fallback; painting is therefore async, guarded so the latest repaint wins. Do not bring
+  back `toDataURL`/`getImageData` anywhere their output reaches the page. Confirmed fixed in
+  LibreWolf by the user.
 - **Scrollbars**: pixel style on both axes - dotted track, bevelled square thumb, stepped
   arrows drawn as crisp-edged SVG rects (also used by the level spinner). Chromium draws a
   second button pair beside each arrow unless `:start:increment`/`:end:decrement` are
