@@ -3485,7 +3485,7 @@ function syncBossOptions() {
 }
 
 function bossSummary(boss) {
-  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck}`;
+  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck} \u00b7 ${boss.timeLimit}s`;
 }
 
 // The Targets tab and the modal's menu set the same boss, so each must show the other's pick.
@@ -5947,7 +5947,7 @@ function updateTargets() {
     const isTarget = boss === targetBoss;
     if (isTarget) row.className = "is-target";
     const armour = boss.armor[0].toUpperCase() + boss.armor.slice(1);
-    for (const value of [boss.name, boss.map, boss.group, boss.hull || "—", armour, boss.level, boss.hit, boss.eva, boss.luck]) {
+    for (const value of [boss.name, boss.map, boss.group, boss.hull || "—", armour, boss.level, boss.hit, boss.eva, boss.luck, `${boss.timeLimit}s`]) {
       const cell = document.createElement("td");
       cell.textContent = String(value);
       row.appendChild(cell);

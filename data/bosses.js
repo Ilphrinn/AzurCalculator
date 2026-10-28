@@ -9,7 +9,8 @@ const BOSSES_DATA = [
     "hit": 85,
     "eva": 70,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -21,7 +22,8 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 70,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -33,7 +35,8 @@ const BOSSES_DATA = [
     "hit": 90,
     "eva": 80,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -45,7 +48,8 @@ const BOSSES_DATA = [
     "hit": 112,
     "eva": 80,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -57,7 +61,8 @@ const BOSSES_DATA = [
     "hit": 106,
     "eva": 140,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -69,7 +74,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 150,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -81,7 +87,8 @@ const BOSSES_DATA = [
     "hit": 132,
     "eva": 140,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -93,7 +100,8 @@ const BOSSES_DATA = [
     "hit": 137,
     "eva": 150,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -105,7 +113,8 @@ const BOSSES_DATA = [
     "hit": 100,
     "eva": 130,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 14",
@@ -117,7 +126,8 @@ const BOSSES_DATA = [
     "hit": 124,
     "eva": 130,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -129,7 +139,8 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 85,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -141,7 +152,8 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 85,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -153,7 +165,8 @@ const BOSSES_DATA = [
     "hit": 99,
     "eva": 90,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -165,7 +178,8 @@ const BOSSES_DATA = [
     "hit": 93,
     "eva": 90,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -177,7 +191,8 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 95,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -189,7 +204,8 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 95,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -201,7 +217,8 @@ const BOSSES_DATA = [
     "hit": 86,
     "eva": 100,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -213,7 +230,8 @@ const BOSSES_DATA = [
     "hit": 121,
     "eva": 140,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -225,7 +243,8 @@ const BOSSES_DATA = [
     "hit": 121,
     "eva": 140,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 15",
@@ -237,7 +256,8 @@ const BOSSES_DATA = [
     "hit": 86,
     "eva": 100,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 16",
@@ -249,7 +269,8 @@ const BOSSES_DATA = [
     "hit": 72,
     "eva": 109,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 16",
@@ -261,7 +282,8 @@ const BOSSES_DATA = [
     "hit": 72,
     "eva": 109,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 16",
@@ -273,7 +295,8 @@ const BOSSES_DATA = [
     "hit": 72,
     "eva": 109,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Campaign 16",
@@ -285,7 +308,8 @@ const BOSSES_DATA = [
     "hit": 90,
     "eva": 105,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "META Showdown",
@@ -297,7 +321,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -309,7 +334,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -321,7 +347,8 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 15,
     "luck": 20,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -333,7 +360,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -345,7 +373,8 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 25,
     "luck": 20,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -357,7 +386,8 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 45,
     "luck": 20,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -369,7 +399,8 @@ const BOSSES_DATA = [
     "hit": 100,
     "eva": 15,
     "luck": 20,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -381,7 +412,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -393,7 +425,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 40,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -405,7 +438,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -417,7 +451,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -429,7 +464,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -441,7 +477,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -453,7 +490,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -465,7 +503,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -477,7 +516,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -489,7 +529,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 90
   },
   {
     "group": "META Showdown",
@@ -501,7 +542,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -513,7 +555,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -525,7 +568,8 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 30,
     "luck": 20,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -537,7 +581,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -549,7 +594,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -561,7 +607,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "META Showdown",
@@ -573,7 +620,8 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 80
   },
   {
     "group": "OpSi Arbiter",
@@ -585,7 +633,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 89,
     "luck": 45,
-    "siren": true
+    "siren": true,
+    "timeLimit": 90
   },
   {
     "group": "OpSi Arbiter",
@@ -597,7 +646,8 @@ const BOSSES_DATA = [
     "hit": 94,
     "eva": 94,
     "luck": 45,
-    "siren": true
+    "siren": true,
+    "timeLimit": 90
   },
   {
     "group": "OpSi Arbiter",
@@ -609,7 +659,8 @@ const BOSSES_DATA = [
     "hit": 78,
     "eva": 74,
     "luck": 45,
-    "siren": true
+    "siren": true,
+    "timeLimit": 90
   },
   {
     "group": "OpSi Arbiter",
@@ -621,7 +672,8 @@ const BOSSES_DATA = [
     "hit": 63,
     "eva": 84,
     "luck": 45,
-    "siren": true
+    "siren": true,
+    "timeLimit": 90
   },
   {
     "group": "OpSi Arbiter",
@@ -633,7 +685,8 @@ const BOSSES_DATA = [
     "hit": 85,
     "eva": 89,
     "luck": 45,
-    "siren": true
+    "siren": true,
+    "timeLimit": 90
   },
   {
     "group": "OpSi Arbiter",
@@ -645,7 +698,8 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 69,
     "luck": 45,
-    "siren": true
+    "siren": true,
+    "timeLimit": 90
   },
   {
     "group": "Event EX",
@@ -657,7 +711,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -669,7 +724,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 35,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -681,7 +737,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -693,7 +750,8 @@ const BOSSES_DATA = [
     "hit": 80,
     "eva": 50,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 60
   },
   {
     "group": "Event EX",
@@ -705,7 +763,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -717,7 +776,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -729,7 +789,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -741,7 +802,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -753,7 +815,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 57,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -765,7 +828,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -777,7 +841,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -789,7 +854,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -801,7 +867,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -813,7 +880,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 50,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 60
   },
   {
     "group": "Event EX",
@@ -825,7 +893,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -837,7 +906,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -849,7 +919,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -861,7 +932,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -873,7 +945,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -885,7 +958,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -897,7 +971,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -909,7 +984,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -921,7 +997,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -933,7 +1010,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -945,7 +1023,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -957,7 +1036,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -969,7 +1049,8 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -981,7 +1062,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -993,7 +1075,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 57,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1005,7 +1088,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1017,7 +1101,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1029,7 +1114,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 50,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 60
   },
   {
     "group": "Event EX",
@@ -1041,7 +1127,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1053,7 +1140,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1065,7 +1153,8 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 25,
     "luck": 66,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1077,7 +1166,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1089,7 +1179,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1101,7 +1192,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1113,7 +1205,8 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 0,
     "luck": 40,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1125,7 +1218,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 0,
     "luck": 66,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1137,7 +1231,8 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 60,
     "luck": 40,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1149,7 +1244,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 60,
     "luck": 40,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1161,7 +1257,8 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 20,
     "luck": 66,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1173,7 +1270,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1185,7 +1283,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1197,7 +1296,8 @@ const BOSSES_DATA = [
     "hit": 0,
     "eva": 0,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1209,7 +1309,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1221,7 +1322,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1233,7 +1335,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1245,7 +1348,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 39,
     "luck": 0,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1257,7 +1361,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 13,
     "luck": 0,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1269,7 +1374,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 25,
     "luck": 0,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1281,7 +1387,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 25,
     "luck": 0,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1293,7 +1400,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 13,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1305,7 +1413,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 15,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1317,7 +1426,8 @@ const BOSSES_DATA = [
     "hit": 10040,
     "eva": 24,
     "luck": 33,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1329,7 +1439,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 57,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1341,7 +1452,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 19,
     "luck": 0,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1353,7 +1465,8 @@ const BOSSES_DATA = [
     "hit": 10032,
     "eva": 28,
     "luck": 50,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1365,7 +1478,8 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 19,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1377,7 +1491,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 11,
     "luck": 18,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1389,7 +1504,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 57,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1401,7 +1517,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 57,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1413,7 +1530,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 68,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1425,7 +1543,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1437,7 +1556,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 1,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1449,7 +1569,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 11,
     "luck": 18,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1461,7 +1582,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 68,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1473,7 +1595,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1485,7 +1608,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 1,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1497,7 +1621,8 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 30,
     "luck": 51,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1509,7 +1634,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1521,7 +1647,8 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 30,
     "luck": 55,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1533,7 +1660,8 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 41,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1545,7 +1673,8 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 41,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1557,7 +1686,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 19,
     "luck": 78,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1569,7 +1699,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 88,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1581,7 +1712,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 87,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1593,7 +1725,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 0,
     "luck": 88,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1605,7 +1738,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 200,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1617,7 +1751,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1629,7 +1764,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1641,7 +1777,8 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 5,
     "luck": 50,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1653,7 +1790,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1665,7 +1803,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1677,7 +1816,8 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 79,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1689,7 +1829,8 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 79,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1701,7 +1842,8 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1713,7 +1855,8 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1725,7 +1868,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1737,7 +1881,8 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1749,7 +1894,8 @@ const BOSSES_DATA = [
     "hit": 10016,
     "eva": 43,
     "luck": 30,
-    "siren": true
+    "siren": true,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1761,7 +1907,8 @@ const BOSSES_DATA = [
     "hit": 10021,
     "eva": 52,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1773,7 +1920,8 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1785,7 +1933,8 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1797,7 +1946,8 @@ const BOSSES_DATA = [
     "hit": 60,
     "eva": 42,
     "luck": 45,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1809,7 +1959,8 @@ const BOSSES_DATA = [
     "hit": 65,
     "eva": 42,
     "luck": 45,
-    "siren": false
+    "siren": false,
+    "timeLimit": 180
   },
   {
     "group": "Event EX",
@@ -1821,7 +1972,8 @@ const BOSSES_DATA = [
     "hit": 48,
     "eva": 49,
     "luck": 60,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event EX",
@@ -1833,7 +1985,8 @@ const BOSSES_DATA = [
     "hit": 51,
     "eva": 53,
     "luck": 60,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -1845,7 +1998,8 @@ const BOSSES_DATA = [
     "hit": 91,
     "eva": 65,
     "luck": 35,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -1857,7 +2011,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -1869,7 +2024,8 @@ const BOSSES_DATA = [
     "hit": 54,
     "eva": 64,
     "luck": 25,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -1881,7 +2037,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -1893,7 +2050,8 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
-    "siren": true
+    "siren": true,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -1905,7 +2063,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1917,7 +2076,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1929,7 +2089,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1941,7 +2102,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1953,7 +2115,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1965,7 +2128,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1977,7 +2141,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -1989,7 +2154,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2001,7 +2167,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2013,7 +2180,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2025,7 +2193,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2037,7 +2206,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2049,7 +2219,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2061,7 +2232,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2073,7 +2245,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2085,7 +2258,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2097,7 +2271,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2109,7 +2284,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2121,7 +2297,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2133,7 +2310,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2145,7 +2323,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2157,7 +2336,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2169,7 +2349,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2181,7 +2362,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2193,7 +2375,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2205,7 +2388,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2217,7 +2401,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2229,7 +2414,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 100,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2241,7 +2427,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 100,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2253,7 +2440,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 100,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2265,7 +2453,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2277,7 +2466,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2289,7 +2479,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2301,7 +2492,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2313,7 +2505,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2325,7 +2518,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2337,7 +2531,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2349,7 +2544,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2361,7 +2557,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2373,7 +2570,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2385,7 +2583,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2397,7 +2596,8 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
-    "siren": false
+    "siren": false,
+    "timeLimit": 600
   },
   {
     "group": "Event Challenge",
@@ -2409,7 +2609,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2421,7 +2622,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2433,7 +2635,8 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2445,7 +2648,8 @@ const BOSSES_DATA = [
     "hit": 40,
     "eva": 30,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2457,7 +2661,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2469,7 +2674,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 44,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2481,7 +2687,8 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2493,7 +2700,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2505,7 +2713,8 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2517,7 +2726,8 @@ const BOSSES_DATA = [
     "hit": 40,
     "eva": 30,
     "luck": 25,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2529,7 +2739,8 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   },
   {
     "group": "Event Challenge",
@@ -2541,6 +2752,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
-    "siren": false
+    "siren": false,
+    "timeLimit": 300
   }
 ];

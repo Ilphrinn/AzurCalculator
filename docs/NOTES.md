@@ -5631,3 +5631,10 @@ The user asked how uptime would be represented. Proposal:
    skill Evasion Rate / DMG Taken buffs enter eHP and the Fleet synergies enter the figures.
 4. Triggers the tables cannot time (on kill, on HP threshold, on being hit) stay unapplied and
    are labelled "conditional", following the precision-over-recall rule.
+
+**User's choices (2026-10-28)**: reference fight 60 s with no boss picked; against a picked boss,
+that stage's own battle time limit. `import-bosses.js` now writes `timeLimit` from maps.json's
+`time_limit` (META Showdown 80 s except Rodney 90, OpSi Arbiter 90, campaign 14-16 180, Event
+EX 60/180/300, Event Challenge 300/600); re-running changed nothing else in data/bosses.js. It
+shows in the Targets table and the boss summary. Asked "how long is a META fight": 80 s is the
+limit, not the typical clear time.
