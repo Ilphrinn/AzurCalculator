@@ -19094,6 +19094,15 @@ const EQUIPMENT_DATA = [
       "BB",
       "BC",
       "BBV"
+    ],
+    "effects": [
+      {
+        "key": "critRate",
+        "amount": 8,
+        "source": "Main Gun",
+        "buff": 6211,
+        "text": "Increases Main Gun Crit Rate by 8.0%."
+      }
     ]
   },
   {
@@ -19260,6 +19269,15 @@ const EQUIPMENT_DATA = [
       "BB",
       "BC",
       "BBV"
+    ],
+    "effects": [
+      {
+        "key": "critDamage",
+        "amount": 25,
+        "source": "Main Gun",
+        "buff": 6200,
+        "text": "Increases Main Gun Crit DMG by 25.0%."
+      }
     ]
   },
   {
@@ -19278,6 +19296,15 @@ const EQUIPMENT_DATA = [
       "BB",
       "BC",
       "BBV"
+    ],
+    "effects": [
+      {
+        "key": "critDamage",
+        "amount": 15,
+        "source": "Main Gun",
+        "buff": 6191,
+        "text": "Increases Main Gun Crit DMG by 15.0%."
+      }
     ]
   },
   {

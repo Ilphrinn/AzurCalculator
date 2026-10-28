@@ -5428,3 +5428,40 @@ go-ahead.
   run to 78 characters, so text columns wrap and only the figures stay on one line.
 - `npm run check` now also renders the three tabs (asserting every item, augment and boss is
   shown), opens every item and augment detail, and picks a boss from the table.
+
+## Auxiliary effects from game data (2026-10-28)
+
+Step (2) of the Optimize/auxiliaries fix. `scripts/import-aux-effects.js` writes an `effects`
+array onto Auxiliary items in `data/equipment.js`.
+
+- **Chain**: mrlar.dev `equipments.json` (type 10 = auxiliary) gives each item its game skill
+  ids; AzurLaneData EN `GameCfg/skill.json` turns a skill into `BattleSkillAddBuff` entries,
+  `GameCfg/buff.json` gives the buff's typed effects, `ShareCfg/skill_data_template.json` the
+  English text. Matching is by name OR alias (the game calls Type 1 Armor Piercing Shell "Type 1
+  AP Shell" and Improved Hydraulic Rudder "High Performance Hydraulic Steering Gear"; the wiki
+  names are mrlar.dev aliases) plus rarity: all 165 catalog auxiliaries match exactly one skill
+  set.
+- **Precision guard**: a skill is imported only if its text has no condition/proc/timer word
+  (`CONDITIONAL_TEXT`) AND every effect of every buff has a known shape. Known shapes so far:
+  `BattleBuffAddBulletAttr` `cri`/`criDamage` on weapon index [1] (the text's "Main Gun"),
+  trigger `onBulletCreate`. Result: Super Heavy Shell (Crit Rate +8%), Type 1 AP (Crit DMG
+  +25%), Type 91 AP (Crit DMG +15%). 6CRH (+30%, Royal Navy only) and Z Flag (crit +5%, but
+  the same text names a ship-specific bonus) are excluded by the guard.
+- **Left for step (3)**, unconditional but not DPS: Anti-Torpedo Bulge
+  (`injureRatioByBulletTorpedo` -0.3), the Intel Reports (`DMG_FROM_TAG_1..5_N_99`, -6% from
+  Sirens), Rudder (`perfectDodge` 2s, 30% every 20s - a proc, so it also needs the guard
+  relaxed for that one shape). Airstrike reload items (Homing Beacon, Elite Aviation
+  Maintenance Manjuu) wait for aircraft reload.
+- **Admiralty Fire Control Table does not cut reload**: its only passive (skill 6265) is -15%
+  on the FIRST main gun volley's loading time and -2 spread. The removed hack scored it +1 for
+  proc-barrage BBs on the belief that it raised the proc count; it is still picked 107 times
+  on its FP+46/ACC+65 alone.
+- **App side**: `computeEffectiveStats` adds equipped items' effects as ordinary combat
+  modifiers (one per buff id, as the game does not stack a buff), so `weaponDamageMultiplier`
+  and the modal's modifier pills read them like ship skills. Optimize simulates them in
+  `slotDpsGains`, weighted by the target's Firepower weight (`dpsEffectWeight`). Both
+  name-keyed hacks (Fire Control Table for proc barrages, Super Heavy Shell for timer barrages)
+  are gone.
+- **Measured** (lv125, Recommended, UR): only BBs change. Super Heavy Shell 11 -> 88 picks,
+  Type 1 AP 95 -> 18; New Jersey 3732 -> 3890 DPS, Musashi 3787 -> 3940. At ~12% base crit
+  rate, +8% rate (x1.5 damage) plus +18 FP beats +25% crit damage.

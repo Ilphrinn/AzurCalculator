@@ -1100,8 +1100,8 @@ function modifierQualifier(raw) {
   };
 }
 
-function addModifier(modifiers, index, key, amount, skill, raw) {
-  const { source, target } = modifierQualifier(raw);
+function addModifier(modifiers, index, key, amount, skill, raw, qualifier = modifierQualifier(raw)) {
+  const { source, target } = qualifier;
   const groupKey = `${key}|${source.toLowerCase()}|${target.toLowerCase()}`;
   let entry = index.get(groupKey);
   if (!entry) {
@@ -1386,6 +1386,18 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
           bucket[key] = (bucket[key] || 0) + amount;
         }
       }
+    }
+  }
+
+  // Auxiliary passives from the game's buff tables (scripts/import-aux-effects.js). The game does not
+  // stack one buff, so a second copy of the same item adds nothing.
+  const seenBuffs = new Set();
+  for (const item of Object.values(equippedGear[ship.id] || {})) {
+    for (const effect of item.effects || []) {
+      if (seenBuffs.has(effect.buff)) continue;
+      seenBuffs.add(effect.buff);
+      const source = { name: item.name, description: effect.text };
+      addModifier(modifiers, modifierIndex, effect.key, effect.amount, source, effect.text, { source: effect.source, target: "" });
     }
   }
 
@@ -2406,6 +2418,11 @@ function dpsStatWeight(key, weights) {
   return key === "reload" ? Math.max(weights.firepower || 0, weights.torpedo || 0) : weights[key] || 0;
 }
 
+// Imported auxiliary effects all act on the Main Gun so far, which Firepower's weight stands for.
+function dpsEffectWeight(effect, weights) {
+  return effect.source === "Main Gun" ? dpsStatWeight("firepower", weights) : 0;
+}
+
 function slotDpsGains(ship, slotKey, candidates, level, weights) {
   const dpsWith = item => {
     const original = getEquippedGear(ship, slotKey);
@@ -2426,8 +2443,9 @@ function slotDpsGains(ship, slotKey, candidates, level, weights) {
       const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
       return DPS_STAT_KEYS.has(key) && dpsStatWeight(key, weights) > 0;
     });
-    if (!weighted.length) continue;
-    const gain = dpsWith({ ...item, statBonus: Object.fromEntries(weighted) }) / base - 1;
+    const effects = (item.effects || []).filter(effect => dpsEffectWeight(effect, weights) > 0);
+    if (!weighted.length && !effects.length) continue;
+    const gain = dpsWith({ ...item, statBonus: Object.fromEntries(weighted), effects }) / base - 1;
     byItem.set(item, gain);
     if (scale <= 0 && gain > 0) scale = gain;
   }
@@ -2610,6 +2628,9 @@ function statPreferenceScore(item, weights, ship, slotKey, baseEhp, dpsGains) {
     if (!weight || typeof amount !== "number") continue;
     if (dpsGains && DPS_STAT_KEYS.has(key)) { dpsWeight = Math.max(dpsWeight, weight); continue; }
     score += weight * (amount / (maxima[key] || amount));
+  }
+  if (dpsGains) {
+    for (const effect of item.effects || []) dpsWeight = Math.max(dpsWeight, dpsEffectWeight(effect, weights));
   }
   if (dpsWeight && dpsGains.scale > 0) {
     const gain = dpsGains.byItem.get(item) || 0;
@@ -2994,12 +3015,6 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
         }
       } else {
         score = statPreferenceScore(item, weights, ship, slotKey, baseEhp, dpsGains);
-        // Same proc/timer split as the gun pick, for the one auxiliary each rewards:
-        // Admiralty Fire Control Table cuts reload for more rolls, Super Heavy Shell raises
-        // Crit Rate for a bigger single hit. Neither is a tracked stat, so this is a direct
-        // name match rather than something statPreferenceScore's weights could express.
-        if (role === "bb" && barrageTrigger === "proc" && item.name === "Admiralty Fire Control Table") score += 1;
-        if (role === "bb" && barrageTrigger === "timer" && item.name === "Super Heavy Shell") score += 1;
         if (isCarrierCatapult) score += 1;
       }
       if (!isWeapon && !isBbAntiAir && score <= 0) continue;
