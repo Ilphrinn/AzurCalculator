@@ -2354,6 +2354,9 @@ main[aria-busy="true"] {
 }
 
 .view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   margin: 0 -1px -1px 0;
   padding: 0.45rem 1rem;
   border: 1px solid var(--hairline-strong);
@@ -2365,6 +2368,37 @@ main[aria-busy="true"] {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+/* Pixel glyphs drawn on a 12x12 grid; used as a mask so they take the tab's text colour. */
+.view-tab::before {
+  content: "";
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  -webkit-mask: var(--tab-icon) center / 12px 12px no-repeat;
+  mask: var(--tab-icon) center / 12px 12px no-repeat;
+}
+
+.view-tab[data-view="port"] {
+  --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'><path d='M4 0h4v1h-4zM4 1h1v1h-1zM7 1h1v1h-1zM4 2h4v1h-4zM5 3h2v1h-2zM2 4h8v1h-8zM5 5h2v1h-2zM5 6h2v1h-2zM5 7h2v1h-2zM0 8h1v1h-1zM5 8h2v1h-2zM11 8h1v1h-1zM0 9h2v1h-2zM5 9h2v1h-2zM10 9h2v1h-2zM1 10h2v1h-2zM5 10h2v1h-2zM9 10h2v1h-2zM2 11h8v1h-8z'/></svg>");
+}
+
+.view-tab[data-view="depot"] {
+  --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'><path d='M0 1h12v1h-12zM0 2h12v1h-12zM1 3h1v1h-1zM10 3h1v1h-1zM1 4h1v1h-1zM4 4h4v1h-4zM10 4h1v1h-1zM1 5h1v1h-1zM10 5h1v1h-1zM1 6h1v1h-1zM10 6h1v1h-1zM1 7h1v1h-1zM10 7h1v1h-1zM1 8h1v1h-1zM10 8h1v1h-1zM1 9h1v1h-1zM10 9h1v1h-1zM1 10h10v1h-10z'/></svg>");
+}
+
+.view-tab[data-view="augments"] {
+  --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'><path d='M5 0h2v1h-2zM4 1h4v1h-4zM3 2h2v1h-2zM7 2h2v1h-2zM2 3h2v1h-2zM8 3h2v1h-2zM1 4h2v1h-2zM5 4h2v1h-2zM9 4h2v1h-2zM0 5h2v1h-2zM4 5h4v1h-4zM10 5h2v1h-2zM0 6h2v1h-2zM4 6h4v1h-4zM10 6h2v1h-2zM1 7h2v1h-2zM5 7h2v1h-2zM9 7h2v1h-2zM2 8h2v1h-2zM8 8h2v1h-2zM3 9h2v1h-2zM7 9h2v1h-2zM4 10h4v1h-4zM5 11h2v1h-2z'/></svg>");
+}
+
+.view-tab[data-view="targets"] {
+  --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'><path d='M5 0h2v1h-2zM3 1h6v1h-6zM2 2h1v1h-1zM5 2h2v1h-2zM9 2h1v1h-1zM1 3h1v1h-1zM10 3h1v1h-1zM1 4h1v1h-1zM10 4h1v1h-1zM0 5h4v1h-4zM5 5h2v1h-2zM8 5h4v1h-4zM0 6h4v1h-4zM5 6h2v1h-2zM8 6h4v1h-4zM1 7h1v1h-1zM10 7h1v1h-1zM1 8h1v1h-1zM10 8h1v1h-1zM2 9h1v1h-1zM5 9h2v1h-2zM9 9h1v1h-1zM3 10h6v1h-6zM5 11h2v1h-2z'/></svg>");
+}
+
+.view-tab[data-view="fleet"] {
+  --tab-icon: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' shape-rendering='crispEdges'><path d='M5 2h1v1h-1zM5 3h1v1h-1zM4 4h3v1h-3zM3 5h6v1h-6zM2 6h8v1h-8zM0 7h12v1h-12zM1 8h10v1h-10zM2 9h8v1h-8z'/></svg>");
 }
 
 .view-tab:hover {
