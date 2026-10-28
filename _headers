@@ -7,9 +7,10 @@
 # images and every local asset loaded. Re-run that check if the app gains a new kind of
 # resource.
 #
-# max-age is 15768000s - the exact "six months" MDN HTTP Observatory tests for, and what
-# the Cloudflare zone-wide HSTS setting sends. 15552000 (180 days) sits just UNDER that
-# threshold, so do not "round down". Cloudflare is the source of
+# max-age is 15768000s - the exact "six months" MDN HTTP Observatory tests for. 15552000
+# (180 days) sits just UNDER that threshold, so do not "round down". The Cloudflare
+# zone-wide HSTS setting overrides this line, and on 2026-10-28 it still sent 15552000:
+# set it to 6 months in the dashboard (SSL/TLS > Edge Certificates). Cloudflare is the source of
 # truth for the domain; this line only keeps the site correct if it is ever served from
 # somewhere else. Change both together.
 # No "preload" token on purpose: preload-list removal takes months, unlike this header,
