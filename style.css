@@ -2624,6 +2624,120 @@ main[aria-busy="true"] {
   font-weight: 500;
 }
 
+.fleet-hint {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.fleet-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 200px));
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.fleet-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fleet-add {
+  aspect-ratio: 3 / 4;
+  border: 1px dashed var(--hairline-strong);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  color: var(--text-muted);
+  font-family: var(--font-pixel);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.fleet-add:hover,
+.fleet-add:focus-visible {
+  border-color: var(--accent);
+  color: var(--text);
+  outline: none;
+}
+
+.fleet-slot-stats {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 0.6rem;
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.fleet-slot-stats dt {
+  color: var(--text-muted);
+}
+
+.fleet-slot-stats dd {
+  margin: 0;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.fleet-slot-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.fleet-picker {
+  margin: -0.6rem 0 1.4rem;
+  padding: 0.8rem;
+  border: 1px solid var(--hairline-strong);
+  background: var(--card-bg);
+}
+
+.fleet-picker[hidden] {
+  display: none;
+}
+
+.fleet-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-height: 14rem;
+  margin-top: 0.7rem;
+  overflow-y: auto;
+}
+
+.fleet-totals {
+  margin-bottom: 1.4rem;
+}
+
+.fleet-synergies {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fleet-synergy {
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  font-size: 0.8rem;
+}
+
+.fleet-synergy summary {
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.fleet-synergy summary strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.fleet-synergy p {
+  margin: 0;
+  padding: 0 0.7rem 0.7rem;
+  line-height: 1.45;
+}
+
 @media (max-width: 720px) {
   .modal {
     width: 92vw;
@@ -2650,6 +2764,15 @@ main[aria-busy="true"] {
 
   .view-tab {
     padding: 0.45rem 0.7rem;
+  }
+
+  .fleet-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .fleet-slot-actions {
+    flex-wrap: wrap;
   }
 }
 

@@ -29,6 +29,7 @@
       <button type="button" role="tab" class="view-tab" id="tab-depot" data-view="depot" aria-controls="view-depot">Depot</button>
       <button type="button" role="tab" class="view-tab" id="tab-augments" data-view="augments" aria-controls="view-augments">Augments</button>
       <button type="button" role="tab" class="view-tab" id="tab-targets" data-view="targets" aria-controls="view-targets">Targets</button>
+      <button type="button" role="tab" class="view-tab" id="tab-fleet" data-view="fleet" aria-controls="view-fleet">Fleet</button>
     </nav>
 
     <div class="view-controls" data-view="port">
@@ -107,6 +108,13 @@
       </div>
       <div class="filters" id="target-filters"></div>
     </div>
+
+    <div class="view-controls" data-view="fleet" hidden>
+      <div class="controls">
+        <button type="button" id="fleet-clear" class="chip">Clear fleet</button>
+        <p class="fleet-hint">Level 125, retrofit if any. Each ship uses the gear set in her Equipment panel, or Optimize's pick if none.</p>
+      </div>
+    </div>
   </header>
 
   <main aria-busy="true">
@@ -133,6 +141,24 @@
           <tbody id="target-rows"></tbody>
         </table>
       </div>
+    </section>
+    <section class="view" id="view-fleet" data-view="fleet" role="tabpanel" aria-labelledby="tab-fleet" hidden>
+      <p id="fleet-target" class="target-current"></p>
+      <p class="count">Vanguard</p>
+      <div class="fleet-row" id="fleet-vanguard"></div>
+      <p class="count">Main fleet</p>
+      <div class="fleet-row" id="fleet-main"></div>
+      <div id="fleet-picker" class="fleet-picker" hidden>
+        <label class="control-label">
+          <span class="visually-hidden">Search a ship for this slot</span>
+          <input type="search" id="fleet-search" class="search-box" name="fleet-search" placeholder="Search a character..." autocomplete="off">
+        </label>
+        <div id="fleet-results" class="fleet-results"></div>
+      </div>
+      <p class="count">Fleet totals</p>
+      <div id="fleet-totals" class="fleet-totals"></div>
+      <p class="count">Synergies</p>
+      <div id="fleet-synergies" class="fleet-synergies"></div>
     </section>
   </main>
 

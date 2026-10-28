@@ -12,10 +12,11 @@ touching the matching area, do not read it whole.
 
 - `index.html`, `app.js` (all app logic), `pixel.js` (dithered pixel-art gradients and header
   field), `style.css`. Plain HTML/CSS/vanilla JS, no framework.
-- Four tabs, routed by `location.hash` (pushState throws on `file://`): Port (ship grid and
+- Five tabs, routed by `location.hash` (pushState throws on `file://`): Port (ship grid and
   modal), Depot (equipment grid + item detail), Augments, Targets (boss table; picking one sets
-  the same `targetBoss` as the modal's menu, via `setTargetBoss`). The last three load their
-  data script on first visit. Code: "Views" section at the end of `app.js`.
+  the same `targetBoss` as the modal's menu, via `setTargetBoss`), Fleet (3 vanguard + 3 main,
+  per-ship and fleet figures, synergies; kept in localStorage). All but Port load their data
+  scripts on first visit. Code: "Views" section at the end of `app.js`.
 - `data/*.js` is the only copy of the data (the `.json` twins were deleted on 2026-10-28, nothing
   read them): each file is `const X_DATA = <JSON.stringify(data, null, 2)>;`. Keep that
   pretty-printed form, never minify in the source tree. A Node script reads one with
@@ -122,8 +123,9 @@ weapon refinement" in the notes). Next:
 
 - Equipment-aware stats (HP/DPS/AA/ASW panel, rarity cap, Optimize): largely built, see
   "Unresolved / explicitly deferred".
-- Team composition calculator (3 vanguard + 3 main): the user's end goal, not started.
-  Wait for an explicit go-ahead. It would be a fifth tab ("Fleet") next to the four above.
+- Team composition (Fleet tab): v1 done 2026-10-28, see "Fleet tab v1" in the notes. Its
+  synergies are listed, not applied to the figures: that waits on buff uptime (proposal in the
+  same section, awaiting the user's choice).
 
 ## Working with this user
 

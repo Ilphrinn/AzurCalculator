@@ -5594,3 +5594,40 @@ scaled down (every retrofit icon), so a 3:4 card showed a thin slice with a tiny
   card (zoomed until the face is 18% of the card height, at most 1.8x: 2.5x blurred the 320px
   card JPEGs), 50% / 25% of the modal column (no zoom, recomputed on resize and when the modal
   opens). Portrait icons carry no point and keep the plain crop, which already suits them.
+
+## Fleet tab v1 (2026-10-28)
+
+The user's end goal, given the go-ahead after the Optimize refinement.
+
+- 3 Vanguard + 3 Main slots, eligibility by `ship.role` (submarines left out of v1), one ship
+  per fleet as in the game, search picker capped at 60 results. Kept per viewer in
+  localStorage (`azurcalc.fleet`), wrapped in try/catch.
+- Figures per member at level 125, retrofit if she has one, against the Target boss: DPS, eHP,
+  AA. A ship whose Equipment panel is empty gets Optimize's Recommended pick, which then shows in
+  her panel too (said in the tab's hint). `fleetShipFigures` sets and restores the modal's
+  level/retrofit/target globals, since Optimize's eHP simulation reads them. The figures refresh
+  when a member's modal closes. Totals: Vanguard, Main and fleet DPS, fleet AA DPS, lowest eHP.
+- Synergies: `computeInteractions` run for each member, keeping only skills of another member,
+  grouped by source skill with how each target is named (nation, hull, fleet role, class, name).
+  Listed, NOT applied to the figures: most are timed buffs.
+- Precision fix found through it, applied to the shared matcher: "Iron Blood Carriers" (Bismarck,
+  Unwavering Strength) was listed as reaching every Iron Blood ship, because `ALL_HULL_TERMS`
+  only knows full hull names and abbreviations. `otherHullImmediatelyAfter` now treats a bare
+  "Carrier(s)" after a nation as excluding anything but CV/CVL. Full-roster interaction count:
+  167474 -> 167387, the 87 removed all that skill on non-carrier Iron Blood ships, 0 added.
+- `npm run check` renders a six-ship fleet and checks every member's figures are finite.
+
+### Buff uptime: proposal given to the user (2026-10-28), not built
+
+The user asked how uptime would be represented. Proposal:
+1. Per skill, from the game's skill/buff tables (AzurLaneData, the same source and chain walk as
+   `scripts/import-aux-effects.js`): trigger (battle start, every N s, on firing, on HP below X,
+   on a proc), duration, cooldown, chance. Uptime = share of a reference battle the buff is active
+   (length to agree with the user: 60 s, the mark the wiki's preload DPS uses, or longer): duration/period x chance for timers, 100% for permanent, first-N-seconds
+   for battle-start buffs.
+2. Shown as a small bar or percentage under each skill in the modal ("Active ~35% of a 2-min
+   fight"), and on each modifier pill.
+3. Applied as expected value: a +X% buff with uptime u counts as +X*u% in DPS/eHP, which lets the
+   skill Evasion Rate / DMG Taken buffs enter eHP and the Fleet synergies enter the figures.
+4. Triggers the tables cannot time (on kill, on HP threshold, on being hit) stay unapplied and
+   are labelled "conditional", following the precision-over-recall rule.

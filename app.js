@@ -4798,9 +4798,14 @@ function compoundNationListExcludes(text, matchIndex, ownNation) {
   if (!foundNations.length) return false;
   return !foundNations.includes(ownNation);
 }
-function otherHullImmediatelyAfter(text, matchIndex, matchLen, ownHullText, ownHullAbbr) {
+// "Carriers" alone covers CV and CVL without saying which, so it only rules out other hulls.
+const GENERIC_HULL_TERMS = { Carrier: ["CV", "CVL"] };
+
+function otherHullImmediatelyAfter(text, matchIndex, matchLen, ownHullText, ownHullAbbr, ownHullShort) {
   const after = text.slice(matchIndex + matchLen, matchIndex + matchLen + 20);
-  return ALL_HULL_TERMS.some(hull => hull !== ownHullText && hull !== ownHullAbbr && new RegExp(`^\\s*${escapeRegExp(hull)}s?\\b`, "i").test(after));
+  const genericExcludes = Object.entries(GENERIC_HULL_TERMS)
+    .some(([term, hulls]) => !hulls.includes(ownHullShort) && new RegExp(`^\\s*${term}s?\\b`, "i").test(after));
+  return genericExcludes || ALL_HULL_TERMS.some(hull => hull !== ownHullText && hull !== ownHullAbbr && new RegExp(`^\\s*${escapeRegExp(hull)}s?\\b`, "i").test(after));
 }
 
 // A skill that echoes its own name inline is not referencing another ship, even when that
@@ -4850,7 +4855,7 @@ function isGenuineAllyMatch(text, m, category, ship) {
   if (category === "nation") {
     const hullText = ship.hullType ? (HULL_TYPE_TEXT[ship.hullType] || ship.hullType) : null;
     const hullAbbr = hullText ? HULL_TEXT_TO_ABBR[hullText] : null;
-    if (otherHullImmediatelyAfter(text, matchIndex, matchLen, hullText, hullAbbr)) return false;
+    if (otherHullImmediatelyAfter(text, matchIndex, matchLen, hullText, hullAbbr, ship.hullShort)) return false;
   }
   if (category === "hull" || category === "role" || category === "nation") {
     if (SOLO_FLEET_CUE_RE.test(text.slice(matchIndex + matchLen, matchIndex + matchLen + 70))) return false;
@@ -5289,6 +5294,7 @@ function openModal(ship) {
 }
 
 function closeModal() {
+  if (currentView === "fleet") queueMicrotask(renderFleet);
   modalOverlay.hidden = true;
   document.body.style.overflow = "";
   pageBehindModal.forEach(el => { el.inert = false; });
@@ -5383,7 +5389,7 @@ document.addEventListener("keydown", event => {
 // Views: Port (ships), Depot (equipment), Augments, Targets (bosses)
 // ---------------------------------------------------------------------------
 
-const VIEW_IDS = ["port", "depot", "augments", "targets"];
+const VIEW_IDS = ["port", "depot", "augments", "targets", "fleet"];
 const viewTabs = [...document.querySelectorAll(".view-tab")];
 let currentView = null;
 
@@ -5405,6 +5411,7 @@ function showView(view) {
   if (view === "depot") showDepot();
   else if (view === "augments") showAugments();
   else if (view === "targets") showTargets();
+  else if (view === "fleet") showFleet();
 }
 
 // The hash rather than history.pushState: pushState throws on file://, which the source must support.
@@ -5963,5 +5970,274 @@ function updateTargets() {
 }
 
 targetSearchEl.addEventListener("input", () => typeof BOSSES_DATA !== "undefined" && updateTargets());
+
+// --- Fleet ---
+
+const FLEET_LEVEL = 125;
+const FLEET_SIZE = 3;
+const FLEET_STORAGE_KEY = "azurcalc.fleet";
+const fleetRowEls = { Vanguard: document.getElementById("fleet-vanguard"), Main: document.getElementById("fleet-main") };
+const fleetPickerEl = document.getElementById("fleet-picker");
+const fleetSearchEl = document.getElementById("fleet-search");
+const fleetResultsEl = document.getElementById("fleet-results");
+const fleetTotalsEl = document.getElementById("fleet-totals");
+const fleetSynergiesEl = document.getElementById("fleet-synergies");
+const fleetTargetEl = document.getElementById("fleet-target");
+const fleet = loadFleet();
+let fleetPickerSlot = null;
+
+// A per-viewer convenience, so a blocked or empty storage just starts an empty fleet.
+function loadFleet() {
+  const empty = { Vanguard: [null, null, null], Main: [null, null, null] };
+  try {
+    const saved = JSON.parse(localStorage.getItem(FLEET_STORAGE_KEY) || "null");
+    for (const row of Object.keys(empty)) {
+      (saved && saved[row] || []).slice(0, FLEET_SIZE).forEach((id, i) => {
+        const ship = shipsById.get(String(id));
+        empty[row][i] = ship && ship.role === row ? ship : null;
+      });
+    }
+  } catch {}
+  return empty;
+}
+
+function saveFleet() {
+  try {
+    localStorage.setItem(FLEET_STORAGE_KEY, JSON.stringify({
+      Vanguard: fleet.Vanguard.map(s => s && s.id),
+      Main: fleet.Main.map(s => s && s.id)
+    }));
+  } catch {}
+}
+
+function fleetMembers() {
+  return [...fleet.Vanguard, ...fleet.Main].filter(Boolean);
+}
+
+// Optimize needs the gear catalog and reads the boss list; augments only matter to ships with modules.
+function showFleet() {
+  withViewData(
+    () => typeof EQUIPMENT_DATA !== "undefined" && typeof BOSSES_DATA !== "undefined" && typeof AUGMENTS_DATA !== "undefined",
+    () => Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js")]),
+    fleetTotalsEl,
+    renderFleet
+  );
+}
+
+// The figures read the modal's level/retrofit globals (Optimize's eHP simulation does), so they
+// are set for the fleet and put back. A ship with no gear set gets Optimize's pick, which is
+// then hers in the Equipment panel too.
+function fleetShipFigures(ship) {
+  const saved = [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget];
+  currentLevel = FLEET_LEVEL;
+  retrofitApplied = Boolean(ship.hasRetrofit);
+  augmentApplied = false;
+  fateSimApplied = false;
+  try {
+    if (ship.equipment && !Object.keys(equippedGear[ship.id] || {}).length) {
+      equipmentTarget = "auto";
+      const bare = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false);
+      if (bare) optimizeEquipment(ship, bare, FLEET_LEVEL);
+    }
+    const effective = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false);
+    return effective ? computeCombatMetrics(ship, FLEET_LEVEL, effective, targetStats().armor) : null;
+  } finally {
+    [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget] = saved;
+  }
+}
+
+function formatFigure(value) {
+  return Math.round(value).toLocaleString("en-US");
+}
+
+function renderFleet() {
+  if (typeof EQUIPMENT_DATA === "undefined") return;
+  fleetTargetEl.replaceChildren(targetBoss
+    ? `Against ${targetBoss.name} (${targetBoss.map}): ${bossSummary(targetBoss)}. `
+    : "No target picked: DPS averages the three armours. ");
+  const change = document.createElement("button");
+  change.type = "button";
+  change.className = "chip";
+  change.textContent = targetBoss ? "Change target" : "Pick a target";
+  change.addEventListener("click", () => { location.hash = "targets"; });
+  fleetTargetEl.appendChild(change);
+
+  const figures = new Map();
+  for (const ship of fleetMembers()) figures.set(ship, fleetShipFigures(ship));
+  for (const row of Object.keys(fleetRowEls)) {
+    fleetRowEls[row].replaceChildren(...fleet[row].map((ship, index) => createFleetSlot(row, index, ship, ship && figures.get(ship))));
+  }
+  renderFleetTotals(figures);
+  renderFleetSynergies();
+}
+
+function createFleetSlot(row, index, ship, metrics) {
+  const slot = document.createElement("div");
+  slot.className = "fleet-slot";
+  if (!ship) {
+    const add = document.createElement("button");
+    add.type = "button";
+    add.className = "fleet-add";
+    add.textContent = `+ ${row}`;
+    add.setAttribute("aria-label", `Add a ${row} ship to slot ${index + 1}`);
+    add.addEventListener("click", () => openFleetPicker(row, index));
+    slot.appendChild(add);
+    return slot;
+  }
+  const card = createCard(ship);
+  card.querySelector(".card-activate").addEventListener("click", () => openModal(ship));
+  slot.appendChild(card);
+  const stats = document.createElement("dl");
+  stats.className = "fleet-slot-stats";
+  const rows = metrics
+    ? [["DPS", metrics.dps], ["eHP", metrics.ehp], ["AA", metrics.dpsAA]]
+    : [];
+  for (const [label, value] of rows) {
+    const dt = document.createElement("dt");
+    dt.textContent = label;
+    const dd = document.createElement("dd");
+    dd.textContent = formatFigure(value);
+    stats.append(dt, dd);
+  }
+  slot.appendChild(stats);
+  const actions = document.createElement("div");
+  actions.className = "fleet-slot-actions";
+  const swap = document.createElement("button");
+  swap.type = "button";
+  swap.className = "chip";
+  swap.textContent = "Change";
+  swap.addEventListener("click", () => openFleetPicker(row, index));
+  const remove = document.createElement("button");
+  remove.type = "button";
+  remove.className = "chip";
+  remove.textContent = "Remove";
+  remove.addEventListener("click", () => {
+    fleet[row][index] = null;
+    saveFleet();
+    renderFleet();
+  });
+  actions.append(swap, remove);
+  slot.appendChild(actions);
+  return slot;
+}
+
+function openFleetPicker(row, index) {
+  fleetPickerSlot = { row, index };
+  fleetPickerEl.hidden = false;
+  fleetSearchEl.placeholder = `Search a ${row} ship...`;
+  fleetSearchEl.value = "";
+  updateFleetPicker();
+  fleetRowEls[row].after(fleetPickerEl);
+  fleetSearchEl.focus();
+}
+
+// One ship per fleet, as in the game; the list is capped since a 3-letter query is the usual use.
+function updateFleetPicker() {
+  if (!fleetPickerSlot) return;
+  const q = foldAccents(fleetSearchEl.value.trim().toLowerCase());
+  const taken = new Set(fleetMembers());
+  const list = ships
+    .filter(s => s.role === fleetPickerSlot.row && !taken.has(s) && (!q || foldAccents(s.displayName.toLowerCase()).includes(q)))
+    .sort((a, b) => a.displayName.localeCompare(b.displayName, "en", { sensitivity: "base", numeric: true }))
+    .slice(0, 60);
+  if (!list.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = `No other ${fleetPickerSlot.row} ship matches.`;
+    fleetResultsEl.replaceChildren(empty);
+    return;
+  }
+  fleetResultsEl.replaceChildren(...list.map(ship => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "chip ship-chip";
+    const icon = document.createElement("img");
+    icon.className = "hull-chip-icon";
+    icon.src = HULL_ICON_DIR + ship.hullShort + ".png";
+    icon.alt = "";
+    button.append(icon, ship.displayName);
+    button.addEventListener("click", () => {
+      fleet[fleetPickerSlot.row][fleetPickerSlot.index] = ship;
+      fleetPickerSlot = null;
+      fleetPickerEl.hidden = true;
+      saveFleet();
+      renderFleet();
+    });
+    return button;
+  }));
+}
+
+function renderFleetTotals(figures) {
+  const sum = (row, key) => fleet[row].reduce((total, ship) => total + (ship && figures.get(ship) ? figures.get(ship)[key] : 0), 0);
+  const members = fleetMembers().filter(ship => figures.get(ship));
+  const weakest = members.reduce((low, ship) => !low || figures.get(ship).ehp < figures.get(low).ehp ? ship : low, null);
+  const cells = [
+    ["Vanguard DPS", formatFigure(sum("Vanguard", "dps"))],
+    ["Main fleet DPS", formatFigure(sum("Main", "dps"))],
+    ["Fleet DPS", formatFigure(sum("Vanguard", "dps") + sum("Main", "dps"))],
+    ["Fleet AA DPS", formatFigure(sum("Vanguard", "dpsAA") + sum("Main", "dpsAA"))],
+    ["Lowest eHP", weakest ? `${formatFigure(figures.get(weakest).ehp)} (${weakest.displayName})` : "\u2014"]
+  ];
+  const table = document.createElement("dl");
+  table.className = "item-stat-table";
+  for (const [label, value] of cells) {
+    const cell = document.createElement("div");
+    const dt = document.createElement("dt");
+    dt.textContent = label;
+    const dd = document.createElement("dd");
+    dd.textContent = value;
+    cell.append(dt, dd);
+    table.appendChild(cell);
+  }
+  fleetTotalsEl.replaceChildren(table);
+}
+
+// Skills of one member that name another (her nation, hull, fleet role, class or name), from the
+// same ally matching as the modal's Interaction section. Shown, not yet applied to the figures:
+// most are timed buffs whose uptime is not modelled.
+function renderFleetSynergies() {
+  const members = fleetMembers();
+  const bySkill = new Map();
+  for (const target of members) {
+    const { results } = computeInteractions(target);
+    for (const [category, entries] of Object.entries(results)) {
+      for (const entry of entries) {
+        if (!members.includes(entry.ship)) continue;
+        const key = `${entry.ship.id}|${entry.skill.name}`;
+        if (!bySkill.has(key)) bySkill.set(key, { from: entry.ship, skill: entry.skill, text: entry.text, targets: new Map() });
+        const targets = bySkill.get(key).targets;
+        if (!targets.has(target)) targets.set(target, INTERACTION_CATEGORY_LABELS[category].replace(/^By /, "").toLowerCase());
+      }
+    }
+  }
+  if (!bySkill.size) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = members.length > 1 ? "No skill of one member names another." : "Add ships to see which skills reach each other.";
+    fleetSynergiesEl.replaceChildren(empty);
+    return;
+  }
+  fleetSynergiesEl.replaceChildren(...[...bySkill.values()].map(({ from, skill, text, targets }) => {
+    const details = document.createElement("details");
+    details.className = "fleet-synergy";
+    const summary = document.createElement("summary");
+    const source = document.createElement("strong");
+    source.textContent = `${from.displayName} \u2014 ${skill.name}`;
+    const reach = [...targets].map(([ship, how]) => `${ship.displayName} (${how})`).join(", ");
+    summary.append(source, ` \u2192 ${reach}`);
+    const body = document.createElement("p");
+    body.textContent = text;
+    details.append(summary, body);
+    return details;
+  }));
+}
+
+fleetSearchEl.addEventListener("input", updateFleetPicker);
+document.getElementById("fleet-clear").addEventListener("click", () => {
+  for (const row of Object.keys(fleetRowEls)) fleet[row].fill(null);
+  fleetPickerEl.hidden = true;
+  saveFleet();
+  renderFleet();
+});
 
 showView(viewFromHash());

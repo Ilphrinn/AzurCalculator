@@ -79,6 +79,20 @@ try {
   targetRowsEl.querySelector("button").click();
   if (targetBoss !== BOSSES_DATA[0]) report.errors.push("Targets: the first row's button did not pick its boss");
   setTargetBoss(null);
+
+  // A full fleet renders with finite figures for every member.
+  const pickRole = role => SHIPS_DATA.filter(ship => ship.role === role && ship.equipment).slice(0, 3);
+  fleet.Vanguard.splice(0, 3, ...pickRole("Vanguard"));
+  fleet.Main.splice(0, 3, ...pickRole("Main"));
+  showView("fleet");
+  for (const ship of fleetMembers()) {
+    const metrics = fleetShipFigures(ship);
+    if (!metrics || !isFinite4(metrics)) report.nonFinite.push(`Fleet: ${ship.displayName}`);
+  }
+  if (document.querySelectorAll(".fleet-slot .card").length !== 6) report.errors.push("Fleet: six members did not render six cards");
+  fleet.Vanguard.fill(null);
+  fleet.Main.fill(null);
+  showView("port");
 } catch (error) {
   report.errors.push(`views: ${error && error.stack || error}`);
 }
