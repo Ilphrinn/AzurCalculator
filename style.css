@@ -1804,6 +1804,42 @@ main[aria-busy="true"] {
   cursor: pointer;
 }
 
+.equip-boss-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+/* Event stage names run long; the menu may shrink rather than push the modal wider. */
+.equip-boss-row .equip-cap-select {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* An opaque plate, like the header labels: plain text is unreadable over the dithered panel. */
+.equip-boss-stats {
+  padding: 0.15rem 0.35rem;
+  background: var(--bg-elevated);
+  font-size: 0.68rem;
+  color: var(--text);
+}
+
+.equip-boss-stats:empty {
+  display: none;
+}
+
+/* The armour the picked boss wears: the one DPS figure that answers "how does she do here". */
+.combat-metric-label.is-target,
+.combat-metric-value.is-target {
+  color: var(--accent);
+}
+
+.combat-metric-label.is-target {
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
 /* Optimize and Clear are the same pill; only the colour separates them, Clear staying
    neutral because it undoes work rather than proposing any. */
 /* The hub's button: a hover lift onto a hard offset shadow. */

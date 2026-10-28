@@ -2,7 +2,8 @@
   "name": "azurcalculator",
   "private": true,
   "scripts": {
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.js",
+    "check": "node scripts/check.js"
   },
   "devDependencies": {
     "esbuild": "0.25.0",

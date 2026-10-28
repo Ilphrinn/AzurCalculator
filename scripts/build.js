@@ -32,13 +32,27 @@ const minifiedFiles = [
   ["pixel.js", "js"],
   ["data/ships.js", "js"],
   ["data/equipment.js", "js"],
-  ["data/default-equipment.js", "js"]
+  ["data/default-equipment.js", "js"],
+  ["data/augments.js", "js"],
+  ["data/bosses.js", "js"]
 ];
+
+const hashFile = path => createHash("sha256").update(readFileSync(path)).digest("hex").slice(0, 10);
+
+// app.js loads these itself, so their URLs need the same cache-busting hash as the <script> tags.
+const lazyScripts = ["data/equipment.js", "data/augments.js", "data/bosses.js"];
 
 for (const [file, loader] of minifiedFiles) {
   const destination = join(output, file);
   const isDataScript = file.startsWith("data/");
-  const result = transformSync(readFileSync(destination, "utf8"), {
+  let source = readFileSync(destination, "utf8");
+  if (file === "app.js") {
+    for (const lazy of lazyScripts) {
+      if (!source.includes(`"${lazy}"`)) throw new Error(`Lazy script path missing from app.js: ${lazy}`);
+      source = source.replaceAll(`"${lazy}"`, `"${lazy}?v=${hashFile(join(root, lazy))}"`);
+    }
+  }
+  const result = transformSync(source, {
     loader,
     format: loader === "js" && !isDataScript ? "esm" : undefined,
     minify: true,
@@ -109,10 +123,9 @@ function finalizeProductionHtml() {
   }
   // Cloudflare caches scripts for hours regardless of max-age, so each URL carries a content hash
   // and a deploy can never pair new HTML with a stale script.
-  const versionedIndex = sourceIndex.replace(/<script src="([^"?]+)"/g, (tag, file) => {
-    const hash = createHash("sha256").update(readFileSync(join(output, file))).digest("hex").slice(0, 10);
-    return `<script src="${file}?v=${hash}"`;
-  });
+  const versionedIndex = sourceIndex.replace(/<script src="([^"?]+)"/g, (tag, file) =>
+    `<script src="${file}?v=${hashFile(join(output, file))}"`
+  );
   const index = versionedIndex
     .replace('<html lang="en">', '<html lang="en" data-webp-assets="true">')
     .replace(stylesheetLink, `<style>${css}</style>`)

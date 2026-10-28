@@ -693,6 +693,9 @@ function createCard(ship) {
   return card;
 }
 
+// Built once per ship, so a search keystroke only reorders existing cards instead of rebuilding 888.
+const cardCache = new Map();
+
 function render(list) {
   grid.replaceChildren();
   countEl.textContent = `${list.length} character${list.length > 1 ? "s" : ""}`;
@@ -706,7 +709,10 @@ function render(list) {
   }
 
   const fragment = document.createDocumentFragment();
-  for (const ship of list) fragment.appendChild(createCard(ship));
+  for (const ship of list) {
+    if (!cardCache.has(ship.id)) cardCache.set(ship.id, createCard(ship));
+    fragment.appendChild(cardCache.get(ship.id));
+  }
   grid.appendChild(fragment);
 }
 
@@ -815,6 +821,8 @@ const modalEquipmentTarget = document.getElementById("modal-equipment-target");
 const modalEquipmentGearLab = document.getElementById("modal-equipment-gearlab");
 const modalEquipmentResearch = document.getElementById("modal-equipment-research");
 const modalEquipmentClear = document.getElementById("modal-equipment-clear");
+const modalEquipmentBoss = document.getElementById("modal-equipment-boss");
+const modalEquipmentBossStats = document.getElementById("modal-equipment-boss-stats");
 const modalCombatMetrics = document.getElementById("modal-combat-metrics");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
@@ -825,47 +833,27 @@ const modalInteractionSection = document.getElementById("modal-interaction-secti
 const modalInteractionList = document.getElementById("modal-interaction");
 const modalInteractionMaxToggle = document.getElementById("modal-interaction-max-toggle");
 
-let equipmentLoadPromise;
+const dataScriptLoads = new Map();
 function setEquipmentControlsDisabled(disabled) {
-  [modalEquipmentCap, modalEquipmentTarget, modalEquipmentGearLab, modalEquipmentResearch, modalEquipmentOptimize, modalEquipmentClear]
+  [modalEquipmentCap, modalEquipmentTarget, modalEquipmentBoss, modalEquipmentGearLab, modalEquipmentResearch, modalEquipmentOptimize, modalEquipmentClear]
     .forEach(control => { control.disabled = disabled; });
 }
 
-function loadEquipmentData() {
-  if (typeof EQUIPMENT_DATA !== "undefined") return Promise.resolve();
-  if (equipmentLoadPromise) return equipmentLoadPromise;
-
-  equipmentLoadPromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "data/equipment.js";
-    script.onload = resolve;
-    script.onerror = () => reject(new Error("Unable to load equipment data."));
-    document.head.appendChild(script);
-  }).catch(error => {
-    equipmentLoadPromise = null;
-    throw error;
-  });
-
-  return equipmentLoadPromise;
-}
-
-let augmentLoadPromise;
-function loadAugmentData() {
-  if (typeof AUGMENTS_DATA !== "undefined") return Promise.resolve();
-  if (augmentLoadPromise) return augmentLoadPromise;
-
-  augmentLoadPromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "data/augments.js";
-    script.onload = resolve;
-    script.onerror = () => reject(new Error("Unable to load augment data."));
-    document.head.appendChild(script);
-  }).catch(error => {
-    augmentLoadPromise = null;
-    throw error;
-  });
-
-  return augmentLoadPromise;
+// A failed load is forgotten so the next attempt retries instead of reusing the rejection.
+function loadDataScript(src) {
+  if (!dataScriptLoads.has(src)) {
+    dataScriptLoads.set(src, new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Unable to load ${src}.`));
+      document.head.appendChild(script);
+    }).catch(error => {
+      dataScriptLoads.delete(src);
+      throw error;
+    }));
+  }
+  return dataScriptLoads.get(src);
 }
 const gifPreview = placeImage("gif-preview", "gif-preview", document.body, null, true);
 
@@ -1815,25 +1803,54 @@ function weaponEfficiencyBonus(effective, ship, slotKey, item) {
 // CriticalRate/CriticalModifier and DMG Dealt, from the Damage Calculations page's Critical
 // Hits and Final Damage Dealt sections — the one other modifier family (besides
 // weaponEfficiency) that skill text grants but nothing here ever multiplied into a slot's
-// damage. A target-qualified bonus (Alvitr's "DMG Dealt +15% to Light Armor enemies") is
-// skipped outright: this app tracks no enemy armor/hull to condition it on.
+// damage. A target-qualified bonus is skipped, except one restricted to armour classes and
+// nothing else (Alvitr's "DMG Dealt +15% to Light Armor enemies"), which applies against that
+// armour: the DPS column being computed, else the boss picked in Target; or one restricted to
+// hull types and nothing else ("to enemy DDs and CLs"), which applies when the picked boss is one.
 //
-// CriticalRate's own formula needs the TARGET's Evasion/Luck, which this app has no source
-// for — a fixed reference target stands in, the same unknown-opponent gap eHP solves with
-// EHP_REFERENCE_ACCURACY/LUCK just below. Both reference sets are averaged from the same
+// CriticalRate's own formula needs the TARGET's Evasion/Luck: the boss picked in Target, or
+// else a fixed reference target, the same unknown-opponent gap eHP solves with
+// EHP_REFERENCE_ACCURACY/LUCK just below (whose Luck it shares). Both are averaged from the same
 // composite boss (see EHP_REFERENCE_ACCURACY's comment), so a ship's eHP and crit rate here
 // both answer "against a typical current raid boss", not two unrelated guesses.
 const CRIT_REFERENCE_EVASION = 26;
-const CRIT_REFERENCE_LUCK = 39;
 
-function weaponDamageMultiplier(effective, ship, slotKey, item) {
+// Precision over recall: "those Light Armor enemies" (Z47) or "Heavy armor with this ship's
+// equipped torpedoes" (Harbin) carry a further restriction, so they do not match.
+const ARMOR_ONLY_TARGET_RE = /^(?:to|against)\s+(?:enemies with\s+)?(light|medium|heavy)(?:\s+and\s+(light|medium|heavy))?\s+armou?r(?:\s+enemies)?$/i;
+function targetsArmor(target, armor) {
+  const match = armor ? ARMOR_ONLY_TARGET_RE.exec(target) : null;
+  return Boolean(match && [match[1], match[2]].some(name => name && name.toLowerCase() === armor));
+}
+
+// Plural and spelled-out forms as skill text writes them; "Carriers" is left out on purpose,
+// since it is unclear whether it covers CVLs.
+const HULL_TARGET_TERMS = {
+  dd: ["DD"], dds: ["DD"], destroyer: ["DD"], destroyers: ["DD"],
+  cl: ["CL"], cls: ["CL"], "light cruiser": ["CL"], "light cruisers": ["CL"],
+  ca: ["CA"], cas: ["CA"], "heavy cruiser": ["CA"], "heavy cruisers": ["CA"],
+  cb: ["CB"], cbs: ["CB"], "large cruiser": ["CB"], "large cruisers": ["CB"],
+  bc: ["BC"], bcs: ["BC"], battlecruiser: ["BC"], battlecruisers: ["BC"],
+  bb: ["BB"], bbs: ["BB"], battleship: ["BB"], battleships: ["BB"],
+  bbv: ["BBV"], bbvs: ["BBV"],
+  cv: ["CV"], cvs: ["CV"], cvl: ["CVL"], cvls: ["CVL"],
+  submarine: ["SS", "SSV"], submarines: ["SS", "SSV"]
+};
+function targetsHull(target, hull) {
+  const list = target.replace(/^(?:to|against)\s+(?:enemy\s+)?/i, "");
+  if (!hull || list === target) return false;
+  const hulls = list.split(/\s*,\s*(?:and\s+)?|\s+and\s+/).map(term => HULL_TARGET_TERMS[term.toLowerCase()]);
+  return hulls.every(Boolean) && hulls.some(terms => terms.includes(hull));
+}
+
+function weaponDamageMultiplier(effective, ship, slotKey, item, armor = targetStats().armor) {
   const role = weaponRole(item);
   if (!role || !effective) return 1;
   let critRateBonus = 0;
   let critDamageBonus = 0;
   let damageDealtBonus = 0;
   for (const modifier of effective.modifiers) {
-    if (modifier.target) continue;
+    if (modifier.target && !targetsArmor(modifier.target, armor) && !targetsHull(modifier.target, targetBoss && targetBoss.hull)) continue;
     if (!weaponModifierApplies(modifier.source, role, ship, slotKey)) continue;
     if (modifier.key === "critRate") critRateBonus += modifier.amount;
     else if (modifier.key === "critDamage") critDamageBonus += modifier.amount;
@@ -1843,8 +1860,8 @@ function weaponDamageMultiplier(effective, ship, slotKey, item) {
   const luck = effective.stats.luck ? effective.stats.luck.value : 0;
   const critRate = Math.min(1, Math.max(0,
     0.05 +
-    accuracy / (accuracy + CRIT_REFERENCE_EVASION + 2000) +
-    (luck - CRIT_REFERENCE_LUCK) / 5000 +
+    accuracy / (accuracy + targetStats().eva + 2000) +
+    (luck - targetStats().luck) / 5000 +
     critRateBonus / 100
   ));
   const criticalModifier = 1 + critRate * (0.5 + critDamageBonus / 100);
@@ -1856,23 +1873,33 @@ function weaponDamageMultiplier(effective, ship, slotKey, item) {
 // against the catalog (dps.raw is exactly dmg x coef x roundsPerSec, no stat term), so the
 // stat multiplier below isn't double-counting.
 //
-// The mean of light/medium/heavy is used instead of dps.raw, since raw assumes a 100%
+// The light/medium/heavy figures are used instead of dps.raw, since raw assumes a 100%
 // armour modifier almost no real ammunition has (HE is punished against heavy armour,
 // torpedoes rewarded) — this matters most when weighing a gun against a barrage of a
 // different ammo type. raw is only the fallback for an item with no per-armour breakdown.
-function equipmentBaseDps(item) {
-  if (typeof item.aaDps === "number") return item.aaDps;
-  if (typeof item.aswDps === "number") return item.aswDps;
+// `dps` is read before aaDps: aircraft carry both, and their aaDps is their air-combat figure,
+// not the bombs or torpedoes their surface role scales off (equipmentOptimizeScore agrees).
+function equipmentBaseDps(item, armor) {
   if (typeof item.dps === "number") return item.dps;
   const dps = item.dps;
   if (dps && typeof dps === "object") {
-    const values = [dps.light, dps.medium, dps.heavy].filter(v => typeof v === "number");
-    if (values.length) return values.reduce((a, b) => a + b, 0) / values.length;
+    const value = armorDamage([dps.light, dps.medium, dps.heavy], armor);
+    if (value !== null) return value;
     if (typeof dps.raw === "number") return dps.raw;
   }
-  const builtIn = [item.dpsLight, item.dpsMedium, item.dpsHeavy].filter(v => typeof v === "number");
-  if (builtIn.length) return builtIn.reduce((a, b) => a + b, 0) / builtIn.length;
-  return null;
+  if (typeof item.aaDps === "number") return item.aaDps;
+  if (typeof item.aswDps === "number") return item.aswDps;
+  return armorDamage([item.dpsLight, item.dpsMedium, item.dpsHeavy], armor);
+}
+
+// [light, medium, heavy] damage: the targeted armour's figure, or with no armour targeted the
+// mean of the figures present, the armour-neutral default every DPS here is built on.
+const ARMOR_COLUMN = { light: 0, medium: 1, heavy: 2 };
+function armorDamage(columns, armor) {
+  const values = columns.map(Number);
+  if (armor && Number.isFinite(values[ARMOR_COLUMN[armor]])) return values[ARMOR_COLUMN[armor]];
+  const present = values.filter(Number.isFinite);
+  return present.length ? present.reduce((a, b) => a + b, 0) / present.length : null;
 }
 
 // The reference attacker eHP is measured against — the wiki's HitRate formula needs the
@@ -1888,14 +1915,23 @@ function equipmentBaseDps(item) {
 const EHP_REFERENCE_ACCURACY = 110;
 const EHP_REFERENCE_LUCK = 39;
 
+// The boss picked in the Target menu (one BOSSES_DATA row, from mrlar.dev's maps.json), or null
+// for the averaged reference boss above. Armour only applies once a real boss is picked.
+let targetBoss = null;
+const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, armor: null };
+function targetStats() {
+  return targetBoss || REFERENCE_TARGET;
+}
+
 // HitRate = 0.1 + Hit/(Hit + Eva + 2) + (AttackerLuck - TargetLuck + LevelDiff)/1000,
-// clamped to [0.1, 1]. Level difference is 0: the reference attacker is assumed to be the
-// same level as the ship being looked at.
+// clamped to [0.1, 1]. Level difference is 0: the attacker is assumed to be the same level
+// as the ship being looked at, even for a picked boss (a few levels move this by under 1%).
 function referenceHitRate(evasion, luck) {
+  const { hit, luck: attackerLuck } = targetStats();
   const raw =
     0.1 +
-    EHP_REFERENCE_ACCURACY / (EHP_REFERENCE_ACCURACY + evasion + 2) +
-    (EHP_REFERENCE_LUCK - luck) / 1000;
+    hit / (hit + evasion + 2) +
+    (attackerLuck - luck) / 1000;
   return Math.min(1, Math.max(0.1, raw));
 }
 
@@ -1904,17 +1940,17 @@ function referenceHitRate(evasion, luck) {
 // Critical/DMG Dealt multiplier (weaponDamageMultiplier). WeaponScalingCoefficient stays at
 // 1, so aircraft numbers run slightly optimistic since the Damage Calculations page gives
 // 0.8 for some bombs/rockets the catalog doesn't distinguish.
-function slotDamage(slot, item, effective, ship, slotKey) {
+function slotDamage(slot, item, effective, ship, slotKey, armor) {
   const role = weaponRole(item);
   if (!role) return null;
-  const base = equipmentBaseDps(item);
+  const base = equipmentBaseDps(item, armor);
   if (base === null) return { metric: role.metric, value: 0, unknown: true };
   const statEntry = effective.stats[role.stat];
   const stat = statEntry ? statEntry.value : 0;
   const mounts = slot.mount || 1;
   const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
   const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
-  const damageMultiplier = weaponDamageMultiplier(effective, ship, slotKey, item);
+  const damageMultiplier = weaponDamageMultiplier(effective, ship, slotKey, item, armor);
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier, unknown: false };
 }
 
@@ -1936,8 +1972,8 @@ function innateDepthCharge(ship) {
 // gun's catalog reload stands in for the true volley interval, the same baseline-100-reload
 // approximation every other figure here makes, so the optimiser scores against the same
 // number this displays.
-function volleyBarrageDps(ship, effective, level) {
-  const barrage = volleyBarrage(ship, level);
+function volleyBarrageDps(ship, effective, level, armor) {
+  const barrage = volleyBarrage(ship, level, armor);
   if (!barrage) return 0;
   const key = shipGunSlotKeys(ship)[0];
   if (key == null) return 0;
@@ -1950,14 +1986,15 @@ function volleyBarrageDps(ship, effective, level) {
 
 // The four headline figures. Every slot contributes through whatever it actually fights
 // with - the equipped item if there is one, otherwise the ship's built-in weapon - so a
-// ship with an empty loadout still reports the damage she really does.
-function computeCombatMetrics(ship, level, effective) {
+// ship with an empty loadout still reports the damage she really does. Surface DPS is against
+// one armour class when `armor` names it, the mean of the three otherwise.
+function computeCombatMetrics(ship, level, effective, armor) {
   const totals = { dps: 0, dpsAA: 0, dpsASW: 0 };
   let unknownSlots = 0;
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
     if (!item) continue;
-    const contribution = slotDamage(slot, item, effective, ship, slotKey);
+    const contribution = slotDamage(slot, item, effective, ship, slotKey, armor);
     if (!contribution) continue;
     if (contribution.unknown) { unknownSlots++; continue; }
     totals[contribution.metric] += contribution.value;
@@ -1965,11 +2002,11 @@ function computeCombatMetrics(ship, level, effective) {
 
   const launcher = innateDepthCharge(ship);
   if (launcher) {
-    const contribution = slotDamage({ mount: 1, efficiency: 1 }, launcher, effective, ship, null);
+    const contribution = slotDamage({ mount: 1, efficiency: 1 }, launcher, effective, ship, null, armor);
     if (contribution && !contribution.unknown) totals[contribution.metric] += contribution.value;
   }
 
-  const barrageDps = volleyBarrageDps(ship, effective, level);
+  const barrageDps = volleyBarrageDps(ship, effective, level, armor);
   totals.dps += barrageDps;
 
   const hp = effective.stats.health ? effective.stats.health.value : 0;
@@ -2214,9 +2251,9 @@ const volleyBarrageCache = new Map();
 // VOLLEY wins (a small barrage every 2 volleys can beat a large one every 10). Cached per
 // level-bracket rather than per level, since a limit break is the only thing that can
 // change which rows fire.
-function volleyBarrage(ship, level) {
+function volleyBarrage(ship, level, armor) {
   const upgraded = (level || 0) >= barrageEnhancedLevel(ship);
-  const cacheKey = ship.id + (upgraded ? "@lb" : "");
+  const cacheKey = ship.id + (upgraded ? "@lb" : "") + (armor ? "@" + armor : "");
   if (volleyBarrageCache.has(cacheKey)) return volleyBarrageCache.get(cacheKey);
   const rows = barragesAtLevel(ship, ship.barrages || [], level || 0);
   let best = null;
@@ -2259,16 +2296,14 @@ function volleyBarrage(ship, level) {
         ? b.skillName.slice(skill.name.length)
         : b.skillName;
       if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) continue;
-      // The Light/Medium/Heavy columns of the Barrages table, averaged — the same
-      // armour-neutral figure equipmentBaseDps() uses for gear, each already including the
+      // The Light/Medium/Heavy columns of the Barrages table, read through armorDamage() like
+      // equipmentBaseDps() reads gear (averaged unless an armour is targeted), each including the
       // row's own Count. The alternative, Count x Base DMG, is the pre-armour figure
       // instead, and the gap isn't constant (0.567x for an armour-punished barrage like
       // Jintsuu's to 1.200x for a rewarded one like Prinz Eugen mu's torpedoes) — it
       // decides which ships deserve a faster gun, not merely how big the term is.
-      const armour = [b.lightDmg, b.mediumDmg, b.heavyDmg].map(Number).filter(v => Number.isFinite(v));
-      const rowDamage = (armour.length
-        ? armour.reduce((a, c) => a + c, 0) / armour.length
-        : (Number(b.count) || 0) * (Number(b.baseDmg) || 0)) * share;
+      const armourDamage = armorDamage([b.lightDmg, b.mediumDmg, b.heavyDmg], armor);
+      const rowDamage = (armourDamage ?? (Number(b.count) || 0) * (Number(b.baseDmg) || 0)) * share;
       const scaling = b.statScaling || {};
       addTerm(scaling.stat, scaling.multiplier, rowDamage);
       // A burn of a given id refreshes rather than stacks, so a barrage that applies
@@ -2528,6 +2563,11 @@ function statPreferenceScore(item, weights, ship, slotKey, baseEhp) {
 // score null since there's no way to rank HP against Evasion without knowing player intent.
 function equipmentOptimizeScore(item) {
   if (item.dps) {
+    // Against a picked boss its own armour column decides, not the pre-armour raw figure.
+    if (targetBoss) {
+      const value = armorDamage([item.dps.light, item.dps.medium, item.dps.heavy], targetBoss.armor);
+      if (value !== null) return value;
+    }
     if (typeof item.dps.raw === "number") return item.dps.raw;
     const values = [item.dps.light, item.dps.medium, item.dps.heavy].filter(v => typeof v === "number");
     return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
@@ -2758,7 +2798,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
   const barrageTrigger = role === "bb" ? shipBarrageTriggerType(ship) : null;
   // Only the FIRST gun slot fires the barrage: the trigger counts main gun volleys,
   // and a later gun slot is a secondary battery (see EQUIPMENT_SHORT_NAMES).
-  const volley = volleyBarrage(ship, level);
+  const volley = volleyBarrage(ship, level, targetStats().armor);
   const mainGunSlotKey = volley ? shipGunSlotKeys(ship)[0] : null;
   let changed = 0;
 
@@ -2915,6 +2955,31 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       changed++;
     }
   }
+
+  // Some aux slots also carry a built-in gun (Royal James's slot 3), so an auxiliary there costs
+  // that gun. Slot scores cannot weigh one against the other, so compare the real loadouts instead:
+  // each figure's relative change, weighted the way this target weighs the stat behind it.
+  // Submarines are left out: their auxiliaries follow the Oxygen rule above, which no figure here measures.
+  const outcomeWeights = [
+    ["dps", Math.max(weights.firepower || 0, weights.torpedo || 0, weights.aviation || 0)],
+    ["ehp", Math.max(weights.health || 0, weights.evasion || 0)],
+    ["dpsAA", weights.antiair || 0],
+    ["dpsASW", weights.asw || 0]
+  ];
+  const loadoutMetrics = () => computeCombatMetrics(ship, level,
+    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied), targetStats().armor);
+  for (const slotKey of auxSlotKeys) {
+    const item = getEquippedGear(ship, slotKey);
+    const builtIn = defaultEquipmentForSlot(ship.equipment[slotKey]);
+    if (role === "sub" || !item || weaponRole(item) || !builtIn || !weaponRole(builtIn)) continue;
+    const withAuxiliary = loadoutMetrics();
+    setEquippedGear(ship, slotKey, null);
+    const withGun = loadoutMetrics();
+    const gain = outcomeWeights.reduce((sum, [key, weight]) =>
+      weight && withGun[key] ? sum + weight * (withAuxiliary[key] / withGun[key] - 1) : sum, 0);
+    if (gain > 0) setEquippedGear(ship, slotKey, item);
+    else changed--;
+  }
   return changed;
 }
 
@@ -2965,7 +3030,7 @@ function augmentOptionsForShip(ship) {
   return (ship.augmentModules || []).map(augmentByName).filter(Boolean);
 }
 
-// data/equipment.json spells Anti-Air "antiAir"; STAT_GRID spells it "antiair" — without
+// data/equipment.js spells Anti-Air "antiAir"; STAT_GRID spells it "antiair" — without
 // this alias the 106 catalog entries carrying an AA bonus would silently contribute
 // nothing. "oxygen" has no alias on purpose, since the stat grid doesn't track Oxygen at
 // all.
@@ -3159,6 +3224,30 @@ modalEquipmentCap.addEventListener("change", () => {
   equipmentRarityCap = modalEquipmentCap.value;
 });
 
+// Grouped by content (campaign, META, Arbiter, events), the order data/bosses.js already has.
+function syncBossOptions() {
+  if (modalEquipmentBoss.options.length) return;
+  modalEquipmentBoss.appendChild(new Option("Average raid boss", ""));
+  const groups = new Map();
+  BOSSES_DATA.forEach((boss, index) => {
+    if (!groups.has(boss.group)) {
+      const optgroup = document.createElement("optgroup");
+      optgroup.label = boss.group;
+      groups.set(boss.group, optgroup);
+      modalEquipmentBoss.appendChild(optgroup);
+    }
+    groups.get(boss.group).appendChild(new Option(`${boss.name} \u2014 ${boss.map}`, String(index)));
+  });
+}
+
+modalEquipmentBoss.addEventListener("change", () => {
+  targetBoss = modalEquipmentBoss.value === "" ? null : BOSSES_DATA[Number(modalEquipmentBoss.value)];
+  modalEquipmentBossStats.textContent = targetBoss
+    ? `${targetBoss.hull ? targetBoss.hull + " \u00b7 " : ""}${targetBoss.armor[0].toUpperCase()}${targetBoss.armor.slice(1)} armour \u00b7 Lv.${targetBoss.level} \u00b7 ACC ${targetBoss.hit} \u00b7 EVA ${targetBoss.eva} \u00b7 LCK ${targetBoss.luck}`
+    : "";
+  refreshStatsAfterGearChange();
+});
+
 modalEquipmentTarget.addEventListener("change", () => {
   equipmentTarget = modalEquipmentTarget.value;
 });
@@ -3236,10 +3325,14 @@ function renderModalEquipment(ship) {
     return;
   }
   modalEquipmentSection.hidden = false;
-  if (typeof EQUIPMENT_DATA === "undefined" || (modules.length && typeof AUGMENTS_DATA === "undefined")) {
+  if (typeof EQUIPMENT_DATA === "undefined" || typeof BOSSES_DATA === "undefined" || (modules.length && typeof AUGMENTS_DATA === "undefined")) {
     setEquipmentControlsDisabled(true);
     modalEquipment.textContent = "Loading equipment...";
-    Promise.all([loadEquipmentData(), modules.length ? loadAugmentData() : Promise.resolve()]).then(() => {
+    Promise.all([
+      typeof EQUIPMENT_DATA === "undefined" && loadDataScript("data/equipment.js"),
+      typeof BOSSES_DATA === "undefined" && loadDataScript("data/bosses.js"),
+      modules.length && typeof AUGMENTS_DATA === "undefined" && loadDataScript("data/augments.js")
+    ]).then(() => {
       if (currentShip === ship && !modalOverlay.hidden) renderModalEquipment(ship);
     }).catch(() => {
       if (currentShip === ship && !modalOverlay.hidden) {
@@ -3251,6 +3344,7 @@ function renderModalEquipment(ship) {
 
   setEquipmentControlsDisabled(false);
   syncEquipmentCapOptions();
+  syncBossOptions();
   syncEquipmentTargetOptions(ship);
   modalEquipment.innerHTML = "";
 
@@ -3290,11 +3384,15 @@ function renderModalEquipment(ship) {
   }
 }
 
+// Surface DPS is shown per armour class rather than as one average: ammunition and torpedoes
+// gain or lose a lot against each, which is what decides a ship's matchup against a boss.
 const COMBAT_METRIC_FIELDS = [
-  { key: "dps", label: "DPS", hint: "Surface damage per second from guns, torpedoes and aircraft." },
+  { key: "dpsLight", armor: "light", label: "DPS Light", hint: "Surface damage per second against a Light-armour target, from guns, torpedoes, aircraft and barrages." },
+  { key: "dpsMedium", armor: "medium", label: "DPS Medium", hint: "Surface damage per second against a Medium-armour target, from guns, torpedoes, aircraft and barrages." },
+  { key: "dpsHeavy", armor: "heavy", label: "DPS Heavy", hint: "Surface damage per second against a Heavy-armour target, from guns, torpedoes, aircraft and barrages." },
   { key: "ehp", label: "eHP", hint: "Effective HP: how much damage she absorbs once evasion is accounted for." },
-  { key: "dpsASW", label: "DPS ASW", hint: "Anti-submarine damage per second." },
   { key: "dpsAA", label: "DPS AA", hint: "Anti-air damage per second." },
+  { key: "dpsASW", label: "DPS ASW", hint: "Anti-submarine damage per second." },
 ];
 
 // The 27 ships imported from their own wiki pages have slots but no built-in weapon ids -
@@ -3311,7 +3409,7 @@ function hasAswSlot(ship) {
   return Object.values(ship.equipment || {}).some(slot => (slot.type || []).includes(14));
 }
 
-const COMBAT_METRIC_ROWS = 2;
+const COMBAT_METRIC_ROWS = 3;
 
 // Two figures per row, each name in a column of its own with its value in the next one.
 // The pairs are laid out column-first - DPS above eHP, DPS ASW above DPS AA - so the two
@@ -3321,12 +3419,17 @@ function renderCombatMetrics(ship, effective) {
   modalCombatMetrics.innerHTML = "";
   if (!ship.equipment || !effective) return;
   const metrics = computeCombatMetrics(ship, currentLevel, effective);
+  const byArmor = {};
+  for (const field of COMBAT_METRIC_FIELDS) {
+    if (field.armor) byArmor[field.key] = computeCombatMetrics(ship, currentLevel, effective, field.armor);
+  }
   const columns = Math.ceil(COMBAT_METRIC_FIELDS.length / COMBAT_METRIC_ROWS);
   for (let row = 0; row < COMBAT_METRIC_ROWS; row++) {
     for (let column = 0; column < columns; column++) {
       const field = COMBAT_METRIC_FIELDS[column * COMBAT_METRIC_ROWS + row];
       if (!field) continue;
-      const value = metrics[field.key];
+      const fieldMetrics = byArmor[field.key] || metrics;
+      const value = field.armor ? fieldMetrics.dps : metrics[field.key];
 
       const label = document.createElement("div");
       label.className = "combat-metric-label";
@@ -3339,22 +3442,27 @@ function renderCombatMetrics(ship, effective) {
       number.textContent = value ? Math.round(value).toLocaleString("en-US") : "";
 
       const notes = [field.hint];
+      const target = targetStats();
+      const targetName = targetBoss
+        ? `${targetBoss.name} (${targetBoss.map})`
+        : "a Lv.125 raid boss (avg. of Akagi META/Lion/Pamiat' Merkuria META/Moskva)";
       if (field.key === "ehp") {
         notes.push(
-          `Against a Lv.125 raid boss (avg. of Akagi META/Lion/Pamiat' Merkuria META/Moskva): Accuracy ${EHP_REFERENCE_ACCURACY}, Luck ${EHP_REFERENCE_LUCK}, same level.`,
-          `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
-          "A real boss average stands in for \"a typical enemy\" rather than an arbitrary guess, but any specific fight would still give a different number."
+          `Against ${targetName}: Accuracy ${target.hit}, Luck ${target.luck}, same level.`,
+          `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`
         );
+        if (!targetBoss) notes.push("Pick a boss in Target to see this against a specific fight.");
       } else {
         notes.push(hasBuiltInWeapons(ship)
           ? "Empty slots count as the ship's built-in weapon."
           : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
-        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes a Lv.125 raid boss target (avg. of Akagi META/Lion/Pamiat' Merkuria META/Moskva): ${CRIT_REFERENCE_EVASION} Evasion, ${CRIT_REFERENCE_LUCK} Luck.`);
+        notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes ${targetName}: ${target.eva} Evasion, ${target.luck} Luck.`);
+        if (field.armor && targetBoss && field.armor === targetBoss.armor) notes.push(`${targetBoss.name} wears ${field.armor} armour: this is the figure for that fight.`);
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
         }
-        if (field.key === "dps" && metrics.volleyBarrageDps) {
-          notes.push(`Includes ${Math.round(metrics.volleyBarrageDps).toLocaleString("en-US")} DPS from her volley-triggered barrage, which fires off the main gun: a faster gun fires it more often.`);
+        if (field.armor && fieldMetrics.volleyBarrageDps) {
+          notes.push(`Includes ${Math.round(fieldMetrics.volleyBarrageDps).toLocaleString("en-US")} DPS from her volley-triggered barrage, which fires off the main gun: a faster gun fires it more often.`);
         }
         if (field.key === "dpsASW") {
           if (metrics.innateDepthCharge) {
@@ -3365,6 +3473,9 @@ function renderCombatMetrics(ship, effective) {
         }
       }
       label.title = number.title = notes.join("\n");
+      const isTargetArmor = Boolean(field.armor && targetBoss && field.armor === targetBoss.armor);
+      label.classList.toggle("is-target", isTargetArmor);
+      number.classList.toggle("is-target", isTargetArmor);
       modalCombatMetrics.appendChild(label);
       modalCombatMetrics.appendChild(number);
     }
@@ -4845,6 +4956,9 @@ function renderSkinStrip(ship) {
   });
 }
 
+const pageBehindModal = [document.querySelector(".topbar"), document.querySelector("main")];
+let modalOpener = null;
+
 function openModal(ship) {
   currentShip = ship;
   const skins = effectiveSkins(ship);
@@ -4890,15 +5004,22 @@ function openModal(ship) {
   renderModalEquipment(ship);
   renderModalInteraction(ship);
 
+  if (modalOverlay.hidden) modalOpener = document.activeElement;
   modalOverlay.hidden = false;
   document.body.style.overflow = "hidden";
+  // Keyboard and screen reader focus must not wander into the page behind the dialog.
+  pageBehindModal.forEach(el => { el.inert = true; });
+  modalClose.focus();
 }
 
 function closeModal() {
   modalOverlay.hidden = true;
   document.body.style.overflow = "";
+  pageBehindModal.forEach(el => { el.inert = false; });
   currentShip = null;
   hideEquipInfoTooltip();
+  if (modalOpener) modalOpener.focus();
+  modalOpener = null;
 }
 
 grid.addEventListener("click", event => {
