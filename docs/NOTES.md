@@ -5404,3 +5404,27 @@ Recommended, UR cap, no boss (probe kept out of the repo, same harness as `npm r
   +7.7% DPS over HP AA Radar); CL Type 93 Pure Oxygen Torpedo 125 instead of HP AA Radar on
   torpedo-leaning CLs (both scored 0.9 before, survivability broke the tie; +13 RLD now does).
   Improved Hydraulic Rudder still rare: its value is the evade proc, step (3).
+
+## Tabs: Port, Depot, Augments, Targets (2026-10-28)
+
+The user asked for a Port tab (ships) and a Depot tab (equipment), plus any other useful ones;
+Augments and Targets were proposed and accepted. Fleet (team composition) stays a separate
+go-ahead.
+
+- **Routing** by `location.hash` (`#depot`...), so Back works and a tab can be linked.
+  `history.pushState` was avoided: Chrome throws on it from `file://`, which the source must
+  keep supporting. The logo button still resets Port and now also returns to it.
+- **Depot**: the 581 catalog items as cards (art on a checker of the rarity colour, type, tier,
+  headline stat), filters by type/rarity/nation, four sorts. The detail modal reuses
+  `equipmentStatRows`, adds range/spread/angle/attribute, the hulls in `usedBy`, Gear Lab /
+  Research / unique badges, and the ships whose skills name the item (the reverse of
+  `skillNamedEquipment`, the same precision-first matcher Optimize uses). Its DPS figures are
+  the catalog's (Reload 100, no ship stats), which the modal says.
+- **Augments**: 238 modules. "Unique" means exactly one ship lists it in `augmentModules`; the
+  shared weapon kinds (Sword, Crossbow...) list every ship that can take them. No artwork
+  exists for augments, so their cards are text only.
+- **Targets**: the 212 bosses as a table with content/armour/hull filters. A pick sets the same
+  `targetBoss` as the modal's boss menu (`setTargetBoss` keeps the two in sync). Event map names
+  run to 78 characters, so text columns wrap and only the figures stay on one line.
+- `npm run check` now also renders the three tabs (asserting every item, augment and boss is
+  shown), opens every item and augment detail, and picks a boss from the table.

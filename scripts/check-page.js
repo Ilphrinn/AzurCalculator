@@ -68,6 +68,21 @@ for (const ship of SHIPS_DATA) {
   }
 }
 
+// The tabs: every item and augment opens its detail, and a Targets pick is the boss Optimize reads.
+try {
+  for (const view of ["depot", "augments", "targets", "port"]) showView(view);
+  if (depotGridEl.childElementCount !== EQUIPMENT_DATA.length) report.errors.push(`Depot shows ${depotGridEl.childElementCount}/${EQUIPMENT_DATA.length} items`);
+  if (augmentGridEl.childElementCount !== AUGMENTS_DATA.length) report.errors.push(`Augments shows ${augmentGridEl.childElementCount}/${AUGMENTS_DATA.length}`);
+  if (targetRowsEl.childElementCount !== BOSSES_DATA.length) report.errors.push(`Targets shows ${targetRowsEl.childElementCount}/${BOSSES_DATA.length}`);
+  for (const item of EQUIPMENT_DATA) { openItemModal(item, "equipment"); closeItemModal(); }
+  for (const augment of AUGMENTS_DATA) { openItemModal(augment, "augment"); closeItemModal(); }
+  targetRowsEl.querySelector("button").click();
+  if (targetBoss !== BOSSES_DATA[0]) report.errors.push("Targets: the first row's button did not pick its boss");
+  setTargetBoss(null);
+} catch (error) {
+  report.errors.push(`views: ${error && error.stack || error}`);
+}
+
 const result = document.createElement("pre");
 // URI-encoded so the runner can read it back from the serialized DOM without HTML escaping.
 result.textContent = `CHECK:${encodeURIComponent(JSON.stringify(report))}:END`;

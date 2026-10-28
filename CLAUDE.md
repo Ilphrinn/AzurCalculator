@@ -12,6 +12,10 @@ touching the matching area, do not read it whole.
 
 - `index.html`, `app.js` (all app logic), `pixel.js` (dithered pixel-art gradients and header
   field), `style.css`. Plain HTML/CSS/vanilla JS, no framework.
+- Four tabs, routed by `location.hash` (pushState throws on `file://`): Port (ship grid and
+  modal), Depot (equipment grid + item detail), Augments, Targets (boss table; picking one sets
+  the same `targetBoss` as the modal's menu, via `setTargetBoss`). The last three load their
+  data script on first visit. Code: "Views" section at the end of `app.js`.
 - `data/*.js` is the only copy of the data (the `.json` twins were deleted on 2026-10-28, nothing
   read them): each file is `const X_DATA = <JSON.stringify(data, null, 2)>;`. Keep that
   pretty-printed form, never minify in the source tree. A Node script reads one with
@@ -103,7 +107,7 @@ greedy limit below was judged not worth fixing for now (2026-10-28). Next:
 - Equipment-aware stats (HP/DPS/AA/ASW panel, rarity cap, Optimize): largely built, see
   "Unresolved / explicitly deferred".
 - Team composition calculator (3 vanguard + 3 main): the user's end goal, not started.
-  Wait for an explicit go-ahead.
+  Wait for an explicit go-ahead. It would be a fifth tab ("Fleet") next to the four above.
 
 ## Working with this user
 

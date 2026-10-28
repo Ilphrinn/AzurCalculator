@@ -2334,6 +2334,286 @@ main[aria-busy="true"] {
   display: none;
 }
 
+/* ---- Views: tabs, Depot/Augments cards, item detail, Targets table ---- */
+
+.view-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.view-tab {
+  margin: 0 -1px -1px 0;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--hairline-strong);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  color: var(--text-muted);
+  font-family: var(--font-pixel);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.view-tab:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.view-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.view-tab:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.view-controls[hidden],
+.view[hidden] {
+  display: none;
+}
+
+.item-grid {
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+}
+
+/* Gear art sits on a checker of its rarity colour: the game's tinted frame, kept to flat pixels. */
+.item-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  background:
+    repeating-conic-gradient(color-mix(in srgb, var(--item-rarity) 22%, transparent) 0% 25%, transparent 0% 50%) 0 0 / 4px 4px,
+    var(--bg);
+}
+
+.item-art-icon {
+  width: 62%;
+  height: auto;
+}
+
+.item-art-icon-fallback {
+  padding: 0.5rem;
+  font-size: 0.7rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.card .item-name {
+  display: -webkit-box;
+  min-height: 2.5em;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.item-stat {
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--gold);
+}
+
+.augment-card .info {
+  flex: 1;
+  padding-top: 0.7rem;
+}
+
+.item-modal {
+  flex-direction: column;
+  width: min(760px, 94vw);
+  height: auto;
+  max-height: 90vh;
+}
+
+.item-modal-body {
+  padding: 1.5rem 1.7rem 1.7rem;
+  overflow-y: auto;
+}
+
+.item-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding-right: 2.5rem;
+}
+
+.item-modal-art {
+  flex: 0 0 104px;
+  border: 1px solid var(--hairline-strong);
+}
+
+.item-modal-head h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--item-rarity) 60%, var(--text));
+}
+
+.item-modal-sub {
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.item-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.item-badge {
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--gold);
+  font-size: 0.68rem;
+  color: var(--gold);
+}
+
+.item-section {
+  margin-top: 1.3rem;
+}
+
+.item-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 0.6rem;
+  font-family: var(--font-pixel);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.item-section h3::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.item-stat-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.6rem 1rem;
+  margin: 0;
+}
+
+.item-stat-table dt {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.item-stat-table dd {
+  margin: 0.15rem 0 0;
+  font-size: 0.88rem;
+}
+
+.item-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.ship-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ship-chip,
+.hull-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.hull-tag {
+  cursor: default;
+}
+
+.target-current {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.1rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--hairline-strong);
+  background: var(--card-bg);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.target-current strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.target-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+
+.target-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.target-table th {
+  position: sticky;
+  top: 0;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--hairline-strong);
+  background: var(--bg-elevated);
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Event map names run to 78 characters, so text columns wrap and only the figures stay on one line. */
+.target-table td {
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.target-table td:nth-child(n + 4) {
+  white-space: nowrap;
+}
+
+.target-table td:nth-child(2) {
+  min-width: 12rem;
+  color: var(--text-muted);
+}
+
+.target-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 7%, transparent);
+}
+
+.target-table tr.is-target {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+.target-table td:first-child {
+  font-weight: 500;
+}
+
 @media (max-width: 720px) {
   .modal {
     width: 92vw;
@@ -2348,6 +2628,18 @@ main[aria-busy="true"] {
 
   .modal-info {
     flex: 1 1 auto;
+  }
+
+  .item-modal {
+    height: auto;
+  }
+
+  .item-modal-body {
+    padding: 1.1rem 1rem 1.3rem;
+  }
+
+  .view-tab {
+    padding: 0.45rem 0.7rem;
   }
 }
 

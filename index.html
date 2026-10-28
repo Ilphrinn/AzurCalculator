@@ -24,6 +24,14 @@
       </div>
     </div>
 
+    <nav class="view-tabs" role="tablist" aria-label="Sections">
+      <button type="button" role="tab" class="view-tab" id="tab-port" data-view="port" aria-controls="view-port">Port</button>
+      <button type="button" role="tab" class="view-tab" id="tab-depot" data-view="depot" aria-controls="view-depot">Depot</button>
+      <button type="button" role="tab" class="view-tab" id="tab-augments" data-view="augments" aria-controls="view-augments">Augments</button>
+      <button type="button" role="tab" class="view-tab" id="tab-targets" data-view="targets" aria-controls="view-targets">Targets</button>
+    </nav>
+
+    <div class="view-controls" data-view="port">
     <div class="controls">
       <label class="control-label">
         <span class="visually-hidden">Search by ship name</span>
@@ -51,12 +59,89 @@
     </div>
 
     <div class="filters" id="filters"></div>
+    </div>
+
+    <div class="view-controls" data-view="depot" hidden>
+      <div class="controls">
+        <label class="control-label">
+          <span class="visually-hidden">Search by equipment name</span>
+          <input type="search" id="depot-search" class="search-box" name="equipment-search" placeholder="Search equipment..." autocomplete="off">
+        </label>
+        <label class="sort-control">
+          <span class="filter-group-label sort-label" title="Sort by"><span class="visually-hidden">Sort by</span></span>
+          <select id="depot-sort" name="sort-equipment">
+            <option value="type">Type, then rarity</option>
+            <option value="rarity">Rarity (high → low)</option>
+            <option value="name">Name (A → Z)</option>
+            <option value="stat">Headline stat (high → low)</option>
+          </select>
+        </label>
+      </div>
+      <div class="filters" id="depot-filters"></div>
+    </div>
+
+    <div class="view-controls" data-view="augments" hidden>
+      <div class="controls">
+        <label class="control-label">
+          <span class="visually-hidden">Search by augment or ship name</span>
+          <input type="search" id="augment-search" class="search-box" name="augment-search" placeholder="Augment or ship..." autocomplete="off">
+        </label>
+        <label class="sort-control">
+          <span class="filter-group-label sort-label" title="Sort by"><span class="visually-hidden">Sort by</span></span>
+          <select id="augment-sort" name="sort-augments">
+            <option value="kind">Kind, then rarity</option>
+            <option value="name">Name (A → Z)</option>
+            <option value="ships">Ships (most → fewest)</option>
+          </select>
+        </label>
+      </div>
+      <div class="filters" id="augment-filters"></div>
+    </div>
+
+    <div class="view-controls" data-view="targets" hidden>
+      <div class="controls">
+        <label class="control-label">
+          <span class="visually-hidden">Search by boss name or map</span>
+          <input type="search" id="target-search" class="search-box" name="target-search" placeholder="Search a boss or map..." autocomplete="off">
+        </label>
+      </div>
+      <div class="filters" id="target-filters"></div>
+    </div>
   </header>
 
   <main aria-busy="true">
-    <p id="count" class="count"></p>
-    <div id="grid" class="grid"></div>
+    <section class="view" id="view-port" data-view="port" role="tabpanel" aria-labelledby="tab-port">
+      <p id="count" class="count"></p>
+      <div id="grid" class="grid"></div>
+    </section>
+    <section class="view" id="view-depot" data-view="depot" role="tabpanel" aria-labelledby="tab-depot" hidden>
+      <p id="depot-count" class="count"></p>
+      <div id="depot-grid" class="grid item-grid"></div>
+    </section>
+    <section class="view" id="view-augments" data-view="augments" role="tabpanel" aria-labelledby="tab-augments" hidden>
+      <p id="augment-count" class="count"></p>
+      <div id="augment-grid" class="grid item-grid"></div>
+    </section>
+    <section class="view" id="view-targets" data-view="targets" role="tabpanel" aria-labelledby="tab-targets" hidden>
+      <p id="target-current" class="target-current"></p>
+      <p id="target-count" class="count"></p>
+      <div class="target-table-wrap">
+        <table class="target-table">
+          <thead>
+            <tr><th scope="col">Boss</th><th scope="col">Map</th><th scope="col">Content</th><th scope="col">Hull</th><th scope="col">Armour</th><th scope="col">Lv</th><th scope="col">ACC</th><th scope="col">EVA</th><th scope="col">LCK</th><th scope="col"><span class="visually-hidden">Action</span></th></tr>
+          </thead>
+          <tbody id="target-rows"></tbody>
+        </table>
+      </div>
+    </section>
   </main>
+
+  <div id="item-overlay" class="modal-overlay" hidden>
+    <div class="modal item-modal" role="dialog" aria-modal="true" aria-labelledby="item-modal-name">
+      <button id="item-modal-close" class="modal-close" type="button" aria-label="Close">&times;</button>
+      <div id="item-modal-body" class="item-modal-body"></div>
+    </div>
+  </div>
 
   <div id="modal-overlay" class="modal-overlay" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">

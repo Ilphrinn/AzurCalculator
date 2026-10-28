@@ -3312,14 +3312,29 @@ function syncBossOptions() {
     }
     groups.get(boss.group).appendChild(new Option(`${boss.name} \u2014 ${boss.map}`, String(index)));
   });
+  syncBossSelect();
+}
+
+function bossSummary(boss) {
+  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck}`;
+}
+
+// The Targets tab and the modal's menu set the same boss, so each must show the other's pick.
+function syncBossSelect() {
+  if (modalEquipmentBoss.options.length) {
+    modalEquipmentBoss.value = targetBoss ? String(BOSSES_DATA.indexOf(targetBoss)) : "";
+  }
+  modalEquipmentBossStats.textContent = targetBoss ? bossSummary(targetBoss) : "";
+}
+
+function setTargetBoss(boss) {
+  targetBoss = boss;
+  syncBossSelect();
+  refreshStatsAfterGearChange();
 }
 
 modalEquipmentBoss.addEventListener("change", () => {
-  targetBoss = modalEquipmentBoss.value === "" ? null : BOSSES_DATA[Number(modalEquipmentBoss.value)];
-  modalEquipmentBossStats.textContent = targetBoss
-    ? `${targetBoss.hull ? targetBoss.hull + " \u00b7 " : ""}${targetBoss.armor[0].toUpperCase()}${targetBoss.armor.slice(1)} armour \u00b7 Lv.${targetBoss.level} \u00b7 ACC ${targetBoss.hit} \u00b7 EVA ${targetBoss.eva} \u00b7 LCK ${targetBoss.luck}`
-    : "";
-  refreshStatsAfterGearChange();
+  setTargetBoss(modalEquipmentBoss.value === "" ? null : BOSSES_DATA[Number(modalEquipmentBoss.value)]);
 });
 
 modalEquipmentTarget.addEventListener("change", () => {
@@ -5176,3 +5191,590 @@ modalOverlay.addEventListener("click", event => {
 document.addEventListener("keydown", event => {
   if (event.key === "Escape" && !modalOverlay.hidden) closeModal();
 });
+
+// ---------------------------------------------------------------------------
+// Views: Port (ships), Depot (equipment), Augments, Targets (bosses)
+// ---------------------------------------------------------------------------
+
+const VIEW_IDS = ["port", "depot", "augments", "targets"];
+const viewTabs = [...document.querySelectorAll(".view-tab")];
+let currentView = null;
+
+function viewFromHash() {
+  const view = location.hash.slice(1);
+  return VIEW_IDS.includes(view) ? view : "port";
+}
+
+function showView(view) {
+  if (view === currentView) return;
+  currentView = view;
+  for (const tab of viewTabs) {
+    const on = tab.dataset.view === view;
+    tab.classList.toggle("active", on);
+    tab.setAttribute("aria-selected", String(on));
+    tab.tabIndex = on ? 0 : -1;
+  }
+  document.querySelectorAll(".view-controls, .view").forEach(el => { el.hidden = el.dataset.view !== view; });
+  if (view === "depot") showDepot();
+  else if (view === "augments") showAugments();
+  else if (view === "targets") showTargets();
+}
+
+// The hash rather than history.pushState: pushState throws on file://, which the source must support.
+for (const tab of viewTabs) {
+  tab.addEventListener("click", () => { location.hash = tab.dataset.view; });
+  tab.addEventListener("keydown", event => {
+    const step = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+    if (!step) return;
+    const next = viewTabs[(viewTabs.indexOf(tab) + step + viewTabs.length) % viewTabs.length];
+    next.focus();
+    location.hash = next.dataset.view;
+  });
+}
+window.addEventListener("hashchange", () => showView(viewFromHash()));
+
+refreshBtn.addEventListener("click", () => {
+  if (currentView !== "port") location.hash = "port";
+});
+
+// Renders once its lazy data script is in; a failed load leaves a message and retries next visit.
+function withViewData(isLoaded, load, statusEl, render) {
+  if (isLoaded()) return render();
+  statusEl.textContent = "Loading...";
+  load().then(render, () => { statusEl.textContent = "Data could not be loaded."; });
+}
+
+function makeToggleChip(label, set, value, onChange, title) {
+  const chip = document.createElement("button");
+  chip.type = "button";
+  chip.className = "chip";
+  chip.textContent = label;
+  if (title) chip.title = title;
+  chip.addEventListener("click", () => {
+    if (set.has(value)) set.delete(value);
+    else set.add(value);
+    chip.classList.toggle("active", set.has(value));
+    onChange();
+  });
+  return chip;
+}
+
+function makeFilterRow(container, title, entries, set, onChange) {
+  const wrap = document.createElement("div");
+  wrap.className = "filter-group";
+  const label = document.createElement("span");
+  label.className = "filter-group-label";
+  label.textContent = title;
+  wrap.appendChild(label);
+  for (const entry of entries) {
+    if (entry === "|") {
+      const sep = document.createElement("span");
+      sep.className = "category-sep";
+      sep.textContent = "|";
+      wrap.appendChild(sep);
+    } else {
+      wrap.appendChild(makeToggleChip(entry.label, set, entry.value, onChange, entry.title));
+    }
+  }
+  container.appendChild(wrap);
+}
+
+function matchesSets(sets) {
+  return sets.every(([set, value]) => set.size === 0 || set.has(value));
+}
+
+function renderCardGrid(gridEl, countEl, list, noun, cache, create) {
+  countEl.textContent = `${list.length} ${noun}${list.length === 1 ? "" : "s"}`;
+  if (!list.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = `No ${noun} matches these filters.`;
+    gridEl.replaceChildren(empty);
+    return;
+  }
+  const fragment = document.createDocumentFragment();
+  for (const entry of list) {
+    if (!cache.has(entry)) cache.set(entry, create(entry));
+    fragment.appendChild(cache.get(entry));
+  }
+  gridEl.replaceChildren(fragment);
+}
+
+function createRarityStrip(rarity) {
+  const strip = document.createElement("div");
+  strip.className = "rarity-strip";
+  strip.style.background = equipmentRarityColor(rarity);
+  return strip;
+}
+
+function createCardButton(label) {
+  const button = document.createElement("button");
+  button.className = "card-activate";
+  button.type = "button";
+  button.setAttribute("aria-label", label);
+  return button;
+}
+
+function statBonusText(item) {
+  return Object.entries(item.statBonus || {})
+    .filter(([, amount]) => typeof amount === "number")
+    .map(([rawKey, amount]) => `${STAT_ABBR[EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey] || rawKey} +${amount}`)
+    .join(" · ");
+}
+
+// --- Depot ---
+
+const DEPOT_TYPE_GROUPS = [
+  ["DD Gun", "CL Gun", "CA Gun", "CB Gun", "BB Gun"],
+  ["Torpedo", "Submarine Torpedo"],
+  ["Fighter", "Dive Bomber", "Torpedo Bomber", "Seaplane"],
+  ["AA Gun", "AA Time Fuze Gun", "ASW", "Auxiliary"]
+];
+const DEPOT_TYPE_ORDER = DEPOT_TYPE_GROUPS.flat();
+const depotSearchEl = document.getElementById("depot-search");
+const depotSortEl = document.getElementById("depot-sort");
+const depotFiltersEl = document.getElementById("depot-filters");
+const depotGridEl = document.getElementById("depot-grid");
+const depotCountEl = document.getElementById("depot-count");
+const depotFilter = { category: new Set(), rarity: new Set(), nation: new Set() };
+const depotCardCache = new Map();
+
+function showDepot() {
+  withViewData(() => typeof EQUIPMENT_DATA !== "undefined", () => loadDataScript("data/equipment.js"), depotCountEl, () => {
+    if (!depotFiltersEl.childElementCount) buildDepotFilters();
+    updateDepot();
+  });
+}
+
+function itemNation(item) {
+  return item.nation || "Universal";
+}
+
+function buildDepotFilters() {
+  const typeEntries = [];
+  DEPOT_TYPE_GROUPS.forEach((group, i) => {
+    if (i) typeEntries.push("|");
+    for (const category of group) typeEntries.push({ label: category, value: category });
+  });
+  makeFilterRow(depotFiltersEl, "Type", typeEntries, depotFilter.category, updateDepot);
+  const rarities = EQUIPMENT_RARITY_ORDER.filter(r => EQUIPMENT_DATA.some(i => i.rarity === r));
+  makeFilterRow(depotFiltersEl, "Rarity", rarities.map(r => ({ label: r, value: r })), depotFilter.rarity, updateDepot);
+  const nations = [...new Set(EQUIPMENT_DATA.map(itemNation))].sort((a, b) => a.localeCompare(b, "en"));
+  makeFilterRow(depotFiltersEl, "Nation", nations.map(n => ({ label: n, value: n })), depotFilter.nation, updateDepot);
+}
+
+function headlineValue(item) {
+  const stat = equipmentPrimaryStat(item);
+  return stat && typeof stat.value === "number" ? stat.value : -Infinity;
+}
+
+function compareItems(a, b, sort) {
+  const rarity = EQUIPMENT_RARITY_ORDER.indexOf(b.rarity) - EQUIPMENT_RARITY_ORDER.indexOf(a.rarity);
+  const type = DEPOT_TYPE_ORDER.indexOf(a.category) - DEPOT_TYPE_ORDER.indexOf(b.category);
+  const name = a.name.localeCompare(b.name, "en", { numeric: true }) || String(a.tier).localeCompare(String(b.tier));
+  if (sort === "rarity") return rarity || type || name;
+  if (sort === "name") return name;
+  if (sort === "stat") return headlineValue(b) - headlineValue(a) || name;
+  return type || rarity || name;
+}
+
+function updateDepot() {
+  const q = foldAccents(depotSearchEl.value.trim().toLowerCase());
+  const sort = depotSortEl.value;
+  const list = EQUIPMENT_DATA
+    .filter(item => (!q || foldAccents(item.name.toLowerCase()).includes(q)) &&
+      matchesSets([[depotFilter.category, item.category], [depotFilter.rarity, item.rarity], [depotFilter.nation, itemNation(item)]]))
+    .sort((a, b) => compareItems(a, b, sort));
+  renderCardGrid(depotGridEl, depotCountEl, list, "item", depotCardCache, createItemCard);
+}
+
+function createItemCard(item) {
+  const card = document.createElement("article");
+  card.className = "card item-card";
+  card.dataset.id = item.id;
+  card.appendChild(createRarityStrip(item.rarity));
+  const art = document.createElement("div");
+  art.className = "item-art";
+  art.style.setProperty("--item-rarity", equipmentRarityColor(item.rarity));
+  art.appendChild(equipmentIconImg(item, "item-art-icon"));
+  card.appendChild(art);
+  const info = document.createElement("div");
+  info.className = "info";
+  const name = document.createElement("div");
+  name.className = "name item-name";
+  name.textContent = item.name;
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  meta.textContent = [item.category, item.tier].filter(Boolean).join(" · ");
+  const stat = document.createElement("div");
+  stat.className = "item-stat";
+  stat.textContent = equipmentSummaryText(item);
+  info.append(name, meta, stat);
+  card.appendChild(info);
+  card.appendChild(createCardButton(`View ${item.name} details`));
+  return card;
+}
+
+depotSearchEl.addEventListener("input", () => typeof EQUIPMENT_DATA !== "undefined" && updateDepot());
+depotSortEl.addEventListener("change", () => typeof EQUIPMENT_DATA !== "undefined" && updateDepot());
+depotGridEl.addEventListener("click", event => {
+  const card = event.target.closest(".card");
+  const item = card && EQUIPMENT_DATA.find(i => i.id === card.dataset.id);
+  if (item) openItemModal(item, "equipment");
+});
+
+// Reverse of skillNamedEquipment, built on the first item opened.
+let shipsByNamedItem = null;
+function shipsNamingItem(item) {
+  if (!shipsByNamedItem) {
+    shipsByNamedItem = new Map();
+    for (const ship of ships) {
+      for (const name of skillNamedEquipment(ship)) {
+        if (!shipsByNamedItem.has(name)) shipsByNamedItem.set(name, []);
+        shipsByNamedItem.get(name).push(ship);
+      }
+    }
+  }
+  return shipsByNamedItem.get(item.name) || [];
+}
+
+// --- Augments ---
+
+const augmentSearchEl = document.getElementById("augment-search");
+const augmentSortEl = document.getElementById("augment-sort");
+const augmentFiltersEl = document.getElementById("augment-filters");
+const augmentGridEl = document.getElementById("augment-grid");
+const augmentCountEl = document.getElementById("augment-count");
+const augmentFilter = { kind: new Set(), rarity: new Set(), stat: new Set() };
+const augmentCardCache = new Map();
+let shipsByAugment = null;
+
+function augmentShips(augment) {
+  if (!shipsByAugment) {
+    shipsByAugment = new Map();
+    for (const ship of ships) {
+      for (const name of ship.augmentModules || []) {
+        if (!shipsByAugment.has(name)) shipsByAugment.set(name, []);
+        shipsByAugment.get(name).push(ship);
+      }
+    }
+  }
+  return shipsByAugment.get(augment.name) || [];
+}
+
+// A module only one ship can take is her unique augment; the rest are the shared weapon kinds.
+function augmentKind(augment) {
+  return augmentShips(augment).length === 1 ? "Unique" : "General";
+}
+
+function showAugments() {
+  withViewData(() => typeof AUGMENTS_DATA !== "undefined", () => loadDataScript("data/augments.js"), augmentCountEl, () => {
+    if (!augmentFiltersEl.childElementCount) buildAugmentFilters();
+    updateAugments();
+  });
+}
+
+function buildAugmentFilters() {
+  makeFilterRow(augmentFiltersEl, "Kind", ["General", "Unique"].map(k => ({ label: k, value: k })), augmentFilter.kind, updateAugments);
+  const rarities = EQUIPMENT_RARITY_ORDER.filter(r => AUGMENTS_DATA.some(a => a.rarity === r));
+  makeFilterRow(augmentFiltersEl, "Rarity", rarities.map(r => ({ label: r, value: r })), augmentFilter.rarity, updateAugments);
+  const stats = STAT_GRID.filter(d => d && AUGMENTS_DATA.some(a => typeof (a.statBonus || {})[d.key] === "number"));
+  makeFilterRow(augmentFiltersEl, "Stat", stats.map(d => ({ label: d.label, value: d.key })), augmentFilter.stat, updateAugments);
+}
+
+function updateAugments() {
+  const q = foldAccents(augmentSearchEl.value.trim().toLowerCase());
+  const sort = augmentSortEl.value;
+  const matchesQuery = augment => !q || foldAccents(augment.name.toLowerCase()).includes(q) ||
+    augmentShips(augment).some(ship => foldAccents(ship.displayName.toLowerCase()).includes(q));
+  const hasStats = augment => [...augmentFilter.stat].every(key => typeof (augment.statBonus || {})[key] === "number");
+  const list = AUGMENTS_DATA
+    .filter(a => matchesQuery(a) && hasStats(a) && matchesSets([[augmentFilter.kind, augmentKind(a)], [augmentFilter.rarity, a.rarity]]))
+    .sort((a, b) => {
+      const name = a.name.localeCompare(b.name, "en", { numeric: true });
+      if (sort === "name") return name;
+      if (sort === "ships") return augmentShips(b).length - augmentShips(a).length || name;
+      const kind = augmentKind(a).localeCompare(augmentKind(b));
+      return kind || EQUIPMENT_RARITY_ORDER.indexOf(b.rarity) - EQUIPMENT_RARITY_ORDER.indexOf(a.rarity) || name;
+    });
+  renderCardGrid(augmentGridEl, augmentCountEl, list, "augment", augmentCardCache, createAugmentCard);
+}
+
+function createAugmentCard(augment) {
+  const card = document.createElement("article");
+  card.className = "card augment-card";
+  card.dataset.id = String(augment.id);
+  card.appendChild(createRarityStrip(augment.rarity));
+  const info = document.createElement("div");
+  info.className = "info";
+  const name = document.createElement("div");
+  name.className = "name item-name";
+  name.textContent = augment.name;
+  const shipsFor = augmentShips(augment);
+  const meta = document.createElement("div");
+  meta.className = "meta";
+  meta.textContent = augmentKind(augment) === "Unique"
+    ? `Unique · ${shipsFor[0].displayName}`
+    : `General · ${shipsFor.length} ships`;
+  const stat = document.createElement("div");
+  stat.className = "item-stat";
+  stat.textContent = statBonusText(augment);
+  info.append(name, meta, stat);
+  card.appendChild(info);
+  card.appendChild(createCardButton(`View ${augment.name} details`));
+  return card;
+}
+
+augmentSearchEl.addEventListener("input", () => typeof AUGMENTS_DATA !== "undefined" && updateAugments());
+augmentSortEl.addEventListener("change", () => typeof AUGMENTS_DATA !== "undefined" && updateAugments());
+augmentGridEl.addEventListener("click", event => {
+  const card = event.target.closest(".card");
+  const augment = card && AUGMENTS_DATA.find(a => String(a.id) === card.dataset.id);
+  if (augment) openItemModal(augment, "augment");
+});
+
+// --- Item detail (equipment and augments) ---
+
+const itemOverlay = document.getElementById("item-overlay");
+const itemModalBody = document.getElementById("item-modal-body");
+const itemModalClose = document.getElementById("item-modal-close");
+let itemModalOpener = null;
+
+function itemSection(title, content) {
+  const section = document.createElement("section");
+  section.className = "item-section";
+  const heading = document.createElement("h3");
+  heading.textContent = title;
+  section.append(heading, content);
+  return section;
+}
+
+function shipChipList(list) {
+  const wrap = document.createElement("div");
+  wrap.className = "ship-chip-list";
+  for (const ship of [...list].sort((a, b) => a.displayName.localeCompare(b.displayName, "en"))) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "chip ship-chip";
+    if (ship.hullShort) {
+      const icon = document.createElement("img");
+      icon.className = "hull-chip-icon";
+      icon.src = HULL_ICON_DIR + ship.hullShort + ".png";
+      icon.alt = "";
+      chip.appendChild(icon);
+    }
+    chip.appendChild(document.createTextNode(ship.displayName));
+    chip.addEventListener("click", () => {
+      closeItemModal();
+      openModal(ship);
+    });
+    wrap.appendChild(chip);
+  }
+  return wrap;
+}
+
+const ITEM_DETAIL_FIELDS = [
+  ["rnd", "Rounds"], ["coef", "Coef.", "%"], ["volleyTime", "Volley", "s"], ["rangeMax", "Range"],
+  ["spread", "Spread"], ["angle", "Angle"], ["attr", "Attribute"]
+];
+
+function itemStatTable(item) {
+  const table = document.createElement("dl");
+  table.className = "item-stat-table";
+  const rows = equipmentStatRows(item).map(row => [row.label, row.value, row.icon]);
+  for (const [key, label, unit] of ITEM_DETAIL_FIELDS) {
+    if (item[key] != null && item[key] !== "") rows.push([label, `${item[key]}${unit || ""}`]);
+  }
+  for (const [label, value, iconSrc] of rows) {
+    const dt = document.createElement("dt");
+    if (iconSrc) {
+      const icon = document.createElement("img");
+      icon.className = "stat-icon";
+      icon.src = iconSrc;
+      icon.alt = "";
+      dt.appendChild(icon);
+    }
+    dt.appendChild(document.createTextNode(label));
+    const dd = document.createElement("dd");
+    dd.textContent = String(value);
+    const cell = document.createElement("div");
+    cell.append(dt, dd);
+    table.appendChild(cell);
+  }
+  return table;
+}
+
+function openItemModal(item, kind) {
+  const body = document.createDocumentFragment();
+  const head = document.createElement("div");
+  head.className = "item-modal-head";
+  if (kind === "equipment") {
+    const art = document.createElement("div");
+    art.className = "item-art item-modal-art";
+    art.style.setProperty("--item-rarity", equipmentRarityColor(item.rarity));
+    art.appendChild(equipmentIconImg(item, "item-art-icon"));
+    head.appendChild(art);
+  }
+  const titleWrap = document.createElement("div");
+  const title = document.createElement("h2");
+  title.id = "item-modal-name";
+  title.textContent = item.name;
+  title.style.setProperty("--item-rarity", equipmentRarityColor(item.rarity));
+  const sub = document.createElement("p");
+  sub.className = "item-modal-sub";
+  sub.textContent = kind === "equipment"
+    ? [item.tier, item.rarity, item.category, itemNation(item)].filter(Boolean).join(" · ")
+    : [item.rarity, `${augmentKind(item)} augment`].join(" · ");
+  titleWrap.append(title, sub);
+  const badges = document.createElement("div");
+  badges.className = "item-badges";
+  const badgeTexts = kind === "equipment"
+    ? [item.gearLab && "Gear Lab only", item.research && "Research only", item.unique && "Unique (one per fleet)"]
+    : [];
+  for (const text of badgeTexts.filter(Boolean)) {
+    const badge = document.createElement("span");
+    badge.className = "item-badge";
+    badge.textContent = text;
+    badges.appendChild(badge);
+  }
+  if (badges.childElementCount) titleWrap.appendChild(badges);
+  head.appendChild(titleWrap);
+  body.appendChild(head);
+
+  const stats = itemStatTable(item);
+  if (kind === "equipment" && weaponRole(item)) {
+    const note = document.createElement("p");
+    note.className = "item-note";
+    note.textContent = "Catalog figures: Reload 100, no ship stats. A ship's Equipment panel applies her own.";
+    body.appendChild(itemSection("Stats", stats)).appendChild(note);
+  } else {
+    body.appendChild(itemSection("Stats", stats));
+  }
+  if (kind === "equipment") {
+    if ((item.usedBy || []).length) {
+      const hulls = document.createElement("div");
+      hulls.className = "ship-chip-list";
+      for (const short of item.usedBy) {
+        const chip = document.createElement("span");
+        chip.className = "chip hull-tag";
+        const icon = document.createElement("img");
+        icon.className = "hull-chip-icon";
+        icon.src = HULL_ICON_DIR + short + ".png";
+        icon.alt = "";
+        chip.append(icon, document.createTextNode(short));
+        hulls.appendChild(chip);
+      }
+      body.appendChild(itemSection("Usable by", hulls));
+    }
+    const named = shipsNamingItem(item);
+    if (named.length) body.appendChild(itemSection("Named in the skills of", shipChipList(named)));
+  } else {
+    body.appendChild(itemSection(`Ships (${augmentShips(item).length})`, shipChipList(augmentShips(item))));
+  }
+
+  itemModalBody.replaceChildren(body);
+  itemModalBody.scrollTop = 0;
+  if (itemOverlay.hidden) itemModalOpener = document.activeElement;
+  itemOverlay.hidden = false;
+  document.body.style.overflow = "hidden";
+  pageBehindModal.forEach(el => { el.inert = true; });
+  itemModalClose.focus();
+}
+
+function closeItemModal() {
+  itemOverlay.hidden = true;
+  document.body.style.overflow = "";
+  pageBehindModal.forEach(el => { el.inert = false; });
+  if (itemModalOpener) itemModalOpener.focus();
+  itemModalOpener = null;
+}
+
+itemModalClose.addEventListener("click", closeItemModal);
+itemOverlay.addEventListener("click", event => {
+  if (event.target === itemOverlay) closeItemModal();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape" && !itemOverlay.hidden) closeItemModal();
+});
+
+// --- Targets ---
+
+const targetSearchEl = document.getElementById("target-search");
+const targetFiltersEl = document.getElementById("target-filters");
+const targetRowsEl = document.getElementById("target-rows");
+const targetCountEl = document.getElementById("target-count");
+const targetCurrentEl = document.getElementById("target-current");
+const targetFilter = { group: new Set(), armor: new Set(), hull: new Set() };
+
+function showTargets() {
+  withViewData(() => typeof BOSSES_DATA !== "undefined", () => loadDataScript("data/bosses.js"), targetCountEl, () => {
+    if (!targetFiltersEl.childElementCount) buildTargetFilters();
+    updateTargets();
+  });
+}
+
+function buildTargetFilters() {
+  const groups = [...new Set(BOSSES_DATA.map(b => b.group))];
+  makeFilterRow(targetFiltersEl, "Content", groups.map(g => ({ label: g, value: g })), targetFilter.group, updateTargets);
+  makeFilterRow(targetFiltersEl, "Armour", ["light", "medium", "heavy"].map(a => ({ label: a[0].toUpperCase() + a.slice(1), value: a })), targetFilter.armor, updateTargets);
+  const hulls = [...new Set(BOSSES_DATA.map(b => b.hull).filter(Boolean))].sort();
+  makeFilterRow(targetFiltersEl, "Hull", hulls.map(h => ({ label: h, value: h })), targetFilter.hull, updateTargets);
+}
+
+function renderTargetCurrent() {
+  targetCurrentEl.replaceChildren();
+  if (!targetBoss) {
+    targetCurrentEl.textContent = "No target: DPS averages the three armours and eHP uses an averaged raid boss. Pick one below; it carries over to every ship's Equipment panel.";
+    return;
+  }
+  const name = document.createElement("strong");
+  name.textContent = `${targetBoss.name} (${targetBoss.map})`;
+  const clear = document.createElement("button");
+  clear.type = "button";
+  clear.className = "chip";
+  clear.textContent = "Clear";
+  clear.addEventListener("click", () => {
+    setTargetBoss(null);
+    updateTargets();
+  });
+  targetCurrentEl.append("Target: ", name, ` — ${bossSummary(targetBoss)} `, clear);
+}
+
+function updateTargets() {
+  renderTargetCurrent();
+  const q = foldAccents(targetSearchEl.value.trim().toLowerCase());
+  const list = BOSSES_DATA.filter(b =>
+    (!q || foldAccents(`${b.name} ${b.map}`.toLowerCase()).includes(q)) &&
+    matchesSets([[targetFilter.group, b.group], [targetFilter.armor, b.armor], [targetFilter.hull, b.hull]]));
+  targetCountEl.textContent = `${list.length} target${list.length === 1 ? "" : "s"}`;
+  const fragment = document.createDocumentFragment();
+  for (const boss of list) {
+    const row = document.createElement("tr");
+    const isTarget = boss === targetBoss;
+    if (isTarget) row.className = "is-target";
+    const armour = boss.armor[0].toUpperCase() + boss.armor.slice(1);
+    for (const value of [boss.name, boss.map, boss.group, boss.hull || "—", armour, boss.level, boss.hit, boss.eva, boss.luck]) {
+      const cell = document.createElement("td");
+      cell.textContent = String(value);
+      row.appendChild(cell);
+    }
+    const actionCell = document.createElement("td");
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = isTarget ? "chip active" : "chip";
+    button.textContent = isTarget ? "Targeted" : "Target";
+    button.setAttribute("aria-pressed", String(isTarget));
+    button.addEventListener("click", () => {
+      setTargetBoss(isTarget ? null : boss);
+      updateTargets();
+    });
+    actionCell.appendChild(button);
+    row.appendChild(actionCell);
+    fragment.appendChild(row);
+  }
+  targetRowsEl.replaceChildren(fragment);
+}
+
+targetSearchEl.addEventListener("input", () => typeof BOSSES_DATA !== "undefined" && updateTargets());
+
+showView(viewFromHash());
