@@ -34,7 +34,8 @@ const minifiedFiles = [
   ["data/equipment.js", "js"],
   ["data/default-equipment.js", "js"],
   ["data/augments.js", "js"],
-  ["data/bosses.js", "js"]
+  ["data/bosses.js", "js"],
+  ["data/focus.js", "js"]
 ];
 
 const hashFile = path => createHash("sha256").update(readFileSync(path)).digest("hex").slice(0, 10);

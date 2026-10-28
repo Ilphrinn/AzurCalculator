@@ -603,9 +603,45 @@ function cardThumbnailWebpPath(path, suffix = "") {
   return cardThumbnailPath(path).replace(/\.jpg$/, `${suffix}.webp`);
 }
 
+// Where each image's character is (scripts/focus-points.py): [x, y, face height], as fractions of
+// the image. Only images the plain crop gets wrong have one: busy paintings and wide icons.
+const IMAGE_FOCUS = typeof FOCUS_DATA === "undefined" ? {} : FOCUS_DATA;
+// Zoom stops at 1.8: the card JPEGs are 320px wide, and 2.5 visibly blurred Chang Chun and Eldridge.
+const CARD_FOCUS = { ratio: 3 / 4, tx: 0.5, ty: 0.3, minFace: 0.18, maxZoom: 1.8 };
+
+// Places the image so the face sits at (tx, ty) of a frame with that width/height ratio, zoomed
+// until the face fills minFace of the frame's height. Percentages, so a fixed-ratio card frame
+// stays right at any size; the modal's frame changes shape, so it calls this again on resize.
+function focusImage(img, path, { ratio, tx, ty, minFace = 0, maxZoom = 1 }) {
+  const focus = IMAGE_FOCUS[path];
+  const imageRatio = img.naturalWidth / img.naturalHeight;
+  img.classList.toggle("is-focused", Boolean(focus && imageRatio && ratio));
+  if (!img.classList.contains("is-focused")) {
+    for (const key of ["left", "top", "width", "height"]) img.style.removeProperty(key);
+    return;
+  }
+  const [fx, fy, faceHeight] = focus;
+  const coverHeight = Math.max(1, ratio / imageRatio);
+  const zoom = Math.min(maxZoom, Math.max(1, minFace / (faceHeight * coverHeight)));
+  const height = coverHeight * zoom;
+  const width = imageRatio * height;
+  const left = Math.min(0, Math.max(ratio - width, tx * ratio - fx * width));
+  const top = Math.min(0, Math.max(1 - height, ty - fy * height));
+  img.style.width = `${width / ratio * 100}%`;
+  img.style.height = `${height * 100}%`;
+  img.style.left = `${left / ratio * 100}%`;
+  img.style.top = `${top * 100}%`;
+}
+
+function whenLoaded(img, callback) {
+  if (img.complete && img.naturalWidth) callback();
+  img.addEventListener("load", callback);
+}
+
 function createCardThumbnail(path, className, alt) {
   const image = document.createElement("img");
   image.className = className;
+  if (IMAGE_FOCUS[path]) whenLoaded(image, () => focusImage(image, path, CARD_FOCUS));
   image.src = cardThumbnailPath(path);
   image.alt = alt;
   image.width = 3;
@@ -5118,6 +5154,21 @@ function effectiveSkins(ship) {
   return [{ name: "Default", type: "Default", painting: ship.painting || ship.thumbnail, icon: ship.thumbnail }];
 }
 
+// The painting's frame is the column's box, whose shape follows the window.
+function focusModalImage() {
+  const ship = currentShip;
+  if (!ship || !modalImage.naturalWidth) return;
+  const skins = effectiveSkins(ship);
+  const skin = skins[currentSkinIndex] || skins[0];
+  const frame = modalImage.parentElement.getBoundingClientRect();
+  focusImage(modalImage, skin.painting || skin.icon, { ratio: frame.width / frame.height, tx: 0.5, ty: 0.25 });
+}
+
+modalImage.addEventListener("load", focusModalImage);
+window.addEventListener("resize", () => {
+  if (!modalOverlay.hidden) focusModalImage();
+});
+
 function updateModalImage() {
   const ship = currentShip;
   if (!ship) return;
@@ -5125,6 +5176,7 @@ function updateModalImage() {
   const skin = skins[currentSkinIndex] || skins[0];
 
   modalImage.src = skin.painting || skin.icon;
+  focusModalImage();
   modalImage.alt = `${ship.displayName} — ${skin.name}`;
   modalSkinNameEl.textContent = skin.name;
 
@@ -5229,6 +5281,7 @@ function openModal(ship) {
 
   if (modalOverlay.hidden) modalOpener = document.activeElement;
   modalOverlay.hidden = false;
+  focusModalImage();
   document.body.style.overflow = "hidden";
   // Keyboard and screen reader focus must not wander into the page behind the dialog.
   pageBehindModal.forEach(el => { el.inert = true; });

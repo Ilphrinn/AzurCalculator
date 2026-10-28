@@ -868,6 +868,16 @@ main[aria-busy="true"] {
   transition: opacity 0.15s ease;
 }
 
+/* An image with a known face position (data/focus.js) is placed by focusImage in percentages of
+   its frame instead of the plain cover crop. */
+.card .thumb-wrap img.is-focused,
+.modal-image.is-focused {
+  position: absolute;
+  inset: auto;
+  max-width: none;
+  object-fit: fill;
+}
+
 .modal-skin-name {
   position: absolute;
   left: 0.6rem;

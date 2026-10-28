@@ -5567,3 +5567,30 @@ other slots held, repeating until nothing moves (at most 3 passes).
   Shropshire +2.4% (Triple 234mm over Triple 203mm). 23 ships lose a little AA where a gun with
   an AA bonus gave way. Chen Hai is now a carrier in the data and unaffected. `npm run check`
   went from 45s to 72s.
+
+## Centring images on the character (2026-10-28)
+
+The user found some images oddly framed. Cause: every image was a plain `object-fit: cover`
+crop anchored top-centre. Paintings are mostly wider than the modal's column (about half their
+width shows), and busy compositions put the character off-centre (A2) or low (Admiral
+Nakhimov, under her rigging). 88 card icons are not portrait crops but the whole painting
+scaled down (every retrofit icon), so a 3:4 card showed a thin slice with a tiny character.
+
+- **Where the face is** (`scripts/focus-points.py`, writes `data/focus.js` as
+  `path -> [x, y, face height]` in fractions): the game's portrait icons are face-centred crops
+  of the same painting, so each icon is located in its painting by normalised
+  cross-correlation over 48 widths (4-95% of the painting's), and the face detected on the icon
+  is carried over. Accepted at score 0.7+, or 0.85+ below 5% width (A2 matched by chance at
+  0.76 on the smallest scale). Otherwise a face detected straight on the painting with
+  `lbpcascade_animeface` (nagadomi, MIT), only at weight 2+ and in the top 60% of the alpha
+  silhouette: below that the cascade fires on turrets, gears, belts and lamps (about a quarter
+  of detections between 1.5 and 1.6 were wrong). Otherwise nothing, and the old crop stays.
+  Result: 775 paintings from the icon, 106 from a face, 115 unchanged; 49 wide card icons reuse
+  their painting's point (same image, same aspect, checked on all 88). Every sampled point
+  (72 across three sheets) sat on the face.
+- **Placing** (`focusImage`): `object-position` cannot centre a point (it aligns the image's
+  x% with the frame's x%), so a focused image is sized and offset in percentages of its frame
+  from the image's natural ratio, the frame's ratio and the face point: face at 50% / 30% of a
+  card (zoomed until the face is 18% of the card height, at most 1.8x: 2.5x blurred the 320px
+  card JPEGs), 50% / 25% of the modal column (no zoom, recomputed on resize and when the modal
+  opens). Portrait icons carry no point and keep the plain crop, which already suits them.
