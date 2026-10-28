@@ -93,6 +93,14 @@ try {
   fleet.Vanguard.fill(null);
   fleet.Main.fill(null);
   showView("port");
+
+  // The Port metric sorts rank ships without equipping them.
+  for (const ship of SHIPS_DATA.filter(s => s.equipment).slice(0, 30)) {
+    clearEquippedGear(ship);
+    const metrics = fleetShipFigures(ship, false);
+    if (!metrics || !isFinite4(metrics)) report.nonFinite.push(`Port sort: ${ship.displayName}`);
+    if (Object.keys(equippedGear[ship.id] || {}).length) report.errors.push(`Port sort left gear on ${ship.displayName}`);
+  }
 } catch (error) {
   report.errors.push(`views: ${error && error.stack || error}`);
 }

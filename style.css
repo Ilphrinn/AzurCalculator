@@ -655,6 +655,24 @@ main[aria-busy="true"] {
   box-shadow: 4px 4px 0 var(--accent);
 }
 
+/* The figure a metric sort ranks on, over the art's top-left corner. */
+.card-figure {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.35rem;
+  z-index: 1;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--hairline-strong);
+  background: rgba(4, 7, 15, 0.8);
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-figure[hidden] {
+  display: none;
+}
+
 .card-activate {
   position: absolute;
   inset: 0;

@@ -5638,3 +5638,15 @@ that stage's own battle time limit. `import-bosses.js` now writes `timeLimit` fr
 EX 60/180/300, Event Challenge 300/600); re-running changed nothing else in data/bosses.js. It
 shows in the Targets table and the boss summary. Asked "how long is a META fight": 80 s is the
 limit, not the typical clear time.
+
+## Port metric sorts (2026-10-28)
+
+The user asked to sort by DPS "or something like that". Three sorts were added: DPS, eHP and AA
+DPS at level 125, each shown as a badge on the card while active. Figures are the Fleet tab's
+(`fleetShipFigures`: retrofit if any, the ship's own gear or Optimize's Recommended pick, against
+the Target boss), but with `keepPicks` false: Optimize's pick is removed again, so ranking 888
+ships equips none of them. Computed in batches of 40 behind a progress count (about 2s for all),
+cleared when the target boss changes, and recomputed for a ship whose modal closes. A ship with
+no equipment data (the 27 hand-imported `wiki-*` ones) sorts last. Caveat seen on the first run:
+carriers fill the top (Impero, Max Immelmann, Hakuhou...) while their aircraft DPS still uses the
+catalog's Reload-100 figures, so carrier vs gunship ordering is not yet like for like.

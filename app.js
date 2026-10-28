@@ -587,6 +587,8 @@ function applySort(list) {
       cmp = a.nationality.localeCompare(b.nationality, "en");
     } else if (field === "release") {
       cmp = a.releaseOrder - b.releaseOrder;
+    } else if (field in METRIC_SORTS) {
+      cmp = rankValue(a, field) - rankValue(b, field) || 0;
     }
     if (cmp === 0) cmp = a.displayName.localeCompare(b.displayName, "en", { sensitivity: "base", numeric: true });
     return cmp * mult;
@@ -720,6 +722,11 @@ function createCard(ship) {
   card.appendChild(thumbWrap);
   card.appendChild(info);
 
+  const figure = document.createElement("span");
+  figure.className = "card-figure";
+  figure.hidden = true;
+  thumbWrap.appendChild(figure);
+
   const activateButton = document.createElement("button");
   activateButton.className = "card-activate";
   activateButton.type = "button";
@@ -731,6 +738,21 @@ function createCard(ship) {
 
 // Built once per ship, so a search keystroke only reorders existing cards instead of rebuilding 888.
 const cardCache = new Map();
+
+// Level 125 figures for the metric sorts, filled by refreshRankFigures (end of file); a ship with
+// no figure (no equipment data) sorts last.
+const METRIC_SORTS = { dps: "DPS", ehp: "eHP", dpsAA: "AA" };
+const rankFigures = new Map();
+
+function rankValue(ship, key) {
+  const figures = rankFigures.get(ship);
+  return figures ? figures[key] : -Infinity;
+}
+
+function metricSortKey() {
+  const field = sortEl.value.split("-")[0];
+  return field in METRIC_SORTS ? field : null;
+}
 
 function render(list) {
   grid.replaceChildren();
@@ -745,9 +767,15 @@ function render(list) {
   }
 
   const fragment = document.createDocumentFragment();
+  const metric = metricSortKey();
   for (const ship of list) {
     if (!cardCache.has(ship.id)) cardCache.set(ship.id, createCard(ship));
-    fragment.appendChild(cardCache.get(ship.id));
+    const card = cardCache.get(ship.id);
+    const badge = card.querySelector(".card-figure");
+    const figures = metric && rankFigures.get(ship);
+    badge.hidden = !figures;
+    if (figures) badge.textContent = `${METRIC_SORTS[metric]} ${Math.round(figures[metric]).toLocaleString("en-US")}`;
+    fragment.appendChild(card);
   }
   grid.appendChild(fragment);
 }
@@ -772,7 +800,7 @@ function resetAll() {
 
 searchEl.addEventListener("input", update);
 searchClassEl.addEventListener("input", update);
-sortEl.addEventListener("change", update);
+sortEl.addEventListener("change", () => (metricSortKey() ? refreshRankFigures() : update()));
 
 refreshBtn.addEventListener("click", () => {
   resetAll();
@@ -3498,6 +3526,8 @@ function syncBossSelect() {
 
 function setTargetBoss(boss) {
   targetBoss = boss;
+  rankFigures.clear();
+  if (metricSortKey()) refreshRankFigures();
   syncBossSelect();
   refreshStatsAfterGearChange();
 }
@@ -5295,6 +5325,9 @@ function openModal(ship) {
 
 function closeModal() {
   if (currentView === "fleet") queueMicrotask(renderFleet);
+  // Her gear may have changed in the panel.
+  if (currentShip) rankFigures.delete(currentShip);
+  if (metricSortKey()) queueMicrotask(refreshRankFigures);
   modalOverlay.hidden = true;
   document.body.style.overflow = "";
   pageBehindModal.forEach(el => { el.inert = false; });
@@ -6026,9 +6059,11 @@ function showFleet() {
 
 // The figures read the modal's level/retrofit globals (Optimize's eHP simulation does), so they
 // are set for the fleet and put back. A ship with no gear set gets Optimize's pick, which is
-// then hers in the Equipment panel too.
-function fleetShipFigures(ship) {
+// then hers in the Equipment panel too, unless keepPicks is false (the Port sorts rank all 888
+// ships and must not equip them behind the user's back).
+function fleetShipFigures(ship, keepPicks = true) {
   const saved = [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget];
+  const hadGear = Object.keys(equippedGear[ship.id] || {}).length > 0;
   currentLevel = FLEET_LEVEL;
   retrofitApplied = Boolean(ship.hasRetrofit);
   augmentApplied = false;
@@ -6043,6 +6078,7 @@ function fleetShipFigures(ship) {
     return effective ? computeCombatMetrics(ship, FLEET_LEVEL, effective, targetStats().armor) : null;
   } finally {
     [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget] = saved;
+    if (!keepPicks && !hadGear) clearEquippedGear(ship);
   }
 }
 
@@ -6232,6 +6268,41 @@ function renderFleetSynergies() {
   }));
 }
 
+// --- Port metric sorts ---
+
+const RANK_BATCH = 40;
+let rankRun = null;
+
+// Missing figures are computed in batches so the page stays responsive (about a second for all
+// 888); a run already under way is reused.
+function refreshRankFigures() {
+  if (rankRun) return rankRun;
+  rankRun = Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js")])
+    .then(() => new Promise(resolve => {
+      const todo = ships.filter(ship => !rankFigures.has(ship));
+      let index = 0;
+      const step = () => {
+        for (const end = Math.min(todo.length, index + RANK_BATCH); index < end; index++) {
+          const ship = todo[index];
+          rankFigures.set(ship, ship.equipment ? fleetShipFigures(ship, false) : null);
+        }
+        if (index < todo.length) {
+          countEl.textContent = `Computing level 125 figures... ${index}/${todo.length}`;
+          setTimeout(step, 0);
+        } else {
+          resolve();
+        }
+      };
+      step();
+    }))
+    .catch(() => { countEl.textContent = "Equipment data could not be loaded."; })
+    .finally(() => {
+      rankRun = null;
+      update();
+    });
+  return rankRun;
+}
+
 fleetSearchEl.addEventListener("input", updateFleetPicker);
 document.getElementById("fleet-clear").addEventListener("click", () => {
   for (const row of Object.keys(fleetRowEls)) fleet[row].fill(null);
@@ -6241,3 +6312,5 @@ document.getElementById("fleet-clear").addEventListener("click", () => {
 });
 
 showView(viewFromHash());
+// Browsers restore a select's value on reload, so a metric sort can be active from the start.
+if (metricSortKey()) refreshRankFigures();
