@@ -76,7 +76,29 @@ greedy limit below was judged not worth fixing for now (2026-10-28). Next:
 - Optimize is a per-slot greedy pick: it cannot see that one gun's FP bonus also feeds the
   other guns and the barrage, which costs up to ~5% DPS on a few ships (Shropshire vs Heavy).
 - Utility and uptime per ship (heals, shields, fleet buffs, barrage/buff time on field): not
-  started.
+  started. Source found: AzurLaneTools/AzurLaneData (`EN/GameCfg/skill.json`, `buff.json`,
+  `EN/ShareCfg/skill_data_template.json`; last updated 2026-05) and AzurLaneTools/
+  AzurLaneLuaScripts (`EN/gamecfg/skill|buff/*.lua`, updated daily): structured triggers,
+  per-level durations, cooldowns, effects. Ship skill icon ids (`Skill_20200.png`) are NOT game
+  skill ids; link ships through the game's ship template instead. Proposed v1, awaiting the
+  user's go-ahead and 3-4 reference ships: uptime line under each skill in the modal, then
+  utility tags, then a catalog filter by utility.
+- **Optimize and auxiliaries (diagnosed 2026-10-28, user wants it fixed next)**. Measured over
+  every ship (auto goal, UR cap): CL gets Repair Toolkit + HP AA Radar ~165 times, DD Repair
+  Toolkit + Type 93 ~250, Improved Hydraulic Rudder only 18 times, Autoloader never. Causes:
+  1. The ship's RLD stat is ignored: DPS uses catalog fire rates (RLD 100 baseline) and no
+     goal weighs `reload`. Wiki (Damage Calculations, Guns/Torpedoes): ReloadTime =
+     WeaponReloadTime x sqrt(200 / (CurrentReload + 100)) + VolleyTime + AbsoluteCooldown.
+     Aircraft and AA guns have their own formulas: read them in the same page first.
+  2. Auxiliary passives are ignored (only `statBonus` is scored): Super Heavy Shell crit +8%,
+     Type 1 AP crit DMG +25%, Rudder's evade proc, Anti-Torpedo Bulge -30% torpedo DMG. Two
+     name-keyed hacks in `optimizeEquipment` (Admiralty Fire Control Table, Super Heavy Shell
+     +1 score) stand in. mrlar.dev `equipments.json` gives each aux its game skill ids
+     (Super Heavy Shell -> 6210); the effects are in the AzurLaneData skill/buff tables above.
+  Agreed order: (1) RLD into gun/torpedo DPS + weights - **done 2026-10-28**, see "Live Reload
+  in DPS" in the notes (aircraft/AA/ASW reload still at the catalog's RLD 100); (2) import aux
+  effects from game data with a script like `import-bosses.js`, then delete the name hacks;
+  (3) later, evade procs and damage reduction in eHP.
 
 - Equipment-aware stats (HP/DPS/AA/ASW panel, rarity cap, Optimize): largely built, see
   "Unresolved / explicitly deferred".

@@ -1951,7 +1951,33 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
   const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
   const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
   const damageMultiplier = weaponDamageMultiplier(effective, ship, slotKey, item, armor);
-  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier, unknown: false };
+  const reloadFactor = reloadDpsFactor(item, effectiveReload(effective));
+  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier * reloadFactor, unknown: false };
+}
+
+// Catalog DPS assumes Reload 100; the game scales only the reload part of a cycle by
+// sqrt(200 / (RLD + 100)), not the volley time or the gun tables' absolute cooldown (none on
+// built-in guns or torpedoes, whose figures were computed without one).
+const GUN_ABSOLUTE_COOLDOWN = { "DD Gun": 0.3, "CL Gun": 0.3, "CA Gun": 0.3, "CB Gun": 0.3, "BB Gun": 0.2 };
+
+function weaponCycle(item, reloadStat) {
+  if (typeof item.reload !== "number" || item.reload <= 0) return null;
+  const scale = Math.sqrt(200 / (Math.max(reloadStat, 0) + 100));
+  return item.reload * scale + (item.volleyTime || 0) + (GUN_ABSOLUTE_COOLDOWN[item.category] || 0);
+}
+
+// Aircraft, AA and ASW reload by other formulas (Damage Calculations page), not modelled yet.
+function reloadDpsFactor(item, reloadStat) {
+  const role = weaponRole(item);
+  if (!role || role.metric !== "dps" || role.stat === "aviation") return 1;
+  const base = weaponCycle(item, 100);
+  const live = weaponCycle(item, reloadStat);
+  return base && live ? base / live : 1;
+}
+
+function effectiveReload(effective) {
+  const entry = effective && effective.stats.reload;
+  return entry ? entry.value : 100;
 }
 
 // DDs and CLs carry a default depth charge launcher intrinsic to the hull, not a slot
@@ -1968,10 +1994,8 @@ function innateDepthCharge(ship) {
 
 // A barrage that fires every N main gun volleys is damage these figures used to ignore, and
 // ignoring it made a ship handed a faster gun show a LOWER DPS despite firing it more often
-// — it isn't a slot, so it's added here like the innate depth charge launcher above. The
-// gun's catalog reload stands in for the true volley interval, the same baseline-100-reload
-// approximation every other figure here makes, so the optimiser scores against the same
-// number this displays.
+// — it isn't a slot, so it's added here like the innate depth charge launcher above. The gun's
+// cycle at live Reload is shared with weaponScoreForShip so Optimize scores what this displays.
 function volleyBarrageDps(ship, effective, level, armor) {
   const barrage = volleyBarrage(ship, level, armor);
   if (!barrage) return 0;
@@ -1979,8 +2003,8 @@ function volleyBarrageDps(ship, effective, level, armor) {
   if (key == null) return 0;
   const gun = activeEquipmentForSlot(ship, key, ship.equipment[key]);
   if (!gun) return 0;
-  const cycle = (gun.reload || 0) + (gun.volleyTime || 0);
-  if (cycle <= 0) return 0;
+  const cycle = weaponCycle(gun, effectiveReload(effective));
+  if (!cycle) return 0;
   return (volleyBarrageDamage(barrage, effective, null) / barrage.n) / cycle;
 }
 
@@ -2373,6 +2397,43 @@ function candidateEhp(ship, slotKey, item) {
   return ehp;
 }
 
+const DPS_STAT_KEYS = new Set(["firepower", "torpedo", "reload"]);
+
+// Only weighted stats are simulated, or Type 93's +118 Torpedo would ride in on its +13 Reload
+// for a CA that ignores Torpedo. The scale (the catalog's top bonus to the main stat) keeps a
+// Firepower auxiliary at its old stat-share score.
+function dpsStatWeight(key, weights) {
+  return key === "reload" ? Math.max(weights.firepower || 0, weights.torpedo || 0) : weights[key] || 0;
+}
+
+function slotDpsGains(ship, slotKey, candidates, level, weights) {
+  const dpsWith = item => {
+    const original = getEquippedGear(ship, slotKey);
+    setEquippedGear(ship, slotKey, item);
+    const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied);
+    const dps = computeCombatMetrics(ship, level, eff, targetStats().armor).dps;
+    setEquippedGear(ship, slotKey, original || null);
+    return dps;
+  };
+  const byItem = new Map();
+  const base = dpsWith(null);
+  const refKey = (weights.torpedo || 0) > (weights.firepower || 0) ? "torpedo" : "firepower";
+  if (base <= 0 || !dpsStatWeight(refKey, weights)) return { byItem, scale: 0 };
+  const reference = { id: "reference", name: "", category: "Auxiliary", statBonus: { [refKey]: auxiliaryStatMaxima()[refKey] } };
+  let scale = dpsWith(reference) / base - 1;
+  for (const item of candidates) {
+    const weighted = Object.entries(item.statBonus || {}).filter(([rawKey]) => {
+      const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
+      return DPS_STAT_KEYS.has(key) && dpsStatWeight(key, weights) > 0;
+    });
+    if (!weighted.length) continue;
+    const gain = dpsWith({ ...item, statBonus: Object.fromEntries(weighted) }) / base - 1;
+    byItem.set(item, gain);
+    if (scale <= 0 && gain > 0) scale = gain;
+  }
+  return { byItem, scale };
+}
+
 // A self bonus gated on "if equipped with X" only unlocks once X is actually equipped, so
 // scoring every candidate against one effective snapshot (frozen at whatever happened to
 // already be in the slot) can never let a candidate's own bonus win or lose it. Simulated
@@ -2534,17 +2595,25 @@ function auxiliaryStatMaxima() {
 // shows the latter is ahead by ~1400 eHP. So every aux slot compares survival-stat
 // candidates by simulated eHP instead of the proportional-to-maximum heuristic the other
 // stats still use.
-function statPreferenceScore(item, weights, ship, slotKey, baseEhp) {
+// Firepower/Torpedo/Reload go through simulated DPS too (slotDpsGains): Reload's worth depends on
+// the weapons carried, so it has no fixed exchange rate with Firepower.
+function statPreferenceScore(item, weights, ship, slotKey, baseEhp, dpsGains) {
   const maxima = auxiliaryStatMaxima();
   const bonus = item.statBonus || {};
   let score = 0;
   let hasSurvivalStat = false;
+  let dpsWeight = 0;
   for (const [rawKey, amount] of Object.entries(bonus)) {
     const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
     if (SURVIVAL_STAT_KEYS.has(key)) { hasSurvivalStat = true; continue; }
-    const weight = weights[key];
+    const weight = DPS_STAT_KEYS.has(key) ? dpsStatWeight(key, weights) : weights[key];
     if (!weight || typeof amount !== "number") continue;
+    if (dpsGains && DPS_STAT_KEYS.has(key)) { dpsWeight = Math.max(dpsWeight, weight); continue; }
     score += weight * (amount / (maxima[key] || amount));
+  }
+  if (dpsWeight && dpsGains.scale > 0) {
+    const gain = dpsGains.byItem.get(item) || 0;
+    if (gain > 0) score += dpsWeight * (gain / dpsGains.scale);
   }
   if (hasSurvivalStat && ship && slotKey && baseEhp) {
     const survivalWeight = Math.max(weights.health || 0, weights.evasion || 0, weights.luck || 0);
@@ -2611,10 +2680,11 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
   const entry = effective.stats[role.stat];
   const stat = (entry ? entry.value : 0) + itemStatBonus(item, role.stat);
   const damageMultiplier = ship ? weaponDamageMultiplier(effective, ship, slotKey, item) : 1;
-  let dps = damage * (slotFactor || 1) * (1 + stat / 100) * damageMultiplier;
+  const reload = effectiveReload(effective) + itemStatBonus(item, "reload");
+  let dps = damage * (slotFactor || 1) * (1 + stat / 100) * damageMultiplier * reloadDpsFactor(item, reload);
   if (barragePerVolley) {
-    const cycle = (item.reload || 0) + (item.volleyTime || 0);
-    if (cycle > 0) dps += barragePerVolley / cycle;
+    const cycle = weaponCycle(item, reload);
+    if (cycle) dps += barragePerVolley / cycle;
   }
   return dps;
 }
@@ -2879,6 +2949,9 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     // computed once per slot, not per candidate, since it never depends on the item
     // being scored.
     const baseEhp = isAuxSlot ? candidateEhp(ship, slotKey, null) : null;
+    const dpsGains = isAuxSlot
+      ? slotDpsGains(ship, slotKey, equipmentOptionsForSlot(slot, ship).filter(filterItem), level, weights)
+      : null;
 
     let best = null;
     for (const item of equipmentOptionsForSlot(slot, ship)) {
@@ -2920,7 +2993,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
           score *= mm != null && mm >= 280 ? 1.5 : 0.4;
         }
       } else {
-        score = statPreferenceScore(item, weights, ship, slotKey, baseEhp);
+        score = statPreferenceScore(item, weights, ship, slotKey, baseEhp, dpsGains);
         // Same proc/timer split as the gun pick, for the one auxiliary each rewards:
         // Admiralty Fire Control Table cuts reload for more rolls, Super Heavy Shell raises
         // Crit Rate for a bigger single hit. Neither is a tracked stat, so this is a direct
@@ -2945,9 +3018,10 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
   const augmentOptions = augmentOptionsForShip(ship).filter(filterItem);
   if (augmentOptions.length) {
     const baseAugEhp = candidateEhp(ship, "augment", null);
+    const augDpsGains = slotDpsGains(ship, "augment", augmentOptions, level, weights);
     let bestAug = null, bestAugScore = -Infinity;
     for (const item of augmentOptions) {
-      const score = statPreferenceScore(item, weights, ship, "augment", baseAugEhp);
+      const score = statPreferenceScore(item, weights, ship, "augment", baseAugEhp, augDpsGains);
       if (score > bestAugScore) { bestAugScore = score; bestAug = item; }
     }
     if (bestAug) {

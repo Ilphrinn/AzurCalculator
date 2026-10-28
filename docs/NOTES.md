@@ -5372,3 +5372,35 @@ the only copy.
 > like a skill-mode group) would otherwise outrank the [hidden] attribute's UA-stylesheet
 > `display: none` at equal specificity — same fix already applied to .max-level-toggle.
 
+
+## Live Reload in DPS (2026-10-28)
+
+Step (1) of the Optimize/auxiliaries fix. Measured over the 888 ships at level 125,
+Recommended, UR cap, no boss (probe kept out of the repo, same harness as `npm run check`).
+
+- **What the catalog assumes, verified from the data, not the prose.** Gun DPS =
+  damage / (reload + volleyTime + AbsoluteCooldown) with AbsoluteCooldown 0.30s (DD/CL/CA/CB)
+  and 0.20s (BB), the constants the wiki's gun lists state; every one of the 183 catalog guns
+  fits. Torpedo and Submarine Torpedo DPS = damage x coefficient / reload, no cooldown (the
+  apparent 1.18 or 1.04 gap is the enhancement coefficient). Built-in guns/torpedoes
+  (`DEFAULT_EQUIPMENT_DATA`) = damage / reload, no cooldown. All at Reload 100.
+- **What changed.** `reloadDpsFactor` rescales gun/torpedo DPS by
+  cycle(RLD 100) / cycle(live RLD), with cycle = reload x sqrt(200/(RLD+100)) + volleyTime +
+  the same cooldown the source used. Applied in `slotDamage`, `weaponScoreForShip` and the
+  volley-barrage interval (which now includes the cooldown too). Aircraft, AA guns and ASW keep
+  their catalog figures: they have their own formulas, not done yet.
+- **Effect on displayed DPS** (bare loadout, lv125): median +22% DD, +18% CL, +16% CA,
+  +12% BB; submarines -2% (RLD under 100). Laffey 48.3 -> 67.8, New Jersey 51.4 -> 60.6.
+- **Auxiliary/augment scoring.** Firepower/Torpedo/Reload bonuses are now scored on simulated
+  DPS (`slotDpsGains`), divided by the simulated gain of the catalog's largest bonus to the
+  target's main stat (FP 85 / TRP 118), so a pure FP item keeps its old stat-share score and
+  Reload gets this ship's own exchange rate. Two variants rejected on measurement:
+  - Scaling by the best candidate in the slot: the best offensive item always got the full
+    weight however small its gain, flipping 85 CAs to Autoloader and 33 CLs to Funkmess.
+  - Simulating the whole statBonus: Reload's weight let a stat the target ignores ride in
+    (Type 93's +118 Torpedo on CAs whose Recommended profile has no Torpedo weight; Musashi
+    lost 170 DPS to a radar). Only weighted stats are simulated now.
+- **Resulting picks** (aux, vs before): DD and BB unchanged; CA Autoloader 75 (0 before; Roon
+  +7.7% DPS over HP AA Radar); CL Type 93 Pure Oxygen Torpedo 125 instead of HP AA Radar on
+  torpedo-leaning CLs (both scored 0.9 before, survivability broke the tie; +13 RLD now does).
+  Improved Hydraulic Rudder still rare: its value is the evade proc, step (3).
