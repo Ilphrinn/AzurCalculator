@@ -5650,3 +5650,39 @@ cleared when the target boss changes, and recomputed for a ship whose modal clos
 no equipment data (the 27 hand-imported `wiki-*` ones) sorts last. Caveat seen on the first run:
 carriers fill the top (Impero, Max Immelmann, Hakuhou...) while their aircraft DPS still uses the
 catalog's Reload-100 figures, so carrier vs gunship ordering is not yet like for like.
+
+## Buff uptime: groundwork (2026-10-28)
+
+Launched by the user, with: 60 s reference fight, or the picked boss's `timeLimit`; keep the raw
+"conditions met" figure next to the time-weighted one; and a damage-over-time chart, which the
+engine should therefore be built as (a per-second timeline, the average being its mean).
+
+- **Ship -> game skills.** AzurLaneData keeps the real tables in `EN/sharecfgdata/`
+  (`EN/ShareCfg/ship_data_template.json` and `ship_data_statistics.json` are empty `{}`):
+  `sharecfgdata/ship_data_template.json` (3765 templates) has `group_type` and `buff_list`.
+  Our `ship.gid` IS `group_type` for 851 of 888 ships (the 37 others are collabs `999xxx` and
+  some META `970xxx`). Matching our skill names to `skill_data_template` names, after dropping a
+  trailing "+" and the game's level numeral ("All Out Assault Ⅱ", "Siren Killer Ⅲ"): 2258 skills
+  through the ship's own template, 283 more through a globally unique name, 2541 of 2688 (95%).
+  Unmapped: collab skills absent from the EN tables, and "All Out Assault" without a template
+  (537 variants, a barrage anyway).
+- **What a ship skill id is.** As for auxiliaries, the id in `buff_list` is a buff: `buff_<id>`
+  is attached, and casts `skill_<id>` or adds child buffs. Triggers over the mapped skills:
+  `BattleBuffCount onFire` + `CastSkill onBattleBuffCount` (every N volleys, i.e. barrages, 469),
+  `onStartGame` (about 500, often combined), `onUpdate` with a `time` argument (periodic, about
+  300), `onChargeWeaponFire` / `onTorpedoWeaponFire` / `onFire`, submarine raid triggers, and
+  `onHPRatioUpdate` (HP thresholds: conditional, not timeable).
+- **Per-level values.** A buff carries overrides keyed "1".."10" (`buff_19101`: `{"time": 5}` at
+  level 1 ... `{"time": 15}` at 10), matching the text's `$1` and `desc_add`. Timing must follow
+  the modal's skill level toggle (level 1 / max).
+- **Worked example, Roon**: Well-Rounded Armor = `buff_19100` `CastSkill onUpdate time 30` ->
+  `buff_19101` (shields) `time` 5..15 -> active 5/30 at level 1, 15/30 at max. Siren Killer =
+  `buff_19002` `AddAttr onAttach DMG_TAG_EHC_N_99 +0.15`, permanent. All Out Assault Ⅱ =
+  `BattleBuffCount onFire countTarget 8` -> `BattleSkillFire`, a barrage every 8 volleys (already
+  modelled as `volleyBarrage`).
+- **Planned model** (`scripts/import-skill-timing.js` -> `data/skill-timing.js`): per ship and
+  skill, a window at level 1 and at max: permanent; battle start for D s; every P s for D s with
+  chance c (`rant`/10000), first at P; barrage; conditional (HP, kills, hits, mixed timings).
+  Precision rule: a skill whose buffs have different timings is "mixed" and left raw. The app
+  then weights that skill's parsed bonuses by the share of the fight they are active, keeps the
+  raw figure beside it, and draws the per-second curve.
