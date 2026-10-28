@@ -5715,3 +5715,27 @@ plus `effects`: each distinct (value, window) pair for matching the text's parse
 - **Next**: weight each matched bonus by its share (keeping the raw figure beside it, as the
   user asked), then the per-second damage chart. Also possible: on-fire procs with a chance
   (Laffey's Wargod of Solomon, 5% per salvo) from the gun's cycle, which the app already knows.
+
+## Buff uptime v2: weighted figures and the damage chart (2026-10-28)
+
+- **Weighting** (`computeEffectiveStats(..., timing)`): `timing` null = raw (unchanged
+  behaviour), `"share"` = each parsed skill bonus matched to exactly one game window
+  (`bonusTimingFactor`: same figure, one distinct window) counts for its share of the fight,
+  `{ at: seconds }` = on/off (or its chance) at that second. Unmatched or ambiguous bonuses keep
+  their raw amount. Modifiers keep `timedAmount`, the part with a known window.
+- **eHP**: the weighted eHP finally takes skill Evasion Rate (subtracted from hit rate, the wiki's
+  EvasionRateSkill) and DMG Taken, but only `timedAmount`, never an untimed one (Alfredo Oriani's
+  +40% would floor the hit rate). The raw eHP is unchanged.
+- **Average damage = mean of the per-second timeline** (`damageTimeline`), not the damage at
+  averaged buffs: FP and RLD buffs multiply, so the two differ. Seconds with the same set of
+  active effects share one computation.
+- **Display**: the combat panel shows "avg N" under each raw figure that differs by more than
+  0.5%, the tooltip naming the fight length; a step chart of surface DPS (against the picked
+  boss's armour, or the mean) with raw and average reference lines, a crosshair tooltip listing
+  the timed skills on at that second, arrow-key support, and a table of the stretches. Hidden
+  when nothing comes and goes. Drawn at the column's width, redrawn after a resize.
+- **Measured** (lv125, no gear, skills at max): 82 ships' DPS average differs from raw (median
+  -7.6%), 40 ships' eHP (median +11%). Hand-checked: Z35's Firepower Overload (+50% FP, +200% RLD
+  for 10 s every 20 s at 70%) gives 41 DPS off / 60 on at 20-30 s and 40-50 s, mean 47.3 vs raw
+  67; Noshiro's permanent +15% Evasion Rate now counts in eHP (4138 -> 5628).
+- Optimize, Fleet and the Port sorts still use the raw figures.

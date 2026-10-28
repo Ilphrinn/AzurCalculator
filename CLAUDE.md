@@ -127,9 +127,10 @@ weapon refinement" in the notes). Next:
 - Equipment-aware stats (HP/DPS/AA/ASW panel, rarity cap, Optimize): largely built, see
   "Unresolved / explicitly deferred".
 - Team composition (Fleet tab): v1 done 2026-10-28, see "Fleet tab v1" in the notes. Its
-  synergies are listed, not applied to the figures: that waits on buff uptime, next. Agreed
-  design in the same notes section: uptime per skill from the game's tables, over 60 s or the
-  picked boss's `timeLimit`, shown under each skill, applied as expected value.
+  synergies are listed, not applied to the figures.
+- Buff uptime: done in the modal (timing line per skill, "avg" figures, damage chart; see "Buff
+  uptime v2" in the notes). Not yet used by Optimize, Fleet (including its synergies) or the Port
+  sorts, which stay on raw figures; on-fire procs with a chance are not timed yet.
 
 ## Working with this user
 

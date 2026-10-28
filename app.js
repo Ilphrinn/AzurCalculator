@@ -888,6 +888,7 @@ const modalEquipmentClear = document.getElementById("modal-equipment-clear");
 const modalEquipmentBoss = document.getElementById("modal-equipment-boss");
 const modalEquipmentBossStats = document.getElementById("modal-equipment-boss-stats");
 const modalCombatMetrics = document.getElementById("modal-combat-metrics");
+const modalDamageChart = document.getElementById("modal-damage-chart");
 const modalSkillsSection = document.getElementById("modal-skills-section");
 const modalSkillsMaxToggle = document.getElementById("modal-skills-max-toggle");
 const modalSkillsList = document.getElementById("modal-skills");
@@ -1165,16 +1166,20 @@ function modifierQualifier(raw) {
   };
 }
 
-function addModifier(modifiers, index, key, amount, skill, raw, qualifier = modifierQualifier(raw)) {
+// timedAmount is the part of the total whose uptime is known (see bonusTimingFactor): only that
+// part may enter the time-weighted eHP, since an untimed Evasion Rate buff counted as permanent
+// would floor a ship's hit rate.
+function addModifier(modifiers, index, key, amount, skill, raw, qualifier = modifierQualifier(raw), timed = false) {
   const { source, target } = qualifier;
   const groupKey = `${key}|${source.toLowerCase()}|${target.toLowerCase()}`;
   let entry = index.get(groupKey);
   if (!entry) {
-    entry = { key, source, target, amount: 0, sources: [] };
+    entry = { key, source, target, amount: 0, timedAmount: 0, sources: [] };
     index.set(groupKey, entry);
     modifiers.push(entry);
   }
   entry.amount += amount;
+  if (timed) entry.timedAmount += amount;
   entry.sources.push({ skill, raw });
   return entry;
 }
@@ -1426,7 +1431,10 @@ function equipConditionAllows(ship, plainText, raw) {
 // Tech data exists. Conditions are assumed met UNLESS specifically about equipped gear,
 // which is the one category this app can actually check — Interaction, by contrast,
 // excludes conditionally gated buffs entirely.
-function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) {
+// timing: null for the raw figures (every condition met, every buff on), "share" to weight each
+// skill bonus with a known window by its share of the fight, or { at: seconds } for one instant
+// of the damage chart. Bonuses with no known window keep their raw amount either way.
+function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, timing = null) {
   const base = computeStats(ship, level, isRetrofit);
   if (!base) return null;
   // The equipped Augment Module lives in the same equippedGear map as gear (slot key
@@ -1457,15 +1465,17 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
         : (typeof b.min === "number" ? b.min : b.max);
       if (typeof amount !== "number") continue;
       const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
+      const factor = timing ? bonusTimingFactor(ship, skill, atMax, amount, timing) : null;
+      const timedAmount = factor === null ? amount : amount * factor;
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
           const qualifier = opsiOnly ? { source: modifierQualifier(b.raw).source, target: OPSI_TARGET } : undefined;
-          addModifier(modifiers, modifierIndex, key, amount, skill, b.raw, qualifier);
+          addModifier(modifiers, modifierIndex, key, timedAmount, skill, b.raw, qualifier, factor !== null);
         } else if (opsiOnly && !inOperationSiren()) {
           continue;
         } else if (NUMERIC_STAT_KEYS.includes(key)) {
           const bucket = b.isPercent ? percentSum : flatSum;
-          bucket[key] = (bucket[key] || 0) + amount;
+          bucket[key] = (bucket[key] || 0) + timedAmount;
         }
       }
     }
@@ -1505,7 +1515,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
     stats[key] = { value, delta: value - base[key], base: base[key], equip, pct, skillFlat };
   }
 
-  return { stats, modifiers, itemEffects };
+  return { stats, modifiers, itemEffects, timing };
 }
 
 // A boosted cell renders as "{base}+{delta} ({real})" rather than the final number alone,
@@ -2071,8 +2081,19 @@ function effectiveHp(effective) {
   const hp = effective.stats.health ? effective.stats.health.value : 0;
   const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
   const luck = effective.stats.luck ? effective.stats.luck.value : 0;
-  const hitRate = referenceHitRate(evasion, luck);
-  let ehp = hp / hitRate;
+  let hitRate = referenceHitRate(evasion, luck);
+  let ehp;
+  // Time-weighted figures also take skill Evasion Rate (the wiki's EvasionRateSkill) and DMG Taken
+  // buffs, but only the part with a known uptime.
+  if (effective.timing) {
+    const timed = key => effective.modifiers
+      .filter(m => m.key === key && !m.source && modifierTargetApplies(m.target, targetStats().armor))
+      .reduce((total, m) => total + m.timedAmount, 0);
+    hitRate = Math.max(0.1, hitRate - timed("evasionRate") / 100);
+    ehp = hp / hitRate / (1 - Math.min(timed("damageTaken"), 90) / 100);
+  } else {
+    ehp = hp / hitRate;
+  }
   for (const effect of effective.itemEffects || []) {
     if (effect.key === "dodgeUptime") ehp /= 1 - effect.amount / 100;
     // Torpedo-only reductions stay out: nothing says what share of a boss's damage is torpedoes.
@@ -3713,6 +3734,19 @@ function renderCombatMetrics(ship, effective) {
   for (const field of COMBAT_METRIC_FIELDS) {
     if (field.armor) byArmor[field.key] = computeCombatMetrics(ship, currentLevel, effective, field.armor);
   }
+  // The same figures with each timed skill bonus weighted by its share of the fight.
+  const timedEffective = typeof SKILL_TIMING_DATA === "undefined"
+    ? null
+    : computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, "share");
+  // Damage figures average the per-second timeline (buffs multiply, so averaging the buffs first
+  // would not give the average damage); eHP weights the buffs themselves.
+  const timedValue = field => {
+    if (!timedEffective) return null;
+    if (field.key === "ehp") return computeCombatMetrics(ship, currentLevel, timedEffective).ehp;
+    const timeline = damageTimeline(ship, field.armor);
+    const key = field.armor ? "dps" : field.key;
+    return timeline.reduce((total, point) => total + point.metrics[key], 0) / timeline.length;
+  };
   const columns = Math.ceil(COMBAT_METRIC_FIELDS.length / COMBAT_METRIC_ROWS);
   for (let row = 0; row < COMBAT_METRIC_ROWS; row++) {
     for (let column = 0; column < columns; column++) {
@@ -3730,6 +3764,14 @@ function renderCombatMetrics(ship, effective) {
       const number = document.createElement("div");
       number.className = "combat-metric-value";
       number.textContent = value ? Math.round(value).toLocaleString("en-US") : "";
+      const average = value ? timedValue(field) : null;
+      const showAverage = average !== null && Math.abs(average - value) > value * 0.005;
+      if (showAverage) {
+        const avg = document.createElement("span");
+        avg.className = "combat-metric-avg";
+        avg.textContent = `avg ${Math.round(average).toLocaleString("en-US")}`;
+        number.appendChild(avg);
+      }
 
       const notes = [field.hint];
       const target = targetStats();
@@ -3740,7 +3782,7 @@ function renderCombatMetrics(ship, effective) {
         notes.push(
           `Against ${targetName}: Accuracy ${target.hit}, Luck ${target.luck}, same level.`,
           `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
-          "Counts auxiliary evade procs and damage reductions; skill buffs are left out until their uptime is modelled."
+          "The main figure counts auxiliary evade procs and damage reductions only. \"avg\" also counts skill Evasion Rate and DMG Taken buffs whose timing is known, weighted by their share of the fight."
         );
         if (!targetBoss) notes.push("Pick a boss in Target to see this against a specific fight.");
       } else {
@@ -3763,6 +3805,9 @@ function renderCombatMetrics(ship, effective) {
           }
         }
       }
+      if (showAverage) {
+        notes.push(`avg: over a ${fightSeconds()}s fight${targetBoss ? ` (${targetBoss.name}'s time limit)` : ""}, each skill bonus whose timing is known counts for its share of the fight; the main figure assumes every buff is on.`);
+      }
       label.title = number.title = notes.join("\n");
       const isTargetArmor = Boolean(field.armor && targetBoss && field.armor === targetBoss.armor);
       label.classList.toggle("is-target", isTargetArmor);
@@ -3771,6 +3816,194 @@ function renderCombatMetrics(ship, effective) {
       modalCombatMetrics.appendChild(number);
     }
   }
+  renderDamageChart(ship, metrics.dps);
+}
+
+// --- Damage over the fight ---
+
+// One point per second of the fight: which timed skill effects are on (at their expected value
+// for a proc with a chance) and the figures that gives. Seconds sharing the same set of active
+// effects share one computation.
+function damageTimeline(ship, armor = targetStats().armor) {
+  const fight = fightSeconds();
+  const windows = [];
+  for (const skill of getSkillsForState(ship, retrofitApplied, augmentApplied, fateSimApplied)) {
+    const window = skillTiming(ship, skill, isSkillAtMaxLevel(skill));
+    for (const effect of (window && window.effects) || []) {
+      if (effect.kind === "start" || effect.kind === "periodic") windows.push({ skill, effect });
+    }
+  }
+  const cache = new Map();
+  const points = [];
+  for (let t = 0; t < fight; t++) {
+    const at = t + 0.5;
+    const key = windows.map(w => activityAt(w.effect, at)).join(",");
+    if (!cache.has(key)) {
+      const effective = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, { at });
+      cache.set(key, computeCombatMetrics(ship, currentLevel, effective, armor));
+    }
+    const active = [...new Set(windows.filter(w => activityAt(w.effect, at) > 0).map(w => w.skill.name.replace(/\+$/, "")))];
+    points.push({ t, metrics: cache.get(key), active });
+  }
+  return points;
+}
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+function svgElement(name, attributes) {
+  const element = document.createElementNS(SVG_NS, name);
+  for (const [key, value] of Object.entries(attributes)) element.setAttribute(key, String(value));
+  return element;
+}
+
+function compactNumber(value) {
+  return value >= 1000 ? `${Math.round(value / 100) / 10}K` : String(Math.round(value));
+}
+
+// Surface DPS against the picked boss's armour (or the armour mean), second by second, with the
+// raw figure (every buff on) and the average as labelled reference lines. Shown only when some
+// skill effect actually comes and goes.
+function renderDamageChart(ship, rawDps) {
+  modalDamageChart.replaceChildren();
+  const timeline = typeof SKILL_TIMING_DATA === "undefined" || !rawDps ? [] : damageTimeline(ship);
+  const values = timeline.map(point => point.metrics.dps);
+  if (!values.length || Math.max(...values) - Math.min(...values) < rawDps * 0.005) {
+    modalDamageChart.hidden = true;
+    return;
+  }
+  modalDamageChart.hidden = false;
+  const fight = values.length;
+  const average = values.reduce((a, b) => a + b, 0) / fight;
+
+  const caption = document.createElement("figcaption");
+  const title = document.createElement("strong");
+  title.textContent = `DPS over a ${fight}s fight${targetBoss ? `, ${targetBoss.name}` : ""}`;
+  const subtitle = document.createElement("span");
+  subtitle.textContent = "Timed skill buffs switch on and off; a proc counts at its chance. Untimed buffs stay on, as in the raw figure.";
+  caption.append(title, subtitle);
+  modalDamageChart.appendChild(caption);
+
+  const frame = document.createElement("div");
+  frame.className = "damage-chart-frame";
+  modalDamageChart.appendChild(frame);
+  const width = Math.max(280, Math.round(modalDamageChart.clientWidth || 600));
+  const height = 180;
+  const pad = { top: 12, right: 64, bottom: 24, left: 40 };
+  const plotW = width - pad.left - pad.right;
+  const plotH = height - pad.top - pad.bottom;
+  const top = Math.max(rawDps, ...values);
+  const step = niceStep(top / 3);
+  const yMax = Math.ceil(top / step) * step;
+  const x = t => pad.left + (t / fight) * plotW;
+  const y = v => pad.top + plotH - (v / yMax) * plotH;
+
+  const svg = svgElement("svg", { width, height, viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": `DPS second by second; average ${Math.round(average)}, raw ${Math.round(rawDps)}` });
+  for (let v = 0; v <= yMax + 1e-9; v += step) {
+    svg.appendChild(svgElement("line", { x1: pad.left, x2: pad.left + plotW, y1: y(v), y2: y(v), class: "damage-chart-grid" }));
+    const tick = svgElement("text", { x: pad.left - 6, y: y(v) + 3, class: "damage-chart-tick", "text-anchor": "end" });
+    tick.textContent = compactNumber(v);
+    svg.appendChild(tick);
+  }
+  const xStep = fight > 180 ? 60 : fight > 90 ? 30 : 10;
+  for (let t = 0; t <= fight; t += xStep) {
+    const tick = svgElement("text", { x: x(t), y: height - 6, class: "damage-chart-tick", "text-anchor": "middle" });
+    tick.textContent = `${t}s`;
+    svg.appendChild(tick);
+  }
+
+  // A step line: buffs switch on whole seconds here, so the value holds until the next second.
+  let path = "";
+  values.forEach((v, t) => { path += `${t ? "L" : "M"}${x(t)} ${y(v)}H${x(t + 1)}`; });
+  svg.appendChild(svgElement("path", { d: `${path}V${y(0)}H${x(0)}Z`, class: "damage-chart-area" }));
+  svg.appendChild(svgElement("path", { d: path, class: "damage-chart-line" }));
+
+  for (const [label, value, cls] of [["raw", rawDps, "damage-chart-ref"], ["avg", average, "damage-chart-ref is-average"]]) {
+    svg.appendChild(svgElement("line", { x1: pad.left, x2: pad.left + plotW, y1: y(value), y2: y(value), class: cls }));
+    const text = svgElement("text", { x: pad.left + plotW + 6, y: y(value) + 3, class: "damage-chart-label" });
+    text.textContent = `${label} ${compactNumber(value)}`;
+    svg.appendChild(text);
+  }
+  // Raw and average close together would print on top of each other.
+  const labels = svg.querySelectorAll(".damage-chart-label");
+  if (Math.abs(y(rawDps) - y(average)) < 11) labels[1].setAttribute("y", y(average) + (average < rawDps ? 14 : -8));
+
+  const crosshair = svgElement("line", { y1: pad.top, y2: pad.top + plotH, class: "damage-chart-crosshair", visibility: "hidden" });
+  svg.appendChild(crosshair);
+  const hit = svgElement("rect", { x: pad.left, y: pad.top, width: plotW, height: plotH, class: "damage-chart-hit" });
+  svg.appendChild(hit);
+  svg.setAttribute("tabindex", "0");
+  frame.appendChild(svg);
+
+  const tooltip = document.createElement("div");
+  tooltip.className = "damage-chart-tooltip";
+  tooltip.hidden = true;
+  frame.appendChild(tooltip);
+  let focusT = 0;
+  const show = t => {
+    focusT = Math.max(0, Math.min(fight - 1, t));
+    const point = timeline[focusT];
+    const cx = x(focusT + 0.5);
+    crosshair.setAttribute("x1", cx);
+    crosshair.setAttribute("x2", cx);
+    crosshair.setAttribute("visibility", "visible");
+    const value = document.createElement("strong");
+    value.textContent = Math.round(point.metrics.dps).toLocaleString("en-US");
+    const when = document.createElement("span");
+    when.textContent = ` DPS at ${focusT}-${focusT + 1}s`;
+    const active = document.createElement("span");
+    active.className = "damage-chart-active";
+    active.textContent = point.active.length ? `On: ${point.active.join(", ")}` : "No timed buff on";
+    tooltip.replaceChildren(value, when, active);
+    tooltip.hidden = false;
+    tooltip.style.left = `${Math.min(cx + 8, width - 200)}px`;
+  };
+  const hide = () => {
+    crosshair.setAttribute("visibility", "hidden");
+    tooltip.hidden = true;
+  };
+  hit.addEventListener("pointermove", event => {
+    const box = svg.getBoundingClientRect();
+    show(Math.floor(((event.clientX - box.left) * (width / box.width) - pad.left) / plotW * fight));
+  });
+  hit.addEventListener("pointerleave", hide);
+  svg.addEventListener("focus", () => show(focusT));
+  svg.addEventListener("blur", hide);
+  svg.addEventListener("keydown", event => {
+    const move = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+    if (!move) return;
+    event.preventDefault();
+    show(focusT + move);
+  });
+
+  // The same data without hovering: each stretch of seconds with one value.
+  const table = document.createElement("details");
+  table.className = "damage-chart-table";
+  const summary = document.createElement("summary");
+  summary.textContent = "Table";
+  const list = document.createElement("table");
+  const head = list.createTHead().insertRow();
+  for (const text of ["Seconds", "DPS", "Timed buffs on"]) {
+    const th = document.createElement("th");
+    th.scope = "col";
+    th.textContent = text;
+    head.appendChild(th);
+  }
+  const body = list.createTBody();
+  for (let start = 0; start < fight;) {
+    let end = start;
+    while (end + 1 < fight && values[end + 1] === values[start]) end++;
+    const row = body.insertRow();
+    for (const text of [`${start}-${end + 1}`, Math.round(values[start]).toLocaleString("en-US"), timeline[start].active.join(", ") || "\u2014"]) {
+      row.insertCell().textContent = text;
+    }
+    start = end + 1;
+  }
+  table.append(summary, list);
+  modalDamageChart.appendChild(table);
+}
+
+function niceStep(raw) {
+  const power = 10 ** Math.floor(Math.log10(Math.max(raw, 1)));
+  return [1, 2, 2.5, 5, 10].map(m => m * power).find(s => s >= raw) || power * 10;
 }
 
 function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) {
@@ -4346,6 +4579,30 @@ function uptimeShare(window, fight) {
   return null;
 }
 
+// Whether the effect is on at second t (its expected value for a proc with a chance).
+function activityAt(window, t) {
+  if (window.kind === "permanent") return 1;
+  if (window.kind === "start") return t < window.duration ? 1 : 0;
+  if (window.kind === "periodic") {
+    return t >= window.period && t % window.period < Math.min(window.duration, window.period) ? window.chance : 0;
+  }
+  return null;
+}
+
+function windowSignature(window) {
+  return [window.kind, window.trigger, window.period, window.duration, window.chance].join("|");
+}
+
+// The parsed bonus is matched to the game effect carrying the same figure; no match, or matches
+// with different windows (a skill with two "+10%" on different timers), leave it raw (null).
+function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing) {
+  const window = skillTiming(ship, skill, atMaxLevel);
+  const target = Math.abs(amount);
+  const matches = ((window && window.effects) || []).filter(e => e.values.some(v => Math.abs(v - target) < 0.01));
+  if (!matches.length || new Set(matches.map(windowSignature)).size !== 1) return null;
+  return timing === "share" ? uptimeShare(matches[0], fightSeconds()) : activityAt(matches[0], timing.at);
+}
+
 function skillTiming(ship, skill, atMaxLevel) {
   if (typeof SKILL_TIMING_DATA === "undefined") return null;
   const entry = (SKILL_TIMING_DATA[ship.id] || {})[skill.name];
@@ -4369,7 +4626,16 @@ function skillUptimeText(window) {
     case "volleys": return `Fires every ${window.volleys} main gun volleys`;
     case "barrage": return "Fires a special attack";
     case "conditional": return `Triggered by ${EVENT_LABELS[window.trigger] || "a battle event"}: not timed`;
-    case "mixed": return "Several effects with different timings: not timed as a whole";
+    case "mixed": {
+      // The one timed window among its effects, if there is exactly one (Z35's buff every 20s,
+      // beside a Reload penalty that follows each buff).
+      const timed = [...new Map((window.effects || [])
+        .filter(e => e.kind === "start" || e.kind === "periodic")
+        .map(e => [windowSignature(e), e])).values()];
+      return timed.length === 1
+        ? `${skillUptimeText(timed[0])}; its other effects are not timed`
+        : "Several effects with different timings: not timed as a whole";
+    }
     default: return null;
   }
 }
@@ -5282,8 +5548,15 @@ function focusModalImage() {
 }
 
 modalImage.addEventListener("load", focusModalImage);
+let chartResizeTimer = null;
 window.addEventListener("resize", () => {
-  if (!modalOverlay.hidden) focusModalImage();
+  if (modalOverlay.hidden) return;
+  focusModalImage();
+  // The chart is drawn at its column's width, so it is redrawn once the resize settles.
+  clearTimeout(chartResizeTimer);
+  chartResizeTimer = setTimeout(() => {
+    if (currentShip) renderModalStatsTable(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  }, 200);
 });
 
 function updateModalImage() {

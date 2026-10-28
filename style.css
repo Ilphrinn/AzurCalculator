@@ -657,6 +657,150 @@ main[aria-busy="true"] {
 
 /* The figure a metric sort ranks on, over the art's top-left corner. */
 /* When the skill is active, under its description: a fact about the game data, not prose. */
+/* Damage over the fight: one series in the accent, everything else in neutral tokens. */
+.damage-chart {
+  margin: 1rem 0 0;
+}
+
+.damage-chart[hidden] {
+  display: none;
+}
+
+.damage-chart figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.damage-chart figcaption strong {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.damage-chart-frame {
+  position: relative;
+}
+
+.damage-chart svg {
+  display: block;
+  max-width: 100%;
+  font-family: var(--font-mono);
+}
+
+.damage-chart svg:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.damage-chart-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.damage-chart-tick,
+.damage-chart-label {
+  font-size: 10px;
+  fill: var(--text-muted);
+}
+
+.damage-chart-label {
+  fill: var(--text);
+}
+
+.damage-chart-area {
+  fill: var(--accent);
+  fill-opacity: 0.1;
+}
+
+.damage-chart-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.damage-chart-ref {
+  stroke: var(--text-muted);
+  stroke-width: 1;
+}
+
+.damage-chart-ref.is-average {
+  stroke: var(--text);
+}
+
+.damage-chart-crosshair {
+  stroke: var(--text);
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.damage-chart-hit {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.damage-chart-tooltip {
+  position: absolute;
+  top: 4px;
+  max-width: 200px;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--hairline-strong);
+  background: var(--bg);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.damage-chart-tooltip[hidden] {
+  display: none;
+}
+
+.damage-chart-tooltip strong {
+  font-size: 0.82rem;
+  color: var(--text);
+}
+
+.damage-chart-active {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.damage-chart-table {
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+}
+
+.damage-chart-table summary {
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.damage-chart-table table {
+  margin-top: 0.4rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.damage-chart-table th,
+.damage-chart-table td {
+  padding: 0.2rem 0.6rem 0.2rem 0;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+}
+
+/* The time-weighted figure under the raw one in the combat panel. */
+.combat-metric-avg {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--accent);
+}
+
 .skill-uptime {
   margin-top: 0.4rem;
   padding-left: 0.5rem;
