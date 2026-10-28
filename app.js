@@ -1437,7 +1437,9 @@ function equipConditionAllows(ship, plainText, raw) {
 // timing: null for the raw figures (every condition met, every buff on), "share" to weight each
 // skill bonus with a known window by its share of the fight, or { at: seconds } for one instant
 // of the damage chart. Bonuses with no known window keep their raw amount either way.
-function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, timing = null) {
+// incoming: fleet bonuses from other members' skills (fleetSynergies), each { stats, amount,
+// isPercent, raw, skill, factor }, factor being its share of the fight or null when untimed.
+function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, timing = null, incoming = []) {
   const base = computeStats(ship, level, isRetrofit);
   if (!base) return null;
   // The equipped Augment Module lives in the same equippedGear map as gear (slot key
@@ -1480,6 +1482,19 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
           const bucket = b.isPercent ? percentSum : flatSum;
           bucket[key] = (bucket[key] || 0) + timedAmount;
         }
+      }
+    }
+  }
+
+  for (const bonus of incoming) {
+    const weighted = timing && bonus.factor !== null;
+    const amount = weighted ? bonus.amount * bonus.factor : bonus.amount;
+    for (const key of bonus.stats) {
+      if (key in COMBAT_MODIFIER_LABELS) {
+        addModifier(modifiers, modifierIndex, key, amount, bonus.skill, bonus.raw, undefined, weighted);
+      } else if (NUMERIC_STAT_KEYS.includes(key)) {
+        const bucket = bonus.isPercent ? percentSum : flatSum;
+        bucket[key] = (bucket[key] || 0) + amount;
       }
     }
   }
@@ -5288,7 +5303,8 @@ function isSafeBaseAnchor(skill, category, re, ship) {
   return hasGenuineMatch(skill, category, re, ship);
 }
 
-function computeInteractions(ship) {
+// How skill text names this ship: her nation, hull, fleet role, class and name.
+function interactionPatterns(ship) {
   const patterns = [];
 
   if (ship.nationality) {
@@ -5312,6 +5328,11 @@ function computeInteractions(ship) {
   if (ship.displayName && ship.displayName.length >= 3 && /[a-zA-Z]/.test(ship.displayName) && !NAME_MATCH_STOPLIST.has(ship.displayName)) {
     patterns.push({ category: "name", label: ship.displayName, re: new RegExp(`\\b${escapeRegExp(ship.displayName)}\\b`, "gi") });
   }
+  return patterns;
+}
+
+function computeInteractions(ship) {
+  const patterns = interactionPatterns(ship);
 
   const results = { nation: [], hull: [], role: [], class: [], name: [] };
   const totals = { nation: 0, hull: 0, role: 0, class: 0, name: 0 };
@@ -6429,7 +6450,7 @@ function showFleet() {
 // are set for the fleet and put back. A ship with no gear set gets Optimize's pick, which is
 // then hers in the Equipment panel too, unless keepPicks is false (the Port sorts rank all 888
 // ships and must not equip them behind the user's back).
-function fleetShipFigures(ship, keepPicks = true) {
+function fleetShipFigures(ship, keepPicks = true, incoming = []) {
   const saved = [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget];
   const hadGear = Object.keys(equippedGear[ship.id] || {}).length > 0;
   currentLevel = FLEET_LEVEL;
@@ -6443,10 +6464,10 @@ function fleetShipFigures(ship, keepPicks = true) {
       if (bare) optimizeEquipment(ship, bare, FLEET_LEVEL);
     }
     // The time-weighted figures, with the raw ones (every buff on) kept beside them.
-    const effective = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, figureTiming());
+    const effective = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, figureTiming(), incoming);
     if (!effective) return null;
     const metrics = computeCombatMetrics(ship, FLEET_LEVEL, effective, targetStats().armor);
-    const raw = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false);
+    const raw = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, null, incoming);
     metrics.raw = computeCombatMetrics(ship, FLEET_LEVEL, raw, targetStats().armor);
     return metrics;
   } finally {
@@ -6480,13 +6501,72 @@ function renderFleet() {
   change.addEventListener("click", () => { location.hash = "targets"; });
   fleetTargetEl.appendChild(change);
 
+  const synergies = fleetSynergies(fleetMembers());
   const figures = new Map();
-  for (const ship of fleetMembers()) figures.set(ship, fleetShipFigures(ship));
+  for (const ship of fleetMembers()) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship)));
   for (const row of Object.keys(fleetRowEls)) {
     fleetRowEls[row].replaceChildren(...fleet[row].map((ship, index) => createFleetSlot(row, index, ship, ship && figures.get(ship))));
   }
   renderFleetTotals(figures);
-  renderFleetSynergies();
+  renderFleetSynergies(synergies.report);
+}
+
+// A fleet bonus names its recipients in its own words ("your Vanguard's EVA") or right after them
+// ("... for both 22 and 33"), never before: that is where conditions sit ("if this ship is the
+// Flagship"). A group no member belongs to reaches nobody; wording with no group at all reaches
+// everyone only if it says so ("your fleet"); anything else is left unapplied.
+const GROUP_WORDS_RE = new RegExp(`\\b(?:${[...ALL_HULL_TERMS, ...ALL_NATION_TERMS, "Carrier", "Vanguard", "Main Fleet"]
+  .map(escapeRegExp).join("|")})s?\\b|\\b[\\w-]+-class\\b`, "i");
+const WHOLE_FLEET_RE = /\b(?:all (?:your )?(?:allies|allied ships|ships)|(?:your |the )?(?:whole |entire )?fleet(?:'s)?|every ally)\b/i;
+
+function namesMember(scope, member) {
+  return interactionPatterns(member).some(pattern => {
+    pattern.re.lastIndex = 0;
+    let match;
+    while ((match = pattern.re.exec(scope))) {
+      if (isGenuineAllyMatch(scope, match, pattern.category, member)) return true;
+    }
+    return false;
+  });
+}
+
+function synergyRecipients(skill, bonus, members) {
+  const text = stripHtml(skill.description || "").replace(/\s+/g, " ");
+  const raw = bonus.raw.replace(/\s+/g, " ");
+  const at = text.toLowerCase().indexOf(raw.toLowerCase());
+  if (at < 0) return null;
+  const stop = text.indexOf(". ", at + raw.length);
+  const after = text.slice(at + raw.length, stop < 0 ? text.length : stop);
+  for (const scope of [raw, after]) {
+    const named = members.filter(member => namesMember(scope, member));
+    if (named.length) return named;
+    if (GROUP_WORDS_RE.test(scope)) return [];
+  }
+  return WHOLE_FLEET_RE.test(raw + after) ? [...members] : null;
+}
+
+// Every fleet-scope bonus of every member, with who receives it and its share of the fight.
+function fleetSynergies(members) {
+  const incoming = new Map(members.map(member => [member, []]));
+  const report = [];
+  for (const from of members) {
+    for (const skill of getSkillsForState(from, Boolean(from.hasRetrofit), false, false)) {
+      for (const bonus of skill.statBonuses || []) {
+        // Some "fleet" bonuses read "this ship's ...": the ship's own stats already count those.
+        if (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw)) continue;
+        const atMax = isSkillAtMaxLevel(skill);
+        const amount = atMax ? (typeof bonus.max === "number" ? bonus.max : bonus.min) : (typeof bonus.min === "number" ? bonus.min : bonus.max);
+        if (typeof amount !== "number") continue;
+        const recipients = synergyRecipients(skill, bonus, members);
+        const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, amount, "share") : null;
+        report.push({ from, skill, bonus, amount, recipients, factor });
+        for (const to of recipients || []) {
+          incoming.get(to).push({ stats: bonus.stats, amount, isPercent: bonus.isPercent, raw: bonus.raw, skill, factor });
+        }
+      }
+    }
+  }
+  return { incoming, report };
 }
 
 function createFleetSlot(row, index, ship, metrics) {
@@ -6616,79 +6696,64 @@ function renderFleetTotals(figures) {
   fleetTotalsEl.replaceChildren(table);
 }
 
-// Skills of one member that name another (her nation, hull, fleet role, class or name), from the
-// same ally matching as the modal's Interaction section. Shown, not yet applied to the figures:
-// most are timed buffs whose uptime is not modelled.
-function renderFleetSynergies() {
+// Applied: each fleet bonus with its recipients, weighted by its skill's uptime. Named, not applied:
+// skills of one member that name another (the modal's Interaction matching) but carry no fleet
+// bonus reaching her, such as Bismarck's Iron Blood crit buff, which has no parsed figure.
+function renderFleetSynergies(report) {
   const members = fleetMembers();
-  const bySkill = new Map();
+  const blocks = [];
+  const applied = report.filter(entry => entry.recipients && entry.recipients.length);
+  const reached = new Set(applied.flatMap(entry => entry.recipients.map(to => `${entry.from.id}|${entry.skill.name}|${to.id}`)));
+  for (const entry of applied) {
+    const stats = entry.bonus.stats.map(key => COMBAT_MODIFIER_LABELS[key] || STAT_ABBR[key] || key).join(", ");
+    const timing = entry.factor === null ? "untimed, counted as always on" : `active ${Math.round(entry.factor * 100)}% of the fight`;
+    blocks.push(synergyBlock(
+      `${entry.from.displayName} — ${entry.skill.name}`,
+      ` → ${entry.recipients.map(to => to.displayName).join(", ")}: ${stats} +${entry.amount}${entry.bonus.isPercent ? "%" : ""} (${timing})`,
+      stripHtml(entry.skill.description || ""), "is-applied"));
+  }
+  for (const entry of report.filter(e => e.recipients === null)) {
+    blocks.push(synergyBlock(`${entry.from.displayName} — ${entry.skill.name}`,
+      ` — "${entry.bonus.raw}": its target could not be read, not applied`, stripHtml(entry.skill.description || ""), ""));
+  }
+  const named = new Map();
   for (const target of members) {
     const { results } = computeInteractions(target);
     for (const [category, entries] of Object.entries(results)) {
       for (const entry of entries) {
-        if (!members.includes(entry.ship)) continue;
+        if (!members.includes(entry.ship) || reached.has(`${entry.ship.id}|${entry.skill.name}|${target.id}`)) continue;
         const key = `${entry.ship.id}|${entry.skill.name}`;
-        if (!bySkill.has(key)) bySkill.set(key, { from: entry.ship, skill: entry.skill, text: entry.text, targets: new Map() });
-        const targets = bySkill.get(key).targets;
+        if (!named.has(key)) named.set(key, { from: entry.ship, skill: entry.skill, text: entry.text, targets: new Map() });
+        const targets = named.get(key).targets;
         if (!targets.has(target)) targets.set(target, INTERACTION_CATEGORY_LABELS[category].replace(/^By /, "").toLowerCase());
       }
     }
   }
-  if (!bySkill.size) {
+  for (const { from, skill, text, targets } of named.values()) {
+    const reach = [...targets].map(([ship, how]) => `${ship.displayName} (${how})`).join(", ");
+    blocks.push(synergyBlock(`${from.displayName} — ${skill.name}`, ` names ${reach}; no figure applied`, text, ""));
+  }
+  if (!blocks.length) {
     const empty = document.createElement("p");
     empty.className = "empty";
     empty.textContent = members.length > 1 ? "No skill of one member names another." : "Add ships to see which skills reach each other.";
     fleetSynergiesEl.replaceChildren(empty);
     return;
   }
-  fleetSynergiesEl.replaceChildren(...[...bySkill.values()].map(({ from, skill, text, targets }) => {
-    const details = document.createElement("details");
-    details.className = "fleet-synergy";
-    const summary = document.createElement("summary");
-    const source = document.createElement("strong");
-    source.textContent = `${from.displayName} \u2014 ${skill.name}`;
-    const reach = [...targets].map(([ship, how]) => `${ship.displayName} (${how})`).join(", ");
-    summary.append(source, ` \u2192 ${reach}`);
-    const body = document.createElement("p");
-    body.textContent = text;
-    details.append(summary, body);
-    return details;
-  }));
+  fleetSynergiesEl.replaceChildren(...blocks);
 }
 
-// --- Port metric sorts ---
-
-const RANK_BATCH = 40;
-let rankRun = null;
-
-// Missing figures are computed in batches so the page stays responsive (about a second for all
-// 888); a run already under way is reused.
-function refreshRankFigures() {
-  if (rankRun) return rankRun;
-  rankRun = Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")])
-    .then(() => new Promise(resolve => {
-      const todo = ships.filter(ship => !rankFigures.has(ship));
-      let index = 0;
-      const step = () => {
-        for (const end = Math.min(todo.length, index + RANK_BATCH); index < end; index++) {
-          const ship = todo[index];
-          rankFigures.set(ship, ship.equipment ? fleetShipFigures(ship, false) : null);
-        }
-        if (index < todo.length) {
-          countEl.textContent = `Computing level 125 figures... ${index}/${todo.length}`;
-          setTimeout(step, 0);
-        } else {
-          resolve();
-        }
-      };
-      step();
-    }))
-    .catch(() => { countEl.textContent = "Equipment data could not be loaded."; })
-    .finally(() => {
-      rankRun = null;
-      update();
-    });
-  return rankRun;
+function synergyBlock(title, detail, text, className) {
+  const details = document.createElement("details");
+  details.className = `fleet-synergy ${className}`.trim();
+  const summary = document.createElement("summary");
+  const source = document.createElement("strong");
+  source.textContent = title;
+  summary.append(source, detail);
+  const body = document.createElement("p");
+  body.textContent = text;
+  details.append(summary, body);
+  return details;
 }
 
 fleetSearchEl.addEventListener("input", updateFleetPicker);

@@ -2942,6 +2942,14 @@ main[aria-busy="true"] {
   color: var(--text-muted);
 }
 
+.fleet-synergy.is-applied {
+  border-color: var(--hairline-strong);
+}
+
+.fleet-synergy.is-applied summary {
+  color: var(--text);
+}
+
 .fleet-synergy summary strong {
   color: var(--text);
   font-weight: 500;

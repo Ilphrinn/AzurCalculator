@@ -5753,3 +5753,26 @@ lowers the time-weighted target metric (80s).
 Measured (lv125, Recommended, UR, no boss): **1 loadout of 888 changes** (Chikuma), no DPS
 difference. Expected: a timed buff scales every candidate in a slot about equally, so the order
 holds; what changes is the figures shown, now consistent with what Optimize ranks on.
+
+## Fleet synergies applied (2026-10-28)
+
+Each member's fleet-scope skill bonuses (`statBonuses` with `scope: "fleet"`) now reach the members
+they name and enter their figures (`computeEffectiveStats(..., incoming)`), weighted by the giving
+skill's uptime in the average and at full value in the raw figure.
+
+- **Recipients** (`synergyRecipients`): read from the bonus's own words, then from the rest of its
+  sentence after it ("... for both 22 and 33"), never before it, where conditions sit ("if this
+  ship is the Flagship"). Each member is tested with the modal's Interaction patterns
+  (`interactionPatterns`, extracted from `computeInteractions`) and its ally guards. A group no
+  member belongs to reaches nobody; "your (whole) fleet" / "all allies" reaches everyone only when
+  no group is named; anything else is unreadable and not applied.
+- 160 of the 404 fleet-scope bonuses read "this ship's ..." (mislabelled in the data): the ship's
+  own stats already count them, so they are skipped. Of the other 244: 208 readable, 36 not
+  ("those ship's", "their FP", "that ship's EVA", "these stats", "cruisers" without saying if CBs
+  count). Same-effect "command" skills that do not stack are not deduplicated yet.
+- The Synergies list shows applied bonuses (recipients, amount, uptime or "untimed"), unreadable
+  ones, and skills that only name a member with no figure applied (Bismarck's Iron Blood crit buff
+  has no parsed bonus).
+- Checked on Abukuma, Laffey, Ayanami / Aquila, Bismarck, Tirpitz: Torpedo Command +15% TRP reaches
+  Laffey and Ayanami but not Abukuma (a CL) -> Laffey 1379 -> 1488 DPS, Ayanami 2146 -> 2312;
+  Aquila's +5% AA reaches all six, untimed.
