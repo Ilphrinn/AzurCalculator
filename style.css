@@ -656,6 +656,19 @@ main[aria-busy="true"] {
 }
 
 /* The figure a metric sort ranks on, over the art's top-left corner. */
+/* When the skill is active, under its description: a fact about the game data, not prose. */
+.skill-uptime {
+  margin-top: 0.4rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--hairline-strong);
+  font-size: 0.72rem;
+  color: var(--accent);
+}
+
+.skill-uptime[hidden] {
+  display: none;
+}
+
 .card-figure {
   position: absolute;
   top: 0.35rem;

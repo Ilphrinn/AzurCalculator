@@ -5686,3 +5686,32 @@ engine should therefore be built as (a per-second timeline, the average being it
   Precision rule: a skill whose buffs have different timings is "mixed" and left raw. The app
   then weights that skill's parsed bonuses by the share of the fight they are active, keeps the
   raw figure beside it, and draws the per-second curve.
+
+## Buff uptime v1: per-skill timing in the modal (2026-10-28)
+
+`scripts/import-skill-timing.js` writes `data/skill-timing.js` (lazy-loaded by the modal):
+per ship and skill, the game skill id, its max level, and at level 1 and max a window
+(permanent, start D s, every P s with chance c for D s, volleys, barrage, conditional, mixed)
+plus `effects`: each distinct (value, window) pair for matching the text's parsed bonuses.
+
+- **Walk**: from the ship skill's root buff through `CastSkill`/`AddBuff` links, with level
+  overrides ("1".."10" replace `time` and `effect_list` whole; sparse Lua tables arrive as
+  objects). The ship's highest-star template comes first, or Siren Killer Ⅰ (5%) beat Ⅲ (15%).
+- **Static vs event**: arguments describing fleet make-up, ship tags, nationality, weapon checks,
+  positions (`onLeader`/`onFlagShip`/`onCenter`/`onRear` triggers) are static and assumed met as
+  elsewhere in the app; HP bounds, kills, hits, broken shields, OpSi-only dungeons, gauges and
+  stack requirements make the branch conditional. Conditional branches are still walked so their
+  values are known.
+- **First proc**: read from the client (`battlebuffcastskill.lua`, `battlebuffaddbuff.lua`): a
+  periodic effect first fires one period in, `initialCD` or not (`enterCoolDown` re-adds the
+  period after the `initialCD` branch).
+- **Coverage** (2216 parsed bonuses with an amount): 942 permanent, 144 periodic, 30 battle start
+  (1116 timeable), 404 conditional, 171 ambiguous (same value, different windows), 384 with no
+  matching game value, 141 on unlinked skills (collabs absent from EN tables).
+- **App v1** shows, under each skill, its window and expected active share of the fight
+  (`uptimeShare`; 60 s or the picked boss's `timeLimit`; follows the skill level toggle).
+  Hand-checked: Helena's Radar Scan, every 20 s, 60% chance, 10 s -> procs at 20 s and 40 s ->
+  12 s of 60 = 20%. Figures are not weighted yet.
+- **Next**: weight each matched bonus by its share (keeping the raw figure beside it, as the
+  user asked), then the per-second damage chart. Also possible: on-fire procs with a chance
+  (Laffey's Wargod of Solomon, 5% per salvo) from the gun's cycle, which the app already knows.

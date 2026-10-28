@@ -3530,6 +3530,8 @@ function setTargetBoss(boss) {
   if (metricSortKey()) refreshRankFigures();
   syncBossSelect();
   refreshStatsAfterGearChange();
+  // The fight length behind each skill's uptime line is the boss's time limit.
+  if (currentShip) renderModalSkills(currentShip, retrofitApplied, augmentApplied, fateSimApplied);
 }
 
 modalEquipmentBoss.addEventListener("change", () => {
@@ -4318,6 +4320,80 @@ modalInteractionMaxToggle.addEventListener("click", () => {
   }
 });
 
+// When a skill's effect is active, from the game's buff tables (scripts/import-skill-timing.js),
+// measured over the picked boss's time limit or a 60s fight.
+const DEFAULT_FIGHT_SECONDS = 60;
+const EVENT_LABELS = {
+  check: "a battle event", onHPRatioUpdate: "an HP threshold", onFire: "firing", onChargeWeaponFire: "a main gun salvo",
+  onTorpedoWeaponFire: "a torpedo launch", onAllInStrike: "an airstrike", onAllInStrikeSteady: "an airstrike",
+  onSubmarineRaid: "a submarine strike", onBeHit: "being hit", onBulletHit: "a hit", onBulletHitBefore: "a hit", count: "a counter"
+};
+
+function fightSeconds() {
+  return targetBoss && targetBoss.timeLimit ? targetBoss.timeLimit : DEFAULT_FIGHT_SECONDS;
+}
+
+// Expected share of the fight the effect is on; periodic effects first fire one period in, as the
+// client's timers do.
+function uptimeShare(window, fight) {
+  if (window.kind === "permanent") return 1;
+  if (window.kind === "start") return Math.min(window.duration, fight) / fight;
+  if (window.kind === "periodic") {
+    let active = 0;
+    for (let t = window.period; t < fight; t += window.period) active += Math.min(window.duration, window.period, fight - t);
+    return window.chance * active / fight;
+  }
+  return null;
+}
+
+function skillTiming(ship, skill, atMaxLevel) {
+  if (typeof SKILL_TIMING_DATA === "undefined") return null;
+  const entry = (SKILL_TIMING_DATA[ship.id] || {})[skill.name];
+  return entry ? entry[atMaxLevel ? entry.max : 1] : null;
+}
+
+function skillUptimeText(window) {
+  const fight = fightSeconds();
+  const share = uptimeShare(window, fight);
+  const of = `of a ${fight}s fight${targetBoss ? ` (${targetBoss.name})` : ""}`;
+  const percent = share === null ? "" : `${Math.round(share * 100)}% ${of}`;
+  switch (window.kind) {
+    case "permanent": return "Active the whole fight";
+    case "start": return `Active for the first ${window.duration}s: ${percent}`;
+    case "periodic": {
+      const chance = window.chance < 1 ? `, ${Math.round(window.chance * 100)}% chance` : "";
+      return window.duration > 0
+        ? `Every ${window.period}s${chance}, for ${window.duration}s: active ${percent}`
+        : `Every ${window.period}s${chance}`;
+    }
+    case "volleys": return `Fires every ${window.volleys} main gun volleys`;
+    case "barrage": return "Fires a special attack";
+    case "conditional": return `Triggered by ${EVENT_LABELS[window.trigger] || "a battle event"}: not timed`;
+    case "mixed": return "Several effects with different timings: not timed as a whole";
+    default: return null;
+  }
+}
+
+function createSkillUptimeLine(ship, skill) {
+  if (typeof SKILL_TIMING_DATA === "undefined") {
+    loadDataScript("data/skill-timing.js").then(() => {
+      if (currentShip === ship && !modalOverlay.hidden) applyRetrofitState();
+    }, () => {});
+    return null;
+  }
+  if (!(SKILL_TIMING_DATA[ship.id] || {})[skill.name]) return null;
+  const line = document.createElement("div");
+  line.className = "skill-uptime";
+  return {
+    el: line,
+    paint(atMaxLevel) {
+      const text = skillUptimeText(skillTiming(ship, skill, atMaxLevel));
+      line.hidden = !text;
+      line.textContent = text || "";
+    }
+  };
+}
+
 function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
   const skills = getSkillsForState(ship, isRetrofit, isAugmented, isFateSim);
   skillMaxLevelToggles = [];
@@ -4383,6 +4459,7 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
       head.appendChild(fsTag);
     }
     body.appendChild(head);
+    const uptimeLine = createSkillUptimeLine(ship, skill);
 
     if (skill.description) {
       const desc = document.createElement("div");
@@ -4392,6 +4469,7 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
       const mechanics = namedMechanics(atBase);
 
       const paintDescription = (atMaxLevel) => {
+        if (uptimeLine) uptimeLine.paint(atMaxLevel);
         appendSkillDescription(desc, atMaxLevel ? atMax : atBase);
         highlightKeywords(desc, mechanics);
       };
@@ -4415,6 +4493,10 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
 
       paintDescription(skillsAtMaxLevel);
       body.appendChild(desc);
+    }
+    if (uptimeLine) {
+      if (!skill.description) uptimeLine.paint(skillsAtMaxLevel);
+      body.appendChild(uptimeLine.el);
     }
 
     item.appendChild(body);
