@@ -84,9 +84,8 @@ transport ships" are skipped). Siren-targeted bonuses ("to Sirens", or a nation 
 with `siren: true`; other nation-targeted bonuses are still skipped (bosses carry no other
 nationality). Operation Siren-only skill text ("[Operation Siren]", "humanoid Siren fleets or
 Boss fleets") applies only against an "OpSi Arbiter" boss (`OPSI_CLAUSE_RE`). Optimize's per-slot
-greedy limit below was judged not worth fixing for now (2026-10-28). Next:
-- Optimize is a per-slot greedy pick: it cannot see that one gun's FP bonus also feeds the
-  other guns and the barrage, which costs up to ~5% DPS on a few ships (Shropshire vs Heavy).
+greedy limit was fixed on the user's request (2026-10-28, `refineWeaponPicks`, see "Whole-ship
+weapon refinement" in the notes). Next:
 - Utility and uptime per ship (heals, shields, fleet buffs, barrage/buff time on field): not
   started. Source found: AzurLaneTools/AzurLaneData (`EN/GameCfg/skill.json`, `buff.json`,
   `EN/ShareCfg/skill_data_template.json`; last updated 2026-05) and AzurLaneTools/

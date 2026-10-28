@@ -5546,3 +5546,24 @@ or a "Barrage" source (none exist in the roster today) and the usual target gate
 term); barrage-heavy ships with general DMG Dealt more (Regensburg META +18%, Lyme +7%); Roon vs
 Arbiter: The Hermit IX now +14.9% over no boss (+5.3% before), close to her +15% Siren Killer.
 3 optimized loadouts change.
+
+## Whole-ship weapon refinement in Optimize (2026-10-28)
+
+The per-slot greedy pick could not see that one weapon's stat bonus also feeds the other
+weapons and the volley barrage (Chen Hai 937 -> 734 in the 2026-08 note above). Optimize now
+keeps its greedy pass as a starting point, then `refineWeaponPicks` re-picks each weapon slot
+from a shortlist on the whole ship's figure for that weapon's metric (surface DPS, AA or ASW),
+other slots held, repeating until nothing moves (at most 3 passes).
+
+- Shortlist: up to 6 candidates scoring at least 0.6 x the greedy pick. The floor keeps the
+  role rules in force without re-encoding them: CB's caliber rule (x1.5 / x0.4) and the fast-AA
+  rule (x0.01) put wrong-class candidates far below it. Not refined: skill-named picks
+  (absolute), proc-barrage BB main guns (ranked on reload, which no simulated figure measures),
+  carrier aircraft (orientation-driven) and BB AA slots (bonus-driven).
+- Refinement runs after auxiliaries and the augment, so a Reload or Firepower auxiliary is part
+  of the comparison.
+- Measured (lv125, Recommended, UR, no boss): 226 ships gain surface DPS, 0 lose; roster total
+  +0.4%; largest Ägir +7.8%, Scharnhorst META +7.5%, Murmansk +6.6%, Gneisenau +5.3%;
+  Shropshire +2.4% (Triple 234mm over Triple 203mm). 23 ships lose a little AA where a gun with
+  an AA bonus gave way. Chen Hai is now a carrier in the data and unaffected. `npm run check`
+  went from 45s to 72s.

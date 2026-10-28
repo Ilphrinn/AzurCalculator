@@ -2978,6 +2978,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     : {};
 
   const usedAuxNames = new Set();
+  const weaponShortlists = new Map();
   const auxSlotKeys = Object.entries(ship.equipment || {})
     .filter(([, slot]) => (slot.type || []).includes(10))
     .map(([key]) => key);
@@ -3046,6 +3047,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       : null;
 
     let best = null;
+    const weaponCandidates = [];
     for (const item of equipmentOptionsForSlot(slot, ship)) {
       if (!filterItem(item)) continue;
       // Auxiliaries stacking the same passive on one ship is a bug, not a feature — most
@@ -3090,12 +3092,25 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       }
       if (!isWeapon && !isBbAntiAir && score <= 0) continue;
       const candidate = { item, isWeapon: isWeapon || isBbAntiAir, isNamed: named.has(item.name), score };
+      if (isWeapon && !isBbAntiAir) weaponCandidates.push(candidate);
       if (betterCandidate(candidate, best)) best = candidate;
     }
     if (!best) continue;
     setEquippedGear(ship, slotKey, best.item);
     if (isAuxSlot && best.item.category === "Auxiliary") usedAuxNames.add(best.item.name);
     changed++;
+    // The role rules above (CB caliber, fast AA) cut a wrong-class candidate's score far below the
+    // pick, so the score floor keeps them out; a proc-barrage BB gun is ranked on reload, which no
+    // simulated figure measures, and a skill-named pick is absolute.
+    const procGun = barrageTrigger === "proc" && GUN_TYPE_CODES.has((slot.type || [])[0]);
+    if (best.isWeapon && !isBbAntiAir && !best.isNamed && !procGun && best.score > 0) {
+      const shortlist = weaponCandidates
+        .filter(c => c.item !== best.item && c.score >= best.score * WEAPON_SHORTLIST_FLOOR)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, WEAPON_SHORTLIST_SIZE)
+        .map(c => c.item);
+      if (shortlist.length) weaponShortlists.set(slotKey, shortlist);
+    }
   }
 
   // The Augment Module slot scores exactly like an auxiliary — same weights, same
@@ -3115,6 +3130,8 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       changed++;
     }
   }
+
+  refineWeaponPicks(ship, level, weaponShortlists);
 
   // Some aux slots also carry a built-in gun (Royal James's slot 3), so an auxiliary there costs
   // that gun. Slot scores cannot weigh one against the other, so compare the real loadouts instead:
@@ -3141,6 +3158,36 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     else changed--;
   }
   return changed;
+}
+
+// Slot-by-slot picks cannot see that one weapon's stat bonus also feeds the other weapons and the
+// barrage (Chen Hai lost a fifth of her DPS to that). Each weapon slot is re-picked from its
+// shortlist on the whole ship's figure for that weapon's metric, the others held, until stable.
+const WEAPON_SHORTLIST_SIZE = 6;
+const WEAPON_SHORTLIST_FLOOR = 0.6;
+
+function refineWeaponPicks(ship, level, shortlists) {
+  const metricValue = metric => computeCombatMetrics(ship, level,
+    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied), targetStats().armor)[metric];
+  for (let pass = 0; pass < 3; pass++) {
+    let moved = false;
+    for (const [slotKey, shortlist] of shortlists) {
+      const current = getEquippedGear(ship, slotKey);
+      if (!current) continue;
+      const metric = weaponRole(current).metric;
+      let best = current;
+      let bestValue = metricValue(metric);
+      for (const item of shortlist) {
+        if (item === current || weaponRole(item).metric !== metric) continue;
+        setEquippedGear(ship, slotKey, item);
+        const value = metricValue(metric);
+        if (value > bestValue * (1 + 1e-9)) { best = item; bestValue = value; }
+      }
+      setEquippedGear(ship, slotKey, best);
+      if (best !== current) moved = true;
+    }
+    if (!moved) break;
+  }
 }
 
 // Best-in-slot first: highest rarity, then highest headline stat within that rarity.
