@@ -1036,7 +1036,8 @@ const COMBAT_MODIFIER_LABELS = {
   weaponEfficiency: "Weapon Efficiency",
   hitRate: "Hit Rate",
   evasionRate: "Evasion Rate",
-  damageTaken: "DMG Taken"
+  damageTaken: "DMG Taken",
+  dodgeUptime: "Evade-all uptime"
 };
 
 // The one modifier that is a reduction rather than a gain: a "DMG Taken" bonus is
@@ -1390,14 +1391,18 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
   }
 
   // Auxiliary passives from the game's buff tables (scripts/import-aux-effects.js). The game does not
-  // stack one buff, so a second copy of the same item adds nothing.
+  // stack one buff or one no-stacking group, so a second copy adds nothing.
+  const itemEffects = [];
   const seenBuffs = new Set();
   for (const item of Object.values(equippedGear[ship.id] || {})) {
     for (const effect of item.effects || []) {
-      if (seenBuffs.has(effect.buff)) continue;
-      seenBuffs.add(effect.buff);
+      const stackKey = effect.group || effect.buff;
+      if (seenBuffs.has(stackKey)) continue;
+      seenBuffs.add(stackKey);
+      itemEffects.push(effect);
       const source = { name: item.name, description: effect.text };
-      addModifier(modifiers, modifierIndex, effect.key, effect.amount, source, effect.text, { source: effect.source, target: "" });
+      const qualifier = { source: effect.source || "", target: effect.target ? `from ${effect.target}` : "" };
+      addModifier(modifiers, modifierIndex, effect.key, effect.amount, source, effect.text, qualifier);
     }
   }
 
@@ -1419,7 +1424,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
     stats[key] = { value, delta: value - base[key], base: base[key], equip, pct, skillFlat };
   }
 
-  return { stats, modifiers };
+  return { stats, modifiers, itemEffects };
 }
 
 // A boosted cell renders as "{base}+{delta} ({real})" rather than the final number alone,
@@ -1947,6 +1952,27 @@ function referenceHitRate(evasion, luck) {
   return Math.min(1, Math.max(0.1, raw));
 }
 
+// The wiki's eHP: HP / HitRate / prod(1 + resistance). Only imported auxiliary effects enter it:
+// skill Evasion Rate and DMG Taken buffs mostly last seconds, and their uptime is not modelled yet.
+function effectiveHp(effective) {
+  const hp = effective.stats.health ? effective.stats.health.value : 0;
+  const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
+  const luck = effective.stats.luck ? effective.stats.luck.value : 0;
+  const hitRate = referenceHitRate(evasion, luck);
+  let ehp = hp / hitRate;
+  for (const effect of effective.itemEffects || []) {
+    if (effect.key === "dodgeUptime") ehp /= 1 - effect.amount / 100;
+    // Torpedo-only reductions stay out: nothing says what share of a boss's damage is torpedoes.
+    else if (effect.key === "damageTaken" && !effect.source && reductionApplies(effect.target)) ehp /= 1 - effect.amount / 100;
+  }
+  return { ehp, hitRate };
+}
+
+function reductionApplies(target) {
+  if (!target) return true;
+  return target === "Sirens" && Boolean(targetBoss && targetBoss.siren);
+}
+
 // Damage a slot contributes per second: the item's own figure, times mounts, times
 // efficiency, times the wiki's WeaponStatMultiplier (1 + ScalingStat/100), times the average
 // Critical/DMG Dealt multiplier (weaponDamageMultiplier). WeaponScalingCoefficient stays at
@@ -2045,16 +2071,13 @@ function computeCombatMetrics(ship, level, effective, armor) {
   const barrageDps = volleyBarrageDps(ship, effective, level, armor);
   totals.dps += barrageDps;
 
-  const hp = effective.stats.health ? effective.stats.health.value : 0;
-  const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
-  const luck = effective.stats.luck ? effective.stats.luck.value : 0;
-  const hitRate = referenceHitRate(evasion, luck);
+  const { ehp, hitRate } = effectiveHp(effective);
 
   return {
     dps: totals.dps,
     dpsAA: totals.dpsAA,
     dpsASW: totals.dpsASW,
-    ehp: hp / hitRate,
+    ehp,
     hitRate,
     unknownSlots,
     volleyBarrageDps: barrageDps,
@@ -2399,10 +2422,7 @@ function candidateEhp(ship, slotKey, item) {
   const original = getEquippedGear(ship, slotKey);
   setEquippedGear(ship, slotKey, item);
   const eff = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
-  const hp = eff.stats.health ? eff.stats.health.value : 0;
-  const evasion = eff.stats.evasion ? eff.stats.evasion.value : 0;
-  const luck = eff.stats.luck ? eff.stats.luck.value : 0;
-  let ehp = hp / referenceHitRate(evasion, luck);
+  let { ehp } = effectiveHp(eff);
   if (itemGrantsHpRegen(item)) ehp *= HP_REGEN_SCORE_BONUS;
   if (original) setEquippedGear(ship, slotKey, original);
   else setEquippedGear(ship, slotKey, null);
@@ -2467,6 +2487,7 @@ function weaponCandidateEffective(ship, slotKey, item, level) {
 }
 
 const SURVIVAL_STAT_KEYS = new Set(["health", "evasion", "luck"]);
+const SURVIVAL_EFFECT_KEYS = new Set(["dodgeUptime", "damageTaken"]);
 // CA is the one role given an explicit override: almost only HP-boosting auxiliaries, not
 // the general eHP simulation every other role gets (which already favors HP over Evasion
 // for most hulls on its own). A CA's candidate pool is narrowed to items granting HP at
@@ -2621,6 +2642,7 @@ function statPreferenceScore(item, weights, ship, slotKey, baseEhp, dpsGains) {
   let score = 0;
   let hasSurvivalStat = false;
   let dpsWeight = 0;
+  if ((item.effects || []).some(effect => SURVIVAL_EFFECT_KEYS.has(effect.key))) hasSurvivalStat = true;
   for (const [rawKey, amount] of Object.entries(bonus)) {
     const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
     if (SURVIVAL_STAT_KEYS.has(key)) { hasSurvivalStat = true; continue; }
@@ -3553,7 +3575,8 @@ function renderCombatMetrics(ship, effective) {
       if (field.key === "ehp") {
         notes.push(
           `Against ${targetName}: Accuracy ${target.hit}, Luck ${target.luck}, same level.`,
-          `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`
+          `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
+          "Counts auxiliary evade procs and damage reductions; skill buffs are left out until their uptime is modelled."
         );
         if (!targetBoss) notes.push("Pick a boss in Target to see this against a specific fight.");
       } else {

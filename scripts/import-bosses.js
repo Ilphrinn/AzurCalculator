@@ -46,7 +46,9 @@ function group(mapName) {
       level: boss.level,
       hit: boss.stats.hit,
       eva: boss.stats.eva,
-      luck: boss.stats.luck
+      luck: boss.stats.luck,
+      // Nationality 99 is the Sirens, which some damage reductions name (the Intel Report auxiliaries).
+      siren: boss.nation === 99
     });
   }
 

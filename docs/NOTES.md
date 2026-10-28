@@ -5465,3 +5465,34 @@ array onto Auxiliary items in `data/equipment.js`.
 - **Measured** (lv125, Recommended, UR): only BBs change. Super Heavy Shell 11 -> 88 picks,
   Type 1 AP 95 -> 18; New Jersey 3732 -> 3890 DPS, Musashi 3787 -> 3940. At ~12% base crit
   rate, +8% rate (x1.5 damage) plus +18 FP beats +25% crit damage.
+
+## Auxiliary survival effects in eHP (2026-10-28)
+
+Step (3) of the Optimize/auxiliaries fix.
+
+- **The importer was rooted wrong in step (2), fixed here.** mrlar.dev's `skills` list on an
+  item holds the BUFF ids the game attaches (`buff_6210` casts `skill_6210` on
+  `onStartGame`), not skill ids. For the three crit items the result was identical, but the
+  real conditions live in that root buff: 6CRH's `nationality: 2` (Royal Navy), Fire Control
+  Table's `check_target`/`ship_tag_list: parallelMG`. `scripts/import-aux-effects.js` now walks
+  buff -> skill -> buff with a whitelist of shapes AND argument keys (`Walker`), replacing the
+  text guard: any unknown argument rejects the item, so conditions reject by construction.
+  `group` is accepted: it is the game's no-stacking group, kept on the effect so two items of
+  one group count once.
+- **Imported (8 items)**: the three crit items as before; Anti-Torpedo Bulge
+  (`injureRatioByBulletTorpedo` -30%, source Torpedo); the three Intel Reports (-6% from every
+  `DMG_FROM_TAG_n_N_99` tag, kept once as target "Sirens"); Improved Hydraulic Rudder:
+  `buff_6270` adds `buff_6271` every 20s (`onUpdate`, `time: 20`), which casts the dodge skill
+  with `rant: 3000` (30%), whose `buff_6272` gives `perfectDodge` for 2s -> `dodgeUptime` 3%.
+- **Sirens**: enemy nationality 99 in maps.json (Arbiters, Omitter, Obstructor, Mechanicus...).
+  `import-bosses.js` now writes `siren` (34 of 212); re-running it changed nothing else.
+- **eHP** (`effectiveHp`, shared by the display and `candidateEhp`): the wiki formula
+  HP / HitRate / prod(1 + resistance), with `dodgeUptime` as one more 1/(1 - u) factor.
+  Left out on purpose: torpedo-only reductions (no data on what share of a boss's damage is
+  torpedoes; the Bulge still shows its pill), and ship skill Evasion Rate / DMG Taken (63 + 42
+  modifiers across the roster, mostly short windows - Alfredo Oriani's +40% Evasion Rate counted
+  permanently would floor her hit rate at 0.1 and triple her eHP). The eHP tooltip says so.
+- **Measured** (lv125, Recommended, UR): Rudder picked on 39 CAs with no boss (8 before), 78
+  vs Arbiter: The Hermit IX (42 before), mostly in place of Repair Toolkit - a close race (Roon:
+  Rudder 10105 vs Toolkit 10079 scoring eHP). Intel Reports are applied (Roon vs Hermit: +9.9%
+  eHP, of which 1/0.94 is the reduction) but still lose to both, so they are never picked.

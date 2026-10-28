@@ -15477,6 +15477,15 @@ const EQUIPMENT_DATA = [
       "CVL",
       "AR",
       "AE"
+    ],
+    "effects": [
+      {
+        "key": "damageTaken",
+        "amount": 30,
+        "source": "Torpedo",
+        "buff": 6030,
+        "text": "Decreases DMG taken from Torpedoes by 30.0%. Effect does not stack."
+      }
     ]
   },
   {
@@ -17495,6 +17504,14 @@ const EQUIPMENT_DATA = [
       "AE",
       "SS",
       "SSV"
+    ],
+    "effects": [
+      {
+        "key": "dodgeUptime",
+        "amount": 3,
+        "buff": 6270,
+        "text": "Every 20s: 30.0% chance for the ship using this gear to evade all enemy attacks for 2s."
+      }
     ]
   },
   {
@@ -17560,6 +17577,16 @@ const EQUIPMENT_DATA = [
       "IXS",
       "IXV",
       "IXM"
+    ],
+    "effects": [
+      {
+        "key": "damageTaken",
+        "amount": 6,
+        "target": "Sirens",
+        "group": 6440,
+        "buff": 6440,
+        "text": "The ship equipping this gear takes 6.0% less DMG from Sirens. Does not stack with skills that have similar effect; only the highest source of DMG reduction applies."
+      }
     ]
   },
   {
@@ -17593,6 +17620,16 @@ const EQUIPMENT_DATA = [
       "IXS",
       "IXV",
       "IXM"
+    ],
+    "effects": [
+      {
+        "key": "damageTaken",
+        "amount": 6,
+        "target": "Sirens",
+        "group": 6440,
+        "buff": 6440,
+        "text": "The ship equipping this gear takes 6.0% less DMG from Sirens. Does not stack with skills that have similar effect; only the highest source of DMG reduction applies."
+      }
     ]
   },
   {
@@ -18116,6 +18153,16 @@ const EQUIPMENT_DATA = [
       "IXS",
       "IXV",
       "IXM"
+    ],
+    "effects": [
+      {
+        "key": "damageTaken",
+        "amount": 6,
+        "target": "Sirens",
+        "group": 6440,
+        "buff": 6440,
+        "text": "The ship equipping this gear takes 6.0% less DMG from Sirens. Does not stack with skills that have similar effect; only the highest source of DMG reduction applies."
+      }
     ]
   },
   {
@@ -19100,7 +19147,7 @@ const EQUIPMENT_DATA = [
         "key": "critRate",
         "amount": 8,
         "source": "Main Gun",
-        "buff": 6211,
+        "buff": 6210,
         "text": "Increases Main Gun Crit Rate by 8.0%."
       }
     ]
@@ -19302,7 +19349,7 @@ const EQUIPMENT_DATA = [
         "key": "critDamage",
         "amount": 15,
         "source": "Main Gun",
-        "buff": 6191,
+        "buff": 6190,
         "text": "Increases Main Gun Crit DMG by 15.0%."
       }
     ]
