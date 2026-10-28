@@ -80,7 +80,10 @@ retrofit, Gangut augment...), applied in the matching DPS column and against a p
 Harbin (torpedoes only), Fleuret ("that enemy's Armor Type") and Z47 ("those ... enemies") are
 excluded on purpose. Hull-only bonuses ("to enemy BBs", `HULL_TARGET_TERMS`) apply when the
 picked boss has that hull (`hull` in data/bosses.js; "Carriers" and mixed lists like "DDs and
-transport ships" are skipped). Nation-targeted bonuses are still skipped. Optimize's per-slot
+transport ships" are skipped). Siren-targeted bonuses ("to Sirens", or a nation list including Sirens) apply against a boss
+with `siren: true`; other nation-targeted bonuses are still skipped (bosses carry no other
+nationality). Operation Siren-only skill text ("[Operation Siren]", "humanoid Siren fleets or
+Boss fleets") applies only against an "OpSi Arbiter" boss (`OPSI_CLAUSE_RE`). Optimize's per-slot
 greedy limit below was judged not worth fixing for now (2026-10-28). Next:
 - Optimize is a per-slot greedy pick: it cannot see that one gun's FP bonus also feeds the
   other guns and the barrage, which costs up to ~5% DPS on a few ships (Shropshire vs Heavy).
@@ -109,8 +112,10 @@ greedy limit below was judged not worth fixing for now (2026-10-28). Next:
   effects from game data, delete the name hacks - **done 2026-10-28**, see "Auxiliary effects
   from game data"; (3) evade procs and damage reduction in eHP - **done 2026-10-28**, see
   "Auxiliary survival effects in eHP". Skill Evasion Rate / DMG Taken buffs stay out of eHP
-  until their uptime is modelled (they reach +40% for a few seconds). Now possible and not done:
-  skill "DMG Dealt to Sirens" bonuses (Roon's Siren Killer) against a boss with `siren: true`.
+  until their uptime is modelled (they reach +40% for a few seconds).
+- Barrages (`volleyBarrageDamage`) take no DMG Dealt or crit modifier at all, so every DMG Dealt
+  bonus (armour, hull, Sirens) misses a barrage-heavy ship's main source: Roon gets +5% vs a
+  Siren instead of +15%. Not fixed: check how the game applies those to special barrages first.
 
 - Equipment-aware stats (HP/DPS/AA/ASW panel, rarity cap, Optimize): largely built, see
   "Unresolved / explicitly deferred".

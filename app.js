@@ -1207,15 +1207,28 @@ function equipTargetNamesCatalogItem(strippedTarget) {
   }) || null;
 }
 
-function equipConditionClauseForRaw(plainText, raw) {
+function clauseBeforeRaw(plainText, raw) {
   if (!raw) return null;
   const lower = plainText.toLowerCase();
   const idx = lower.indexOf(raw.toLowerCase().trim());
   if (idx < 0) return null;
-  let sentStart = plainText.lastIndexOf(". ", idx);
-  sentStart = sentStart < 0 ? 0 : sentStart + 2;
-  const clause = plainText.slice(sentStart, idx);
-  return /equipped|otherwise/i.test(clause) ? clause : null;
+  // Mode tags often follow a period with no space ("(8%).[Operation Siren]Every time..."), so ".[" also starts a sentence.
+  const sentStart = Math.max(plainText.lastIndexOf(". ", idx) + 2, plainText.lastIndexOf(".[", idx) + 1, 0);
+  return plainText.slice(sentStart, idx);
+}
+
+function equipConditionClauseForRaw(plainText, raw) {
+  const clause = clauseBeforeRaw(plainText, raw);
+  return clause && /equipped|otherwise/i.test(clause) ? clause : null;
+}
+
+// META ships' "When fighting humanoid Siren fleets or Boss fleets" and anything tagged
+// [Operation Siren] hold only in Operation Siren, whose bosses here are the Arbiters.
+const OPSI_CLAUSE_RE = /operation siren|humanoid sirens?\b|boss fleets/i;
+const OPSI_TARGET = "in Operation Siren";
+
+function inOperationSiren() {
+  return Boolean(targetBoss && targetBoss.group === "OpSi Arbiter");
 }
 
 // clause spans from the sentence start up to the bonus's own raw text, since "otherwise"
@@ -1379,9 +1392,13 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim) 
         ? (typeof b.max === "number" ? b.max : b.min)
         : (typeof b.min === "number" ? b.min : b.max);
       if (typeof amount !== "number") continue;
+      const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
-          addModifier(modifiers, modifierIndex, key, amount, skill, b.raw);
+          const qualifier = opsiOnly ? { source: modifierQualifier(b.raw).source, target: OPSI_TARGET } : undefined;
+          addModifier(modifiers, modifierIndex, key, amount, skill, b.raw, qualifier);
+        } else if (opsiOnly && !inOperationSiren()) {
+          continue;
         } else if (NUMERIC_STAT_KEYS.includes(key)) {
           const bucket = b.isPercent ? percentSum : flatSum;
           bucket[key] = (bucket[key] || 0) + amount;
@@ -1807,6 +1824,7 @@ function weaponEfficiencyBonus(effective, ship, slotKey, item) {
   let bonus = 0;
   for (const modifier of effective.modifiers) {
     if (modifier.key !== "weaponEfficiency") continue;
+    if (modifier.target === OPSI_TARGET && !inOperationSiren()) continue;
     const override = modifier.sources.map(s => WEAPON_EFFICIENCY_OVERRIDE_BY_SKILL[s.skill.name]).find(Boolean);
     if (override) {
       if (override(ship, slotKey, item, role)) bonus += modifier.amount;
@@ -1860,6 +1878,25 @@ function targetsHull(target, hull) {
   return hulls.every(Boolean) && hulls.some(terms => terms.includes(hull));
 }
 
+// "to Sirens", or a list of nations that includes Sirens (King George V): only the Siren part is
+// checked, since bosses carry no other nationality here.
+const SIREN_TERM_RE = /^sirens?(?: ships)?$/i;
+const NATION_TERMS = new Set(Object.keys(NATION_COLORS).map(name => name.toLowerCase()));
+function targetsSirens(target) {
+  if (!targetBoss || !targetBoss.siren) return false;
+  const list = target.replace(/^(?:to|against)\s+/i, "");
+  if (list === target) return false;
+  const terms = list.split(/\s*,\s*(?:and\s+)?|\s+and\s+/);
+  return terms.some(term => SIREN_TERM_RE.test(term)) &&
+    terms.every(term => SIREN_TERM_RE.test(term) || NATION_TERMS.has(term.toLowerCase()));
+}
+
+function modifierTargetApplies(target, armor) {
+  if (!target) return true;
+  if (target === OPSI_TARGET) return inOperationSiren();
+  return targetsArmor(target, armor) || targetsHull(target, targetBoss && targetBoss.hull) || targetsSirens(target);
+}
+
 function weaponDamageMultiplier(effective, ship, slotKey, item, armor = targetStats().armor) {
   const role = weaponRole(item);
   if (!role || !effective) return 1;
@@ -1867,7 +1904,7 @@ function weaponDamageMultiplier(effective, ship, slotKey, item, armor = targetSt
   let critDamageBonus = 0;
   let damageDealtBonus = 0;
   for (const modifier of effective.modifiers) {
-    if (modifier.target && !targetsArmor(modifier.target, armor) && !targetsHull(modifier.target, targetBoss && targetBoss.hull)) continue;
+    if (!modifierTargetApplies(modifier.target, armor)) continue;
     if (!weaponModifierApplies(modifier.source, role, ship, slotKey)) continue;
     if (modifier.key === "critRate") critRateBonus += modifier.amount;
     else if (modifier.key === "critDamage") critDamageBonus += modifier.amount;

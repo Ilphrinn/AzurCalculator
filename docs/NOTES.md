@@ -5496,3 +5496,29 @@ Step (3) of the Optimize/auxiliaries fix.
   vs Arbiter: The Hermit IX (42 before), mostly in place of Repair Toolkit - a close race (Roon:
   Rudder 10105 vs Toolkit 10079 scoring eHP). Intel Reports are applied (Roon vs Hermit: +9.9%
   eHP, of which 1/0.94 is the reduction) but still lose to both, so they are never picked.
+
+## Siren-targeted and Operation Siren-only skill bonuses (2026-10-28)
+
+- **Siren-targeted DMG Dealt now applies** against a boss with `siren: true` (enemy nationality
+  99, see the previous section): Siren Killer (+15%, about 50 ships), Kala Ideas (+10% "against
+  Sirens") and King George V's "Sakura Empire, Iron Blood, Sardegna Empire, and Siren ships"
+  (`targetsSirens`: every term must be Sirens or a known nation, and only the Siren part is
+  checked since bosses carry no other nationality). One gate for every modifier target now:
+  `modifierTargetApplies` (armour, hull, Sirens, Operation Siren).
+- **Precision bug found while surveying, fixed**: 47 META skill bonuses written "When fighting
+  humanoid Siren fleets or Boss fleets" (most also tagged "[Operation Siren]") were counted
+  everywhere as plain DMG Dealt / Crit DMG / FP. They hold only in Operation Siren, whose bosses
+  in data/bosses.js are the "OpSi Arbiter" group. `OPSI_CLAUSE_RE` on the clause before the bonus
+  now tags combat modifiers with target "in Operation Siren" (pill still shown) and drops stat
+  bonuses unless an Arbiter is picked; `weaponEfficiencyBonus` checks the same tag (Kansas's
+  OpSi Main Gun efficiency). Alabama keeps her "[Regular]" FP and loses only the OpSi copy.
+- `clauseBeforeRaw` (shared with the equip-condition parser) also starts a sentence at ".[",
+  since mode tags follow a period with no space. Measured: no DPS changes on its own, kept as a
+  guard for a "[Regular]" bonus right after a glued OpSi sentence.
+- **Measured** (lv125, Recommended, UR): with no boss, 44 ships lose OpSi bonuses they counted
+  wrongly (mostly -1% to -2.5%; Scharnhorst META -10%, her +8% FP/ACC; Hiei META -7%); against
+  Arbiter: The Hermit IX (a Siren and an OpSi boss), 53 ships gain, +15% for Siren Killer
+  ships whose DPS is all guns (Odin, Kearsarge, Champagne...).
+- **Left open**: barrages take no DMG Dealt or crit (`volleyBarrageDamage`), so Roon, whose DPS
+  is mostly her barrage, gains +5.3% vs Hermit, not +15%. Pre-existing for every DMG Dealt
+  bonus; needs the game's rule for special barrages before changing.
