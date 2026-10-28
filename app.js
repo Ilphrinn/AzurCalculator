@@ -1801,8 +1801,8 @@ const WEAPON_EFFICIENCY_OVERRIDE_BY_SKILL = {
 
 // Shared by weaponEfficiencyBonus and weaponDamageMultiplier: does a modifier's own
 // source phrase (e.g. "Main Gun and Torpedo") cover this slot's weapon role? A modifier
-// with no source at all applies everywhere. "Burn"/"Barrage"-sourced bonuses (seen on
-// damageDealt) match nothing here since neither is a slot-level weapon this app models.
+// with no source at all applies everywhere. "Burn"/"Barrage"-sourced bonuses match no slot:
+// barrages read theirs through barrageDamageMultiplier, Burn is not modelled.
 function weaponModifierApplies(source, role, ship, slotKey) {
   if (!source) return true;
   const mainGunKey = shipGunSlotKeys(ship)[0];
@@ -1900,12 +1900,24 @@ function modifierTargetApplies(target, armor) {
 function weaponDamageMultiplier(effective, ship, slotKey, item, armor = targetStats().armor) {
   const role = weaponRole(item);
   if (!role || !effective) return 1;
+  return damageMultiplier(effective, armor, source => weaponModifierApplies(source, role, ship, slotKey));
+}
+
+// The client's damage formula (battleformulas.lua, CreateContextCalculateDamage) rolls crit and
+// applies DMG Dealt and enemy-tag bonuses on every bullet, special barrages included; only a bonus
+// tied to one weapon ("Main Gun", Super Heavy Shell's index [1]) stays on that weapon.
+function barrageDamageMultiplier(effective, armor) {
+  if (!effective) return 1;
+  return damageMultiplier(effective, armor, source => !source || source.toLowerCase().split(/,|\band\b/).some(part => part.trim() === "barrage"));
+}
+
+function damageMultiplier(effective, armor, sourceApplies) {
   let critRateBonus = 0;
   let critDamageBonus = 0;
   let damageDealtBonus = 0;
   for (const modifier of effective.modifiers) {
     if (!modifierTargetApplies(modifier.target, armor)) continue;
-    if (!weaponModifierApplies(modifier.source, role, ship, slotKey)) continue;
+    if (!sourceApplies(modifier.source)) continue;
     if (modifier.key === "critRate") critRateBonus += modifier.amount;
     else if (modifier.key === "critDamage") critDamageBonus += modifier.amount;
     else if (modifier.key === "damageDealt") damageDealtBonus += modifier.amount;
@@ -2080,7 +2092,7 @@ function volleyBarrageDps(ship, effective, level, armor) {
   if (!gun) return 0;
   const cycle = weaponCycle(gun, effectiveReload(effective));
   if (!cycle) return 0;
-  return (volleyBarrageDamage(barrage, effective, null) / barrage.n) / cycle;
+  return (volleyBarrageDamage(barrage, effective, null, armor) / barrage.n) / cycle;
 }
 
 // The four headline figures. Every slot contributes through whatever it actually fights
@@ -2426,14 +2438,14 @@ function volleyBarrage(ship, level, armor) {
 // so each term keeps its own stat and the wiki's own coefficient rather than assuming
 // Firepower for all. A row whose stat isn't tracked here contributes its flat damage only,
 // and `item` is the gun under consideration — its own stat bonus lifts the barrage too.
-function volleyBarrageDamage(barrage, effective, item) {
+function volleyBarrageDamage(barrage, effective, item, armor = targetStats().armor) {
   let total = 0;
   for (const term of barrage.terms) {
     const entry = term.stat ? effective.stats[term.stat] : null;
     const stat = (entry ? entry.value : 0) + (item ? itemStatBonus(item, term.stat) : 0);
     total += term.damage * (1 + term.multiplier * stat / 100);
   }
-  return total;
+  return total * barrageDamageMultiplier(effective, armor);
 }
 
 function findEquipmentByName(name) {

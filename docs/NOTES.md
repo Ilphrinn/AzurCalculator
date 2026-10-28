@@ -5522,3 +5522,27 @@ Step (3) of the Optimize/auxiliaries fix.
 - **Left open**: barrages take no DMG Dealt or crit (`volleyBarrageDamage`), so Roon, whose DPS
   is mostly her barrage, gains +5.3% vs Hermit, not +15%. Pre-existing for every DMG Dealt
   bonus; needs the game's rule for special barrages before changing.
+
+## Barrages take crit and DMG Dealt (2026-10-28)
+
+The user did not know whether DMG Dealt and crit apply to special barrages, so the rule was
+read from the game client: AzurLaneLuaScripts `EN/mod/battle/data/battleformulas.lua`,
+`CreateContextCalculateDamage`, the one function every bullet's damage goes through, barrage
+bullets included.
+
+- Crit is rolled per bullet from the unit's attributes: DFT_CRIT_RATE + accuracy term + luck
+  term + `cri` + `GetTagAttrCri` (enemy-tag crit), then DFT_CRIT_EFFECT + `criDamage`.
+- Every bullet is multiplied by `(1 + damageRatioBullet)` (the general "DMG Dealt"),
+  `GetTagAttr` (enemy-tag bonuses such as "to Sirens"), armour/ammo terms and the target's
+  `injureRatio`.
+- A bonus attached to one weapon (`BattleBuffAddBulletAttr` with `index: [1]`, e.g. Super Heavy
+  Shell) only touches bullets that weapon creates, which is why "Main Gun" modifiers stay off
+  barrages.
+
+`volleyBarrageDamage` now multiplies by `barrageDamageMultiplier`: the same crit/DMG Dealt core
+as `weaponDamageMultiplier` (extracted as `damageMultiplier`), counting modifiers with no source
+or a "Barrage" source (none exist in the roster today) and the usual target gate. Measured
+(lv125, Recommended, UR): 502 ships with a volley barrage change, median +0.3% (the base crit
+term); barrage-heavy ships with general DMG Dealt more (Regensburg META +18%, Lyme +7%); Roon vs
+Arbiter: The Hermit IX now +14.9% over no boss (+5.3% before), close to her +15% Siren Killer.
+3 optimized loadouts change.

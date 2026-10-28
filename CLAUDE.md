@@ -113,9 +113,10 @@ greedy limit below was judged not worth fixing for now (2026-10-28). Next:
   from game data"; (3) evade procs and damage reduction in eHP - **done 2026-10-28**, see
   "Auxiliary survival effects in eHP". Skill Evasion Rate / DMG Taken buffs stay out of eHP
   until their uptime is modelled (they reach +40% for a few seconds).
-- Barrages (`volleyBarrageDamage`) take no DMG Dealt or crit modifier at all, so every DMG Dealt
-  bonus (armour, hull, Sirens) misses a barrage-heavy ship's main source: Roon gets +5% vs a
-  Siren instead of +15%. Not fixed: check how the game applies those to special barrages first.
+- Barrages take crit and general/targeted DMG Dealt like every bullet (client
+  `battleformulas.lua`, see "Barrages take crit and DMG Dealt" in the notes); "Main Gun" bonuses
+  stay on the main gun. AzurLaneLuaScripts `EN/mod/battle/data/battleformulas.lua` is the source
+  for any further damage-formula question.
 
 - Equipment-aware stats (HP/DPS/AA/ASW panel, rarity cap, Optimize): largely built, see
   "Unresolved / explicitly deferred".
