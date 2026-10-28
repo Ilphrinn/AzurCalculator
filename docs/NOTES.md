@@ -5739,3 +5739,17 @@ plus `effects`: each distinct (value, window) pair for matching the text's parse
   for 10 s every 20 s at 70%) gives 41 DPS off / 60 on at 20-30 s and 40-50 s, mean 47.3 vs raw
   67; Noshiro's permanent +15% Evasion Rate now counts in eHP (4138 -> 5628).
 - Optimize, Fleet and the Port sorts still use the raw figures.
+
+## Optimize, Fleet and Port sorts on time-weighted figures (2026-10-28)
+
+The user asked for Optimize and Fleet to work against the boss over the fight. `figureTiming()`
+returns "share" once `data/skill-timing.js` is loaded; every Optimize simulation (candidate eHP,
+slot DPS gains, equip-gated candidates, the aux-vs-built-in check, `refineWeaponPicks`), the
+Optimize button, Fleet and the Port sorts compute with it, loading the timing data first. Fleet
+and the sort badges show the average with the raw figure beside it ("raw N" when it differs by
+more than 0.5%). `npm run check` now injects the timing data and checks that Optimize never
+lowers the time-weighted target metric (80s).
+
+Measured (lv125, Recommended, UR, no boss): **1 loadout of 888 changes** (Chikuma), no DPS
+difference. Expected: a timed buff scales every candidate in a slot about equally, so the order
+holds; what changes is the figures shown, now consistent with what Optimize ranks on.

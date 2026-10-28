@@ -15,6 +15,7 @@ const page = index.replace(appTag, [
   '<script src="data/equipment.js" defer></script>',
   '<script src="data/augments.js" defer></script>',
   '<script src="data/bosses.js" defer></script>',
+  '<script src="data/skill-timing.js" defer></script>',
   '<script src="scripts/check-page.js" defer></script>'
 ].join("\n  "));
 

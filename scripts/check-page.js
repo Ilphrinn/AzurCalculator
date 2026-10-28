@@ -4,7 +4,8 @@ const report = { ships: 0, runs: 0, errors: [], nonFinite: [], illegal: [], over
 window.addEventListener("error", event => report.errors.push(String(event.message)));
 
 const isFinite4 = m => ["dps", "dpsAA", "dpsASW", "ehp"].every(key => Number.isFinite(m[key]));
-// The figure each single-metric target must never lower compared with the bare built-in loadout.
+// The figure each single-metric target must never lower compared with the bare built-in loadout,
+// time-weighted like the figures Optimize ranks on.
 const TARGET_METRIC = { firepower: "dps", torpedo: "dps", aviation: "dps", antiair: "dpsAA", asw: "dpsASW" };
 
 // Every run is repeated against one boss of each armour, so the armour-aware Optimize path is covered too.
@@ -22,7 +23,7 @@ for (const ship of SHIPS_DATA) {
           currentLevel = level;
           retrofitApplied = retrofit;
           clearEquippedGear(ship);
-          const bare = computeEffectiveStats(ship, level, retrofit, false, false);
+          const bare = computeEffectiveStats(ship, level, retrofit, false, false, figureTiming());
           if (!bare || !ship.equipment) continue;
           const bareMetrics = computeCombatMetrics(ship, level, bare, boss && boss.armor);
           if (!isFinite4(bareMetrics)) report.nonFinite.push(`${where}: empty loadout`);
@@ -36,7 +37,7 @@ for (const ship of SHIPS_DATA) {
               equipmentTarget = target;
               clearEquippedGear(ship);
               optimizeEquipment(ship, bare, level);
-              const metrics = computeCombatMetrics(ship, level, computeEffectiveStats(ship, level, retrofit, false, false), boss && boss.armor);
+              const metrics = computeCombatMetrics(ship, level, computeEffectiveStats(ship, level, retrofit, false, false, figureTiming()), boss && boss.armor);
               if (!isFinite4(metrics)) report.nonFinite.push(`${where} ${cap} ${target}`);
               for (const [slotKey, item] of Object.entries(equippedGear[ship.id] || {})) {
                 if (slotKey === "augment") continue;

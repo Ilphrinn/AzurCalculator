@@ -2889,6 +2889,12 @@ main[aria-busy="true"] {
   font-variant-numeric: tabular-nums;
 }
 
+.fleet-raw {
+  display: block;
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
 .fleet-slot-actions {
   display: flex;
   gap: 0.35rem;

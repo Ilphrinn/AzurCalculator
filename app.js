@@ -774,7 +774,10 @@ function render(list) {
     const badge = card.querySelector(".card-figure");
     const figures = metric && rankFigures.get(ship);
     badge.hidden = !figures;
-    if (figures) badge.textContent = `${METRIC_SORTS[metric]} ${Math.round(figures[metric]).toLocaleString("en-US")}`;
+    if (figures) {
+      badge.textContent = `${METRIC_SORTS[metric]} ${Math.round(figures[metric]).toLocaleString("en-US")}`;
+      badge.title = `Average over the fight; raw (every buff on): ${Math.round(figures.raw[metric]).toLocaleString("en-US")}`;
+    }
     fragment.appendChild(card);
   }
   grid.appendChild(fragment);
@@ -2555,7 +2558,7 @@ const HP_REGEN_SCORE_BONUS = 1.15;
 function candidateEhp(ship, slotKey, item) {
   const original = getEquippedGear(ship, slotKey);
   setEquippedGear(ship, slotKey, item);
-  const eff = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+  const eff = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
   let { ehp } = effectiveHp(eff);
   if (itemGrantsHpRegen(item)) ehp *= HP_REGEN_SCORE_BONUS;
   if (original) setEquippedGear(ship, slotKey, original);
@@ -2581,7 +2584,7 @@ function slotDpsGains(ship, slotKey, candidates, level, weights) {
   const dpsWith = item => {
     const original = getEquippedGear(ship, slotKey);
     setEquippedGear(ship, slotKey, item);
-    const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied);
+    const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
     const dps = computeCombatMetrics(ship, level, eff, targetStats().armor).dps;
     setEquippedGear(ship, slotKey, original || null);
     return dps;
@@ -2614,7 +2617,7 @@ function slotDpsGains(ship, slotKey, candidates, level, weights) {
 function weaponCandidateEffective(ship, slotKey, item, level) {
   const original = getEquippedGear(ship, slotKey);
   setEquippedGear(ship, slotKey, item);
-  const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied);
+  const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
   if (original) setEquippedGear(ship, slotKey, original);
   else setEquippedGear(ship, slotKey, null);
   return eff;
@@ -3229,7 +3232,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     ["dpsASW", weights.asw || 0]
   ];
   const loadoutMetrics = () => computeCombatMetrics(ship, level,
-    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied), targetStats().armor);
+    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming()), targetStats().armor);
   for (const slotKey of auxSlotKeys) {
     const item = getEquippedGear(ship, slotKey);
     const builtIn = defaultEquipmentForSlot(ship.equipment[slotKey]);
@@ -3253,7 +3256,7 @@ const WEAPON_SHORTLIST_FLOOR = 0.6;
 
 function refineWeaponPicks(ship, level, shortlists) {
   const metricValue = metric => computeCombatMetrics(ship, level,
-    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied), targetStats().armor)[metric];
+    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming()), targetStats().armor)[metric];
   for (let pass = 0; pass < 3; pass++) {
     let moved = false;
     for (const [slotKey, shortlist] of shortlists) {
@@ -3619,13 +3622,18 @@ modalEquipmentClear.addEventListener("click", () => {
 
 modalEquipmentOptimize.addEventListener("click", () => {
   if (!currentShip) return;
+  const ship = currentShip;
   closeAllEquipmentPickers();
-  // Weighting reads the ship's CURRENT stats, so "amplify her strongest" reflects
-  // whatever is equipped and toggled right now, not her bare hull.
-  const effective = computeEffectiveStats(currentShip, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
-  if (effective) optimizeEquipment(currentShip, effective);
-  renderModalEquipment(currentShip);
-  refreshStatsAfterGearChange();
+  // Picks are made on the time-weighted figures, so the timing data comes first.
+  loadDataScript("data/skill-timing.js").catch(() => {}).then(() => {
+    if (currentShip !== ship) return;
+    // Weighting reads the ship's CURRENT stats, so "amplify her strongest" reflects
+    // whatever is equipped and toggled right now, not her bare hull.
+    const effective = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
+    if (effective) optimizeEquipment(ship, effective);
+    renderModalEquipment(ship);
+    refreshStatsAfterGearChange();
+  });
 });
 
 function renderModalEquipment(ship) {
@@ -4561,6 +4569,11 @@ const EVENT_LABELS = {
   onTorpedoWeaponFire: "a torpedo launch", onAllInStrike: "an airstrike", onAllInStrikeSteady: "an airstrike",
   onSubmarineRaid: "a submarine strike", onBeHit: "being hit", onBulletHit: "a hit", onBulletHitBefore: "a hit", count: "a counter"
 };
+
+// Optimize, Fleet and the Port sorts rank on the time-weighted figures once the timing data is in.
+function figureTiming() {
+  return typeof SKILL_TIMING_DATA === "undefined" ? null : "share";
+}
 
 function fightSeconds() {
   return targetBoss && targetBoss.timeLimit ? targetBoss.timeLimit : DEFAULT_FIGHT_SECONDS;
@@ -6405,8 +6418,8 @@ function fleetMembers() {
 // Optimize needs the gear catalog and reads the boss list; augments only matter to ships with modules.
 function showFleet() {
   withViewData(
-    () => typeof EQUIPMENT_DATA !== "undefined" && typeof BOSSES_DATA !== "undefined" && typeof AUGMENTS_DATA !== "undefined",
-    () => Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js")]),
+    () => typeof EQUIPMENT_DATA !== "undefined" && typeof BOSSES_DATA !== "undefined" && typeof AUGMENTS_DATA !== "undefined" && typeof SKILL_TIMING_DATA !== "undefined",
+    () => Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")]),
     fleetTotalsEl,
     renderFleet
   );
@@ -6426,11 +6439,16 @@ function fleetShipFigures(ship, keepPicks = true) {
   try {
     if (ship.equipment && !Object.keys(equippedGear[ship.id] || {}).length) {
       equipmentTarget = "auto";
-      const bare = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false);
+      const bare = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, figureTiming());
       if (bare) optimizeEquipment(ship, bare, FLEET_LEVEL);
     }
-    const effective = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false);
-    return effective ? computeCombatMetrics(ship, FLEET_LEVEL, effective, targetStats().armor) : null;
+    // The time-weighted figures, with the raw ones (every buff on) kept beside them.
+    const effective = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, figureTiming());
+    if (!effective) return null;
+    const metrics = computeCombatMetrics(ship, FLEET_LEVEL, effective, targetStats().armor);
+    const raw = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false);
+    metrics.raw = computeCombatMetrics(ship, FLEET_LEVEL, raw, targetStats().armor);
+    return metrics;
   } finally {
     [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget] = saved;
     if (!keepPicks && !hadGear) clearEquippedGear(ship);
@@ -6439,6 +6457,15 @@ function fleetShipFigures(ship, keepPicks = true) {
 
 function formatFigure(value) {
   return Math.round(value).toLocaleString("en-US");
+}
+
+// Fleet figures are averaged over the fight; the raw one (every buff on) follows when it differs.
+function appendRawFigure(element, value, raw) {
+  if (typeof raw !== "number" || Math.abs(raw - value) <= Math.abs(value) * 0.005) return;
+  const note = document.createElement("span");
+  note.className = "fleet-raw";
+  note.textContent = `raw ${formatFigure(raw)}`;
+  element.appendChild(note);
 }
 
 function renderFleet() {
@@ -6481,13 +6508,14 @@ function createFleetSlot(row, index, ship, metrics) {
   const stats = document.createElement("dl");
   stats.className = "fleet-slot-stats";
   const rows = metrics
-    ? [["DPS", metrics.dps], ["eHP", metrics.ehp], ["AA", metrics.dpsAA]]
+    ? [["DPS", "dps"], ["eHP", "ehp"], ["AA", "dpsAA"]]
     : [];
-  for (const [label, value] of rows) {
+  for (const [label, key] of rows) {
     const dt = document.createElement("dt");
     dt.textContent = label;
     const dd = document.createElement("dd");
-    dd.textContent = formatFigure(value);
+    dd.textContent = formatFigure(metrics[key]);
+    appendRawFigure(dd, metrics[key], metrics.raw && metrics.raw[key]);
     stats.append(dt, dd);
   }
   slot.appendChild(stats);
@@ -6559,24 +6587,29 @@ function updateFleetPicker() {
 }
 
 function renderFleetTotals(figures) {
-  const sum = (row, key) => fleet[row].reduce((total, ship) => total + (ship && figures.get(ship) ? figures.get(ship)[key] : 0), 0);
+  const sum = (row, key, raw = false) => fleet[row].reduce((total, ship) => {
+    const figure = ship && figures.get(ship);
+    return total + (figure ? (raw ? figure.raw : figure)[key] : 0);
+  }, 0);
+  const both = (key, rows) => [rows.reduce((t, r) => t + sum(r, key), 0), rows.reduce((t, r) => t + sum(r, key, true), 0)];
   const members = fleetMembers().filter(ship => figures.get(ship));
   const weakest = members.reduce((low, ship) => !low || figures.get(ship).ehp < figures.get(low).ehp ? ship : low, null);
   const cells = [
-    ["Vanguard DPS", formatFigure(sum("Vanguard", "dps"))],
-    ["Main fleet DPS", formatFigure(sum("Main", "dps"))],
-    ["Fleet DPS", formatFigure(sum("Vanguard", "dps") + sum("Main", "dps"))],
-    ["Fleet AA DPS", formatFigure(sum("Vanguard", "dpsAA") + sum("Main", "dpsAA"))],
-    ["Lowest eHP", weakest ? `${formatFigure(figures.get(weakest).ehp)} (${weakest.displayName})` : "\u2014"]
+    ["Vanguard DPS", ...both("dps", ["Vanguard"])],
+    ["Main fleet DPS", ...both("dps", ["Main"])],
+    ["Fleet DPS", ...both("dps", ["Vanguard", "Main"])],
+    ["Fleet AA DPS", ...both("dpsAA", ["Vanguard", "Main"])],
+    ["Lowest eHP", weakest ? figures.get(weakest).ehp : null, weakest ? figures.get(weakest).raw.ehp : null, weakest]
   ];
   const table = document.createElement("dl");
   table.className = "item-stat-table";
-  for (const [label, value] of cells) {
+  for (const [label, value, raw, ship] of cells) {
     const cell = document.createElement("div");
     const dt = document.createElement("dt");
     dt.textContent = label;
     const dd = document.createElement("dd");
-    dd.textContent = value;
+    dd.textContent = value === null ? "\u2014" : `${formatFigure(value)}${ship ? ` (${ship.displayName})` : ""}`;
+    if (value !== null) appendRawFigure(dd, value, raw);
     cell.append(dt, dd);
     table.appendChild(cell);
   }
@@ -6632,7 +6665,7 @@ let rankRun = null;
 // 888); a run already under way is reused.
 function refreshRankFigures() {
   if (rankRun) return rankRun;
-  rankRun = Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js")])
+  rankRun = Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")])
     .then(() => new Promise(resolve => {
       const todo = ships.filter(ship => !rankFigures.has(ship));
       let index = 0;
