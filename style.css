@@ -844,12 +844,13 @@ main[aria-busy="true"] {
   max-width: calc(100% - 8px);
 }
 
+/* 14px of content draws the 7x7 icon at exactly 2px per pixel; a fractional scale blurs it. */
 .specialty {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   padding: 2px;
   border: 1px solid currentColor;
-  background: rgba(4, 7, 15, 0.85);
+  background: rgba(4, 7, 15, 0.92);
   fill: currentColor;
   shape-rendering: crispEdges;
 }

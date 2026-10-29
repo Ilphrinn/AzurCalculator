@@ -4647,12 +4647,25 @@ function getSkillsForState(ship, isRetrofit, isAugmented, isFateSim) {
   return replaced.size ? active.filter(s => !replaced.has(s.name)) : active;
 }
 
+// A skill needing two systems carries both markers ("R+Aug": Warspite's "Divine Marksman (R)+",
+// "Aug+FS": Drake's) and, when active, supersedes the single-system versions listed just before it.
+function hasMarker(skill, marker) {
+  return Boolean(skill.marker) && skill.marker.split("+").includes(marker);
+}
+
 function skillsForMarkers(skills, isRetrofit, isAugmented, isFateSim) {
+  const on = { R: isRetrofit, Aug: isAugmented, FS: isFateSim };
+  const superseded = new Set();
+  skills.forEach((s, i) => {
+    const parts = s.marker ? s.marker.split("+") : [];
+    if (parts.length < 2 || !parts.every(part => on[part])) return;
+    for (let j = i - 1; j >= 0 && parts.includes(skills[j].marker); j--) superseded.add(skills[j]);
+  });
   return skills.filter((s, i) => {
+    if (superseded.has(s)) return false;
     if (s.marker === "R") return isRetrofit;
     if (s.isModified && !s.isRetrofitVersion && isRetrofit) return false;
-    if (s.marker === "Aug") return isAugmented;
-    if (s.marker === "FS") return isFateSim;
+    if (s.marker) return s.marker.split("+").every(part => on[part]);
     const next = skills[i + 1];
     if (isAugmented && next && next.marker === "Aug") return false;
     if (isFateSim && next && next.marker === "FS") return false;
@@ -4864,10 +4877,10 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
       item.classList.add("skill-changed");
       const rarity = ship.retrofitRarity || ship.rarity;
       item.style.setProperty("--skill-changed-color", `var(--${RARITY_CLASS[rarity] || "rarity-normal"})`);
-    } else if (isAugmented && skill.marker === "Aug") {
+    } else if (isAugmented && hasMarker(skill, "Aug")) {
       item.classList.add("skill-changed");
       item.style.setProperty("--skill-changed-color", "var(--gold)");
-    } else if (isFateSim && skill.marker === "FS") {
+    } else if (isFateSim && hasMarker(skill, "FS")) {
       item.classList.add("skill-changed");
       item.style.setProperty("--skill-changed-color", "var(--rarity-elite)");
     }
@@ -4896,14 +4909,14 @@ function renderModalSkills(ship, isRetrofit, isAugmented, isFateSim) {
       typeTag.textContent = SKILL_TYPE_LABELS[skill.type];
       head.appendChild(typeTag);
     }
-    if (skill.marker === "Aug") {
+    if (hasMarker(skill, "Aug")) {
       const augTag = document.createElement("span");
       augTag.className = "skill-type-tag skill-type-aug";
       augTag.title = "Unique Augment — a separate upgrade system, independent of retrofit";
       augTag.textContent = "Unique Augment";
       head.appendChild(augTag);
     }
-    if (skill.marker === "FS") {
+    if (hasMarker(skill, "FS")) {
       const fsTag = document.createElement("span");
       fsTag.className = "skill-type-tag skill-type-aug";
       fsTag.title = "Fate Simulation — a Research ship upgrade system, independent of retrofit";
@@ -5039,7 +5052,8 @@ function hideEquipInfoTooltip() {
 // Longest wins because several skills share a prefix.
 function matchSkillForBarrage(ship, barrageSkillName) {
   const skills = ship.skills || [];
-  const norm = t => t.toLowerCase().replace(/-/g, " ").replace(/\s+/g, " ").trim();
+  // Barrage rows spell a retrofit skill's "®" as "(R)".
+  const norm = t => t.toLowerCase().replace(/®/g, "(r)").replace(/-/g, " ").replace(/\s+/g, " ").trim();
   const rowNorm = norm(barrageSkillName);
   let best = null;
   for (const sk of skills) {
@@ -5051,20 +5065,11 @@ function matchSkillForBarrage(ship, barrageSkillName) {
 }
 
 function getBarragesForState(ship, isRetrofit, isAugmented, isFateSim, level) {
-  const skills = ship.skills || [];
+  const active = new Set(getSkillsForState(ship, isRetrofit, isAugmented, isFateSim));
   const rows = level == null ? (ship.barrages || []) : barragesAtLevel(ship, ship.barrages || [], level);
   return rows.filter(b => {
     const matched = matchSkillForBarrage(ship, b.skillName);
-    if (!matched) return true;
-    if (matched.marker === "R") return isRetrofit;
-    if (matched.marker === "Aug") return isAugmented;
-    if (matched.marker === "FS") return isFateSim;
-    if (matched.isModified && !matched.isRetrofitVersion && isRetrofit) return false;
-    const idx = skills.indexOf(matched);
-    const next = skills[idx + 1];
-    if (isAugmented && next && next.marker === "Aug") return false;
-    if (isFateSim && next && next.marker === "FS") return false;
-    return true;
+    return !matched || active.has(matched);
   });
 }
 
@@ -5828,9 +5833,9 @@ function openModal(ship) {
   modalRetrofitCheckbox.checked = false;
   modalRetrofitControl.hidden = !ship.hasRetrofit;
   modalAugmentCheckbox.checked = false;
-  modalAugmentControl.hidden = !(ship.skills || []).some(s => s.marker === "Aug");
+  modalAugmentControl.hidden = !(ship.skills || []).some(s => hasMarker(s, "Aug"));
   modalFateSimCheckbox.checked = false;
-  modalFateSimControl.hidden = !(ship.skills || []).some(s => s.marker === "FS");
+  modalFateSimControl.hidden = !(ship.skills || []).some(s => hasMarker(s, "FS"));
 
   modalName.textContent = ship.displayName;
   const nationColor = NATION_COLORS[nationDisplayName(ship.nationality)];

@@ -47646,7 +47646,7 @@ const SHIPS_DATA = [
       {
         "type": "support",
         "name": "Flintlock Burst (A)+",
-        "marker": null,
+        "marker": "Aug+FS",
         "icon": "assets/skill-icons/Skill_19300.png",
         "description": "Every 10s: activates a Lv.1 (Lv.10) Steelflash Judgment special attack (DMG is based on the skill's level). Every 30s (20s): fires a special barrage that ignores enemy shields and heals this ship for 20% of the DMG dealt (barrage DMG is based on the skill's level). At the start of battle, this ship's FP and EVA by 3% (15%) and RLD by 4.5% (21%) until the end of the battle. Whenever an allied flagship launches an airstrike or fires a Main Gun salvo: activates a Lv.1 (Lv.10) Burstfire Judgment special attack (DMG is based on the skill's level; 5s cooldown between activations). <b>(Replaces Flintlock Burst+)</b>",
         "isModified": false,
@@ -87085,7 +87085,7 @@ const SHIPS_DATA = [
       {
         "type": "support",
         "name": "Covenant of the Immortal Knights+",
-        "marker": null,
+        "marker": "Aug",
         "icon": "assets/skill-icons/Skill_13450.png",
         "description": "At the start of battle, increases this ship's FP and RLD by 4.5% (12%). Additionally, increases this ship and the frontmost Vanguard ship's FP and AA by 8% (18%).",
         "isModified": false,
@@ -206498,7 +206498,7 @@ const SHIPS_DATA = [
         "marker": null,
         "icon": "assets/skill-icons/Skill_10310.png",
         "description": "Every 35s (15s): fires a special guaranteed Critical Hit barrage (Common (AP at Lv.6+) ammo; DMG is based on the skill's level) towards the enemy farthest away from this ship. Barrage preview (gif)",
-        "isModified": false,
+        "isModified": true,
         "isRetrofitVersion": false,
         "isNewOnRetrofit": false,
         "statBonuses": []
@@ -206528,7 +206528,7 @@ const SHIPS_DATA = [
       {
         "type": "offense",
         "name": "Divine Marksman (R)+",
-        "marker": null,
+        "marker": "R+Aug",
         "icon": "assets/skill-icons/Skill_11870.png",
         "description": "Increases this ship's Main Gun efficiency by 1% (10%). 10s after the battle starts, and every 35 (15)s after that: fires a Lv.1 (Lv.10) Divine Marksman barrage that deals guaranteed Critical DMG at the enemy furthest from this ship (improved barrage; DMG is based on the skill's level).Each battle, the first time this barrage activates: increases its DMG dealt by 80% (130%), and increases the probability that your Royal Navy Main Fleet ships will target the hit enemy with their auto-aimed fire.5s after the battle starts, and every 35 (15)s after that: this ship performs a Lv.1 (Lv.10) attack with her royal sword (DMG is based on the skill's level; prioritizes humanoid enemies) that inflicts the Marksman's Target status on enemies hit.Increases Warspite's DMG dealt to enemies with the Marksman's Target status by 12%.When this ship's Divine Marksman barrage activates, if there is an enemy with the Marksman's Target status on the battlefield: fires another Divine Marksman barrage, prioritizing said enemy. <b>(Replaces Divine Marksman ®)</b>",
         "isModified": false,
@@ -206544,16 +206544,6 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "Increases this ship's Main Gun efficiency by 1% (10%)"
-          },
-          {
-            "stats": [
-              "damageDealt"
-            ],
-            "min": 80,
-            "max": 130,
-            "isPercent": true,
-            "scope": "self",
-            "raw": "increases its DMG dealt by 80% (130%)"
           }
         ]
       },
@@ -217166,16 +217156,6 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases this ship's RLD by 1.5% (5%)"
-          },
-          {
-            "stats": [
-              "damageDealt"
-            ],
-            "min": 20,
-            "max": 40,
-            "isPercent": true,
-            "scope": "self",
-            "raw": "increases the DMG of its All-Out Assault by 20% (40%)"
           }
         ]
       },

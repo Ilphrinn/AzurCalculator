@@ -5956,3 +5956,23 @@ List of Torpedo Bombers) and checked in the client:
   the page through `scripts/page-runner.js` (now shared with `npm run check`). The check
   recomputes the marks and fails while the file is stale. 464 ships marked: buff 188, boss 90,
   mob 90, tank 90, shield 85, aa 73, heal 55, asw 42, air 36.
+
+## Skills needing two upgrade systems, barrage-only bonuses (2026-10-29)
+
+Reported: "Warspite plus gros DPS du jeu" (10781, twice the next ship). Three stacked faults:
+- Warspite's retrofit ran three Divine Marksman versions at once. "Divine Marksman (R)+" needs
+  retrofit AND augment but carried no marker, so it was always on; the base skill was not marked
+  `isModified`, so it survived the retrofit next to "®". Fixed in the data: markers may now
+  combine (`R+Aug`; Drake's "Flintlock Burst (A)+" is `Aug+FS`), read through `hasMarker`; an
+  active combined skill supersedes the single-system versions listed just before it
+  (`skillsForMarkers`). Howe's "Covenant of the Immortal Knights+" had no marker either and ran
+  beside the base skill (5508 -> 4359); it is now `Aug`.
+- `getBarragesForState` kept its own copy of the marker rules and drifted; it now keeps the rows
+  whose skill is in `getSkillsForState`. Barrage rows spell "®" as "(R)", normalised in
+  `matchSkillForBarrage`.
+- Two `damageDealt` entries were about one barrage, not the ship: Warspite's "increases its DMG
+  dealt by 80% (130%)" (the first barrage of the battle) and Z2's "DMG of its All-Out Assault".
+  Removed from the data. Other "its" bonuses were checked: Georgia, KGV, Champagne... mean the
+  ship; Vittorio Veneto's "its DMG taken" is an 8s debuff on one enemy, left as is.
+
+Warspite: 10781 -> 4574. Specialty marks regenerated (5 ships change).

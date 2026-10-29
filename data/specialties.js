@@ -176,8 +176,7 @@ const SPECIALTIES_DATA = {
   ],
   "131": [
     "boss",
-    "mob",
-    "aa"
+    "mob"
   ],
   "132": [
     "shield"
@@ -470,10 +469,6 @@ const SPECIALTIES_DATA = {
   ],
   "378": [
     "air"
-  ],
-  "379": [
-    "boss",
-    "asw"
   ],
   "380": [
     "buff"
@@ -1312,6 +1307,7 @@ const SPECIALTIES_DATA = {
     "tank"
   ],
   "20005": [
+    "boss",
     "mob",
     "tank",
     "shield"
@@ -1365,7 +1361,8 @@ const SPECIALTIES_DATA = {
     "tank"
   ],
   "20024": [
-    "tank"
+    "tank",
+    "aa"
   ],
   "20025": [
     "boss",
@@ -1571,7 +1568,8 @@ const SPECIALTIES_DATA = {
     "aa"
   ],
   "wiki-22": [
-    "buff"
+    "buff",
+    "asw"
   ],
   "wiki-33": [
     "buff"
