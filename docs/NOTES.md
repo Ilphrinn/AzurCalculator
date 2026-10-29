@@ -5941,3 +5941,18 @@ List of Torpedo Bombers) and checked in the client:
   imports now read any spawn or stat buff adding injureRatioByAir (`airCut`), not those ids;
   no other of the 1329 boss encounters has one. `airResistPierce` (ignore part of the AA) is
   carried by no buff in the EN tables.
+
+## Synergy highlights and specialty marks (2026-10-29)
+
+- **Fleet synergies**: members linked by a skill (applied bonus or named interaction, same fleet)
+  carry a "⇄ n" badge; hovering or focusing a member or a synergy line outlines the ships it
+  involves (`fleetSynergyLinks`, `bindShipHighlight`). Alternatives that would share a skill bonus
+  with the fleet are marked ⇄ and name the partners (`alternativeSynergyPartners`).
+- **Specialty marks** on every card (Port and Fleet), 7x7 pixel SVG icons with a tooltip:
+  Boss killer, Mob clearer, Tank, Anti-air, Anti-sub (top 10% of the role), Air power (top
+  quarter of ships with planes), Healer, Shield, Support (a skill heals others / shields / buffs
+  others' stats). Computed by `computeShipSpecialties` (lv125, reference boss, Recommended gear,
+  UR cap) and frozen in `data/specialties.js` by `node scripts/import-specialties.js`, which runs
+  the page through `scripts/page-runner.js` (now shared with `npm run check`). The check
+  recomputes the marks and fails while the file is stale. 464 ships marked: buff 188, boss 90,
+  mob 90, tank 90, shield 85, aa 73, heal 55, asw 42, air 36.

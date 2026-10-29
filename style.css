@@ -41,6 +41,8 @@
   --border: #263353;
   --accent: #4fc3f7;
   --gold: #f4d35e;
+  --specialty-heal: #7bd88f;
+  --specialty-asw: #4dd0c8;
 
   --rarity-normal: #9aa5b8;
   --rarity-rare: #5dade2;
@@ -829,6 +831,38 @@ main[aria-busy="true"] {
 .card-figure[hidden] {
   display: none;
 }
+
+/* Above the card's click layer, so each mark's tooltip shows on hover. */
+.card-tags {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  max-width: calc(100% - 8px);
+}
+
+.specialty {
+  width: 16px;
+  height: 16px;
+  padding: 2px;
+  border: 1px solid currentColor;
+  background: rgba(4, 7, 15, 0.85);
+  fill: currentColor;
+  shape-rendering: crispEdges;
+}
+
+.specialty-boss { color: var(--rarity-decisive); }
+.specialty-mob { color: var(--rarity-priority); }
+.specialty-tank { color: var(--rarity-normal); }
+.specialty-heal { color: var(--specialty-heal); }
+.specialty-shield { color: var(--accent); }
+.specialty-buff { color: var(--gold); }
+.specialty-aa { color: var(--rarity-elite); }
+.specialty-air { color: var(--rarity-rare); }
+.specialty-asw { color: var(--specialty-asw); }
 
 .card-activate {
   position: absolute;
@@ -2862,6 +2896,28 @@ main[aria-busy="true"] {
   color: var(--rarity-decisive);
 }
 
+.fleet-link-badge {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+  color: var(--gold);
+  font-size: 0.68rem;
+}
+
+/* The ships a hovered member or synergy line involves. */
+.fleet-slot.is-linked .card {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.fleet-alternatives .chip.has-synergy {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
 .fleet-alternatives {
   display: flex;
   flex-wrap: wrap;
@@ -2884,6 +2940,7 @@ main[aria-busy="true"] {
 }
 
 .fleet-slot {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;

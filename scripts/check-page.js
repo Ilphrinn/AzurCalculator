@@ -144,6 +144,11 @@ try {
   }
   setTargetBoss(null);
 
+  // The card marks in data/specialties.js must match what the engine computes now.
+  const marks = computeShipSpecialties();
+  const stale = SHIPS_DATA.filter(ship => JSON.stringify(marks[ship.id] || []) !== JSON.stringify((typeof SPECIALTIES_DATA === "undefined" ? {} : SPECIALTIES_DATA)[ship.id] || []));
+  if (stale.length) report.errors.push(`data/specialties.js is stale for ${stale.length} ships (${stale.slice(0, 5).map(s => s.displayName).join(", ")}...): run node scripts/import-specialties.js`);
+
   // Every ship's heals and shields count to a finite number of casts, or to none when untimeable.
   for (const ship of SHIPS_DATA.filter(s => s.equipment)) {
     retrofitApplied = Boolean(ship.hasRetrofit);

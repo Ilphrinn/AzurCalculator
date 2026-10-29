@@ -665,6 +665,48 @@ function createCardThumbnail(path, className, alt) {
   return { picture, image };
 }
 
+// Specialty marks on the cards, from data/specialties.js (scripts/import-specialties.js runs
+// computeShipSpecialties in the real page). 7x7 pixel icons, coloured per mark in the stylesheet.
+const SPECIALTIES = {
+  boss: { label: "Boss killer", why: "top 10% DPS of her fleet role against the reference boss",
+    icon: ["..###..", ".#...#.", "#..#..#", "#.###.#", "#..#..#", ".#...#.", "..###.."] },
+  mob: { label: "Mob clearer", why: "top 10% of DPS x durability (eHP plus heals and shields given) in her role",
+    icon: ["#.....#", ".#.#.#.", "..###..", ".#####.", "..###..", ".#.#.#.", "#.....#"] },
+  tank: { label: "Tank", why: "top 10% durability (eHP plus heals and shields given) in her role",
+    icon: ["#.#.#.#", "#######", "#.....#", "#.###.#", "#.###.#", "#.....#", "#######"] },
+  heal: { label: "Healer", why: "a skill heals other ships",
+    icon: ["..###..", "..###..", "#######", "#######", "#######", "..###..", "..###.."] },
+  shield: { label: "Shield", why: "a skill gives a shield or spawns shell-blocking walls",
+    icon: ["#######", "#.....#", "#.....#", "#.....#", ".#...#.", "..#.#..", "...#..."] },
+  buff: { label: "Support", why: "a skill raises other ships' stats",
+    icon: ["...#...", "..###..", ".#####.", "...#...", "..###..", ".#####.", "...#..."] },
+  aa: { label: "Anti-air", why: "top 10% AA DPS in her role",
+    icon: ["#..#..#", ".#.#.#.", "...#...", "..###..", "..###..", ".#####.", "#######"] },
+  air: { label: "Air power", why: "top quarter of Airspace Control among ships with planes",
+    icon: ["...#...", "...#...", ".#####.", "#######", "...#...", "..###..", "...#..."] },
+  asw: { label: "Anti-sub", why: "top 10% ASW DPS in her role",
+    icon: ["...#...", "...#...", ".#.#.#.", "..###..", "...#...", ".#.#.#.", "#.#.#.#"] }
+};
+
+function specialtyIcon(key) {
+  const { label, why, icon } = SPECIALTIES[key];
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 7 7");
+  svg.setAttribute("class", `specialty specialty-${key}`);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", label);
+  const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+  title.textContent = `${label}: ${why}`;
+  svg.appendChild(title);
+  icon.forEach((line, y) => [...line].forEach((cell, x) => {
+    if (cell !== "#") return;
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    for (const [name, value] of [["x", x], ["y", y], ["width", 1], ["height", 1]]) rect.setAttribute(name, value);
+    svg.appendChild(rect);
+  }));
+  return svg;
+}
+
 function createCard(ship) {
   const hasRarityShift = ship.hasRetrofit && ship.retrofitRarity !== ship.rarity;
 
@@ -726,6 +768,14 @@ function createCard(ship) {
   figure.className = "card-figure";
   figure.hidden = true;
   thumbWrap.appendChild(figure);
+
+  const marks = typeof SPECIALTIES_DATA !== "undefined" ? SPECIALTIES_DATA[ship.id] || [] : [];
+  if (marks.length) {
+    const tags = document.createElement("div");
+    tags.className = "card-tags";
+    for (const key of marks) if (SPECIALTIES[key]) tags.appendChild(specialtyIcon(key));
+    thumbWrap.appendChild(tags);
+  }
 
   const activateButton = document.createElement("button");
   activateButton.className = "card-activate";
@@ -6790,15 +6840,27 @@ function renderFleet() {
   const figures = new Map();
   const reports = [];
   const groups = [];
+  fleetSynergyLinks.clear();
+  fleetSlotEls.clear();
   // Skills reach members of their own fleet only, as in battle.
   for (const key of visibleFleets()) {
     const members = fleetMembers(key);
     const synergies = fleetSynergies(members);
+    const blocks = fleetSynergyBlocks(members, synergies.report);
+    for (const { ships: [from, ...others] } of blocks) {
+      for (const to of others) {
+        if (to === from) continue;
+        for (const [a, b] of [[from, to], [to, from]]) {
+          if (!fleetSynergyLinks.has(a)) fleetSynergyLinks.set(a, new Set());
+          fleetSynergyLinks.get(a).add(b);
+        }
+      }
+    }
     const sustain = withFleetTarget(key, () => {
       for (const ship of members) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship)));
       return fleetSustain(key, figures);
     });
-    reports.push({ key, members, report: synergies.report });
+    reports.push({ key, members, blocks });
     groups.push(createFleetGroup(key, map, figures, sustain));
   }
   fleetGroupsEl.replaceChildren(...groups);
@@ -6990,6 +7052,36 @@ function fleetSynergies(members) {
   return { incoming, report };
 }
 
+// Members linked by a skill, both ways, and each member's slot, rebuilt by every renderFleet.
+const fleetSynergyLinks = new Map();
+const fleetSlotEls = new Map();
+
+function bindShipHighlight(element, involved) {
+  const set = on => {
+    for (const ship of involved()) {
+      const slot = fleetSlotEls.get(ship);
+      if (slot) slot.classList.toggle("is-linked", on);
+    }
+  };
+  element.addEventListener("mouseenter", () => set(true));
+  element.addEventListener("mouseleave", () => set(false));
+  element.addEventListener("focusin", () => set(true));
+  element.addEventListener("focusout", () => set(false));
+}
+
+// The members of a fleet an alternative would share a skill bonus with, if she took this slot.
+function alternativeSynergyPartners(key, row, index, ship) {
+  const members = FLEET_ROWS[key].flatMap(r => fleet[key][r].map((member, i) => r === row && i === index ? ship : member)).filter(Boolean);
+  const partners = new Set();
+  for (const entry of fleetSynergies(members).report) {
+    for (const to of entry.recipients || []) {
+      if (entry.from === ship && to !== ship) partners.add(to);
+      if (to === ship && entry.from !== ship) partners.add(entry.from);
+    }
+  }
+  return [...partners];
+}
+
 function createFleetSlot(key, row, index, ship, metrics, sustainGiven) {
   const slot = document.createElement("div");
   slot.className = "fleet-slot";
@@ -7006,6 +7098,17 @@ function createFleetSlot(key, row, index, ship, metrics, sustainGiven) {
   const card = createCard(ship);
   card.querySelector(".card-activate").addEventListener("click", () => openModal(ship));
   slot.appendChild(card);
+  fleetSlotEls.set(ship, slot);
+  const linked = fleetSynergyLinks.get(ship);
+  if (linked && linked.size) {
+    slot.classList.add("has-synergy");
+    const badge = document.createElement("span");
+    badge.className = "fleet-link-badge";
+    badge.textContent = `\u21c4 ${linked.size}`;
+    badge.title = `Shares skills with ${[...linked].map(s => s.displayName).join(", ")}`;
+    slot.appendChild(badge);
+    bindShipHighlight(slot, () => [ship, ...linked]);
+  }
   const stats = document.createElement("dl");
   stats.className = "fleet-slot-stats";
   const rows = metrics
@@ -7055,8 +7158,12 @@ function createFleetSlot(key, row, index, ship, metrics, sustainGiven) {
       button.type = "button";
       button.className = "chip";
       const pct = Math.round(alt.change * 1000) / 10;
-      button.textContent = `${alt.ship.displayName} ${pct >= 0 ? "+" : ""}${pct}%`;
-      button.title = `${FLEET_LABELS[key]} score ${pct >= 0 ? "+" : ""}${pct}% with ${alt.ship.displayName} here, skills not shared yet${alt.airShort ? "; Airspace Control would fall below the recommended value" : ""}.`;
+      const partners = alternativeSynergyPartners(key, row, index, alt.ship);
+      if (partners.length) button.classList.add("has-synergy");
+      button.textContent = `${partners.length ? "\u21c4 " : ""}${alt.ship.displayName} ${pct >= 0 ? "+" : ""}${pct}%`;
+      button.title = `${FLEET_LABELS[key]} score ${pct >= 0 ? "+" : ""}${pct}% with ${alt.ship.displayName} here, skills not shared yet` +
+        `${partners.length ? `; would share skill bonuses with ${partners.map(s => s.displayName).join(", ")}` : ""}` +
+        `${alt.airShort ? "; Airspace Control would fall below the recommended value" : ""}.`;
       button.addEventListener("click", () => {
         fleet[key][row][index] = alt.ship;
         saveFleet();
@@ -7155,9 +7262,9 @@ function createFleetTotals(fleetKey, figures, sustain) {
 function renderFleetSynergies(groups) {
   const blocks = [];
   const labelled = groups.filter(group => group.members.length).length > 1;
-  for (const { key, members, report } of groups) {
+  for (const { key, blocks: fleetBlocks } of groups) {
     const prefix = labelled ? `${FLEET_LABELS[key]}: ` : "";
-    blocks.push(...fleetSynergyBlocks(members, report).map(([title, ...rest]) => synergyBlock(prefix + title, ...rest)));
+    blocks.push(...fleetBlocks.map(block => synergyBlock({ ...block, title: prefix + block.title })));
   }
   if (!blocks.length) {
     const empty = document.createElement("p");
@@ -7176,14 +7283,14 @@ function fleetSynergyBlocks(members, report) {
   for (const entry of applied) {
     const stats = entry.bonus.stats.map(key => COMBAT_MODIFIER_LABELS[key] || STAT_ABBR[key] || key).join(", ");
     const timing = entry.factor === null ? "untimed, counted as always on" : `active ${Math.round(entry.factor * 100)}% of the fight`;
-    blocks.push([
-      `${entry.from.displayName} — ${entry.skill.name}`,
-      ` → ${entry.recipients.map(to => to.displayName).join(", ")}: ${stats} +${entry.amount}${entry.bonus.isPercent ? "%" : ""} (${timing})`,
-      stripHtml(entry.skill.description || ""), "is-applied"]);
+    blocks.push({
+      title: `${entry.from.displayName} — ${entry.skill.name}`,
+      detail: ` → ${entry.recipients.map(to => to.displayName).join(", ")}: ${stats} +${entry.amount}${entry.bonus.isPercent ? "%" : ""} (${timing})`,
+      text: stripHtml(entry.skill.description || ""), className: "is-applied", ships: [entry.from, ...entry.recipients] });
   }
   for (const entry of report.filter(e => e.recipients === null)) {
-    blocks.push([`${entry.from.displayName} — ${entry.skill.name}`,
-      ` — "${entry.bonus.raw}": its target could not be read, not applied`, stripHtml(entry.skill.description || ""), ""]);
+    blocks.push({ title: `${entry.from.displayName} — ${entry.skill.name}`,
+      detail: ` — "${entry.bonus.raw}": its target could not be read, not applied`, text: stripHtml(entry.skill.description || ""), className: "", ships: [entry.from] });
   }
   const named = new Map();
   for (const target of members) {
@@ -7200,14 +7307,16 @@ function fleetSynergyBlocks(members, report) {
   }
   for (const { from, skill, text, targets } of named.values()) {
     const reach = [...targets].map(([ship, how]) => `${ship.displayName} (${how})`).join(", ");
-    blocks.push([`${from.displayName} — ${skill.name}`, ` names ${reach}; no figure applied`, text, ""]);
+    blocks.push({ title: `${from.displayName} — ${skill.name}`, detail: ` names ${reach}; no figure applied`, text, className: "", ships: [from, ...targets.keys()] });
   }
   return blocks;
 }
 
-function synergyBlock(title, detail, text, className) {
+// Hovering or focusing a synergy lights up the ships it involves.
+function synergyBlock({ title, detail, text, className, ships: involved }) {
   const details = document.createElement("details");
   details.className = `fleet-synergy ${className}`.trim();
+  bindShipHighlight(details, () => involved);
   const summary = document.createElement("summary");
   const source = document.createElement("strong");
   source.textContent = title;
@@ -7456,6 +7565,68 @@ fleetRestoreEl.addEventListener("click", () => {
   saveFleet();
   renderFleet();
 });
+
+// --- Specialties ---
+
+// Each ship's marks at level 125 against the reference boss, with Optimize's Recommended gear at
+// the UR cap and skills at max level. Rank marks compare her with her fleet role; skill marks only
+// need the skill. Run by scripts/import-specialties.js in a fresh page; `npm run check` recomputes
+// it, so a stale data/specialties.js fails.
+const SPECIALTY_TOP = 0.1;
+const SPECIALTY_AIR_TOP = 0.25;
+
+function computeShipSpecialties() {
+  const saved = { boss: targetBoss, cap: equipmentRarityCap, gearLab: includeGearLab, research: includeResearch, gear: { ...equippedGear } };
+  targetBoss = null;
+  equipmentRarityCap = "Ultra Rare";
+  includeGearLab = true;
+  includeResearch = true;
+  for (const id of Object.keys(equippedGear)) delete equippedGear[id];
+  try {
+    const figures = new Map(SHIPS_DATA.map(ship => [ship, ship.equipment ? fleetShipFigures(ship, false) : null]));
+    const marks = new Map(SHIPS_DATA.map(ship => [ship, new Set()]));
+    // The value a ship must reach to be in the top share of the positive values.
+    const cutoff = (list, value, share) => {
+      const values = list.map(value).filter(v => v > 0).sort((a, b) => b - a);
+      return values.length ? values[Math.max(0, Math.ceil(values.length * share) - 1)] : Infinity;
+    };
+    for (const role of ROLE_ORDER) {
+      const list = SHIPS_DATA.filter(ship => ship.role === role && figures.get(ship));
+      const durability = new Map(list.map(ship => [ship, figures.get(ship).ehp + (role === "Submarine" ? 0 : standaloneDurability(ship, role, figures))]));
+      const rules = [
+        ["boss", ship => figures.get(ship).dps, SPECIALTY_TOP],
+        ["mob", ship => figures.get(ship).dps * durability.get(ship), SPECIALTY_TOP],
+        ["tank", ship => durability.get(ship), SPECIALTY_TOP],
+        ["aa", ship => figures.get(ship).dpsAA, SPECIALTY_TOP],
+        ["air", ship => figures.get(ship).airPower, SPECIALTY_AIR_TOP],
+        ["asw", ship => figures.get(ship).dpsASW, SPECIALTY_TOP]
+      ];
+      for (const [key, value, share] of rules) {
+        const limit = cutoff(list, value, share);
+        for (const ship of list) if (value(ship) > 0 && value(ship) >= limit) marks.get(ship).add(key);
+      }
+    }
+    for (const ship of SHIPS_DATA) {
+      for (const skill of getSkillsForState(ship, Boolean(ship.hasRetrofit), false, false)) {
+        for (const entry of (skillTiming(ship, skill, true) || {}).sustain || []) {
+          if (entry.effect === "heal" && !["self", "restricted"].includes(entry.target)) marks.get(ship).add("heal");
+          if (entry.effect === "shield" || entry.effect === "wall") marks.get(ship).add("shield");
+        }
+        if ((skill.statBonuses || []).some(bonus => bonus.scope === "fleet" && !SELF_LANGUAGE_RE.test(bonus.raw))) marks.get(ship).add("buff");
+      }
+    }
+    const order = Object.keys(SPECIALTIES);
+    return Object.fromEntries([...marks].filter(([, set]) => set.size)
+      .map(([ship, set]) => [ship.id, order.filter(key => set.has(key))]));
+  } finally {
+    targetBoss = saved.boss;
+    equipmentRarityCap = saved.cap;
+    includeGearLab = saved.gearLab;
+    includeResearch = saved.research;
+    for (const id of Object.keys(equippedGear)) delete equippedGear[id];
+    Object.assign(equippedGear, saved.gear);
+  }
+}
 
 // --- Port metric sorts ---
 

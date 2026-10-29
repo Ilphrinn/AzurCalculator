@@ -37,6 +37,7 @@ const minifiedFiles = [
   ["data/bosses.js", "js"],
   ["data/maps.js", "js"],
   ["data/focus.js", "js"],
+  ["data/specialties.js", "js"],
   ["data/skill-timing.js", "js"]
 ];
 
