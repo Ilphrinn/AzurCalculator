@@ -115,7 +115,7 @@
     <div class="view-controls" data-view="fleet" hidden>
       <div class="controls">
         <button type="button" id="fleet-clear" class="chip">Clear fleet</button>
-        <p class="fleet-hint">Level 125, retrofit if any, averaged over the fight (60s, or the target's time limit). Each ship uses the gear set in her Equipment panel, or Optimize's pick if none.</p>
+        <p class="fleet-hint">Level 125, retrofit if any, averaged over the fight (60s, or the target's time limit). Each ship uses the gear set in her Equipment panel, or Optimize's pick if none. Pick a campaign map to field a Mob fleet against its mob fleets.</p>
       </div>
     </div>
   </header>
@@ -147,10 +147,8 @@
     </section>
     <section class="view" id="view-fleet" data-view="fleet" role="tabpanel" aria-labelledby="tab-fleet" hidden>
       <p id="fleet-target" class="target-current"></p>
-      <p class="count">Vanguard</p>
-      <div class="fleet-row" id="fleet-vanguard"></div>
-      <p class="count">Main fleet</p>
-      <div class="fleet-row" id="fleet-main"></div>
+      <p id="fleet-air" class="target-current" hidden></p>
+      <div id="fleet-groups"></div>
       <div id="fleet-picker" class="fleet-picker" hidden>
         <label class="control-label">
           <span class="visually-hidden">Search a ship for this slot</span>
@@ -158,8 +156,7 @@
         </label>
         <div id="fleet-results" class="fleet-results"></div>
       </div>
-      <p class="count">Fleet totals</p>
-      <div id="fleet-totals" class="fleet-totals"></div>
+      <p id="fleet-status" class="fleet-hint"></p>
       <p class="count">Synergies</p>
       <div id="fleet-synergies" class="fleet-synergies"></div>
     </section>

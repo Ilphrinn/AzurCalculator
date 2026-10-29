@@ -2237,6 +2237,23 @@ function computeCombatMetrics(ship, level, effective, armor) {
   };
 }
 
+// The figures against the current target. A mob target mixes armours, so its DPS is the rate that
+// clears its HP split: total HP / sum(HP share / DPS against that armour). Only DPS depends on armour.
+function targetCombatMetrics(ship, level, effective) {
+  const target = targetStats();
+  if (!target.hpShare) return computeCombatMetrics(ship, level, effective, target.armor);
+  let metrics = null;
+  let seconds = 0;
+  for (const [armor, share] of Object.entries(target.hpShare)) {
+    const byArmor = computeCombatMetrics(ship, level, effective, armor);
+    metrics = metrics || byArmor;
+    if (!share) continue;
+    if (!(byArmor.dps > 0)) return { ...metrics, dps: 0 };
+    seconds += share / byArmor.dps;
+  }
+  return { ...metrics, dps: seconds ? 1 / seconds : 0 };
+}
+
 // Hull role drives which weight profile and slot-specific logic (CV aircraft orientation,
 // the AA gun's fast/slow pick, BB skipping survivability) Optimize applies below, read off
 // hullShort per the user's own breakdown of how each role gears up.
@@ -2600,7 +2617,7 @@ function slotDpsGains(ship, slotKey, candidates, level, weights) {
     const original = getEquippedGear(ship, slotKey);
     setEquippedGear(ship, slotKey, item);
     const eff = computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
-    const dps = computeCombatMetrics(ship, level, eff, targetStats().armor).dps;
+    const dps = targetCombatMetrics(ship, level, eff).dps;
     setEquippedGear(ship, slotKey, original || null);
     return dps;
   };
@@ -3246,8 +3263,8 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
     ["dpsAA", weights.antiair || 0],
     ["dpsASW", weights.asw || 0]
   ];
-  const loadoutMetrics = () => computeCombatMetrics(ship, level,
-    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming()), targetStats().armor);
+  const loadoutMetrics = () => targetCombatMetrics(ship, level,
+    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming()));
   for (const slotKey of auxSlotKeys) {
     const item = getEquippedGear(ship, slotKey);
     const builtIn = defaultEquipmentForSlot(ship.equipment[slotKey]);
@@ -3270,8 +3287,8 @@ const WEAPON_SHORTLIST_SIZE = 6;
 const WEAPON_SHORTLIST_FLOOR = 0.6;
 
 function refineWeaponPicks(ship, level, shortlists) {
-  const metricValue = metric => computeCombatMetrics(ship, level,
-    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming()), targetStats().armor)[metric];
+  const metricValue = metric => targetCombatMetrics(ship, level,
+    computeEffectiveStats(ship, level, retrofitApplied, augmentApplied, fateSimApplied, figureTiming()))[metric];
   for (let pass = 0; pass < 3; pass++) {
     let moved = false;
     for (const [slotKey, shortlist] of shortlists) {
@@ -6398,26 +6415,42 @@ targetSearchEl.addEventListener("input", () => typeof BOSSES_DATA !== "undefined
 const FLEET_LEVEL = 125;
 const FLEET_SIZE = 3;
 const FLEET_STORAGE_KEY = "azurcalc.fleet";
-const fleetRowEls = { Vanguard: document.getElementById("fleet-vanguard"), Main: document.getElementById("fleet-main") };
+// A map takes two surface fleets and a submarine fleet, as in the game. The Boss fleet fights the
+// picked target; the Mob fleet only shows once that target's map has mob data (data/maps.js).
+const FLEET_ROWS = { mob: ["Vanguard", "Main"], boss: ["Vanguard", "Main"], sub: ["Submarine"] };
+const FLEET_LABELS = { mob: "Mob fleet", boss: "Boss fleet", sub: "Submarine fleet" };
+const FLEET_ROW_LABELS = { Vanguard: "Vanguard", Main: "Main fleet", Submarine: "Submarines" };
+const fleetRowEls = {};
+const fleetGroupsEl = document.getElementById("fleet-groups");
 const fleetPickerEl = document.getElementById("fleet-picker");
 const fleetSearchEl = document.getElementById("fleet-search");
 const fleetResultsEl = document.getElementById("fleet-results");
-const fleetTotalsEl = document.getElementById("fleet-totals");
+const fleetStatusEl = document.getElementById("fleet-status");
 const fleetSynergiesEl = document.getElementById("fleet-synergies");
 const fleetTargetEl = document.getElementById("fleet-target");
+const fleetAirEl = document.getElementById("fleet-air");
 const fleet = loadFleet();
 let fleetPickerSlot = null;
 
-// A per-viewer convenience, so a blocked or empty storage just starts an empty fleet.
+// A per-viewer convenience, so a blocked or empty storage just starts an empty fleet. A ship sits
+// in one fleet only, as in the game.
 function loadFleet() {
-  const empty = { Vanguard: [null, null, null], Main: [null, null, null] };
+  const empty = Object.fromEntries(Object.entries(FLEET_ROWS).map(([key, rows]) =>
+    [key, Object.fromEntries(rows.map(row => [row, Array(FLEET_SIZE).fill(null)]))]));
   try {
-    const saved = JSON.parse(localStorage.getItem(FLEET_STORAGE_KEY) || "null");
-    for (const row of Object.keys(empty)) {
-      (saved && saved[row] || []).slice(0, FLEET_SIZE).forEach((id, i) => {
-        const ship = shipsById.get(String(id));
-        empty[row][i] = ship && ship.role === row ? ship : null;
-      });
+    const saved = JSON.parse(localStorage.getItem(FLEET_STORAGE_KEY) || "null") || {};
+    // Saves from before the Mob and Submarine fleets hold the one surface fleet at the top level.
+    const groups = saved.Vanguard || saved.Main ? { boss: saved } : saved;
+    const placed = new Set();
+    for (const [key, rows] of Object.entries(FLEET_ROWS)) {
+      for (const row of rows) {
+        ((groups[key] || {})[row] || []).slice(0, FLEET_SIZE).forEach((id, i) => {
+          const ship = shipsById.get(String(id));
+          if (!ship || ship.role !== row || placed.has(ship)) return;
+          empty[key][row][i] = ship;
+          placed.add(ship);
+        });
+      }
     }
   } catch {}
   return empty;
@@ -6425,25 +6458,75 @@ function loadFleet() {
 
 function saveFleet() {
   try {
-    localStorage.setItem(FLEET_STORAGE_KEY, JSON.stringify({
-      Vanguard: fleet.Vanguard.map(s => s && s.id),
-      Main: fleet.Main.map(s => s && s.id)
-    }));
+    localStorage.setItem(FLEET_STORAGE_KEY, JSON.stringify(Object.fromEntries(Object.entries(fleet).map(([key, rows]) =>
+      [key, Object.fromEntries(Object.entries(rows).map(([row, list]) => [row, list.map(s => s && s.id)]))]))));
   } catch {}
 }
 
-function fleetMembers() {
-  return [...fleet.Vanguard, ...fleet.Main].filter(Boolean);
+// Members of one fleet, or of all of them.
+function fleetMembers(key) {
+  return (key ? [key] : Object.keys(fleet)).flatMap(k => Object.values(fleet[k]).flat()).filter(Boolean);
+}
+
+// The campaign map behind the picked boss ("15-3 (Boss Fight #1)" belongs to 15-3), if data/maps.js has it.
+function fleetMap() {
+  if (!targetBoss || typeof MAPS_DATA === "undefined") return null;
+  return MAPS_DATA.find(map => targetBoss.map === map.map || targetBoss.map.startsWith(`${map.map} (`)) || null;
+}
+
+function mapBosses(map) {
+  return BOSSES_DATA.filter(boss => boss.map === map.map || boss.map.startsWith(`${map.map} (`));
+}
+
+function visibleFleets() {
+  return fleetMap() ? ["mob", "boss", "sub"] : ["boss", "sub"];
+}
+
+// The Mob fleet's target: the map's mob fleets as one enemy whose armour is an HP split
+// (targetCombatMetrics) and whose Hit, Evasion and Luck are HP-weighted means.
+function mobTarget(map) {
+  const { level, hit, eva, luck, siren, timeLimit, hpShare } = map.mobs;
+  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, siren, timeLimit, hpShare };
+}
+
+// Figures read the target through the targetBoss global, so the Mob fleet's is swapped in and put back.
+function withFleetTarget(key, compute) {
+  const map = key === "mob" && fleetMap();
+  if (!map) return compute();
+  const saved = targetBoss;
+  targetBoss = mobTarget(map);
+  try {
+    return compute();
+  } finally {
+    targetBoss = saved;
+  }
 }
 
 // Optimize needs the gear catalog and reads the boss list; augments only matter to ships with modules.
 function showFleet() {
   withViewData(
-    () => typeof EQUIPMENT_DATA !== "undefined" && typeof BOSSES_DATA !== "undefined" && typeof AUGMENTS_DATA !== "undefined" && typeof SKILL_TIMING_DATA !== "undefined",
-    () => Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")]),
-    fleetTotalsEl,
+    () => typeof EQUIPMENT_DATA !== "undefined" && typeof BOSSES_DATA !== "undefined" && typeof MAPS_DATA !== "undefined" && typeof AUGMENTS_DATA !== "undefined" && typeof SKILL_TIMING_DATA !== "undefined",
+    () => Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/maps.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")]),
+    fleetStatusEl,
     renderFleet
   );
+}
+
+// The fleet screen's Airspace Control (client calculation.lua, calcAirDominanceValue, with gameset's
+// air_dominance_p/q/s/t/r): AVI x planes in slots 1-3 weighted by kind x (0.8 + level/100) / 100.
+// Its AVI is the fleet screen's: base and gear, no skills.
+const AIR_POWER_WEIGHTS = { Fighter: 10, "Torpedo Bomber": 5, "Dive Bomber": 6, Seaplane: 4 };
+const DEFAULT_PLANE_KINDS = { Ftr: "Fighter", TB: "Torpedo Bomber", DB: "Dive Bomber", SP: "Seaplane" };
+function airPower(ship, effective) {
+  let planes = 0;
+  for (const slotKey of ["1", "2", "3"]) {
+    const slot = ship.equipment && ship.equipment[slotKey];
+    const item = slot && activeEquipmentForSlot(ship, slotKey, slot);
+    const kind = item && (item.category || DEFAULT_PLANE_KINDS[item.name.split(" ")[0]]);
+    if (AIR_POWER_WEIGHTS[kind]) planes += slot.mount * AIR_POWER_WEIGHTS[kind];
+  }
+  const aviation = effective.stats.aviation;
+  return aviation ? (aviation.base + aviation.equip) * planes * (0.8 + FLEET_LEVEL / 100) / 100 : 0;
 }
 
 // The figures read the modal's level/retrofit globals (Optimize's eHP simulation does), so they
@@ -6466,9 +6549,10 @@ function fleetShipFigures(ship, keepPicks = true, incoming = []) {
     // The time-weighted figures, with the raw ones (every buff on) kept beside them.
     const effective = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, figureTiming(), incoming);
     if (!effective) return null;
-    const metrics = computeCombatMetrics(ship, FLEET_LEVEL, effective, targetStats().armor);
+    const metrics = targetCombatMetrics(ship, FLEET_LEVEL, effective);
     const raw = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, null, incoming);
-    metrics.raw = computeCombatMetrics(ship, FLEET_LEVEL, raw, targetStats().armor);
+    metrics.raw = targetCombatMetrics(ship, FLEET_LEVEL, raw);
+    metrics.airPower = airPower(ship, effective);
     return metrics;
   } finally {
     [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget] = saved;
@@ -6490,25 +6574,133 @@ function appendRawFigure(element, value, raw) {
 }
 
 function renderFleet() {
-  if (typeof EQUIPMENT_DATA === "undefined") return;
-  fleetTargetEl.replaceChildren(targetBoss
-    ? `Against ${targetBoss.name} (${targetBoss.map}): ${bossSummary(targetBoss)}. `
-    : "No target picked: DPS averages the three armours. ");
+  if (typeof EQUIPMENT_DATA === "undefined" || typeof MAPS_DATA === "undefined") return;
+  renderFleetTarget();
+  const map = fleetMap();
+  const figures = new Map();
+  const reports = [];
+  const groups = [];
+  // Skills reach members of their own fleet only, as in battle.
+  for (const key of visibleFleets()) {
+    const members = fleetMembers(key);
+    const synergies = fleetSynergies(members);
+    withFleetTarget(key, () => {
+      for (const ship of members) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship)));
+    });
+    reports.push({ key, members, report: synergies.report });
+    groups.push(createFleetGroup(key, map, figures));
+  }
+  fleetGroupsEl.replaceChildren(...groups);
+  if (fleetPickerSlot) fleetRowEls[`${fleetPickerSlot.key}.${fleetPickerSlot.row}`].after(fleetPickerEl);
+  renderFleetAir(map, figures);
+  renderFleetSynergies(reports);
+}
+
+function fleetBossLabel(boss) {
+  return boss.map.includes("(") ? `${boss.name}, ${boss.map.slice(boss.map.indexOf("(") + 1, -1)}` : boss.name;
+}
+
+// The map menu picks the map's (first) boss as the target, the same one the Targets tab sets.
+function renderFleetTarget() {
+  const map = fleetMap();
+  const mapLabel = document.createElement("label");
+  mapLabel.className = "sort-control";
+  const mapSelect = document.createElement("select");
+  mapSelect.name = "fleet-map";
+  mapSelect.setAttribute("aria-label", "Campaign map");
+  mapSelect.append(new Option("No map", ""), ...MAPS_DATA.map((m, i) => new Option(m.map, String(i), false, m === map)));
+  mapSelect.addEventListener("change", () => {
+    const picked = MAPS_DATA[Number(mapSelect.value)];
+    setTargetBoss(mapSelect.value === "" ? null : mapBosses(picked)[0] || null);
+    renderFleet();
+  });
+  mapLabel.append("Map", mapSelect);
+  fleetTargetEl.replaceChildren(mapLabel);
+
+  const bosses = map ? mapBosses(map) : [];
+  if (bosses.length > 1) {
+    const bossLabel = document.createElement("label");
+    bossLabel.className = "sort-control";
+    const bossSelect = document.createElement("select");
+    bossSelect.name = "fleet-boss";
+    bossSelect.setAttribute("aria-label", "Boss of this map");
+    bossSelect.append(...bosses.map((boss, i) => new Option(fleetBossLabel(boss), String(i), false, boss === targetBoss)));
+    bossSelect.addEventListener("change", () => {
+      setTargetBoss(bosses[Number(bossSelect.value)]);
+      renderFleet();
+    });
+    bossLabel.append("Boss", bossSelect);
+    fleetTargetEl.appendChild(bossLabel);
+  }
+
+  fleetTargetEl.append(targetBoss
+    ? ` Boss: ${targetBoss.name} (${targetBoss.map}): ${bossSummary(targetBoss)}. `
+    : " No target picked: DPS averages the three armours. ");
   const change = document.createElement("button");
   change.type = "button";
   change.className = "chip";
   change.textContent = targetBoss ? "Change target" : "Pick a target";
   change.addEventListener("click", () => { location.hash = "targets"; });
   fleetTargetEl.appendChild(change);
+}
 
-  const synergies = fleetSynergies(fleetMembers());
-  const figures = new Map();
-  for (const ship of fleetMembers()) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship)));
-  for (const row of Object.keys(fleetRowEls)) {
-    fleetRowEls[row].replaceChildren(...fleet[row].map((ship, index) => createFleetSlot(row, index, ship, ship && figures.get(ship))));
+function percent(share) {
+  return `${Math.round(share * 100)}%`;
+}
+
+function createFleetGroup(key, map, figures) {
+  const group = document.createElement("section");
+  group.className = "fleet-group";
+  const title = document.createElement("h2");
+  title.className = "fleet-group-title";
+  title.textContent = key === "boss" && !map ? "Fleet" : FLEET_LABELS[key];
+  group.appendChild(title);
+  let note = "";
+  if (key === "mob") {
+    const { level, hit, eva, luck, timeLimit, hpShare, fleets } = map.mobs;
+    note = `Against ${map.map}'s ${fleets.length} kinds of mob fleet, weighted by how often each spawns: level ${level}, ` +
+      `HP ${percent(hpShare.light)} light / ${percent(hpShare.medium)} medium / ${percent(hpShare.heavy)} heavy armour ` +
+      `(DPS is the rate that clears that HP), Hit ${hit}, Evasion ${eva}, Luck ${luck}, ${timeLimit}s battles. Enemy submarines are left out.`;
+  } else if (key === "sub" && map && !map.submarines) {
+    note = `${map.map} takes no submarine fleet; it is left out of the Airspace Control.`;
   }
-  renderFleetTotals(figures);
-  renderFleetSynergies(synergies.report);
+  if (note) {
+    const p = document.createElement("p");
+    p.className = "fleet-hint";
+    p.textContent = note;
+    group.appendChild(p);
+  }
+  for (const row of FLEET_ROWS[key]) {
+    const label = document.createElement("p");
+    label.className = "count";
+    label.textContent = FLEET_ROW_LABELS[row];
+    const rowEl = document.createElement("div");
+    rowEl.className = "fleet-row";
+    rowEl.append(...fleet[key][row].map((ship, index) => createFleetSlot(key, row, index, ship, ship && figures.get(ship))));
+    fleetRowEls[`${key}.${row}`] = rowEl;
+    group.append(label, rowEl);
+  }
+  group.appendChild(createFleetTotals(key, figures));
+  return group;
+}
+
+// Airspace Control as the game's fleet screen compares it: every fleet sent in (the submarine
+// fleet too, where the map takes one) against the map's recommended value.
+function renderFleetAir(map, figures) {
+  fleetAirEl.hidden = !map;
+  if (!map) return;
+  const keys = map.submarines ? ["mob", "boss", "sub"] : ["mob", "boss"];
+  const total = keys.flatMap(key => fleetMembers(key)).reduce((sum, ship) => sum + (figures.get(ship) ? figures.get(ship).airPower : 0), 0);
+  const value = Math.floor(total);
+  const reached = value > map.airRecommended;
+  const strong = document.createElement("strong");
+  strong.textContent = `${value.toLocaleString("en-US")} / ${map.airRecommended.toLocaleString("en-US")}`;
+  fleetAirEl.replaceChildren(
+    `Airspace Control (${map.map}): `, strong,
+    ` recommended; enemy air ${map.airControl.toLocaleString("en-US")}. `,
+    reached ? "Above the recommended value." : `Needs ${(map.airRecommended - value + 1).toLocaleString("en-US")} more to pass it.`
+  );
+  fleetAirEl.classList.toggle("is-short", !reached);
 }
 
 // A fleet bonus names its recipients in its own words ("your Vanguard's EVA") or right after them
@@ -6569,7 +6761,7 @@ function fleetSynergies(members) {
   return { incoming, report };
 }
 
-function createFleetSlot(row, index, ship, metrics) {
+function createFleetSlot(key, row, index, ship, metrics) {
   const slot = document.createElement("div");
   slot.className = "fleet-slot";
   if (!ship) {
@@ -6577,8 +6769,8 @@ function createFleetSlot(row, index, ship, metrics) {
     add.type = "button";
     add.className = "fleet-add";
     add.textContent = `+ ${row}`;
-    add.setAttribute("aria-label", `Add a ${row} ship to slot ${index + 1}`);
-    add.addEventListener("click", () => openFleetPicker(row, index));
+    add.setAttribute("aria-label", `Add a ${row} ship to ${FLEET_LABELS[key]} slot ${index + 1}`);
+    add.addEventListener("click", () => openFleetPicker(key, row, index));
     slot.appendChild(add);
     return slot;
   }
@@ -6605,13 +6797,13 @@ function createFleetSlot(row, index, ship, metrics) {
   swap.type = "button";
   swap.className = "chip";
   swap.textContent = "Change";
-  swap.addEventListener("click", () => openFleetPicker(row, index));
+  swap.addEventListener("click", () => openFleetPicker(key, row, index));
   const remove = document.createElement("button");
   remove.type = "button";
   remove.className = "chip";
   remove.textContent = "Remove";
   remove.addEventListener("click", () => {
-    fleet[row][index] = null;
+    fleet[key][row][index] = null;
     saveFleet();
     renderFleet();
   });
@@ -6620,17 +6812,17 @@ function createFleetSlot(row, index, ship, metrics) {
   return slot;
 }
 
-function openFleetPicker(row, index) {
-  fleetPickerSlot = { row, index };
+function openFleetPicker(key, row, index) {
+  fleetPickerSlot = { key, row, index };
   fleetPickerEl.hidden = false;
   fleetSearchEl.placeholder = `Search a ${row} ship...`;
   fleetSearchEl.value = "";
   updateFleetPicker();
-  fleetRowEls[row].after(fleetPickerEl);
+  fleetRowEls[`${key}.${row}`].after(fleetPickerEl);
   fleetSearchEl.focus();
 }
 
-// One ship per fleet, as in the game; the list is capped since a 3-letter query is the usual use.
+// One ship in one fleet, as in the game; the list is capped since a 3-letter query is the usual use.
 function updateFleetPicker() {
   if (!fleetPickerSlot) return;
   const q = foldAccents(fleetSearchEl.value.trim().toLowerCase());
@@ -6656,7 +6848,7 @@ function updateFleetPicker() {
     icon.alt = "";
     button.append(icon, ship.displayName);
     button.addEventListener("click", () => {
-      fleet[fleetPickerSlot.row][fleetPickerSlot.index] = ship;
+      fleet[fleetPickerSlot.key][fleetPickerSlot.row][fleetPickerSlot.index] = ship;
       fleetPickerSlot = null;
       fleetPickerEl.hidden = true;
       saveFleet();
@@ -6666,23 +6858,23 @@ function updateFleetPicker() {
   }));
 }
 
-function renderFleetTotals(figures) {
-  const sum = (row, key, raw = false) => fleet[row].reduce((total, ship) => {
+function createFleetTotals(fleetKey, figures) {
+  const sum = (row, key, raw = false) => fleet[fleetKey][row].reduce((total, ship) => {
     const figure = ship && figures.get(ship);
     return total + (figure ? (raw ? figure.raw : figure)[key] : 0);
   }, 0);
   const both = (key, rows) => [rows.reduce((t, r) => t + sum(r, key), 0), rows.reduce((t, r) => t + sum(r, key, true), 0)];
-  const members = fleetMembers().filter(ship => figures.get(ship));
+  const members = fleetMembers(fleetKey).filter(ship => figures.get(ship));
   const weakest = members.reduce((low, ship) => !low || figures.get(ship).ehp < figures.get(low).ehp ? ship : low, null);
+  const rows = FLEET_ROWS[fleetKey];
   const cells = [
-    ["Vanguard DPS", ...both("dps", ["Vanguard"])],
-    ["Main fleet DPS", ...both("dps", ["Main"])],
-    ["Fleet DPS", ...both("dps", ["Vanguard", "Main"])],
-    ["Fleet AA DPS", ...both("dpsAA", ["Vanguard", "Main"])],
+    ...(rows.length > 1 ? [["Vanguard DPS", ...both("dps", ["Vanguard"])], ["Main fleet DPS", ...both("dps", ["Main"])]] : []),
+    ["Fleet DPS", ...both("dps", rows)],
+    ["Fleet AA DPS", ...both("dpsAA", rows)],
     ["Lowest eHP", weakest ? figures.get(weakest).ehp : null, weakest ? figures.get(weakest).raw.ehp : null, weakest]
   ];
   const table = document.createElement("dl");
-  table.className = "item-stat-table";
+  table.className = "item-stat-table fleet-totals";
   for (const [label, value, raw, ship] of cells) {
     const cell = document.createElement("div");
     const dt = document.createElement("dt");
@@ -6693,28 +6885,44 @@ function renderFleetTotals(figures) {
     cell.append(dt, dd);
     table.appendChild(cell);
   }
-  fleetTotalsEl.replaceChildren(table);
+  return table;
 }
 
 // Applied: each fleet bonus with its recipients, weighted by its skill's uptime. Named, not applied:
 // skills of one member that name another (the modal's Interaction matching) but carry no fleet
 // bonus reaching her, such as Bismarck's Iron Blood crit buff, which has no parsed figure.
-function renderFleetSynergies(report) {
-  const members = fleetMembers();
+function renderFleetSynergies(groups) {
+  const blocks = [];
+  const labelled = groups.filter(group => group.members.length).length > 1;
+  for (const { key, members, report } of groups) {
+    const prefix = labelled ? `${FLEET_LABELS[key]}: ` : "";
+    blocks.push(...fleetSynergyBlocks(members, report).map(([title, ...rest]) => synergyBlock(prefix + title, ...rest)));
+  }
+  if (!blocks.length) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = fleetMembers().length > 1 ? "No skill of one member names another in the same fleet." : "Add ships to see which skills reach each other.";
+    fleetSynergiesEl.replaceChildren(empty);
+    return;
+  }
+  fleetSynergiesEl.replaceChildren(...blocks);
+}
+
+function fleetSynergyBlocks(members, report) {
   const blocks = [];
   const applied = report.filter(entry => entry.recipients && entry.recipients.length);
   const reached = new Set(applied.flatMap(entry => entry.recipients.map(to => `${entry.from.id}|${entry.skill.name}|${to.id}`)));
   for (const entry of applied) {
     const stats = entry.bonus.stats.map(key => COMBAT_MODIFIER_LABELS[key] || STAT_ABBR[key] || key).join(", ");
     const timing = entry.factor === null ? "untimed, counted as always on" : `active ${Math.round(entry.factor * 100)}% of the fight`;
-    blocks.push(synergyBlock(
+    blocks.push([
       `${entry.from.displayName} — ${entry.skill.name}`,
       ` → ${entry.recipients.map(to => to.displayName).join(", ")}: ${stats} +${entry.amount}${entry.bonus.isPercent ? "%" : ""} (${timing})`,
-      stripHtml(entry.skill.description || ""), "is-applied"));
+      stripHtml(entry.skill.description || ""), "is-applied"]);
   }
   for (const entry of report.filter(e => e.recipients === null)) {
-    blocks.push(synergyBlock(`${entry.from.displayName} — ${entry.skill.name}`,
-      ` — "${entry.bonus.raw}": its target could not be read, not applied`, stripHtml(entry.skill.description || ""), ""));
+    blocks.push([`${entry.from.displayName} — ${entry.skill.name}`,
+      ` — "${entry.bonus.raw}": its target could not be read, not applied`, stripHtml(entry.skill.description || ""), ""]);
   }
   const named = new Map();
   for (const target of members) {
@@ -6731,16 +6939,9 @@ function renderFleetSynergies(report) {
   }
   for (const { from, skill, text, targets } of named.values()) {
     const reach = [...targets].map(([ship, how]) => `${ship.displayName} (${how})`).join(", ");
-    blocks.push(synergyBlock(`${from.displayName} — ${skill.name}`, ` names ${reach}; no figure applied`, text, ""));
+    blocks.push([`${from.displayName} — ${skill.name}`, ` names ${reach}; no figure applied`, text, ""]);
   }
-  if (!blocks.length) {
-    const empty = document.createElement("p");
-    empty.className = "empty";
-    empty.textContent = members.length > 1 ? "No skill of one member names another." : "Add ships to see which skills reach each other.";
-    fleetSynergiesEl.replaceChildren(empty);
-    return;
-  }
-  fleetSynergiesEl.replaceChildren(...blocks);
+  return blocks;
 }
 
 function synergyBlock(title, detail, text, className) {
@@ -6793,7 +6994,7 @@ function refreshRankFigures() {
 
 fleetSearchEl.addEventListener("input", updateFleetPicker);
 document.getElementById("fleet-clear").addEventListener("click", () => {
-  for (const row of Object.keys(fleetRowEls)) fleet[row].fill(null);
+  for (const rows of Object.values(fleet)) for (const list of Object.values(rows)) list.fill(null);
   fleetPickerEl.hidden = true;
   saveFleet();
   renderFleet();

@@ -5776,3 +5776,55 @@ skill's uptime in the average and at full value in the raw figure.
 - Checked on Abukuma, Laffey, Ayanami / Aquila, Bismarck, Tirpitz: Torpedo Command +15% TRP reaches
   Laffey and Ayanami but not Abukuma (a CL) -> Laffey 1379 -> 1488 DPS, Ayanami 2146 -> 2312;
   Aquila's +5% AA reaches all six, untimed.
+
+## Port metric sorts restored (2026-10-29)
+
+c4c839f (fleet synergies) deleted `refreshRankFigures`, `RANK_BATCH` and `rankRun` with the code
+it replaced, so every metric sort threw a ReferenceError. Restored as they were. `npm run check`
+now picks every option of the sort menu through its change handler, which fails on that throw.
+
+## Map fleets: Mob, Boss, Submarine and Airspace Control (2026-10-29)
+
+Asked by the user: when a map is chosen in the Fleet tab, a Mob, a Boss and a Sub fleet; a Sub
+fleet in any case; and "the AA required for the level", read as the map's Airspace Control.
+Choices: a map is a campaign stage (14-1 ... 16-4, Hard included), and the Mob fleet is measured
+against the map's real mob fleets, imported from game data.
+
+- **Source chain** (AzurLaneData EN, `scripts/import-maps.js` -> `data/maps.js`): `chapter_template`
+  (`air_dominance`, `best_air_dominance`, `submarine_num`, `expedition_id_weight_list`) ->
+  `expedition_data_template` (level, `time_limit`, `dungeon_id`) -> `GameCfg/dungeon.json`
+  (stages, waves, `spawn` and `reinforcement` with `monsterTemplateID`; arrays or "1"-keyed
+  objects) -> `enemy_data_statistics`, where a row only overrides its `base` row (name, `type` =
+  hull, `armor_type` 1/2/3 = light/medium/heavy, `nationality` 99 = Siren). maps.json has no mob
+  data. Enemy HP = floor(durability + (level - 1) x durability_growth / 1000): reproduces
+  maps.json's boss HP for 1322 of 1329 bosses (the misses are scripted crystals and OpSi
+  strongholds).
+- Excluded: a 99999 HP "？？？" unit with `battle_unit_type` -200 in 15-x and 16-3/4 (hit 999
+  pulled the mob Hit mean to 475), and enemy submarines (only ASW reaches them).
+- **Mob target**: mob fleets weighted by their spawn weight, each enemy by its share of the HP to
+  clear. Armour is an HP split (14-4: 49% light, 17% medium, 34% heavy); Hit/Eva/Luck are HP-
+  weighted means. DPS against it is the clear rate, total HP / sum(share / DPS vs that armour)
+  (`targetCombatMetrics`, three `computeCombatMetrics` runs; the other figures do not depend on
+  armour). Optimize's three whole-ship scorers go through it, so a Mob fleet ship is optimized
+  for the mix. Hull and nation bonuses do not apply to it (hull null, siren only if every enemy
+  is one: none is in 14-16).
+- **Fleets**: `fleet` is now `{ mob, boss, sub }`; a ship sits in one fleet only; old saves load
+  into `boss`. The map is not separate state: it is the map of `targetBoss` (`fleetMap`), so the
+  map menu sets the target to the map's first boss (a second menu when it has several), and the
+  Targets tab and the modal stay in step. The Mob fleet's figures swap `targetBoss` for
+  `mobTarget(map)` and put it back (`withFleetTarget`). Synergies stay within one fleet.
+- **Airspace Control** (client `support/helpers/calculation.lua`, `calcAirDominanceValue`;
+  gameset `air_dominance_p/q/s/t/r` = 10/5/6/4/1): AVI x sum(planes in slots 1-3 x weight:
+  fighter 10, torpedo bomber 5, dive bomber 6, seaplane 4) x (0.8 + level/100) / 100, plus
+  equipment `AirDominate` (no item carries it today). AVI is base + gear (the fleet screen's
+  `getProperties`, no skills). Built-in planes are recognised by their Ftr/TB/DB/SP name. The
+  fleet screen (`levelfleetview.lua`) sums both surface fleets and the submarine fleet and shows
+  it against `best_air_dominance` as the recommended value, green above it; `air_dominance` is
+  the map's own air, shown beside it. Hard maps take no submarine fleet (`submarine_num` 0): left
+  out of the sum. The in-map air states (`calcAirDominanceStatus`) need a value from the map's
+  progress and are not modelled.
+- Check on 14-4 (Shimakaze/Cheshire/Le Malin + Taihou/Shinano/Hakuryuu as Mob fleet, Roon/Azuma/
+  Ägir + New Jersey/Musashi/Hakuhou as Boss fleet, U-47/I-13/U-1206): air 804 + 897 + 386 + 1003
+  + 36 (I-13's seaplane) = 3125 against 3100 recommended. Roon 1253 DPS on the mobs, 1388 on
+  Mogami. `npm run check` adds the 14-4 mob target to every Optimize run (103740 runs) and fills
+  all three fleets.

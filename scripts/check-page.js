@@ -8,8 +8,10 @@ const isFinite4 = m => ["dps", "dpsAA", "dpsASW", "ehp"].every(key => Number.isF
 // time-weighted like the figures Optimize ranks on.
 const TARGET_METRIC = { firepower: "dps", torpedo: "dps", aviation: "dps", antiair: "dpsAA", asw: "dpsASW" };
 
-// Every run is repeated against one boss of each armour, so the armour-aware Optimize path is covered too.
-const BOSS_TARGETS = [null, ...["light", "medium", "heavy"].map(armor => BOSSES_DATA.find(boss => boss.armor === armor))];
+// Every run is repeated against one boss of each armour, so the armour-aware Optimize path is covered
+// too, and against a map's mob fleets, whose armour is an HP split.
+const BOSS_TARGETS = [null, ...["light", "medium", "heavy"].map(armor => BOSSES_DATA.find(boss => boss.armor === armor)),
+  mobTarget(MAPS_DATA.find(map => map.map === "14-4"))];
 
 for (const ship of SHIPS_DATA) {
   report.ships++;
@@ -25,7 +27,7 @@ for (const ship of SHIPS_DATA) {
           clearEquippedGear(ship);
           const bare = computeEffectiveStats(ship, level, retrofit, false, false, figureTiming());
           if (!bare || !ship.equipment) continue;
-          const bareMetrics = computeCombatMetrics(ship, level, bare, boss && boss.armor);
+          const bareMetrics = targetCombatMetrics(ship, level, bare);
           if (!isFinite4(bareMetrics)) report.nonFinite.push(`${where}: empty loadout`);
           for (const armor of ["light", "medium", "heavy"]) {
             if (!isFinite4(computeCombatMetrics(ship, level, bare, armor))) report.nonFinite.push(`${where}: vs ${armor}`);
@@ -37,7 +39,7 @@ for (const ship of SHIPS_DATA) {
               equipmentTarget = target;
               clearEquippedGear(ship);
               optimizeEquipment(ship, bare, level);
-              const metrics = computeCombatMetrics(ship, level, computeEffectiveStats(ship, level, retrofit, false, false, figureTiming()), boss && boss.armor);
+              const metrics = targetCombatMetrics(ship, level, computeEffectiveStats(ship, level, retrofit, false, false, figureTiming()));
               if (!isFinite4(metrics)) report.nonFinite.push(`${where} ${cap} ${target}`);
               for (const [slotKey, item] of Object.entries(equippedGear[ship.id] || {})) {
                 if (slotKey === "augment") continue;
@@ -81,18 +83,31 @@ try {
   if (targetBoss !== BOSSES_DATA[0]) report.errors.push("Targets: the first row's button did not pick its boss");
   setTargetBoss(null);
 
-  // A full fleet renders with finite figures for every member.
-  const pickRole = role => SHIPS_DATA.filter(ship => ship.role === role && ship.equipment).slice(0, 3);
-  fleet.Vanguard.splice(0, 3, ...pickRole("Vanguard"));
-  fleet.Main.splice(0, 3, ...pickRole("Main"));
+  // A map's three fleets render with finite figures for every member, each against its own target,
+  // and the Airspace Control line shows. Carriers go in the Main rows so it has planes to count.
+  const byRole = (role, skip, prefer = () => true) =>
+    SHIPS_DATA.filter(ship => ship.role === role && ship.equipment && prefer(ship)).slice(skip, skip + 3);
+  const carrier = ship => /Carrier/.test(ship.hullType);
+  setTargetBoss(mapBosses(MAPS_DATA.find(map => map.map === "14-4"))[0]);
+  fleet.mob.Vanguard.splice(0, 3, ...byRole("Vanguard", 0));
+  fleet.mob.Main.splice(0, 3, ...byRole("Main", 0, carrier));
+  fleet.boss.Vanguard.splice(0, 3, ...byRole("Vanguard", 3));
+  fleet.boss.Main.splice(0, 3, ...byRole("Main", 3, carrier));
+  fleet.sub.Submarine.splice(0, 3, ...byRole("Submarine", 0));
   showView("fleet");
-  for (const ship of fleetMembers()) {
-    const metrics = fleetShipFigures(ship);
-    if (!metrics || !isFinite4(metrics)) report.nonFinite.push(`Fleet: ${ship.displayName}`);
+  let air = 0;
+  for (const key of visibleFleets()) {
+    for (const ship of fleetMembers(key)) {
+      const metrics = withFleetTarget(key, () => fleetShipFigures(ship));
+      if (!metrics || !isFinite4(metrics) || !Number.isFinite(metrics.airPower)) report.nonFinite.push(`Fleet ${key}: ${ship.displayName}`);
+      else air += metrics.airPower;
+    }
   }
-  if (document.querySelectorAll(".fleet-slot .card").length !== 6) report.errors.push("Fleet: six members did not render six cards");
-  fleet.Vanguard.fill(null);
-  fleet.Main.fill(null);
+  if (document.querySelectorAll(".fleet-slot .card").length !== 15) report.errors.push("Fleet: fifteen members did not render fifteen cards");
+  if (fleetAirEl.hidden || !(air > 0)) report.errors.push(`Fleet: no Airspace Control for a map with carriers (${air})`);
+  if (targetBoss !== mapBosses(MAPS_DATA.find(map => map.map === "14-4"))[0]) report.errors.push("Fleet: a figure left the Mob target in place");
+  for (const rows of Object.values(fleet)) for (const list of Object.values(rows)) list.fill(null);
+  setTargetBoss(null);
   showView("port");
 
   // The Port metric sorts rank ships without equipping them.

@@ -35,6 +35,7 @@ const minifiedFiles = [
   ["data/default-equipment.js", "js"],
   ["data/augments.js", "js"],
   ["data/bosses.js", "js"],
+  ["data/maps.js", "js"],
   ["data/focus.js", "js"],
   ["data/skill-timing.js", "js"]
 ];
@@ -42,7 +43,7 @@ const minifiedFiles = [
 const hashFile = path => createHash("sha256").update(readFileSync(path)).digest("hex").slice(0, 10);
 
 // app.js loads these itself, so their URLs need the same cache-busting hash as the <script> tags.
-const lazyScripts = ["data/equipment.js", "data/augments.js", "data/bosses.js", "data/skill-timing.js"];
+const lazyScripts = ["data/equipment.js", "data/augments.js", "data/bosses.js", "data/maps.js", "data/skill-timing.js"];
 
 for (const [file, loader] of minifiedFiles) {
   const destination = join(output, file);

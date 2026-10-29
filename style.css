@@ -2839,6 +2839,29 @@ main[aria-busy="true"] {
   color: var(--text-muted);
 }
 
+.fleet-group {
+  margin-bottom: 1.6rem;
+}
+
+.fleet-group-title {
+  margin: 0 0 0.8rem;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.fleet-group > .fleet-hint {
+  margin-bottom: 1rem;
+}
+
+/* Below the map's recommended Airspace Control, as the game's fleet screen leaves it uncoloured. */
+.target-current.is-short strong {
+  color: var(--rarity-decisive);
+}
+
 .fleet-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 200px));
