@@ -112,6 +112,38 @@ try {
     if (![totals.heal, totals.shield].every(Number.isFinite)) report.nonFinite.push(`Fleet ${key}: heals and shields`);
   }
 
+  // The fleet optimizer, with and without a map: every slot holds a ship of its row, none twice,
+  // finite scores, and alternatives drawn from ships in no fleet.
+  for (const map of [MAPS_DATA.find(m => m.map === "14-4"), null]) {
+    setTargetBoss(map ? mapBosses(map)[0] : null);
+    for (const key of map ? ["boss", "mob"] : ["boss"]) {
+      const cache = fleetFigureCache(key);
+      withFleetTarget(key, () => {
+        for (const ship of SHIPS_DATA) {
+          if (!cache.has(ship) && (key !== "mob" || ship.role !== "Submarine")) cache.set(ship, fleetShipFigures(ship, false));
+        }
+      });
+    }
+    const keys = visibleFleets();
+    const { plan, alternatives } = composeFleets(keys, map);
+    const where = map ? map.map : "no map";
+    const picked = keys.flatMap(key => FLEET_ROWS[key].flatMap(row => plan[key][row].map(ship => ({ key, row, ship }))));
+    for (const { key, row, ship } of picked) {
+      if (!ship || ship.role !== row) report.errors.push(`Optimize fleets (${where}): ${key} ${row} holds ${ship ? ship.displayName : "nothing"}`);
+    }
+    if (new Set(picked.map(p => p.ship)).size !== picked.length) report.errors.push(`Optimize fleets (${where}): a ship is placed twice`);
+    for (const key of keys) {
+      const score = optimizeScore(key, plan[key], fleetFigureCache(key === "mob" ? "mob" : "boss"));
+      if (!(score > 0 && Number.isFinite(score))) report.nonFinite.push(`Optimize fleets (${where}): ${key} score ${score}`);
+    }
+    for (const [slot, list] of alternatives) {
+      if (list.length !== OPTIMIZE_ALTERNATIVES || list.some(alt => picked.some(p => p.ship === alt.ship) || !Number.isFinite(alt.change))) {
+        report.errors.push(`Optimize fleets (${where}): alternatives for ${slot}`);
+      }
+    }
+  }
+  setTargetBoss(null);
+
   // Every ship's heals and shields count to a finite number of casts, or to none when untimeable.
   for (const ship of SHIPS_DATA.filter(s => s.equipment)) {
     retrofitApplied = Boolean(ship.hasRetrofit);

@@ -131,6 +131,8 @@ weapon refinement" in the notes). Next:
   "Unresolved / explicitly deferred".
 - Team composition (Fleet tab): v1 done 2026-10-28, see "Fleet tab v1" in the notes. Mob, Boss
   and Submarine fleets per campaign map with Airspace Control: done 2026-10-29, see "Map fleets".
+  Heals and shields counted from game data, and the fleet optimizer (3 alternatives per slot):
+  done 2026-10-29, see "Heals and shields from game data" and "Fleet optimizer".
 - Buff uptime: done in the modal (timing line per skill, "avg" figures, damage chart; see "Buff
   uptime v2" in the notes). Not yet used by Optimize, Fleet (including its synergies) or the Port
   sorts, which stay on raw figures; on-fire procs with a chance are not timed yet.

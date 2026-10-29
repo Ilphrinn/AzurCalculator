@@ -5871,3 +5871,30 @@ changes; 23 skills' displayed `parts` change because shields are no longer "cond
   counted or not. Hand-checked on 14-4 (120 s mob fights): Perseus, cycle 41 s with +90% and 2
   preloads -> 4 airstrike heals, Waters of Styx 1% every 20 s -> 5 casts x 26839 fleet HP = 1342;
   Unicorn (retrofit) 1 preload + 5 -> 6 Vanguard heals (1 + 5), Main fleet heal once.
+
+## Fleet optimizer (2026-10-29)
+
+Asked by the user: one click proposes the ships for the picked map, every ship owned, with three
+alternatives per slot "in case"; the Submarine fleet is optimized too. Agreed objective:
+
+- **Mob fleet**: clear DPS x durability, durability = fleet eHP + heals and shields in eHP (each
+  HP given x its recipient's eHP/HP; `sustainFor`, `totals.durability`). Reason: a mob battle
+  lasts mob HP / DPS, so damage taken scales with 1/DPS and the survival margin with DPS x
+  durability, without modelling enemy damage. **Boss and Submarine fleets**: DPS against the
+  boss. Fleets add up as log(1 + score), so relative gains compare across fleets.
+- **Figures**: each ship alone, as the Port sorts compute them (`fleetShipFigures(ship, false)`):
+  the Boss/Sub ones are `rankFigures` itself (same target), the Mob ones `mobRankFigures`, per
+  map; both lose a ship's entry when her modal closes. Batched with the progress line.
+- **Search** (`composeFleets`): per slot a pool of the top 25 by DPS, for Mob the top 15 by DPS x
+  standalone durability and by durability alone (her heals as if the other five were like her),
+  plus the top 12 by air power where Airspace Control counts. Greedy start (Boss and Sub first),
+  then up to 4 passes of single-slot moves, a move into a slot of another fleet being a swap.
+  Then, below the recommended Airspace Control, the moves losing the least score per point of
+  air until it passes. Alternatives: the 3 free pool ships leaving the best total, with that
+  fleet's score change and whether air would fall short. Synergies are not in the search (too
+  slow per evaluation); the fleet figures apply them after.
+- 14-4, measured: about 1.4 s; Mob Moskva, Takahashi, Anchorage / Warspite, Arizona, Admiral
+  Nakhimov (24% of fleet HP healed, 4% shielded per fight), Boss Noshiro μ, Orage, Nana /
+  Max Immelmann, Impero, Hakuhou, Sub I-404, Minato Aqua, Leonardo da Vinci; air 4611 / 3100.
+  "Restore previous fleet" undoes a run. `npm run check` runs `composeFleets` with and without a
+  map (roles, no ship twice, finite scores, alternatives outside the fleets).

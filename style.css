@@ -2862,6 +2862,20 @@ main[aria-busy="true"] {
   color: var(--rarity-decisive);
 }
 
+.fleet-alternatives {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.fleet-alternatives .chip {
+  font-size: 0.66rem;
+}
+
 .fleet-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 200px));

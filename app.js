@@ -5750,7 +5750,10 @@ function openModal(ship) {
 function closeModal() {
   if (currentView === "fleet") queueMicrotask(renderFleet);
   // Her gear may have changed in the panel.
-  if (currentShip) rankFigures.delete(currentShip);
+  if (currentShip) {
+    rankFigures.delete(currentShip);
+    mobRankFigures.delete(currentShip);
+  }
   if (metricSortKey()) queueMicrotask(refreshRankFigures);
   modalOverlay.hidden = true;
   document.body.style.overflow = "";
@@ -6611,7 +6614,8 @@ function sustainRecipients(target, giver, members) {
     lowest: members, "lowest-vanguard": members.filter(m => m.row === "Vanguard"), "lowest-main": members.filter(m => m.row === "Main") }[target];
   if (!group) return null;
   if (!target.startsWith("lowest") || !group.length) return group;
-  return [{ ship: null, row: null, hp: group.reduce((sum, m) => sum + m.hp, 0) / group.length }];
+  const mean = key => group.reduce((sum, m) => sum + m[key], 0) / group.length;
+  return [{ ship: null, row: null, hp: mean("hp"), mult: mean("mult") }];
 }
 
 const SUSTAIN_TARGET_LABELS = { self: "herself", fleet: "the fleet", others: "the rest of the fleet", vanguard: "the Vanguard",
@@ -6621,24 +6625,38 @@ const SUSTAIN_TARGET_LABELS = { self: "herself", fleet: "the fleet", others: "th
 // HP healed and shielded over the fight by each fleet member's skills (must run under the fleet's
 // target, whose time limit is the fight). Shields count in full, as if used up before they expire.
 function fleetSustain(key, figures) {
-  const members = FLEET_ROWS[key].flatMap(row => fleet[key][row]
+  return sustainFor(fleetSustainMembers(key, fleet[key], figures), figures);
+}
+
+// mult turns HP into eHP for that ship, so healing a hard-to-hit ship counts for more.
+function fleetSustainMembers(key, rows, figures) {
+  return FLEET_ROWS[key].flatMap(row => rows[row]
     .filter(ship => ship && figures.get(ship))
-    .map(ship => ({ ship, row, hp: figures.get(ship).hp })));
+    .map(ship => {
+      const figure = figures.get(ship);
+      return { ship, row, hp: figure.hp, mult: figure.hp > 0 ? figure.ehp / figure.hp : 1 };
+    }));
+}
+
+// `durability` is the HP given in eHP terms, what the Mob fleet score adds to the fleet's eHP.
+function sustainFor(members, figures) {
   const fight = fightSeconds();
-  const totals = { heal: 0, shield: 0 };
+  const totals = { heal: 0, shield: 0, durability: 0 };
   const given = new Map();
   const lines = [];
   for (const giver of members) {
+    if (!giver.ship) continue;
     for (const skill of getSkillsForState(giver.ship, Boolean(giver.ship.hasRetrofit), false, false)) {
       const timing = skillTiming(giver.ship, skill, isSkillAtMaxLevel(skill));
       for (const entry of (timing && timing.sustain) || []) {
         const counted = entry.effect === "heal" || entry.effect === "shield";
         const count = counted ? sustainCount(entry, fight, figures.get(giver.ship).cycles) : null;
         const recipients = counted ? sustainRecipients(entry.target, giver, members) : null;
-        const amount = recipients && count !== null ? count * recipients.reduce((sum, r) =>
-          sum + (entry.maxHP || 0) * r.hp + (entry.casterMaxHP || 0) * giver.hp + (entry.number || 0), 0) : null;
+        const perCast = r => (entry.maxHP || 0) * r.hp + (entry.casterMaxHP || 0) * giver.hp + (entry.number || 0);
+        const amount = recipients && count !== null ? count * recipients.reduce((sum, r) => sum + perCast(r), 0) : null;
         if (amount !== null) {
           totals[entry.effect] += amount;
+          totals.durability += count * recipients.reduce((sum, r) => sum + perCast(r) * r.mult, 0);
           given.set(giver.ship, (given.get(giver.ship) || 0) + amount);
         }
         lines.push({ giver: giver.ship, skill, entry, count, amount });
@@ -6968,6 +6986,30 @@ function createFleetSlot(key, row, index, ship, metrics, sustainGiven) {
   });
   actions.append(swap, remove);
   slot.appendChild(actions);
+  const placedShips = fleetMembers();
+  const alternatives = (fleetAlternatives.get(`${key}.${row}.${index}`) || []).filter(alt => !placedShips.includes(alt.ship));
+  if (alternatives.length) {
+    const list = document.createElement("div");
+    list.className = "fleet-alternatives";
+    const label = document.createElement("span");
+    label.textContent = "Alternatives";
+    list.appendChild(label);
+    for (const alt of alternatives) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "chip";
+      const pct = Math.round(alt.change * 1000) / 10;
+      button.textContent = `${alt.ship.displayName} ${pct >= 0 ? "+" : ""}${pct}%`;
+      button.title = `${FLEET_LABELS[key]} score ${pct >= 0 ? "+" : ""}${pct}% with ${alt.ship.displayName} here, skills not shared yet${alt.airShort ? "; Airspace Control would fall below the recommended value" : ""}.`;
+      button.addEventListener("click", () => {
+        fleet[key][row][index] = alt.ship;
+        saveFleet();
+        renderFleet();
+      });
+      list.appendChild(button);
+    }
+    slot.appendChild(list);
+  }
   return slot;
 }
 
@@ -7120,6 +7162,245 @@ function synergyBlock(title, detail, text, className) {
   return details;
 }
 
+// --- Fleet optimizer ---
+
+// Mob fleet: clear rate x durability. A mob battle lasts mob HP / DPS, so the damage taken scales
+// with 1 / DPS, and what the fleet can take is its eHP plus heals and shields in eHP: the margin is
+// proportional to DPS x durability, with no enemy damage model. Boss and Submarine fleets: DPS
+// against the boss. Fleets add up as logs, so 10% more in one is worth 10% more in another.
+const OPTIMIZE_POOL = { dps: 25, durability: 15, air: 12 };
+const OPTIMIZE_PASSES = 4;
+const OPTIMIZE_ALTERNATIVES = 3;
+const mobRankFigures = new Map();
+let mobRankMap = null;
+const fleetAlternatives = new Map();
+let fleetBeforeOptimize = null;
+let fleetOptimizeRunning = false;
+const fleetOptimizeEl = document.getElementById("fleet-optimize");
+const fleetRestoreEl = document.getElementById("fleet-restore");
+
+// The Boss and Submarine figures are the Port sorts' (each ship alone against the target, her own
+// gear or Optimize's pick, not kept); the Mob ones are cached per map the same way.
+function fleetFigureCache(key) {
+  if (key !== "mob") return rankFigures;
+  const map = fleetMap();
+  if (mobRankMap !== map) {
+    mobRankFigures.clear();
+    mobRankMap = map;
+  }
+  return mobRankFigures;
+}
+
+function fillFleetFigures(key, candidates, label) {
+  const cache = fleetFigureCache(key);
+  const todo = candidates.filter(ship => !cache.has(ship));
+  return new Promise(resolve => {
+    let index = 0;
+    const step = () => {
+      withFleetTarget(key, () => {
+        for (const end = Math.min(todo.length, index + RANK_BATCH); index < end; index++) {
+          cache.set(todo[index], todo[index].equipment ? fleetShipFigures(todo[index], false) : null);
+        }
+      });
+      if (index < todo.length) {
+        fleetStatusEl.textContent = `${label}: ${index}/${todo.length}`;
+        setTimeout(step, 0);
+      } else {
+        resolve(cache);
+      }
+    };
+    step();
+  });
+}
+
+function optimizeScore(key, rows, figures) {
+  const members = FLEET_ROWS[key].flatMap(row => rows[row]).filter(ship => ship && figures.get(ship));
+  if (!members.length) return 0;
+  const dps = members.reduce((sum, ship) => sum + figures.get(ship).dps, 0);
+  if (key !== "mob") return dps;
+  const ehp = members.reduce((sum, ship) => sum + figures.get(ship).ehp, 0);
+  const sustain = withFleetTarget("mob", () => sustainFor(fleetSustainMembers(key, rows, figures), figures));
+  return dps * (ehp + sustain.totals.durability);
+}
+
+// A Mob candidate's heals and shields as if the rest of her fleet were five ships like her.
+function standaloneDurability(ship, row, figures) {
+  const figure = figures.get(ship);
+  const self = { ship, row, hp: figure.hp, mult: figure.hp > 0 ? figure.ehp / figure.hp : 1 };
+  const rows = row === "Vanguard" ? ["Vanguard", "Vanguard", "Main", "Main", "Main"] : ["Vanguard", "Vanguard", "Vanguard", "Main", "Main"];
+  return withFleetTarget("mob", () => sustainFor([self, ...rows.map(r => ({ ship: null, row: r, hp: self.hp, mult: self.mult }))], figures)).totals.durability;
+}
+
+// Each slot is searched among the best by DPS, by durability (Mob) and by air power (for the
+// Airspace Control), which keeps the search to a few dozen ships per slot.
+function optimizePool(key, row, figures, needAir) {
+  const list = ships.filter(ship => ship.role === row && figures.get(ship));
+  const top = (value, n) => [...list].sort((a, b) => value(b) - value(a)).slice(0, n);
+  const pool = new Set(top(ship => figures.get(ship).dps, OPTIMIZE_POOL.dps));
+  if (key === "mob") {
+    const durability = new Map(list.map(ship => [ship, figures.get(ship).ehp + standaloneDurability(ship, row, figures)]));
+    for (const ship of top(ship => figures.get(ship).dps * durability.get(ship), OPTIMIZE_POOL.durability)) pool.add(ship);
+    for (const ship of top(ship => durability.get(ship), OPTIMIZE_POOL.durability)) pool.add(ship);
+  }
+  if (needAir) for (const ship of top(ship => figures.get(ship).airPower, OPTIMIZE_POOL.air)) pool.add(ship);
+  return [...pool];
+}
+
+function optimizeFleets() {
+  if (fleetOptimizeRunning || typeof EQUIPMENT_DATA === "undefined") return;
+  fleetOptimizeRunning = true;
+  fleetOptimizeEl.disabled = true;
+  const map = fleetMap();
+  const boss = targetBoss;
+  const keys = visibleFleets();
+  const surface = ships.filter(ship => ship.role === "Vanguard" || ship.role === "Main");
+  const subs = ships.filter(ship => ship.role === "Submarine");
+  const steps = [() => fillFleetFigures("boss", [...surface, ...subs], `Computing the Boss fleet figures`)];
+  if (map) steps.push(() => fillFleetFigures("mob", surface, `Computing the Mob fleet figures against ${map.map}`));
+  steps.reduce((chain, next) => chain.then(next), Promise.resolve())
+    .then(() => {
+      // A target changed while the figures were computed would mix two fights.
+      if (targetBoss !== boss) {
+        fleetStatusEl.textContent = "The target changed while optimizing; run it again.";
+        return;
+      }
+      const result = composeFleets(keys, map);
+      fleetBeforeOptimize = Object.fromEntries(Object.entries(fleet).map(([key, rows]) =>
+        [key, Object.fromEntries(Object.entries(rows).map(([row, list]) => [row, [...list]]))]));
+      for (const key of keys) for (const row of FLEET_ROWS[key]) fleet[key][row].splice(0, FLEET_SIZE, ...result.plan[key][row]);
+      fleetAlternatives.clear();
+      for (const [slot, alternatives] of result.alternatives) fleetAlternatives.set(slot, alternatives);
+      fleetRestoreEl.hidden = false;
+      saveFleet();
+      renderFleet();
+      fleetStatusEl.textContent = result.summary;
+    })
+    .catch(error => { fleetStatusEl.textContent = `Optimize failed: ${error && error.message || error}`; })
+    .finally(() => {
+      fleetOptimizeRunning = false;
+      fleetOptimizeEl.disabled = false;
+    });
+}
+
+function composeFleets(keys, map) {
+  const figuresFor = key => fleetFigureCache(key === "mob" ? "mob" : "boss");
+  const airKeys = map ? keys.filter(key => key !== "sub" || map.submarines) : [];
+  const pools = {};
+  for (const key of keys) {
+    pools[key] = {};
+    for (const row of FLEET_ROWS[key]) pools[key][row] = optimizePool(key, row, figuresFor(key), airKeys.includes(key));
+  }
+  const plan = Object.fromEntries(keys.map(key => [key, Object.fromEntries(FLEET_ROWS[key].map(row => [row, Array(FLEET_SIZE).fill(null)]))]));
+  const slots = keys.flatMap(key => FLEET_ROWS[key].flatMap(row => [0, 1, 2].map(index => ({ key, row, index }))));
+  const scoreOf = key => optimizeScore(key, plan[key], figuresFor(key));
+  const total = () => keys.reduce((sum, key) => sum + Math.log(1 + scoreOf(key)), 0);
+  const air = () => airKeys.reduce((sum, key) => sum + FLEET_ROWS[key].flatMap(row => plan[key][row])
+    .reduce((s2, ship) => s2 + (ship && figuresFor(key).get(ship) ? figuresFor(key).get(ship).airPower : 0), 0), 0);
+  const placed = ship => slots.find(slot => plan[slot.key][slot.row][slot.index] === ship) || null;
+
+  // Puts a candidate in a slot (swapping with her other slot if she has one), runs measure, undoes.
+  const tryMove = (slot, ship, measure) => {
+    const current = plan[slot.key][slot.row][slot.index];
+    const from = placed(ship);
+    if (from && from.key === slot.key) return null;
+    plan[slot.key][slot.row][slot.index] = ship;
+    if (from) plan[from.key][from.row][from.index] = current;
+    const value = measure();
+    plan[slot.key][slot.row][slot.index] = current;
+    if (from) plan[from.key][from.row][from.index] = ship;
+    return value;
+  };
+  const applyMove = (slot, ship) => {
+    const from = placed(ship);
+    if (from) plan[from.key][from.row][from.index] = plan[slot.key][slot.row][slot.index];
+    plan[slot.key][slot.row][slot.index] = ship;
+  };
+
+  // Start from each slot's best free candidate, Boss and Submarine first, then improve slot by slot.
+  for (const slot of [...slots].sort((a, b) => (a.key === "mob") - (b.key === "mob"))) {
+    let best = null;
+    let bestScore = -Infinity;
+    for (const ship of pools[slot.key][slot.row]) {
+      if (placed(ship)) continue;
+      const value = tryMove(slot, ship, total);
+      if (value !== null && value > bestScore) [best, bestScore] = [ship, value];
+    }
+    if (best) applyMove(slot, best);
+  }
+  for (let pass = 0; pass < OPTIMIZE_PASSES; pass++) {
+    let improved = false;
+    for (const slot of slots) {
+      let now = total();
+      for (const ship of pools[slot.key][slot.row]) {
+        if (plan[slot.key][slot.row][slot.index] === ship) continue;
+        const value = tryMove(slot, ship, total);
+        if (value !== null && value > now + 1e-9) {
+          applyMove(slot, ship);
+          now = value;
+          improved = true;
+        }
+      }
+    }
+    if (!improved) break;
+  }
+
+  // Airspace Control: the moves that cost the least score per point of air, until it passes.
+  let airShort = false;
+  if (map) {
+    for (let step = 0; step < 15 && air() <= map.airRecommended; step++) {
+      const now = total();
+      const airNow = air();
+      let best = null;
+      for (const slot of slots) {
+        if (!airKeys.includes(slot.key)) continue;
+        for (const ship of pools[slot.key][slot.row]) {
+          if (plan[slot.key][slot.row][slot.index] === ship) continue;
+          const moved = tryMove(slot, ship, () => [total(), air()]);
+          if (!moved || moved[1] <= airNow) continue;
+          const rate = (moved[0] - now) / (moved[1] - airNow);
+          if (!best || rate > best.rate) best = { slot, ship, rate };
+        }
+      }
+      if (!best) break;
+      applyMove(best.slot, best.ship);
+    }
+    airShort = air() <= map.airRecommended;
+  }
+
+  // Three alternatives per slot, among ships in no fleet, ranked by the total they leave.
+  const alternatives = new Map();
+  for (const slot of slots) {
+    const current = plan[slot.key][slot.row][slot.index];
+    if (!current) continue;
+    const before = scoreOf(slot.key);
+    const ranked = pools[slot.key][slot.row]
+      .filter(ship => !placed(ship))
+      .map(ship => {
+        const [value, score, airAfter] = tryMove(slot, ship, () => [total(), scoreOf(slot.key), air()]);
+        return { ship, value, change: before ? score / before - 1 : 0, airShort: Boolean(map) && !airShort && airAfter <= map.airRecommended };
+      })
+      .sort((a, b) => b.value - a.value)
+      .slice(0, OPTIMIZE_ALTERNATIVES);
+    alternatives.set(`${slot.key}.${slot.row}.${slot.index}`, ranked);
+  }
+
+  const airText = map ? ` Airspace Control ${Math.floor(air()).toLocaleString("en-US")} / ${map.airRecommended.toLocaleString("en-US")}${airShort ? ", short: no swap among the candidates reaches it" : ""}.` : "";
+  const summary = `Optimized ${keys.map(key => FLEET_LABELS[key]).join(", ")} against ${map ? `${map.map}` : targetBoss ? targetBoss.name : "the reference target"}.` +
+    `${airText} Synergies are applied after the pick, not during it; each slot lists ${OPTIMIZE_ALTERNATIVES} alternatives.`;
+  return { plan, alternatives, summary };
+}
+
+fleetOptimizeEl.addEventListener("click", optimizeFleets);
+fleetRestoreEl.addEventListener("click", () => {
+  if (!fleetBeforeOptimize) return;
+  for (const [key, rows] of Object.entries(fleetBeforeOptimize)) for (const [row, list] of Object.entries(rows)) fleet[key][row].splice(0, FLEET_SIZE, ...list);
+  fleetBeforeOptimize = null;
+  fleetAlternatives.clear();
+  fleetRestoreEl.hidden = true;
+  saveFleet();
+  renderFleet();
+});
+
 // --- Port metric sorts ---
 
 const RANK_BATCH = 40;
@@ -7158,6 +7439,7 @@ function refreshRankFigures() {
 fleetSearchEl.addEventListener("input", updateFleetPicker);
 document.getElementById("fleet-clear").addEventListener("click", () => {
   for (const rows of Object.values(fleet)) for (const list of Object.values(rows)) list.fill(null);
+  fleetAlternatives.clear();
   fleetPickerEl.hidden = true;
   saveFleet();
   renderFleet();
