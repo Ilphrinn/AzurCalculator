@@ -6756,6 +6756,41 @@ function synergyBlock(title, detail, text, className) {
   return details;
 }
 
+// --- Port metric sorts ---
+
+const RANK_BATCH = 40;
+let rankRun = null;
+
+// Missing figures are computed in batches so the page stays responsive (about a second for all
+// 888); a run already under way is reused.
+function refreshRankFigures() {
+  if (rankRun) return rankRun;
+  rankRun = Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")])
+    .then(() => new Promise(resolve => {
+      const todo = ships.filter(ship => !rankFigures.has(ship));
+      let index = 0;
+      const step = () => {
+        for (const end = Math.min(todo.length, index + RANK_BATCH); index < end; index++) {
+          const ship = todo[index];
+          rankFigures.set(ship, ship.equipment ? fleetShipFigures(ship, false) : null);
+        }
+        if (index < todo.length) {
+          countEl.textContent = `Computing level 125 figures... ${index}/${todo.length}`;
+          setTimeout(step, 0);
+        } else {
+          resolve();
+        }
+      };
+      step();
+    }))
+    .catch(() => { countEl.textContent = "Equipment data could not be loaded."; })
+    .finally(() => {
+      rankRun = null;
+      update();
+    });
+  return rankRun;
+}
+
 fleetSearchEl.addEventListener("input", updateFleetPicker);
 document.getElementById("fleet-clear").addEventListener("click", () => {
   for (const row of Object.keys(fleetRowEls)) fleet[row].fill(null);

@@ -102,6 +102,11 @@ try {
     if (!metrics || !isFinite4(metrics)) report.nonFinite.push(`Port sort: ${ship.displayName}`);
     if (Object.keys(equippedGear[ship.id] || {}).length) report.errors.push(`Port sort left gear on ${ship.displayName}`);
   }
+  // Picking each sort through the menu runs its real handler; a throw lands in the error listener.
+  for (const option of sortEl.options) {
+    sortEl.value = option.value;
+    sortEl.dispatchEvent(new Event("change"));
+  }
 } catch (error) {
   report.errors.push(`views: ${error && error.stack || error}`);
 }
