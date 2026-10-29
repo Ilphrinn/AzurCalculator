@@ -4505,8 +4505,26 @@ function appendSkillDescription(container, html) {
   }
 }
 
+// A skill text that says it replaces another ("(Replaces "Support Carrier")"): the markers above miss
+// six retrofits (Unicorn, Helena, Yuudachi...) and Drake's Fate Simulation.
+const SKILL_REPLACES_RE = /\(Replaces ["\u201c]([^"\u201d]+)["\u201d]\)/;
+const replacedSkillNames = new WeakMap();
+function replacedSkillName(skill) {
+  if (!replacedSkillNames.has(skill)) {
+    // Not stripHtml, which drops this very note.
+    const match = SKILL_REPLACES_RE.exec((skill.description || "").replace(/<[^>]+>/g, ""));
+    replacedSkillNames.set(skill, match ? match[1] : null);
+  }
+  return replacedSkillNames.get(skill);
+}
+
 function getSkillsForState(ship, isRetrofit, isAugmented, isFateSim) {
-  const skills = ship.skills || [];
+  const active = skillsForMarkers(ship.skills || [], isRetrofit, isAugmented, isFateSim);
+  const replaced = new Set(active.map(replacedSkillName).filter(Boolean));
+  return replaced.size ? active.filter(s => !replaced.has(s.name)) : active;
+}
+
+function skillsForMarkers(skills, isRetrofit, isAugmented, isFateSim) {
   return skills.filter((s, i) => {
     if (s.marker === "R") return isRetrofit;
     if (s.isModified && !s.isRetrofitVersion && isRetrofit) return false;
@@ -6529,6 +6547,122 @@ function airPower(ship, effective) {
   return aviation ? (aviation.base + aviation.equip) * planes * (0.8 + FLEET_LEVEL / 100) / 100 : 0;
 }
 
+// --- Sustain: heals and shields from the game's skill tables (scripts/import-skill-timing.js) ---
+
+// Triggers whose count follows a weapon's cycle; any other event (an HP threshold, a kill, being
+// hit) is listed but not counted.
+const SUSTAIN_CYCLE_TRIGGERS = { onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo" };
+
+// Airstrike (wiki, Damage Calculations): the planes' cooldown averaged over their count, x 2.2 x
+// sqrt(200 / (RLD + 100)) + 0.033, x (1 + the skills' load time change, Perseus +90%); skills
+// can also preload strikes at battle start. Reads the modal's retrofit state, as the stats do.
+function weaponCycles(ship, effective) {
+  const reload = effectiveReload(effective);
+  const skillAir = { requirement: 0, preload: 0 };
+  for (const skill of getSkillsForState(ship, retrofitApplied, augmentApplied, fateSimApplied)) {
+    const timing = skillTiming(ship, skill, isSkillAtMaxLevel(skill));
+    if (!timing || !timing.airstrike) continue;
+    skillAir.requirement += timing.airstrike.requirement;
+    skillAir.preload += timing.airstrike.preload;
+  }
+  let planeTime = 0;
+  let planes = 0;
+  let torpedo = null;
+  for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    const item = activeEquipmentForSlot(ship, slotKey, slot);
+    if (!item) continue;
+    const kind = item.category || DEFAULT_PLANE_KINDS[item.name.split(" ")[0]];
+    if (AIR_POWER_WEIGHTS[kind] && item.reload > 0) {
+      planeTime += item.reload * slot.mount;
+      planes += slot.mount;
+    } else if (!torpedo && (/Torpedo$/.test(item.category || "") || item.kind === "torpedo")) {
+      torpedo = weaponCycle(item, reload);
+    }
+  }
+  const gunKey = shipGunSlotKeys(ship)[0];
+  const gun = gunKey != null && activeEquipmentForSlot(ship, gunKey, ship.equipment[gunKey]);
+  return {
+    airstrike: planes ? (planeTime / planes * 2.2 * Math.sqrt(200 / (reload + 100)) + 0.033) * (1 + skillAir.requirement) : null,
+    preload: { airstrike: skillAir.preload },
+    mainGun: gun ? weaponCycle(gun, reload) : null,
+    torpedo
+  };
+}
+
+// Expected casts in a fight, or null when its trigger cannot be timed. A cast reached through the
+// same weapon trigger twice (Unicorn's heal set up by her first airstrike) starts one cast later.
+function sustainCount(entry, fight, cycles) {
+  let count = null;
+  if (entry.kind === "permanent" || entry.kind === "start") count = 1;
+  else if (entry.kind === "periodic") count = entry.chance * Math.max(0, Math.ceil(fight / entry.period) - 1);
+  else if (entry.kind === "conditional") {
+    const events = entry.events || [entry.trigger];
+    const cycle = cycles[SUSTAIN_CYCLE_TRIGGERS[entry.trigger]];
+    const preload = (cycles.preload || {})[SUSTAIN_CYCLE_TRIGGERS[entry.trigger]] || 0;
+    if (cycle && events.every(event => event === entry.trigger)) count = Math.max(0, preload + Math.floor(fight / cycle) - (events.length - 1));
+  }
+  return count !== null && entry.quota ? Math.min(count, entry.quota) : count;
+}
+
+// The fleet members a heal or shield reaches; "lowest" ones reach one ship, of the group's mean HP.
+function sustainRecipients(target, giver, members) {
+  const group = { fleet: members, others: members.filter(m => m !== giver), self: [giver],
+    vanguard: members.filter(m => m.row === "Vanguard"), main: members.filter(m => m.row === "Main"),
+    lowest: members, "lowest-vanguard": members.filter(m => m.row === "Vanguard"), "lowest-main": members.filter(m => m.row === "Main") }[target];
+  if (!group) return null;
+  if (!target.startsWith("lowest") || !group.length) return group;
+  return [{ ship: null, row: null, hp: group.reduce((sum, m) => sum + m.hp, 0) / group.length }];
+}
+
+const SUSTAIN_TARGET_LABELS = { self: "herself", fleet: "the fleet", others: "the rest of the fleet", vanguard: "the Vanguard",
+  main: "the Main fleet", lowest: "the lowest-HP ally", "lowest-vanguard": "the lowest-HP Vanguard", "lowest-main": "the lowest-HP Main ship",
+  restricted: "some allies (by tag, nation or chance)" };
+
+// HP healed and shielded over the fight by each fleet member's skills (must run under the fleet's
+// target, whose time limit is the fight). Shields count in full, as if used up before they expire.
+function fleetSustain(key, figures) {
+  const members = FLEET_ROWS[key].flatMap(row => fleet[key][row]
+    .filter(ship => ship && figures.get(ship))
+    .map(ship => ({ ship, row, hp: figures.get(ship).hp })));
+  const fight = fightSeconds();
+  const totals = { heal: 0, shield: 0 };
+  const given = new Map();
+  const lines = [];
+  for (const giver of members) {
+    for (const skill of getSkillsForState(giver.ship, Boolean(giver.ship.hasRetrofit), false, false)) {
+      const timing = skillTiming(giver.ship, skill, isSkillAtMaxLevel(skill));
+      for (const entry of (timing && timing.sustain) || []) {
+        const counted = entry.effect === "heal" || entry.effect === "shield";
+        const count = counted ? sustainCount(entry, fight, figures.get(giver.ship).cycles) : null;
+        const recipients = counted ? sustainRecipients(entry.target, giver, members) : null;
+        const amount = recipients && count !== null ? count * recipients.reduce((sum, r) =>
+          sum + (entry.maxHP || 0) * r.hp + (entry.casterMaxHP || 0) * giver.hp + (entry.number || 0), 0) : null;
+        if (amount !== null) {
+          totals[entry.effect] += amount;
+          given.set(giver.ship, (given.get(giver.ship) || 0) + amount);
+        }
+        lines.push({ giver: giver.ship, skill, entry, count, amount });
+      }
+    }
+  }
+  return { totals, given, lines, fleetHp: members.reduce((sum, m) => sum + m.hp, 0), fight };
+}
+
+function sustainLineText({ giver, skill, entry, count, amount }) {
+  const ratio = [entry.maxHP && `${+(entry.maxHP * 100).toFixed(1)}% of max HP`, entry.casterMaxHP && `${+(entry.casterMaxHP * 100).toFixed(1)}% of her max HP`,
+    entry.number && `${entry.number} HP`, entry.currentHP && `${+(entry.currentHP * 100).toFixed(1)}% of current HP`].filter(Boolean).join(" + ");
+  const what = entry.effect === "wall" ? `shells blocked by a wall (${entry.bullets} each, ${entry.duration}s)`
+    : entry.effect === "lifesteal" ? `${+(entry.ratio * 100).toFixed(1)}% of damage dealt healed back`
+    : `${entry.effect === "shield" ? "shield" : "heal"} of ${ratio || "no fixed amount"} to ${SUSTAIN_TARGET_LABELS[entry.target] || entry.target}`;
+  const events = (entry.events || [entry.trigger]).map(event => EVENT_LABELS[event] || event).join(", then ");
+  const when = entry.kind === "conditional" ? `on ${events}` : entry.kind === "periodic"
+    ? `every ${entry.period}s${entry.chance < 1 ? ` (${Math.round(entry.chance * 100)}% chance)` : ""}` : "at battle start";
+  const quota = entry.quota ? `, ${entry.quota === 1 ? "once" : `${entry.quota} times at most`} a battle` : "";
+  const casts = +count?.toFixed(2);
+  const result = amount !== null ? `: ${casts} cast${casts === 1 ? "" : "s"}, ${formatFigure(amount)} HP` : ": not counted";
+  return `${giver.displayName} — ${skill.name}: ${what}, ${when}${quota}${result}`;
+}
+
 // The figures read the modal's level/retrofit globals (Optimize's eHP simulation does), so they
 // are set for the fleet and put back. A ship with no gear set gets Optimize's pick, which is
 // then hers in the Equipment panel too, unless keepPicks is false (the Port sorts rank all 888
@@ -6553,6 +6687,8 @@ function fleetShipFigures(ship, keepPicks = true, incoming = []) {
     const raw = computeEffectiveStats(ship, FLEET_LEVEL, retrofitApplied, false, false, null, incoming);
     metrics.raw = targetCombatMetrics(ship, FLEET_LEVEL, raw);
     metrics.airPower = airPower(ship, effective);
+    metrics.hp = effective.stats.health ? effective.stats.health.value : 0;
+    metrics.cycles = weaponCycles(ship, effective);
     return metrics;
   } finally {
     [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget] = saved;
@@ -6584,11 +6720,12 @@ function renderFleet() {
   for (const key of visibleFleets()) {
     const members = fleetMembers(key);
     const synergies = fleetSynergies(members);
-    withFleetTarget(key, () => {
+    const sustain = withFleetTarget(key, () => {
       for (const ship of members) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship)));
+      return fleetSustain(key, figures);
     });
     reports.push({ key, members, report: synergies.report });
-    groups.push(createFleetGroup(key, map, figures));
+    groups.push(createFleetGroup(key, map, figures, sustain));
   }
   fleetGroupsEl.replaceChildren(...groups);
   if (fleetPickerSlot) fleetRowEls[`${fleetPickerSlot.key}.${fleetPickerSlot.row}`].after(fleetPickerEl);
@@ -6648,7 +6785,7 @@ function percent(share) {
   return `${Math.round(share * 100)}%`;
 }
 
-function createFleetGroup(key, map, figures) {
+function createFleetGroup(key, map, figures, sustain) {
   const group = document.createElement("section");
   group.className = "fleet-group";
   const title = document.createElement("h2");
@@ -6676,12 +6813,30 @@ function createFleetGroup(key, map, figures) {
     label.textContent = FLEET_ROW_LABELS[row];
     const rowEl = document.createElement("div");
     rowEl.className = "fleet-row";
-    rowEl.append(...fleet[key][row].map((ship, index) => createFleetSlot(key, row, index, ship, ship && figures.get(ship))));
+    rowEl.append(...fleet[key][row].map((ship, index) => createFleetSlot(key, row, index, ship, ship && figures.get(ship), sustain.given.get(ship))));
     fleetRowEls[`${key}.${row}`] = rowEl;
     group.append(label, rowEl);
   }
-  group.appendChild(createFleetTotals(key, figures));
+  group.append(createFleetTotals(key, figures, sustain), createSustainDetail(sustain));
   return group;
+}
+
+function createSustainDetail(sustain) {
+  const details = document.createElement("details");
+  details.className = "fleet-synergy";
+  const summary = document.createElement("summary");
+  const title = document.createElement("strong");
+  title.textContent = "Heals and shields";
+  summary.append(title, sustain.lines.length
+    ? ` — ${sustain.lines.length} effect${sustain.lines.length === 1 ? "" : "s"} over a ${sustain.fight}s fight`
+    : " — no member heals or shields");
+  details.appendChild(summary);
+  for (const line of sustain.lines) {
+    const p = document.createElement("p");
+    p.textContent = sustainLineText(line);
+    details.appendChild(p);
+  }
+  return details;
 }
 
 // Airspace Control as the game's fleet screen compares it: every fleet sent in (the submarine
@@ -6761,7 +6916,7 @@ function fleetSynergies(members) {
   return { incoming, report };
 }
 
-function createFleetSlot(key, row, index, ship, metrics) {
+function createFleetSlot(key, row, index, ship, metrics, sustainGiven) {
   const slot = document.createElement("div");
   slot.className = "fleet-slot";
   if (!ship) {
@@ -6782,6 +6937,10 @@ function createFleetSlot(key, row, index, ship, metrics) {
   const rows = metrics
     ? [["DPS", "dps"], ["eHP", "ehp"], ["AA", "dpsAA"]]
     : [];
+  if (metrics && sustainGiven) {
+    metrics = { ...metrics, sustain: sustainGiven };
+    rows.push(["Heal+shield", "sustain"]);
+  }
   for (const [label, key] of rows) {
     const dt = document.createElement("dt");
     dt.textContent = label;
@@ -6858,7 +7017,7 @@ function updateFleetPicker() {
   }));
 }
 
-function createFleetTotals(fleetKey, figures) {
+function createFleetTotals(fleetKey, figures, sustain) {
   const sum = (row, key, raw = false) => fleet[fleetKey][row].reduce((total, ship) => {
     const figure = ship && figures.get(ship);
     return total + (figure ? (raw ? figure.raw : figure)[key] : 0);
@@ -6871,16 +7030,20 @@ function createFleetTotals(fleetKey, figures) {
     ...(rows.length > 1 ? [["Vanguard DPS", ...both("dps", ["Vanguard"])], ["Main fleet DPS", ...both("dps", ["Main"])]] : []),
     ["Fleet DPS", ...both("dps", rows)],
     ["Fleet AA DPS", ...both("dpsAA", rows)],
-    ["Lowest eHP", weakest ? figures.get(weakest).ehp : null, weakest ? figures.get(weakest).raw.ehp : null, weakest]
+    ["Lowest eHP", weakest ? figures.get(weakest).ehp : null, weakest ? figures.get(weakest).raw.ehp : null, weakest],
+    ["Healed / fight", sustain.totals.heal || null, null, null, sustain.fleetHp],
+    ["Shielded / fight", sustain.totals.shield || null, null, null, sustain.fleetHp]
   ];
   const table = document.createElement("dl");
   table.className = "item-stat-table fleet-totals";
-  for (const [label, value, raw, ship] of cells) {
+  // A sustain total also reads as a share of the fleet's combined HP.
+  for (const [label, value, raw, ship, ofHp] of cells) {
     const cell = document.createElement("div");
     const dt = document.createElement("dt");
     dt.textContent = label;
     const dd = document.createElement("dd");
-    dd.textContent = value === null ? "\u2014" : `${formatFigure(value)}${ship ? ` (${ship.displayName})` : ""}`;
+    const share = value !== null && ofHp ? ` (${percent(value / ofHp)} of fleet HP)` : "";
+    dd.textContent = value === null ? "\u2014" : `${formatFigure(value)}${ship ? ` (${ship.displayName})` : ""}${share}`;
     if (value !== null) appendRawFigure(dd, value, raw);
     cell.append(dt, dd);
     table.appendChild(cell);

@@ -52,6 +52,47 @@ const STATIC_CHECK = new RegExp("^(?:check_target|ship_tag_list|ship_type_list|n
   "check_weapon|weaponType|minWeaponNumber|maxWeaponNumber|minTargetNumber|maxTargetNumber|type|target|" +
   "exceptCaster|isBuffStackByCheckTarget|range|armor_type|weapon_group|initialCD)$");
 
+// Who a heal or shield reaches, from the game's target selectors. "TargetSelf" inside a buff is
+// whoever holds it, so it keeps the holder the outer skill picked. Selectors narrowed by ship tag,
+// nationality, hull, chance or fleet slot are left out ("restricted"): precision over recall.
+const TARGET_GROUPS = {
+  TargetAllHelp: "fleet", TargetPlayerVanguardFleet: "vanguard", TargetPlayerMainFleet: "main",
+  TargetHelpLeastHPRatio: "lowest", "TargetAllHelp+TargetHelpLeastHPRatio": "lowest",
+  "TargetPlayerVanguardFleet+TargetHelpLeastHPRatio": "lowest-vanguard", "TargetPlayerMainFleet+TargetHelpLeastHPRatio": "lowest-main",
+  "TargetAllHelp+TargetPlayerVanguardFleet": "vanguard", "TargetAllHelp+TargetSelf": "fleet"
+};
+function targetGroup(choice, holder, args = {}) {
+  const key = [].concat(choice || "TargetSelf").join("+");
+  if (key === "TargetSelf") return holder;
+  const group = TARGET_GROUPS[key] || "restricted";
+  return group === "fleet" && args.exceptCaster ? "others" : group;
+}
+
+// What a heal, shield or wall effect gives, as the client computes it (battleskillheal.lua,
+// battlebuffhp.lua, battlebuffshield.lua, battlebuffshieldwall.lua). currentHPRatio heals depend
+// on HP at the time and lifesteal on damage dealt, so they carry no figure.
+function sustainOf(type, args, target, buffTime, { events, quota }) {
+  const part = { target, ...(events && events.length > 1 ? { events } : {}), ...(quota ? { quota } : {}) };
+  for (const [key, field] of [["maxHPRatio", "maxHP"], ["casterMaxHPRatio", "casterMaxHP"], ["number", "number"]]) {
+    if (Number.isFinite(args[key]) && args[key] !== 0) part[field] = round(args[key]);
+  }
+  if (type === "BattleSkillHeal") return { effect: "heal", ...part };
+  if (type === "BattleBuffHP") {
+    if (args.damageConvertRatio) return { effect: "lifesteal", ...part, ratio: round(args.damageConvertRatio / 10000) };
+    return { effect: "heal", ...part, ...(args.currentHPRatio ? { currentHP: round(args.currentHPRatio / 10000) } : {}) };
+  }
+  if (type === "BattleBuffShield") return { effect: "shield", ...part, duration: buffTime };
+  if (type === "BattleBuffShieldWall") return { effect: "wall", ...part, bullets: args.count, duration: buffTime };
+  return null;
+}
+const SUSTAIN_EFFECTS = new Set(["BattleBuffHP", "BattleBuffShield", "BattleBuffShieldWall"]);
+
+// The window keeps the first event on the path; heals and shields keep them all, so an "on airstrike,
+// if HP is low" heal is not counted on every airstrike.
+function withEvent(context, event) {
+  return { ...context, conditional: context.conditional || event, events: [...(context.events || []), event] };
+}
+
 class Timing {
   constructor(tables, level) {
     this.tables = tables;
@@ -72,23 +113,32 @@ class Timing {
         const counter = effects.find(e => e.type === "BattleBuffCount" && (e.arg_list || {}).countType === args.countType);
         const volleys = counter && (counter.trigger || []).join() === "onFire" ? counter.arg_list.countTarget : null;
         if (volleys && !context.conditional) out.push({ kind: "volleys", volleys, values: [] });
-        else out.push(...this.follow(target, { ...context, conditional: context.conditional || "count" }, depth));
+        else out.push(...this.follow(target, withEvent(context, "count"), depth));
         continue;
       }
       if (ROUTING.has(effect.type)) {
         const extra = Object.keys(args).filter(key => !["skill_id", "buff_id", "time", "rant", "group", "index", "countType"].includes(key));
-        let next = context;
-        if (extra.some(key => !STATIC_CHECK.test(key))) next = { ...context, conditional: context.conditional || "check" };
-        else if (trigger === "onStartGame" || (trigger === "onAttach" && !args.rant) || isPosition(effect.trigger)) next = context;
-        else if (trigger === "onUpdate" && args.time > 0 && !context.period) next = { ...context, period: args.time, chance: (args.rant || 10000) / 10000 };
-        else if (trigger === "onAttach" && args.rant && context.period) next = { ...context, chance: context.chance * args.rant / 10000 };
-        else next = { ...context, conditional: context.conditional || trigger || effect.type };
+        let next = effect.type === "BattleBuffAddBuff" && args.target ? { ...context, target: targetGroup(args.target, context.target || "self") } : context;
+        if (extra.some(key => !STATIC_CHECK.test(key))) next = withEvent(next, "check");
+        else if (trigger === "onStartGame" || (trigger === "onAttach" && !args.rant) || isPosition(effect.trigger)) next = { ...next };
+        else if (trigger === "onUpdate" && args.time > 0 && !context.period) next = { ...next, period: args.time, chance: (args.rant || 10000) / 10000 };
+        else if (trigger === "onAttach" && args.rant && context.period) next = { ...next, chance: context.chance * args.rant / 10000 };
+        else next = withEvent(next, trigger || effect.type);
+        // quota caps how many times this cast happens in a battle (once, for quota 1); a buff it
+        // attaches then fires on its own events, uncapped.
+        if (next.events !== context.events) next = { ...next, quota: undefined };
+        if (args.quota) next = { ...next, quota: args.quota };
         out.push(...this.follow(target, next, depth));
         continue;
       }
-      const lasting = effect.type !== "BattleBuffCancelBuff" && (effect.trigger || []).every(t => LASTING.has(t));
-      const where = lasting ? context : { ...context, conditional: context.conditional || trigger || effect.type };
-      out.push({ ...this.window(where, buff.time || 0), values: leafValues(effect) });
+      // A shield absorbs when its holder is hit: that trigger is how it works, not a condition.
+      const lasting = effect.type !== "BattleBuffCancelBuff" &&
+        (effect.trigger || []).every(t => LASTING.has(t) || (effect.type === "BattleBuffShield" && t === "onTakeDamage"));
+      const where = lasting ? context : withEvent(context, trigger || effect.type);
+      const sustain = SUSTAIN_EFFECTS.has(effect.type) ? sustainOf(effect.type, args, context.target || "self", buff.time || 0, where) : null;
+      // Airstrike load time (number 0.9 = +90%, Perseus), which heals cast on an airstrike follow.
+      const airstrike = effect.type === "BattleBuffAddReloadRequirement" && args.type === "airAssist" ? { requirement: args.number } : null;
+      out.push({ ...this.window(where, buff.time || 0), values: leafValues(effect), ...(sustain ? { sustain } : {}), ...(airstrike ? { airstrike } : {}) });
     }
     return out;
   }
@@ -104,8 +154,11 @@ class Timing {
     const out = [];
     for (const entry of list(skill.effect_list)) {
       const args = entry.arg_list || {};
-      if (entry.type === "BattleSkillAddBuff" && args.buff_id) out.push(...this.buff(args.buff_id, context, depth + 1));
+      const target = targetGroup(entry.target_choise, context.target || "self", args);
+      if (entry.type === "BattleSkillAddBuff" && args.buff_id) out.push(...this.buff(args.buff_id, { ...context, target }, depth + 1));
       else if (entry.type === "BattleSkillFire") out.push({ ...this.window(context, 0), barrage: true, values: [] });
+      else if (entry.type === "BattleSkillInstantCoolDown" && args.weaponType === "AirAssist") out.push({ ...this.window(context, 0), action: entry.type, values: [], airstrike: { preload: 1 } });
+      else if (entry.type === "BattleSkillHeal") out.push({ ...this.window(context, 0), action: entry.type, values: [], sustain: sustainOf(entry.type, args, target, 0, context) });
       else out.push({ ...this.window(context, 0), action: entry.type, values: [] });
     }
     return out;
@@ -144,15 +197,28 @@ function summarise(windows) {
   const lasting = windows.filter(w => !w.barrage && !w.action);
   const distinct = [...new Map(lasting.map(w => [windowKey(w), w])).values()];
   const parts = [...new Set(distinct.map(w => w.kind === "conditional" ? `conditional:${w.trigger}` : w.kind))].sort();
-  const strip = ({ values, barrage, action, ...window }) => window;
+  const strip = ({ values, barrage, action, sustain, airstrike, ...window }) => window;
   const overall = distinct.length === 1 ? strip(distinct[0]) : distinct.length ? { kind: "mixed", parts } : null;
   const barrage = windows.find(w => w.barrage || w.kind === "volleys");
   const effects = [...new Map(lasting.filter(w => w.values.length)
     .map(w => [w.values.join("/") + windowKey(w), { values: w.values, ...strip(w) }])).values()];
+  // Heals and shields with the window they come in; the app counts how often that is in a fight.
+  const sustain = [...new Map(windows.filter(w => w.sustain)
+    .map(w => { const entry = { ...w.sustain, ...strip(w) }; return [JSON.stringify(entry), entry]; })).values()];
+  // Battle-start preloads count. A load time change counts only in a skill that is permanent as a
+  // whole: most are "first airstrike" cuts whose buff goes after one launch (Amagi's -100%).
+  const airstrike = { requirement: 0, preload: 0 };
+  for (const w of windows) {
+    if (!w.airstrike || !["permanent", "start"].includes(w.kind)) continue;
+    if (overall && overall.kind === "permanent") airstrike.requirement = round(airstrike.requirement + (w.airstrike.requirement || 0));
+    airstrike.preload += w.airstrike.preload || 0;
+  }
   return {
+    ...(airstrike.requirement || airstrike.preload ? { airstrike } : {}),
     ...(overall || { kind: barrage ? "barrage" : "none" }),
     ...(barrage && overall ? { barrage: true } : {}),
-    ...(effects.length ? { effects } : {})
+    ...(effects.length ? { effects } : {}),
+    ...(sustain.length ? { sustain } : {})
   };
 }
 

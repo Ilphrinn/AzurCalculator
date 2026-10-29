@@ -106,6 +106,25 @@ try {
   if (document.querySelectorAll(".fleet-slot .card").length !== 15) report.errors.push("Fleet: fifteen members did not render fifteen cards");
   if (fleetAirEl.hidden || !(air > 0)) report.errors.push(`Fleet: no Airspace Control for a map with carriers (${air})`);
   if (targetBoss !== mapBosses(MAPS_DATA.find(map => map.map === "14-4"))[0]) report.errors.push("Fleet: a figure left the Mob target in place");
+  for (const key of visibleFleets()) {
+    const figures = new Map(fleetMembers(key).map(ship => [ship, withFleetTarget(key, () => fleetShipFigures(ship))]));
+    const { totals } = withFleetTarget(key, () => fleetSustain(key, figures));
+    if (![totals.heal, totals.shield].every(Number.isFinite)) report.nonFinite.push(`Fleet ${key}: heals and shields`);
+  }
+
+  // Every ship's heals and shields count to a finite number of casts, or to none when untimeable.
+  for (const ship of SHIPS_DATA.filter(s => s.equipment)) {
+    retrofitApplied = Boolean(ship.hasRetrofit);
+    const cycles = weaponCycles(ship, computeEffectiveStats(ship, 125, retrofitApplied, false, false));
+    if (Object.values(cycles).some(c => typeof c === "number" && !(c > 0))) report.nonFinite.push(`Cycles: ${ship.displayName} ${JSON.stringify(cycles)}`);
+    for (const skill of getSkillsForState(ship, retrofitApplied, false, false)) {
+      for (const entry of (skillTiming(ship, skill, true) || {}).sustain || []) {
+        const count = sustainCount(entry, 120, cycles);
+        if (count !== null && !(count >= 0 && Number.isFinite(count))) report.nonFinite.push(`Sustain: ${ship.displayName} ${skill.name} ${count}`);
+      }
+    }
+  }
+  retrofitApplied = false;
   for (const rows of Object.values(fleet)) for (const list of Object.values(rows)) list.fill(null);
   setTargetBoss(null);
   showView("port");

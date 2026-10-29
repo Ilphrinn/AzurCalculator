@@ -5828,3 +5828,46 @@ against the map's real mob fleets, imported from game data.
   + 36 (I-13's seaplane) = 3125 against 3100 recommended. Roon 1253 DPS on the mobs, 1388 on
   Mogami. `npm run check` adds the 14-4 mob target to every Optimize run (103740 runs) and fills
   all three fleets.
+
+## Heals and shields from game data (2026-10-29)
+
+Asked by the user as the groundwork for a fleet optimizer (Mob fleets live on sustain).
+`scripts/import-skill-timing.js` now also writes, per skill and level, `sustain` (each heal,
+shield, wall or lifesteal with its window) and `airstrike` (load time change, preloads). The
+existing windows and matched bonuses are unchanged (diffed over every skill: 0 kind or effect
+changes; 23 skills' displayed `parts` change because shields are no longer "conditional").
+
+- **Client formulas**: `battleskillheal.lua` heals target maxHP x maxHPRatio + number (HealFixer
+  is 1 outside PvP) x (1 + healingEnhancement) x healingRate; `battlebuffhp.lua` adds caster HP
+  ratios, `currentHPRatio` (x 0.0001, depends on HP at the time: no figure) and lifesteal
+  (`damageConvertRatio`, onBulletHit: no figure); `battlebuffshield.lua` absorbs the same kinds of
+  ratios until broken or expired; `battlebuffshieldwall.lua` blocks `count` shells (no HP figure
+  without enemy shell damage: listed only). Healing modifiers (healingRate/Enhancement) are not
+  applied yet.
+- **Targets** from `target_choise` / a buff's `target`: self, fleet (others with exceptCaster),
+  vanguard, main, lowest HP (one ship, of the group's mean HP). Ship-tag, nationality, hull,
+  random and fleet-slot selectors are "restricted" and not counted. "TargetSelf" inside a buff is
+  its holder.
+- **Counts** (`sustainCount`): periodic = chance x casts in the fight (first one period in);
+  start/permanent = 1; airstrike, main gun salvo (`onChargeWeaponFire`) and torpedo triggers =
+  preloads + fight / weapon cycle, when every event on the path is that same trigger (`events`,
+  kept for sustain only: the window keeps just the first). A cast set up by the first trigger
+  (Unicorn: the first airstrike adds the buff that heals on each later one) starts one cast
+  later. `quota` (once per battle) caps a cast; a buff it attaches fires uncapped (it used to be
+  read as a static check). HP thresholds, fatal damage, kills, being hit: listed, not counted.
+- **Airstrike cycle** (wiki, Damage Calculations): planes' cooldown averaged over their count x
+  2.2 x sqrt(200 / (RLD + 100)) + 0.033, x (1 + `BattleBuffAddReloadRequirement` airAssist).
+  That change counts only in a skill permanent as a whole: 19 of the 20 are "first airstrike"
+  cuts whose buff goes after one launch (Amagi's -100% would make the cycle 0), so only Perseus
+  (+90%) stays. Preloads: `BattleSkillInstantCoolDown` AirAssist at battle start (Perseus 2,
+  Unicorn, Aquila, Formidable μ, Chise 1). Aircraft DPS still ignores both.
+- **Skill replacements**: `getSkillsForState` missed "(Replaces "X")" for six retrofits (An
+  Shan, Chang Chun, Helena, Kasumi, Unicorn, Yuudachi) and Drake's Fate Simulation (his Augment
+  skill sits between the two). It now drops a skill another active one says it replaces; checked
+  over all 888: exactly those 7 ships, in those states. `stripHtml` removes that note on purpose,
+  so the name is read from the raw text.
+- **Fleet tab**: per fleet, "Healed / fight" and "Shielded / fight" (and as a share of the
+  fleet's HP), a "Heal+shield" line on each giver, and a list of every effect with its casts,
+  counted or not. Hand-checked on 14-4 (120 s mob fights): Perseus, cycle 41 s with +90% and 2
+  preloads -> 4 airstrike heals, Waters of Styx 1% every 20 s -> 5 casts x 26839 fleet HP = 1342;
+  Unicorn (retrofit) 1 preload + 5 -> 6 Vanguard heals (1 + 5), Main fleet heal once.

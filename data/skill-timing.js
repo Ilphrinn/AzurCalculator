@@ -113,10 +113,30 @@ const SKILL_TIMING_DATA = {
     },
     "Baptismal Flames": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 10010
@@ -172,10 +192,30 @@ const SKILL_TIMING_DATA = {
     },
     "Baptismal Flames": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 10010
@@ -531,6 +571,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onTorpedoWeaponFire",
+              "onRemove"
+            ],
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
         ]
       },
       "10": {
@@ -560,6 +613,19 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onTorpedoWeaponFire",
+              "onRemove"
+            ],
+            "maxHP": 0.08,
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
@@ -765,6 +831,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -783,6 +859,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -1530,6 +1616,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -1540,6 +1636,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               30
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -1806,11 +1912,29 @@ const SKILL_TIMING_DATA = {
     "Martyr": {
       "1": {
         "kind": "conditional",
-        "trigger": "onSink"
+        "trigger": "onSink",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "others",
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "onSink"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onSink"
+        "trigger": "onSink",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "others",
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "onSink"
+          }
+        ]
       },
       "max": 10,
       "id": 10080
@@ -1818,11 +1942,29 @@ const SKILL_TIMING_DATA = {
     "Martyr+": {
       "1": {
         "kind": "conditional",
-        "trigger": "onSink"
+        "trigger": "onSink",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "others",
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "onSink"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onSink"
+        "trigger": "onSink",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "others",
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "onSink"
+          }
+        ]
       },
       "max": 10,
       "id": 10080
@@ -2503,14 +2645,36 @@ const SKILL_TIMING_DATA = {
         "period": 30,
         "duration": 5,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 30,
         "duration": 15,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 10120
@@ -3056,20 +3220,56 @@ const SKILL_TIMING_DATA = {
   "55": {
     "Eagle's Tears": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "max": 10,
       "id": 10140
     },
     "Eagle's Tears+": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "max": 10,
       "id": 10140
@@ -3193,6 +3393,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.05,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -3212,6 +3423,17 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.15,
+            "duration": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -3515,6 +3737,20 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onBeforeFatalDamage"
+            ],
+            "number": 1,
+            "currentHP": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -3538,6 +3774,20 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onBeforeFatalDamage"
+            ],
+            "number": 1,
+            "currentHP": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -3759,6 +4009,29 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onStack",
+              "onAttach+onStack"
+            ],
+            "bullets": 3,
+            "duration": 2,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 3,
+            "duration": 2,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -3782,6 +4055,29 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onStack",
+              "onAttach+onStack"
+            ],
+            "bullets": 3,
+            "duration": 2,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 3,
+            "duration": 2,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
           }
         ]
       },
@@ -4229,12 +4525,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 10190
@@ -4243,12 +4559,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 10190
@@ -4379,10 +4715,46 @@ const SKILL_TIMING_DATA = {
   "80": {
     "Damage Control": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.3,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 10220
@@ -5175,7 +5547,17 @@ const SKILL_TIMING_DATA = {
           "conditional:count",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -5183,7 +5565,17 @@ const SKILL_TIMING_DATA = {
           "conditional:count",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 151190
@@ -5577,12 +5969,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onBulletHit",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.2,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onBulletHit",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.2,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
+        ]
       },
       "max": 10,
       "id": 10580
@@ -5591,12 +6001,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onBulletHit",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.2,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onBulletHit",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.2,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
+        ]
       },
       "max": 10,
       "id": 10580
@@ -6239,6 +6667,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onManualTorpedoReady"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -6254,6 +6692,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onManualTorpedoReady"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -6886,10 +7334,28 @@ const SKILL_TIMING_DATA = {
     },
     "Double Gun - Suffolk": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onFire"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onFire"
+          }
+        ]
       },
       "max": 10,
       "id": 1090160
@@ -6908,11 +7374,31 @@ const SKILL_TIMING_DATA = {
     "Forward Armor": {
       "1": {
         "kind": "conditional",
-        "trigger": "onBeHit"
+        "trigger": "onBeHit",
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 12,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onBeHit"
+        "trigger": "onBeHit",
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 12,
+            "duration": 15,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          }
+        ]
       },
       "max": 10,
       "id": 4051
@@ -7851,8 +8337,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "conditional:onTakeDamage"
+          "conditional:onTakeDamage",
+          "start"
         ],
         "effects": [
           {
@@ -7862,13 +8348,22 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTakeDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 6,
+            "kind": "start"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "conditional:onTakeDamage"
+          "conditional:onTakeDamage",
+          "start"
         ],
         "effects": [
           {
@@ -7877,6 +8372,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onTakeDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 6,
+            "kind": "start"
           }
         ]
       },
@@ -8483,20 +8987,120 @@ const SKILL_TIMING_DATA = {
   "142": {
     "Support Carrier": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 3031
     },
     "Yuni's Aid": {
       "1": {
-        "kind": "none"
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAllInStrike",
+              "onAllInStrike"
+            ],
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "main",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "quota": 1,
+            "maxHP": 0.012,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAllInStrike",
+              "onAllInStrike"
+            ],
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "main",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "quota": 1,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 15670
@@ -8644,11 +9248,31 @@ const SKILL_TIMING_DATA = {
     "Armored Carrier": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "trigger": "onAllInStrike",
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "casterMaxHP": 0.05,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "trigger": "onAllInStrike",
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "casterMaxHP": 0.1,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 10340
@@ -8656,11 +9280,31 @@ const SKILL_TIMING_DATA = {
     "Armored Carrier+": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "trigger": "onAllInStrike",
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "casterMaxHP": 0.05,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "trigger": "onAllInStrike",
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "casterMaxHP": 0.1,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 10340
@@ -9497,10 +10141,30 @@ const SKILL_TIMING_DATA = {
     },
     "Phoenix's Plumage": {
       "1": {
-        "kind": "permanent"
+        "kind": "permanent",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "permanent"
+        "kind": "permanent",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 12900
@@ -9666,6 +10330,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
         ]
       },
       "10": {
@@ -9688,6 +10361,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
           }
         ]
       },
@@ -9861,6 +10543,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -9872,6 +10564,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -9891,10 +10593,30 @@ const SKILL_TIMING_DATA = {
     },
     "Yukikaze of Kure": {
       "1": {
-        "kind": "permanent"
+        "kind": "permanent",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "permanent"
+        "kind": "permanent",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 11230
@@ -10583,6 +11305,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.3
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -10618,6 +11351,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.6
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
           }
         ]
       },
@@ -10714,6 +11458,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.3
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.015,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 0.3
+          }
         ]
       },
       "10": {
@@ -10738,6 +11493,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "duration": 10,
+            "chance": 0.6
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.015,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
             "chance": 0.6
           }
         ]
@@ -10853,18 +11619,36 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 20,
+            "kind": "start"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.1,
+            "duration": 20,
+            "kind": "start"
+          }
+        ]
       },
       "max": 10,
       "id": 17120
@@ -10927,6 +11711,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "quota": 4,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 18,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -10938,6 +11734,18 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "quota": 4,
+            "maxHP": 0.03,
+            "kind": "periodic",
+            "period": 18,
+            "duration": 0,
+            "chance": 1
           }
         ]
       },
@@ -11178,8 +11986,8 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:missing",
-          "conditional:onStack+onTakeDamage",
           "conditional:onUpdate",
+          "periodic",
           "permanent"
         ],
         "barrage": true,
@@ -11191,14 +11999,58 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.012,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.012,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate"
+            ],
+            "casterMaxHP": 0.012,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate",
+              "onUpdate"
+            ],
+            "casterMaxHP": 0.012,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:missing",
-          "conditional:onStack+onTakeDamage",
           "conditional:onUpdate",
+          "periodic",
           "permanent"
         ],
         "barrage": true,
@@ -11209,6 +12061,50 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate"
+            ],
+            "casterMaxHP": 0.03,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate",
+              "onUpdate"
+            ],
+            "casterMaxHP": 0.03,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onUpdate"
           }
         ]
       },
@@ -11663,6 +12559,26 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 0.5
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAttach",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAttach"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
         ]
       },
       "10": {
@@ -11690,6 +12606,26 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 8,
             "chance": 0.5
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAttach",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAttach"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
           }
         ]
       },
@@ -13115,6 +14051,54 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrike"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
         ]
       },
       "10": {
@@ -13132,6 +14116,54 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrike"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.07,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrike",
+              "onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.07,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
         ]
       },
       "max": 10,
@@ -13143,12 +14175,136 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "quota": 2,
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "quota": 3,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack"
+            ],
+            "quota": 2,
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack"
+            ],
+            "quota": 1,
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "quota": 2,
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "quota": 3,
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack"
+            ],
+            "quota": 2,
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack"
+            ],
+            "quota": 1,
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ]
       },
       "max": 10,
       "id": 150400
@@ -13195,10 +14351,28 @@ const SKILL_TIMING_DATA = {
   "222": {
     "Support Carrier": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 3031
@@ -13458,6 +14632,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "number": 1,
+            "currentHP": 0,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -13469,6 +14653,16 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "number": 1,
+            "currentHP": 0,
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -13978,13 +15172,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 35,
         "duration": 5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "casterMaxHP": 0.01,
+            "kind": "periodic",
+            "period": 35,
+            "duration": 5,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 35,
         "duration": 5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "casterMaxHP": 0.03,
+            "kind": "periodic",
+            "period": 35,
+            "duration": 5,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 10550
@@ -14233,6 +15449,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.4
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 0.4
+          }
         ]
       },
       "10": {
@@ -14249,6 +15476,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "duration": 10,
+            "chance": 0.7
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
             "chance": 0.7
           }
         ]
@@ -14789,13 +16027,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 30,
         "duration": 5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 30,
         "duration": 15,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 10720
@@ -14805,13 +16065,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 30,
         "duration": 5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 30,
         "duration": 15,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 10720
@@ -14909,6 +16191,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -14942,6 +16235,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "max": 10,
@@ -14963,13 +16267,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 20,
         "duration": 10,
-        "chance": 0.4
+        "chance": 0.4,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 0.4
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 10,
-        "chance": 0.7
+        "chance": 0.7,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 0.7
+          }
+        ]
       },
       "max": 10,
       "id": 10390
@@ -14979,13 +16305,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 20,
         "duration": 10,
-        "chance": 0.4
+        "chance": 0.4,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 0.4
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 10,
-        "chance": 0.7
+        "chance": 0.7,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 0.7
+          }
+        ]
       },
       "max": 10,
       "id": 10390
@@ -15914,6 +17262,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 6,
+            "kind": "periodic",
+            "period": 15,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -15936,6 +17295,17 @@ const SKILL_TIMING_DATA = {
               3
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 6,
+            "kind": "periodic",
+            "period": 15,
+            "chance": 1
           }
         ]
       },
@@ -16543,6 +17913,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -16561,6 +17941,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -17180,6 +18570,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.4
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3,
+            "chance": 0.4
+          }
         ]
       },
       "10": {
@@ -17195,6 +18596,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "duration": 10,
+            "chance": 0.7
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3,
             "chance": 0.7
           }
         ]
@@ -18270,6 +19682,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.4
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -18295,6 +19717,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.7
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -18615,6 +20047,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeHit"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -18631,6 +20073,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBeHit"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -18734,10 +20186,58 @@ const SKILL_TIMING_DATA = {
     },
     "Rescue Operations": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          },
+          {
+            "effect": "heal",
+            "target": "others",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.012,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          },
+          {
+            "effect": "heal",
+            "target": "others",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
+        ]
       },
       "max": 10,
       "id": 10900
@@ -18792,10 +20292,58 @@ const SKILL_TIMING_DATA = {
     },
     "Rescue Operations": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          },
+          {
+            "effect": "heal",
+            "target": "others",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.012,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          },
+          {
+            "effect": "heal",
+            "target": "others",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
+        ]
       },
       "max": 10,
       "id": 10900
@@ -19195,6 +20743,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -19222,6 +20781,17 @@ const SKILL_TIMING_DATA = {
               15,
               0.15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.1,
+            "duration": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -19273,6 +20843,15 @@ const SKILL_TIMING_DATA = {
             "duration": 15,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -19316,6 +20895,15 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 15,
             "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -20159,11 +21747,29 @@ const SKILL_TIMING_DATA = {
     "Ladies' Tea Time": {
       "1": {
         "kind": "start",
-        "duration": 5
+        "duration": 5,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "casterMaxHP": 0.01,
+            "kind": "start",
+            "duration": 5
+          }
+        ]
       },
       "10": {
         "kind": "start",
-        "duration": 5
+        "duration": 5,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "casterMaxHP": 0.035,
+            "kind": "start",
+            "duration": 5
+          }
+        ]
       },
       "max": 10,
       "id": 11290
@@ -22632,6 +24238,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -22643,6 +24259,16 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -22664,6 +24290,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -22675,6 +24311,16 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -25464,6 +27110,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onSubmarineRaid",
+              "onSubmarineRetreat"
+            ],
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -25475,6 +27134,19 @@ const SKILL_TIMING_DATA = {
               15,
               0.15
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onSubmarineRaid",
+              "onSubmarineRetreat"
+            ],
+            "maxHP": 0.08,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -26012,6 +27684,22 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 1,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 1,
+            "duration": 0,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -26027,6 +27715,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 2,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 2,
+            "duration": 0,
+            "kind": "permanent"
           }
         ]
       },
@@ -26277,11 +27981,31 @@ const SKILL_TIMING_DATA = {
     "Terni Shields": {
       "1": {
         "kind": "conditional",
-        "trigger": "onBulletHitBefore"
+        "trigger": "onBulletHitBefore",
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 12,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onBulletHitBefore"
+        "trigger": "onBulletHitBefore",
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 12,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
+        ]
       },
       "max": 10,
       "id": 12620
@@ -26289,11 +28013,31 @@ const SKILL_TIMING_DATA = {
     "Terni Shields+": {
       "1": {
         "kind": "conditional",
-        "trigger": "onBulletHitBefore"
+        "trigger": "onBulletHitBefore",
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 12,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onBulletHitBefore"
+        "trigger": "onBulletHitBefore",
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 12,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
+        ]
       },
       "max": 10,
       "id": 12620
@@ -26895,6 +28639,25 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "start"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "quota": 1,
+            "bullets": 10,
+            "duration": 5,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -26902,6 +28665,25 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "start"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "quota": 1,
+            "bullets": 10,
+            "duration": 15,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "max": 10,
@@ -27128,6 +28910,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -27142,6 +28934,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -27152,11 +28954,95 @@ const SKILL_TIMING_DATA = {
     "Swirling Cherry Blossoms": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "trigger": "onAllInStrike",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 3,
+            "casterMaxHP": 0.024,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrike",
+              "onStack"
+            ],
+            "quota": 3,
+            "casterMaxHP": 0.024,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 3,
+            "casterMaxHP": 0.012,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrike",
+              "onStack"
+            ],
+            "quota": 3,
+            "casterMaxHP": 0.012,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "trigger": "onAllInStrike",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 3,
+            "casterMaxHP": 0.06,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrike",
+              "onStack"
+            ],
+            "quota": 3,
+            "casterMaxHP": 0.06,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 3,
+            "casterMaxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrike",
+              "onStack"
+            ],
+            "quota": 3,
+            "casterMaxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 12860
@@ -27372,10 +29258,58 @@ const SKILL_TIMING_DATA = {
     },
     "Rescue Operations": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          },
+          {
+            "effect": "heal",
+            "target": "others",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.012,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          },
+          {
+            "effect": "heal",
+            "target": "others",
+            "events": [
+              "onTeammateShipDying",
+              "onAttach"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
+        ]
       },
       "max": 10,
       "id": 10900
@@ -28243,6 +30177,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 2,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -28272,6 +30216,16 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 2,
+            "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -29366,8 +31320,8 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
-          "conditional:onUpdate"
+          "conditional:onUpdate",
+          "periodic"
         ],
         "effects": [
           {
@@ -29386,14 +31340,52 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "casterMaxHP": 0.015,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onUpdate",
+              "check"
+            ],
+            "number": 70,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "quota": 1,
+            "casterMaxHP": 0.015,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "number": 70,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
-          "conditional:onUpdate"
+          "conditional:onUpdate",
+          "periodic"
         ],
         "effects": [
           {
@@ -29409,6 +31401,44 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "casterMaxHP": 0.06,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onUpdate",
+              "check"
+            ],
+            "number": 70,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "quota": 1,
+            "casterMaxHP": 0.06,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "number": 70,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -29539,6 +31569,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onManual"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 20,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -29590,6 +31638,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onManual"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 20,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
           }
         ]
       },
@@ -29811,10 +31877,30 @@ const SKILL_TIMING_DATA = {
     },
     "Lemme At 'Em!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 13390
@@ -29917,10 +32003,50 @@ const SKILL_TIMING_DATA = {
   "462": {
     "Mercury's Talaria": {
       "1": {
-        "kind": "permanent"
+        "airstrike": {
+          "requirement": 0.9,
+          "preload": 1
+        },
+        "kind": "permanent",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "main",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
-        "kind": "permanent"
+        "airstrike": {
+          "requirement": 0.9,
+          "preload": 2
+        },
+        "kind": "permanent",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "main",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.07,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 13410
@@ -29943,10 +32069,32 @@ const SKILL_TIMING_DATA = {
     },
     "Waters of Styx": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 40,
+            "duration": 0,
+            "chance": 1
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 13430
@@ -30396,12 +32544,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "check",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "check",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 13640
@@ -30433,6 +32601,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -30449,6 +32627,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -30739,12 +32927,62 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "check"
+            ],
+            "number": -200,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "check",
+              "onStack"
+            ],
+            "number": -200,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "check"
+            ],
+            "number": -200,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "check",
+              "onStack"
+            ],
+            "number": -200,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ]
       },
       "max": 10,
       "id": 13750
@@ -30764,6 +33002,20 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "events": [
+              "check",
+              "onBulletHit"
+            ],
+            "quota": 1,
+            "ratio": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -30779,6 +33031,20 @@ const SKILL_TIMING_DATA = {
               6
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "events": [
+              "check",
+              "onBulletHit"
+            ],
+            "quota": 1,
+            "ratio": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -31049,6 +33315,24 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "start"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 5,
+            "kind": "start"
+          }
         ]
       },
       "10": {
@@ -31056,6 +33340,24 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "start"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "start"
+          }
         ]
       },
       "max": 10,
@@ -31102,14 +33404,38 @@ const SKILL_TIMING_DATA = {
         "period": 20,
         "duration": 3.1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.03,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 0.5
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 3.1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.03,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 0.5
+          }
+        ]
       },
       "max": 10,
       "id": 13770
@@ -31143,6 +33469,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 25,
+            "duration": 3,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -31172,6 +33509,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.03,
+            "kind": "periodic",
+            "period": 25,
+            "duration": 3,
+            "chance": 1
           }
         ]
       },
@@ -31557,6 +33905,26 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 6,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 8,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -31569,6 +33937,26 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "periodic",
+            "period": 20,
+            "duration": 8,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
             "kind": "periodic",
             "period": 20,
             "duration": 8,
@@ -32239,6 +34627,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 50
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.08,
+            "kind": "start",
+            "duration": 3
+          }
         ]
       },
       "10": {
@@ -32268,6 +34665,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 50
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.08,
+            "kind": "start",
+            "duration": 3
+          }
         ]
       },
       "max": 10,
@@ -32277,7 +34683,7 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
+          "periodic",
           "permanent"
         ],
         "barrage": true,
@@ -32295,12 +34701,23 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
+          "periodic",
           "permanent"
         ],
         "barrage": true,
@@ -32317,6 +34734,17 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
           }
         ]
       },
@@ -32418,6 +34846,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 50
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "kind": "start",
+            "duration": 3
+          }
         ]
       },
       "10": {
@@ -32446,6 +34883,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 50
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "kind": "start",
+            "duration": 3
           }
         ]
       },
@@ -32582,6 +35028,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -32593,6 +35052,19 @@ const SKILL_TIMING_DATA = {
               50,
               0.5
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -32619,7 +35091,26 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 18,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 4,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -32627,7 +35118,26 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 18,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 4,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 14190
@@ -32911,6 +35421,35 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": -0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -32925,6 +35464,35 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": -0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -33248,6 +35816,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "quota": 1,
+            "bullets": 5,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -33271,6 +35858,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "quota": 1,
+            "bullets": 5,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -33290,6 +35896,10 @@ const SKILL_TIMING_DATA = {
     },
     "Rain of Starlight": {
       "1": {
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
         "kind": "mixed",
         "parts": [
           "conditional:onAllInStrike",
@@ -33303,9 +35913,37 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "maxHP": 0.015,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
         ]
       },
       "10": {
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
         "kind": "mixed",
         "parts": [
           "conditional:onAllInStrike",
@@ -33318,6 +35956,30 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "maxHP": 0.06,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
           }
         ]
       },
@@ -33884,7 +36546,41 @@ const SKILL_TIMING_DATA = {
           "conditional:onLowerConsort",
           "conditional:onUpperConsort"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onUpperConsort",
+              "onChargeWeaponFire"
+            ],
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onUpperConsort"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onLowerConsort",
+              "onChargeWeaponFire"
+            ],
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onLowerConsort"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -33894,7 +36590,41 @@ const SKILL_TIMING_DATA = {
           "conditional:onLowerConsort",
           "conditional:onUpperConsort"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onUpperConsort",
+              "onChargeWeaponFire"
+            ],
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onUpperConsort"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onLowerConsort",
+              "onChargeWeaponFire"
+            ],
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onLowerConsort"
+          }
+        ]
       },
       "max": 10,
       "id": 14470
@@ -33962,6 +36692,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -33985,6 +36733,24 @@ const SKILL_TIMING_DATA = {
               6000
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
           }
         ]
       },
@@ -34093,6 +36859,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 50
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.05,
+            "kind": "start",
+            "duration": 3
+          }
         ]
       },
       "10": {
@@ -34134,6 +36909,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 50
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.1,
+            "kind": "start",
+            "duration": 3
           }
         ]
       },
@@ -34303,6 +37087,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -34320,6 +37114,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               1500
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -34480,6 +37284,15 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:onBattleBuffCount",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -34487,6 +37300,22 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:onBattleBuffCount",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "count"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "max": 10,
@@ -34520,6 +37349,15 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.005,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
@@ -34547,6 +37385,15 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.005,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "max": 10,
@@ -34568,6 +37415,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 15,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -34584,6 +37442,17 @@ const SKILL_TIMING_DATA = {
               1500
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 15,
+            "duration": 0,
+            "chance": 1
           }
         ]
       },
@@ -34795,6 +37664,28 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.035,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -34806,6 +37697,28 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.08,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.06,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -34935,6 +37848,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 12,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
         ]
       },
       "10": {
@@ -34955,6 +37878,16 @@ const SKILL_TIMING_DATA = {
               300,
               3
             ],
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 12,
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
           }
@@ -35229,6 +38162,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 6,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onAllInStrike",
+              "onAttach+onUpdate"
+            ],
+            "bullets": 6,
+            "duration": 6,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
         ]
       },
       "10": {
@@ -35247,6 +38201,27 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onAllInStrike",
+              "onAttach+onUpdate"
+            ],
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
           }
         ]
       },
@@ -35297,7 +38272,6 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "conditional:onTakeDamage",
           "periodic"
         ],
@@ -35309,13 +38283,32 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.02,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "conditional:onTakeDamage",
           "periodic"
         ],
@@ -35326,6 +38319,26 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.04,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.08,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
           }
         ]
       },
@@ -35789,6 +38802,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 2,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 0.5
+          }
         ]
       },
       "10": {
@@ -35805,6 +38830,18 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 2,
+            "maxHP": 0.035,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 0.5
           }
         ]
       },
@@ -36225,7 +39262,27 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3,
+            "chance": 0.7
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.005,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3,
+            "chance": 0.7
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -36233,7 +39290,27 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3,
+            "chance": 0.7
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.025,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3,
+            "chance": 0.7
+          }
+        ]
       },
       "max": 10,
       "id": 15280
@@ -36258,14 +39335,54 @@ const SKILL_TIMING_DATA = {
         "period": 20,
         "duration": 1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "casterMaxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 1,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 1,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "casterMaxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 1,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 1,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 15330
@@ -36384,6 +39501,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -36394,6 +39521,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               5000
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -36492,6 +39629,42 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": -0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 3,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 5,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": -0.01,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
@@ -36524,6 +39697,42 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": -0.05,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 3,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.05,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 5,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": -0.05,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.05,
             "kind": "conditional",
             "trigger": "onUpdate"
           }
@@ -36666,6 +39875,14 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -36683,6 +39900,14 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.05,
             "kind": "permanent"
           }
         ]
@@ -36783,6 +40008,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.12,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -36822,6 +40056,15 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.22,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
           }
         ]
       },
@@ -37073,6 +40316,17 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 3,
+            "duration": 20,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -37080,6 +40334,17 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 3,
+            "duration": 20,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "max": 10,
@@ -37105,7 +40370,25 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.05,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -37115,7 +40398,25 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.15,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
+        ]
       },
       "max": 10,
       "id": 15510
@@ -37151,6 +40452,18 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "number": -11,
+            "kind": "periodic",
+            "period": 5,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -37178,6 +40491,18 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "periodic",
+            "period": 5,
+            "duration": 0,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "number": -11,
             "kind": "periodic",
             "period": 5,
             "duration": 0,
@@ -37298,6 +40623,40 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "start"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 2,
+            "duration": 5,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 4,
+            "duration": 5,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 2,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 4,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -37305,6 +40664,40 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic",
           "start"
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 2,
+            "duration": 10,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 4,
+            "duration": 10,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 2,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 4,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "max": 10,
@@ -37335,6 +40728,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.01,
+            "kind": "start",
+            "duration": 3
+          }
         ]
       },
       "10": {
@@ -37349,6 +40751,15 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.05,
+            "kind": "start",
+            "duration": 3
           }
         ]
       },
@@ -37565,6 +40976,16 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:onTorpedoWeaponFire",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -37572,6 +40993,16 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:onTorpedoWeaponFire",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -37915,6 +41346,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -37938,6 +41387,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -38290,6 +41757,52 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 1,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBulletHitBefore",
+              "onRemove",
+              "onBulletHitBefore"
+            ],
+            "bullets": 1,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBulletHitBefore",
+              "onRemove",
+              "onBulletHitBefore",
+              "onRemove",
+              "onBulletHitBefore"
+            ],
+            "bullets": 1,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -38306,6 +41819,52 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 2,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBulletHitBefore",
+              "onRemove",
+              "onBulletHitBefore"
+            ],
+            "bullets": 2,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBulletHitBefore",
+              "onRemove",
+              "onBulletHitBefore",
+              "onRemove",
+              "onBulletHitBefore"
+            ],
+            "bullets": 2,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -38687,6 +42246,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
+          }
         ]
       },
       "10": {
@@ -38703,6 +42271,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onTeammateShipDying"
           }
         ]
       },
@@ -38911,6 +42488,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.015,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -38931,6 +42519,17 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "quota": 1,
+            "casterMaxHP": 0.06,
+            "duration": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -39028,7 +42627,6 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "permanent",
           "start"
         ],
@@ -39047,13 +42645,28 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "casterMaxHP": 0.01,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.005,
+            "kind": "start",
+            "duration": 3
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "permanent",
           "start"
         ],
@@ -39071,6 +42684,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "casterMaxHP": 0.05,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.025,
+            "kind": "start",
+            "duration": 3
           }
         ]
       },
@@ -39266,6 +42895,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -39284,6 +42922,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               20
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.4,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -39550,6 +43197,85 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onUpdate",
+              "check",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate",
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
@@ -39582,6 +43308,85 @@ const SKILL_TIMING_DATA = {
             "values": [
               6
             ],
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onUpdate",
+              "check",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate",
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onUpdate",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "onUpdate"
           }
@@ -39881,6 +43686,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -39904,6 +43718,15 @@ const SKILL_TIMING_DATA = {
               30
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "count"
           }
         ]
       },
@@ -39993,6 +43816,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -40016,6 +43850,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
           }
         ]
       },
@@ -40410,6 +44255,22 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -40432,6 +44293,22 @@ const SKILL_TIMING_DATA = {
               18,
               0.18
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -40462,6 +44339,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -40482,6 +44369,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -40873,6 +44770,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -40883,6 +44789,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.08,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
@@ -40996,12 +44911,52 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "check",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "check",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 16660
@@ -41155,6 +45110,31 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onRemove"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack",
+              "onRemove"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -41167,6 +45147,31 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onRemove"
+            ],
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onStack",
+              "onRemove"
+            ],
+            "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
@@ -41300,6 +45305,32 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBeHit",
+              "count"
+            ],
+            "bullets": 2,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onBeHit",
+              "count"
+            ],
+            "maxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          }
         ]
       },
       "10": {
@@ -41314,6 +45345,32 @@ const SKILL_TIMING_DATA = {
               18
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBeHit",
+              "count"
+            ],
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onBeHit",
+              "count"
+            ],
+            "maxHP": 0.05,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "onBeHit"
           }
         ]
       },
@@ -41696,6 +45753,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
         ]
       },
       "10": {
@@ -41715,6 +45781,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               5
             ],
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
@@ -41865,6 +45940,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
         ]
       },
       "10": {
@@ -41894,6 +45979,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onBulletHitBefore"
+          }
         ]
       },
       "max": 10,
@@ -41909,6 +46004,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 40,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -41919,6 +46025,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
           }
         ]
       },
@@ -41953,6 +46070,30 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "check"
+            ],
+            "number": 100,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.025,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -41963,6 +46104,30 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "check"
+            ],
+            "number": 100,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.07,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
           }
         ]
       },
@@ -42424,6 +46589,23 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onManualTorpedoReady"
+          }
         ]
       },
       "10": {
@@ -42445,6 +46627,23 @@ const SKILL_TIMING_DATA = {
               75
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onManualTorpedoReady"
           }
         ]
       },
@@ -42689,6 +46888,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -42706,6 +46915,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -42865,6 +47084,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "maxHP": 0.045,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -42876,6 +47116,27 @@ const SKILL_TIMING_DATA = {
               5,
               0.05
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "maxHP": 0.12,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -42945,6 +47206,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -42967,6 +47238,16 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -42999,6 +47280,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -43021,6 +47312,16 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -43180,6 +47481,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 1,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -43192,6 +47511,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 1,
+            "duration": 0,
+            "chance": 1
           }
         ]
       },
@@ -43248,6 +47585,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -43259,6 +47606,16 @@ const SKILL_TIMING_DATA = {
               0.07
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -43276,6 +47633,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -43288,6 +47655,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -43299,8 +47676,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -43316,13 +47693,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 30,
+            "kind": "start"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -43337,6 +47723,15 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.1,
+            "duration": 30,
+            "kind": "start"
           }
         ]
       },
@@ -43426,6 +47821,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 5,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -43436,6 +47841,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 5,
+            "maxHP": 0.08,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -43829,6 +48244,39 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBattleBuffCount"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onBeforeFatalDamage",
+              "onAllInStrike"
+            ],
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onRemove",
+              "onBeforeFatalDamage"
+            ],
+            "number": 1,
+            "currentHP": 0,
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
         ]
       },
       "10": {
@@ -43871,6 +48319,39 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBattleBuffCount"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.15,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onBeforeFatalDamage",
+              "onAllInStrike"
+            ],
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onRemove",
+              "onBeforeFatalDamage"
+            ],
+            "number": 1,
+            "currentHP": 0,
+            "kind": "conditional",
+            "trigger": "onRemove"
           }
         ]
       },
@@ -43932,6 +48413,29 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onFire",
+              "onFire",
+              "onFire"
+            ],
+            "maxHP": 0.01,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onFire"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.01,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onFire"
+          }
         ]
       },
       "10": {
@@ -43949,6 +48453,29 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "onFire",
+              "onFire",
+              "onFire"
+            ],
+            "maxHP": 0.01,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onFire"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.01,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onFire"
           }
         ]
       },
@@ -44086,7 +48613,32 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "number": -30,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack",
+              "onRemove"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -44094,7 +48646,32 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "number": -30,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack",
+              "onRemove"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 17400
@@ -44115,16 +48692,50 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.035,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.035,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.08,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.08,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -44384,6 +48995,25 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.01,
+            "duration": 15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -44391,6 +49021,25 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.1,
+            "duration": 15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -44409,10 +49058,28 @@ const SKILL_TIMING_DATA = {
     },
     "Dragon's Dance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ]
       },
       "max": 10,
       "id": 17510
@@ -45078,6 +49745,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.02,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -45093,6 +49771,17 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.07,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -45122,6 +49811,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -45134,6 +49832,15 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "count"
           }
         ]
       },
@@ -45174,6 +49881,10 @@ const SKILL_TIMING_DATA = {
   "633": {
     "Royal Lady of Rock 'n' Roll": {
       "1": {
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
         "kind": "permanent",
         "effects": [
           {
@@ -45185,6 +49896,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
         "kind": "permanent",
         "effects": [
           {
@@ -45291,6 +50006,28 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": -0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3.5,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -45322,6 +50059,28 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": -0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 3.5,
+            "chance": 1
           }
         ]
       },
@@ -45422,6 +50181,24 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 3,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 3,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -45470,6 +50247,24 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "duration": 8,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 3,
+            "duration": 8,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 3,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
             "chance": 1
           }
         ]
@@ -45662,6 +50457,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -45672,6 +50483,22 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
           }
         ]
       },
@@ -45739,6 +50566,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -45749,6 +50587,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 15,
+            "duration": 0,
+            "chance": 1
           }
         ]
       },
@@ -45842,6 +50691,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "start"
+          }
         ]
       },
       "10": {
@@ -45858,6 +50716,15 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 10,
+            "kind": "start"
           }
         ]
       },
@@ -45975,6 +50842,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 5,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onStack"
+          }
         ]
       },
       "10": {
@@ -45990,6 +50867,16 @@ const SKILL_TIMING_DATA = {
               8
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 5,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onStack"
           }
         ]
       },
@@ -46067,6 +50954,32 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "number": 10,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onAttach+onStack",
+              "check",
+              "onAttach+onStack"
+            ],
+            "number": 10,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -46091,6 +51004,32 @@ const SKILL_TIMING_DATA = {
               0.06
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onAttach+onStack"
+            ],
+            "number": 10,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onAttach+onStack",
+              "check",
+              "onAttach+onStack"
+            ],
+            "number": 10,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -46162,7 +51101,16 @@ const SKILL_TIMING_DATA = {
           "permanent",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 7,
+            "duration": 20,
+            "kind": "start"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -46170,7 +51118,16 @@ const SKILL_TIMING_DATA = {
           "permanent",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 7,
+            "duration": 20,
+            "kind": "start"
+          }
+        ]
       },
       "max": 10,
       "id": 150000
@@ -46200,6 +51157,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 7,
+            "duration": 20,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -46223,6 +51190,16 @@ const SKILL_TIMING_DATA = {
               15,
               0.15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 7,
+            "duration": 20,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -47082,6 +52059,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -47109,6 +52096,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               30
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -47296,6 +52293,28 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.03,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -47315,6 +52334,28 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.03,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.06,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -47346,6 +52387,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onStack"
+          }
         ]
       },
       "10": {
@@ -47358,6 +52408,15 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onStack"
           }
         ]
       },
@@ -47742,6 +52801,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -47759,6 +52827,15 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "count"
           }
         ]
       },
@@ -47806,10 +52883,30 @@ const SKILL_TIMING_DATA = {
     },
     "Three-Tranquilities Formation": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 150500
@@ -47888,6 +52985,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -47903,6 +53016,22 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
           }
         ]
       },
@@ -47924,6 +53053,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -47939,6 +53084,22 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
           }
         ]
       },
@@ -48082,7 +53243,7 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "conditional:missing",
-          "conditional:onStack+onTakeDamage"
+          "permanent"
         ],
         "barrage": true,
         "effects": [
@@ -48093,6 +53254,41 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove",
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -48100,7 +53296,7 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "conditional:missing",
-          "conditional:onStack+onTakeDamage"
+          "permanent"
         ],
         "barrage": true,
         "effects": [
@@ -48108,6 +53304,41 @@ const SKILL_TIMING_DATA = {
             "values": [
               0.001
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.03,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove",
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.03,
+            "duration": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -48122,7 +53353,7 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "conditional:missing",
-          "conditional:onStack+onTakeDamage"
+          "permanent"
         ],
         "barrage": true,
         "effects": [
@@ -48133,6 +53364,41 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove",
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -48140,7 +53406,7 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "conditional:missing",
-          "conditional:onStack+onTakeDamage"
+          "permanent"
         ],
         "barrage": true,
         "effects": [
@@ -48148,6 +53414,41 @@ const SKILL_TIMING_DATA = {
             "values": [
               0.001
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.03,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove",
+              "check",
+              "onRemove"
+            ],
+            "casterMaxHP": 0.03,
+            "duration": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -48184,6 +53485,21 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTakeDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTakeDamage",
+              "count",
+              "onAttach+onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onTakeDamage"
+          }
         ]
       },
       "10": {
@@ -48199,6 +53515,21 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "onTakeDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTakeDamage",
+              "count",
+              "onAttach+onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "onTakeDamage"
           }
@@ -48224,6 +53555,21 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTakeDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTakeDamage",
+              "count",
+              "onAttach+onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onTakeDamage"
+          }
         ]
       },
       "10": {
@@ -48239,6 +53585,21 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "onTakeDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onTakeDamage",
+              "count",
+              "onAttach+onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "onTakeDamage"
           }
@@ -48410,6 +53771,17 @@ const SKILL_TIMING_DATA = {
             "duration": 15,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.04,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -48443,6 +53815,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 30,
             "duration": 15,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.04,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
             "chance": 1
           }
         ]
@@ -48484,6 +53867,17 @@ const SKILL_TIMING_DATA = {
             "duration": 15,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.04,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -48517,6 +53911,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 30,
             "duration": 15,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.04,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
             "chance": 1
           }
         ]
@@ -48644,6 +54049,20 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onSubmarineRaid",
+              "onUpdate"
+            ],
+            "quota": 3,
+            "maxHP": 0.045,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -48655,6 +54074,20 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onSubmarineRaid",
+              "onUpdate"
+            ],
+            "quota": 3,
+            "maxHP": 0.12,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -49095,6 +54528,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 6,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -49109,6 +54553,17 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
           }
         ]
       },
@@ -49181,8 +54636,8 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -49206,14 +54661,41 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.01,
+            "duration": 15,
+            "kind": "start"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "duration": 15,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "wall",
+            "target": "vanguard",
+            "quota": 1,
+            "bullets": 10,
+            "duration": 15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -49234,6 +54716,33 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.05,
+            "duration": 15,
+            "kind": "start"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "duration": 15,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "wall",
+            "target": "vanguard",
+            "quota": 1,
+            "bullets": 10,
+            "duration": 15,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -49291,6 +54800,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -49301,6 +54820,16 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -49349,6 +54878,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -49380,6 +54920,17 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
           }
         ]
       },
@@ -49638,6 +55189,35 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onStack"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "events": [
+              "onBattleBuffCount",
+              "onStack",
+              "onAttach+onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBattleBuffCount"
+          },
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "events": [
+              "onStack",
+              "onAttach+onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onStack"
+          }
         ]
       },
       "10": {
@@ -49672,6 +55252,35 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onStack"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "events": [
+              "onBattleBuffCount",
+              "onStack",
+              "onAttach+onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBattleBuffCount"
+          },
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "events": [
+              "onStack",
+              "onAttach+onStack",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onStack"
+          }
         ]
       },
       "max": 10,
@@ -49697,6 +55306,31 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onAttach+onStack"
+            ],
+            "quota": 1,
+            "casterMaxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -49715,6 +55349,31 @@ const SKILL_TIMING_DATA = {
             "values": [
               20
             ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onAttach+onStack"
+            ],
+            "quota": 1,
+            "casterMaxHP": 0.02,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
@@ -49800,6 +55459,31 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onSubmarineRaid",
+              "check"
+            ],
+            "maxHP": -0.03,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onSubmarineRaid",
+              "check"
+            ],
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -49820,6 +55504,31 @@ const SKILL_TIMING_DATA = {
               25,
               0.25
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onSubmarineRaid",
+              "check"
+            ],
+            "maxHP": -0.03,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onSubmarineRaid",
+              "check"
+            ],
+            "quota": 1,
+            "maxHP": 0.25,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -49894,6 +55603,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -49908,6 +55626,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "count"
           }
@@ -49931,7 +55658,7 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
+          "periodic",
           "permanent",
           "start"
         ],
@@ -49951,12 +55678,24 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 30
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.01,
+            "duration": 0,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
+          "periodic",
           "permanent",
           "start"
         ],
@@ -49975,6 +55714,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 30
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.03,
+            "duration": 0,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
           }
         ]
       },
@@ -50375,6 +56126,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -50389,6 +56159,25 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -50458,6 +56247,27 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "events": [
+              "check",
+              "onRemove",
+              "check"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -50474,6 +56284,27 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "events": [
+              "check",
+              "onRemove",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -50505,6 +56336,23 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
         ]
       },
       "10": {
@@ -50519,6 +56367,23 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
           }
         ]
       },
@@ -50682,6 +56547,19 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -50693,6 +56571,19 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponFire",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
           }
         ]
       },
@@ -50926,6 +56817,21 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onUpdate",
+              "check",
+              "onAttach+onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
@@ -50948,6 +56854,21 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onUpdate",
+              "check",
+              "onAttach+onStack"
+            ],
+            "quota": 3,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onUpdate"
           }
         ]
       },
@@ -51274,6 +57195,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.01,
+            "duration": 0,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -51294,6 +57226,17 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.1,
+            "duration": 0,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -51813,6 +57756,14 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -51830,6 +57781,14 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.1,
             "kind": "permanent"
           }
         ]
@@ -52542,6 +58501,20 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponReady",
+              "onSink",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponReady"
+          }
         ]
       },
       "10": {
@@ -52564,6 +58537,20 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponReady",
+              "onSink",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponReady"
           }
         ]
       },
@@ -52592,6 +58579,20 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponReady",
+              "onSink",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponReady"
+          }
         ]
       },
       "10": {
@@ -52614,6 +58615,20 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onChargeWeaponReady",
+              "onSink",
+              "onAttach+onStack"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponReady"
           }
         ]
       },
@@ -52678,8 +58693,8 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:onBeforeFatalDamage",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -52712,14 +58727,30 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 30,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:onBeforeFatalDamage",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -52749,6 +58780,22 @@ const SKILL_TIMING_DATA = {
               15,
               0.15
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.15,
+            "duration": 30,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -52762,8 +58809,8 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:onBeforeFatalDamage",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -52796,14 +58843,30 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "duration": 30,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:onBeforeFatalDamage",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -52833,6 +58896,22 @@ const SKILL_TIMING_DATA = {
               15,
               0.15
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.15,
+            "duration": 30,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -52887,6 +58966,32 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -52901,6 +59006,32 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
@@ -52925,6 +59056,32 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -52939,6 +59096,32 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onChargeWeaponFire",
+              "onChargeWeaponFire"
+            ],
+            "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
@@ -53036,6 +59219,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.045,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -53059,6 +59252,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.12,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -53077,20 +59280,56 @@ const SKILL_TIMING_DATA = {
     },
     "Horror From the Deeps": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
+        ]
       },
       "max": 10,
       "id": 151700
     },
     "Horror From the Deeps+": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
+        ]
       },
       "max": 10,
       "id": 151700
@@ -53367,6 +59606,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAirAssistReady"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 4,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -53389,6 +59638,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAirAssistReady"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 4,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
           }
         ]
       },
@@ -53438,6 +59697,30 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -53449,6 +59732,30 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-main",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAttach+onStack"
+            ],
+            "casterMaxHP": 0.08,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
@@ -53714,6 +60021,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
@@ -53729,6 +60046,16 @@ const SKILL_TIMING_DATA = {
               20,
               0.2
             ],
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "onUpdate"
           }
@@ -53782,14 +60109,36 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 152050
@@ -53808,11 +60157,85 @@ const SKILL_TIMING_DATA = {
     "Pain, Pain, Fly Away": {
       "1": {
         "kind": "conditional",
-        "trigger": "check"
+        "trigger": "check",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "number": -1,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "check"
+        "trigger": "check",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "number": -1,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove"
+            ],
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 152020
@@ -53886,7 +60309,6 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onAttach+onTakeDamage",
           "conditional:onBeforeFatalDamage",
           "start"
         ],
@@ -53906,12 +60328,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onAttach+onTakeDamage",
           "conditional:onBeforeFatalDamage",
           "start"
         ],
@@ -53930,6 +60367,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -54372,6 +60825,23 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "number": 1,
+            "currentHP": 0,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onFinishGame"
+          }
         ]
       },
       "10": {
@@ -54404,6 +60874,23 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "number": 1,
+            "currentHP": 0,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onFinishGame"
           }
         ]
       },
@@ -54492,7 +60979,6 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onAttach+onTakeDamage",
           "permanent"
         ],
         "effects": [
@@ -54517,13 +61003,21 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.15,
+            "duration": 0,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onAttach+onTakeDamage",
           "permanent"
         ],
         "effects": [
@@ -54547,6 +61041,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.15,
+            "duration": 0,
+            "kind": "permanent"
           }
         ]
       },
@@ -54627,6 +61130,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -54640,6 +61153,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -54716,6 +61239,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -54727,6 +61260,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -54838,8 +61381,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -54848,13 +61391,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.01,
+            "duration": 15,
+            "kind": "start"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -54862,6 +61414,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.05,
+            "duration": 15,
+            "kind": "start"
           }
         ]
       },
@@ -56197,12 +62758,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "max": 10,
       "id": 106040
@@ -56211,12 +62790,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ]
       },
       "max": 10,
       "id": 106040
@@ -56955,8 +63552,28 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:missing",
           "conditional:onFire",
-          "conditional:onStack+onTakeDamage",
+          "periodic",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "casterMaxHP": 0.03,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 16,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 16,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -56964,8 +63581,28 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:missing",
           "conditional:onFire",
-          "conditional:onStack+onTakeDamage",
+          "periodic",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "casterMaxHP": 0.03,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 16,
+            "chance": 1
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.03,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 16,
+            "chance": 1
+          }
         ]
       },
       "max": 10,
@@ -57035,6 +63672,22 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:onAttach+onStack",
           "conditional:onBattleBuffCount"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "casterMaxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
         ]
       },
       "10": {
@@ -57042,6 +63695,22 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:onAttach+onStack",
           "conditional:onBattleBuffCount"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "casterMaxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAttach+onStack"
+          }
         ]
       },
       "max": 10,
@@ -57258,6 +63927,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 30
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
         ]
       },
       "10": {
@@ -57271,6 +63949,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 30
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onRemove"
           }
         ]
       },
@@ -57457,6 +64144,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "number": 100,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -57467,6 +64163,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               8
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "number": 100,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -57499,6 +64204,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "number": 100,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
         ]
       },
       "10": {
@@ -57509,6 +64223,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               8
             ],
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "number": 100,
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
@@ -57662,13 +64385,47 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 40,
         "duration": 3.5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 40,
         "duration": 3.5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 108030
@@ -57726,6 +64483,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -57745,6 +64515,19 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.02,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -57862,7 +64645,18 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -57870,7 +64664,18 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 10,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 108070
@@ -58017,9 +64822,17 @@ const SKILL_TIMING_DATA = {
   "10086": {
     "Ride the Wind": {
       "1": {
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
         "kind": "barrage"
       },
       "10": {
+        "airstrike": {
+          "requirement": 0,
+          "preload": 1
+        },
         "kind": "barrage"
       },
       "max": 10,
@@ -58039,6 +64852,30 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "quota": 1,
+            "bullets": 15,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady"
+            ],
+            "bullets": 15,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -58051,6 +64888,30 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "quota": 1,
+            "bullets": 15,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady"
+            ],
+            "bullets": 15,
+            "duration": 10,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
@@ -58073,6 +64934,30 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "quota": 1,
+            "bullets": 15,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady"
+            ],
+            "bullets": 15,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -58085,6 +64970,30 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "quota": 1,
+            "bullets": 15,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady"
+            ],
+            "bullets": 15,
+            "duration": 10,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
@@ -58213,6 +65122,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.035,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 1,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -58227,6 +65147,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.08,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 1,
+            "chance": 1
           }
         ]
       },
@@ -58521,10 +65452,82 @@ const SKILL_TIMING_DATA = {
     },
     "Blessed Melody": {
       "1": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.015,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.02,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "quota": 1,
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
-        "kind": "none"
+        "kind": "none",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.05,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.02,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 109060
@@ -58598,6 +65601,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.01,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -58613,6 +65625,15 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.05,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
           }
         ]
       },
@@ -59055,6 +66076,28 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 1,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onRemove",
+              "onUpdate"
+            ],
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
         ]
       },
       "10": {
@@ -59071,6 +66114,28 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 1,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onRemove",
+              "onUpdate"
+            ],
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onRemove"
           }
         ]
       },
@@ -59233,6 +66298,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.12,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -59263,6 +66337,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.12,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
           }
         ]
       },
@@ -59299,6 +66382,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.12,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -59330,6 +66422,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.12,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "max": 10,
@@ -59341,18 +66442,40 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.02,
+            "duration": 3,
+            "kind": "periodic",
+            "period": 25,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.02,
+            "duration": 3,
+            "kind": "periodic",
+            "period": 25,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 110040
@@ -59361,18 +66484,40 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.02,
+            "duration": 3,
+            "kind": "periodic",
+            "period": 25,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onStack+onTakeDamage",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.02,
+            "duration": 3,
+            "kind": "periodic",
+            "period": 25,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 110040
@@ -59584,11 +66729,31 @@ const SKILL_TIMING_DATA = {
     "Frozen Trees in Heavenly Storm": {
       "1": {
         "kind": "conditional",
-        "trigger": "check"
+        "trigger": "check",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "check"
+        "trigger": "check",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 110110
@@ -59751,6 +66916,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "onUpdate"
+          }
         ]
       },
       "10": {
@@ -59771,6 +66946,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "onUpdate"
           }
         ]
       },
@@ -60242,6 +67427,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -60263,6 +67458,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.2,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -60387,6 +67592,18 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -60444,6 +67661,18 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "duration": 10,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
             "chance": 1
           }
         ]
@@ -60524,6 +67753,26 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -60553,6 +67802,26 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.08,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.08,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -60587,6 +67856,23 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -60609,6 +67895,23 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -60641,6 +67944,23 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -60663,6 +67983,23 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -60988,6 +68325,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -61039,6 +68386,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -61769,6 +69126,15 @@ const SKILL_TIMING_DATA = {
             "duration": 6,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
         ]
       },
       "10": {
@@ -61811,6 +69177,15 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 6,
             "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onRemove"
           }
         ]
       },
@@ -62077,6 +69452,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 20,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -62095,6 +69488,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 20,
+            "kind": "start"
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 20,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
           }
         ]
       },
@@ -62226,6 +69637,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -62247,6 +69668,16 @@ const SKILL_TIMING_DATA = {
               6000
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -62503,12 +69934,54 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "maxHP": 0.01,
+            "duration": 6,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAllInStrike",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "vanguard",
+            "maxHP": 0.03,
+            "duration": 6,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAllInStrike",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onAllInStrike"
+          }
+        ]
       },
       "max": 10,
       "id": 115220
@@ -62564,6 +70037,14 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -62575,6 +70056,14 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -62596,6 +70085,14 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -62607,6 +70104,14 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -62650,8 +70155,8 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -62674,14 +70179,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.05,
+            "duration": 20,
+            "kind": "start"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
-          "permanent"
+          "permanent",
+          "start"
         ],
         "effects": [
           {
@@ -62703,6 +70218,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.05,
+            "duration": 20,
+            "kind": "start"
           }
         ]
       },
@@ -62899,6 +70424,35 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -62921,6 +70475,35 @@ const SKILL_TIMING_DATA = {
             "values": [
               5
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.08,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -62953,6 +70536,35 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -62975,6 +70587,35 @@ const SKILL_TIMING_DATA = {
             "values": [
               5
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.02,
+            "kind": "periodic",
+            "period": 10,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "casterMaxHP": 0.08,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -63198,7 +70839,6 @@ const SKILL_TIMING_DATA = {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "permanent"
         ],
         "effects": [
@@ -63216,13 +70856,28 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.035,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
         "kind": "mixed",
         "parts": [
           "conditional:check",
-          "conditional:onStack+onTakeDamage",
           "permanent"
         ],
         "effects": [
@@ -63237,6 +70892,22 @@ const SKILL_TIMING_DATA = {
               5,
               0.05
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "maxHP": 0.08,
+            "duration": 0,
+            "kind": "permanent"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -63603,6 +71274,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -63613,6 +71294,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               30
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -63633,6 +71324,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -63643,6 +71344,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               30
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -63692,11 +71403,37 @@ const SKILL_TIMING_DATA = {
     "Against the Current": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAttach+onHPRatioUpdate"
+        "trigger": "onAttach+onHPRatioUpdate",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAttach+onHPRatioUpdate"
+        "trigger": "onAttach+onHPRatioUpdate",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 19040
@@ -63704,11 +71441,37 @@ const SKILL_TIMING_DATA = {
     "Against the Current+": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAttach+onHPRatioUpdate"
+        "trigger": "onAttach+onHPRatioUpdate",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAttach+onHPRatioUpdate"
+        "trigger": "onAttach+onHPRatioUpdate",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 19040
@@ -64114,13 +71877,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 30,
         "duration": 5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 30,
         "duration": 15,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 19100
@@ -64130,13 +71915,35 @@ const SKILL_TIMING_DATA = {
         "kind": "periodic",
         "period": 30,
         "duration": 5,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 30,
         "duration": 15,
-        "chance": 1
+        "chance": 1,
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 19100
@@ -65244,6 +73051,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -65254,6 +73074,19 @@ const SKILL_TIMING_DATA = {
             "values": [
               30
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.02,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -65274,6 +73107,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -65284,6 +73130,19 @@ const SKILL_TIMING_DATA = {
             "values": [
               30
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "check"
+            ],
+            "maxHP": 0.02,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -65602,6 +73461,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.15,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -65638,6 +73506,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.15,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
           }
         ]
       },
@@ -65680,6 +73557,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.15,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -65716,6 +73602,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.15,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
           }
         ]
       },
@@ -65765,6 +73660,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 15,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -65781,6 +73687,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 8,
+            "kind": "periodic",
+            "period": 15,
+            "chance": 1
           }
         ]
       },
@@ -66217,6 +74134,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.015,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
         ]
       },
       "10": {
@@ -66229,6 +74156,16 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.06,
+            "duration": 5,
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
@@ -66632,6 +74569,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 15
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 3,
+            "duration": 0,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -66655,6 +74601,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 15
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 3,
+            "duration": 0,
+            "kind": "permanent"
           }
         ]
       },
@@ -66684,6 +74639,15 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 15
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 3,
+            "duration": 0,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -66707,6 +74671,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 15
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 3,
+            "duration": 0,
+            "kind": "permanent"
           }
         ]
       },
@@ -66846,6 +74819,18 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -66871,6 +74856,18 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 10,
             "duration": 5,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "periodic",
+            "period": 30,
+            "duration": 0,
             "chance": 1
           }
         ]
@@ -67712,6 +75709,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAntiAirWeaponFireNear",
+              "count"
+            ],
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -67752,6 +75770,27 @@ const SKILL_TIMING_DATA = {
               18,
               0.18
             ],
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAntiAirWeaponFireNear",
+              "count"
+            ],
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.04,
             "kind": "conditional",
             "trigger": "count"
           }
@@ -67802,6 +75841,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAntiAirWeaponFireNear",
+              "count"
+            ],
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -67842,6 +75902,27 @@ const SKILL_TIMING_DATA = {
               18,
               0.18
             ],
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "onAntiAirWeaponFireNear",
+              "count"
+            ],
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear"
+          },
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "quota": 1,
+            "maxHP": 0.04,
             "kind": "conditional",
             "trigger": "count"
           }
@@ -68049,6 +76130,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "start"
+          }
         ]
       },
       "10": {
@@ -68111,6 +76210,24 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 10,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 5,
+            "duration": 5,
+            "kind": "start"
           }
         ]
       },
@@ -68178,6 +76295,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -68218,6 +76346,17 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 8,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 30,
+            "chance": 1
           }
         ]
       },
@@ -68346,6 +76485,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -68366,6 +76515,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -68536,6 +76695,19 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady"
+            ],
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
+          }
         ]
       },
       "10": {
@@ -68565,6 +76737,19 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onAllInStrikeSteady",
+              "onAllInStrikeSteady"
+            ],
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady"
           }
         ]
       },
@@ -68685,6 +76870,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -68701,6 +76902,22 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "count"
           }
         ]
       },
@@ -69415,6 +77632,29 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove",
+              "check"
+            ],
+            "casterMaxHP": 0.01,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.01,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -69443,6 +77683,29 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "self",
+            "events": [
+              "check",
+              "onRemove",
+              "check"
+            ],
+            "casterMaxHP": 0.1,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "shield",
+            "target": "self",
+            "casterMaxHP": 0.1,
+            "duration": 5,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -69665,20 +77928,56 @@ const SKILL_TIMING_DATA = {
     },
     "Ambrosial Arc's Moonhaze": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ]
       },
       "max": 10,
       "id": 19950
     },
     "Ambrosial Arc's Moonhaze+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "count"
+          }
+        ]
       },
       "max": 10,
       "id": 19950
@@ -69958,6 +78257,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -70004,6 +78313,16 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -70070,6 +78389,32 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "events": [
+              "onPointStrike",
+              "onPointStrike"
+            ],
+            "quota": 2,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onPointStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onPointStrike",
+              "onPointStrike"
+            ],
+            "quota": 2,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onPointStrike"
+          }
         ]
       },
       "10": {
@@ -70098,6 +78443,32 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "events": [
+              "onPointStrike",
+              "onPointStrike"
+            ],
+            "quota": 2,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onPointStrike"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "onPointStrike",
+              "onPointStrike"
+            ],
+            "quota": 2,
+            "maxHP": 0.03,
+            "kind": "conditional",
+            "trigger": "onPointStrike"
           }
         ]
       },
@@ -70895,6 +79266,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "quota": 1,
+            "bullets": 10,
+            "duration": 0,
+            "kind": "periodic",
+            "period": 15,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -70923,6 +79306,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "quota": 1,
+            "bullets": 10,
+            "duration": 0,
+            "kind": "periodic",
+            "period": 15,
+            "chance": 1
+          }
         ]
       },
       "max": 10,
@@ -70941,12 +79336,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "check",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "number": -178,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "check",
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "number": -178,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 800380
@@ -71232,6 +79645,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 0,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -71256,6 +79678,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 0,
+            "kind": "permanent"
           }
         ]
       },
@@ -71394,6 +79825,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeHit"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 5,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          }
         ]
       },
       "10": {
@@ -71407,6 +79848,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 5,
             "kind": "conditional",
             "trigger": "onBeHit"
           }
@@ -71488,6 +79939,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          }
         ]
       },
       "10": {
@@ -71502,6 +79963,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 6,
+            "duration": 10,
+            "kind": "conditional",
+            "trigger": "onBeHit"
           }
         ]
       },
@@ -71680,7 +80151,16 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "conditional:count"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -71688,7 +80168,16 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "conditional:count"
         ],
-        "barrage": true
+        "barrage": true,
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ]
       },
       "max": 10,
       "id": 800650
@@ -71709,6 +80198,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.06,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -71725,6 +80223,15 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest-vanguard",
+            "maxHP": 0.06,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
           }
         ]
       },
@@ -71923,6 +80430,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": -0.03,
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
         ]
       },
       "10": {
@@ -71939,6 +80455,15 @@ const SKILL_TIMING_DATA = {
               8,
               0.08
             ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": -0.03,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
@@ -72137,6 +80662,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "number": 500,
+            "kind": "conditional",
+            "trigger": "onSubmarineFloat"
+          }
         ]
       },
       "10": {
@@ -72150,6 +80684,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "number": 500,
+            "kind": "conditional",
+            "trigger": "onSubmarineFloat"
           }
         ]
       },
@@ -72180,6 +80723,39 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onSubmarineRaid",
+              "check",
+              "onAttach+onStack",
+              "check"
+            ],
+            "number": -20,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "events": [
+              "onSubmarineRaid",
+              "onBeforeFatalDamage"
+            ],
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -72204,6 +80780,39 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onSubmarineRaid",
+              "check",
+              "onAttach+onStack",
+              "check"
+            ],
+            "number": -20,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "events": [
+              "onSubmarineRaid",
+              "onBeforeFatalDamage"
+            ],
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onSubmarineRaid"
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
           }
         ]
       },
@@ -72255,6 +80864,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -72266,6 +80885,16 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "quota": 1,
+            "maxHP": 0.2,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -72351,6 +80980,22 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onRemove"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "others",
+            "number": -15,
+            "kind": "start",
+            "duration": 40
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "number": 100,
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
         ]
       },
       "10": {
@@ -72372,6 +81017,22 @@ const SKILL_TIMING_DATA = {
               20,
               0.2
             ],
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "others",
+            "number": -15,
+            "kind": "start",
+            "duration": 40
+          },
+          {
+            "effect": "heal",
+            "target": "fleet",
+            "number": 100,
             "kind": "conditional",
             "trigger": "onRemove"
           }
@@ -72425,6 +81086,15 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -72432,6 +81102,15 @@ const SKILL_TIMING_DATA = {
         "parts": [
           "conditional:check",
           "permanent"
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "maxHP": 0.08,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "max": 10,
@@ -72529,6 +81208,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -72550,6 +81238,15 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.2,
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -73102,10 +81799,34 @@ const SKILL_TIMING_DATA = {
     },
     "Demise's Arrival": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 1,
+            "duration": 0,
+            "chance": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 1,
+            "duration": 0,
+            "chance": 1
+          }
+        ]
       },
       "max": 10,
       "id": 801150
@@ -73142,6 +81863,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.035,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
+          }
         ]
       },
       "10": {
@@ -73165,6 +81895,15 @@ const SKILL_TIMING_DATA = {
               0.06
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "lifesteal",
+            "target": "self",
+            "ratio": 0.08,
+            "kind": "conditional",
+            "trigger": "onBulletHit"
           }
         ]
       },
@@ -73259,6 +81998,29 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onBattleBuffCount",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -73274,6 +82036,29 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "events": [
+              "check",
+              "onBattleBuffCount",
+              "onAttach+onStack"
+            ],
+            "quota": 5,
+            "maxHP": 0.02,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -73478,6 +82263,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
         ]
       },
       "10": {
@@ -73492,6 +82286,15 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "onBeforeFatalDamage"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.2,
             "kind": "conditional",
             "trigger": "onBeforeFatalDamage"
           }
@@ -73571,6 +82374,28 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "check",
+              "onRemove",
+              "check"
+            ],
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -73592,6 +82417,28 @@ const SKILL_TIMING_DATA = {
               100,
               1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "vanguard",
+            "events": [
+              "check",
+              "onRemove",
+              "check"
+            ],
+            "maxHP": 0.05,
+            "kind": "conditional",
+            "trigger": "check"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "quota": 1,
+            "maxHP": 0.01,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -73631,6 +82478,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "maxHP": 0.015,
+            "duration": 6,
+            "kind": "conditional",
+            "trigger": "count"
+          }
         ]
       },
       "10": {
@@ -73651,6 +82508,16 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "shield",
+            "target": "restricted",
+            "maxHP": 0.05,
+            "duration": 6,
+            "kind": "conditional",
+            "trigger": "count"
           }
         ]
       },
@@ -73679,6 +82546,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTakeHealing"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onTakeHealing"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onTakeHealing",
+              "onRemove",
+              "onTakeHealing"
+            ],
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onTakeHealing"
+          }
         ]
       },
       "10": {
@@ -73699,6 +82587,27 @@ const SKILL_TIMING_DATA = {
             "values": [
               10
             ],
+            "kind": "conditional",
+            "trigger": "onTakeHealing"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onTakeHealing"
+          },
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "onTakeHealing",
+              "onRemove",
+              "onTakeHealing"
+            ],
+            "maxHP": 0.01,
             "kind": "conditional",
             "trigger": "onTakeHealing"
           }
@@ -73837,6 +82746,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -73870,6 +82789,16 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.08,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -74229,6 +83158,24 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 5
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 5,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 5,
+            "kind": "start"
+          }
         ]
       },
       "10": {
@@ -74276,6 +83223,24 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 15
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 15,
+            "kind": "periodic",
+            "period": 20,
+            "chance": 1
+          },
+          {
+            "effect": "wall",
+            "target": "self",
+            "bullets": 6,
+            "duration": 15,
+            "kind": "start"
+          }
         ]
       },
       "max": 10,
@@ -74295,6 +83260,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 10,
+            "duration": 0,
+            "kind": "permanent"
+          }
         ]
       },
       "10": {
@@ -74308,6 +83282,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               15
             ],
+            "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 10,
+            "duration": 0,
             "kind": "permanent"
           }
         ]
@@ -74368,6 +83351,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.04,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -74396,6 +83389,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -74543,6 +83546,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -74571,6 +83584,16 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.2,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -74675,6 +83698,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 8,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 18,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -74699,6 +83733,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 18,
             "duration": 0,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "restricted",
+            "bullets": 8,
+            "duration": 10,
+            "kind": "periodic",
+            "period": 18,
             "chance": 1
           }
         ]
@@ -74769,6 +83814,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -74783,6 +83838,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.2,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -74982,6 +84047,19 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "count"
+            ],
+            "casterMaxHP": 0.035,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -74999,6 +84077,19 @@ const SKILL_TIMING_DATA = {
               10,
               0.1
             ],
+            "kind": "conditional",
+            "trigger": "check"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "events": [
+              "check",
+              "count"
+            ],
+            "casterMaxHP": 0.08,
             "kind": "conditional",
             "trigger": "check"
           }
@@ -75154,6 +84245,26 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.035,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.035,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -75176,6 +84287,26 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "duration": 8,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "restricted",
+            "maxHP": 0.08,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.08,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
             "chance": 1
           }
         ]
@@ -75265,6 +84396,17 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
+            "chance": 1
+          }
         ]
       },
       "10": {
@@ -75281,6 +84423,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 10,
             "duration": 8,
+            "chance": 1
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.05,
+            "kind": "periodic",
+            "period": 20,
+            "duration": 0,
             "chance": 1
           }
         ]
@@ -75606,6 +84759,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrike"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.15,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -75629,6 +84792,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAllInStrike"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "maxHP": 0.25,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
@@ -75876,6 +85049,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.01,
+            "kind": "conditional",
+            "trigger": "onRemove"
+          }
         ]
       },
       "10": {
@@ -75904,6 +85086,15 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "heal",
+            "target": "lowest",
+            "maxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "onRemove"
           }
         ]
       },
@@ -76081,6 +85272,28 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBeHit",
+              "count"
+            ],
+            "bullets": 3,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
+          }
         ]
       },
       "10": {
@@ -76096,6 +85309,28 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "sustain": [
+          {
+            "effect": "wall",
+            "target": "self",
+            "events": [
+              "onBeHit",
+              "count"
+            ],
+            "bullets": 8,
+            "duration": 8,
+            "kind": "conditional",
+            "trigger": "onBeHit"
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "quota": 1,
+            "casterMaxHP": 0.1,
+            "kind": "conditional",
+            "trigger": "check"
           }
         ]
       },
