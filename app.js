@@ -2048,12 +2048,13 @@ function weaponDamageMultiplier(effective, ship, slotKey, item, armor = targetSt
 // The client's damage formula (battleformulas.lua, CreateContextCalculateDamage) rolls crit and
 // applies DMG Dealt and enemy-tag bonuses on every bullet, special barrages included; only a bonus
 // tied to one weapon ("Main Gun", Super Heavy Shell's index [1]) stays on that weapon.
-function barrageDamageMultiplier(effective, armor) {
+// `extraCrit` is the crit rate the barrage's own bullets get (1 for a guaranteed crit).
+function barrageDamageMultiplier(effective, armor, extraCrit = 0) {
   if (!effective) return 1;
-  return damageMultiplier(effective, armor, source => !source || source.toLowerCase().split(/,|\band\b/).some(part => part.trim() === "barrage"));
+  return damageMultiplier(effective, armor, source => !source || source.toLowerCase().split(/,|\band\b/).some(part => part.trim() === "barrage"), extraCrit);
 }
 
-function damageMultiplier(effective, armor, sourceApplies) {
+function damageMultiplier(effective, armor, sourceApplies, extraCrit = 0) {
   let critRateBonus = 0;
   let critDamageBonus = 0;
   let damageDealtBonus = 0;
@@ -2070,7 +2071,8 @@ function damageMultiplier(effective, armor, sourceApplies) {
     0.05 +
     accuracy / (accuracy + targetStats().eva + 2000) +
     (luck - targetStats().luck) / 5000 +
-    critRateBonus / 100
+    critRateBonus / 100 +
+    extraCrit
   ));
   const criticalModifier = 1 + critRate * (0.5 + critDamageBonus / 100);
   const damageDealtModifier = 1 + damageDealtBonus / 100;
@@ -2737,8 +2739,10 @@ function timedBarrageDps(ship, effective, level, armor) {
     const barrage = fires.length ? skillBarrage(ship, skill, level, armor) : null;
     if (!barrage || (barrage.qualified && fires.length > 1)) continue;
     cycles = cycles || weaponCycles(ship, effective);
-    const count = fires.reduce((sum, fire) => sum + fireCount(fire, fight, cycles), 0);
-    if (count > 0) total += count * volleyBarrageDamage(barrage, effective, null, armor);
+    for (const fire of fires) {
+      const count = fireCount(fire, fight, cycles);
+      if (count > 0) total += count * volleyBarrageDamage({ ...barrage, crit: fire.crit }, effective, null, armor);
+    }
   }
   return total / fight;
 }
@@ -2772,7 +2776,7 @@ function volleyBarrageDamage(barrage, effective, item, armor = targetStats().arm
     const stat = (entry ? entry.value : 0) + (item ? itemStatBonus(item, term.stat) : 0);
     total += term.damage * (1 + term.multiplier * stat / 100);
   }
-  return total * barrageDamageMultiplier(effective, armor);
+  return total * barrageDamageMultiplier(effective, armor, barrage.crit || 0);
 }
 
 function findEquipmentByName(name) {

@@ -6011,7 +6011,11 @@ without one (QE) outranked the ships whose damage is mostly barrage.
 - **Not counted**: submarine triggers (raid, surfacing), All-Out Assault-triggered barrages
   (`onAllInStrike` on a surface ship), HP-threshold and hit-triggered ones, "+" skills linked to
   their base skill's game id (Avrora's Revolyutsiya+), and Warspite's +130% on her first
-  barrage. Guaranteed crits are not modelled (barrages roll the ship's crit, as before).
+  barrage.
+- **Barrage crit from the game**: a `cri` bullet buff cast within the activation is the barrage's
+  own crit rate (`crit` on the fire; 23 schedules: 1 for New Jersey's and Warspite's guaranteed
+  crits, 0.5 for Musashi's "50% increased Crit Rate"), added to the ship's in
+  `barrageDamageMultiplier`. New Jersey 5468 -> 6124, Musashi 5006 -> 5258, Warspite 4825 -> 4926.
 - **Measured** (lv125, Recommended, UR, no boss, 60s): 310 ships gain barrage DPS. New Jersey
   3889 -> 5468, Musashi 3940 -> 5006, Colorado 3510 -> 5137, Queen Elizabeth unchanged at 4148
   (no barrage). Hand-checked against the texts: New Jersey (10s + every salvo), Musashi, Warspite

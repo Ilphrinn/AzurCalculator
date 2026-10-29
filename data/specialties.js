@@ -1008,6 +1008,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "678": [
+    "mob",
     "tank",
     "shield"
   ],
@@ -1240,8 +1241,7 @@ const SPECIALTIES_DATA = {
     "heal"
   ],
   "10121": [
-    "boss",
-    "mob"
+    "boss"
   ],
   "10122": [
     "air"

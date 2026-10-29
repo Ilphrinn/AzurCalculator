@@ -198,10 +198,11 @@ class FireSchedule {
     return args.skill_id ? ["skill", args.skill_id] : args.buff_id ? ["buff", args.buff_id] : null;
   }
 
-  // The chance that casting this target now fires a barrage, through immediate triggers only, and
-  // the weapons it fires (a recon flight or a gun emitter is told apart from the barrage by them).
+  // The chance that casting this target now fires a barrage, through immediate triggers only, the
+  // weapons it fires (a recon flight or a gun emitter is told apart from the barrage by them) and
+  // the crit rate its bullets get (New Jersey's guaranteed crits are a `cri` bullet buff).
   reaches(target, depth = 0, seen = new Set()) {
-    const none = { chance: 0, weapons: [] };
+    const none = { chance: 0, weapons: [], crit: 0 };
     const key = target.join("_");
     if (depth > 10 || seen.has(key)) return none;
     seen.add(key);
@@ -210,24 +211,29 @@ class FireSchedule {
       const skill = atLevel(this.tables.skills[`skill_${target[1]}`], this.level);
       for (const entry of list(skill && skill.effect_list)) {
         const args = entry.arg_list || {};
-        if (entry.type === "BattleSkillFire") found.push({ chance: 1, weapons: [args.weapon_id] });
+        if (entry.type === "BattleSkillFire") found.push({ chance: 1, weapons: [args.weapon_id], crit: 0 });
         else if (entry.type === "BattleSkillAddBuff" && args.buff_id) found.push(this.reaches(["buff", args.buff_id], depth + 1, seen));
       }
     } else {
       const buff = atLevel(this.tables.buffs[`buff_${target[1]}`], this.level);
       for (const effect of list(buff && buff.effect_list)) {
         const args = effect.arg_list || {};
+        if (effect.type === "BattleBuffAddBulletAttr" && args.attr === "cri" && (effect.trigger || []).includes("onBulletCreate")) {
+          found.push({ chance: 0, weapons: [], crit: args.number });
+          continue;
+        }
         const next = FireSchedule.next(args);
         if (!next || !FIRE_IMMEDIATE.has((effect.trigger || []).join("+")) || !FireSchedule.isStatic(args)) continue;
         const inner = this.reaches(next, depth + 1, seen);
-        found.push({ chance: (args.rant || 10000) / 10000 * inner.chance, weapons: inner.weapons });
+        found.push({ chance: (args.rant || 10000) / 10000 * inner.chance, weapons: inner.weapons, crit: inner.crit });
       }
     }
     const hits = found.filter(f => f.chance > 0);
-    if (!hits.length) return none;
+    if (!hits.length) return { ...none, crit: Math.max(0, ...found.map(f => f.crit)) };
     return {
       chance: Math.max(...hits.map(f => f.chance)),
-      weapons: [...new Set(hits.flatMap(f => f.weapons))].filter(w => w !== undefined).sort((a, b) => a - b)
+      weapons: [...new Set(hits.flatMap(f => f.weapons))].filter(w => w !== undefined).sort((a, b) => a - b),
+      crit: Math.max(0, ...found.map(f => f.crit))
     };
   }
 
@@ -275,7 +281,7 @@ class FireSchedule {
       }
       const reach = this.reaches(target);
       if (!reach.chance) continue;
-      const fire = { ...when, chance: round(odds * reach.chance), weapons: reach.weapons, ...(until !== null && !when.on ? { until: round(until) } : {}), ...(args.quota ? { quota: args.quota } : {}) };
+      const fire = { ...when, chance: round(odds * reach.chance), weapons: reach.weapons, ...(reach.crit ? { crit: round(reach.crit) } : {}), ...(until !== null && !when.on ? { until: round(until) } : {}), ...(args.quota ? { quota: args.quota } : {}) };
       // Re-adding a live buff only refreshes it, so its onAttach cast waits for it to expire.
       if (when.on && added && added.time > 0) fire.cooldown = added.time;
       if (!this.out.some(other => JSON.stringify(other) === JSON.stringify(fire))) this.out.push(fire);

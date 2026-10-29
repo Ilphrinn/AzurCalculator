@@ -4562,6 +4562,7 @@ const SKILL_TIMING_DATA = {
               64211,
               65971
             ],
+            "crit": 1,
             "quota": 1
           },
           {
@@ -4572,6 +4573,7 @@ const SKILL_TIMING_DATA = {
               64211,
               65971
             ],
+            "crit": 1,
             "cooldown": 8
           }
         ]
@@ -4611,6 +4613,7 @@ const SKILL_TIMING_DATA = {
               64220,
               65980
             ],
+            "crit": 1,
             "quota": 1
           },
           {
@@ -4621,6 +4624,7 @@ const SKILL_TIMING_DATA = {
               64220,
               65980
             ],
+            "crit": 1,
             "cooldown": 8
           }
         ]
@@ -9155,7 +9159,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66021
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -9183,7 +9188,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66030
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -9215,7 +9221,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66021
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -9243,7 +9250,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66030
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -9294,6 +9302,7 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67881
             ],
+            "crit": 1,
             "until": 15
           },
           {
@@ -9302,7 +9311,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67881
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -9349,6 +9359,7 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67890
             ],
+            "crit": 1,
             "until": 15
           },
           {
@@ -9357,7 +9368,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67890
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -9430,6 +9442,7 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168121
             ],
+            "crit": 1,
             "quota": 1
           },
           {
@@ -9438,7 +9451,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168121
-            ]
+            ],
+            "crit": 1
           },
           {
             "first": 5,
@@ -9516,6 +9530,7 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168130
             ],
+            "crit": 1,
             "quota": 1
           },
           {
@@ -9524,7 +9539,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168130
-            ]
+            ],
+            "crit": 1
           },
           {
             "first": 5,
@@ -9786,6 +9802,7 @@ const SKILL_TIMING_DATA = {
               68431,
               68481
             ],
+            "crit": 0.1,
             "quota": 1
           }
         ]
@@ -9832,6 +9849,7 @@ const SKILL_TIMING_DATA = {
               68440,
               68490
             ],
+            "crit": 0.2,
             "quota": 1
           }
         ]
@@ -15880,6 +15898,7 @@ const SKILL_TIMING_DATA = {
               62901,
               62911
             ],
+            "crit": 0.5,
             "cooldown": 2
           }
         ]
@@ -15908,6 +15927,7 @@ const SKILL_TIMING_DATA = {
               62910,
               62920
             ],
+            "crit": 0.5,
             "cooldown": 2
           }
         ]
@@ -17703,7 +17723,8 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67061,
               67081
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -17743,7 +17764,8 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67070,
               67090
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -18817,7 +18839,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66181
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -18845,7 +18868,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66190
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -18877,7 +18901,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66181
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -18905,7 +18930,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66190
-            ]
+            ],
+            "crit": 1
           }
         ]
       },
@@ -43875,7 +43901,8 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63571,
               63581
-            ]
+            ],
+            "crit": 0.05
           }
         ]
       },
@@ -43922,7 +43949,8 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63580,
               63590
-            ]
+            ],
+            "crit": 0.15
           }
         ]
       },
@@ -62267,6 +62295,7 @@ const SKILL_TIMING_DATA = {
               167141,
               167151
             ],
+            "crit": 0.01,
             "until": 0.5
           }
         ]
@@ -62322,6 +62351,7 @@ const SKILL_TIMING_DATA = {
               167150,
               167160
             ],
+            "crit": 0.1,
             "until": 0.5
           }
         ]
@@ -62505,7 +62535,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167281
-            ]
+            ],
+            "crit": 0.1
           },
           {
             "first": 15,
@@ -62513,7 +62544,8 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               167281
-            ]
+            ],
+            "crit": 0.1
           }
         ]
       },
@@ -62549,7 +62581,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167281
-            ]
+            ],
+            "crit": 0.1
           },
           {
             "first": 15,
@@ -62557,7 +62590,8 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               167281
-            ]
+            ],
+            "crit": 0.1
           }
         ]
       },
@@ -62789,6 +62823,7 @@ const SKILL_TIMING_DATA = {
               167431,
               167441
             ],
+            "crit": 0.5,
             "cooldown": 5
           }
         ]
@@ -62847,6 +62882,7 @@ const SKILL_TIMING_DATA = {
               167440,
               167450
             ],
+            "crit": 0.5,
             "cooldown": 5
           }
         ]
@@ -77861,7 +77897,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167931
-            ]
+            ],
+            "crit": 0.05
           }
         ]
       },
@@ -77903,7 +77940,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167940
-            ]
+            ],
+            "crit": 0.15
           }
         ]
       },
@@ -77949,7 +77987,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167931
-            ]
+            ],
+            "crit": 0.05
           }
         ]
       },
@@ -77991,7 +78030,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167940
-            ]
+            ],
+            "crit": 0.15
           }
         ]
       },
@@ -82908,6 +82948,7 @@ const SKILL_TIMING_DATA = {
               68121,
               68141
             ],
+            "crit": 1,
             "cooldown": 5
           }
         ]
@@ -82933,6 +82974,7 @@ const SKILL_TIMING_DATA = {
               68130,
               68150
             ],
+            "crit": 1,
             "cooldown": 5
           }
         ]
@@ -82962,6 +83004,7 @@ const SKILL_TIMING_DATA = {
               68121,
               68141
             ],
+            "crit": 1,
             "cooldown": 5
           }
         ]
@@ -82987,6 +83030,7 @@ const SKILL_TIMING_DATA = {
               68130,
               68150
             ],
+            "crit": 1,
             "cooldown": 5
           }
         ]
@@ -90870,7 +90914,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64821
-            ]
+            ],
+            "crit": 0.012
           }
         ]
       },
@@ -90915,7 +90960,8 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64830
-            ]
+            ],
+            "crit": 0.03
           }
         ]
       },
