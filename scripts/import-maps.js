@@ -9,7 +9,8 @@ const SOURCES = {
   chapters: `${GAME_DATA}/sharecfgdata/chapter_template.json`,
   expeditions: `${GAME_DATA}/sharecfgdata/expedition_data_template.json`,
   dungeons: `${GAME_DATA}/GameCfg/dungeon.json`,
-  enemies: `${GAME_DATA}/ShareCfg/enemy_data_statistics.json`
+  enemies: `${GAME_DATA}/ShareCfg/enemy_data_statistics.json`,
+  buffs: `${GAME_DATA}/GameCfg/buff.json`
 };
 // enemy_data_statistics codes armour 1/2/3, checked on Shiratsuyu (DD) 1, the Anti-Air Ship (CL) 2
 // and Fusou Retrofit (BBV) 3. Hull codes are maps.json's, which import-bosses.js already checked.
@@ -28,7 +29,13 @@ async function load(url) {
 const list = value => Array.isArray(value) ? value : value && typeof value === "object" ? Object.values(value) : [];
 
 (async () => {
-  const [chapters, expeditions, dungeons, enemies] = await Promise.all(Object.values(SOURCES).map(load));
+  const [chapters, expeditions, dungeons, enemies, buffs] = await Promise.all(Object.values(SOURCES).map(load));
+
+  // A buff a wave puts on a spawned enemy can cut the aircraft damage it takes (Anti-Air Ships and
+  // Mass-Produced Akizukis: injureRatioByAir -0.5, the client's x (1 + injureRatioByAir)).
+  const airCutOf = buffList => (buffList || []).reduce((sum, id) => sum + list((buffs[`buff_${id}`] || {}).effect_list)
+    .filter(e => e.type === "BattleBuffAddAttr" && (e.arg_list || {}).attr === "injureRatioByAir")
+    .reduce((s2, e) => s2 + e.arg_list.number, 0), 0);
 
   // An enemy row only overrides its `base` row, which carries the name, hull, armour and nation.
   const enemy = id => enemies[id] && { ...enemies[enemies[id].base], ...enemies[id] };
@@ -47,16 +54,19 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
           const stats = unit && enemy(unit.monsterTemplateID);
           // A negative unit type is a scripted dummy (a 99999 HP "？？？" in 15-x); submarines only take ASW,
           // which the surface figures this mix weighs do not use.
-          if (stats && stats.battle_unit_type >= 0 && !SUBMARINE_HULLS.has(stats.type)) counts.set(unit.monsterTemplateID, (counts.get(unit.monsterTemplateID) || 0) + 1);
+          if (!stats || stats.battle_unit_type < 0 || SUBMARINE_HULLS.has(stats.type)) continue;
+          const key = `${unit.monsterTemplateID}|${airCutOf(unit.buffList)}`;
+          counts.set(key, (counts.get(key) || 0) + 1);
         }
       }
     }
-    const units = [...counts].map(([id, count]) => {
+    const units = [...counts].map(([key, count]) => {
+      const [id, airCut] = key.split("|").map(Number);
       const stats = enemy(id);
       const armor = ARMOR[stats.armor_type];
       if (!armor) throw new Error(`Unknown armour code ${stats.armor_type} on enemy ${id}.`);
       return {
-        name: stats.name.trim(), hull: HULL[stats.type] || null, armor, count, hp: hpAt(stats, expedition.level), aa: aaAt(stats, expedition.level),
+        name: stats.name.trim(), hull: HULL[stats.type] || null, armor, count, hp: hpAt(stats, expedition.level), aa: aaAt(stats, expedition.level), airCut,
         hit: stats.hit, eva: stats.dodge, luck: stats.luck, siren: stats.nationality === SIREN_NATION
       };
     });
@@ -90,7 +100,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         hpByArmor[unit.armor] += hp;
         totalHp += hp;
         for (const key of Object.keys(weighted)) weighted[key] += hp * unit[key];
-        airTime += hp / Math.min(150 / (150 + unit.aa), 1);
+        airTime += hp / (Math.min(150 / (150 + unit.aa), 1) * Math.max(0, 1 + unit.airCut));
       }
     }
     const round = (value, places) => Math.round(value * 10 ** places) / 10 ** places;

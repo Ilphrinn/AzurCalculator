@@ -2083,12 +2083,12 @@ function targetStats() {
   return targetBoss || REFERENCE_TARGET;
 }
 
-// The target's AA cuts aircraft damage: x min(150 / (150 + AA), 1) (client battleformulas.lua,
-// CreateContextCalculateDamage, DRATE[7] = 150). A mob target carries its HP-weighted figure.
-function targetAirModifier() {
-  const target = targetStats();
+// The target's AA cuts aircraft damage: x min(150 / (150 + AA), 1), then x (1 + injureRatioByAir)
+// from its buffs (client battleformulas.lua, CreateContextCalculateDamage, DRATE[7] = 150). A mob
+// target carries its HP-weighted figure.
+function targetAirModifier(target = targetStats()) {
   if (typeof target.airModifier === "number") return target.airModifier;
-  return Math.min(150 / (150 + (target.aa || 0)), 1);
+  return Math.min(150 / (150 + (target.aa || 0)), 1) * Math.max(0, 1 + (target.airCut || 0));
 }
 
 // Bombs and rockets scale with AVI x 0.8, aerial torpedoes and fighter or torpedo bomber rockets
@@ -3642,7 +3642,7 @@ function syncBossOptions() {
 }
 
 function bossSummary(boss) {
-  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck} \u00b7 AA ${boss.aa} (aircraft DMG x${Math.min(150 / (150 + boss.aa), 1).toFixed(2)}) \u00b7 ${boss.timeLimit}s`;
+  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck} \u00b7 AA ${boss.aa} (aircraft DMG x${targetAirModifier(boss).toFixed(2)}) \u00b7 ${boss.timeLimit}s`;
 }
 
 // The Targets tab and the modal's menu set the same boss, so each must show the other's pick.

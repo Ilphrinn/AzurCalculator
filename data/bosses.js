@@ -920,6 +920,7 @@ const BOSSES_DATA = [
     "eva": 0,
     "luck": 99,
     "aa": 600,
+    "airCut": 1,
     "siren": false,
     "timeLimit": 300
   },

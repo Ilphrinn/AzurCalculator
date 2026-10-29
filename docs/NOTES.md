@@ -5931,3 +5931,13 @@ List of Torpedo Bombers) and checked in the client:
 - Not done: "first airstrike" load cuts (Akagi, Kaga...; the timing data cannot tell them from
   permanent ones), AoE of bombs and torpedoes against several mobs, the 0.8 coefficient for
   aircraft special barrages, and AA guns / ASW reload.
+- **Enemy AA re-checked in the client** (the user asked): `battleattr.lua` `SetEnemyAttr` sets
+  antiAirPower = antiaircraft + antiaircraft_growth x (level - 1) / 1000, what `import-maps.js`
+  computes; it is multiplied only in Operation Siren (`SetEnemyWorldEnhance`, the Arbiters).
+  maps.json's `aa` is that attribute (Fusou 14-1: 368 in both). The same client line multiplies
+  by (1 + injureRatioByAir + damageRatioByAir), which the first pass missed: wave buff 8625
+  ("航空减伤50%", injureRatioByAir -0.5) sits on every Anti-Air Ship and Mass-Produced Akizuki in
+  14-16 (14-4 mob factor 0.338 -> 0.324), and Elise (Vacation Lane EX) takes x2 (+1). Both
+  imports now read any spawn or stat buff adding injureRatioByAir (`airCut`), not those ids;
+  no other of the 1329 boss encounters has one. `airResistPierce` (ignore part of the AA) is
+  carried by no buff in the EN tables.

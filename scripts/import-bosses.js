@@ -5,6 +5,14 @@ const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
 
 const SOURCE = "https://azurlane.mrlar.dev/db/static/json/maps.json";
+// The game's own tables, for buffs that change the aircraft damage a boss takes.
+const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
+const GAME_SOURCES = {
+  expeditions: `${GAME_DATA}/sharecfgdata/expedition_data_template.json`,
+  dungeons: `${GAME_DATA}/GameCfg/dungeon.json`,
+  enemies: `${GAME_DATA}/ShareCfg/enemy_data_statistics.json`,
+  buffs: `${GAME_DATA}/GameCfg/buff.json`
+};
 // maps.json codes armour as 0/1/2, checked against known hulls: Shigure (DD) 0, Mogami (CA) 1, Fusou (BB) 2.
 const ARMOR = ["light", "medium", "heavy"];
 // Hull codes checked the same way (Amagi/Dunkerque 4 = BC, Chitose 6 = CVL, Ise 10 = BBV, Ägir 18 = CB).
@@ -21,10 +29,39 @@ function group(mapName) {
   return null;
 }
 
+async function load(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`${url} answered ${response.status}.`);
+  return response.json();
+}
+
+// Waves and their spawns come as arrays or as objects keyed "1", "2"...
+const list = value => Array.isArray(value) ? value : value && typeof value === "object" ? Object.values(value) : [];
+
 (async () => {
-  const response = await fetch(SOURCE);
-  if (!response.ok) throw new Error(`${SOURCE} answered ${response.status}.`);
-  const maps = Object.values(await response.json());
+  const maps = Object.values(await load(SOURCE));
+  const [expeditions, dungeons, enemies, buffs] = await Promise.all(Object.values(GAME_SOURCES).map(load));
+
+  // injureRatioByAir on the boss, from the buffs its wave or its own stats attach (client:
+  // aircraft damage x (1 + injureRatioByAir)); Elise in Vacation Lane EX takes double.
+  const airCutOf = ids => ids.reduce((sum, id) => sum + list((buffs[`buff_${id}`] || {}).effect_list)
+    .filter(e => e.type === "BattleBuffAddAttr" && (e.arg_list || {}).attr === "injureRatioByAir")
+    .reduce((s2, e) => s2 + e.arg_list.number, 0), 0);
+  function bossAirCut(map, bossName) {
+    const expedition = expeditions[map.expo_id];
+    const dungeon = expedition && dungeons[expedition.dungeon_id];
+    for (const stage of list(dungeon && dungeon.stages)) {
+      for (const wave of list(stage.waves)) {
+        for (const unit of [...list(wave.spawn), ...list(wave.reinforcement)]) {
+          const own = unit && enemies[unit.monsterTemplateID];
+          const stats = own && { ...enemies[own.base], ...own };
+          if (!stats || (stats.name || "").trim() !== bossName.trim()) continue;
+          return airCutOf([...(unit.buffList || []), ...(stats.buff_list || []).map(b => b.ID)]);
+        }
+      }
+    }
+    return 0;
+  }
 
   // Event reruns repeat a stage under the same names; the highest id is the latest version.
   const latest = new Map();
@@ -49,6 +86,7 @@ function group(mapName) {
       luck: boss.stats.luck,
       // Anti-air reduces aircraft damage taken: x min(150 / (150 + AA), 1) (client battleformulas.lua).
       aa: boss.stats.aa,
+      ...(bossAirCut(map, boss.name) ? { airCut: bossAirCut(map, boss.name) } : {}),
       // Nationality 99 is the Sirens, which some damage reductions name (the Intel Report auxiliaries).
       siren: boss.nation === 99,
       // The stage's battle time limit in seconds (META Showdown 80, Arbiters 90, campaign 180):
