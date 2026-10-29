@@ -117,7 +117,8 @@ weapon refinement" in the notes). Next:
      +1 score) stand in. mrlar.dev `equipments.json` gives each aux its game skill ids
      (Super Heavy Shell -> 6210); the effects are in the AzurLaneData skill/buff tables above.
   Agreed order: (1) RLD into gun/torpedo DPS + weights - **done 2026-10-28**, see "Live Reload
-  in DPS" in the notes (aircraft/AA/ASW reload still at the catalog's RLD 100); (2) import aux
+  in DPS" in the notes (aircraft done 2026-10-29, "Aircraft damage made reliable"; AA/ASW reload
+  still at the catalog's RLD 100); (2) import aux
   effects from game data, delete the name hacks - **done 2026-10-28**, see "Auxiliary effects
   from game data"; (3) evade procs and damage reduction in eHP - **done 2026-10-28**, see
   "Auxiliary survival effects in eHP". Skill Evasion Rate / DMG Taken buffs stay out of eHP

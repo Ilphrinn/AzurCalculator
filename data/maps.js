@@ -11,6 +11,8 @@ const MAPS_DATA = [
       "hit": 85.8,
       "eva": 62,
       "luck": 7.6,
+      "aa": 305,
+      "airModifier": 0.33,
       "siren": false,
       "hpShare": {
         "light": 0.524,
@@ -78,6 +80,8 @@ const MAPS_DATA = [
       "hit": 101.8,
       "eva": 62.1,
       "luck": 7.9,
+      "aa": 308,
+      "airModifier": 0.327,
       "siren": false,
       "hpShare": {
         "light": 0.519,
@@ -145,6 +149,8 @@ const MAPS_DATA = [
       "hit": 85.3,
       "eva": 61.9,
       "luck": 7.5,
+      "aa": 305,
+      "airModifier": 0.329,
       "siren": false,
       "hpShare": {
         "light": 0.509,
@@ -212,6 +218,8 @@ const MAPS_DATA = [
       "hit": 101.2,
       "eva": 61.9,
       "luck": 7.8,
+      "aa": 308,
+      "airModifier": 0.327,
       "siren": false,
       "hpShare": {
         "light": 0.503,
@@ -279,6 +287,8 @@ const MAPS_DATA = [
       "hit": 82.2,
       "eva": 51.5,
       "luck": 5.6,
+      "aa": 294,
+      "airModifier": 0.338,
       "siren": false,
       "hpShare": {
         "light": 0.497,
@@ -346,6 +356,8 @@ const MAPS_DATA = [
       "hit": 97.3,
       "eva": 51.5,
       "luck": 5.8,
+      "aa": 296,
+      "airModifier": 0.336,
       "siren": false,
       "hpShare": {
         "light": 0.491,
@@ -413,6 +425,8 @@ const MAPS_DATA = [
       "hit": 82,
       "eva": 51.3,
       "luck": 5.5,
+      "aa": 294,
+      "airModifier": 0.338,
       "siren": false,
       "hpShare": {
         "light": 0.491,
@@ -480,6 +494,8 @@ const MAPS_DATA = [
       "hit": 97,
       "eva": 51.3,
       "luck": 5.7,
+      "aa": 296,
+      "airModifier": 0.336,
       "siren": false,
       "hpShare": {
         "light": 0.484,
@@ -547,6 +563,8 @@ const MAPS_DATA = [
       "hit": 88.1,
       "eva": 57.2,
       "luck": 8,
+      "aa": 386,
+      "airModifier": 0.28,
       "siren": false,
       "hpShare": {
         "light": 0.486,
@@ -629,6 +647,8 @@ const MAPS_DATA = [
       "hit": 88.1,
       "eva": 57.1,
       "luck": 8,
+      "aa": 386,
+      "airModifier": 0.28,
       "siren": false,
       "hpShare": {
         "light": 0.484,
@@ -711,6 +731,8 @@ const MAPS_DATA = [
       "hit": 85.6,
       "eva": 49.1,
       "luck": 6,
+      "aa": 394,
+      "airModifier": 0.276,
       "siren": false,
       "hpShare": {
         "light": 0.4,
@@ -793,6 +815,8 @@ const MAPS_DATA = [
       "hit": 85.6,
       "eva": 49.1,
       "luck": 6,
+      "aa": 395,
+      "airModifier": 0.275,
       "siren": false,
       "hpShare": {
         "light": 0.398,
@@ -875,6 +899,8 @@ const MAPS_DATA = [
       "hit": 93.1,
       "eva": 69.9,
       "luck": 8,
+      "aa": 373,
+      "airModifier": 0.287,
       "siren": false,
       "hpShare": {
         "light": 0.418,
@@ -957,6 +983,8 @@ const MAPS_DATA = [
       "hit": 93.3,
       "eva": 70.3,
       "luck": 8,
+      "aa": 373,
+      "airModifier": 0.287,
       "siren": false,
       "hpShare": {
         "light": 0.426,
@@ -1039,6 +1067,8 @@ const MAPS_DATA = [
       "hit": 91.3,
       "eva": 58.3,
       "luck": 7.1,
+      "aa": 384,
+      "airModifier": 0.281,
       "siren": false,
       "hpShare": {
         "light": 0.321,
@@ -1121,6 +1151,8 @@ const MAPS_DATA = [
       "hit": 91.3,
       "eva": 58.3,
       "luck": 7.1,
+      "aa": 384,
+      "airModifier": 0.281,
       "siren": false,
       "hpShare": {
         "light": 0.319,

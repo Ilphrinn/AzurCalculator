@@ -2072,13 +2072,32 @@ function armorDamage(columns, armor) {
 // otherwise a normal, non-scripted value. Average: Hit 110, Evasion 26.25, Luck 39.
 const EHP_REFERENCE_ACCURACY = 110;
 const EHP_REFERENCE_LUCK = 39;
+// The same four bosses' AA (400, 350, 600, 400 on maps.json), for the aircraft damage cut below.
+const REFERENCE_AA = 437.5;
 
 // The boss picked in the Target menu (one BOSSES_DATA row, from mrlar.dev's maps.json), or null
 // for the averaged reference boss above. Armour only applies once a real boss is picked.
 let targetBoss = null;
-const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, armor: null };
+const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, aa: REFERENCE_AA, armor: null };
 function targetStats() {
   return targetBoss || REFERENCE_TARGET;
+}
+
+// The target's AA cuts aircraft damage: x min(150 / (150 + AA), 1) (client battleformulas.lua,
+// CreateContextCalculateDamage, DRATE[7] = 150). A mob target carries its HP-weighted figure.
+function targetAirModifier() {
+  const target = targetStats();
+  if (typeof target.airModifier === "number") return target.airModifier;
+  return Math.min(150 / (150 + (target.aa || 0)), 1);
+}
+
+// Bombs and rockets scale with AVI x 0.8, aerial torpedoes and fighter or torpedo bomber rockets
+// with AVI x 1 (wiki, Damage Calculations, Aircraft Ordnance).
+function aircraftScalingCoefficient(item) {
+  if (item.category === "Torpedo Bomber") return 1;
+  if (item.category === "Fighter") return /Bomb/i.test(item.ordnance || "") ? 0.8 : 1;
+  if (item.category) return 0.8;
+  return /^(?:TB|Ftr) /.test(item.name) ? 1 : 0.8;
 }
 
 // HitRate = 0.1 + Hit/(Hit + Eva + 2) + (AttackerLuck - TargetLuck + LevelDiff)/1000,
@@ -2141,8 +2160,60 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
   const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
   const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
   const damageMultiplier = weaponDamageMultiplier(effective, ship, slotKey, item, armor);
+  if (role.stat === "aviation") {
+    const value = base * mounts * efficiency * (1 + stat * aircraftScalingCoefficient(item) / 100) * damageMultiplier *
+      targetAirModifier() * aircraftCycleFactor(item, ship, effective);
+    return { metric: role.metric, value, unknown: false };
+  }
   const reloadFactor = reloadDpsFactor(item, effectiveReload(effective));
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier * reloadFactor, unknown: false };
+}
+
+// Catalog aircraft DPS is one plane on its own cycle at RLD 100 (RoF x 2.2 + 0.033, wiki List of
+// Torpedo Bombers); the ship launches every plane together on one shared cycle. Averaged over a
+// fight, only the strikes actually launched count: the first one comes a full cycle in, unless
+// a skill preloads it, so a 60s fight on a 25s cycle has two, not 2.4.
+function aircraftCycleFactor(item, ship, effective) {
+  const own = typeof item.reload === "number" ? item.reload * 2.2 + 0.033 : null;
+  const launch = airstrikeCooldown(ship, effective);
+  if (!own || !launch.cycle) return 1;
+  let factor = own / launch.cycle;
+  if (effective.timing === "share") {
+    const fight = fightSeconds();
+    factor *= (launch.preload + Math.floor(fight / launch.cycle)) * launch.cycle / fight;
+  }
+  return factor;
+}
+
+// Airstrike (wiki, Damage Calculations): the planes' cooldown averaged over their count x 2.2 x
+// sqrt(200 / (RLD + 100)) + 0.033, x (1 + the skills' load time change, Perseus +90%); skills can
+// also preload strikes. Built-in planes count only when no catalog plane is equipped: their
+// listed reloads (20-24s for bombers) are unverified against the catalog's. Reads the modal's
+// retrofit state, as the stats do.
+function airstrikeCooldown(ship, effective) {
+  const skillAir = { requirement: 0, preload: 0 };
+  for (const skill of getSkillsForState(ship, retrofitApplied, augmentApplied, fateSimApplied)) {
+    const timing = skillTiming(ship, skill, isSkillAtMaxLevel(skill));
+    if (!timing || !timing.airstrike) continue;
+    skillAir.requirement += timing.airstrike.requirement;
+    skillAir.preload += timing.airstrike.preload;
+  }
+  const planes = { catalog: [0, 0], builtIn: [0, 0] };
+  for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    const item = activeEquipmentForSlot(ship, slotKey, slot);
+    if (!item || !(item.reload > 0)) continue;
+    const role = weaponRole(item);
+    if (!role || role.stat !== "aviation") continue;
+    const bucket = item.category ? planes.catalog : planes.builtIn;
+    bucket[0] += item.reload * (slot.mount || 1);
+    bucket[1] += slot.mount || 1;
+  }
+  const [time, count] = planes.catalog[1] ? planes.catalog : planes.builtIn;
+  const reload = effectiveReload(effective);
+  return {
+    cycle: count ? (time / count * 2.2 * Math.sqrt(200 / (reload + 100)) + 0.033) * (1 + skillAir.requirement) : null,
+    preload: skillAir.preload
+  };
 }
 
 // Catalog DPS assumes Reload 100; the game scales only the reload part of a cycle by
@@ -2893,7 +2964,9 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
   const stat = (entry ? entry.value : 0) + itemStatBonus(item, role.stat);
   const damageMultiplier = ship ? weaponDamageMultiplier(effective, ship, slotKey, item) : 1;
   const reload = effectiveReload(effective) + itemStatBonus(item, "reload");
-  let dps = damage * (slotFactor || 1) * (1 + stat / 100) * damageMultiplier * reloadDpsFactor(item, reload);
+  const aircraft = role.stat === "aviation";
+  const scaling = aircraft ? aircraftScalingCoefficient(item) : 1;
+  let dps = damage * (slotFactor || 1) * (1 + stat * scaling / 100) * damageMultiplier * reloadDpsFactor(item, reload) * (aircraft ? targetAirModifier() : 1);
   if (barragePerVolley) {
     const cycle = weaponCycle(item, reload);
     if (cycle) dps += barragePerVolley / cycle;
@@ -3569,7 +3642,7 @@ function syncBossOptions() {
 }
 
 function bossSummary(boss) {
-  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck} \u00b7 ${boss.timeLimit}s`;
+  return `${boss.hull ? boss.hull + " \u00b7 " : ""}${boss.armor[0].toUpperCase()}${boss.armor.slice(1)} armour \u00b7 Lv.${boss.level} \u00b7 ACC ${boss.hit} \u00b7 EVA ${boss.eva} \u00b7 LCK ${boss.luck} \u00b7 AA ${boss.aa} (aircraft DMG x${Math.min(150 / (150 + boss.aa), 1).toFixed(2)}) \u00b7 ${boss.timeLimit}s`;
 }
 
 // The Targets tab and the modal's menu set the same boss, so each must show the other's pick.
@@ -6506,8 +6579,8 @@ function visibleFleets() {
 // The Mob fleet's target: the map's mob fleets as one enemy whose armour is an HP split
 // (targetCombatMetrics) and whose Hit, Evasion and Luck are HP-weighted means.
 function mobTarget(map) {
-  const { level, hit, eva, luck, siren, timeLimit, hpShare } = map.mobs;
-  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, siren, timeLimit, hpShare };
+  const { level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare } = map.mobs;
+  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare };
 }
 
 // Figures read the target through the targetBoss global, so the Mob fleet's is swapped in and put back.
@@ -6556,37 +6629,20 @@ function airPower(ship, effective) {
 // hit) is listed but not counted.
 const SUSTAIN_CYCLE_TRIGGERS = { onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo" };
 
-// Airstrike (wiki, Damage Calculations): the planes' cooldown averaged over their count, x 2.2 x
-// sqrt(200 / (RLD + 100)) + 0.033, x (1 + the skills' load time change, Perseus +90%); skills
-// can also preload strikes at battle start. Reads the modal's retrofit state, as the stats do.
+// The weapon cycles that heal and shield triggers follow (airstrikeCooldown for the airstrike).
 function weaponCycles(ship, effective) {
   const reload = effectiveReload(effective);
-  const skillAir = { requirement: 0, preload: 0 };
-  for (const skill of getSkillsForState(ship, retrofitApplied, augmentApplied, fateSimApplied)) {
-    const timing = skillTiming(ship, skill, isSkillAtMaxLevel(skill));
-    if (!timing || !timing.airstrike) continue;
-    skillAir.requirement += timing.airstrike.requirement;
-    skillAir.preload += timing.airstrike.preload;
-  }
-  let planeTime = 0;
-  let planes = 0;
+  const launch = airstrikeCooldown(ship, effective);
   let torpedo = null;
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
-    if (!item) continue;
-    const kind = item.category || DEFAULT_PLANE_KINDS[item.name.split(" ")[0]];
-    if (AIR_POWER_WEIGHTS[kind] && item.reload > 0) {
-      planeTime += item.reload * slot.mount;
-      planes += slot.mount;
-    } else if (!torpedo && (/Torpedo$/.test(item.category || "") || item.kind === "torpedo")) {
-      torpedo = weaponCycle(item, reload);
-    }
+    if (item && !torpedo && (/Torpedo$/.test(item.category || "") || item.kind === "torpedo")) torpedo = weaponCycle(item, reload);
   }
   const gunKey = shipGunSlotKeys(ship)[0];
   const gun = gunKey != null && activeEquipmentForSlot(ship, gunKey, ship.equipment[gunKey]);
   return {
-    airstrike: planes ? (planeTime / planes * 2.2 * Math.sqrt(200 / (reload + 100)) + 0.033) * (1 + skillAir.requirement) : null,
-    preload: { airstrike: skillAir.preload },
+    airstrike: launch.cycle,
+    preload: { airstrike: launch.preload },
     mainGun: gun ? weaponCycle(gun, reload) : null,
     torpedo
   };
@@ -6812,10 +6868,10 @@ function createFleetGroup(key, map, figures, sustain) {
   group.appendChild(title);
   let note = "";
   if (key === "mob") {
-    const { level, hit, eva, luck, timeLimit, hpShare, fleets } = map.mobs;
+    const { level, hit, eva, luck, aa, airModifier, timeLimit, hpShare, fleets } = map.mobs;
     note = `Against ${map.map}'s ${fleets.length} kinds of mob fleet, weighted by how often each spawns: level ${level}, ` +
       `HP ${percent(hpShare.light)} light / ${percent(hpShare.medium)} medium / ${percent(hpShare.heavy)} heavy armour ` +
-      `(DPS is the rate that clears that HP), Hit ${hit}, Evasion ${eva}, Luck ${luck}, ${timeLimit}s battles. Enemy submarines are left out.`;
+      `(DPS is the rate that clears that HP), Hit ${hit}, Evasion ${eva}, Luck ${luck}, AA ${aa} (aircraft DMG x${airModifier}), ${timeLimit}s battles. Enemy submarines are left out.`;
   } else if (key === "sub" && map && !map.submarines) {
     note = `${map.map} takes no submarine fleet; it is left out of the Airspace Control.`;
   }

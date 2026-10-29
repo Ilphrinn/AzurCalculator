@@ -34,6 +34,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
   const enemy = id => enemies[id] && { ...enemies[enemies[id].base], ...enemies[id] };
   // Level scaling as the game applies it; it reproduces maps.json's boss HP for 1322 of 1329 bosses.
   const hpAt = (stats, level) => Math.floor(stats.durability + (level - 1) * stats.durability_growth / 1000);
+  const aaAt = (stats, level) => stats.antiaircraft + (level - 1) * stats.antiaircraft_growth / 1000;
 
   function mobFleet(expeditionId, weight) {
     const expedition = expeditions[expeditionId];
@@ -55,7 +56,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
       const armor = ARMOR[stats.armor_type];
       if (!armor) throw new Error(`Unknown armour code ${stats.armor_type} on enemy ${id}.`);
       return {
-        name: stats.name.trim(), hull: HULL[stats.type] || null, armor, count, hp: hpAt(stats, expedition.level),
+        name: stats.name.trim(), hull: HULL[stats.type] || null, armor, count, hp: hpAt(stats, expedition.level), aa: aaAt(stats, expedition.level),
         hit: stats.hit, eva: stats.dodge, luck: stats.luck, siren: stats.nationality === SIREN_NATION
       };
     });
@@ -74,7 +75,10 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
     // A mob fleet counts by how often it spawns (its weight) and each enemy by its share of the HP
     // to clear, since the longer one takes to sink, the longer it shoots back.
     const hpByArmor = { light: 0, medium: 0, heavy: 0 };
-    const weighted = { hit: 0, eva: 0, luck: 0 };
+    const weighted = { hit: 0, eva: 0, luck: 0, aa: 0 };
+    // Aircraft damage x min(150 / (150 + AA), 1) (client battleformulas.lua, DRATE[7]); over a clear
+    // the time is HP / (damage x that factor), so the factors average harmonically by HP.
+    let airTime = 0;
     let totalHp = 0;
     let weightedTime = 0;
     let totalWeight = 0;
@@ -86,6 +90,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         hpByArmor[unit.armor] += hp;
         totalHp += hp;
         for (const key of Object.keys(weighted)) weighted[key] += hp * unit[key];
+        airTime += hp / Math.min(150 / (150 + unit.aa), 1);
       }
     }
     const round = (value, places) => Math.round(value * 10 ** places) / 10 ** places;
@@ -101,6 +106,8 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         hit: round(weighted.hit / totalHp, 1),
         eva: round(weighted.eva / totalHp, 1),
         luck: round(weighted.luck / totalHp, 1),
+        aa: round(weighted.aa / totalHp, 0),
+        airModifier: round(totalHp / airTime, 3),
         siren: fleets.every(fleet => fleet.units.every(unit => unit.siren)),
         hpShare: Object.fromEntries(Object.entries(hpByArmor).map(([armor, hp]) => [armor, round(hp / totalHp, 3)])),
         fleets: fleets.map(({ name, weight, level }) => ({ name, weight, level }))

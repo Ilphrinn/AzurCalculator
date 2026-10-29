@@ -9,6 +9,7 @@ const BOSSES_DATA = [
     "hit": 85,
     "eva": 70,
     "luck": 30,
+    "aa": 368,
     "siren": false,
     "timeLimit": 180
   },
@@ -22,6 +23,7 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 70,
     "luck": 30,
+    "aa": 423,
     "siren": false,
     "timeLimit": 180
   },
@@ -35,6 +37,7 @@ const BOSSES_DATA = [
     "hit": 90,
     "eva": 80,
     "luck": 30,
+    "aa": 386,
     "siren": false,
     "timeLimit": 180
   },
@@ -48,6 +51,7 @@ const BOSSES_DATA = [
     "hit": 112,
     "eva": 80,
     "luck": 30,
+    "aa": 443,
     "siren": false,
     "timeLimit": 180
   },
@@ -61,6 +65,7 @@ const BOSSES_DATA = [
     "hit": 106,
     "eva": 140,
     "luck": 25,
+    "aa": 406,
     "siren": false,
     "timeLimit": 180
   },
@@ -74,6 +79,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 150,
     "luck": 50,
+    "aa": 420,
     "siren": false,
     "timeLimit": 180
   },
@@ -87,6 +93,7 @@ const BOSSES_DATA = [
     "hit": 132,
     "eva": 140,
     "luck": 25,
+    "aa": 466,
     "siren": false,
     "timeLimit": 180
   },
@@ -100,6 +107,7 @@ const BOSSES_DATA = [
     "hit": 137,
     "eva": 150,
     "luck": 50,
+    "aa": 483,
     "siren": false,
     "timeLimit": 180
   },
@@ -113,6 +121,7 @@ const BOSSES_DATA = [
     "hit": 100,
     "eva": 130,
     "luck": 30,
+    "aa": 410,
     "siren": false,
     "timeLimit": 180
   },
@@ -126,6 +135,7 @@ const BOSSES_DATA = [
     "hit": 124,
     "eva": 130,
     "luck": 30,
+    "aa": 471,
     "siren": false,
     "timeLimit": 180
   },
@@ -139,6 +149,7 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 85,
     "luck": 30,
+    "aa": 585,
     "siren": false,
     "timeLimit": 180
   },
@@ -152,6 +163,7 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 85,
     "luck": 30,
+    "aa": 585,
     "siren": false,
     "timeLimit": 180
   },
@@ -165,6 +177,7 @@ const BOSSES_DATA = [
     "hit": 99,
     "eva": 90,
     "luck": 30,
+    "aa": 424,
     "siren": false,
     "timeLimit": 180
   },
@@ -178,6 +191,7 @@ const BOSSES_DATA = [
     "hit": 93,
     "eva": 90,
     "luck": 30,
+    "aa": 404,
     "siren": false,
     "timeLimit": 180
   },
@@ -191,6 +205,7 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 95,
     "luck": 50,
+    "aa": 495,
     "siren": false,
     "timeLimit": 180
   },
@@ -204,6 +219,7 @@ const BOSSES_DATA = [
     "hit": 79,
     "eva": 95,
     "luck": 50,
+    "aa": 495,
     "siren": false,
     "timeLimit": 180
   },
@@ -217,6 +233,7 @@ const BOSSES_DATA = [
     "hit": 86,
     "eva": 100,
     "luck": 50,
+    "aa": 544,
     "siren": false,
     "timeLimit": 180
   },
@@ -230,6 +247,7 @@ const BOSSES_DATA = [
     "hit": 121,
     "eva": 140,
     "luck": 50,
+    "aa": 462,
     "siren": false,
     "timeLimit": 180
   },
@@ -243,6 +261,7 @@ const BOSSES_DATA = [
     "hit": 121,
     "eva": 140,
     "luck": 50,
+    "aa": 462,
     "siren": false,
     "timeLimit": 180
   },
@@ -256,6 +275,7 @@ const BOSSES_DATA = [
     "hit": 86,
     "eva": 100,
     "luck": 50,
+    "aa": 495,
     "siren": false,
     "timeLimit": 180
   },
@@ -269,6 +289,7 @@ const BOSSES_DATA = [
     "hit": 72,
     "eva": 109,
     "luck": 30,
+    "aa": 424,
     "siren": false,
     "timeLimit": 180
   },
@@ -282,6 +303,7 @@ const BOSSES_DATA = [
     "hit": 72,
     "eva": 109,
     "luck": 30,
+    "aa": 424,
     "siren": false,
     "timeLimit": 180
   },
@@ -295,6 +317,7 @@ const BOSSES_DATA = [
     "hit": 72,
     "eva": 109,
     "luck": 50,
+    "aa": 424,
     "siren": false,
     "timeLimit": 180
   },
@@ -308,6 +331,7 @@ const BOSSES_DATA = [
     "hit": 90,
     "eva": 105,
     "luck": 50,
+    "aa": 424,
     "siren": false,
     "timeLimit": 180
   },
@@ -321,6 +345,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 315,
     "siren": false,
     "timeLimit": 80
   },
@@ -334,6 +359,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
+    "aa": 352,
     "siren": false,
     "timeLimit": 80
   },
@@ -347,6 +373,7 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 15,
     "luck": 20,
+    "aa": 396,
     "siren": false,
     "timeLimit": 80
   },
@@ -360,6 +387,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 316,
     "siren": false,
     "timeLimit": 80
   },
@@ -373,6 +401,7 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 25,
     "luck": 20,
+    "aa": 372,
     "siren": false,
     "timeLimit": 80
   },
@@ -386,6 +415,7 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 45,
     "luck": 20,
+    "aa": 396,
     "siren": false,
     "timeLimit": 80
   },
@@ -399,6 +429,7 @@ const BOSSES_DATA = [
     "hit": 100,
     "eva": 15,
     "luck": 20,
+    "aa": 386,
     "siren": false,
     "timeLimit": 80
   },
@@ -412,6 +443,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 350,
     "siren": false,
     "timeLimit": 80
   },
@@ -425,6 +457,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 40,
+    "aa": 305,
     "siren": false,
     "timeLimit": 80
   },
@@ -438,6 +471,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 305,
     "siren": false,
     "timeLimit": 80
   },
@@ -451,6 +485,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 346,
     "siren": false,
     "timeLimit": 80
   },
@@ -464,6 +499,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 317,
     "siren": false,
     "timeLimit": 80
   },
@@ -477,6 +513,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 25,
+    "aa": 372,
     "siren": false,
     "timeLimit": 80
   },
@@ -490,6 +527,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 350,
     "siren": false,
     "timeLimit": 80
   },
@@ -503,6 +541,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
+    "aa": 368,
     "siren": false,
     "timeLimit": 80
   },
@@ -516,6 +555,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
+    "aa": 361,
     "siren": false,
     "timeLimit": 80
   },
@@ -529,6 +569,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 364,
     "siren": false,
     "timeLimit": 90
   },
@@ -542,6 +583,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 350,
     "siren": false,
     "timeLimit": 80
   },
@@ -555,6 +597,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 25,
     "luck": 25,
+    "aa": 372,
     "siren": false,
     "timeLimit": 80
   },
@@ -568,6 +611,7 @@ const BOSSES_DATA = [
     "hit": 105,
     "eva": 30,
     "luck": 20,
+    "aa": 386,
     "siren": false,
     "timeLimit": 80
   },
@@ -581,6 +625,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 346,
     "siren": false,
     "timeLimit": 80
   },
@@ -594,6 +639,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 301,
     "siren": false,
     "timeLimit": 80
   },
@@ -607,6 +653,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 350,
     "siren": false,
     "timeLimit": 80
   },
@@ -620,6 +667,7 @@ const BOSSES_DATA = [
     "hit": 110,
     "eva": 75,
     "luck": 50,
+    "aa": 302,
     "siren": false,
     "timeLimit": 80
   },
@@ -633,6 +681,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 89,
     "luck": 45,
+    "aa": 348,
     "siren": true,
     "timeLimit": 90
   },
@@ -646,6 +695,7 @@ const BOSSES_DATA = [
     "hit": 94,
     "eva": 94,
     "luck": 45,
+    "aa": 481,
     "siren": true,
     "timeLimit": 90
   },
@@ -659,6 +709,7 @@ const BOSSES_DATA = [
     "hit": 78,
     "eva": 74,
     "luck": 45,
+    "aa": 385,
     "siren": true,
     "timeLimit": 90
   },
@@ -672,6 +723,7 @@ const BOSSES_DATA = [
     "hit": 63,
     "eva": 84,
     "luck": 45,
+    "aa": 348,
     "siren": true,
     "timeLimit": 90
   },
@@ -685,6 +737,7 @@ const BOSSES_DATA = [
     "hit": 85,
     "eva": 89,
     "luck": 45,
+    "aa": 481,
     "siren": true,
     "timeLimit": 90
   },
@@ -698,6 +751,7 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 69,
     "luck": 45,
+    "aa": 385,
     "siren": true,
     "timeLimit": 90
   },
@@ -711,6 +765,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -724,6 +779,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 35,
     "luck": 99,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -737,6 +793,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -750,6 +807,7 @@ const BOSSES_DATA = [
     "hit": 80,
     "eva": 50,
     "luck": 50,
+    "aa": 320,
     "siren": false,
     "timeLimit": 60
   },
@@ -763,6 +821,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 666,
     "siren": false,
     "timeLimit": 300
   },
@@ -776,6 +835,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
+    "aa": 440,
     "siren": false,
     "timeLimit": 180
   },
@@ -789,6 +849,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
+    "aa": 400,
     "siren": false,
     "timeLimit": 180
   },
@@ -802,6 +863,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 400,
     "siren": false,
     "timeLimit": 180
   },
@@ -815,6 +877,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 57,
     "luck": 30,
+    "aa": 435,
     "siren": false,
     "timeLimit": 180
   },
@@ -828,6 +891,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 400,
     "siren": false,
     "timeLimit": 180
   },
@@ -841,6 +905,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 666,
     "siren": false,
     "timeLimit": 300
   },
@@ -854,6 +919,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -867,6 +933,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -880,6 +947,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 50,
     "luck": 50,
+    "aa": 320,
     "siren": false,
     "timeLimit": 60
   },
@@ -893,6 +961,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -906,6 +975,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -919,6 +989,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -932,6 +1003,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -945,6 +1017,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": true,
     "timeLimit": 300
   },
@@ -958,6 +1031,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
+    "aa": 400,
     "siren": false,
     "timeLimit": 180
   },
@@ -971,6 +1045,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
+    "aa": 400,
     "siren": false,
     "timeLimit": 180
   },
@@ -984,6 +1059,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 430,
     "siren": false,
     "timeLimit": 180
   },
@@ -997,6 +1073,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 440,
     "siren": false,
     "timeLimit": 180
   },
@@ -1010,6 +1087,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 440,
     "siren": false,
     "timeLimit": 180
   },
@@ -1023,6 +1101,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -1036,6 +1115,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
+    "aa": 400,
     "siren": true,
     "timeLimit": 180
   },
@@ -1049,6 +1129,7 @@ const BOSSES_DATA = [
     "hit": 70,
     "eva": 52,
     "luck": 30,
+    "aa": 400,
     "siren": false,
     "timeLimit": 180
   },
@@ -1062,6 +1143,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 430,
     "siren": false,
     "timeLimit": 180
   },
@@ -1075,6 +1157,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 57,
     "luck": 30,
+    "aa": 435,
     "siren": false,
     "timeLimit": 180
   },
@@ -1088,6 +1171,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 440,
     "siren": true,
     "timeLimit": 180
   },
@@ -1101,6 +1185,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 666,
     "siren": true,
     "timeLimit": 300
   },
@@ -1114,6 +1199,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 50,
     "luck": 50,
+    "aa": 320,
     "siren": false,
     "timeLimit": 60
   },
@@ -1127,6 +1213,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -1140,6 +1227,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 500,
     "siren": true,
     "timeLimit": 300
   },
@@ -1153,6 +1241,7 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 25,
     "luck": 66,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -1166,6 +1255,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -1179,6 +1269,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -1192,6 +1283,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 99,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -1205,6 +1297,7 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 0,
     "luck": 40,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -1218,6 +1311,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 0,
     "luck": 66,
+    "aa": 500,
     "siren": true,
     "timeLimit": 300
   },
@@ -1231,6 +1325,7 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 60,
     "luck": 40,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -1244,6 +1339,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 60,
     "luck": 40,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -1257,6 +1353,7 @@ const BOSSES_DATA = [
     "hit": 120,
     "eva": 20,
     "luck": 66,
+    "aa": 400,
     "siren": true,
     "timeLimit": 300
   },
@@ -1270,6 +1367,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
+    "aa": 800,
     "siren": false,
     "timeLimit": 300
   },
@@ -1283,6 +1381,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
+    "aa": 800,
     "siren": false,
     "timeLimit": 300
   },
@@ -1296,6 +1395,7 @@ const BOSSES_DATA = [
     "hit": 0,
     "eva": 0,
     "luck": 0,
+    "aa": 0,
     "siren": false,
     "timeLimit": 300
   },
@@ -1309,6 +1409,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
+    "aa": 666,
     "siren": false,
     "timeLimit": 300
   },
@@ -1322,6 +1423,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
+    "aa": 680,
     "siren": false,
     "timeLimit": 300
   },
@@ -1335,6 +1437,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 0,
+    "aa": 550,
     "siren": false,
     "timeLimit": 300
   },
@@ -1348,6 +1451,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 39,
     "luck": 0,
+    "aa": 500,
     "siren": true,
     "timeLimit": 300
   },
@@ -1361,6 +1465,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 13,
     "luck": 0,
+    "aa": 700,
     "siren": true,
     "timeLimit": 300
   },
@@ -1374,6 +1479,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 25,
     "luck": 0,
+    "aa": 600,
     "siren": true,
     "timeLimit": 300
   },
@@ -1387,6 +1493,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 25,
     "luck": 0,
+    "aa": 600,
     "siren": true,
     "timeLimit": 300
   },
@@ -1400,6 +1507,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 13,
     "luck": 0,
+    "aa": 600,
     "siren": false,
     "timeLimit": 180
   },
@@ -1413,6 +1521,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 15,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -1426,6 +1535,7 @@ const BOSSES_DATA = [
     "hit": 10040,
     "eva": 24,
     "luck": 33,
+    "aa": 500,
     "siren": false,
     "timeLimit": 180
   },
@@ -1439,6 +1549,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 57,
+    "aa": 600,
     "siren": false,
     "timeLimit": 180
   },
@@ -1452,6 +1563,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 19,
     "luck": 0,
+    "aa": 600,
     "siren": true,
     "timeLimit": 180
   },
@@ -1465,6 +1577,7 @@ const BOSSES_DATA = [
     "hit": 10032,
     "eva": 28,
     "luck": 50,
+    "aa": 500,
     "siren": true,
     "timeLimit": 180
   },
@@ -1478,6 +1591,7 @@ const BOSSES_DATA = [
     "hit": 10025,
     "eva": 19,
     "luck": 0,
+    "aa": 150,
     "siren": false,
     "timeLimit": 180
   },
@@ -1491,6 +1605,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 11,
     "luck": 18,
+    "aa": 235,
     "siren": true,
     "timeLimit": 180
   },
@@ -1504,6 +1619,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 57,
+    "aa": 500,
     "siren": true,
     "timeLimit": 180
   },
@@ -1517,6 +1633,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 57,
+    "aa": 400,
     "siren": true,
     "timeLimit": 180
   },
@@ -1530,6 +1647,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 68,
+    "aa": 500,
     "siren": true,
     "timeLimit": 300
   },
@@ -1543,6 +1661,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 25,
+    "aa": 800,
     "siren": false,
     "timeLimit": 180
   },
@@ -1556,6 +1675,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 1,
+    "aa": 600,
     "siren": false,
     "timeLimit": 180
   },
@@ -1569,6 +1689,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 11,
     "luck": 18,
+    "aa": 250,
     "siren": true,
     "timeLimit": 180
   },
@@ -1582,6 +1703,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 20,
     "luck": 68,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -1595,6 +1717,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 460,
     "siren": false,
     "timeLimit": 180
   },
@@ -1608,6 +1731,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 1,
+    "aa": 600,
     "siren": false,
     "timeLimit": 180
   },
@@ -1621,6 +1745,7 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 30,
     "luck": 51,
+    "aa": 750,
     "siren": true,
     "timeLimit": 180
   },
@@ -1634,6 +1759,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 460,
     "siren": false,
     "timeLimit": 180
   },
@@ -1647,6 +1773,7 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 30,
     "luck": 55,
+    "aa": 600,
     "siren": true,
     "timeLimit": 180
   },
@@ -1660,6 +1787,7 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 41,
     "luck": 50,
+    "aa": 460,
     "siren": false,
     "timeLimit": 180
   },
@@ -1673,6 +1801,7 @@ const BOSSES_DATA = [
     "hit": 10038,
     "eva": 41,
     "luck": 50,
+    "aa": 460,
     "siren": false,
     "timeLimit": 180
   },
@@ -1686,6 +1815,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 19,
     "luck": 78,
+    "aa": 500,
     "siren": true,
     "timeLimit": 180
   },
@@ -1699,6 +1829,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 88,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -1712,6 +1843,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 0,
     "luck": 87,
+    "aa": 500,
     "siren": false,
     "timeLimit": 300
   },
@@ -1725,6 +1857,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 0,
     "luck": 88,
+    "aa": 400,
     "siren": false,
     "timeLimit": 300
   },
@@ -1738,6 +1871,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 200,
     "luck": 50,
+    "aa": 500,
     "siren": false,
     "timeLimit": 180
   },
@@ -1751,6 +1885,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 10,
     "luck": 0,
+    "aa": 500,
     "siren": false,
     "timeLimit": 180
   },
@@ -1764,6 +1899,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 460,
     "siren": false,
     "timeLimit": 180
   },
@@ -1777,6 +1913,7 @@ const BOSSES_DATA = [
     "hit": 9999,
     "eva": 5,
     "luck": 50,
+    "aa": 500,
     "siren": true,
     "timeLimit": 180
   },
@@ -1790,6 +1927,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1803,6 +1941,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1816,6 +1955,7 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 79,
     "luck": 50,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -1829,6 +1969,7 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 79,
     "luck": 50,
+    "aa": 600,
     "siren": false,
     "timeLimit": 300
   },
@@ -1842,6 +1983,7 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 300
   },
@@ -1855,6 +1997,7 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 300
   },
@@ -1868,6 +2011,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1881,6 +2025,7 @@ const BOSSES_DATA = [
     "hit": 10024,
     "eva": 56,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1894,6 +2039,7 @@ const BOSSES_DATA = [
     "hit": 10016,
     "eva": 43,
     "luck": 30,
+    "aa": 460,
     "siren": true,
     "timeLimit": 180
   },
@@ -1907,6 +2053,7 @@ const BOSSES_DATA = [
     "hit": 10021,
     "eva": 52,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1920,6 +2067,7 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1933,6 +2081,7 @@ const BOSSES_DATA = [
     "hit": 10023,
     "eva": 54,
     "luck": 50,
+    "aa": 999,
     "siren": false,
     "timeLimit": 180
   },
@@ -1946,6 +2095,7 @@ const BOSSES_DATA = [
     "hit": 60,
     "eva": 42,
     "luck": 45,
+    "aa": 740,
     "siren": false,
     "timeLimit": 180
   },
@@ -1959,6 +2109,7 @@ const BOSSES_DATA = [
     "hit": 65,
     "eva": 42,
     "luck": 45,
+    "aa": 680,
     "siren": false,
     "timeLimit": 180
   },
@@ -1972,6 +2123,7 @@ const BOSSES_DATA = [
     "hit": 48,
     "eva": 49,
     "luck": 60,
+    "aa": 580,
     "siren": false,
     "timeLimit": 300
   },
@@ -1985,6 +2137,7 @@ const BOSSES_DATA = [
     "hit": 51,
     "eva": 53,
     "luck": 60,
+    "aa": 580,
     "siren": false,
     "timeLimit": 300
   },
@@ -1998,6 +2151,7 @@ const BOSSES_DATA = [
     "hit": 91,
     "eva": 65,
     "luck": 35,
+    "aa": 460,
     "siren": true,
     "timeLimit": 300
   },
@@ -2011,6 +2165,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 460,
     "siren": true,
     "timeLimit": 300
   },
@@ -2024,6 +2179,7 @@ const BOSSES_DATA = [
     "hit": 54,
     "eva": 64,
     "luck": 25,
+    "aa": 285,
     "siren": true,
     "timeLimit": 300
   },
@@ -2037,6 +2193,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 390,
     "siren": true,
     "timeLimit": 300
   },
@@ -2050,6 +2207,7 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
+    "aa": 390,
     "siren": true,
     "timeLimit": 300
   },
@@ -2063,6 +2221,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2076,6 +2235,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 196,
     "siren": false,
     "timeLimit": 600
   },
@@ -2089,6 +2249,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 132,
     "siren": false,
     "timeLimit": 600
   },
@@ -2102,6 +2263,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 280,
     "siren": false,
     "timeLimit": 600
   },
@@ -2115,6 +2277,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2128,6 +2291,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 160,
     "siren": false,
     "timeLimit": 600
   },
@@ -2141,6 +2305,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 380,
     "siren": false,
     "timeLimit": 600
   },
@@ -2154,6 +2319,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 320,
     "siren": false,
     "timeLimit": 600
   },
@@ -2167,6 +2333,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 260,
     "siren": false,
     "timeLimit": 600
   },
@@ -2180,6 +2347,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 400,
     "siren": false,
     "timeLimit": 600
   },
@@ -2193,6 +2361,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 340,
     "siren": false,
     "timeLimit": 600
   },
@@ -2206,6 +2375,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 280,
     "siren": false,
     "timeLimit": 600
   },
@@ -2219,6 +2389,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 440,
     "siren": false,
     "timeLimit": 600
   },
@@ -2232,6 +2403,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 380,
     "siren": false,
     "timeLimit": 600
   },
@@ -2245,6 +2417,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 320,
     "siren": false,
     "timeLimit": 600
   },
@@ -2258,6 +2431,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 320,
     "siren": false,
     "timeLimit": 600
   },
@@ -2271,6 +2445,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 320,
     "siren": false,
     "timeLimit": 600
   },
@@ -2284,6 +2459,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 320,
     "siren": false,
     "timeLimit": 600
   },
@@ -2297,6 +2473,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2310,6 +2487,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2323,6 +2501,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2336,6 +2515,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2349,6 +2529,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2362,6 +2543,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 220,
     "siren": false,
     "timeLimit": 600
   },
@@ -2375,6 +2557,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 210,
     "siren": false,
     "timeLimit": 600
   },
@@ -2388,6 +2571,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 190,
     "siren": false,
     "timeLimit": 600
   },
@@ -2401,6 +2585,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 170,
     "siren": false,
     "timeLimit": 600
   },
@@ -2414,6 +2599,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 100,
+    "aa": 200,
     "siren": false,
     "timeLimit": 600
   },
@@ -2427,6 +2613,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 100,
+    "aa": 180,
     "siren": false,
     "timeLimit": 600
   },
@@ -2440,6 +2627,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 100,
+    "aa": 160,
     "siren": false,
     "timeLimit": 600
   },
@@ -2453,6 +2641,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2466,6 +2655,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2479,6 +2669,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2492,6 +2683,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2505,6 +2697,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2518,6 +2711,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2531,6 +2725,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 300,
     "siren": false,
     "timeLimit": 600
   },
@@ -2544,6 +2739,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 240,
     "siren": false,
     "timeLimit": 600
   },
@@ -2557,6 +2753,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 180,
     "siren": false,
     "timeLimit": 600
   },
@@ -2570,6 +2767,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 310,
     "siren": false,
     "timeLimit": 600
   },
@@ -2583,6 +2781,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 260,
     "siren": false,
     "timeLimit": 600
   },
@@ -2596,6 +2795,7 @@ const BOSSES_DATA = [
     "hit": 150,
     "eva": 100,
     "luck": 0,
+    "aa": 210,
     "siren": false,
     "timeLimit": 600
   },
@@ -2609,6 +2809,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 460,
     "siren": false,
     "timeLimit": 300
   },
@@ -2622,6 +2823,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 460,
     "siren": false,
     "timeLimit": 300
   },
@@ -2635,6 +2837,7 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2648,6 +2851,7 @@ const BOSSES_DATA = [
     "hit": 40,
     "eva": 30,
     "luck": 25,
+    "aa": 320,
     "siren": false,
     "timeLimit": 300
   },
@@ -2661,6 +2865,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2674,6 +2879,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 44,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2687,6 +2893,7 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2700,6 +2907,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2713,6 +2921,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2726,6 +2935,7 @@ const BOSSES_DATA = [
     "hit": 40,
     "eva": 30,
     "luck": 25,
+    "aa": 320,
     "siren": false,
     "timeLimit": 300
   },
@@ -2739,6 +2949,7 @@ const BOSSES_DATA = [
     "hit": 71,
     "eva": 48,
     "luck": 30,
+    "aa": 390,
     "siren": false,
     "timeLimit": 300
   },
@@ -2752,6 +2963,7 @@ const BOSSES_DATA = [
     "hit": 76,
     "eva": 65,
     "luck": 30,
+    "aa": 460,
     "siren": false,
     "timeLimit": 300
   }

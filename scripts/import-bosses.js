@@ -47,6 +47,8 @@ function group(mapName) {
       hit: boss.stats.hit,
       eva: boss.stats.eva,
       luck: boss.stats.luck,
+      // Anti-air reduces aircraft damage taken: x min(150 / (150 + AA), 1) (client battleformulas.lua).
+      aa: boss.stats.aa,
       // Nationality 99 is the Sirens, which some damage reductions name (the Intel Report auxiliaries).
       siren: boss.nation === 99,
       // The stage's battle time limit in seconds (META Showdown 80, Arbiters 90, campaign 180):
@@ -62,7 +64,7 @@ function group(mapName) {
     a.name.localeCompare(b.name)
   );
   for (const boss of bosses) {
-    if (![boss.level, boss.hit, boss.eva, boss.luck, boss.timeLimit].every(Number.isFinite)) throw new Error(`Incomplete stats for ${boss.name}.`);
+    if (![boss.level, boss.hit, boss.eva, boss.luck, boss.aa, boss.timeLimit].every(Number.isFinite)) throw new Error(`Incomplete stats for ${boss.name}.`);
   }
 
   const target = join(__dirname, "..", "data", "bosses.js");

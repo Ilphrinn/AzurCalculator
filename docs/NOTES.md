@@ -5898,3 +5898,36 @@ alternatives per slot "in case"; the Submarine fleet is optimized too. Agreed ob
   Max Immelmann, Impero, Hakuhou, Sub I-404, Minato Aqua, Leonardo da Vinci; air 4611 / 3100.
   "Restore previous fleet" undoes a run. `npm run check` runs `composeFleets` with and without a
   map (roles, no ship twice, finite scores, alternatives outside the fleets).
+
+## Aircraft damage made reliable (2026-10-29)
+
+The user's priority after the optimizer. Three gaps, each from the wiki (Damage Calculations,
+List of Torpedo Bombers) and checked in the client:
+
+- **What the catalog's aircraft DPS is**: one plane at +13 on its own cycle at RLD 100,
+  sum(damage x armour mod) / (RoF x 2.2 + 0.033) (Ryuusei T3: 3 x 307 x 1.1 / (11.37 x 2.2 +
+  0.033) = 40.45, the catalog's figure). So the 2.2 was already in; what was missing:
+- **Target AA** (client `battleformulas.lua`, `CreateContextCalculateDamage`: AIR damage x
+  min(DRATE[7] / (antiAirPower + DRATE[7]), 1), DRATE[7] = 150 in `battlestate.lua`; the wiki's
+  TargetAAModifier). `bosses.js` now carries `aa` from maps.json (re-import changed nothing
+  else; 0 to 999), `maps.js` the mobs' AA (base + growth at level) and `airModifier`, the
+  HP-weighted harmonic mean (a clear time). The reference target takes the AA of its four
+  bosses: 400, 350, 600, 400 -> 437.5, x0.255. Shown in the boss summary and the Mob note.
+- **Bombs scale with AVI x 0.8**, aerial torpedoes and fighter/torpedo bomber rockets x 1
+  (`aircraftScalingCoefficient`: by category and the ordnance text; Skyraider's rockets ride on
+  a dive bomber, 0.8; Spearfish's on a torpedo bomber, 1).
+- **One shared launch cycle** (`airstrikeCooldown`): the planes' cooldown averaged over their
+  count x 2.2 x sqrt(200 / (RLD + 100)) + 0.033, x (1 + skill load time: Perseus), live RLD;
+  each slot's DPS x (its own cycle / the shared one). Built-in planes count only without a
+  catalog plane (their 20-24 s bomber reloads are unverified). Time-weighted figures count the
+  strikes actually launched in the fight, preloads + floor(fight / cycle): 2 in 60 s on a 24 s
+  cycle (x0.8 of the steady rate). The raw figure stays the steady rate, so Perseus reads raw
+  395, average 810 (2 preloads against a 41 s cycle). The per-second chart keeps the steady rate.
+- **Measured** (lv125, Recommended, no boss): Taihou 5715 -> 1131 (raw 1396), Impero 10913 ->
+  2152, Hakuhou 10144 -> 2015; gun ships unchanged. Median CV 5687 -> 1131, CVL 3829 -> 810,
+  BB 2896: the Port's DPS top is now battleships (Warspite, Howe, Alsace...), where it was all
+  carriers. On 14-4 the optimizer keeps two carriers in the Boss fleet for Airspace Control; their
+  battleship alternatives read +8 to +13% but flag the air shortfall.
+- Not done: "first airstrike" load cuts (Akagi, Kaga...; the timing data cannot tell them from
+  permanent ones), AoE of bombs and torpedoes against several mobs, the 0.8 coefficient for
+  aircraft special barrages, and AA guns / ASW reload.
