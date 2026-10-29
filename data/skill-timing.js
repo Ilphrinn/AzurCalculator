@@ -36,6 +36,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61543
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -48,6 +59,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61543
+            ],
+            "quota": 1
+          }
         ]
       },
       "max": 10,
@@ -55,10 +77,30 @@ const SKILL_TIMING_DATA = {
     },
     "Shining Ultra Rainbow Hammer!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61543
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61543
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 9037
@@ -584,6 +626,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              180022
+            ]
+          }
         ]
       },
       "10": {
@@ -629,6 +680,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              180022
+            ]
+          }
         ]
       },
       "max": 10,
@@ -638,12 +698,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "volleys",
         "volleys": 2,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              183001
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "volleys",
         "volleys": 2,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              183010
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 151930
@@ -688,6 +768,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              180021
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -728,6 +819,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              180021
+            ],
+            "quota": 1
           }
         ]
       },
@@ -841,6 +943,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.4,
+            "weapons": [
+              62311,
+              62321
+            ]
+          }
         ]
       },
       "10": {
@@ -869,6 +982,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.2,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.7,
+            "weapons": [
+              62320,
+              62330
+            ]
           }
         ]
       },
@@ -1236,6 +1360,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.4
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66661,
+              66681
+            ]
+          }
         ]
       },
       "10": {
@@ -1253,6 +1388,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              66670,
+              66690
+            ]
           }
         ]
       },
@@ -1307,6 +1453,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              64141
+            ]
+          }
         ]
       },
       "10": {
@@ -1319,6 +1475,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              64150
+            ]
+          }
         ]
       },
       "max": 10,
@@ -1326,10 +1492,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -2095,6 +2297,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              67561
+            ]
+          }
         ]
       },
       "10": {
@@ -2106,6 +2318,16 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              67570
+            ]
           }
         ]
       },
@@ -2285,6 +2507,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAntiAirWeaponFireNear"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167351
+            ]
+          }
         ]
       },
       "10": {
@@ -2298,6 +2530,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAntiAirWeaponFireNear"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167360
+            ]
           }
         ]
       },
@@ -3208,10 +3450,30 @@ const SKILL_TIMING_DATA = {
   "54": {
     "Sister Penn": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              66101
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.6,
+            "weapons": [
+              66110
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10130
@@ -3352,10 +3614,28 @@ const SKILL_TIMING_DATA = {
   "60": {
     "Big Seven": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              66141
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66150
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10320
@@ -3363,11 +3643,31 @@ const SKILL_TIMING_DATA = {
     "Big Seven - Colorado": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66141,
+              164491
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66150,
+              164500
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17970
@@ -3446,10 +3746,28 @@ const SKILL_TIMING_DATA = {
   "61": {
     "Big Seven": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              66141
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66150
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10320
@@ -3471,6 +3789,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66141,
+              165191
+            ]
+          }
         ]
       },
       "10": {
@@ -3488,6 +3816,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66150,
+              165200
+            ]
           }
         ]
       },
@@ -3578,10 +3916,28 @@ const SKILL_TIMING_DATA = {
   "62": {
     "Big Seven": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              66141
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66150
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10320
@@ -3598,6 +3954,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66141,
+              162351
+            ]
+          }
         ]
       },
       "10": {
@@ -3610,6 +3976,16 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66150,
+              162360
+            ]
           }
         ]
       },
@@ -3694,20 +4070,64 @@ const SKILL_TIMING_DATA = {
   "64": {
     "Courageous Shelling": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66381,
+              66401
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              66390,
+              66410
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11000
     },
     "Courageous Shelling+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66381,
+              66401
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              66390,
+              66410
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11000
@@ -3957,6 +4377,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHit"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              164971,
+              165001
+            ]
+          }
         ]
       },
       "10": {
@@ -3980,6 +4410,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHit"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              164980,
+              165010
+            ]
           }
         ]
       },
@@ -4111,6 +4551,29 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              64201,
+              64211,
+              65971
+            ],
+            "quota": 1
+          },
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              64201,
+              64211,
+              65971
+            ],
+            "cooldown": 8
+          }
         ]
       },
       "10": {
@@ -4136,6 +4599,29 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              64210,
+              64220,
+              65980
+            ],
+            "quota": 1
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              64210,
+              64220,
+              65980
+            ],
+            "cooldown": 8
           }
         ]
       },
@@ -4241,10 +4727,32 @@ const SKILL_TIMING_DATA = {
     },
     "Quick Takeoff - Long Island": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              164921,
+              164931
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              164930,
+              164940
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 1090280
@@ -4371,10 +4879,30 @@ const SKILL_TIMING_DATA = {
   "73": {
     "Artillery Cover": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              66001
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              66010
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10180
@@ -4415,20 +4943,78 @@ const SKILL_TIMING_DATA = {
   "74": {
     "Artillery Cover": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              66001
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              66010
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10180
     },
     "Artillery Cover - Saratoga": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161221
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161231,
+              161241
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161230
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161240,
+              161250
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 1090140
@@ -4467,10 +5053,30 @@ const SKILL_TIMING_DATA = {
     },
     "Witch's Prank": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.4,
+            "weapons": [
+              66941,
+              66961
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.7,
+            "weapons": [
+              66950,
+              66970
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11400
@@ -4659,10 +5265,30 @@ const SKILL_TIMING_DATA = {
   "78": {
     "Doolittle Airstrike": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.3,
+            "weapons": [
+              67461,
+              67481
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.6,
+            "weapons": [
+              67470,
+              67490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10210
@@ -4703,10 +5329,28 @@ const SKILL_TIMING_DATA = {
   "79": {
     "Double Sting": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.3,
+            "weapons": [
+              66421
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              66430
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11020
@@ -4848,10 +5492,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -5083,6 +5763,25 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              165461
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              165461
+            ]
+          }
         ]
       },
       "10": {
@@ -5119,6 +5818,25 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              165470
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              165470
+            ]
           }
         ]
       },
@@ -5198,10 +5916,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -5259,10 +6013,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -5320,10 +6110,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -5557,6 +6383,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              167951
+            ]
+          }
         ]
       },
       "10": {
@@ -5574,6 +6410,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167960
+            ]
           }
         ]
       },
@@ -5737,10 +6583,32 @@ const SKILL_TIMING_DATA = {
     },
     "Star of the Shimmering Fjord": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              67981,
+              67991
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              67990,
+              67993
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 11960
@@ -5748,11 +6616,33 @@ const SKILL_TIMING_DATA = {
     "The Star of Fjord+": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              168151,
+              168161
+            ],
+            "quota": 3
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              168160,
+              168163
+            ],
+            "quota": 3
+          }
+        ]
       },
       "max": 10,
       "id": 1011960
@@ -5910,6 +6800,17 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 0.4
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66281,
+              66301
+            ]
+          }
         ]
       },
       "10": {
@@ -5927,6 +6828,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 8,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              66290,
+              66310
+            ]
           }
         ]
       },
@@ -5946,10 +6858,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -5978,6 +6926,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHit"
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66161
+            ]
+          }
         ]
       },
       "10": {
@@ -5991,6 +6949,16 @@ const SKILL_TIMING_DATA = {
             "ratio": 0.2,
             "kind": "conditional",
             "trigger": "onBulletHit"
+          }
+        ],
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 1,
+            "weapons": [
+              66170
+            ]
           }
         ]
       },
@@ -6010,6 +6978,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHit"
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66161
+            ]
+          }
         ]
       },
       "10": {
@@ -6023,6 +7001,16 @@ const SKILL_TIMING_DATA = {
             "ratio": 0.2,
             "kind": "conditional",
             "trigger": "onBulletHit"
+          }
+        ],
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 1,
+            "weapons": [
+              66170
+            ]
           }
         ]
       },
@@ -6068,10 +7056,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -6442,10 +7466,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -6969,12 +8029,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              921
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              930
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4101
@@ -7669,6 +8749,24 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.3
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              165161
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              165161
+            ]
+          }
         ]
       },
       "10": {
@@ -7694,6 +8792,24 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.6
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              165170
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.6,
+            "weapons": [
+              165170
+            ]
           }
         ]
       },
@@ -7897,6 +9013,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66061
+            ]
+          }
         ]
       },
       "10": {
@@ -7910,6 +9035,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66070
+            ]
           }
         ]
       },
@@ -7929,6 +9063,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66061
+            ]
+          }
         ]
       },
       "10": {
@@ -7942,6 +9085,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66070
+            ]
           }
         ]
       },
@@ -7995,6 +9147,16 @@ const SKILL_TIMING_DATA = {
             "duration": 1,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66021
+            ]
+          }
         ]
       },
       "10": {
@@ -8012,6 +9174,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 1,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              66030
+            ]
           }
         ]
       },
@@ -8035,6 +9207,16 @@ const SKILL_TIMING_DATA = {
             "duration": 1,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66021
+            ]
+          }
         ]
       },
       "10": {
@@ -8052,6 +9234,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 1,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              66030
+            ]
           }
         ]
       },
@@ -8093,6 +9285,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              67881
+            ],
+            "until": 15
+          },
+          {
+            "first": 45,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              67881
+            ]
+          }
         ]
       },
       "10": {
@@ -8128,6 +9339,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              67890
+            ],
+            "until": 15
+          },
+          {
+            "first": 25,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              67890
+            ]
           }
         ]
       },
@@ -8191,6 +9421,34 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168121
+            ],
+            "quota": 1
+          },
+          {
+            "first": 45,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              168121
+            ]
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              168111
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -8248,6 +9506,34 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168130
+            ],
+            "quota": 1
+          },
+          {
+            "first": 25,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              168130
+            ]
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              168120
+            ],
+            "quota": 1
           }
         ]
       },
@@ -8311,10 +9597,28 @@ const SKILL_TIMING_DATA = {
   "132": {
     "Big Seven": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              66141
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66150
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10320
@@ -8323,12 +9627,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              161031
+            ],
+            "cooldown": 2
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              161040
+            ],
+            "cooldown": 2
+          }
+        ]
       },
       "max": 10,
       "id": 16690
@@ -8391,10 +9715,28 @@ const SKILL_TIMING_DATA = {
   "133": {
     "Big Seven": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              66141
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66150
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10320
@@ -8425,6 +9767,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.4,
+            "weapons": [
+              68421,
+              68481
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.4,
+            "weapons": [
+              68431,
+              68481
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -8449,6 +9812,27 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.7,
+            "weapons": [
+              68430,
+              68490
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.7,
+            "weapons": [
+              68440,
+              68490
+            ],
+            "quota": 1
           }
         ]
       },
@@ -8633,10 +10017,30 @@ const SKILL_TIMING_DATA = {
   "136": {
     "Concerto of Blood": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 40,
+            "every": 40,
+            "chance": 1,
+            "weapons": [
+              66641
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              66650
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11100
@@ -8829,10 +10233,50 @@ const SKILL_TIMING_DATA = {
   "138": {
     "Worldgorging Lionflame": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              167881,
+              168001
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              167891,
+              168071
+            ],
+            "cooldown": 8
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              167890,
+              168010
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167900,
+              168080
+            ],
+            "cooldown": 8
+          }
+        ]
       },
       "max": 10,
       "id": 151220
@@ -9141,7 +10585,18 @@ const SKILL_TIMING_DATA = {
           "permanent",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69421,
+              69431
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -9150,17 +10605,46 @@ const SKILL_TIMING_DATA = {
           "permanent",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69430,
+              69440
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13520
     },
     "Royal Arts: Swordbearing Eagle": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69751
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69760
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13530
@@ -9171,12 +10655,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              61010
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              61012
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10330
@@ -9225,6 +10727,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64591
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64601
+            ]
+          }
         ]
       },
       "10": {
@@ -9237,6 +10757,24 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64600
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64610
+            ]
           }
         ]
       },
@@ -9699,10 +11237,30 @@ const SKILL_TIMING_DATA = {
   "149": {
     "Infinite Darkness": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              66121
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.6,
+            "weapons": [
+              66130
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10350
@@ -9711,10 +11269,30 @@ const SKILL_TIMING_DATA = {
   "150": {
     "Infinite Darkness": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              66121
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.6,
+            "weapons": [
+              66130
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 10350
@@ -10094,6 +11672,17 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 0.4
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66321,
+              66341
+            ]
+          }
         ]
       },
       "10": {
@@ -10111,6 +11700,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 5,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              66330,
+              66350
+            ]
           }
         ]
       },
@@ -10291,6 +11891,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              165571
+            ]
+          }
         ]
       },
       "10": {
@@ -10302,6 +11912,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              165580
+            ]
           }
         ]
       },
@@ -10339,6 +11959,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              169231
+            ]
+          }
         ]
       },
       "10": {
@@ -10370,6 +11999,15 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              169240
+            ]
           }
         ]
       },
@@ -10466,6 +12104,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64751,
+              64761
+            ]
+          }
         ]
       },
       "10": {
@@ -10485,6 +12134,17 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64760,
+              64770
+            ]
           }
         ]
       },
@@ -10876,6 +12536,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponBulletCreate"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              165111
+            ]
+          }
         ]
       },
       "10": {
@@ -10889,6 +12558,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onTorpedoWeaponBulletCreate"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              165120
+            ]
           }
         ]
       },
@@ -11316,6 +12994,20 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              911,
+              68181,
+              166871,
+              166881,
+              166911
+            ]
+          }
         ]
       },
       "10": {
@@ -11362,6 +13054,20 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              920,
+              68190,
+              166880,
+              166890,
+              166920
+            ]
           }
         ]
       },
@@ -11723,6 +13429,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.4,
+            "weapons": [
+              64651,
+              64661
+            ]
+          }
         ]
       },
       "10": {
@@ -11746,6 +13463,17 @@ const SKILL_TIMING_DATA = {
             "period": 18,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.7,
+            "weapons": [
+              64660,
+              64670
+            ]
           }
         ]
       },
@@ -12424,7 +14152,28 @@ const SKILL_TIMING_DATA = {
           "conditional:onAttach+onRemove",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64671,
+              64711
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64671,
+              64691,
+              64711
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -12432,7 +14181,28 @@ const SKILL_TIMING_DATA = {
           "conditional:onAttach+onRemove",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64680,
+              64720
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64680,
+              64700,
+              64720
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 14780
@@ -12719,6 +14489,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.3
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              67861
+            ]
+          }
         ]
       },
       "10": {
@@ -12746,6 +14526,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              67870
+            ]
           }
         ]
       },
@@ -12928,6 +14718,18 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onWeaponSteday"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              163431,
+              163441,
+              163451
+            ]
+          }
         ]
       },
       "10": {
@@ -12950,6 +14752,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onWeaponSteday"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              163440,
+              163450,
+              163460
+            ]
           }
         ]
       },
@@ -13059,6 +14873,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              167291
+            ]
+          }
         ]
       },
       "10": {
@@ -13077,6 +14900,15 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              167300
+            ]
           }
         ]
       },
@@ -13445,6 +15277,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.3,
+            "weapons": [
+              66701
+            ]
+          }
         ]
       },
       "10": {
@@ -13457,6 +15298,15 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.6,
+            "weapons": [
+              66710
+            ]
           }
         ]
       },
@@ -13502,6 +15352,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              163291
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              163291
+            ]
+          }
         ]
       },
       "10": {
@@ -13514,6 +15380,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              163300
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              163300
+            ]
+          }
         ]
       },
       "max": 10,
@@ -13521,10 +15403,30 @@ const SKILL_TIMING_DATA = {
     },
     "Aviation Preparations": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66241
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66250
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 10830
@@ -13559,10 +15461,30 @@ const SKILL_TIMING_DATA = {
     },
     "Aviation Preparations": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66241
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66250
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 10830
@@ -13671,10 +15593,30 @@ const SKILL_TIMING_DATA = {
     },
     "Melee Artillery": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              67221
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              67230
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11600
@@ -13735,10 +15677,28 @@ const SKILL_TIMING_DATA = {
     },
     "Big Seven: Sakura": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              67041
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              67050
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11420
@@ -13747,10 +15707,28 @@ const SKILL_TIMING_DATA = {
   "213": {
     "Big Seven: Sakura": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              67041
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              67050
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11430
@@ -13759,10 +15737,34 @@ const SKILL_TIMING_DATA = {
   "214": {
     "Kii Fleet Strategy": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.45,
+            "weapons": [
+              69871,
+              69891,
+              69901
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.75,
+            "weapons": [
+              69880,
+              69900,
+              69910
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13610
@@ -13813,7 +15815,19 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69341,
+              69351
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -13822,7 +15836,19 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69350,
+              69360
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 13170
@@ -13842,6 +15868,20 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              61529,
+              62851,
+              62861,
+              62901,
+              62911
+            ],
+            "cooldown": 2
+          }
         ]
       },
       "10": {
@@ -13855,6 +15895,20 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              61529,
+              62860,
+              62870,
+              62910,
+              62920
+            ],
+            "cooldown": 2
           }
         ]
       },
@@ -13973,10 +16027,30 @@ const SKILL_TIMING_DATA = {
   "218": {
     "Eagle's Defiance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66821
+            ],
+            "quota": 2
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66830
+            ],
+            "quota": 2
+          }
+        ]
       },
       "max": 10,
       "id": 11260
@@ -13985,10 +16059,30 @@ const SKILL_TIMING_DATA = {
   "219": {
     "Eagle's Defiance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66821
+            ],
+            "quota": 2
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              66830
+            ],
+            "quota": 2
+          }
+        ]
       },
       "max": 10,
       "id": 11260
@@ -14099,6 +16193,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrike"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              166891
+            ]
+          }
         ]
       },
       "10": {
@@ -14163,6 +16266,15 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.07,
             "kind": "conditional",
             "trigger": "onAllInStrike"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              166900
+            ]
           }
         ]
       },
@@ -14237,6 +16349,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              165121
+            ]
+          }
         ]
       },
       "10": {
@@ -14303,6 +16425,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.02,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              165130
+            ]
           }
         ]
       },
@@ -14457,10 +16589,30 @@ const SKILL_TIMING_DATA = {
     },
     "Raid Signal": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67681
+            ],
+            "quota": 2
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67690
+            ],
+            "quota": 2
+          }
+        ]
       },
       "max": 10,
       "id": 11760
@@ -15044,6 +17196,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              61024
+            ],
+            "quota": 1
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              61024,
+              69921,
+              69931
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -15088,6 +17261,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              61024
+            ],
+            "quota": 1
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              61024,
+              69930,
+              69940
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "max": 10,
@@ -15106,6 +17300,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65051
+            ]
+          }
         ]
       },
       "10": {
@@ -15119,6 +17323,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65060
+            ]
           }
         ]
       },
@@ -15328,6 +17542,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.5
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              68511
+            ]
+          }
         ]
       },
       "10": {
@@ -15355,6 +17579,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.8
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.8,
+            "weapons": [
+              68520
+            ]
           }
         ]
       },
@@ -15460,6 +17694,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 0.4
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              67061,
+              67081
+            ]
+          }
         ]
       },
       "10": {
@@ -15488,6 +17733,17 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              67070,
+              67090
+            ]
           }
         ]
       },
@@ -15601,6 +17857,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163751
+            ]
+          }
         ]
       },
       "10": {
@@ -15612,6 +17878,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163760
+            ]
           }
         ]
       },
@@ -15847,6 +18123,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68391
+            ],
+            "quota": 1
+          },
+          {
+            "first": 40,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              68391
+            ]
+          }
         ]
       },
       "10": {
@@ -15874,6 +18169,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68400
+            ],
+            "quota": 1
+          },
+          {
+            "first": 40,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              68400
+            ]
           }
         ]
       },
@@ -15934,6 +18248,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164701,
+              164711
+            ]
+          }
         ]
       },
       "10": {
@@ -15951,6 +18276,17 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164710,
+              164720
+            ]
           }
         ]
       },
@@ -16137,6 +18473,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              62341
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62341
+            ]
+          }
         ]
       },
       "10": {
@@ -16153,6 +18508,25 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              62350
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62350
+            ]
           }
         ]
       },
@@ -16435,6 +18809,16 @@ const SKILL_TIMING_DATA = {
             "duration": 1,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66181
+            ]
+          }
         ]
       },
       "10": {
@@ -16452,6 +18836,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 1,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              66190
+            ]
           }
         ]
       },
@@ -16475,6 +18869,16 @@ const SKILL_TIMING_DATA = {
             "duration": 1,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66181
+            ]
+          }
         ]
       },
       "10": {
@@ -16493,6 +18897,16 @@ const SKILL_TIMING_DATA = {
             "duration": 1,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              66190
+            ]
+          }
         ]
       },
       "max": 10,
@@ -16500,10 +18914,30 @@ const SKILL_TIMING_DATA = {
     },
     "Torpedo Launch": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66221
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              66230
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 2101
@@ -16538,10 +18972,30 @@ const SKILL_TIMING_DATA = {
     },
     "Torpedo Launch": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66221
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              66230
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 2101
@@ -16558,6 +19012,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              161011
+            ]
+          }
         ]
       },
       "10": {
@@ -16570,6 +19034,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161020
+            ]
           }
         ]
       },
@@ -16752,10 +19226,30 @@ const SKILL_TIMING_DATA = {
     },
     "Magnetic Torpedoes": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              66201
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              66210
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 2091
@@ -16925,6 +19419,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64911
+            ]
+          }
         ]
       },
       "10": {
@@ -16943,6 +19447,16 @@ const SKILL_TIMING_DATA = {
               3
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64920
+            ]
           }
         ]
       },
@@ -17028,6 +19542,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              167261
+            ]
+          }
         ]
       },
       "10": {
@@ -17046,6 +19570,16 @@ const SKILL_TIMING_DATA = {
               3
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              167270
+            ]
           }
         ]
       },
@@ -17131,6 +19665,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64921
+            ]
+          }
         ]
       },
       "10": {
@@ -17149,6 +19693,16 @@ const SKILL_TIMING_DATA = {
               3
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64930
+            ]
           }
         ]
       },
@@ -17273,6 +19827,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              161541
+            ]
+          }
         ]
       },
       "10": {
@@ -17306,6 +19870,16 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 15,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              161550
+            ]
           }
         ]
       },
@@ -17447,6 +20021,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              160611
+            ]
+          }
         ]
       },
       "10": {
@@ -17466,6 +20050,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              160620
+            ]
           }
         ]
       },
@@ -17790,10 +20384,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -17923,6 +20553,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183411
+            ]
+          }
         ]
       },
       "10": {
@@ -17951,6 +20591,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.25,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183420
+            ]
           }
         ]
       },
@@ -18182,6 +20832,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              63101,
+              63111
+            ]
+          }
         ]
       },
       "10": {
@@ -18199,6 +20859,16 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              63110,
+              63120
+            ]
           }
         ]
       },
@@ -20093,12 +22763,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 5041
@@ -20970,6 +23660,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHit"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              183591
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183631
+            ]
+          }
         ]
       },
       "10": {
@@ -20987,6 +23695,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHit"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              183600
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183640
+            ]
           }
         ]
       },
@@ -21780,12 +24506,52 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              66861,
+              66881
+            ]
+          },
+          {
+            "first": 35,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              66861,
+              66881
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.6,
+            "weapons": [
+              66870,
+              66890
+            ]
+          },
+          {
+            "first": 35,
+            "every": 20,
+            "chance": 0.6,
+            "weapons": [
+              66870,
+              66890
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11300
@@ -22589,6 +25355,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163901
+            ]
+          }
         ]
       },
       "10": {
@@ -22614,6 +25390,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163910
+            ]
           }
         ]
       },
@@ -23193,20 +25979,62 @@ const SKILL_TIMING_DATA = {
   "352": {
     "Frontal Fire": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              67101
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              67110,
+              67130
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 11490
     },
     "Frontal Fire+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              67101
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              67110,
+              67130
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 11490
@@ -23446,6 +26274,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67141,
+              67161
+            ]
+          }
         ]
       },
       "10": {
@@ -23458,6 +26296,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67150,
+              67170
+            ]
           }
         ]
       },
@@ -23566,6 +26414,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67341
+            ]
+          }
         ]
       },
       "10": {
@@ -23578,6 +26435,15 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67350
+            ]
           }
         ]
       },
@@ -23596,6 +26462,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67341
+            ]
+          }
         ]
       },
       "10": {
@@ -23608,6 +26483,15 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67350
+            ]
           }
         ]
       },
@@ -24429,7 +27313,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              67751,
+              67761,
+              67771
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -24438,7 +27333,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              67760,
+              67770,
+              67780,
+              67880
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11800
@@ -24447,10 +27354,30 @@ const SKILL_TIMING_DATA = {
   "368": {
     "Fight to Win!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.3,
+            "weapons": [
+              67721,
+              67731
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              67730,
+              67740
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11810
@@ -24459,12 +27386,34 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              67741
+            ],
+            "until": 15
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              67750
+            ],
+            "until": 15
+          }
+        ]
       },
       "max": 10,
       "id": 11820
@@ -24900,12 +27849,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67891
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67900
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11900
@@ -24914,12 +27881,30 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67891
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67900
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11900
@@ -24963,6 +27948,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67921
+            ]
+          }
         ]
       },
       "10": {
@@ -24980,6 +27974,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              67930
+            ]
           }
         ]
       },
@@ -25036,10 +28039,30 @@ const SKILL_TIMING_DATA = {
   "378": {
     "Fantastical Takeoff": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              67961,
+              67971
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.8,
+            "weapons": [
+              67970,
+              67980
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 11930
@@ -25065,6 +28088,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61022
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -25086,6 +28120,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61022
+            ],
+            "quota": 1
           }
         ]
       },
@@ -25113,6 +28158,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61022
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -25134,6 +28190,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              61022
+            ],
+            "quota": 1
           }
         ]
       },
@@ -25268,6 +28335,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68021
+            ]
+          }
         ]
       },
       "10": {
@@ -25279,6 +28355,15 @@ const SKILL_TIMING_DATA = {
               12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68030
+            ]
           }
         ]
       },
@@ -25408,10 +28493,30 @@ const SKILL_TIMING_DATA = {
   "383": {
     "Torpedoes: Ready!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              68901
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68910
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 12050
@@ -25458,10 +28563,32 @@ const SKILL_TIMING_DATA = {
   "384": {
     "Take the Initiative!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              68331
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              68340
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 12070
@@ -25535,6 +28662,26 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 24,
+            "every": 24,
+            "chance": 1,
+            "weapons": [
+              68911,
+              68921
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68911,
+              68931
+            ]
+          }
         ]
       },
       "10": {
@@ -25570,6 +28717,26 @@ const SKILL_TIMING_DATA = {
             "period": 8,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 24,
+            "every": 24,
+            "chance": 1,
+            "weapons": [
+              68920,
+              68930
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68920,
+              68940
+            ]
           }
         ]
       },
@@ -25765,6 +28932,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAttach+onStack"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68451
+            ]
+          },
+          {
+            "first": 20,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68451
+            ]
+          }
         ]
       },
       "10": {
@@ -25797,6 +28982,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAttach+onStack"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68460
+            ]
+          },
+          {
+            "first": 20,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68460
+            ]
           }
         ]
       },
@@ -26079,10 +29282,30 @@ const SKILL_TIMING_DATA = {
     },
     "Sparkling Star": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 14,
+            "every": 14,
+            "chance": 1,
+            "weapons": [
+              68501
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 14,
+            "every": 14,
+            "chance": 1,
+            "weapons": [
+              68510
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 12270
@@ -26514,6 +29737,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68541,
+              68551
+            ]
+          }
         ]
       },
       "10": {
@@ -26527,6 +29761,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68550,
+              68560
+            ]
           }
         ]
       },
@@ -26969,6 +30214,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.45,
+            "weapons": [
+              68591,
+              68611
+            ]
+          }
         ]
       },
       "10": {
@@ -26987,6 +30243,17 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.75,
+            "weapons": [
+              68600,
+              68620
+            ]
           }
         ]
       },
@@ -27012,6 +30279,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.45,
+            "weapons": [
+              68591,
+              68611
+            ]
+          }
         ]
       },
       "10": {
@@ -27030,6 +30308,17 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.75,
+            "weapons": [
+              68600,
+              68620
+            ]
           }
         ]
       },
@@ -27256,11 +30545,29 @@ const SKILL_TIMING_DATA = {
     "Hellcat's Roar": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.45,
+            "weapons": [
+              68621
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.75,
+            "weapons": [
+              68630
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 12500
@@ -27584,10 +30891,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -27767,6 +31110,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68721
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -27795,6 +31149,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68730
+            ],
+            "quota": 1
           }
         ]
       },
@@ -27839,6 +31204,18 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68721,
+              160781
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -27878,6 +31255,18 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68730,
+              160790
+            ],
+            "quota": 1
+          }
         ]
       },
       "max": 10,
@@ -27887,20 +31276,60 @@ const SKILL_TIMING_DATA = {
   "412": {
     "Sardegnian Coercion": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              68701,
+              68711
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              68710,
+              68720
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 12640
     },
     "Sardegnian Coercion+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              68701,
+              68711
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              68710,
+              68720
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 12640
@@ -27933,6 +31362,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68721
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -27961,6 +31401,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              68730
+            ],
+            "quota": 1
           }
         ]
       },
@@ -28446,10 +31897,30 @@ const SKILL_TIMING_DATA = {
   "419": {
     "Airborne Dualism": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68771
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68780
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 12740
@@ -28821,6 +32292,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.4,
+            "weapons": [
+              64231,
+              64241
+            ]
+          }
         ]
       },
       "10": {
@@ -28839,6 +32321,17 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.7,
+            "weapons": [
+              64240,
+              64250
+            ]
           }
         ]
       },
@@ -28889,10 +32382,34 @@ const SKILL_TIMING_DATA = {
   "425": {
     "Unleashed Tactics": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": null,
+            "chance": 0.4,
+            "weapons": [
+              68981,
+              69001,
+              69011
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": null,
+            "chance": 0.7,
+            "weapons": [
+              68990,
+              69010,
+              69020
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 12810
@@ -29387,6 +32904,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168541
+            ]
+          }
         ]
       },
       "10": {
@@ -29411,6 +32938,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168550
+            ]
           }
         ]
       },
@@ -29510,10 +33047,46 @@ const SKILL_TIMING_DATA = {
     },
     "Smokescreen": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 4081
@@ -29560,6 +33133,17 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 40
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69051
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -29591,6 +33175,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 100
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69060
+            ],
+            "quota": 1
           }
         ]
       },
@@ -29723,6 +33318,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              65801
+            ]
+          }
         ]
       },
       "10": {
@@ -29734,6 +33339,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              65810
+            ]
           }
         ]
       },
@@ -29748,14 +33363,36 @@ const SKILL_TIMING_DATA = {
         "period": 15,
         "duration": 0,
         "chance": 0.5,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.5,
+            "weapons": [
+              65771,
+              65811
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 15,
         "duration": 0,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65780,
+              65820
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 14170
@@ -29766,14 +33403,36 @@ const SKILL_TIMING_DATA = {
         "period": 15,
         "duration": 0,
         "chance": 0.5,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.5,
+            "weapons": [
+              65771,
+              65811
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 15,
         "duration": 0,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65780,
+              65820
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 14170
@@ -29828,20 +33487,60 @@ const SKILL_TIMING_DATA = {
     },
     "Cavalier of the Ether": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              69121
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              69130
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13000
     },
     "Cavalier of the Ether+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              69121
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              69130
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13000
@@ -30238,20 +33937,76 @@ const SKILL_TIMING_DATA = {
   "441": {
     "Lod Obstrel": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.45,
+            "weapons": [
+              69061,
+              69081,
+              69091,
+              69101,
+              69111
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.75,
+            "weapons": [
+              69070,
+              69090,
+              69100,
+              69110,
+              69120
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 13020
     },
     "Lod Obstrel+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.45,
+            "weapons": [
+              69061,
+              69081,
+              69091,
+              69101,
+              69111
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.75,
+            "weapons": [
+              69070,
+              69090,
+              69100,
+              69110,
+              69120
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 13020
@@ -30290,10 +34045,28 @@ const SKILL_TIMING_DATA = {
   "442": {
     "Soaring Silver Wings": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69161
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69170
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13070
@@ -30511,6 +34284,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69201
+            ]
+          }
         ]
       },
       "10": {
@@ -30528,6 +34311,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69210
+            ]
           }
         ]
       },
@@ -31178,10 +34971,32 @@ const SKILL_TIMING_DATA = {
     },
     "The Iris's Holy Flame": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.45,
+            "weapons": [
+              69391,
+              69411
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.75,
+            "weapons": [
+              69400,
+              69420
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 13250
@@ -31470,6 +35285,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69381
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -31482,6 +35308,17 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69390
+            ],
+            "quota": 1
           }
         ]
       },
@@ -31500,6 +35337,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69381
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -31512,6 +35360,17 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69390
+            ],
+            "quota": 1
           }
         ]
       },
@@ -31818,7 +35677,18 @@ const SKILL_TIMING_DATA = {
           "permanent",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69421,
+              69431
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -31827,17 +35697,50 @@ const SKILL_TIMING_DATA = {
           "permanent",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              69430,
+              69440
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13340
     },
     "Sacrament: Sacred Second Wing": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69451,
+              69471
+            ],
+            "quota": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69460,
+              69480
+            ],
+            "quota": 3
+          }
+        ]
       },
       "max": 10,
       "id": 13350
@@ -31846,20 +35749,80 @@ const SKILL_TIMING_DATA = {
   "459": {
     "Take Off!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.4,
+            "weapons": [
+              69481
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.7,
+            "weapons": [
+              69490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13360
     },
     "Prayer for Love and Peace": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              69501,
+              69511
+            ],
+            "quota": 1
+          },
+          {
+            "first": 32,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              69501,
+              69511
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              69510,
+              69520
+            ],
+            "quota": 1
+          },
+          {
+            "first": 32,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              69510,
+              69520
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13370
@@ -31887,6 +35850,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 0.5,
+            "weapons": [
+              69521
+            ]
+          }
         ]
       },
       "10": {
@@ -31899,6 +35872,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.1,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              69530
+            ]
           }
         ]
       },
@@ -31924,6 +35907,16 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 35,
+            "chance": 1,
+            "weapons": [
+              69841
+            ]
+          }
         ]
       },
       "10": {
@@ -31941,6 +35934,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 8,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              69850
+            ]
           }
         ]
       },
@@ -32112,10 +36115,46 @@ const SKILL_TIMING_DATA = {
     },
     "Bombarda Geminio": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              69831
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              69741
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              69840
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              69750
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13460
@@ -32204,20 +36243,60 @@ const SKILL_TIMING_DATA = {
   "464": {
     "Leading the Way": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              69781
+            ],
+            "cooldown": 12
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              69790
+            ],
+            "cooldown": 12
+          }
+        ]
       },
       "max": 10,
       "id": 13500
     },
     "Forward!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              69791,
+              69801
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              69800,
+              69810
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13510
@@ -32235,10 +36314,52 @@ const SKILL_TIMING_DATA = {
     },
     "All Out Assault, Open Fire!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              69811,
+              69821
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 0.4,
+            "weapons": [
+              69811,
+              69821
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              69820,
+              69830
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 0.7,
+            "weapons": [
+              69820,
+              69830
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13480
@@ -32554,6 +36675,37 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              911
+            ],
+            "quota": 1
+          },
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              69911,
+              69941
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              911,
+              69911,
+              69941
+            ]
+          }
         ]
       },
       "10": {
@@ -32568,6 +36720,37 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              920
+            ],
+            "quota": 1
+          },
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              69920,
+              69950
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              920,
+              69920,
+              69950
+            ]
           }
         ]
       },
@@ -32675,10 +36858,30 @@ const SKILL_TIMING_DATA = {
   "470": {
     "Strike Team, Attack!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69971
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69980
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 13680
@@ -32717,10 +36920,30 @@ const SKILL_TIMING_DATA = {
   "471": {
     "Chiyoda's Domain?": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69971
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              69980
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 13690
@@ -33064,10 +37287,30 @@ const SKILL_TIMING_DATA = {
     },
     "Beckoning of Ice": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65111
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65120
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13830
@@ -33124,6 +37367,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65161
+            ]
+          }
         ]
       },
       "10": {
@@ -33135,6 +37388,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65170
+            ]
           }
         ]
       },
@@ -33299,12 +37562,36 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              61025,
+              65081,
+              65241
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              61025,
+              65090,
+              65250
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13730
@@ -33379,10 +37666,28 @@ const SKILL_TIMING_DATA = {
     },
     "Blue Spirit": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              65251
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              65260
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13800
@@ -33416,6 +37721,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 0.5
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65121
+            ]
+          }
         ]
       },
       "10": {
@@ -33434,6 +37749,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 0,
             "chance": 0.5
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65130
+            ]
           }
         ]
       },
@@ -33530,20 +37855,60 @@ const SKILL_TIMING_DATA = {
   "482": {
     "Iron Blood Falcon": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              65491
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              65500
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 13880
     },
     "Iron Blood Falcon+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              65491
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              65500
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 13880
@@ -33715,14 +38080,34 @@ const SKILL_TIMING_DATA = {
         "period": 20,
         "duration": 5,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65511
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 5,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65520
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13920
@@ -33980,10 +38365,30 @@ const SKILL_TIMING_DATA = {
     },
     "Follow My Lead... Please!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65521
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65530
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 13970
@@ -34138,6 +38543,24 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65531
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65531
+            ]
+          }
         ]
       },
       "10": {
@@ -34151,6 +38574,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65540
+            ]
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65540
+            ]
           }
         ]
       },
@@ -34213,7 +38654,34 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "conditional:missing"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65551
+            ],
+            "quota": 1
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -34221,7 +38689,34 @@ const SKILL_TIMING_DATA = {
           "conditional:check",
           "conditional:missing"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65560
+            ],
+            "quota": 1
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 14020
@@ -34554,6 +39049,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65631,
+              65641
+            ]
+          }
         ]
       },
       "10": {
@@ -34565,6 +39071,17 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65640,
+              65650
+            ]
           }
         ]
       },
@@ -34582,6 +39099,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65631,
+              65641
+            ]
+          }
         ]
       },
       "10": {
@@ -34593,6 +39121,17 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65640,
+              65650
+            ]
           }
         ]
       },
@@ -34712,6 +39251,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183251,
+              183261
+            ]
+          }
         ]
       },
       "10": {
@@ -34746,6 +39296,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183260,
+              183270
+            ]
+          }
         ]
       },
       "max": 10,
@@ -34773,6 +39334,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65641,
+              65651
+            ]
+          }
         ]
       },
       "10": {
@@ -34784,6 +39356,17 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65650,
+              65660
+            ]
           }
         ]
       },
@@ -34801,6 +39384,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65641,
+              65651
+            ]
+          }
         ]
       },
       "10": {
@@ -34812,6 +39406,17 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65650,
+              65660
+            ]
           }
         ]
       },
@@ -34923,6 +39528,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183241
+            ]
+          }
         ]
       },
       "10": {
@@ -34948,6 +39563,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183250
+            ]
           }
         ]
       },
@@ -35378,6 +40003,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.3,
+            "weapons": [
+              65791
+            ]
+          }
         ]
       },
       "10": {
@@ -35390,6 +40025,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.6,
+            "weapons": [
+              65800
+            ]
           }
         ]
       },
@@ -35691,6 +40336,16 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 60
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.4,
+            "weapons": [
+              65901
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -35704,6 +40359,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 60
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.7,
+            "weapons": [
+              65910
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -35723,6 +40388,16 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 60
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.4,
+            "weapons": [
+              65901
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -35736,6 +40411,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 60
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.7,
+            "weapons": [
+              65910
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -35886,10 +40571,32 @@ const SKILL_TIMING_DATA = {
   "502": {
     "Freccia dell'Aquila": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.45,
+            "weapons": [
+              65911,
+              65931
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.75,
+            "weapons": [
+              65920,
+              65940
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 14370
@@ -36378,6 +41085,17 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 0.4
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              65871,
+              65881
+            ]
+          }
         ]
       },
       "10": {
@@ -36410,6 +41128,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 8,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              65880,
+              65890
+            ]
           }
         ]
       },
@@ -36640,6 +41369,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64081
+            ]
+          }
         ]
       },
       "10": {
@@ -36652,6 +41391,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64090
+            ]
+          }
         ]
       },
       "max": 10,
@@ -36661,10 +41410,28 @@ const SKILL_TIMING_DATA = {
   "511": {
     "Wings of Soaring Flames": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64121
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64130
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 14540
@@ -37044,6 +41811,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64111
+            ]
+          }
         ]
       },
       "10": {
@@ -37062,6 +41839,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64120
+            ]
           }
         ]
       },
@@ -37358,6 +42145,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64621
+            ]
+          },
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              64621
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -37393,6 +42199,25 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.005,
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64630
+            ]
+          },
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              64630
+            ],
+            "quota": 1
           }
         ]
       },
@@ -37551,6 +42376,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64721,
+              64731
+            ]
+          }
         ]
       },
       "10": {
@@ -37566,6 +42401,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64730,
+              64740
+            ]
           }
         ]
       },
@@ -37749,6 +42594,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHit"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63171,
+              63181
+            ]
+          }
         ]
       },
       "10": {
@@ -37769,6 +42625,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHit"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63180,
+              63190
+            ]
           }
         ]
       },
@@ -38127,6 +42994,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              64831
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -38138,6 +43015,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.8,
+            "weapons": [
+              64840
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -38445,7 +43332,26 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              63491
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              63501,
+              63511
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -38453,7 +43359,26 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63500
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              63510,
+              63520
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 15050
@@ -38559,6 +43484,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.45,
+            "weapons": [
+              63541
+            ]
+          }
         ]
       },
       "10": {
@@ -38570,6 +43505,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.75,
+            "weapons": [
+              63550
+            ]
           }
         ]
       },
@@ -38814,6 +43759,24 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 0.5
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.2,
+            "weapons": [
+              911
+            ]
+          }
         ]
       },
       "10": {
@@ -38842,6 +43805,24 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 0,
             "chance": 0.5
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              920
+            ]
           }
         ]
       },
@@ -38885,6 +43866,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63571,
+              63581
+            ]
+          }
         ]
       },
       "10": {
@@ -38921,6 +43913,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63580,
+              63590
+            ]
+          }
         ]
       },
       "max": 10,
@@ -38956,6 +43959,15 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63621
+            ]
+          }
         ]
       },
       "10": {
@@ -38974,6 +43986,15 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 5,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63630
+            ]
           }
         ]
       },
@@ -39038,6 +44059,35 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              63681
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63691
+            ],
+            "quota": 1
+          },
+          {
+            "first": 25,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63701,
+              63711
+            ]
+          }
         ]
       },
       "10": {
@@ -39051,6 +44101,35 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              63690
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63700
+            ],
+            "quota": 1
+          },
+          {
+            "first": 25,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63710,
+              63720
+            ]
           }
         ]
       },
@@ -39114,6 +44193,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              63721
+            ]
+          }
         ]
       },
       "10": {
@@ -39131,6 +44220,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              63730
+            ]
           }
         ]
       },
@@ -39224,6 +44323,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
         ]
       },
       "10": {
@@ -39249,6 +44358,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
           }
         ]
       },
@@ -39282,6 +44401,17 @@ const SKILL_TIMING_DATA = {
             "duration": 3,
             "chance": 0.7
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              63671,
+              63731
+            ]
+          }
         ]
       },
       "10": {
@@ -39309,6 +44439,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 3,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              63680,
+              63740
+            ]
           }
         ]
       },
@@ -39355,6 +44496,16 @@ const SKILL_TIMING_DATA = {
             "duration": 1,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64981
+            ]
+          }
         ]
       },
       "10": {
@@ -39381,6 +44532,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 1,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64990
+            ]
           }
         ]
       },
@@ -39565,6 +44726,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.45,
+            "weapons": [
+              63781,
+              63801,
+              63821
+            ]
+          }
         ]
       },
       "10": {
@@ -39589,6 +44762,18 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.75,
+            "weapons": [
+              63790,
+              63810,
+              63830
+            ]
           }
         ]
       },
@@ -39777,6 +44962,17 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              65993
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -39802,6 +44998,17 @@ const SKILL_TIMING_DATA = {
             "period": 5,
             "duration": 5,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              65993
+            ],
+            "quota": 1
           }
         ]
       },
@@ -39919,12 +45126,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 5041
@@ -40075,12 +45302,32 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpperConsort+onLowerConsort",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63901
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpperConsort+onLowerConsort",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63910
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 15360
@@ -40098,6 +45345,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              63871,
+              63881
+            ]
+          }
         ]
       },
       "10": {
@@ -40109,6 +45366,18 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              63880,
+              63890,
+              63900,
+              63940
+            ]
           }
         ]
       },
@@ -40388,6 +45657,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHit"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              62041
+            ]
+          }
         ]
       },
       "10": {
@@ -40415,6 +45694,16 @@ const SKILL_TIMING_DATA = {
             "ratio": 0.15,
             "kind": "conditional",
             "trigger": "onBulletHit"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              62050
+            ]
           }
         ]
       },
@@ -40588,6 +45877,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              62051
+            ]
+          }
         ]
       },
       "10": {
@@ -40600,6 +45898,15 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              62060
+            ]
           }
         ]
       },
@@ -40939,6 +46246,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              63981
+            ],
+            "quota": 1
+          },
+          {
+            "first": 18,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              63981
+            ]
+          }
         ]
       },
       "10": {
@@ -40964,6 +46290,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              63990
+            ],
+            "quota": 1
+          },
+          {
+            "first": 18,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              63990
+            ]
           }
         ]
       },
@@ -41012,10 +46357,28 @@ const SKILL_TIMING_DATA = {
   "553": {
     "One Iota of Effort": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63941
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63950
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 15620
@@ -41048,6 +46411,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onRemove"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63961
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63961
+            ]
+          }
         ]
       },
       "10": {
@@ -41076,6 +46458,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onRemove"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63970
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63970
+            ]
           }
         ]
       },
@@ -41138,10 +46539,30 @@ const SKILL_TIMING_DATA = {
   "554": {
     "Revengeful Strike": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.2,
+            "weapons": [
+              63991
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.5,
+            "weapons": [
+              64000
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 15650
@@ -41229,6 +46650,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              62181
+            ]
+          }
         ]
       },
       "10": {
@@ -41244,6 +46674,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              62190
+            ]
           }
         ]
       },
@@ -41289,6 +46728,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              62201
+            ]
+          }
         ]
       },
       "10": {
@@ -41317,6 +46766,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              62210
+            ]
           }
         ]
       },
@@ -41628,7 +47087,18 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "volleys",
         "volleys": 8,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              79912,
+              79913
+            ]
+          }
+        ]
       },
       "max": 1,
       "id": 29922
@@ -41646,6 +47116,27 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 60
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              62261,
+              62271
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              62261,
+              62271
+            ]
+          }
         ]
       },
       "10": {
@@ -41659,6 +47150,27 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 60
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              62270,
+              62280
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              62270,
+              62280
+            ]
           }
         ]
       },
@@ -42102,6 +47614,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -42121,6 +47644,17 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ],
+            "quota": 1
           }
         ]
       },
@@ -42333,7 +47867,16 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              62331
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -42342,7 +47885,16 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              62340
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 15920
@@ -42435,6 +47987,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              62401,
+              62411,
+              62421
+            ]
+          }
         ]
       },
       "10": {
@@ -42460,6 +48024,18 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              62410,
+              62420,
+              62430
+            ]
           }
         ]
       },
@@ -42551,10 +48127,30 @@ const SKILL_TIMING_DATA = {
     },
     "Metal Gauntlet Mash!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              62471
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              62480
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 16090
@@ -42742,6 +48338,18 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              61028,
+              160001,
+              160021,
+              160041
+            ]
+          }
         ]
       },
       "10": {
@@ -42760,6 +48368,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              61028,
+              160010,
+              160030,
+              160050
+            ]
           }
         ]
       },
@@ -42855,6 +48475,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62941
+            ]
+          }
         ]
       },
       "10": {
@@ -42869,6 +48499,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onSubmarineRaid"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62950
+            ]
           }
         ]
       },
@@ -42953,6 +48593,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160411,
+              160431
+            ]
+          }
         ]
       },
       "10": {
@@ -42965,6 +48615,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160420,
+              160440
+            ]
           }
         ]
       },
@@ -43276,6 +48936,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              61029
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -43390,6 +49061,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              61029
+            ],
+            "quota": 1
+          }
         ]
       },
       "max": 10,
@@ -43420,6 +49102,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.5,
+            "weapons": [
+              160381
+            ]
+          }
         ]
       },
       "10": {
@@ -43445,6 +49137,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              160390
+            ]
           }
         ]
       },
@@ -43516,6 +49218,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160451
+            ]
+          }
         ]
       },
       "10": {
@@ -43532,6 +49244,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160460
+            ]
           }
         ]
       },
@@ -43655,10 +49377,48 @@ const SKILL_TIMING_DATA = {
   "577": {
     "Unyielding Pathfinder": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              160481
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              160481
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              160490
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              160490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 16340
@@ -43747,6 +49507,28 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              160511,
+              160531,
+              160551
+            ],
+            "quota": 1
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160511,
+              160531,
+              160551
+            ]
+          }
         ]
       },
       "10": {
@@ -43759,6 +49541,28 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              160520,
+              160540,
+              160560
+            ],
+            "quota": 1
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160520,
+              160540,
+              160560
+            ]
           }
         ]
       },
@@ -43776,6 +49580,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              160601
+            ]
+          }
         ]
       },
       "10": {
@@ -43787,6 +49601,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              160610
+            ]
           }
         ]
       },
@@ -43947,6 +49771,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160491
+            ]
+          }
         ]
       },
       "10": {
@@ -43962,6 +49795,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160500
+            ]
+          }
         ]
       },
       "max": 10,
@@ -43970,11 +49812,47 @@ const SKILL_TIMING_DATA = {
     "Intoxicating Beauty": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              167231
+            ],
+            "quota": 1
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167231
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              167240
+            ],
+            "quota": 1
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167240
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150850
@@ -44052,6 +49930,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160581
+            ]
+          }
         ]
       },
       "10": {
@@ -44083,6 +49971,16 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160590
+            ]
           }
         ]
       },
@@ -44207,6 +50105,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160681,
+              160691,
+              160701
+            ]
+          }
         ]
       },
       "10": {
@@ -44225,6 +50135,18 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160690,
+              160700,
+              160710
+            ]
           }
         ]
       },
@@ -44387,10 +50309,28 @@ const SKILL_TIMING_DATA = {
     },
     "Glory's Trailblazer": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              160711
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              160720
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 16520
@@ -44437,6 +50377,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              160741,
+              160751
+            ]
+          }
         ]
       },
       "10": {
@@ -44452,6 +50402,16 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              160750,
+              160760
+            ]
           }
         ]
       },
@@ -44690,6 +50650,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              160831
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              160831
+            ]
+          }
         ]
       },
       "10": {
@@ -44706,6 +50685,25 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              160840
+            ],
+            "quota": 1
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              160840
+            ]
           }
         ]
       },
@@ -44738,6 +50736,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.3,
+            "weapons": [
+              160881,
+              160891
+            ]
+          }
         ]
       },
       "10": {
@@ -44752,6 +50760,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              160890,
+              160900
+            ]
           }
         ]
       },
@@ -44819,10 +50837,46 @@ const SKILL_TIMING_DATA = {
     },
     "Voroshilov's Icebind": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 2,
+            "every": 2,
+            "chance": 1,
+            "weapons": [
+              160861
+            ]
+          },
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              160851
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 2,
+            "every": 2,
+            "chance": 1,
+            "weapons": [
+              160870
+            ]
+          },
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              160860
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 16630
@@ -44931,6 +50985,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              160971,
+              160991
+            ]
+          }
         ]
       },
       "10": {
@@ -44955,6 +51020,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              160980,
+              161000
+            ]
           }
         ]
       },
@@ -44996,6 +51072,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              161061,
+              161071
+            ]
+          }
         ]
       },
       "10": {
@@ -45018,6 +51105,17 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              161070,
+              161080
+            ]
           }
         ]
       },
@@ -45135,6 +51233,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.4,
+            "weapons": [
+              64831
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -45174,6 +51282,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.7,
+            "weapons": [
+              64840
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -45409,6 +51527,23 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              161141
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              161121
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -45439,6 +51574,23 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              161150
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              161130
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -45596,6 +51748,17 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              61016
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -45615,6 +51778,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 8,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              61016
+            ],
+            "quota": 1
           }
         ]
       },
@@ -45683,6 +51857,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              161301,
+              161311
+            ]
+          }
         ]
       },
       "10": {
@@ -45695,6 +51879,16 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              161310,
+              161320
+            ]
           }
         ]
       },
@@ -46280,10 +52474,30 @@ const SKILL_TIMING_DATA = {
   "602": {
     "Absolving Light": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.2,
+            "weapons": [
+              162371,
+              162381
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              162380,
+              162390
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17010
@@ -46544,6 +52758,31 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163171,
+              163176,
+              163177,
+              163178,
+              163179,
+              163180,
+              163181,
+              163182,
+              163183,
+              163184,
+              163185,
+              163186,
+              163187,
+              163188,
+              163189,
+              163190
+            ]
+          }
         ]
       },
       "10": {
@@ -46562,6 +52801,31 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163175,
+              163176,
+              163177,
+              163178,
+              163179,
+              163180,
+              163181,
+              163182,
+              163183,
+              163184,
+              163185,
+              163186,
+              163187,
+              163188,
+              163189,
+              163190
+            ]
           }
         ]
       },
@@ -46792,6 +53056,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              163131,
+              163141,
+              163211
+            ]
+          }
         ]
       },
       "10": {
@@ -46806,6 +53081,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              163140,
+              163150,
+              163220
+            ]
           }
         ]
       },
@@ -46841,6 +53127,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              163161,
+              163261
+            ]
+          }
         ]
       },
       "10": {
@@ -46865,6 +53162,17 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              163170,
+              163270
+            ]
           }
         ]
       },
@@ -47043,6 +53351,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              163301
+            ]
+          }
         ]
       },
       "10": {
@@ -47065,6 +53383,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              163310
+            ]
           }
         ]
       },
@@ -47216,6 +53544,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              163351
+            ]
+          }
         ]
       },
       "10": {
@@ -47250,6 +53588,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              163360
+            ]
           }
         ]
       },
@@ -47290,6 +53638,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              163351
+            ]
+          }
         ]
       },
       "10": {
@@ -47324,6 +53682,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 1,
+            "weapons": [
+              163360
+            ]
           }
         ]
       },
@@ -47745,7 +54113,16 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              163311
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -47753,7 +54130,16 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              163320
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17200
@@ -47765,7 +54151,16 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              163311
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -47773,7 +54168,16 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              163320
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17200
@@ -47791,20 +54195,60 @@ const SKILL_TIMING_DATA = {
     },
     "For a Good Night's Sleep": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              163361
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              163370
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17210
     },
     "For a Good Night's Sleep+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              163361
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              163370
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17210
@@ -47991,6 +54435,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 0.7
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              163771,
+              163781
+            ]
+          }
         ]
       },
       "10": {
@@ -48112,6 +54567,17 @@ const SKILL_TIMING_DATA = {
             "period": 12,
             "duration": 0,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              163780,
+              163790
+            ]
           }
         ]
       },
@@ -48496,6 +54962,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              163821
+            ]
+          }
         ]
       },
       "10": {
@@ -48510,6 +54986,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              163830
+            ]
           }
         ]
       },
@@ -48916,6 +55402,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.4,
+            "weapons": [
+              164021
+            ]
+          }
         ]
       },
       "10": {
@@ -48932,6 +55428,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 0.7,
+            "weapons": [
+              164030
+            ]
           }
         ]
       },
@@ -49067,6 +55573,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              161551
+            ]
+          }
         ]
       },
       "10": {
@@ -49078,6 +55594,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              161560
+            ]
           }
         ]
       },
@@ -49148,6 +55674,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 1,
+            "every": 1,
+            "chance": 1,
+            "weapons": [
+              161561
+            ]
+          }
         ]
       },
       "10": {
@@ -49161,6 +55697,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 1,
+            "every": 1,
+            "chance": 1,
+            "weapons": [
+              161570
+            ]
           }
         ]
       },
@@ -49284,6 +55830,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163911,
+              163921,
+              163951
+            ]
+          }
         ]
       },
       "10": {
@@ -49302,6 +55860,18 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              163920,
+              163930,
+              163960
+            ]
           }
         ]
       },
@@ -49390,6 +55960,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.3
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.4,
+            "weapons": [
+              164051,
+              164061
+            ]
+          }
         ]
       },
       "10": {
@@ -49407,6 +55988,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 0.6
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.7,
+            "weapons": [
+              164060,
+              164070
+            ]
           }
         ]
       },
@@ -49436,6 +56028,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.3,
+            "weapons": [
+              164091,
+              164101
+            ]
+          }
         ]
       },
       "10": {
@@ -49448,6 +56051,17 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.6,
+            "weapons": [
+              164100,
+              164110
+            ]
           }
         ]
       },
@@ -49706,6 +56320,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              164161
+            ],
+            "cooldown": 1
+          }
         ]
       },
       "10": {
@@ -49724,6 +56348,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              164170
+            ],
+            "cooldown": 1
           }
         ]
       },
@@ -49943,6 +56577,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              164271
+            ]
+          }
         ]
       },
       "10": {
@@ -49955,6 +56599,16 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164280
+            ]
           }
         ]
       },
@@ -50300,6 +56954,26 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164321,
+              164331
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164321,
+              164331
+            ]
+          }
         ]
       },
       "10": {
@@ -50329,6 +57003,26 @@ const SKILL_TIMING_DATA = {
             "duration": 8,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164330,
+              164340
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164330,
+              164340
+            ]
+          }
         ]
       },
       "max": 10,
@@ -50354,6 +57048,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              164311
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -50372,6 +57076,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              164320
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -50430,6 +57144,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              164291,
+              164301
+            ]
+          }
         ]
       },
       "10": {
@@ -50441,6 +57166,17 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              164300,
+              164310
+            ]
           }
         ]
       },
@@ -50533,6 +57269,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164341
+            ]
+          }
         ]
       },
       "10": {
@@ -50550,6 +57296,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164350
+            ]
           }
         ]
       },
@@ -50608,10 +57364,30 @@ const SKILL_TIMING_DATA = {
   "639": {
     "Dreaming Butterfly": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164351
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164360
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 17920
@@ -50778,6 +57554,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              164511,
+              164521,
+              164541
+            ]
+          }
         ]
       },
       "10": {
@@ -50795,6 +57582,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              164520,
+              164530,
+              164550
+            ]
           }
         ]
       },
@@ -50909,6 +57707,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              164461
+            ]
+          }
         ]
       },
       "10": {
@@ -50924,6 +57732,16 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              164470
+            ]
           }
         ]
       },
@@ -51385,6 +58203,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBeHit"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              164551
+            ]
+          }
         ]
       },
       "10": {
@@ -51402,6 +58230,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBeHit"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              164560
+            ]
           }
         ]
       },
@@ -51441,6 +58279,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164571
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -51473,6 +58322,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164580
+            ],
+            "quota": 1
+          }
         ]
       },
       "max": 10,
@@ -51489,6 +58349,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              164581
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -51500,6 +58370,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              164590
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -51519,6 +58399,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              164661
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -51530,6 +58420,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.8,
+            "weapons": [
+              164670
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -51559,6 +58459,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 16,
+            "every": 16,
+            "chance": 0.4,
+            "weapons": [
+              164671
+            ]
+          }
         ]
       },
       "10": {
@@ -51582,6 +58492,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 16,
+            "every": 16,
+            "chance": 0.7,
+            "weapons": [
+              164680
+            ]
           }
         ]
       },
@@ -51852,7 +58772,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              164881,
+              164891,
+              164901
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -51860,7 +58792,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              164890,
+              164900,
+              164910
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150250
@@ -51981,6 +58925,16 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164861
+            ]
+          }
         ]
       },
       "10": {
@@ -52024,6 +58978,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 10,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164870
+            ]
           }
         ]
       },
@@ -52252,6 +59216,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              165041
+            ]
+          }
         ]
       },
       "10": {
@@ -52266,6 +59240,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              165050
+            ]
           }
         ]
       },
@@ -52396,6 +59380,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onStack"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              496
+            ]
+          }
         ]
       },
       "10": {
@@ -52418,6 +59412,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onStack"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              496
+            ]
+          }
         ]
       },
       "max": 10,
@@ -52434,6 +59438,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              165061
+            ]
+          }
         ]
       },
       "10": {
@@ -52445,6 +59459,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              165070
+            ]
           }
         ]
       },
@@ -52630,6 +59654,24 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "chance": 0.15
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
         ]
       },
       "10": {
@@ -52655,6 +59697,24 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 10,
             "chance": 0.3
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
           }
         ]
       },
@@ -52697,7 +59757,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onBulletCollideBefore",
           "conditional:onTorpedoBulletBang"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              165211,
+              165221,
+              165231
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -52706,7 +59777,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onBulletCollideBefore",
           "conditional:onTorpedoBulletBang"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              165220,
+              165230,
+              165240
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150470
@@ -52718,7 +59800,17 @@ const SKILL_TIMING_DATA = {
           "conditional:onAirAssistReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              165271
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -52726,7 +59818,17 @@ const SKILL_TIMING_DATA = {
           "conditional:onAirAssistReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              165280
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150480
@@ -52810,6 +59912,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              165181
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -52836,6 +59949,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              165190
+            ],
+            "quota": 1
           }
         ]
       },
@@ -52864,6 +59988,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 0.45,
+            "weapons": [
+              165291
+            ]
+          }
         ]
       },
       "10": {
@@ -52875,6 +60009,16 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 0.75,
+            "weapons": [
+              165300
+            ]
           }
         ]
       },
@@ -52893,6 +60037,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              165301
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -52905,6 +60060,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.15,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              165310
+            ],
+            "quota": 1
           }
         ]
       },
@@ -52929,7 +60095,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onBulletHit",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 35,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              165341,
+              165351
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -52937,7 +60114,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onBulletHit",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 35,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              165350,
+              165360
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150510
@@ -53001,6 +60189,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              165501,
+              165511
+            ]
+          }
         ]
       },
       "10": {
@@ -53032,6 +60230,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              165510,
+              165520
+            ]
           }
         ]
       },
@@ -53069,6 +60277,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              165501,
+              165511
+            ]
+          }
         ]
       },
       "10": {
@@ -53100,6 +60318,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.03,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              165510,
+              165520
+            ]
           }
         ]
       },
@@ -53209,6 +60437,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              165481
+            ]
+          }
         ]
       },
       "10": {
@@ -53231,6 +60469,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              165490
+            ]
           }
         ]
       },
@@ -54100,10 +61348,30 @@ const SKILL_TIMING_DATA = {
   "669": {
     "Dauntless Wings of the Hero": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              166991
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167000
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 150750
@@ -54111,11 +61379,35 @@ const SKILL_TIMING_DATA = {
     "Ruinous Blade of the Slayer": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              167011,
+              167091,
+              167101
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              167020,
+              167100,
+              167110
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150760
@@ -54418,6 +61710,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167111
+            ]
+          }
         ]
       },
       "10": {
@@ -54437,6 +61739,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167120
+            ]
+          }
         ]
       },
       "max": 10,
@@ -54455,10 +61767,46 @@ const SKILL_TIMING_DATA = {
     },
     "Tearful Torpedo Tactics": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              166981
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              166981
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              166990
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              166990
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 150650
@@ -54773,6 +62121,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              167221
+            ]
+          }
         ]
       },
       "10": {
@@ -54784,6 +62142,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              167230
+            ]
           }
         ]
       },
@@ -54889,6 +62257,18 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167141,
+              167151
+            ],
+            "until": 0.5
+          }
         ]
       },
       "10": {
@@ -54932,6 +62312,18 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167150,
+              167160
+            ],
+            "until": 0.5
+          }
         ]
       },
       "max": 10,
@@ -54972,6 +62364,16 @@ const SKILL_TIMING_DATA = {
             "duration": 9,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167161
+            ]
+          }
         ]
       },
       "10": {
@@ -55007,6 +62409,16 @@ const SKILL_TIMING_DATA = {
             "period": 1,
             "duration": 9,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167170
+            ]
           }
         ]
       },
@@ -55085,6 +62497,24 @@ const SKILL_TIMING_DATA = {
             "duration": 8.1,
             "chance": 0.4
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167281
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              167281
+            ]
+          }
         ]
       },
       "10": {
@@ -55110,6 +62540,24 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 8.1,
             "chance": 0.7
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167281
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              167281
+            ]
           }
         ]
       },
@@ -55331,6 +62779,18 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              167421,
+              167431,
+              167441
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -55376,6 +62836,18 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.02,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167430,
+              167440,
+              167450
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -55743,6 +63215,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.4,
+            "weapons": [
+              167311,
+              167321
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -55754,6 +63237,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.7,
+            "weapons": [
+              167320,
+              167330
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -55774,6 +63268,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167591,
+              167621,
+              167641
+            ],
+            "cooldown": 1
+          }
         ]
       },
       "10": {
@@ -55786,6 +63292,18 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167600,
+              167630,
+              167650
+            ],
+            "cooldown": 1
           }
         ]
       },
@@ -55921,10 +63439,48 @@ const SKILL_TIMING_DATA = {
     },
     "Glorious Advance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              167581
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              167590
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              902
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 151030
@@ -56081,6 +63637,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167741,
+              167751,
+              167761
+            ]
+          }
         ]
       },
       "10": {
@@ -56104,6 +63671,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167750,
+              167760,
+              167770
+            ]
           }
         ]
       },
@@ -56404,6 +63982,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              61033
+            ]
+          }
         ]
       },
       "10": {
@@ -56418,6 +64006,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              61033
+            ]
           }
         ]
       },
@@ -56638,6 +64236,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167861,
+              167871
+            ]
+          }
         ]
       },
       "10": {
@@ -56649,6 +64258,17 @@ const SKILL_TIMING_DATA = {
               8
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              167870,
+              167880
+            ]
           }
         ]
       },
@@ -56778,6 +64398,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              167841,
+              167851
+            ]
+          }
         ]
       },
       "10": {
@@ -56789,6 +64420,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              167850,
+              167860
+            ]
           }
         ]
       },
@@ -56908,6 +64550,22 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              167771
+            ]
+          }
         ]
       },
       "10": {
@@ -56930,6 +64588,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              167780
+            ]
           }
         ]
       },
@@ -57160,7 +64834,19 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168221,
+              168231,
+              168241
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -57168,7 +64854,19 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168230,
+              168240,
+              168250
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 151340
@@ -57392,7 +65090,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onBattleBuffCount"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              168921,
+              168931
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -57400,7 +65108,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onBattleBuffCount"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              168930,
+              168940
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 151400
@@ -57478,7 +65196,17 @@ const SKILL_TIMING_DATA = {
           "conditional:onAirAssistReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              168881,
+              168901
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -57486,7 +65214,17 @@ const SKILL_TIMING_DATA = {
           "conditional:onAirAssistReady",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              168890,
+              168910
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 151520
@@ -57623,6 +65361,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168941,
+              168951
+            ]
+          }
         ]
       },
       "10": {
@@ -57645,6 +65394,17 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168950,
+              168960
+            ]
           }
         ]
       },
@@ -57809,6 +65569,16 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 20
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              168851
+            ]
+          }
         ]
       },
       "10": {
@@ -57822,6 +65592,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 20
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              168860
+            ]
           }
         ]
       },
@@ -58018,7 +65798,35 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0.1,
+            "every": 0.1,
+            "chance": 1,
+            "weapons": [
+              169021,
+              169031
+            ],
+            "quota": 1
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.15,
+            "weapons": [
+              911
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -58028,7 +65836,35 @@ const SKILL_TIMING_DATA = {
           "periodic",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0.1,
+            "every": 0.1,
+            "chance": 1,
+            "weapons": [
+              169030,
+              169040
+            ],
+            "quota": 1
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920
+            ]
+          },
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.3,
+            "weapons": [
+              920
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 151560
@@ -58244,6 +66080,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169161,
+              169171,
+              169181
+            ]
+          }
         ]
       },
       "10": {
@@ -58268,6 +66116,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169170,
+              169180,
+              169190
+            ]
+          }
         ]
       },
       "max": 10,
@@ -58286,10 +66146,66 @@ const SKILL_TIMING_DATA = {
     },
     "Span of an Instant": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169191,
+              169201
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169191,
+              169201
+            ]
+          },
+          {
+            "on": "torpedo",
+            "chance": 0.4,
+            "weapons": [
+              169211
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169200,
+              169210
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169200,
+              169210
+            ]
+          },
+          {
+            "on": "torpedo",
+            "chance": 0.7,
+            "weapons": [
+              169220
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 151640
@@ -58394,6 +66310,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169221
+            ]
+          }
         ]
       },
       "10": {
@@ -58405,6 +66331,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169230
+            ]
           }
         ]
       },
@@ -58443,6 +66379,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onLowerConsort"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              169461,
+              169471
+            ]
+          }
         ]
       },
       "10": {
@@ -58473,6 +66419,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onLowerConsort"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              169470,
+              169480
+            ]
           }
         ]
       },
@@ -58664,6 +66620,24 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169521
+            ]
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              169501
+            ]
+          }
         ]
       },
       "10": {
@@ -58682,6 +66656,24 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169530
+            ]
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              169510
+            ]
           }
         ]
       },
@@ -58933,6 +66925,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              169481
+            ]
+          }
         ]
       },
       "10": {
@@ -58944,6 +66945,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              169490
+            ]
           }
         ]
       },
@@ -59152,6 +67162,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              169441
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -59163,6 +67184,17 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              169450
+            ],
+            "quota": 1
           }
         ]
       },
@@ -59180,6 +67212,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              169441
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -59191,6 +67234,17 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              169450
+            ],
+            "quota": 1
           }
         ]
       },
@@ -59351,6 +67405,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              169331
+            ]
+          }
         ]
       },
       "10": {
@@ -59368,6 +67432,16 @@ const SKILL_TIMING_DATA = {
             "period": 1,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              169340
+            ]
           }
         ]
       },
@@ -59556,6 +67630,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169811,
+              169831
+            ]
+          }
         ]
       },
       "10": {
@@ -59578,6 +67662,16 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169820,
+              169840
+            ]
           }
         ]
       },
@@ -59667,6 +67761,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169761,
+              169771
+            ]
+          }
         ]
       },
       "10": {
@@ -59678,6 +67782,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169770,
+              169780
+            ]
           }
         ]
       },
@@ -59788,6 +67902,25 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              169721
+            ],
+            "quota": 1
+          },
+          {
+            "first": 23,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169721
+            ]
+          }
         ]
       },
       "10": {
@@ -59801,6 +67934,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              169730
+            ],
+            "quota": 1
+          },
+          {
+            "first": 23,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169730
+            ]
           }
         ]
       },
@@ -59987,6 +68139,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              183111,
+              183121
+            ]
+          }
         ]
       },
       "10": {
@@ -59998,6 +68160,16 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.8,
+            "weapons": [
+              183120,
+              183130
+            ]
           }
         ]
       },
@@ -60031,6 +68203,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              183131
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -60059,6 +68242,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              183140
+            ],
+            "quota": 1
+          }
         ]
       },
       "max": 10,
@@ -60086,6 +68280,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183161
+            ]
+          }
         ]
       },
       "10": {
@@ -60097,6 +68301,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183170
+            ]
           }
         ]
       },
@@ -60120,6 +68334,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.1,
+            "weapons": [
+              183171
+            ]
+          }
         ]
       },
       "10": {
@@ -60137,6 +68361,16 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 20,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.1,
+            "weapons": [
+              183180
+            ]
           }
         ]
       },
@@ -60264,6 +68498,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183141,
+              183151
+            ]
+          }
         ]
       },
       "10": {
@@ -60288,6 +68533,17 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183150,
+              183160
+            ]
           }
         ]
       },
@@ -60412,6 +68668,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183031,
+              183051
+            ]
+          }
         ]
       },
       "10": {
@@ -60435,6 +68702,17 @@ const SKILL_TIMING_DATA = {
               0.03
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183040,
+              183060
+            ]
           }
         ]
       },
@@ -60617,6 +68895,18 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183181,
+              183191,
+              183201
+            ]
+          }
         ]
       },
       "10": {
@@ -60642,6 +68932,18 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              183190,
+              183200,
+              183210
+            ]
           }
         ]
       },
@@ -60908,6 +69210,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 8,
+            "every": 8,
+            "chance": 1,
+            "weapons": [
+              183361
+            ]
+          }
         ]
       },
       "10": {
@@ -60919,6 +69231,16 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 8,
+            "every": 8,
+            "chance": 1,
+            "weapons": [
+              183370
+            ]
           }
         ]
       },
@@ -60952,6 +69274,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.7,
+            "weapons": [
+              183221,
+              183231
+            ],
+            "cooldown": 0.5
+          }
         ]
       },
       "10": {
@@ -60968,6 +69301,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.7,
+            "weapons": [
+              183230,
+              183240
+            ],
+            "cooldown": 0.5
           }
         ]
       },
@@ -61089,6 +69433,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onWeaponSteday"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169991
+            ]
+          }
         ]
       },
       "10": {
@@ -61111,6 +69465,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onWeaponSteday"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              170000
+            ]
           }
         ]
       },
@@ -61249,6 +69613,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183271,
+              183341
+            ]
+          }
         ]
       },
       "10": {
@@ -61270,6 +69645,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.01,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183280,
+              183350
+            ]
           }
         ]
       },
@@ -61299,6 +69685,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              183441,
+              183461
+            ]
+          }
         ]
       },
       "10": {
@@ -61320,6 +69716,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              183450,
+              183470
+            ]
           }
         ]
       },
@@ -61431,10 +69837,30 @@ const SKILL_TIMING_DATA = {
     },
     "O Lurking Thunder, Pierce the Skies": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183581
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183590
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 152240
@@ -61491,6 +69917,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183531
+            ]
+          }
         ]
       },
       "10": {
@@ -61502,6 +69938,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 35,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183540
+            ]
           }
         ]
       },
@@ -61706,22 +70152,64 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 115,
+            "every": 115,
+            "chance": 1,
+            "weapons": [
+              66461,
+              66481
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onUpdate",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 115,
+            "every": 115,
+            "chance": 1,
+            "weapons": [
+              66470,
+              66490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 101060
     },
     "Blaze Break": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.2,
+            "weapons": [
+              66501
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66510
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 101070
@@ -61740,10 +70228,30 @@ const SKILL_TIMING_DATA = {
     },
     "Lacy Dance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.2,
+            "weapons": [
+              66521
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66530
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 101090
@@ -61782,10 +70290,32 @@ const SKILL_TIMING_DATA = {
     },
     "Getter Ravine": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.2,
+            "weapons": [
+              66541,
+              66561
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66550,
+              66570
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 101110
@@ -61850,10 +70380,30 @@ const SKILL_TIMING_DATA = {
     },
     "Rainy Ratnapura": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.2,
+            "weapons": [
+              66581
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              66590
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 101130
@@ -62030,10 +70580,68 @@ const SKILL_TIMING_DATA = {
   "10043": {
     "Future Base": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              68301
+            ],
+            "quota": 1
+          },
+          {
+            "first": 45,
+            "every": 45,
+            "chance": 1,
+            "weapons": [
+              68301
+            ],
+            "quota": 1
+          },
+          {
+            "first": 60,
+            "every": 60,
+            "chance": 1,
+            "weapons": [
+              68301
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              68310
+            ],
+            "quota": 1
+          },
+          {
+            "first": 45,
+            "every": 45,
+            "chance": 1,
+            "weapons": [
+              68310
+            ],
+            "quota": 1
+          },
+          {
+            "first": 60,
+            "every": 60,
+            "chance": 1,
+            "weapons": [
+              68310
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 104050
@@ -62090,6 +70698,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 16,
+            "every": 16,
+            "chance": 0.4,
+            "weapons": [
+              68271,
+              68281
+            ]
+          }
         ]
       },
       "10": {
@@ -62108,6 +70727,17 @@ const SKILL_TIMING_DATA = {
               30
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 16,
+            "every": 16,
+            "chance": 0.7,
+            "weapons": [
+              68280,
+              68290
+            ]
           }
         ]
       },
@@ -62145,11 +70775,31 @@ const SKILL_TIMING_DATA = {
     "Mach 2.42 Blossom": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68951
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68960
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 105010
@@ -62206,10 +70856,28 @@ const SKILL_TIMING_DATA = {
   "10052": {
     "Dream☆Story": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.7,
+            "weapons": [
+              68821
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68830
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 105030
@@ -62356,10 +71024,30 @@ const SKILL_TIMING_DATA = {
   "10054": {
     "The Summer Flower We Watch": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 0.4,
+            "weapons": [
+              68841
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 0.7,
+            "weapons": [
+              68850
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 105080
@@ -62461,6 +71149,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68971
+            ],
+            "quota": 1
+          },
+          {
+            "first": 40,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68971
+            ]
+          }
         ]
       },
       "10": {
@@ -62472,6 +71179,25 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              68980
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              68980
+            ]
           }
         ]
       },
@@ -62500,7 +71226,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onUpdate",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 8,
+            "every": 8,
+            "chance": 1,
+            "weapons": [
+              999,
+              68941
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -62509,7 +71247,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onUpdate",
           "periodic"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 8,
+            "every": 8,
+            "chance": 1,
+            "weapons": [
+              999,
+              68950
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 105130
@@ -62523,7 +71273,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onAllInStrikeSteady"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68861
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -62531,7 +71291,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onAllInStrikeSteady"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              68870
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 105140
@@ -62767,6 +71537,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.45,
+            "weapons": [
+              65281,
+              65291
+            ]
+          }
         ]
       },
       "10": {
@@ -62780,6 +71560,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.05,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.75,
+            "weapons": [
+              65290,
+              65300
+            ]
           }
         ]
       },
@@ -62799,6 +71589,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.45,
+            "weapons": [
+              65281,
+              65291
+            ]
+          }
         ]
       },
       "10": {
@@ -62813,6 +71613,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.75,
+            "weapons": [
+              65290,
+              65300
+            ]
+          }
         ]
       },
       "max": 10,
@@ -62822,10 +71632,30 @@ const SKILL_TIMING_DATA = {
   "10063": {
     "Sakura Petal Dance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65301
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65310
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 106050
@@ -63088,6 +71918,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65331
+            ]
+          }
         ]
       },
       "10": {
@@ -63100,6 +71940,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65340
+            ]
           }
         ]
       },
@@ -63120,6 +71970,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.4,
+            "weapons": [
+              65341,
+              65351
+            ]
+          }
         ]
       },
       "10": {
@@ -63132,6 +71993,17 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.7,
+            "weapons": [
+              65350,
+              65360
+            ]
           }
         ]
       },
@@ -63214,10 +72086,28 @@ const SKILL_TIMING_DATA = {
   "10066": {
     "Dance of the Heavens": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              65381
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              65390
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 106130
@@ -63454,6 +72344,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160921
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -63466,6 +72366,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              160930
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -63766,10 +72676,32 @@ const SKILL_TIMING_DATA = {
     },
     "Positivity Burst!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64461,
+              64471
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64470,
+              64480
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 107030
@@ -63783,7 +72715,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onAllInStrike",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              64531,
+              64571
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -63791,7 +72734,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onAllInStrike",
           "start"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.8,
+            "weapons": [
+              64540,
+              64580
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 107040
@@ -63896,6 +72850,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              64551,
+              64561
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -63908,6 +72873,17 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              64560,
+              64570
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -64034,14 +73010,34 @@ const SKILL_TIMING_DATA = {
         "period": 20,
         "duration": 2,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64481
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 2,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 107110
@@ -64066,6 +73062,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64491
+            ]
+          }
         ]
       },
       "10": {
@@ -64084,6 +73090,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64500
+            ]
           }
         ]
       },
@@ -64353,6 +73369,29 @@ const SKILL_TIMING_DATA = {
             "kind": "start",
             "duration": 20
           }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              63231,
+              63241,
+              63251
+            ]
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              63231,
+              63241,
+              63251
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -64374,6 +73413,29 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "start",
             "duration": 20
+          }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              63240,
+              63250,
+              63260
+            ]
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              63240,
+              63250,
+              63260
+            ],
+            "quota": 1
           }
         ]
       },
@@ -64434,30 +73496,94 @@ const SKILL_TIMING_DATA = {
   "10082": {
     "Energy Pulse": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              63351,
+              63371
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              63360,
+              63380
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 108040
     },
     "Energy Pulse+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              63351,
+              63371
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              63360,
+              63380
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 108040
     },
     "Instance Abreaction": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63421
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63430
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 108050
@@ -64604,6 +73730,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              63281,
+              63291
+            ],
+            "quota": 1
+          },
+          {
+            "first": 25,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              63281,
+              63291
+            ]
+          }
         ]
       },
       "10": {
@@ -64631,6 +73778,27 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              63290,
+              63300
+            ],
+            "quota": 1
+          },
+          {
+            "first": 25,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              63290,
+              63300
+            ]
+          }
         ]
       },
       "max": 10,
@@ -64656,6 +73824,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63231
+            ]
+          }
         ]
       },
       "10": {
@@ -64675,6 +73853,16 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63240
+            ]
+          }
         ]
       },
       "max": 10,
@@ -64683,11 +73871,31 @@ const SKILL_TIMING_DATA = {
     "Tanker Cannon": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              63261
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              63270
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 108080
@@ -64695,11 +73903,31 @@ const SKILL_TIMING_DATA = {
     "Tanker Cannon+": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              63261
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              63270
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 108080
@@ -64876,6 +74104,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63461,
+              63471
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -64914,6 +74153,17 @@ const SKILL_TIMING_DATA = {
             "duration": 10,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63470,
+              63480
+            ],
+            "quota": 1
           }
         ]
       },
@@ -64958,6 +74208,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63461,
+              63471
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -64997,6 +74258,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63470,
+              63480
+            ],
+            "quota": 1
+          }
         ]
       },
       "max": 10,
@@ -65006,30 +74278,86 @@ const SKILL_TIMING_DATA = {
   "10087": {
     "Instance Domination: Wings": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63391
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63400
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 108160
     },
     "Instance Domination: Flames": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63481
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 108170
     },
     "Instance Domination: Flames+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63481
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63490
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 108170
@@ -65051,6 +74379,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              162211
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -65066,6 +74404,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              162220
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -65087,6 +74435,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              162211
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -65102,6 +74460,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              162220
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -65286,6 +74654,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              162271
+            ]
+          }
         ]
       },
       "10": {
@@ -65298,6 +74676,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              162280
+            ]
           }
         ]
       },
@@ -65873,7 +75261,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onAttach+onStack"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 1,
+            "every": 1,
+            "chance": 1,
+            "weapons": [
+              160161
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -65881,7 +75279,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onAttach+onStack"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 1,
+            "every": 1,
+            "chance": 1,
+            "weapons": [
+              160170
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 109130
@@ -66241,6 +75649,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              163611,
+              163621
+            ]
+          }
         ]
       },
       "10": {
@@ -66262,6 +75681,17 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              163620,
+              163630
+            ]
           }
         ]
       },
@@ -66456,6 +75886,16 @@ const SKILL_TIMING_DATA = {
             "period": 25,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 1,
+            "weapons": [
+              163461
+            ]
+          }
         ]
       },
       "10": {
@@ -66474,6 +75914,16 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 25,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 1,
+            "weapons": [
+              163470
+            ]
           }
         ]
       },
@@ -66498,6 +75948,16 @@ const SKILL_TIMING_DATA = {
             "period": 25,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 1,
+            "weapons": [
+              163461
+            ]
+          }
         ]
       },
       "10": {
@@ -66516,6 +75976,16 @@ const SKILL_TIMING_DATA = {
             "kind": "periodic",
             "period": 25,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 25,
+            "every": 25,
+            "chance": 1,
+            "weapons": [
+              163470
+            ]
           }
         ]
       },
@@ -66562,6 +76032,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.8,
+            "weapons": [
+              163481
+            ]
+          }
         ]
       },
       "10": {
@@ -66602,6 +76082,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.8,
+            "weapons": [
+              163490
+            ]
           }
         ]
       },
@@ -66681,6 +76171,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              163491
+            ]
+          }
         ]
       },
       "10": {
@@ -66692,6 +76191,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              163500
+            ]
           }
         ]
       },
@@ -66709,6 +76217,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              163491
+            ]
+          }
         ]
       },
       "10": {
@@ -66720,6 +76237,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              163500
+            ]
           }
         ]
       },
@@ -66849,6 +76375,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              163531
+            ]
+          }
         ]
       },
       "10": {
@@ -66860,6 +76395,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              163540
+            ]
           }
         ]
       },
@@ -66877,6 +76421,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              163531
+            ]
+          }
         ]
       },
       "10": {
@@ -66888,6 +76441,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              163540
+            ]
           }
         ]
       },
@@ -67195,6 +76757,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onRemove"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              166751
+            ]
+          }
         ]
       },
       "10": {
@@ -67236,6 +76808,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onRemove"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              166760
+            ]
           }
         ]
       },
@@ -67283,6 +76865,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onRemove"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              166751
+            ]
+          }
         ]
       },
       "10": {
@@ -67324,6 +76916,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onRemove"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              166760
+            ]
           }
         ]
       },
@@ -67689,7 +77291,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponFire",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              166691,
+              166701,
+              166731,
+              166741
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -67697,7 +77311,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponFire",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              166700,
+              166710,
+              166740,
+              166750
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 111100
@@ -67709,7 +77335,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponFire",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              166691,
+              166701,
+              166731,
+              166741
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -67717,7 +77355,19 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponFire",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              166700,
+              166710,
+              166740,
+              166750
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 111100
@@ -68070,20 +77720,60 @@ const SKILL_TIMING_DATA = {
   "10116": {
     "Scandalous!": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              166651
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.7,
+            "weapons": [
+              166660
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 111160
     },
     "Scandalous!+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              166651
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 0.7,
+            "weapons": [
+              166660
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 111160
@@ -68164,6 +77854,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBattleBuffCount"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167931
+            ]
+          }
         ]
       },
       "10": {
@@ -68196,6 +77895,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBattleBuffCount"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167940
+            ]
           }
         ]
       },
@@ -68234,6 +77942,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBattleBuffCount"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167931
+            ]
+          }
         ]
       },
       "10": {
@@ -68266,6 +77983,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBattleBuffCount"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167940
+            ]
           }
         ]
       },
@@ -68417,6 +78143,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168041
+            ]
+          }
         ]
       },
       "10": {
@@ -68428,6 +78164,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168050
+            ]
           }
         ]
       },
@@ -68457,6 +78203,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168061
+            ]
+          }
         ]
       },
       "10": {
@@ -68480,6 +78236,16 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168070
+            ]
           }
         ]
       },
@@ -68509,6 +78275,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168061
+            ]
+          }
         ]
       },
       "10": {
@@ -68532,6 +78308,16 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168070
+            ]
           }
         ]
       },
@@ -68663,6 +78449,18 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              168691,
+              168701,
+              168711
+            ]
+          }
         ]
       },
       "10": {
@@ -68674,6 +78472,18 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              168700,
+              168710,
+              168720
+            ]
           }
         ]
       },
@@ -68721,6 +78531,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              168611,
+              168621
+            ]
+          }
         ]
       },
       "10": {
@@ -68732,6 +78552,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              168620,
+              168630
+            ]
           }
         ]
       },
@@ -68749,6 +78579,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              168611,
+              168621
+            ]
+          }
         ]
       },
       "10": {
@@ -68760,6 +78600,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              168620,
+              168630
+            ]
           }
         ]
       },
@@ -68971,6 +78821,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168671,
+              168681
+            ]
+          }
         ]
       },
       "10": {
@@ -69004,6 +78865,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168680,
+              168690
+            ]
           }
         ]
       },
@@ -69043,6 +78915,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168671,
+              168681
+            ]
+          }
         ]
       },
       "10": {
@@ -69076,6 +78959,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168680,
+              168690
+            ]
           }
         ]
       },
@@ -69198,14 +79092,36 @@ const SKILL_TIMING_DATA = {
         "period": 20,
         "duration": 3.1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169241,
+              180020
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 3.1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169250,
+              180020
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 114020
@@ -69216,14 +79132,36 @@ const SKILL_TIMING_DATA = {
         "period": 20,
         "duration": 3.1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169241,
+              180020
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 20,
         "duration": 3.1,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169250,
+              180020
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 114020
@@ -69315,6 +79253,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169951,
+              169981
+            ]
+          }
         ]
       },
       "10": {
@@ -69326,6 +79275,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169960,
+              169990
+            ]
           }
         ]
       },
@@ -69343,6 +79303,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169951,
+              169981
+            ]
+          }
         ]
       },
       "10": {
@@ -69354,6 +79325,17 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169960,
+              169990
+            ]
           }
         ]
       },
@@ -69528,6 +79510,32 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169351
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169391
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169391
+            ]
+          }
         ]
       },
       "10": {
@@ -69542,6 +79550,32 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169360
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169400
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169400
+            ]
           }
         ]
       },
@@ -69694,7 +79728,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponFire",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              169271,
+              169281,
+              180018
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -69703,7 +79748,18 @@ const SKILL_TIMING_DATA = {
           "conditional:onChargeWeaponFire",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              169280,
+              169290,
+              180018
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 115050
@@ -69955,6 +80011,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrike"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169411
+            ]
+          }
         ]
       },
       "10": {
@@ -69981,6 +80046,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrike"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169420
+            ]
+          }
         ]
       },
       "max": 10,
@@ -70003,6 +80077,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169261
+            ]
+          }
         ]
       },
       "10": {
@@ -70018,6 +80102,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169261
+            ]
           }
         ]
       },
@@ -70126,12 +80220,36 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169871,
+              169881,
+              169891
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169880,
+              169890,
+              169900
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 115090
@@ -70140,12 +80258,36 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169871,
+              169881,
+              169891
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "missing",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              169880,
+              169890,
+              169900
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 115090
@@ -70276,6 +80418,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponReady"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              183641
+            ]
+          }
         ]
       },
       "10": {
@@ -70317,6 +80469,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponReady"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              183650
+            ]
+          }
         ]
       },
       "max": 10,
@@ -70325,11 +80487,29 @@ const SKILL_TIMING_DATA = {
     "Instructor's Duty": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              183652
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              183660
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 106500
@@ -70337,11 +80517,29 @@ const SKILL_TIMING_DATA = {
     "Instructor's Duty+": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              183652
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              183660
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 106500
@@ -70661,6 +80859,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183711
+            ]
+          }
         ]
       },
       "10": {
@@ -70678,6 +80886,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183720
+            ]
           }
         ]
       },
@@ -70701,6 +80919,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183711
+            ]
+          }
         ]
       },
       "10": {
@@ -70718,6 +80946,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183720
+            ]
           }
         ]
       },
@@ -70750,6 +80988,27 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183731,
+              183741
+            ]
+          },
+          {
+            "first": 45,
+            "every": 45,
+            "chance": 1,
+            "weapons": [
+              183731,
+              183741
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -70774,6 +81033,27 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183740,
+              183750
+            ]
+          },
+          {
+            "first": 45,
+            "every": 45,
+            "chance": 1,
+            "weapons": [
+              183740,
+              183750
+            ],
+            "quota": 1
           }
         ]
       },
@@ -70804,6 +81084,27 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183731,
+              183741
+            ]
+          },
+          {
+            "first": 45,
+            "every": 45,
+            "chance": 1,
+            "weapons": [
+              183731,
+              183741
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -70828,6 +81129,27 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183740,
+              183750
+            ]
+          },
+          {
+            "first": 45,
+            "every": 45,
+            "chance": 1,
+            "weapons": [
+              183740,
+              183750
+            ],
+            "quota": 1
           }
         ]
       },
@@ -70988,6 +81310,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              183691
+            ]
+          }
         ]
       },
       "10": {
@@ -70999,6 +81331,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              183700
+            ]
           }
         ]
       },
@@ -71016,6 +81358,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.4,
+            "weapons": [
+              183691
+            ]
+          }
         ]
       },
       "10": {
@@ -71027,6 +81379,16 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.7,
+            "weapons": [
+              183700
+            ]
           }
         ]
       },
@@ -71382,20 +81744,56 @@ const SKILL_TIMING_DATA = {
   "20002": {
     "Monarch's Coercion": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66781
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66790
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19030
     },
     "Monarch's Coercion+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66781
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66790
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19030
@@ -71593,20 +81991,56 @@ const SKILL_TIMING_DATA = {
     },
     "Flash of Lightning": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.15,
+            "weapons": [
+              66801
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.3,
+            "weapons": [
+              66810
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19060
     },
     "Flash of Lightning+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.15,
+            "weapons": [
+              66801
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.3,
+            "weapons": [
+              66810
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19060
@@ -71631,20 +82065,56 @@ const SKILL_TIMING_DATA = {
   "20004": {
     "A Legend's Inheritance": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66741
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66750
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19070
     },
     "A Legend's Inheritance+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              66741
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              66750
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19070
@@ -72429,6 +82899,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              68121,
+              68141
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -72442,6 +82923,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.8,
+            "weapons": [
+              68130,
+              68150
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -72461,6 +82953,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              68121,
+              68141
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -72474,6 +82977,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.8,
+            "weapons": [
+              68130,
+              68150
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -72767,7 +83281,19 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68191,
+              68221
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -72776,7 +83302,19 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68200,
+              68230
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 19220
@@ -72789,7 +83327,19 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68191,
+              68221
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -72798,7 +83348,19 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              68200,
+              68230
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 19220
@@ -73163,6 +83725,21 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              68151,
+              68161,
+              68171,
+              69611,
+              69621,
+              69631
+            ]
+          }
         ]
       },
       "10": {
@@ -73175,6 +83752,21 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68160,
+              68170,
+              68180,
+              69620,
+              69630,
+              69640
+            ]
           }
         ]
       },
@@ -73193,6 +83785,21 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              68151,
+              68161,
+              68171,
+              69611,
+              69621,
+              69631
+            ]
+          }
         ]
       },
       "10": {
@@ -73205,6 +83812,21 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              68160,
+              68170,
+              68180,
+              69620,
+              69630,
+              69640
+            ]
           }
         ]
       },
@@ -73250,6 +83872,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 0.5,
+            "weapons": [
+              69531
+            ]
+          }
         ]
       },
       "10": {
@@ -73262,6 +83894,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 12,
+            "every": 12,
+            "chance": 1,
+            "weapons": [
+              69540
+            ]
           }
         ]
       },
@@ -73908,20 +84550,64 @@ const SKILL_TIMING_DATA = {
     },
     "Herteitr's Rolling Thunder": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.45,
+            "weapons": [
+              69561,
+              69571
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.75,
+            "weapons": [
+              69570,
+              69580
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19340
     },
     "Herteitr's Rolling Thunder+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.45,
+            "weapons": [
+              69561,
+              69571
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.75,
+            "weapons": [
+              69570,
+              69580
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19340
@@ -73947,11 +84633,45 @@ const SKILL_TIMING_DATA = {
     "Augmenting Mechanism: Setzer Principle": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69541
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              69551
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69550
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              69560
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19350
@@ -73959,11 +84679,45 @@ const SKILL_TIMING_DATA = {
     "Augmenting Mechanism: Setzer Principle+": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69541
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              69551
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              69550
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              69560
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19350
@@ -74144,6 +84898,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              911
+            ]
+          }
         ]
       },
       "10": {
@@ -74168,6 +84931,15 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              920
+            ]
           }
         ]
       },
@@ -74194,30 +84966,94 @@ const SKILL_TIMING_DATA = {
   "20019": {
     "Sky-Rending Retribution": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              64311,
+              64321
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64320,
+              64330
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 19380
     },
     "Sky-Rending Retribution+": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.5,
+            "weapons": [
+              64311,
+              64321
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64320,
+              64330
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 19380
     },
     "Flame-Anointed Conquest": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64371
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64380
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19390
@@ -74442,10 +85278,28 @@ const SKILL_TIMING_DATA = {
     },
     "Hex-Principle of Shattering": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64341
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64350
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19470
@@ -74831,6 +85685,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              62541
+            ]
+          }
         ]
       },
       "10": {
@@ -74869,6 +85733,16 @@ const SKILL_TIMING_DATA = {
             "period": 30,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              62550
+            ]
           }
         ]
       },
@@ -74909,6 +85783,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              62531
+            ]
+          }
         ]
       },
       "10": {
@@ -74925,6 +85809,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 2,
+            "every": 2,
+            "chance": 1,
+            "weapons": [
+              62540
+            ]
           }
         ]
       },
@@ -74947,6 +85841,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              62531
+            ]
+          }
         ]
       },
       "10": {
@@ -74963,6 +85867,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "first": 2,
+            "every": 2,
+            "chance": 1,
+            "weapons": [
+              62540
+            ]
           }
         ]
       },
@@ -75002,6 +85916,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onLowerConsort"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              62551,
+              62561
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -75035,6 +85960,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onLowerConsort"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.8,
+            "weapons": [
+              62560,
+              62570
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -75098,6 +86034,22 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              931
+            ]
+          },
+          {
+            "on": "torpedo",
+            "chance": 0.5,
+            "weapons": [
+              931
+            ]
+          }
         ]
       },
       "10": {
@@ -75129,6 +86081,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              940
+            ]
+          }
         ]
       },
       "max": 10,
@@ -75154,6 +86115,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              62601
+            ]
+          }
         ]
       },
       "10": {
@@ -75174,6 +86145,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62610
+            ]
           }
         ]
       },
@@ -75200,6 +86181,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.5,
+            "weapons": [
+              62601
+            ]
+          }
         ]
       },
       "10": {
@@ -75220,6 +86211,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onBulletHitBefore"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62610
+            ]
           }
         ]
       },
@@ -75290,6 +86291,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              62671
+            ]
+          }
         ]
       },
       "10": {
@@ -75302,6 +86312,15 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              62680
+            ]
           }
         ]
       },
@@ -75320,6 +86339,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              62671
+            ]
+          }
         ]
       },
       "10": {
@@ -75332,6 +86360,15 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              62680
+            ]
           }
         ]
       },
@@ -75585,6 +86622,26 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161361,
+              161371,
+              161411,
+              161421
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              161391
+            ]
+          }
         ]
       },
       "10": {
@@ -75602,6 +86659,26 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161370,
+              161380,
+              161420,
+              161430
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              161400
+            ]
           }
         ]
       },
@@ -75984,6 +87061,26 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161431,
+              161441
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161431,
+              161441
+            ]
+          }
         ]
       },
       "10": {
@@ -76008,6 +87105,26 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161440,
+              161450
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161440,
+              161450
+            ]
           }
         ]
       },
@@ -76038,6 +87155,26 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161431,
+              161441
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161431,
+              161441
+            ]
+          }
         ]
       },
       "10": {
@@ -76062,6 +87199,26 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161440,
+              161450
+            ]
+          },
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161440,
+              161450
+            ]
           }
         ]
       },
@@ -76365,10 +87522,48 @@ const SKILL_TIMING_DATA = {
     },
     "Doombringer's Euphoria": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              162001
+            ],
+            "quota": 1
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              473
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              162010
+            ],
+            "quota": 1
+          },
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              473
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19720
@@ -76408,6 +87603,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              162011,
+              162021
+            ]
+          }
         ]
       },
       "10": {
@@ -76425,6 +87631,17 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              162020,
+              162030
+            ]
           }
         ]
       },
@@ -76448,6 +87665,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              162011,
+              162021
+            ]
+          }
         ]
       },
       "10": {
@@ -76465,6 +87693,17 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              162020,
+              162030
+            ]
           }
         ]
       },
@@ -76582,6 +87821,16 @@ const SKILL_TIMING_DATA = {
             "duration": 6,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164721
+            ]
+          }
         ]
       },
       "10": {
@@ -76606,6 +87855,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 6,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164730
+            ]
           }
         ]
       },
@@ -76636,6 +87895,16 @@ const SKILL_TIMING_DATA = {
             "duration": 6,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164721
+            ]
+          }
         ]
       },
       "10": {
@@ -76660,6 +87929,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 6,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164730
+            ]
           }
         ]
       },
@@ -76708,6 +87987,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164781,
+              164791
+            ]
+          }
         ]
       },
       "10": {
@@ -76750,6 +88040,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.04,
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164790,
+              164800
+            ]
           }
         ]
       },
@@ -76968,6 +88269,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 1,
+            "every": 1,
+            "chance": 1,
+            "weapons": [
+              164811
+            ]
+          }
         ]
       },
       "10": {
@@ -76986,6 +88297,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 1,
+            "every": 1,
+            "chance": 1,
+            "weapons": [
+              164812
+            ]
+          }
         ]
       },
       "max": 10,
@@ -76993,10 +88314,52 @@ const SKILL_TIMING_DATA = {
     },
     "Caelum Imbrialis": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              911,
+              164801
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              911,
+              164801
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              920,
+              164810
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              920,
+              164810
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 19850
@@ -77041,6 +88404,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              164761
+            ]
+          }
         ]
       },
       "10": {
@@ -77063,6 +88435,15 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              164770
+            ]
           }
         ]
       },
@@ -77254,6 +88635,17 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              164741,
+              164751
+            ]
+          }
         ]
       },
       "10": {
@@ -77282,6 +88674,17 @@ const SKILL_TIMING_DATA = {
             "period": 10,
             "duration": 5,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              164750,
+              164760
+            ]
           }
         ]
       },
@@ -77768,6 +89171,34 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168481,
+              168491
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168481,
+              168491
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              168501
+            ]
+          }
         ]
       },
       "10": {
@@ -77804,6 +89235,34 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              168490,
+              168500
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              168490,
+              168500
+            ]
+          },
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              168510
+            ]
           }
         ]
       },
@@ -77937,6 +89396,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              168551,
+              168561,
+              168571
+            ]
+          }
         ]
       },
       "10": {
@@ -77948,6 +89418,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.015,
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              168560,
+              168570,
+              168580
+            ]
           }
         ]
       },
@@ -77965,6 +89446,17 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "count"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              168551,
+              168561,
+              168571
+            ]
+          }
         ]
       },
       "10": {
@@ -77976,6 +89468,17 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.015,
             "kind": "conditional",
             "trigger": "count"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              168560,
+              168570,
+              168580
+            ]
           }
         ]
       },
@@ -78104,6 +89607,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              168591
+            ]
+          }
         ]
       },
       "10": {
@@ -78135,6 +89648,16 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              168600
+            ]
           }
         ]
       },
@@ -78172,6 +89695,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              168591
+            ]
+          }
         ]
       },
       "10": {
@@ -78203,6 +89736,16 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              168600
+            ]
           }
         ]
       },
@@ -78525,6 +90068,25 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              65441
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65441
+            ]
+          }
         ]
       },
       "10": {
@@ -78537,6 +90099,25 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              65450
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65450
+            ]
           }
         ]
       },
@@ -78609,6 +90190,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onRemove"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65451
+            ]
+          }
         ]
       },
       "10": {
@@ -78642,6 +90233,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onRemove"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              65460
+            ]
+          }
         ]
       },
       "max": 10,
@@ -78658,10 +90259,30 @@ const SKILL_TIMING_DATA = {
   "30002": {
     "Shadowflame Torch": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65821
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              65830
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800010
@@ -78739,10 +90360,30 @@ const SKILL_TIMING_DATA = {
   "30003": {
     "Shadow-Wing Torch": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64221
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              64230
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800090
@@ -78758,6 +90399,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.5,
+            "weapons": [
+              65991
+            ]
+          }
         ]
       },
       "10": {
@@ -78769,6 +90420,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              65991
+            ]
           }
         ]
       },
@@ -78840,20 +90501,108 @@ const SKILL_TIMING_DATA = {
   "30004": {
     "Akatan of Blossoming Flame": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63031,
+              63041
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63031,
+              63041
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              63040,
+              63050
+            ],
+            "quota": 1
+          },
+          {
+            "first": 30,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              63040,
+              63050
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800130
     },
     "Aotan of Shadow-Sealing": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63051
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63081
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63091
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63060
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63090
+            ]
+          },
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              63100
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800140
@@ -78895,10 +90644,28 @@ const SKILL_TIMING_DATA = {
   "30005": {
     "Cinderflame Curse": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63131
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              63140
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800170
@@ -78952,10 +90719,30 @@ const SKILL_TIMING_DATA = {
   "30006": {
     "Stormchasing Blade": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64771,
+              64791
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              64780,
+              64800
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800220
@@ -79011,10 +90798,32 @@ const SKILL_TIMING_DATA = {
   "30007": {
     "Seething Chains": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              64801,
+              64811
+            ],
+            "cooldown": 8
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              64810,
+              64820
+            ],
+            "cooldown": 8
+          }
+        ]
       },
       "max": 10,
       "id": 800260
@@ -79053,6 +90862,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64821
+            ]
+          }
         ]
       },
       "10": {
@@ -79087,6 +90906,16 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              64830
+            ]
           }
         ]
       },
@@ -79164,10 +90993,30 @@ const SKILL_TIMING_DATA = {
   "30008": {
     "Stormchasing Spirit": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64931
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              64940
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800300
@@ -79214,7 +91063,26 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              62001
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              62021
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -79222,7 +91090,26 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onUpdate"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              62010
+            ]
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              62030
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 800340
@@ -79230,11 +91117,31 @@ const SKILL_TIMING_DATA = {
     "Blazing Blitz": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.5,
+            "weapons": [
+              62011
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              62020
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 800350
@@ -79462,10 +91369,30 @@ const SKILL_TIMING_DATA = {
   "30011": {
     "Decelerative Fire": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62091
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62100
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800420
@@ -79604,6 +91531,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              62101,
+              62111
+            ],
+            "cooldown": 8
+          }
         ]
       },
       "10": {
@@ -79615,6 +91553,17 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              62110,
+              62120
+            ],
+            "cooldown": 8
           }
         ]
       },
@@ -79654,6 +91603,18 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              62121,
+              62131
+            ],
+            "quota": 1
+          }
         ]
       },
       "10": {
@@ -79687,6 +91648,18 @@ const SKILL_TIMING_DATA = {
             "bullets": 6,
             "duration": 0,
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              62130,
+              62140
+            ],
+            "quota": 1
           }
         ]
       },
@@ -79879,10 +91852,32 @@ const SKILL_TIMING_DATA = {
   "30014": {
     "Flameforged Edge": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62361,
+              62371
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              62370,
+              62380
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 800540
@@ -80000,6 +91995,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              62921
+            ],
+            "until": 60
+          }
         ]
       },
       "10": {
@@ -80012,6 +92018,17 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 3,
+            "every": 3,
+            "chance": 1,
+            "weapons": [
+              62930
+            ],
+            "until": 60
           }
         ]
       },
@@ -80263,6 +92280,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onUpdate"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160571
+            ]
+          }
         ]
       },
       "10": {
@@ -80279,6 +92306,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onUpdate"
+          }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              160580
+            ]
           }
         ]
       },
@@ -80347,6 +92384,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              62961
+            ],
+            "cooldown": 3
+          }
         ]
       },
       "10": {
@@ -80358,6 +92405,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              62970
+            ],
+            "cooldown": 3
           }
         ]
       },
@@ -80439,6 +92496,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              62951
+            ]
+          }
         ]
       },
       "10": {
@@ -80466,6 +92532,15 @@ const SKILL_TIMING_DATA = {
             "maxHP": -0.03,
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              62960
+            ]
           }
         ]
       },
@@ -80529,6 +92604,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              160821
+            ]
+          }
         ]
       },
       "10": {
@@ -80541,6 +92626,16 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              160830
+            ]
           }
         ]
       },
@@ -80833,6 +92928,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161101
+            ]
+          }
         ]
       },
       "10": {
@@ -80845,6 +92950,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              161110
+            ]
           }
         ]
       },
@@ -80935,6 +93050,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161211
+            ]
+          }
         ]
       },
       "10": {
@@ -80951,6 +93076,16 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              161220
+            ]
           }
         ]
       },
@@ -81072,10 +93207,30 @@ const SKILL_TIMING_DATA = {
   "30024": {
     "Flash of Inspiration": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 0.5,
+            "weapons": [
+              162301
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              162310
+            ],
+            "cooldown": 3
+          }
+        ]
       },
       "max": 10,
       "id": 800890
@@ -81140,6 +93295,15 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              162401
+            ]
+          }
         ]
       },
       "10": {
@@ -81153,6 +93317,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onTorpedoWeaponFire"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              162410
+            ]
           }
         ]
       },
@@ -81427,6 +93600,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              163741
+            ]
+          }
         ]
       },
       "10": {
@@ -81439,6 +93622,16 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              163750
+            ]
           }
         ]
       },
@@ -81508,14 +93701,36 @@ const SKILL_TIMING_DATA = {
         "period": 15,
         "duration": 0,
         "chance": 0.5,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 0.5,
+            "weapons": [
+              161521,
+              161531
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "periodic",
         "period": 15,
         "duration": 0,
         "chance": 1,
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              161530,
+              161540
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801040
@@ -81542,6 +93757,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.4,
+            "weapons": [
+              163941
+            ]
+          }
         ]
       },
       "10": {
@@ -81553,6 +93778,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 0.7,
+            "weapons": [
+              163950
+            ]
           }
         ]
       },
@@ -81734,11 +93969,31 @@ const SKILL_TIMING_DATA = {
     "My Phantoms": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164201
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164210
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801130
@@ -81811,6 +94066,16 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              61066
+            ],
+            "cooldown": 5
+          }
         ]
       },
       "10": {
@@ -81825,6 +94090,16 @@ const SKILL_TIMING_DATA = {
             "period": 1,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.8,
+            "weapons": [
+              61066
+            ],
+            "cooldown": 5
           }
         ]
       },
@@ -81921,6 +94196,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164231,
+              164241
+            ]
+          }
         ]
       },
       "10": {
@@ -81932,6 +94218,17 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              164240,
+              164250
+            ]
           }
         ]
       },
@@ -82021,6 +94318,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              164441
+            ]
+          }
         ]
       },
       "10": {
@@ -82060,6 +94367,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "first": 30,
+            "every": 30,
+            "chance": 1,
+            "weapons": [
+              164450
+            ]
+          }
         ]
       },
       "max": 10,
@@ -82082,6 +94399,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164451
+            ]
+          }
         ]
       },
       "10": {
@@ -82100,6 +94427,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              164460
+            ]
+          }
         ]
       },
       "max": 10,
@@ -82117,11 +94454,31 @@ const SKILL_TIMING_DATA = {
     "Hellward Bladepoint": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164591
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              164600
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801240
@@ -82334,6 +94691,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              164871
+            ]
+          }
         ]
       },
       "10": {
@@ -82345,6 +94711,15 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "torpedo",
+            "chance": 1,
+            "weapons": [
+              164880
+            ]
           }
         ]
       },
@@ -82664,6 +95039,17 @@ const SKILL_TIMING_DATA = {
             "duration": 0,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              165361,
+              165371
+            ]
+          }
         ]
       },
       "10": {
@@ -82689,6 +95075,17 @@ const SKILL_TIMING_DATA = {
             "period": 20,
             "duration": 0,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              165370,
+              165380
+            ]
           }
         ]
       },
@@ -82890,6 +95287,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.4,
+            "weapons": [
+              166791
+            ]
+          }
         ]
       },
       "10": {
@@ -82902,6 +95309,16 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 18,
+            "every": 18,
+            "chance": 0.7,
+            "weapons": [
+              166800
+            ]
           }
         ]
       },
@@ -82983,10 +95400,28 @@ const SKILL_TIMING_DATA = {
   "30041": {
     "Spiritshadow Procession": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              166951
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              166960
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801490
@@ -83041,10 +95476,30 @@ const SKILL_TIMING_DATA = {
     },
     "Otherworldly Domain": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              166971
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              166980
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801510
@@ -83316,7 +95771,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onBulletHitBefore"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              167301
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -83324,7 +95789,17 @@ const SKILL_TIMING_DATA = {
           "conditional:missing",
           "conditional:onBulletHitBefore"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              167310
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801570
@@ -83424,7 +95899,28 @@ const SKILL_TIMING_DATA = {
           "conditional:onUpdate",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.5,
+            "weapons": [
+              167391,
+              167401
+            ],
+            "cooldown": 3
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167451,
+              167461
+            ],
+            "quota": 1
+          }
+        ]
       },
       "10": {
         "kind": "mixed",
@@ -83433,7 +95929,28 @@ const SKILL_TIMING_DATA = {
           "conditional:onUpdate",
           "permanent"
         ],
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 1,
+            "weapons": [
+              167400,
+              167410
+            ],
+            "cooldown": 3
+          },
+          {
+            "first": 0,
+            "every": null,
+            "chance": 1,
+            "weapons": [
+              167460,
+              167470
+            ],
+            "quota": 1
+          }
+        ]
       },
       "max": 10,
       "id": 801600
@@ -83613,10 +96130,30 @@ const SKILL_TIMING_DATA = {
   "30045": {
     "Torching Strike": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              167561
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 5,
+            "every": 5,
+            "chance": 1,
+            "weapons": [
+              167570
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801640
@@ -83644,6 +96181,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167541
+            ]
+          }
         ]
       },
       "10": {
@@ -83667,6 +96213,15 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              167550
+            ]
           }
         ]
       },
@@ -83777,6 +96332,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              167651
+            ]
+          }
         ]
       },
       "10": {
@@ -83794,6 +96358,15 @@ const SKILL_TIMING_DATA = {
               50
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              167660
+            ]
           }
         ]
       },
@@ -84011,6 +96584,16 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.7,
+            "weapons": [
+              167961,
+              167981
+            ]
+          }
         ]
       },
       "10": {
@@ -84022,6 +96605,16 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 0.7,
+            "weapons": [
+              167970,
+              167990
+            ]
           }
         ]
       },
@@ -84109,10 +96702,32 @@ const SKILL_TIMING_DATA = {
   "30049": {
     "Nitouryuu - Sunset Glow": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              168131,
+              168141
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              168140,
+              168150
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801800
@@ -84214,10 +96829,28 @@ const SKILL_TIMING_DATA = {
   "30050": {
     "The Dessert Demon's Temptation": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.4,
+            "weapons": [
+              168741
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              168750
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801840
@@ -84325,10 +96958,30 @@ const SKILL_TIMING_DATA = {
   "30051": {
     "Burning Claws": {
       "1": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169121
+            ]
+          }
+        ]
       },
       "10": {
-        "kind": "barrage"
+        "kind": "barrage",
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              169130
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 801870
@@ -84542,6 +97195,16 @@ const SKILL_TIMING_DATA = {
             "duration": 3,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              169611
+            ]
+          }
         ]
       },
       "10": {
@@ -84567,6 +97230,16 @@ const SKILL_TIMING_DATA = {
             "period": 15,
             "duration": 3,
             "chance": 1
+          }
+        ],
+        "fires": [
+          {
+            "first": 15,
+            "every": 15,
+            "chance": 1,
+            "weapons": [
+              169620
+            ]
           }
         ]
       },
@@ -84769,6 +97442,16 @@ const SKILL_TIMING_DATA = {
             "kind": "conditional",
             "trigger": "check"
           }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169671,
+              169701
+            ]
+          }
         ]
       },
       "10": {
@@ -84802,6 +97485,16 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.25,
             "kind": "conditional",
             "trigger": "check"
+          }
+        ],
+        "fires": [
+          {
+            "on": "airstrike",
+            "chance": 1,
+            "weapons": [
+              169680,
+              169710
+            ]
           }
         ]
       },
@@ -84860,11 +97553,31 @@ const SKILL_TIMING_DATA = {
     "Battle-Hardened Knight": {
       "1": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169801
+            ]
+          }
+        ]
       },
       "10": {
         "kind": "permanent",
-        "barrage": true
+        "barrage": true,
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              169810
+            ]
+          }
+        ]
       },
       "max": 10,
       "id": 802010
@@ -85127,6 +97840,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              183281,
+              183291,
+              183301
+            ]
+          }
         ]
       },
       "10": {
@@ -85142,6 +97866,17 @@ const SKILL_TIMING_DATA = {
               18
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "on": "mainGun",
+            "chance": 0.7,
+            "weapons": [
+              183290,
+              183300,
+              183310
+            ]
           }
         ]
       },
@@ -85394,6 +98129,25 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              183501
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183501
+            ]
+          }
         ]
       },
       "10": {
@@ -85441,6 +98195,25 @@ const SKILL_TIMING_DATA = {
             "duration": 5,
             "chance": 1
           }
+        ],
+        "fires": [
+          {
+            "first": 10,
+            "every": 10,
+            "chance": 1,
+            "weapons": [
+              183510
+            ],
+            "quota": 1
+          },
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183510
+            ]
+          }
         ]
       },
       "max": 10,
@@ -85471,6 +98244,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "permanent"
           }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183491,
+              183511
+            ]
+          }
         ]
       },
       "10": {
@@ -85496,6 +98280,17 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "permanent"
+          }
+        ],
+        "fires": [
+          {
+            "first": 20,
+            "every": 20,
+            "chance": 1,
+            "weapons": [
+              183500,
+              183520
+            ]
           }
         ]
       },

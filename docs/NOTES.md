@@ -5976,3 +5976,46 @@ Reported: "Warspite plus gros DPS du jeu" (10781, twice the next ship). Three st
   ship; Vittorio Veneto's "its DMG taken" is an 8s debuff on one enemy, left as is.
 
 Warspite: 10781 -> 4574. Specialty marks regenerated (5 ships change).
+
+## Skill barrages in DPS (2026-10-29)
+
+Reported: "je refuse de croire que Queen Elizabeth est meilleure que Musashi ou New Jersey". The
+DPS figure only counted barrages fired every N main gun volleys (`volleyBarrage`); a barrage on a
+timer ("every 20s") or a weapon event ("when this ship fires her Main Guns") counted 0, so a ship
+without one (QE) outranked the ships whose damage is mostly barrage.
+
+- **Schedules from game data.** `scripts/import-skill-timing.js` now writes `fires` per skill and
+  level: one entry per way the skill's barrage activates, `{ first, every, until, quota, chance }`
+  for ticks or `{ on: mainGun | torpedo | airstrike, chance, cooldown }` for weapon events, each
+  with the `weapons` it fires. `FireSchedule` walks the buff chain as the client runs it: a buff
+  with a `time` stops its own timers when it expires, a permanent buff it adds is a new source
+  (Warspite ®: once at 10s from the 15s root buff, then every 15s from 25s), everything cast
+  under an activation's immediate triggers is part of that one activation (Musashi's 6 shots
+  0.5s apart), a chance is the product of the `rant`s on the path (Exeter's 60% sits on the
+  buff added every 20s), re-adding a live buff only refreshes it (New Jersey's 8s cooldown), and
+  branches gated on an exact fleet count are alternatives, keeping the least demanding (Amagi's
+  interval shortens per Sakura ship). The rest of the file is unchanged (checked by comparing it
+  with `fires` stripped).
+- **App** (`timedBarrageDps`, added to surface DPS beside `volleyBarrageDps`): activations in the
+  fight (`fireCount`: ticks strictly inside it, weapon events from `weaponCycles` as heals and
+  shields do) x one activation's damage (`skillBarrage`, the row code extracted from
+  `volleyBarrage`, whose results are unchanged on all 888 ships) / fight length.
+- **Precision guards** (`barrageFires`): a schedule counts only if the skill text describes it
+  (an "every" with that period, the weapon named, or a battle-start / "Ns after" for a one-off),
+  which drops gun emitters and stack checks that are not the barrage the rows describe (Prinz
+  Rupprecht's special secondary gun every 2s, Serri Glaus's 1s loop); a schedule firing a strict
+  subset of another's weapons is dropped (Shinano's Saiun recon at 3s); schedules left with
+  different weapons, or several schedules with qualified rows ("(15s)", "(crossfleet)"), cannot
+  be paired with the rows and the skill is skipped (29 skills: Lion, Mecklenburg, Ulrich von
+  Hutten, Andrea Doria META, Champagne, Kiev...).
+- **Not counted**: submarine triggers (raid, surfacing), All-Out Assault-triggered barrages
+  (`onAllInStrike` on a surface ship), HP-threshold and hit-triggered ones, "+" skills linked to
+  their base skill's game id (Avrora's Revolyutsiya+), and Warspite's +130% on her first
+  barrage. Guaranteed crits are not modelled (barrages roll the ship's crit, as before).
+- **Measured** (lv125, Recommended, UR, no boss, 60s): 310 ships gain barrage DPS. New Jersey
+  3889 -> 5468, Musashi 3940 -> 5006, Colorado 3510 -> 5137, Queen Elizabeth unchanged at 4148
+  (no barrage). Hand-checked against the texts: New Jersey (10s + every salvo), Musashi, Warspite
+  ®, Colorado (70% per salvo), Bayard (every 10s), Cowpens (TBF strike per airstrike), Hornet
+  META (every 5s). Specialty marks regenerated (67 ships change). `npm run check` passes.
+- Left for later: Chihaya Kisaragi's own aircraft give only 425 DPS beside 3147 from her skill
+  airstrike, which looks low.

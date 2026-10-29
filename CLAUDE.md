@@ -137,6 +137,10 @@ weapon refinement" in the notes). Next:
 - Buff uptime: done in the modal (timing line per skill, "avg" figures, damage chart; see "Buff
   uptime v2" in the notes). Not yet used by Optimize, Fleet (including its synergies) or the Port
   sorts, which stay on raw figures; on-fire procs with a chance are not timed yet.
+- Skill barrages on a timer or a weapon event (New Jersey's Dragon's Breath, Musashi, Warspite)
+  count in DPS since 2026-10-29: schedules from the game tables (`fires` in data/skill-timing.js),
+  kept only where the skill text describes them. See "Skill barrages in DPS" in the notes for
+  what is still left out (multi-schedule skills, submarines, All-Out Assault triggers).
 
 ## Working with this user
 

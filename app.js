@@ -2342,7 +2342,8 @@ function computeCombatMetrics(ship, level, effective, armor) {
   }
 
   const barrageDps = volleyBarrageDps(ship, effective, level, armor);
-  totals.dps += barrageDps;
+  const skillBarrageDps = timedBarrageDps(ship, effective, level, armor);
+  totals.dps += barrageDps + skillBarrageDps;
 
   const { ehp, hitRate } = effectiveHp(effective);
 
@@ -2354,6 +2355,7 @@ function computeCombatMetrics(ship, level, effective, armor) {
     hitRate,
     unknownSlots,
     volleyBarrageDps: barrageDps,
+    timedBarrageDps: skillBarrageDps,
     innateDepthCharge: Boolean(launcher),
   };
 }
@@ -2594,6 +2596,7 @@ function barrageDot(row) {
 }
 
 const volleyBarrageCache = new Map();
+const skillBarrageCache = new Map();
 
 // The barrage rows belonging to a skill, found by running the existing row-to-skill
 // matcher backwards — where a ship has more than one such barrage, the one worth most PER
@@ -2604,34 +2607,49 @@ function volleyBarrage(ship, level, armor) {
   const upgraded = (level || 0) >= barrageEnhancedLevel(ship);
   const cacheKey = ship.id + (upgraded ? "@lb" : "") + (armor ? "@" + armor : "");
   if (volleyBarrageCache.has(cacheKey)) return volleyBarrageCache.get(cacheKey);
-  const rows = barragesAtLevel(ship, ship.barrages || [], level || 0);
   let best = null;
   for (const skill of ship.skills || []) {
     const m = MAIN_GUN_VOLLEY_RE.exec(stripHtml(skill.description || ""));
     if (!m) continue;
     const n = Number(m[2] || m[1]);
     if (!n) continue;
-    const mine = rows.filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
-    const terms = new Map();
-    let damage = 0;
-    const addTerm = (stat, multiplier, amount) => {
-      if (!amount) return;
-      const key = stat + "|" + multiplier;
-      const term = terms.get(key) || { stat, multiplier: Number(multiplier) || 0, damage: 0 };
-      term.damage += amount;
-      terms.set(key, term);
-      damage += amount;
-    };
-    // Rows sharing a qualifier are one pattern; different qualifiers are alternatives
-    // the ship picks between, so each gets a share rather than all of them being summed.
-    const byQualifier = new Map();
-    for (const b of mine) {
-      const q = barrageQualifier(b);
-      if (!byQualifier.has(q)) byQualifier.set(q, []);
-      byQualifier.get(q).push(b);
-    }
-    const share = 1 / (byQualifier.size || 1);
-    for (const group of byQualifier.values()) {
+    const barrage = skillBarrage(ship, skill, level, armor);
+    if (barrage && (!best || barrage.damage / n > best.damage / best.n)) best = { n, ...barrage };
+  }
+  volleyBarrageCache.set(cacheKey, best);
+  return best;
+}
+
+// One activation of a skill's barrage against `armor`: its rows' damage split into terms by the
+// stat each scales with, burns included. `qualified` says rows were set aside for carrying a
+// qualifier ("(15s)", "(crossfleet)"), which a skill with several schedules cannot pair up.
+function skillBarrage(ship, skill, level, armor) {
+  const upgraded = (level || 0) >= barrageEnhancedLevel(ship);
+  const cacheKey = `${ship.id}|${skill.name}|${upgraded}|${armor || ""}`;
+  if (skillBarrageCache.has(cacheKey)) return skillBarrageCache.get(cacheKey);
+  const rows = barragesAtLevel(ship, ship.barrages || [], level || 0);
+  const mine = rows.filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
+  let qualified = false;
+  const terms = new Map();
+  let damage = 0;
+  const addTerm = (stat, multiplier, amount) => {
+    if (!amount) return;
+    const key = stat + "|" + multiplier;
+    const term = terms.get(key) || { stat, multiplier: Number(multiplier) || 0, damage: 0 };
+    term.damage += amount;
+    terms.set(key, term);
+    damage += amount;
+  };
+  // Rows sharing a qualifier are one pattern; different qualifiers are alternatives
+  // the ship picks between, so each gets a share rather than all of them being summed.
+  const byQualifier = new Map();
+  for (const b of mine) {
+    const q = barrageQualifier(b);
+    if (!byQualifier.has(q)) byQualifier.set(q, []);
+    byQualifier.get(q).push(b);
+  }
+  const share = 1 / (byQualifier.size || 1);
+  for (const group of byQualifier.values()) {
     const dots = new Map();
     for (const b of group) {
       // A row is only counted when it plainly belongs to this trigger — one whose name
@@ -2641,10 +2659,13 @@ function volleyBarrage(ship, level, armor) {
       // summing it would hand the ship a gun she doesn't want — unless the row's own
       // trigger names the main gun outright. Costs 8% of the counted damage roster-wide,
       // leaving 502 of 507 ships with a figure.
-      const suffix = b.skillName.toLowerCase().startsWith(skill.name.toLowerCase())
-        ? b.skillName.slice(skill.name.length)
-        : b.skillName;
-      if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) continue;
+      const rowKey = barrageNameKey(b.skillName);
+      const skillKey = barrageNameKey(skill.name);
+      const suffix = rowKey.startsWith(skillKey) ? rowKey.slice(skillKey.length) : rowKey;
+      if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) {
+        qualified = true;
+        continue;
+      }
       // The Light/Medium/Heavy columns of the Barrages table, read through armorDamage() like
       // equipmentBaseDps() reads gear (averaged unless an armour is targeted), each including the
       // row's own Count. The alternative, Count x Base DMG, is the pre-armour figure
@@ -2665,13 +2686,78 @@ function volleyBarrage(ship, level, armor) {
     for (const dot of dots.values()) {
       for (const t of dot.terms) addTerm(t.stat, t.multiplier, t.damage * share);
     }
-    }
-    if (damage > 0 && (!best || damage / n > best.damage / best.n)) {
-      best = { n, damage, terms: [...terms.values()] };
-    }
   }
-  volleyBarrageCache.set(cacheKey, best);
-  return best;
+  const barrage = damage > 0 ? { damage, terms: [...terms.values()], qualified } : null;
+  skillBarrageCache.set(cacheKey, barrage);
+  return barrage;
+}
+
+// A game schedule counts only where the skill's text describes it: one it does not mention is a
+// gun emitter, a stack check or a recon flight (Prinz Rupprecht's secondary gun every 2s, Serri
+// Glaus's 1s loop), not the barrage its rows describe.
+const FIRE_EVENT_TEXT = { mainGun: /main gun/i, torpedo: /torpedo/i, airstrike: /air\s?strike/i };
+const FIRE_PERIOD_RE = /\bevery\s+(?:(second)\b|([\d.]+)\s*(?:s\b|sec)?(?:\s*\(\s*([\d.]+)\s*s?\s*\))?)/gi;
+const FIRE_ONCE_TEXT_RE = /\b(?:start|begin|enter)|\d\s*s\s+after\b/i;
+
+function fireInText(fire, text) {
+  if (fire.on) return FIRE_EVENT_TEXT[fire.on].test(text);
+  const once = !fire.every || fire.quota === 1 || (fire.until != null && fire.first + fire.every >= fire.until);
+  if (once) return FIRE_ONCE_TEXT_RE.test(text);
+  return [...text.matchAll(FIRE_PERIOD_RE)].some(m => (m[1] ? [1] : [Number(m[2]), Number(m[3])]).includes(fire.every));
+}
+
+// The schedules that fire the skill's barrage. One firing only part of another's weapons (Shinano's
+// opening recon flight) is not it; schedules firing different weapons cannot be paired with the
+// rows, so the skill is left out.
+const barrageFiresCache = new WeakMap();
+function barrageFires(skill, fires) {
+  if (barrageFiresCache.has(fires)) return barrageFiresCache.get(fires);
+  const text = stripHtml(skill.description || "");
+  const described = fires.filter(fire => fireInText(fire, text));
+  const kept = described.filter(fire => !described.some(other => other.weapons.length > fire.weapons.length &&
+    fire.weapons.every(weapon => other.weapons.includes(weapon))));
+  const result = new Set(kept.map(fire => fire.weapons.join())).size > 1 ? [] : kept;
+  barrageFiresCache.set(fires, result);
+  return result;
+}
+
+// Barrages a skill fires on a timer or a weapon event (`fires` in data/skill-timing.js), as DPS
+// over the fight; volley-triggered ones are volleyBarrage's. A skill with several schedules and
+// qualified rows is left out: which row goes with which schedule is unknown.
+function timedBarrageDps(ship, effective, level, armor) {
+  if (typeof SKILL_TIMING_DATA === "undefined") return 0;
+  const fight = fightSeconds();
+  let cycles = null;
+  let total = 0;
+  for (const skill of getSkillsForState(ship, retrofitApplied, augmentApplied, fateSimApplied)) {
+    if (MAIN_GUN_VOLLEY_RE.test(stripHtml(skill.description || ""))) continue;
+    const timing = skillTiming(ship, skill, isSkillAtMaxLevel(skill));
+    if (!timing || !timing.fires) continue;
+    const fires = barrageFires(skill, timing.fires);
+    const barrage = fires.length ? skillBarrage(ship, skill, level, armor) : null;
+    if (!barrage || (barrage.qualified && fires.length > 1)) continue;
+    cycles = cycles || weaponCycles(ship, effective);
+    const count = fires.reduce((sum, fire) => sum + fireCount(fire, fight, cycles), 0);
+    if (count > 0) total += count * volleyBarrageDamage(barrage, effective, null, armor);
+  }
+  return total / fight;
+}
+
+// Expected activations in the fight. Ticks fall strictly inside it, as periodic buffs do; a weapon
+// event follows that weapon's cycle, skipping the shots that land in the skill's cooldown.
+function fireCount(fire, fight, cycles) {
+  let count = 0;
+  if (fire.on) {
+    const cycle = cycles[fire.on];
+    if (!cycle) return 0;
+    const gap = fire.cooldown > cycle ? cycle * Math.ceil(fire.cooldown / cycle) : cycle;
+    count = ((cycles.preload || {})[fire.on] || 0) + Math.floor(fight / gap);
+  } else {
+    const end = Math.min(fight, fire.until ?? Infinity);
+    if (fire.first < end) count = fire.every ? Math.ceil((end - fire.first) / fire.every) : 1;
+  }
+  if (fire.quota) count = Math.min(count, fire.quota);
+  return count * fire.chance;
 }
 
 // Most volley barrages scale off Firepower exactly as the gun does, but 83 rows across 64
@@ -3960,6 +4046,9 @@ function renderCombatMetrics(ship, effective) {
         if (field.armor && fieldMetrics.volleyBarrageDps) {
           notes.push(`Includes ${Math.round(fieldMetrics.volleyBarrageDps).toLocaleString("en-US")} DPS from her volley-triggered barrage, which fires off the main gun: a faster gun fires it more often.`);
         }
+        if (field.armor && fieldMetrics.timedBarrageDps) {
+          notes.push(`Includes ${Math.round(fieldMetrics.timedBarrageDps).toLocaleString("en-US")} DPS from skill barrages fired on a timer or a weapon event, counted over a ${fightSeconds()}s fight.`);
+        }
         if (field.key === "dpsASW") {
           if (metrics.innateDepthCharge) {
             notes.push("Includes the default depth charge launcher every DD and CL carries; equipped depth charges add to it.");
@@ -5050,14 +5139,17 @@ function hideEquipInfoTooltip() {
 // A barrage row names its skill inconsistently (extra suffixes, hyphen and spacing
 // differences), so it is matched by longest normalised prefix rather than equality.
 // Longest wins because several skills share a prefix.
+// Barrage rows spell a retrofit skill's "®" as "(R)".
+function barrageNameKey(name) {
+  return name.toLowerCase().replace(/®/g, "(r)").replace(/-/g, " ").replace(/\s+/g, " ").trim();
+}
+
 function matchSkillForBarrage(ship, barrageSkillName) {
   const skills = ship.skills || [];
-  // Barrage rows spell a retrofit skill's "®" as "(R)".
-  const norm = t => t.toLowerCase().replace(/®/g, "(r)").replace(/-/g, " ").replace(/\s+/g, " ").trim();
-  const rowNorm = norm(barrageSkillName);
+  const rowNorm = barrageNameKey(barrageSkillName);
   let best = null;
   for (const sk of skills) {
-    if (rowNorm.startsWith(norm(sk.name))) {
+    if (rowNorm.startsWith(barrageNameKey(sk.name))) {
       if (!best || sk.name.length > best.name.length) best = sk;
     }
   }

@@ -171,6 +171,119 @@ class Timing {
   }
 }
 
+// When a skill fires its barrage: one activation per schedule tick or weapon event, however many
+// bullets and inner timers it then runs (Musashi's 6 shots 0.5s apart are one activation).
+// Ticks: { first, every, until, quota, chance } in seconds from the battle start, `every` null
+// for a single one; events: { on: "mainGun" | "torpedo" | "airstrike", chance, cooldown, quota }.
+const FIRE_IMMEDIATE = new Set(["onAttach", "onUpdate", "onStartGame", "onAttach+onStack"]);
+const FIRE_EVENTS = {
+  onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo",
+  onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onAirAssistReady: "airstrike"
+};
+const FIRE_ROUTING_ARGS = ["skill_id", "buff_id", "time", "rant", "group", "index", "countType"];
+
+class FireSchedule {
+  constructor(tables, level) {
+    this.tables = tables;
+    this.level = level;
+    this.out = [];
+    this.sources = new Set();
+  }
+
+  static isStatic(args) {
+    return Object.keys(args).filter(key => !FIRE_ROUTING_ARGS.includes(key)).every(key => STATIC_CHECK.test(key));
+  }
+
+  static next(args) {
+    return args.skill_id ? ["skill", args.skill_id] : args.buff_id ? ["buff", args.buff_id] : null;
+  }
+
+  // The chance that casting this target now fires a barrage, through immediate triggers only, and
+  // the weapons it fires (a recon flight or a gun emitter is told apart from the barrage by them).
+  reaches(target, depth = 0, seen = new Set()) {
+    const none = { chance: 0, weapons: [] };
+    const key = target.join("_");
+    if (depth > 10 || seen.has(key)) return none;
+    seen.add(key);
+    const found = [];
+    if (target[0] === "skill") {
+      const skill = atLevel(this.tables.skills[`skill_${target[1]}`], this.level);
+      for (const entry of list(skill && skill.effect_list)) {
+        const args = entry.arg_list || {};
+        if (entry.type === "BattleSkillFire") found.push({ chance: 1, weapons: [args.weapon_id] });
+        else if (entry.type === "BattleSkillAddBuff" && args.buff_id) found.push(this.reaches(["buff", args.buff_id], depth + 1, seen));
+      }
+    } else {
+      const buff = atLevel(this.tables.buffs[`buff_${target[1]}`], this.level);
+      for (const effect of list(buff && buff.effect_list)) {
+        const args = effect.arg_list || {};
+        const next = FireSchedule.next(args);
+        if (!next || !FIRE_IMMEDIATE.has((effect.trigger || []).join("+")) || !FireSchedule.isStatic(args)) continue;
+        const inner = this.reaches(next, depth + 1, seen);
+        found.push({ chance: (args.rant || 10000) / 10000 * inner.chance, weapons: inner.weapons });
+      }
+    }
+    const hits = found.filter(f => f.chance > 0);
+    if (!hits.length) return none;
+    return {
+      chance: Math.max(...hits.map(f => f.chance)),
+      weapons: [...new Set(hits.flatMap(f => f.weapons))].filter(w => w !== undefined).sort((a, b) => a - b)
+    };
+  }
+
+  // Branches gated on an exact count of fleet members (Amagi's interval shortens per Sakura ship)
+  // are alternatives: only the least demanding one is kept.
+  static alternatives(effects) {
+    const kept = new Map();
+    for (const effect of effects) {
+      const args = effect.arg_list || {};
+      if (!args.check_target || (args.minTargetNumber === undefined && args.maxTargetNumber === undefined)) continue;
+      const key = JSON.stringify([effect.trigger, args.check_target, args.nationality, args.ship_tag_list, args.ship_type_list]);
+      const best = kept.get(key);
+      if (!best || (args.minTargetNumber || 0) < (best.arg_list.minTargetNumber || 0)) kept.set(key, effect);
+    }
+    return effects.filter(effect => {
+      const args = effect.arg_list || {};
+      if (!args.check_target || (args.minTargetNumber === undefined && args.maxTargetNumber === undefined)) return true;
+      return kept.get(JSON.stringify([effect.trigger, args.check_target, args.nationality, args.ship_tag_list, args.ship_type_list])) === effect;
+    });
+  }
+
+  // A buff living from t0 (for its `time`, or the whole battle) whose triggers schedule activations;
+  // a permanent buff it adds is a further source (Warspite's barrage moves to one after 15s).
+  source(id, t0 = 0, chance = 1, depth = 0) {
+    if (this.sources.has(id) || depth > 6) return this.out;
+    this.sources.add(id);
+    const buff = atLevel(this.tables.buffs[`buff_${id}`], this.level);
+    if (!buff) return this.out;
+    const until = buff.time > 0 ? t0 + buff.time : null;
+    for (const effect of FireSchedule.alternatives(list(buff.effect_list))) {
+      const args = effect.arg_list || {};
+      const trigger = (effect.trigger || []).join("+");
+      const target = FireSchedule.next(args);
+      if (!target || !["BattleBuffCastSkill", "BattleBuffAddBuff"].includes(effect.type) || !FireSchedule.isStatic(args)) continue;
+      const odds = chance * (args.rant || 10000) / 10000;
+      let when;
+      if (trigger === "onUpdate" && args.time > 0) when = { first: round(t0 + args.time), every: args.time };
+      else if (FIRE_IMMEDIATE.has(trigger)) when = { first: t0, every: null };
+      else if (FIRE_EVENTS[trigger]) when = { on: FIRE_EVENTS[trigger] };
+      else continue;
+      const added = target[0] === "buff" ? atLevel(this.tables.buffs[`buff_${target[1]}`], this.level) : null;
+      if (added && !(added.time > 0) && !when.on) {
+        this.source(target[1], when.first, odds, depth + 1);
+        continue;
+      }
+      const reach = this.reaches(target);
+      if (!reach.chance) continue;
+      const fire = { ...when, chance: round(odds * reach.chance), weapons: reach.weapons, ...(until !== null && !when.on ? { until: round(until) } : {}), ...(args.quota ? { quota: args.quota } : {}) };
+      // Re-adding a live buff only refreshes it, so its onAttach cast waits for it to expire.
+      if (when.on && added && added.time > 0) fire.cooldown = added.time;
+      if (!this.out.some(other => JSON.stringify(other) === JSON.stringify(fire))) this.out.push(fire);
+    }
+    return this.out;
+  }
+}
+
 // The figure a skill's text would print for this effect, in percent or flat points: ratio
 // attributes are in 1/10000 (Expert Loader's loadSpeed 350 is +3.5%), plain ones a fraction or a
 // flat amount, so both readings are kept.
@@ -266,7 +379,11 @@ async function getJson(url) {
       mapped++;
       const maxLevel = (tables.texts[id] || {}).max_level || 10;
       const byLevel = {};
-      for (const level of [1, maxLevel]) byLevel[level] = summarise(new Timing(tables, level).buff(id, {}, 0));
+      for (const level of [1, maxLevel]) {
+        byLevel[level] = summarise(new Timing(tables, level).buff(id, {}, 0));
+        const fires = new FireSchedule(tables, level).source(id);
+        if (fires.length) byLevel[level].fires = fires;
+      }
       byLevel.max = maxLevel;
       byLevel.id = id;
       (timing[ship.id] = timing[ship.id] || {})[skill.name] = byLevel;
