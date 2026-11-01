@@ -1404,6 +1404,9 @@ function modifierSourceText(entry) {
 // trying to re-run the (no longer existing) extraction script.
 const SELF_LANGUAGE_RE = /\b(this ship('s)?|her own|own)\b/i;
 const OTHER_SHIPS_TARGET_RE = /\byour\s+(DDs?|CLs?|CAs?|CBs?|BBs?|BCs?|CVs?|CVLs?|SSs?|SSVs?|Vanguard|Main Fleet|fleet)\b/i;
+// "that ship's FP" (Elise, Weser), "the target's FP" (Portsmouth Adventure), "the healing targets"
+// (Cowpens) name the ally a skill picked, unless the ship names herself too ("that ship's and Nagara's").
+const PICKED_ALLY_RE = /\b(that ship|the target|the healing targets?)\b/i;
 
 // A few skills grant a DIFFERENT self bonus depending on which equip-condition branch
 // applies (Hakuryuu's "The Great One's Shadow"), so summing every self bonus
@@ -1645,6 +1648,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       const isSelfScoped = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
       if (!isSelfScoped) continue;
       if (b.raw && OTHER_SHIPS_TARGET_RE.test(b.raw)) continue;
+      if (b.raw && PICKED_ALLY_RE.test(b.raw) && !SELF_LANGUAGE_RE.test(b.raw) && !b.raw.includes(ship.name)) continue;
       if (!equipConditionAllows(ship, plainDesc, b.raw)) continue;
       const dedupeKey = `${skill.name}::${b.raw}::${b.min}::${b.max}`;
       if (seenRaw.has(dedupeKey)) continue;

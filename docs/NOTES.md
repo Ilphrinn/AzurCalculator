@@ -6049,3 +6049,12 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   barrage_template) confirms the wiki row: weapons 169770 + 169780, one plane each, each plane
   firing 2 barrages of 6 torpedoes = 24 x 207 per strike, against 3 for Independence (67930). Not
   a bug; like every barrage it assumes all torpedoes hit.
+- **Picked-ally bonuses no longer count as self** (`PICKED_ALLY_RE`, 2026-11-01): Cowpens' "DMG dealt
+  of the healing targets +10%" was applied to her own damage. Same mislabel for "that ship's"
+  (Elise's FP/AVI, Helena, Weser, Raffaello, Vestal META) and "the target's" (Portsmouth
+  Adventure); kept when the ship names herself ("that ship's and Nagara's"). Cowpens 4489 -> 4081,
+  still first. No specialty mark changes.
+- **Open, found the same day**: barrages count every bullet as a hit. Cowpens' 24 torpedoes cross
+  in two diagonals over 6 lanes 5 units apart (z -12.5..12.5, barrage_template 82220-82223), while
+  Independence's 3 span 12 units (80534); against one boss only the central lanes connect, so
+  wide patterns are overrated. Needs boss hitbox widths and the pattern geometry from the game.
