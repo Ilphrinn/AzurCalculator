@@ -6278,3 +6278,19 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
 - Measured (lv125, Recommended, UR, reference boss): BB median DPS 1524 -> 1913 (burn median
   453), BC 1475 -> 1770, CB 972 -> 1056, CA/CL/DD within 1%. 90 ships move their main gun from
   AP to HE (New Jersey: Twin 406mm SK C/34, 4642 -> 4879). `npm run check` passes.
+
+## Rich tooltips for calculations (2026-11-01)
+
+- **User request**: tooltips holding maths should show the formula properly. Native `title`
+  tooltips are plain text, so `setRichTip(el, parts)` replaces them on those elements: one
+  floating `.rich-tip` (role tooltip, `aria-describedby` while shown) on mouseenter/focus, hidden on
+  mouseleave/blur and on any scroll, placed under the element or above when there is no room,
+  clamped to the viewport (CSSOM `style.top/left`, allowed by the CSP unlike `style=`).
+- **Parts**: a string is a paragraph; `{ calc: [[op, label, value], ...] }` is a column of steps
+  (operator in accent, label muted, value right-aligned, `=` row ruled with its value in gold);
+  `{ formula: "a × b + c" }` is an expression whose operators, numbers and terms get their own
+  colours and spacing.
+- **Converted**: the modal stat breakdown ((base + equipment) x (1 + skill %) + flat, as rows),
+  the eHP line (HP ÷ hit rate × other reductions = eHP) and the fire formula in the DPS notes.
+  Other titles carry no calculation and stay native. Checked by headless screenshots on New
+  Jersey (stat, eHP, DPS tooltips).

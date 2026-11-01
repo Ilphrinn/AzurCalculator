@@ -1739,13 +1739,96 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
 // since with no Base column anywhere a lone "355" can't be told apart from an unboosted
 // value. It can now come from two different sources applying at different points in the
 // formula, so spelling both out is the only way to tell which is responsible.
-function statBreakdownText(label, entry) {
-  const lines = [`${label}  base ${entry.base}`];
-  if (entry.equip) lines.push(`equipment  ${entry.equip > 0 ? "+" : ""}${entry.equip}`);
-  if (entry.pct) lines.push(`skills  ${entry.pct > 0 ? "+" : ""}${entry.pct}%`);
-  if (entry.skillFlat) lines.push(`skills (flat)  ${entry.skillFlat > 0 ? "+" : ""}${entry.skillFlat}`);
-  lines.push(`= ${entry.value}`);
-  return lines.join("\n");
+// Native titles are plain text. A tooltip carrying a calculation gets this one instead, so the
+// maths reads as maths: a column of steps with their operators, or an expression with its terms
+// set apart. Parts are strings, { calc: [[op, label, value], ...] } or { formula: "a × b + c" }.
+const richTips = new WeakMap();
+let richTipBox = null;
+
+function setRichTip(el, parts) {
+  el.removeAttribute("title");
+  if (!richTips.has(el)) {
+    el.addEventListener("mouseenter", showRichTip);
+    el.addEventListener("mouseleave", hideRichTip);
+    el.addEventListener("focus", showRichTip);
+    el.addEventListener("blur", hideRichTip);
+  }
+  richTips.set(el, parts);
+}
+
+const RICH_TIP_OPERATOR_RE = /^[×÷+\-−\/=()→]$/;
+
+function richTipPart(part) {
+  if (typeof part === "string") {
+    const text = document.createElement("p");
+    text.className = "rich-tip-text";
+    text.textContent = part;
+    return text;
+  }
+  if (part.calc) {
+    const calc = document.createElement("div");
+    calc.className = "rich-tip-calc";
+    for (const [op, label, value] of part.calc) {
+      for (const [className, text] of [["rich-tip-op", op], ["rich-tip-label", label], ["rich-tip-value", value]]) {
+        const cell = document.createElement("span");
+        cell.className = className + (op === "=" ? " rich-tip-total" : "");
+        cell.textContent = typeof value === "number" && text === value ? value.toLocaleString("en-US") : text;
+        calc.appendChild(cell);
+      }
+    }
+    return calc;
+  }
+  const formula = document.createElement("div");
+  formula.className = "rich-tip-formula";
+  for (const token of part.formula.split(/([×÷+\-−\/=()→])/)) {
+    const text = token.trim();
+    if (!text) continue;
+    const span = document.createElement("span");
+    span.className = RICH_TIP_OPERATOR_RE.test(text)
+      ? `rich-tip-op${/[()\/]/.test(text) ? " rich-tip-tight" : ""}`
+      : /^[\d.,]+%?$/.test(text) ? "rich-tip-num" : "rich-tip-var";
+    span.textContent = text;
+    formula.appendChild(span);
+  }
+  return formula;
+}
+
+function showRichTip(event) {
+  const parts = richTips.get(event.currentTarget);
+  if (!parts) return;
+  hideRichTip();
+  richTipBox = document.createElement("div");
+  richTipBox.className = "rich-tip";
+  richTipBox.id = "rich-tip";
+  richTipBox.setAttribute("role", "tooltip");
+  event.currentTarget.setAttribute("aria-describedby", richTipBox.id);
+  for (const part of parts) if (part) richTipBox.appendChild(richTipPart(part));
+  document.body.appendChild(richTipBox);
+  const anchor = event.currentTarget.getBoundingClientRect();
+  const box = richTipBox.getBoundingClientRect();
+  const gap = 6, margin = 8;
+  const below = anchor.bottom + gap + box.height <= window.innerHeight - margin;
+  richTipBox.style.top = `${below ? anchor.bottom + gap : Math.max(margin, anchor.top - gap - box.height)}px`;
+  richTipBox.style.left = `${Math.max(margin, Math.min(anchor.left, window.innerWidth - margin - box.width))}px`;
+}
+
+function hideRichTip() {
+  if (!richTipBox) return;
+  for (const el of document.querySelectorAll("[aria-describedby='rich-tip']")) el.removeAttribute("aria-describedby");
+  richTipBox.remove();
+  richTipBox = null;
+}
+document.addEventListener("scroll", hideRichTip, true);
+
+// The stat's own formula, (base + equipment) x (1 + skill %) + flat skill bonus, step by step.
+function statBreakdownTip(label, entry) {
+  const sign = amount => (amount > 0 ? "+" : "−");
+  const rows = [["", "base", entry.base]];
+  if (entry.equip) rows.push([sign(entry.equip), "equipment", Math.abs(entry.equip)]);
+  if (entry.pct) rows.push(["×", `skills ${entry.pct > 0 ? "+" : ""}${entry.pct}%`, String(+(1 + entry.pct / 100).toFixed(3))]);
+  if (entry.skillFlat) rows.push([sign(entry.skillFlat), "skills (flat)", Math.abs(entry.skillFlat)]);
+  rows.push(["=", label, entry.value]);
+  return [{ calc: rows }];
 }
 
 function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
@@ -1776,7 +1859,7 @@ function buildStatsGrid(container, gridDefs, ship, level, base, effective) {
     const value = document.createElement("span");
     value.className = "stat-grid-value";
     if (delta) {
-      cell.title = statBreakdownText(def.label, entry);
+      setRichTip(cell, statBreakdownTip(def.label, entry));
       value.appendChild(document.createTextNode(formatStatValue(baseRaw)));
       const equipDelta = entry.equip || 0;
       const skillDelta = delta - equipDelta;
@@ -4278,7 +4361,7 @@ function renderCombatMetrics(ship, effective) {
       if (field.key === "ehp") {
         notes.push(
           `Against ${targetName}: Accuracy ${target.hit}, Luck ${target.luck}, same level.`,
-          `Hit rate ${(metrics.hitRate * 100).toFixed(1)}% -> ${Math.round(metrics.ehp).toLocaleString("en-US")} eHP from ${effective.stats.health.value} HP.`,
+          ehpCalc(effective.stats.health.value, metrics),
           "The main figure counts auxiliary evade procs and damage reductions only. \"avg\" also counts skill Evasion Rate and DMG Taken buffs whose timing is known, weighted by their share of the fight."
         );
         if (!targetBoss) notes.push("Pick a boss in Target to see this against a specific fight.");
@@ -4301,7 +4384,10 @@ function renderCombatMetrics(ship, effective) {
           notes.push(`Includes ${Math.round(fieldMetrics.timedBarrageDps).toLocaleString("en-US")} DPS from skill barrages fired on a timer or a weapon event, counted over a ${fightSeconds()}s fight.`);
         }
         if (field.armor && fieldMetrics.gunBurnDps) {
-          notes.push(`Includes ${Math.round(fieldMetrics.gunBurnDps).toLocaleString("en-US")} DPS from fire: her HE shells may set the target alight (BB 50%, CA 8%, CL 3%, DD 1%, Beehive 30% per hit), a tick every 3s of Dmg x Coef x Efficiency x (1 + FP/100) x 0.6 + 5, ignoring armour.`);
+          notes.push(
+            `Includes ${Math.round(fieldMetrics.gunBurnDps).toLocaleString("en-US")} DPS from fire: her HE shells may set the target alight (BB 50%, CA 8%, CL 3%, DD 1%, Beehive 30% per hit), ignoring armour, a tick every 3s of:`,
+            { formula: "Dmg × Coef × Efficiency × (1 + FP / 100) × 0.6 + 5" }
+          );
         }
         if (field.key === "dpsASW") {
           if (metrics.innateDepthCharge) {
@@ -4314,7 +4400,8 @@ function renderCombatMetrics(ship, effective) {
       if (showAverage) {
         notes.push(`avg: over a ${fightSeconds()}s fight${targetBoss ? ` (${targetBoss.name}'s time limit)` : ""}, each skill bonus whose timing is known counts for its share of the fight; the main figure assumes every buff is on.`);
       }
-      label.title = number.title = notes.join("\n");
+      setRichTip(label, notes);
+      setRichTip(number, notes);
       const isTargetArmor = Boolean(field.armor && targetBoss && field.armor === targetBoss.armor);
       label.classList.toggle("is-target", isTargetArmor);
       number.classList.toggle("is-target", isTargetArmor);
@@ -4323,6 +4410,15 @@ function renderCombatMetrics(ship, effective) {
     }
   }
   renderDamageChart(ship, metrics.dps);
+}
+
+// eHP as the calculation it is: HP over the hit rate, then the reductions the figure counts.
+function ehpCalc(hp, metrics) {
+  const rows = [["", "HP", hp], ["÷", "hit rate", `${(metrics.hitRate * 100).toFixed(1)}%`]];
+  const reductions = metrics.ehp / (hp / metrics.hitRate);
+  if (Math.abs(reductions - 1) > 0.0005) rows.push(["×", "evade procs, DMG taken", reductions.toFixed(3)]);
+  rows.push(["=", "eHP", Math.round(metrics.ehp)]);
+  return { calc: rows };
 }
 
 // --- Damage over the fight ---
