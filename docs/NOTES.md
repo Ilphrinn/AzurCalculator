@@ -6117,7 +6117,10 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   affinity, +6% on all but Speed and Luck, then adds the retrofit bonus): 817 ships within 2
   points, 99 of 108 retrofit rows too. Known differences: research ships' Luck (wiki 0, game
   15-25, unchanged), sailing ships' Speed (wiki shows LB0; each limit break gives "SPD +8").
-  The app applies no affinity; the 27 `statsCurve` ships, read off the wiki, include it.
+  The app applied no affinity while the 27 `statsCurve` ships, read off the wiki, include it:
+  `computeStats` now applies 100 Affinity (x1.06, floored, not on Speed/Luck, before the
+  retrofit bonus) on the user's go-ahead. 789 of 841 ships and the 27 curves then match the
+  wiki's level 125 row within 1 point; the rest are the differences listed here.
 - **Not fixed**: 10 ships newer than the AzurLaneData snapshot (Elbe META, Götz von
   Berlichingen, Z14, Z15, U-2501, Prinz Moritz, Musashi-chan, Unzen-chan, Bristol META,
   Königsberg META) keep their stats: their wiki rows fit no base value with our growth, so the

@@ -1251,9 +1251,14 @@ function computeOilCost(ship, level) {
     : Math.floor(maxCost * (100 + cappedLevel) / 200) + 1;
 }
 
+// 100 Affinity, the wiki's convention for its stat tables: +6% on every stat but Speed and
+// Luck, before the retrofit's flat bonus.
+const AFFINITY_MULTIPLIER = 1.06;
+const AFFINITY_EXEMPT_STATS = new Set(["speed", "luck"]);
+
 // Two data shapes: ~861 datamined ships carry base/growth/enhance and scale by the
 // formula below; ~27 hand-imported ones carry only a 4-point statsCurve read off
-// their wiki stat table (levels 1/100/120/125) and are interpolated instead.
+// their wiki stat table (levels 1/100/120/125), which already includes Affinity.
 function computeStats(ship, level, isRetrofit) {
   if (ship.statsCurve && ship.statsCurve.length) {
     return interpolateStatsCurve(ship.statsCurve, level);
@@ -1273,7 +1278,8 @@ function computeStats(ship, level, isRetrofit) {
     const g = growth[key] || 0;
     const e = enhance[key] || 0;
     const r = bonus[key] || 0;
-    result[key] = Math.floor(b + (g * lvl) / 1000 + e) + r;
+    const raw = Math.floor(b + (g * lvl) / 1000 + e);
+    result[key] = (AFFINITY_EXEMPT_STATS.has(key) ? raw : Math.floor(raw * AFFINITY_MULTIPLIER)) + r;
   }
   return result;
 }

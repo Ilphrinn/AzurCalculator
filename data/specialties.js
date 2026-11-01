@@ -616,6 +616,12 @@ const SPECIALTIES_DATA = {
   "485": [
     "shield"
   ],
+  "486": [
+    "aa"
+  ],
+  "488": [
+    "asw"
+  ],
   "490": [
     "buff"
   ],
@@ -807,6 +813,9 @@ const SPECIALTIES_DATA = {
   "574": [
     "buff",
     "air"
+  ],
+  "575": [
+    "tank"
   ],
   "576": [
     "aa",
@@ -1026,6 +1035,7 @@ const SPECIALTIES_DATA = {
     "air"
   ],
   "670": [
+    "mob",
     "asw"
   ],
   "673": [
@@ -1045,6 +1055,7 @@ const SPECIALTIES_DATA = {
   "678": [
     "boss",
     "mob",
+    "tank",
     "shield"
   ],
   "679": [
@@ -1082,6 +1093,7 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "689": [
+    "boss",
     "buff",
     "aa",
     "asw"
@@ -1193,6 +1205,9 @@ const SPECIALTIES_DATA = {
   ],
   "733": [
     "boss",
+    "mob"
+  ],
+  "735": [
     "mob"
   ],
   "736": [
@@ -1550,7 +1565,8 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "30049": [
-    "boss"
+    "boss",
+    "mob"
   ],
   "30052": [
     "buff"
@@ -1585,9 +1601,6 @@ const SPECIALTIES_DATA = {
   "wiki-33": [
     "buff"
   ],
-  "wiki-a2": [
-    "tank"
-  ],
   "wiki-bennington": [
     "air"
   ],
@@ -1596,16 +1609,13 @@ const SPECIALTIES_DATA = {
   ],
   "wiki-collett": [
     "buff",
-    "aa",
     "asw"
   ],
   "wiki-duncan": [
-    "tank",
     "aa"
   ],
   "wiki-griffin": [
-    "buff",
-    "asw"
+    "buff"
   ],
   "wiki-harrison": [
     "buff",
@@ -1623,27 +1633,23 @@ const SPECIALTIES_DATA = {
   ],
   "wiki-n-rnberg-meta": [
     "boss",
-    "mob",
     "buff",
     "aa"
   ],
   "wiki-orage": [
-    "boss",
-    "mob"
+    "boss"
   ],
   "wiki-superb": [
     "boss",
     "mob"
   ],
   "wiki-takahashi": [
-    "boss",
     "mob",
     "tank",
     "buff",
     "aa"
   ],
   "wiki-valpara-so": [
-    "mob",
     "tank",
     "aa"
   ],
