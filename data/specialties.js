@@ -377,6 +377,9 @@ const SPECIALTIES_DATA = {
   "295": [
     "buff"
   ],
+  "301": [
+    "asw"
+  ],
   "303": [
     "buff"
   ],
@@ -694,6 +697,9 @@ const SPECIALTIES_DATA = {
     "shield",
     "buff"
   ],
+  "522": [
+    "mob"
+  ],
   "523": [
     "shield",
     "asw"
@@ -764,9 +770,6 @@ const SPECIALTIES_DATA = {
   "553": [
     "boss",
     "air"
-  ],
-  "556": [
-    "boss"
   ],
   "559": [
     "boss",
@@ -857,9 +860,6 @@ const SPECIALTIES_DATA = {
   ],
   "598": [
     "shield"
-  ],
-  "601": [
-    "asw"
   ],
   "605": [
     "boss",
@@ -1106,7 +1106,6 @@ const SPECIALTIES_DATA = {
   ],
   "696": [
     "boss",
-    "mob",
     "shield"
   ],
   "697": [
@@ -1648,6 +1647,7 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "wiki-takahashi": [
+    "boss",
     "mob",
     "tank",
     "buff",

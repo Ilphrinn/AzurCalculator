@@ -1637,6 +1637,35 @@ function equipConditionAllows(ship, plainText, raw) {
 // of the damage chart. Bonuses with no known window keep their raw amount either way.
 // incoming: fleet bonuses from other members' skills (fleetSynergies), each { stats, amount,
 // isPercent, raw, skill, factor }, factor being its share of the fight or null when untimed.
+// "activating 1 of the following effects at random: A; B; C" (Z13) or "randomly activates one of
+// the following effects: A. B. C." (Illustrious μ): only one applies, so a bonus in such a list
+// counts for its expected share. The item count is the list's own number ("one of the following 3
+// effects"), else its ";" parts, numbered items or sentences, and never fewer than the skill's
+// bonuses inside it (L'Indomptable runs four together). Lists whose effects each fire once in turn
+// ("Each effect can only be activated once", Unzen-chan) all end up active and are not shared.
+const RANDOM_ONE_OF_RE = /(?:\brandomly\s+\w+\s+(?:1|one)\s+of\s+the\s+following\b[^:.]*|\b(?:1|one)\s+of\s+the\s+following\b[^:.]*?\bat\s+random)\s*:/gi;
+const COUNT_WORDS = { two: 2, three: 3, four: 4, five: 5 };
+
+function randomAlternativeShare(plainDesc, raw, bonuses = []) {
+  if (!raw || /each effect can only (?:be )?activate/i.test(plainDesc)) return 1;
+  const matches = [...plainDesc.matchAll(RANDOM_ONE_OF_RE)];
+  for (const [index, match] of matches.entries()) {
+    const end = index + 1 < matches.length ? matches[index + 1].index : plainDesc.length;
+    const list = plainDesc.slice(match.index + match[0].length, end);
+    const first = list.split(/\.(?:\s|$)/)[0];
+    const items = first.includes(";") ? first.split(";")
+      : /\b1\)/.test(list) ? list.split(/\b\d\)/).slice(1)
+      : list.split(/\.(?:\s|$)/);
+    const region = first.includes(";") ? first : list;
+    if (!region.includes(raw)) continue;
+    const stated = (match[0].match(/following\s+(\d|two|three|four|five)\b/i) || [])[1];
+    const count = stated ? Number(COUNT_WORDS[stated.toLowerCase()] || stated)
+      : Math.max(items.map(item => item.trim()).filter(Boolean).length, bonuses.filter(b => b.raw && region.includes(b.raw)).length);
+    return 1 / Math.max(1, count);
+  }
+  return 1;
+}
+
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, timing = null, incoming = []) {
   const base = computeStats(ship, level, isRetrofit, isFateSim);
   if (!base) return null;
@@ -1670,7 +1699,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       if (typeof amount !== "number") continue;
       const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
       const factor = timing ? bonusTimingFactor(ship, skill, atMax, amount, timing) : null;
-      const timedAmount = factor === null ? amount : amount * factor;
+      const timedAmount = (factor === null ? amount : amount * factor) * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses);
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
           const qualifier = opsiOnly ? { source: modifierQualifier(b.raw).source, target: OPSI_TARGET } : undefined;
@@ -7491,10 +7520,11 @@ function fleetSynergies(members) {
         // Some "fleet" bonuses read "this ship's ...": the ship's own stats already count those.
         if (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw)) continue;
         const atMax = isSkillAtMaxLevel(skill);
-        const amount = atMax ? (typeof bonus.max === "number" ? bonus.max : bonus.min) : (typeof bonus.min === "number" ? bonus.min : bonus.max);
-        if (typeof amount !== "number") continue;
+        const listed = atMax ? (typeof bonus.max === "number" ? bonus.max : bonus.min) : (typeof bonus.min === "number" ? bonus.min : bonus.max);
+        if (typeof listed !== "number") continue;
         const recipients = synergyRecipients(skill, bonus, members);
-        const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, amount, "share") : null;
+        const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, listed, "share") : null;
+        const amount = listed * randomAlternativeShare(stripHtml(skill.description || ""), bonus.raw, skill.statBonuses);
         report.push({ from, skill, bonus, amount, recipients, factor });
         for (const to of recipients || []) {
           incoming.get(to).push({ stats: bonus.stats, amount, isPercent: bonus.isPercent, raw: bonus.raw, skill, factor });

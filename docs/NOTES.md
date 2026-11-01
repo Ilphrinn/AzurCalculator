@@ -6318,3 +6318,22 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Hiryuu META 2020 -> 3428, Formidable 691 -> 2035, Yorktown II 2425 -> 3246, Constellation
   1684 -> 2501, Shizuku 1477 -> 2213, Littorio 1570 -> 2259, Ark Royal META 1783 -> 2106;
   Hindenburg's "3s, then every 15s" schedule now matches its text. `npm run check` passes.
+
+## Skill bonuses drawn at random count for their expected share (2026-11-02)
+
+- **Found** in the same outlier sweep: Z13, second of all DDs (2820 DPS) with TRP 1352. Her
+  Bespoke Tactics "activating 1 of the following effects at random" lists +20%, +30% and +50% TRP;
+  all three were summed (+100%) instead of one applying.
+- **Rule** (`randomAlternativeShare`, used for the ship's own bonuses in `computeEffectiveStats`
+  and for fleet bonuses in `fleetSynergies`): a bonus inside a "randomly activates one of the
+  following" / "one of the following ... at random" list counts for 1 / number of items. The count
+  is the list's own number ("following 3 effects"), else its ";" parts, numbered items or
+  sentences, and never fewer than the skill's bonuses inside it (L'Indomptable runs four buffs
+  together). Lists whose effects "can only be activated once" each (Unzen-chan) all end up active
+  and are not shared. Effects chosen by a condition (weapon, position) are not random and are
+  untouched.
+- **Affected**: Z13, Kersaint, Painlevé, L'Indomptable, Hunter META, Illustrious μ (fleet),
+  Huan Ch'ang (both of her lists; the outer Vanguard/Main Fleet coin flip is not modelled).
+  Measured (lv125, Recommended, UR, reference boss): Z13 2820 -> 2020, Kersaint 1708 -> 1402,
+  L'Indomptable 2076 -> 1835, Painlevé 1544 -> 1399, Huan Ch'ang 1554 -> 1450.
+  `npm run check` passes.
