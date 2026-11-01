@@ -1977,6 +1977,7 @@ function equipmentStatRows(item) {
   // depends on it, and the user asked for it named up front rather than left to the
   // armorMod numbers to imply.
   if (item.ammoType) rows.push({ label: "Ammo", value: item.ammoType });
+  if (ammoHitShare(item) < 1) rows.push({ label: "Hits a boss", value: `${Math.round(ammoHitShare(item) * 100)}% of fragments` });
   if (item.dps) {
     const value = typeof item.dps.raw === "number" ? item.dps.raw : `${item.dps.light}/${item.dps.medium}/${item.dps.heavy}`;
     rows.push({ label: "DPS", value });
@@ -2244,13 +2245,24 @@ function damageMultiplier(effective, armor, sourceApplies, extraCrit = 0) {
 // different ammo type. raw is only the fallback for an item with no per-armour breakdown.
 // `dps` is read before aaDps: aircraft carry both, and their aaDps is their air-combat figure,
 // not the bombs or torpedoes their surface role scales off (equipmentOptimizeScore agrees).
+// Beehive (Type 3) shells burst at the top of their arc, halfway to the target, into fragments
+// heading at a random whole angle within ±15° (client BattleShotgunEmitter, barrage 2010). At the
+// game's own main-fleet distance (120, BattleConfig.MAIN_UNIT_POS) a fragment then meets a boss's
+// 10-wide hitbox (enemy cld_box, plus its own 2) only within ±5.7°: 11 of the 30 angles. The
+// catalog counts every fragment as a hit.
+const AMMO_HIT_SHARE = { Beehive: 11 / 30 };
+
+function ammoHitShare(item) {
+  return AMMO_HIT_SHARE[item.ammoType] ?? 1;
+}
+
 function equipmentBaseDps(item, armor) {
   if (typeof item.dps === "number") return item.dps;
   const dps = item.dps;
   if (dps && typeof dps === "object") {
     const value = armorDamage([dps.light, dps.medium, dps.heavy], armor);
-    if (value !== null) return value;
-    if (typeof dps.raw === "number") return dps.raw;
+    if (value !== null) return value * ammoHitShare(item);
+    if (typeof dps.raw === "number") return dps.raw * ammoHitShare(item);
   }
   if (typeof item.aaDps === "number") return item.aaDps;
   if (typeof item.aswDps === "number") return item.aswDps;
@@ -3242,11 +3254,11 @@ function equipmentOptimizeScore(item) {
     // Against a picked boss its own armour column decides, not the pre-armour raw figure.
     if (targetBoss) {
       const value = armorDamage([item.dps.light, item.dps.medium, item.dps.heavy], targetBoss.armor);
-      if (value !== null) return value;
+      if (value !== null) return value * ammoHitShare(item);
     }
-    if (typeof item.dps.raw === "number") return item.dps.raw;
+    if (typeof item.dps.raw === "number") return item.dps.raw * ammoHitShare(item);
     const values = [item.dps.light, item.dps.medium, item.dps.heavy].filter(v => typeof v === "number");
-    return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
+    return values.length ? values.reduce((a, b) => a + b, 0) / values.length * ammoHitShare(item) : null;
   }
   if (typeof item.aaDps === "number") return item.aaDps;
   if (typeof item.aswDps === "number") return item.aswDps;

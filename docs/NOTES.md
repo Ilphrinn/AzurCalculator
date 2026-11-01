@@ -6238,3 +6238,24 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Serri Glaus), gear-conditional barrages (Emden, Halford, Hiryuu META), and skills pairing
   qualified rows with several schedules (Asama, Mecklenburg, Kiev, Lion, Champagne, Santa Fe,
   Rikka Takarada, Andrea Doria META, Scharnhorst META).
+
+## Beehive (Type 3) shells hit with a fraction of their fragments (2026-11-01)
+
+- **User report**: New Jersey got the Twin 410mm (Type 3 Shell), "la pire munition du jeu". The
+  catalog's DPS (the wiki's, 29.35 raw, first of all BB guns) counts its 2×10 fragments as hits;
+  the wiki itself notes that real damage depends on where the shell bursts.
+- **Client code** (AzurLaneLuaScripts `battleshrapnelbulletunit.lua`, `battleshotgunemitter.lua`):
+  the shell (bullet 1540) splits when its vertical speed changes sign, the top of its arc,
+  halfway to the aim point, and is removed; barrage 2010 (`primal_repeat` 10, `angle` 30) emits
+  fragments (bullet 1541, cld_box z 2) each at `random(30) - 15` degrees, a whole angle in
+  [-14, 15], around the shell's heading.
+- **Hit share** (`AMMO_HIT_SHARE.Beehive = 11/30`): at the game's main-fleet distance
+  (`BattleConfig.MAIN_UNIT_POS`, x -105 vs 15: 120 units, so 60 from the burst) a fragment meets a
+  10-wide boss hitbox (the most common enemy `cld_box` z, `enemy_data_statistics`) plus its own 2
+  only within ±5.7°: 11 of the 30 angles. Applied in `equipmentBaseDps` and
+  `equipmentOptimizeScore`; the Depot card adds a "Hits a boss" row, the catalog figures stay.
+- **Measured** (lv125, Recommended, UR, reference boss): the 147 ships that took it now take a
+  regular gun (New Jersey, Musashi, Georgia: Twin 457mm Mark A; others Triple 406mm Mk 7). DPS
+  drops by the overcount, New Jersey 4791 -> 4642. `npm run check` passes.
+- Other ammo effects: the armour columns already carry each ammo type's modifiers; AP piercing
+  is moot against one boss. HE fire is not counted yet (see the next section when done).
