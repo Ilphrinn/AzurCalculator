@@ -6044,3 +6044,8 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   (14-1 to 16-4, `MAPS_DATA`), with gear re-optimised for that target; durability is unchanged.
   Against the marks before this change, 7 mob marks move (Yuudachi, Allen M. Sumner, Guam... in;
   Royal Oak, Friedrich der Grosse, Z52... out); the 20 boss marks still go from BBs to CVs.
+- **Cowpens checked** (user asked why she tops every CV): ~2580 of her 4489 DPS is Overnutrition's
+  extra TBF strike per airstrike. Game data (AzurLaneData weapon_property / aircraft_template /
+  barrage_template) confirms the wiki row: weapons 169770 + 169780, one plane each, each plane
+  firing 2 barrages of 6 torpedoes = 24 x 207 per strike, against 3 for Independence (67930). Not
+  a bug; like every barrage it assumes all torpedoes hit.
