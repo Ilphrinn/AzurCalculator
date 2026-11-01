@@ -990,10 +990,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 609,
-        "firepower": 53,
+        "health": 1500,
+        "firepower": 132,
         "torpedo": 0,
-        "antiair": 34,
+        "antiair": 84,
         "aviation": 0,
         "reload": 54,
         "accuracy": 28,
@@ -1201,17 +1201,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 493,
-        "firepower": 26,
-        "torpedo": 52,
-        "antiair": 52,
+        "health": 1214,
+        "firepower": 64,
+        "torpedo": 129,
+        "antiair": 129,
         "aviation": 0,
         "reload": 64,
         "accuracy": 50,
         "evasion": 31,
         "speed": 36,
         "luck": 43,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 12722,
@@ -1410,17 +1410,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 221,
-        "firepower": 13,
-        "torpedo": 68,
-        "antiair": 29,
+        "health": 544,
+        "firepower": 32,
+        "torpedo": 169,
+        "antiair": 71,
         "aviation": 0,
         "reload": 71,
         "accuracy": 63,
         "evasion": 78,
         "speed": 42,
         "luck": 43,
-        "asw": 42
+        "asw": 105
       },
       "growth": {
         "health": 6295,
@@ -1667,17 +1667,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 509,
-        "firepower": 30,
-        "torpedo": 61,
-        "antiair": 55,
+        "health": 1254,
+        "firepower": 75,
+        "torpedo": 151,
+        "antiair": 137,
         "aviation": 0,
         "reload": 64,
         "accuracy": 51,
         "evasion": 28,
         "speed": 32.5,
         "luck": 54,
-        "asw": 31
+        "asw": 77
       },
       "growth": {
         "health": 13046,
@@ -1878,10 +1878,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 750,
-        "firepower": 55,
-        "torpedo": 40,
-        "antiair": 29,
+        "health": 1847,
+        "firepower": 137,
+        "torpedo": 99,
+        "antiair": 71,
         "aviation": 0,
         "reload": 64,
         "accuracy": 43,
@@ -2106,10 +2106,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 874,
-        "firepower": 46,
-        "torpedo": 35,
-        "antiair": 35,
+        "health": 2153,
+        "firepower": 115,
+        "torpedo": 87,
+        "antiair": 87,
         "aviation": 0,
         "reload": 65,
         "accuracy": 44,
@@ -2354,10 +2354,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 907,
-        "firepower": 48,
-        "torpedo": 36,
-        "antiair": 37,
+        "health": 2234,
+        "firepower": 120,
+        "torpedo": 90,
+        "antiair": 91,
         "aviation": 0,
         "reload": 67,
         "accuracy": 33,
@@ -2652,10 +2652,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 833,
-        "firepower": 46,
-        "torpedo": 34,
-        "antiair": 35,
+        "health": 2052,
+        "firepower": 115,
+        "torpedo": 85,
+        "antiair": 87,
         "aviation": 0,
         "reload": 65,
         "accuracy": 44,
@@ -3085,10 +3085,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1219,
-        "firepower": 70,
-        "torpedo": 44,
-        "antiair": 59,
+        "health": 3003,
+        "firepower": 174,
+        "torpedo": 110,
+        "antiair": 145,
         "aviation": 0,
         "reload": 62,
         "accuracy": 21,
@@ -3317,8 +3317,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 334,
-        "firepower": 33,
+        "health": 822,
+        "firepower": 82,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -3602,15 +3602,15 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 731,
-        "firepower": 41,
+        "health": 1801,
+        "firepower": 101,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
         "reload": 64,
         "accuracy": 38,
         "evasion": 9,
-        "speed": 11.2,
+        "speed": 26.2,
         "luck": 68,
         "asw": 0
       },
@@ -3845,17 +3845,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 540,
-        "firepower": 27,
-        "torpedo": 66,
-        "antiair": 61,
+        "health": 1330,
+        "firepower": 68,
+        "torpedo": 165,
+        "antiair": 151,
         "aviation": 0,
         "reload": 62,
         "accuracy": 51,
         "evasion": 29,
         "speed": 35.6,
         "luck": 21,
-        "asw": 19
+        "asw": 47
       },
       "growth": {
         "health": 13874,
@@ -4014,7 +4014,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.1
       },
       "3": {
@@ -4348,17 +4348,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 509,
-        "firepower": 30,
-        "torpedo": 61,
-        "antiair": 55,
+        "health": 1254,
+        "firepower": 75,
+        "torpedo": 151,
+        "antiair": 137,
         "aviation": 0,
         "reload": 64,
         "accuracy": 51,
         "evasion": 28,
         "speed": 32.5,
         "luck": 74,
-        "asw": 31
+        "asw": 77
       },
       "growth": {
         "health": 13046,
@@ -4570,11 +4570,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1128,
+        "health": 2778,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 78,
+        "antiair": 151,
+        "aviation": 194,
         "reload": 48,
         "accuracy": 31,
         "evasion": 13,
@@ -5004,11 +5004,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1077,
+        "health": 2654,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 59,
-        "aviation": 75,
+        "antiair": 145,
+        "aviation": 186,
         "reload": 46,
         "accuracy": 31,
         "evasion": 13,
@@ -5478,10 +5478,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 682,
-        "firepower": 8,
+        "health": 1680,
+        "firepower": 20,
         "torpedo": 0,
-        "antiair": 30,
+        "antiair": 74,
         "aviation": 0,
         "reload": 66,
         "accuracy": 37,
@@ -5675,17 +5675,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 282,
-        "firepower": 11,
-        "torpedo": 95,
-        "antiair": 28,
+        "health": 694,
+        "firepower": 28,
+        "torpedo": 236,
+        "antiair": 69,
         "aviation": 0,
         "reload": 77,
         "accuracy": 65,
         "evasion": 72,
         "speed": 45.6,
         "luck": 45,
-        "asw": 47
+        "asw": 116
       },
       "growth": {
         "health": 8025,
@@ -5877,10 +5877,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1303,
-        "firepower": 81,
+        "health": 3210,
+        "firepower": 202,
         "torpedo": 0,
-        "antiair": 80,
+        "antiair": 198,
         "aviation": 0,
         "reload": 57,
         "accuracy": 20,
@@ -6235,9 +6235,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 310,
-        "firepower": 11,
-        "torpedo": 101,
+        "health": 764,
+        "firepower": 28,
+        "torpedo": 252,
         "antiair": 0,
         "aviation": 0,
         "reload": 35,
@@ -6485,9 +6485,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 297,
-        "firepower": 11,
-        "torpedo": 98,
+        "health": 732,
+        "firepower": 27,
+        "torpedo": 243,
         "antiair": 0,
         "aviation": 0,
         "reload": 34,
@@ -6707,17 +6707,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 495,
-        "firepower": 30,
-        "torpedo": 56,
-        "antiair": 69,
+        "health": 1220,
+        "firepower": 74,
+        "torpedo": 139,
+        "antiair": 171,
         "aviation": 0,
         "reload": 66,
         "accuracy": 59,
         "evasion": 34,
         "speed": 37,
         "luck": 41,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 14115,
@@ -6957,17 +6957,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1105,
+        "health": 2722,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 51,
-        "aviation": 81,
+        "antiair": 125,
+        "aviation": 202,
         "reload": 60,
         "accuracy": 32,
         "evasion": 19,
         "speed": 28,
         "luck": 78,
-        "asw": 31
+        "asw": 77
       },
       "growth": {
         "health": 29663,
@@ -7219,7 +7219,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -7524,10 +7524,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 867,
-        "firepower": 52,
-        "torpedo": 41,
-        "antiair": 45,
+        "health": 2136,
+        "firepower": 129,
+        "torpedo": 102,
+        "antiair": 112,
         "aviation": 0,
         "reload": 72,
         "accuracy": 47,
@@ -7812,10 +7812,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 887,
-        "firepower": 53,
-        "torpedo": 42,
-        "antiair": 46,
+        "health": 2186,
+        "firepower": 132,
+        "torpedo": 105,
+        "antiair": 113,
         "aviation": 0,
         "reload": 73,
         "accuracy": 35,
@@ -8052,17 +8052,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 407,
-        "firepower": 26,
-        "torpedo": 70,
-        "antiair": 43,
+        "health": 1003,
+        "firepower": 64,
+        "torpedo": 175,
+        "antiair": 107,
         "aviation": 0,
         "reload": 84,
         "accuracy": 76,
         "evasion": 59,
         "speed": 40.8,
         "luck": 80,
-        "asw": 55
+        "asw": 136
       },
       "growth": {
         "health": 11604,
@@ -8328,10 +8328,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1520,
-        "firepower": 86,
+        "health": 3744,
+        "firepower": 214,
         "torpedo": 0,
-        "antiair": 58,
+        "antiair": 144,
         "aviation": 0,
         "reload": 64,
         "accuracy": 24,
@@ -8597,10 +8597,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 2139,
-        "firepower": 124,
-        "torpedo": 77,
-        "antiair": 102,
+        "health": 3043,
+        "firepower": 177,
+        "torpedo": 110,
+        "antiair": 145,
         "aviation": 0,
         "reload": 61,
         "accuracy": 21,
@@ -8839,10 +8839,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1260,
-        "firepower": 80,
-        "torpedo": 39,
-        "antiair": 35,
+        "health": 3104,
+        "firepower": 199,
+        "torpedo": 98,
+        "antiair": 86,
         "aviation": 0,
         "reload": 54,
         "accuracy": 21,
@@ -9093,10 +9093,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1189,
-        "firepower": 69,
-        "torpedo": 32,
-        "antiair": 34,
+        "health": 2929,
+        "firepower": 172,
+        "torpedo": 79,
+        "antiair": 84,
         "aviation": 0,
         "reload": 52,
         "accuracy": 21,
@@ -9324,11 +9324,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1267,
+        "health": 3121,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 85,
+        "antiair": 150,
+        "aviation": 211,
         "reload": 49,
         "accuracy": 34,
         "evasion": 12,
@@ -9645,17 +9645,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 221,
-        "firepower": 12,
-        "torpedo": 68,
-        "antiair": 29,
+        "health": 544,
+        "firepower": 30,
+        "torpedo": 169,
+        "antiair": 71,
         "aviation": 0,
         "reload": 70,
         "accuracy": 68,
         "evasion": 79,
         "speed": 44.4,
         "luck": 72,
-        "asw": 43
+        "asw": 107
       },
       "growth": {
         "health": 6295,
@@ -10043,8 +10043,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 431,
-        "firepower": 36,
+        "health": 1061,
+        "firepower": 89,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -10272,17 +10272,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 367,
-        "firepower": 24,
-        "torpedo": 42,
-        "antiair": 32,
+        "health": 904,
+        "firepower": 60,
+        "torpedo": 104,
+        "antiair": 79,
         "aviation": 0,
         "reload": 74,
         "accuracy": 69,
         "evasion": 61,
         "speed": 45.6,
         "luck": 81,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 10459,
@@ -11646,10 +11646,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 601,
-        "firepower": 40,
-        "torpedo": 35,
-        "antiair": 31,
+        "health": 1481,
+        "firepower": 99,
+        "torpedo": 87,
+        "antiair": 77,
         "aviation": 0,
         "reload": 60,
         "accuracy": 38,
@@ -11822,11 +11822,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1093,
+        "health": 2693,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 69,
-        "aviation": 76,
+        "antiair": 171,
+        "aviation": 188,
         "reload": 47,
         "accuracy": 35,
         "evasion": 12,
@@ -12012,7 +12012,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -12050,17 +12050,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 388,
-        "firepower": 15,
-        "torpedo": 122,
-        "antiair": 35,
+        "health": 769,
+        "firepower": 29,
+        "torpedo": 244,
+        "antiair": 69,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 32,
-        "asw": 57
+        "asw": 114
       },
       "growth": {
         "health": 8899,
@@ -12220,9 +12220,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 310,
-        "firepower": 12,
-        "torpedo": 102,
+        "health": 764,
+        "firepower": 30,
+        "torpedo": 254,
         "antiair": 0,
         "aviation": 0,
         "reload": 35,
@@ -12496,17 +12496,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 221,
-        "firepower": 13,
-        "torpedo": 68,
-        "antiair": 29,
+        "health": 544,
+        "firepower": 32,
+        "torpedo": 169,
+        "antiair": 71,
         "aviation": 0,
         "reload": 71,
         "accuracy": 63,
         "evasion": 78,
         "speed": 42,
         "luck": 35,
-        "asw": 42
+        "asw": 105
       },
       "growth": {
         "health": 6295,
@@ -12724,17 +12724,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 482,
-        "firepower": 29,
-        "torpedo": 50,
-        "antiair": 61,
+        "health": 1188,
+        "firepower": 72,
+        "torpedo": 124,
+        "antiair": 151,
         "aviation": 0,
         "reload": 69,
         "accuracy": 58,
         "evasion": 29,
         "speed": 32,
         "luck": 69,
-        "asw": 28
+        "asw": 69
       },
       "growth": {
         "health": 12457,
@@ -12901,17 +12901,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 833,
+        "health": 2051,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 53,
+        "antiair": 118,
+        "aviation": 132,
         "reload": 65,
         "accuracy": 26,
         "evasion": 16,
         "speed": 20,
         "luck": 81,
-        "asw": 26
+        "asw": 64
       },
       "growth": {
         "health": 22694,
@@ -13137,17 +13137,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 286,
-        "firepower": 11,
-        "torpedo": 92,
-        "antiair": 27,
+        "health": 704,
+        "firepower": 27,
+        "torpedo": 229,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 66,
         "evasion": 71,
         "speed": 43.2,
         "luck": 34,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 8142,
@@ -13805,11 +13805,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1027,
+        "health": 2530,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 76,
+        "antiair": 143,
+        "aviation": 189,
         "reload": 43,
         "accuracy": 35,
         "evasion": 13,
@@ -14098,11 +14098,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1066,
+        "health": 2626,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 80,
+        "antiair": 150,
+        "aviation": 199,
         "reload": 42,
         "accuracy": 27,
         "evasion": 9,
@@ -14114,11 +14114,11 @@ const SHIPS_DATA = [
         "health": 19583,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 588,
-        "aviation": 793,
-        "reload": 209,
-        "accuracy": 350,
-        "evasion": 123,
+        "antiair": 788,
+        "aviation": 992,
+        "reload": 292,
+        "accuracy": 379,
+        "evasion": 262,
         "speed": 0,
         "luck": 0,
         "asw": 0
@@ -14800,10 +14800,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 843,
-        "firepower": 55,
-        "torpedo": 58,
-        "antiair": 37,
+        "health": 2077,
+        "firepower": 136,
+        "torpedo": 144,
+        "antiair": 92,
         "aviation": 0,
         "reload": 69,
         "accuracy": 49,
@@ -15060,17 +15060,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 300,
-        "firepower": 13,
-        "torpedo": 81,
-        "antiair": 27,
+        "health": 739,
+        "firepower": 33,
+        "torpedo": 201,
+        "antiair": 67,
         "aviation": 0,
         "reload": 79,
         "accuracy": 69,
         "evasion": 72,
         "speed": 44.76,
         "luck": 43,
-        "asw": 50
+        "asw": 125
       },
       "growth": {
         "health": 8549,
@@ -15292,17 +15292,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 312,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 28,
+        "health": 769,
+        "firepower": 29,
+        "torpedo": 243,
+        "antiair": 69,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 32,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 8899,
@@ -15518,10 +15518,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 732,
-        "firepower": 43,
-        "torpedo": 41,
-        "antiair": 32,
+        "health": 1803,
+        "firepower": 107,
+        "torpedo": 102,
+        "antiair": 79,
         "aviation": 0,
         "reload": 62,
         "accuracy": 43,
@@ -15741,10 +15741,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 670,
-        "firepower": 40,
+        "health": 1651,
+        "firepower": 100,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 104,
         "aviation": 0,
         "reload": 59,
         "accuracy": 40,
@@ -16003,17 +16003,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 608,
-        "firepower": 33,
-        "torpedo": 67,
-        "antiair": 72,
+        "health": 1498,
+        "firepower": 82,
+        "torpedo": 167,
+        "antiair": 177,
         "aviation": 0,
         "reload": 71,
         "accuracy": 54,
         "evasion": 32,
         "speed": 32,
         "luck": 90,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 16328,
@@ -16664,10 +16664,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 738,
-        "firepower": 50,
-        "torpedo": 45,
-        "antiair": 33,
+        "health": 1819,
+        "firepower": 124,
+        "torpedo": 112,
+        "antiair": 82,
         "aviation": 0,
         "reload": 64,
         "accuracy": 46,
@@ -16930,17 +16930,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 605,
-        "firepower": 24,
-        "torpedo": 29,
-        "antiair": 81,
+        "health": 1490,
+        "firepower": 59,
+        "torpedo": 72,
+        "antiair": 201,
         "aviation": 0,
         "reload": 66,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.5,
         "luck": 12,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 15365,
@@ -17091,7 +17091,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -17665,17 +17665,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 325,
-        "firepower": 15,
-        "torpedo": 52,
-        "antiair": 32,
+        "health": 800,
+        "firepower": 38,
+        "torpedo": 129,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 62,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9118,
@@ -17842,17 +17842,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 497,
-        "firepower": 30,
-        "torpedo": 52,
-        "antiair": 63,
+        "health": 1224,
+        "firepower": 74,
+        "torpedo": 129,
+        "antiair": 156,
         "aviation": 0,
         "reload": 72,
         "accuracy": 59,
         "evasion": 29,
         "speed": 32,
         "luck": 84,
-        "asw": 26
+        "asw": 65
       },
       "growth": {
         "health": 12823,
@@ -18059,17 +18059,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 585,
-        "firepower": 19,
-        "torpedo": 41,
-        "antiair": 30,
+        "health": 1441,
+        "firepower": 48,
+        "torpedo": 102,
+        "antiair": 74,
         "aviation": 0,
         "reload": 55,
         "accuracy": 45,
         "evasion": 24,
         "speed": 19,
         "luck": 55,
-        "asw": 14
+        "asw": 34
       },
       "growth": {
         "health": 14630,
@@ -18332,17 +18332,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 27,
+        "health": 714,
+        "firepower": 30,
+        "torpedo": 244,
+        "antiair": 67,
         "aviation": 0,
         "reload": 78,
         "accuracy": 67,
         "evasion": 72,
         "speed": 45.6,
         "luck": 36,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 8257,
@@ -18708,17 +18708,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 447,
-        "firepower": 29,
-        "torpedo": 65,
-        "antiair": 53,
+        "health": 1101,
+        "firepower": 72,
+        "torpedo": 162,
+        "antiair": 132,
         "aviation": 0,
         "reload": 70,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 38,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 11481,
@@ -18939,17 +18939,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 271,
-        "firepower": 15,
-        "torpedo": 52,
-        "antiair": 34,
+        "health": 667,
+        "firepower": 37,
+        "torpedo": 129,
+        "antiair": 84,
         "aviation": 0,
         "reload": 73,
         "accuracy": 63,
         "evasion": 60,
         "speed": 44.4,
         "luck": 83,
-        "asw": 48
+        "asw": 120
       },
       "growth": {
         "health": 7714,
@@ -19980,17 +19980,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 338,
-        "firepower": 14,
-        "torpedo": 53,
-        "antiair": 36,
+        "health": 832,
+        "firepower": 35,
+        "torpedo": 131,
+        "antiair": 89,
         "aviation": 0,
         "reload": 72,
         "accuracy": 68,
         "evasion": 60,
         "speed": 43.2,
         "luck": 78,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 9620,
@@ -20177,17 +20177,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 294,
-        "firepower": 16,
-        "torpedo": 60,
-        "antiair": 32,
+        "health": 725,
+        "firepower": 40,
+        "torpedo": 149,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 67,
         "evasion": 60,
         "speed": 44.4,
         "luck": 70,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 8386,
@@ -20396,10 +20396,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 793,
-        "firepower": 50,
+        "health": 1953,
+        "firepower": 124,
         "torpedo": 0,
-        "antiair": 49,
+        "antiair": 120,
         "aviation": 0,
         "reload": 68,
         "accuracy": 45,
@@ -20698,10 +20698,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 802,
-        "firepower": 48,
+        "health": 1976,
+        "firepower": 120,
         "torpedo": 0,
-        "antiair": 47,
+        "antiair": 116,
         "aviation": 0,
         "reload": 65,
         "accuracy": 45,
@@ -20928,17 +20928,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 505,
-        "firepower": 28,
-        "torpedo": 57,
-        "antiair": 68,
+        "health": 1245,
+        "firepower": 69,
+        "torpedo": 141,
+        "antiair": 168,
         "aviation": 0,
         "reload": 66,
         "accuracy": 60,
         "evasion": 31,
         "speed": 37,
         "luck": 35,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 12533,
@@ -21153,17 +21153,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 835,
+        "health": 2057,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 52,
-        "aviation": 65,
+        "antiair": 128,
+        "aviation": 162,
         "reload": 73,
         "accuracy": 29,
         "evasion": 21,
         "speed": 31,
         "luck": 65,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 22424,
@@ -21674,17 +21674,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 218,
-        "firepower": 12,
-        "torpedo": 67,
-        "antiair": 28,
+        "health": 536,
+        "firepower": 30,
+        "torpedo": 166,
+        "antiair": 69,
         "aviation": 0,
         "reload": 70,
         "accuracy": 64,
         "evasion": 78,
         "speed": 42,
         "luck": 71,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 6197,
@@ -21839,11 +21839,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1072,
-        "firepower": 32,
-        "torpedo": 47,
-        "antiair": 58,
-        "aviation": 71,
+        "health": 2640,
+        "firepower": 80,
+        "torpedo": 117,
+        "antiair": 143,
+        "aviation": 177,
         "reload": 41,
         "accuracy": 29,
         "evasion": 9,
@@ -22076,11 +22076,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1070,
-        "firepower": 33,
+        "health": 2635,
+        "firepower": 83,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 81,
+        "antiair": 150,
+        "aviation": 201,
         "reload": 42,
         "accuracy": 21,
         "evasion": 7,
@@ -22485,17 +22485,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 686,
-        "firepower": 33,
-        "torpedo": 64,
-        "antiair": 55,
+        "health": 1689,
+        "firepower": 82,
+        "torpedo": 159,
+        "antiair": 136,
         "aviation": 0,
         "reload": 67,
         "accuracy": 55,
         "evasion": 28,
         "speed": 32,
         "luck": 88,
-        "asw": 35
+        "asw": 87
       },
       "growth": {
         "health": 17283,
@@ -22921,17 +22921,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 349,
-        "firepower": 16,
-        "torpedo": 54,
-        "antiair": 33,
+        "health": 859,
+        "firepower": 40,
+        "torpedo": 134,
+        "antiair": 82,
         "aviation": 0,
         "reload": 77,
         "accuracy": 74,
         "evasion": 59,
         "speed": 42,
         "luck": 75,
-        "asw": 54
+        "asw": 134
       },
       "growth": {
         "health": 9929,
@@ -23149,17 +23149,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 654,
-        "firepower": 27,
-        "torpedo": 30,
-        "antiair": 79,
+        "health": 1612,
+        "firepower": 67,
+        "torpedo": 75,
+        "antiair": 195,
         "aviation": 0,
         "reload": 66,
         "accuracy": 59,
         "evasion": 28,
         "speed": 32.25,
         "luck": 56,
-        "asw": 34
+        "asw": 84
       },
       "growth": {
         "health": 16497,
@@ -23614,17 +23614,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 294,
-        "firepower": 16,
-        "torpedo": 60,
-        "antiair": 32,
+        "health": 725,
+        "firepower": 40,
+        "torpedo": 149,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 67,
         "evasion": 60,
         "speed": 45,
         "luck": 72,
-        "asw": 47
+        "asw": 118
       },
       "growth": {
         "health": 8386,
@@ -23800,17 +23800,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 751,
-        "firepower": 28,
+        "health": 1849,
+        "firepower": 69,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 69,
         "accuracy": 58,
         "evasion": 30,
         "speed": 32.5,
         "luck": 68,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 18613,
@@ -24032,17 +24032,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 730,
-        "firepower": 31,
+        "health": 1798,
+        "firepower": 77,
         "torpedo": 0,
-        "antiair": 62,
+        "antiair": 153,
         "aviation": 0,
         "reload": 68,
         "accuracy": 58,
         "evasion": 29,
         "speed": 32.5,
         "luck": 48,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 18105,
@@ -24255,10 +24255,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1456,
-        "firepower": 82,
+        "health": 3587,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 39,
+        "antiair": 96,
         "aviation": 0,
         "reload": 56,
         "accuracy": 24,
@@ -24531,10 +24531,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1893,
-        "firepower": 106,
+        "health": 3750,
+        "firepower": 211,
         "torpedo": 0,
-        "antiair": 64,
+        "antiair": 126,
         "aviation": 0,
         "reload": 62,
         "accuracy": 24,
@@ -24878,7 +24878,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -25123,17 +25123,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 623,
-        "firepower": 26,
-        "torpedo": 28,
-        "antiair": 72,
+        "health": 1535,
+        "firepower": 65,
+        "torpedo": 70,
+        "antiair": 178,
         "aviation": 0,
         "reload": 66,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.25,
         "luck": 58,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 15706,
@@ -25359,10 +25359,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1334,
-        "firepower": 68,
+        "health": 3286,
+        "firepower": 169,
         "torpedo": 0,
-        "antiair": 56,
+        "antiair": 139,
         "aviation": 0,
         "reload": 64,
         "accuracy": 24,
@@ -25596,7 +25596,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -25779,10 +25779,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 811,
-        "firepower": 54,
-        "torpedo": 44,
-        "antiair": 39,
+        "health": 1998,
+        "firepower": 134,
+        "torpedo": 110,
+        "antiair": 96,
         "aviation": 0,
         "reload": 67,
         "accuracy": 44,
@@ -26043,9 +26043,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 273,
-        "firepower": 13,
-        "torpedo": 96,
+        "health": 672,
+        "firepower": 33,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 32,
@@ -26269,17 +26269,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 625,
-        "firepower": 23,
-        "torpedo": 40,
-        "antiair": 27,
+        "health": 1540,
+        "firepower": 57,
+        "torpedo": 99,
+        "antiair": 67,
         "aviation": 0,
         "reload": 68,
         "accuracy": 57,
         "evasion": 27,
         "speed": 23,
         "luck": 80,
-        "asw": 13
+        "asw": 33
       },
       "growth": {
         "health": 16911,
@@ -26520,17 +26520,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 654,
+        "health": 1610,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 47,
-        "aviation": 52,
+        "antiair": 116,
+        "aviation": 129,
         "reload": 66,
         "accuracy": 28,
         "evasion": 15,
         "speed": 18,
         "luck": 78,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 17816,
@@ -26943,17 +26943,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 612,
-        "firepower": 31,
+        "health": 1508,
+        "firepower": 76,
         "torpedo": 0,
-        "antiair": 62,
+        "antiair": 153,
         "aviation": 0,
         "reload": 69,
         "accuracy": 56,
         "evasion": 28,
         "speed": 32.5,
         "luck": 70,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 15563,
@@ -27204,17 +27204,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 684,
-        "firepower": 28,
+        "health": 1686,
+        "firepower": 70,
         "torpedo": 0,
-        "antiair": 70,
+        "antiair": 172,
         "aviation": 0,
         "reload": 69,
         "accuracy": 43,
         "evasion": 22,
         "speed": 33,
         "luck": 70,
-        "asw": 34
+        "asw": 85
       },
       "growth": {
         "health": 11785,
@@ -27436,17 +27436,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 612,
-        "firepower": 30,
+        "health": 1508,
+        "firepower": 75,
         "torpedo": 0,
-        "antiair": 62,
+        "antiair": 154,
         "aviation": 0,
         "reload": 68,
         "accuracy": 57,
         "evasion": 28,
         "speed": 32.5,
         "luck": 70,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 15563,
@@ -27671,10 +27671,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 762,
-        "firepower": 43,
-        "torpedo": 29,
-        "antiair": 42,
+        "health": 1877,
+        "firepower": 107,
+        "torpedo": 73,
+        "antiair": 104,
         "aviation": 0,
         "reload": 62,
         "accuracy": 39,
@@ -27886,10 +27886,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 844,
-        "firepower": 44,
-        "torpedo": 32,
-        "antiair": 44,
+        "health": 2079,
+        "firepower": 109,
+        "torpedo": 79,
+        "antiair": 109,
         "aviation": 0,
         "reload": 65,
         "accuracy": 32,
@@ -28153,10 +28153,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 834,
-        "firepower": 49,
+        "health": 2054,
+        "firepower": 123,
         "torpedo": 0,
-        "antiair": 50,
+        "antiair": 123,
         "aviation": 0,
         "reload": 68,
         "accuracy": 45,
@@ -28402,10 +28402,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 903,
-        "firepower": 53,
-        "torpedo": 41,
-        "antiair": 46,
+        "health": 2225,
+        "firepower": 132,
+        "torpedo": 102,
+        "antiair": 114,
         "aviation": 0,
         "reload": 72,
         "accuracy": 48,
@@ -29073,17 +29073,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 407,
-        "firepower": 26,
-        "torpedo": 71,
-        "antiair": 43,
+        "health": 1003,
+        "firepower": 64,
+        "torpedo": 176,
+        "antiair": 107,
         "aviation": 0,
         "reload": 84,
         "accuracy": 76,
         "evasion": 59,
         "speed": 40.8,
         "luck": 78,
-        "asw": 55
+        "asw": 136
       },
       "growth": {
         "health": 11604,
@@ -29656,17 +29656,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 595,
-        "firepower": 30,
+        "health": 1466,
+        "firepower": 75,
         "torpedo": 0,
-        "antiair": 58,
+        "antiair": 143,
         "aviation": 0,
         "reload": 66,
         "accuracy": 54,
         "evasion": 28,
         "speed": 32.5,
         "luck": 55,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 15193,
@@ -29832,10 +29832,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1235,
-        "firepower": 71,
-        "torpedo": 44,
-        "antiair": 58,
+        "health": 3043,
+        "firepower": 176,
+        "torpedo": 110,
+        "antiair": 144,
         "aviation": 0,
         "reload": 60,
         "accuracy": 20,
@@ -30075,17 +30075,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 218,
-        "firepower": 12,
-        "torpedo": 67,
-        "antiair": 28,
+        "health": 536,
+        "firepower": 30,
+        "torpedo": 166,
+        "antiair": 69,
         "aviation": 0,
         "reload": 70,
         "accuracy": 64,
         "evasion": 78,
         "speed": 42,
         "luck": 65,
-        "asw": 48
+        "asw": 120
       },
       "growth": {
         "health": 6197,
@@ -30281,11 +30281,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1908,
+        "health": 2715,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 101,
-        "aviation": 141,
+        "antiair": 144,
+        "aviation": 202,
         "reload": 48,
         "accuracy": 28,
         "evasion": 13,
@@ -30603,17 +30603,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 331,
-        "firepower": 16,
-        "torpedo": 52,
-        "antiair": 35,
+        "health": 816,
+        "firepower": 39,
+        "torpedo": 130,
+        "antiair": 87,
         "aviation": 0,
         "reload": 74,
         "accuracy": 73,
         "evasion": 59,
         "speed": 42,
         "luck": 34,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9433,
@@ -30785,10 +30785,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1525,
-        "firepower": 92,
+        "health": 3020,
+        "firepower": 184,
         "torpedo": 0,
-        "antiair": 49,
+        "antiair": 97,
         "aviation": 0,
         "reload": 51,
         "accuracy": 22,
@@ -30920,17 +30920,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 291,
-        "firepower": 23,
-        "torpedo": 49,
-        "antiair": 30,
+        "health": 716,
+        "firepower": 58,
+        "torpedo": 123,
+        "antiair": 74,
         "aviation": 0,
         "reload": 74,
         "accuracy": 69,
         "evasion": 79,
         "speed": 45.6,
         "luck": 65,
-        "asw": 50
+        "asw": 125
       },
       "growth": {
         "health": 8161,
@@ -31148,7 +31148,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.2
       },
       "3": {
@@ -31417,17 +31417,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 759,
+        "health": 1869,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 53,
+        "antiair": 119,
+        "aviation": 132,
         "reload": 71,
         "accuracy": 24,
         "evasion": 16,
         "speed": 19,
         "luck": 65,
-        "asw": 28
+        "asw": 70
       },
       "growth": {
         "health": 21614,
@@ -31578,7 +31578,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3,
         "retrofit": {
           "mount": 2,
@@ -31620,17 +31620,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 485,
-        "firepower": 25,
-        "torpedo": 92,
-        "antiair": 54,
+        "health": 689,
+        "firepower": 35,
+        "torpedo": 131,
+        "antiair": 77,
         "aviation": 0,
         "reload": 70,
         "accuracy": 67,
         "evasion": 60,
         "speed": 44.4,
         "luck": 66,
-        "asw": 77
+        "asw": 110
       },
       "growth": {
         "health": 7967,
@@ -31827,9 +31827,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 306,
-        "firepower": 12,
-        "torpedo": 101,
+        "health": 754,
+        "firepower": 30,
+        "torpedo": 251,
         "antiair": 0,
         "aviation": 0,
         "reload": 34,
@@ -32109,17 +32109,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1105,
+        "health": 2722,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 50,
-        "aviation": 80,
+        "antiair": 124,
+        "aviation": 199,
         "reload": 59,
         "accuracy": 31,
         "evasion": 19,
         "speed": 28,
         "luck": 73,
-        "asw": 31
+        "asw": 76
       },
       "growth": {
         "health": 29663,
@@ -32331,7 +32331,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.8
       },
       "2": {
@@ -32765,17 +32765,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 367,
-        "firepower": 24,
-        "torpedo": 42,
-        "antiair": 32,
+        "health": 904,
+        "firepower": 60,
+        "torpedo": 104,
+        "antiair": 79,
         "aviation": 0,
         "reload": 73,
         "accuracy": 67,
         "evasion": 61,
         "speed": 45.6,
         "luck": 61,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 10459,
@@ -33093,17 +33093,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 298,
-        "firepower": 19,
-        "torpedo": 40,
-        "antiair": 23,
+        "health": 734,
+        "firepower": 47,
+        "torpedo": 99,
+        "antiair": 57,
         "aviation": 0,
         "reload": 73,
         "accuracy": 66,
         "evasion": 64,
         "speed": 43.2,
         "luck": 15,
-        "asw": 30
+        "asw": 74
       },
       "growth": {
         "health": 7388,
@@ -33366,10 +33366,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 835,
-        "firepower": 35,
-        "torpedo": 56,
-        "antiair": 47,
+        "health": 2057,
+        "firepower": 87,
+        "torpedo": 139,
+        "antiair": 116,
         "aviation": 0,
         "reload": 68,
         "accuracy": 55,
@@ -33672,17 +33672,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 442,
-        "firepower": 13,
-        "torpedo": 43,
-        "antiair": 24,
+        "health": 1089,
+        "firepower": 32,
+        "torpedo": 107,
+        "antiair": 59,
         "aviation": 0,
         "reload": 51,
         "accuracy": 53,
         "evasion": 24,
         "speed": 20,
         "luck": 20,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 10972,
@@ -34215,17 +34215,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 758,
-        "firepower": 32,
+        "health": 1868,
+        "firepower": 79,
         "torpedo": 0,
-        "antiair": 63,
+        "antiair": 156,
         "aviation": 0,
         "reload": 72,
         "accuracy": 56,
         "evasion": 30,
         "speed": 33.5,
         "luck": 68,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 18806,
@@ -34518,17 +34518,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 343,
-        "firepower": 16,
-        "torpedo": 54,
-        "antiair": 33,
+        "health": 846,
+        "firepower": 40,
+        "torpedo": 134,
+        "antiair": 82,
         "aviation": 0,
         "reload": 79,
         "accuracy": 76,
         "evasion": 59,
         "speed": 42,
         "luck": 82,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 9642,
@@ -34792,17 +34792,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 673,
-        "firepower": 25,
-        "torpedo": 34,
-        "antiair": 83,
+        "health": 1658,
+        "firepower": 63,
+        "torpedo": 85,
+        "antiair": 205,
         "aviation": 0,
         "reload": 71,
         "accuracy": 57,
         "evasion": 28,
         "speed": 32.25,
         "luck": 51,
-        "asw": 43
+        "asw": 107
       },
       "growth": {
         "health": 16972,
@@ -35065,17 +35065,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 778,
+        "health": 1917,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 56,
+        "antiair": 119,
+        "aviation": 139,
         "reload": 68,
         "accuracy": 28,
         "evasion": 15,
         "speed": 18,
         "luck": 82,
-        "asw": 35
+        "asw": 87
       },
       "growth": {
         "health": 21208,
@@ -36186,17 +36186,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 410,
-        "firepower": 14,
-        "torpedo": 43,
-        "antiair": 23,
+        "health": 1011,
+        "firepower": 35,
+        "torpedo": 107,
+        "antiair": 56,
         "aviation": 0,
         "reload": 53,
         "accuracy": 54,
         "evasion": 24,
         "speed": 20,
         "luck": 20,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 10179,
@@ -36424,10 +36424,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 581,
-        "firepower": 44,
+        "health": 1431,
+        "firepower": 110,
         "torpedo": 0,
-        "antiair": 38,
+        "antiair": 94,
         "aviation": 0,
         "reload": 61,
         "accuracy": 40,
@@ -36587,10 +36587,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 721,
-        "firepower": 27,
-        "torpedo": 47,
-        "antiair": 21,
+        "health": 1776,
+        "firepower": 67,
+        "torpedo": 118,
+        "antiair": 53,
         "aviation": 0,
         "reload": 57,
         "accuracy": 55,
@@ -37071,10 +37071,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 755,
-        "firepower": 49,
-        "torpedo": 46,
-        "antiair": 35,
+        "health": 1860,
+        "firepower": 121,
+        "torpedo": 114,
+        "antiair": 87,
         "aviation": 0,
         "reload": 66,
         "accuracy": 40,
@@ -37583,17 +37583,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 727,
+        "health": 1791,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 65,
+        "antiair": 121,
+        "aviation": 162,
         "reload": 68,
         "accuracy": 26,
         "evasion": 20,
         "speed": 29,
         "luck": 57,
-        "asw": 22
+        "asw": 54
       },
       "growth": {
         "health": 19816,
@@ -37834,17 +37834,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1387,
+        "health": 1974,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 85,
-        "aviation": 113,
+        "antiair": 121,
+        "aviation": 162,
         "reload": 66,
         "accuracy": 26,
         "evasion": 20,
         "speed": 29,
         "luck": 57,
-        "asw": 38
+        "asw": 54
       },
       "growth": {
         "health": 21844,
@@ -38506,10 +38506,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 738,
-        "firepower": 48,
-        "torpedo": 41,
-        "antiair": 33,
+        "health": 1819,
+        "firepower": 120,
+        "torpedo": 102,
+        "antiair": 82,
         "aviation": 0,
         "reload": 64,
         "accuracy": 46,
@@ -38787,17 +38787,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 341,
-        "firepower": 17,
-        "torpedo": 70,
-        "antiair": 48,
+        "health": 840,
+        "firepower": 43,
+        "torpedo": 174,
+        "antiair": 118,
         "aviation": 0,
         "reload": 81,
         "accuracy": 75,
         "evasion": 59,
         "speed": 42,
         "luck": 80,
-        "asw": 60
+        "asw": 149
       },
       "growth": {
         "health": 9713,
@@ -39005,7 +39005,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.6
       },
       "2": {
@@ -39053,10 +39053,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1683,
-        "firepower": 107,
+        "health": 3333,
+        "firepower": 214,
         "torpedo": 0,
-        "antiair": 71,
+        "antiair": 141,
         "aviation": 0,
         "reload": 62,
         "accuracy": 24,
@@ -39279,17 +39279,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 647,
-        "firepower": 29,
-        "torpedo": 34,
-        "antiair": 84,
+        "health": 1593,
+        "firepower": 73,
+        "torpedo": 84,
+        "antiair": 208,
         "aviation": 0,
         "reload": 71,
         "accuracy": 61,
         "evasion": 32,
         "speed": 32,
         "luck": 68,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 18421,
@@ -39533,17 +39533,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 628,
-        "firepower": 30,
+        "health": 1546,
+        "firepower": 74,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 66,
         "accuracy": 54,
         "evasion": 30,
         "speed": 32.5,
         "luck": 71,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 15563,
@@ -39730,17 +39730,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 751,
-        "firepower": 31,
+        "health": 1849,
+        "firepower": 76,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 69,
         "accuracy": 56,
         "evasion": 30,
         "speed": 32.5,
         "luck": 71,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 18613,
@@ -39976,17 +39976,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 779,
-        "firepower": 33,
+        "health": 1919,
+        "firepower": 83,
         "torpedo": 0,
-        "antiair": 79,
+        "antiair": 195,
         "aviation": 0,
         "reload": 72,
         "accuracy": 46,
         "evasion": 22,
         "speed": 33,
         "luck": 71,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 13408,
@@ -40254,17 +40254,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 669,
-        "firepower": 30,
+        "health": 1647,
+        "firepower": 74,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 69,
         "accuracy": 56,
         "evasion": 30,
         "speed": 32.5,
         "luck": 71,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 16580,
@@ -40773,10 +40773,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1241,
-        "firepower": 78,
+        "health": 3057,
+        "firepower": 194,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 99,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -41044,17 +41044,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 751,
-        "firepower": 31,
+        "health": 1849,
+        "firepower": 77,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 69,
         "accuracy": 56,
         "evasion": 30,
         "speed": 32.5,
         "luck": 70,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 18613,
@@ -41292,17 +41292,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 219,
-        "firepower": 13,
-        "torpedo": 66,
-        "antiair": 28,
+        "health": 540,
+        "firepower": 32,
+        "torpedo": 164,
+        "antiair": 69,
         "aviation": 0,
         "reload": 70,
         "accuracy": 65,
         "evasion": 78,
         "speed": 43.2,
         "luck": 54,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 6244,
@@ -41554,17 +41554,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 565,
-        "firepower": 27,
-        "torpedo": 40,
-        "antiair": 55,
+        "health": 1392,
+        "firepower": 67,
+        "torpedo": 99,
+        "antiair": 137,
         "aviation": 0,
         "reload": 68,
         "accuracy": 52,
         "evasion": 30,
         "speed": 35,
         "luck": 67,
-        "asw": 20
+        "asw": 49
       },
       "growth": {
         "health": 14475,
@@ -41971,10 +41971,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1139,
-        "firepower": 64,
-        "torpedo": 27,
-        "antiair": 33,
+        "health": 2806,
+        "firepower": 160,
+        "torpedo": 67,
+        "antiair": 81,
         "aviation": 0,
         "reload": 51,
         "accuracy": 20,
@@ -42228,17 +42228,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 353,
-        "firepower": 23,
-        "torpedo": 68,
-        "antiair": 37,
+        "health": 870,
+        "firepower": 58,
+        "torpedo": 169,
+        "antiair": 92,
         "aviation": 0,
         "reload": 81,
         "accuracy": 74,
         "evasion": 59,
         "speed": 40.8,
         "luck": 22,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 10058,
@@ -42463,17 +42463,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 876,
+        "health": 2158,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 55,
-        "aviation": 70,
+        "antiair": 136,
+        "aviation": 174,
         "reload": 80,
         "accuracy": 28,
         "evasion": 21,
         "speed": 31.6,
         "luck": 70,
-        "asw": 23
+        "asw": 58
       },
       "growth": {
         "health": 24960,
@@ -42658,17 +42658,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 286,
-        "firepower": 13,
-        "torpedo": 82,
-        "antiair": 32,
+        "health": 705,
+        "firepower": 33,
+        "torpedo": 204,
+        "antiair": 79,
         "aviation": 0,
         "reload": 72,
         "accuracy": 71,
         "evasion": 60,
         "speed": 46.2,
         "luck": 72,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 8148,
@@ -42838,17 +42838,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 219,
-        "firepower": 13,
-        "torpedo": 66,
-        "antiair": 28,
+        "health": 540,
+        "firepower": 32,
+        "torpedo": 164,
+        "antiair": 69,
         "aviation": 0,
         "reload": 70,
         "accuracy": 65,
         "evasion": 78,
         "speed": 43.2,
         "luck": 35,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 6244,
@@ -43061,17 +43061,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 510,
-        "firepower": 25,
+        "health": 1257,
+        "firepower": 62,
         "torpedo": 0,
-        "antiair": 29,
+        "antiair": 71,
         "aviation": 0,
         "reload": 67,
         "accuracy": 58,
         "evasion": 26,
         "speed": 29,
         "luck": 24,
-        "asw": 13
+        "asw": 32
       },
       "growth": {
         "health": 13073,
@@ -43293,17 +43293,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 477,
-        "firepower": 24,
+        "health": 1176,
+        "firepower": 59,
         "torpedo": 0,
-        "antiair": 33,
+        "antiair": 82,
         "aviation": 0,
         "reload": 70,
         "accuracy": 57,
         "evasion": 26,
         "speed": 29,
         "luck": 45,
-        "asw": 13
+        "asw": 32
       },
       "growth": {
         "health": 12232,
@@ -43523,17 +43523,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 219,
-        "firepower": 13,
-        "torpedo": 66,
-        "antiair": 28,
+        "health": 540,
+        "firepower": 32,
+        "torpedo": 164,
+        "antiair": 69,
         "aviation": 0,
         "reload": 70,
         "accuracy": 65,
         "evasion": 78,
         "speed": 43.2,
         "luck": 72,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 6244,
@@ -43760,9 +43760,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 273,
-        "firepower": 13,
-        "torpedo": 97,
+        "health": 672,
+        "firepower": 33,
+        "torpedo": 241,
         "antiair": 0,
         "aviation": 0,
         "reload": 33,
@@ -44265,7 +44265,8 @@ const SHIPS_DATA = [
         "default": 106,
         "slot": 2,
         "type": [
-          5
+          5,
+          6
         ],
         "mount": 1,
         "preload": 0,
@@ -44306,17 +44307,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 725,
-        "firepower": 31,
-        "torpedo": 50,
-        "antiair": 76,
+        "health": 1786,
+        "firepower": 77,
+        "torpedo": 124,
+        "antiair": 188,
         "aviation": 0,
         "reload": 78,
         "accuracy": 57,
         "evasion": 31,
         "speed": 32,
         "luck": 85,
-        "asw": 26
+        "asw": 64
       },
       "growth": {
         "health": 20646,
@@ -44592,11 +44593,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1107,
+        "health": 2727,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 83,
+        "antiair": 150,
+        "aviation": 206,
         "reload": 51,
         "accuracy": 32,
         "evasion": 13,
@@ -44935,17 +44936,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 751,
-        "firepower": 29,
+        "health": 1849,
+        "firepower": 72,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 150,
         "aviation": 0,
         "reload": 68,
         "accuracy": 55,
         "evasion": 30,
         "speed": 32.5,
         "luck": 69,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 18613,
@@ -45138,10 +45139,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 691,
-        "firepower": 56,
-        "torpedo": 41,
-        "antiair": 29,
+        "health": 1702,
+        "firepower": 139,
+        "torpedo": 101,
+        "antiair": 71,
         "aviation": 0,
         "reload": 65,
         "accuracy": 45,
@@ -45437,10 +45438,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 610,
-        "firepower": 42,
-        "torpedo": 40,
-        "antiair": 41,
+        "health": 1503,
+        "firepower": 105,
+        "torpedo": 99,
+        "antiair": 101,
         "aviation": 0,
         "reload": 62,
         "accuracy": 37,
@@ -45652,17 +45653,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 265,
-        "firepower": 14,
-        "torpedo": 52,
-        "antiair": 34,
+        "health": 654,
+        "firepower": 34,
+        "torpedo": 129,
+        "antiair": 85,
         "aviation": 0,
         "reload": 69,
         "accuracy": 63,
         "evasion": 60,
         "speed": 44.4,
         "luck": 72,
-        "asw": 45
+        "asw": 112
       },
       "growth": {
         "health": 7564,
@@ -45814,7 +45815,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -46084,17 +46085,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 647,
-        "firepower": 29,
-        "torpedo": 33,
-        "antiair": 74,
+        "health": 1593,
+        "firepower": 72,
+        "torpedo": 82,
+        "antiair": 183,
         "aviation": 0,
         "reload": 71,
         "accuracy": 55,
         "evasion": 28,
         "speed": 32.25,
         "luck": 85,
-        "asw": 41
+        "asw": 102
       },
       "growth": {
         "health": 16301,
@@ -46407,7 +46408,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -46445,17 +46446,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 677,
-        "firepower": 27,
-        "torpedo": 33,
-        "antiair": 82,
+        "health": 1668,
+        "firepower": 68,
+        "torpedo": 82,
+        "antiair": 202,
         "aviation": 0,
         "reload": 71,
         "accuracy": 57,
         "evasion": 28,
         "speed": 32.25,
         "luck": 85,
-        "asw": 41
+        "asw": 102
       },
       "growth": {
         "health": 17075,
@@ -47066,8 +47067,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 365,
-        "firepower": 39,
+        "health": 899,
+        "firepower": 96,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -47281,10 +47282,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 821,
-        "firepower": 34,
-        "torpedo": 45,
-        "antiair": 47,
+        "health": 2023,
+        "firepower": 84,
+        "torpedo": 112,
+        "antiair": 115,
         "aviation": 0,
         "reload": 61,
         "accuracy": 38,
@@ -47424,7 +47425,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3,
         "retrofit": {
           "mount": 2,
@@ -47466,17 +47467,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 485,
-        "firepower": 25,
-        "torpedo": 92,
-        "antiair": 54,
+        "health": 689,
+        "firepower": 35,
+        "torpedo": 131,
+        "antiair": 77,
         "aviation": 0,
         "reload": 70,
         "accuracy": 67,
         "evasion": 60,
         "speed": 44.4,
         "luck": 63,
-        "asw": 77
+        "asw": 110
       },
       "growth": {
         "health": 7967,
@@ -48283,7 +48284,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.6
       },
       "3": {
@@ -48650,17 +48651,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 523,
-        "firepower": 33,
-        "torpedo": 62,
-        "antiair": 56,
+        "health": 1289,
+        "firepower": 82,
+        "torpedo": 154,
+        "antiair": 139,
         "aviation": 0,
         "reload": 70,
         "accuracy": 55,
         "evasion": 28,
         "speed": 33,
         "luck": 80,
-        "asw": 34
+        "asw": 85
       },
       "growth": {
         "health": 14909,
@@ -49200,10 +49201,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1334,
-        "firepower": 82,
+        "health": 3286,
+        "firepower": 203,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 104,
         "aviation": 0,
         "reload": 56,
         "accuracy": 22,
@@ -49646,7 +49647,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.7
       },
       "2": {
@@ -49974,7 +49975,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.7
       },
       "2": {
@@ -50186,7 +50187,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -50428,7 +50429,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -50464,10 +50465,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 700,
-        "firepower": 60,
-        "torpedo": 41,
-        "antiair": 55,
+        "health": 1387,
+        "firepower": 119,
+        "torpedo": 82,
+        "antiair": 109,
         "aviation": 0,
         "reload": 70,
         "accuracy": 48,
@@ -50680,11 +50681,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1024,
-        "firepower": 40,
+        "health": 2522,
+        "firepower": 99,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 70,
+        "antiair": 143,
+        "aviation": 174,
         "reload": 41,
         "accuracy": 29,
         "evasion": 10,
@@ -51066,17 +51067,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 789,
-        "firepower": 29,
-        "torpedo": 52,
-        "antiair": 59,
+        "health": 1943,
+        "firepower": 72,
+        "torpedo": 129,
+        "antiair": 146,
         "aviation": 0,
         "reload": 65,
         "accuracy": 55,
         "evasion": 29,
         "speed": 32,
         "luck": 37,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 19240,
@@ -51278,17 +51279,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 820,
+        "health": 2019,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 50,
-        "aviation": 62,
+        "antiair": 124,
+        "aviation": 154,
         "reload": 68,
         "accuracy": 28,
         "evasion": 17,
         "speed": 21,
         "luck": 30,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 22342,
@@ -51718,17 +51719,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 580,
-        "firepower": 23,
-        "torpedo": 39,
-        "antiair": 54,
+        "health": 1428,
+        "firepower": 58,
+        "torpedo": 97,
+        "antiair": 134,
         "aviation": 0,
         "reload": 73,
         "accuracy": 51,
         "evasion": 29,
         "speed": 27.5,
         "luck": 30,
-        "asw": 19
+        "asw": 48
       },
       "growth": {
         "health": 14734,
@@ -51979,17 +51980,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 277,
-        "firepower": 15,
-        "torpedo": 72,
-        "antiair": 34,
+        "health": 683,
+        "firepower": 37,
+        "torpedo": 179,
+        "antiair": 84,
         "aviation": 0,
         "reload": 85,
         "accuracy": 71,
         "evasion": 78,
         "speed": 25.2,
         "luck": 75,
-        "asw": 56
+        "asw": 139
       },
       "growth": {
         "health": 7901,
@@ -52450,11 +52451,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1193,
+        "health": 2939,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 57,
-        "aviation": 76,
+        "antiair": 141,
+        "aviation": 188,
         "reload": 47,
         "accuracy": 33,
         "evasion": 11,
@@ -52673,7 +52674,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.2
       },
       "3": {
@@ -52918,17 +52919,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 639,
-        "firepower": 29,
-        "torpedo": 54,
-        "antiair": 56,
+        "health": 1575,
+        "firepower": 72,
+        "torpedo": 134,
+        "antiair": 139,
         "aviation": 0,
         "reload": 74,
         "accuracy": 56,
         "evasion": 26,
         "speed": 23.5,
         "luck": 85,
-        "asw": 22
+        "asw": 54
       },
       "growth": {
         "health": 16250,
@@ -53231,17 +53232,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 548,
-        "firepower": 30,
-        "torpedo": 51,
-        "antiair": 51,
+        "health": 1349,
+        "firepower": 74,
+        "torpedo": 126,
+        "antiair": 126,
         "aviation": 0,
         "reload": 64,
         "accuracy": 57,
         "evasion": 30,
         "speed": 34,
         "luck": 67,
-        "asw": 35
+        "asw": 87
       },
       "growth": {
         "health": 13917,
@@ -53535,11 +53536,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1042,
+        "health": 2566,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 62,
-        "aviation": 83,
+        "antiair": 154,
+        "aviation": 207,
         "reload": 49,
         "accuracy": 37,
         "evasion": 19,
@@ -53746,17 +53747,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 603,
-        "firepower": 28,
-        "torpedo": 53,
-        "antiair": 65,
+        "health": 1485,
+        "firepower": 69,
+        "torpedo": 132,
+        "antiair": 160,
         "aviation": 0,
         "reload": 68,
         "accuracy": 58,
         "evasion": 30,
         "speed": 33,
         "luck": 83,
-        "asw": 34
+        "asw": 85
       },
       "growth": {
         "health": 15570,
@@ -53909,7 +53910,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.15
       },
       "3": {
@@ -54180,10 +54181,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 587,
-        "firepower": 52,
+        "health": 1446,
+        "firepower": 130,
         "torpedo": 0,
-        "antiair": 32,
+        "antiair": 79,
         "aviation": 0,
         "reload": 53,
         "accuracy": 28,
@@ -54375,10 +54376,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 669,
-        "firepower": 53,
+        "health": 1648,
+        "firepower": 131,
         "torpedo": 0,
-        "antiair": 32,
+        "antiair": 79,
         "aviation": 0,
         "reload": 54,
         "accuracy": 23,
@@ -54606,17 +54607,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 332,
-        "firepower": 20,
-        "torpedo": 82,
-        "antiair": 36,
+        "health": 658,
+        "firepower": 40,
+        "torpedo": 164,
+        "antiair": 72,
         "aviation": 0,
         "reload": 78,
         "accuracy": 69,
         "evasion": 78,
         "speed": 43.2,
         "luck": 72,
-        "asw": 59
+        "asw": 118
       },
       "growth": {
         "health": 7615,
@@ -54808,11 +54809,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1108,
+        "health": 2730,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 83,
+        "antiair": 155,
+        "aviation": 206,
         "reload": 48,
         "accuracy": 30,
         "evasion": 13,
@@ -55136,7 +55137,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -55174,17 +55175,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 435,
-        "firepower": 26,
-        "torpedo": 113,
-        "antiair": 61,
+        "health": 619,
+        "firepower": 37,
+        "torpedo": 162,
+        "antiair": 87,
         "aviation": 0,
         "reload": 77,
         "accuracy": 71,
         "evasion": 71,
         "speed": 43.2,
         "luck": 28,
-        "asw": 80
+        "asw": 114
       },
       "growth": {
         "health": 7159,
@@ -55391,10 +55392,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 634,
-        "firepower": 42,
-        "torpedo": 36,
-        "antiair": 45,
+        "health": 1562,
+        "firepower": 104,
+        "torpedo": 89,
+        "antiair": 112,
         "aviation": 0,
         "reload": 65,
         "accuracy": 43,
@@ -55660,15 +55661,15 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 760,
-        "firepower": 46,
+        "health": 1872,
+        "firepower": 114,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
         "reload": 66,
         "accuracy": 43,
         "evasion": 11,
-        "speed": 14.4,
+        "speed": 29.4,
         "luck": 75,
         "asw": 0
       },
@@ -56004,17 +56005,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 760,
-        "firepower": 32,
+        "health": 1873,
+        "firepower": 79,
         "torpedo": 0,
-        "antiair": 65,
+        "antiair": 161,
         "aviation": 0,
         "reload": 72,
         "accuracy": 57,
         "evasion": 30,
         "speed": 32.5,
         "luck": 75,
-        "asw": 25
+        "asw": 63
       },
       "growth": {
         "health": 18857,
@@ -56227,17 +56228,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 284,
-        "firepower": 18,
-        "torpedo": 38,
-        "antiair": 26,
+        "health": 699,
+        "firepower": 44,
+        "torpedo": 95,
+        "antiair": 64,
         "aviation": 0,
         "reload": 73,
         "accuracy": 68,
         "evasion": 60,
         "speed": 43.2,
         "luck": 20,
-        "asw": 30
+        "asw": 74
       },
       "growth": {
         "health": 8078,
@@ -56519,7 +56520,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.2
       },
       "3": {
@@ -56972,17 +56973,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 617,
-        "firepower": 29,
-        "torpedo": 50,
-        "antiair": 48,
+        "health": 1519,
+        "firepower": 73,
+        "torpedo": 124,
+        "antiair": 118,
         "aviation": 0,
         "reload": 67,
         "accuracy": 59,
         "evasion": 29,
         "speed": 32,
         "luck": 11,
-        "asw": 28
+        "asw": 70
       },
       "growth": {
         "health": 15672,
@@ -57107,7 +57108,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 3,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "2": {
@@ -57471,9 +57472,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 308,
-        "firepower": 11,
-        "torpedo": 102,
+        "health": 759,
+        "firepower": 27,
+        "torpedo": 253,
         "antiair": 0,
         "aviation": 0,
         "reload": 35,
@@ -57705,17 +57706,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 338,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 832,
+        "firepower": 39,
+        "torpedo": 131,
+        "antiair": 79,
         "aviation": 0,
         "reload": 72,
         "accuracy": 69,
         "evasion": 60,
         "speed": 43.2,
         "luck": 73,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9481,
@@ -57869,7 +57870,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.15
       },
       "3": {
@@ -58087,7 +58088,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -58347,10 +58348,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 693,
-        "firepower": 45,
-        "torpedo": 48,
-        "antiair": 47,
+        "health": 1707,
+        "firepower": 112,
+        "torpedo": 120,
+        "antiair": 115,
         "aviation": 0,
         "reload": 66,
         "accuracy": 34,
@@ -58588,17 +58589,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 325,
-        "firepower": 15,
-        "torpedo": 52,
-        "antiair": 32,
+        "health": 800,
+        "firepower": 38,
+        "torpedo": 129,
+        "antiair": 79,
         "aviation": 0,
         "reload": 72,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 67,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9118,
@@ -58777,17 +58778,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 222,
-        "firepower": 13,
-        "torpedo": 78,
-        "antiair": 26,
+        "health": 547,
+        "firepower": 32,
+        "torpedo": 194,
+        "antiair": 64,
         "aviation": 0,
         "reload": 71,
         "accuracy": 68,
         "evasion": 74,
         "speed": 39.6,
         "luck": 69,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 6320,
@@ -59052,11 +59053,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1090,
+        "health": 2685,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 54,
-        "aviation": 79,
+        "antiair": 134,
+        "aviation": 196,
         "reload": 43,
         "accuracy": 31,
         "evasion": 12,
@@ -59320,11 +59321,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1082,
+        "health": 2665,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 54,
-        "aviation": 80,
+        "antiair": 133,
+        "aviation": 199,
         "reload": 43,
         "accuracy": 31,
         "evasion": 12,
@@ -59553,17 +59554,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 226,
-        "firepower": 13,
-        "torpedo": 67,
-        "antiair": 29,
+        "health": 557,
+        "firepower": 33,
+        "torpedo": 167,
+        "antiair": 71,
         "aviation": 0,
         "reload": 72,
         "accuracy": 66,
         "evasion": 78,
         "speed": 42.6,
         "luck": 68,
-        "asw": 54
+        "asw": 134
       },
       "growth": {
         "health": 6437,
@@ -59735,7 +59736,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.35
       },
       "3": {
@@ -60010,17 +60011,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 221,
-        "firepower": 13,
-        "torpedo": 66,
-        "antiair": 28,
+        "health": 545,
+        "firepower": 33,
+        "torpedo": 164,
+        "antiair": 69,
         "aviation": 0,
         "reload": 70,
         "accuracy": 66,
         "evasion": 78,
         "speed": 42.6,
         "luck": 68,
-        "asw": 53
+        "asw": 131
       },
       "growth": {
         "health": 6306,
@@ -60212,10 +60213,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1315,
-        "firepower": 82,
+        "health": 3239,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -60476,11 +60477,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1106,
+        "health": 2725,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 83,
+        "antiair": 155,
+        "aviation": 206,
         "reload": 48,
         "accuracy": 30,
         "evasion": 13,
@@ -60768,10 +60769,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1024,
-        "firepower": 55,
-        "torpedo": 47,
-        "antiair": 45,
+        "health": 2523,
+        "firepower": 137,
+        "torpedo": 117,
+        "antiair": 112,
         "aviation": 0,
         "reload": 67,
         "accuracy": 46,
@@ -61458,11 +61459,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1491,
-        "firepower": 41,
+        "health": 3673,
+        "firepower": 102,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 86,
+        "antiair": 151,
+        "aviation": 214,
         "reload": 53,
         "accuracy": 37,
         "evasion": 14,
@@ -61767,17 +61768,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 308,
-        "firepower": 18,
-        "torpedo": 40,
-        "antiair": 23,
+        "health": 759,
+        "firepower": 44,
+        "torpedo": 99,
+        "antiair": 56,
         "aviation": 0,
         "reload": 74,
         "accuracy": 68,
         "evasion": 64,
         "speed": 43.2,
         "luck": 45,
-        "asw": 32
+        "asw": 80
       },
       "growth": {
         "health": 7642,
@@ -62005,17 +62006,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 367,
-        "firepower": 24,
-        "torpedo": 43,
-        "antiair": 32,
+        "health": 904,
+        "firepower": 59,
+        "torpedo": 106,
+        "antiair": 80,
         "aviation": 0,
         "reload": 74,
         "accuracy": 68,
         "evasion": 61,
         "speed": 45.6,
         "luck": 51,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 10459,
@@ -62374,17 +62375,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 27,
+        "health": 714,
+        "firepower": 29,
+        "torpedo": 244,
+        "antiair": 67,
         "aviation": 0,
         "reload": 78,
         "accuracy": 67,
         "evasion": 71,
         "speed": 45.6,
         "luck": 34,
-        "asw": 48
+        "asw": 119
       },
       "growth": {
         "health": 8257,
@@ -63039,17 +63040,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 361,
-        "firepower": 13,
-        "torpedo": 108,
-        "antiair": 29,
+        "health": 889,
+        "firepower": 32,
+        "torpedo": 269,
+        "antiair": 72,
         "aviation": 0,
         "reload": 82,
         "accuracy": 73,
         "evasion": 71,
         "speed": 42,
         "luck": 46,
-        "asw": 44
+        "asw": 110
       },
       "growth": {
         "health": 10279,
@@ -63484,17 +63485,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 423,
-        "firepower": 19,
-        "torpedo": 146,
-        "antiair": 42,
+        "health": 602,
+        "firepower": 28,
+        "torpedo": 209,
+        "antiair": 59,
         "aviation": 0,
         "reload": 74,
         "accuracy": 65,
         "evasion": 72,
         "speed": 44.7,
         "luck": 27,
-        "asw": 78
+        "asw": 112
       },
       "growth": {
         "health": 6962,
@@ -63677,10 +63678,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 589,
-        "firepower": 40,
-        "torpedo": 35,
-        "antiair": 30,
+        "health": 1450,
+        "firepower": 99,
+        "torpedo": 87,
+        "antiair": 74,
         "aviation": 0,
         "reload": 60,
         "accuracy": 38,
@@ -63889,10 +63890,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1143,
-        "firepower": 74,
+        "health": 2816,
+        "firepower": 184,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 102,
         "aviation": 0,
         "reload": 51,
         "accuracy": 20,
@@ -64139,10 +64140,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1256,
-        "firepower": 76,
+        "health": 3094,
+        "firepower": 189,
         "torpedo": 0,
-        "antiair": 44,
+        "antiair": 108,
         "aviation": 0,
         "reload": 52,
         "accuracy": 17,
@@ -64433,17 +64434,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 482,
-        "firepower": 29,
-        "torpedo": 50,
-        "antiair": 61,
+        "health": 1188,
+        "firepower": 72,
+        "torpedo": 124,
+        "antiair": 151,
         "aviation": 0,
         "reload": 69,
         "accuracy": 58,
         "evasion": 29,
         "speed": 32,
         "luck": 26,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 12457,
@@ -64610,17 +64611,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 269,
-        "firepower": 16,
-        "torpedo": 70,
-        "antiair": 31,
+        "health": 662,
+        "firepower": 40,
+        "torpedo": 174,
+        "antiair": 77,
         "aviation": 0,
         "reload": 77,
         "accuracy": 71,
         "evasion": 78,
         "speed": 43.2,
         "luck": 30,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 7651,
@@ -65085,10 +65086,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1123,
-        "firepower": 71,
+        "health": 2766,
+        "firepower": 177,
         "torpedo": 0,
-        "antiair": 34,
+        "antiair": 84,
         "aviation": 0,
         "reload": 57,
         "accuracy": 15,
@@ -65340,8 +65341,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1248,
-        "firepower": 105,
+        "health": 2470,
+        "firepower": 209,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -66790,7 +66791,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -67168,10 +67169,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1172,
-        "firepower": 66,
-        "torpedo": 28,
-        "antiair": 35,
+        "health": 2887,
+        "firepower": 165,
+        "torpedo": 69,
+        "antiair": 86,
         "aviation": 0,
         "reload": 55,
         "accuracy": 21,
@@ -67496,10 +67497,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1254,
-        "firepower": 80,
+        "health": 3089,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 60,
         "accuracy": 17,
@@ -67720,17 +67721,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 749,
-        "firepower": 33,
-        "torpedo": 60,
-        "antiair": 70,
+        "health": 1846,
+        "firepower": 82,
+        "torpedo": 149,
+        "antiair": 173,
         "aviation": 0,
         "reload": 66,
         "accuracy": 62,
         "evasion": 31,
         "speed": 35.56,
         "luck": 88,
-        "asw": 23
+        "asw": 58
       },
       "growth": {
         "health": 18588,
@@ -68013,17 +68014,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 792,
-        "firepower": 35,
-        "torpedo": 64,
-        "antiair": 81,
+        "health": 1569,
+        "firepower": 69,
+        "torpedo": 126,
+        "antiair": 161,
         "aviation": 0,
         "reload": 63,
         "accuracy": 54,
         "evasion": 29,
         "speed": 32,
         "luck": 81,
-        "asw": 30
+        "asw": 59
       },
       "growth": {
         "health": 16057,
@@ -68205,11 +68206,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1062,
+        "health": 2616,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 55,
-        "aviation": 68,
+        "antiair": 136,
+        "aviation": 169,
         "reload": 40,
         "accuracy": 30,
         "evasion": 12,
@@ -68395,11 +68396,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1136,
+        "health": 2798,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 75,
+        "antiair": 144,
+        "aviation": 187,
         "reload": 48,
         "accuracy": 24,
         "evasion": 9,
@@ -68646,7 +68647,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -68904,17 +68905,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 228,
-        "firepower": 15,
-        "torpedo": 70,
-        "antiair": 31,
+        "health": 561,
+        "firepower": 37,
+        "torpedo": 174,
+        "antiair": 76,
         "aviation": 0,
         "reload": 74,
         "accuracy": 68,
         "evasion": 78,
         "speed": 43.2,
         "luck": 36,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 6483,
@@ -69130,10 +69131,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1241,
-        "firepower": 69,
-        "torpedo": 0,
-        "antiair": 46,
+        "health": 3057,
+        "firepower": 172,
+        "torpedo": 83,
+        "antiair": 114,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -69145,7 +69146,7 @@ const SHIPS_DATA = [
       "growth": {
         "health": 33414,
         "firepower": 888,
-        "torpedo": 0,
+        "torpedo": 524,
         "antiair": 1011,
         "aviation": 0,
         "reload": 403,
@@ -69632,10 +69633,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1353,
-        "firepower": 82,
+        "health": 3333,
+        "firepower": 203,
         "torpedo": 0,
-        "antiair": 54,
+        "antiair": 134,
         "aviation": 0,
         "reload": 57,
         "accuracy": 22,
@@ -69984,15 +69985,15 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 544,
-        "firepower": 32,
+        "health": 1340,
+        "firepower": 80,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
         "reload": 62,
         "accuracy": 57,
         "evasion": 26,
-        "speed": 8,
+        "speed": 32,
         "luck": 78,
         "asw": 0
       },
@@ -70240,10 +70241,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 853,
-        "firepower": 47,
+        "health": 2102,
+        "firepower": 116,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 104,
         "aviation": 0,
         "reload": 64,
         "accuracy": 39,
@@ -71097,11 +71098,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1317,
+        "health": 3244,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 60,
-        "aviation": 81,
+        "antiair": 149,
+        "aviation": 201,
         "reload": 47,
         "accuracy": 30,
         "evasion": 14,
@@ -71480,17 +71481,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 349,
-        "firepower": 26,
-        "torpedo": 52,
-        "antiair": 28,
+        "health": 860,
+        "firepower": 65,
+        "torpedo": 129,
+        "antiair": 69,
         "aviation": 0,
         "reload": 73,
         "accuracy": 67,
         "evasion": 61,
         "speed": 45.6,
         "luck": 70,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 9941,
@@ -71694,17 +71695,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 245,
-        "firepower": 16,
-        "torpedo": 69,
-        "antiair": 31,
+        "health": 603,
+        "firepower": 39,
+        "torpedo": 171,
+        "antiair": 76,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 78,
         "speed": 43.2,
         "luck": 32,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 6968,
@@ -71896,7 +71897,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -72190,17 +72191,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 292,
-        "firepower": 14,
-        "torpedo": 84,
-        "antiair": 32,
+        "health": 719,
+        "firepower": 34,
+        "torpedo": 209,
+        "antiair": 80,
         "aviation": 0,
         "reload": 74,
         "accuracy": 71,
         "evasion": 60,
         "speed": 46.2,
         "luck": 72,
-        "asw": 49
+        "asw": 123
       },
       "growth": {
         "health": 8311,
@@ -72645,17 +72646,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 367,
-        "firepower": 24,
-        "torpedo": 43,
-        "antiair": 31,
+        "health": 904,
+        "firepower": 60,
+        "torpedo": 108,
+        "antiair": 77,
         "aviation": 0,
         "reload": 73,
         "accuracy": 67,
         "evasion": 65,
         "speed": 45.6,
         "luck": 45,
-        "asw": 50
+        "asw": 125
       },
       "growth": {
         "health": 10459,
@@ -72860,17 +72861,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 402,
-        "firepower": 23,
-        "torpedo": 33,
-        "antiair": 38,
+        "health": 991,
+        "firepower": 57,
+        "torpedo": 82,
+        "antiair": 94,
         "aviation": 0,
         "reload": 73,
         "accuracy": 67,
         "evasion": 61,
         "speed": 45.6,
         "luck": 60,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 11459,
@@ -73142,10 +73143,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1233,
-        "firepower": 55,
+        "health": 3038,
+        "firepower": 137,
         "torpedo": 0,
-        "antiair": 87,
+        "antiair": 215,
         "aviation": 0,
         "reload": 62,
         "accuracy": 47,
@@ -73418,17 +73419,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 638,
-        "firepower": 35,
-        "torpedo": 56,
-        "antiair": 72,
+        "health": 1571,
+        "firepower": 87,
+        "torpedo": 139,
+        "antiair": 178,
         "aviation": 0,
         "reload": 70,
         "accuracy": 62,
         "evasion": 30,
         "speed": 33.5,
         "luck": 50,
-        "asw": 37
+        "asw": 92
       },
       "growth": {
         "health": 16209,
@@ -73654,7 +73655,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -73690,10 +73691,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1415,
-        "firepower": 77,
-        "torpedo": 68,
-        "antiair": 66,
+        "health": 2013,
+        "firepower": 109,
+        "torpedo": 96,
+        "antiair": 94,
         "aviation": 0,
         "reload": 60,
         "accuracy": 43,
@@ -73958,17 +73959,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 521,
-        "firepower": 17,
-        "torpedo": 48,
-        "antiair": 31,
+        "health": 1284,
+        "firepower": 43,
+        "torpedo": 120,
+        "antiair": 77,
         "aviation": 0,
         "reload": 55,
         "accuracy": 54,
         "evasion": 26,
         "speed": 24,
         "luck": 62,
-        "asw": 19
+        "asw": 47
       },
       "growth": {
         "health": 12929,
@@ -74192,17 +74193,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 513,
-        "firepower": 17,
-        "torpedo": 47,
-        "antiair": 29,
+        "health": 1263,
+        "firepower": 42,
+        "torpedo": 116,
+        "antiair": 72,
         "aviation": 0,
         "reload": 57,
         "accuracy": 54,
         "evasion": 25,
         "speed": 20.75,
         "luck": 45,
-        "asw": 18
+        "asw": 45
       },
       "growth": {
         "health": 12716,
@@ -74433,17 +74434,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 522,
-        "firepower": 19,
-        "torpedo": 47,
-        "antiair": 30,
+        "health": 1286,
+        "firepower": 47,
+        "torpedo": 117,
+        "antiair": 74,
         "aviation": 0,
         "reload": 55,
         "accuracy": 54,
         "evasion": 26,
         "speed": 24,
         "luck": 31,
-        "asw": 19
+        "asw": 47
       },
       "growth": {
         "health": 12954,
@@ -74729,17 +74730,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 513,
-        "firepower": 17,
-        "torpedo": 47,
-        "antiair": 29,
+        "health": 1263,
+        "firepower": 42,
+        "torpedo": 116,
+        "antiair": 72,
         "aviation": 0,
         "reload": 57,
         "accuracy": 54,
         "evasion": 25,
         "speed": 20.75,
         "luck": 45,
-        "asw": 18
+        "asw": 45
       },
       "growth": {
         "health": 12716,
@@ -74982,11 +74983,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1335,
+        "health": 3289,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 91,
+        "antiair": 155,
+        "aviation": 226,
         "reload": 46,
         "accuracy": 28,
         "evasion": 13,
@@ -75178,7 +75179,8 @@ const SHIPS_DATA = [
         "default": 117,
         "slot": 1,
         "type": [
-          7
+          7,
+          8
         ],
         "mount": 3,
         "preload": 0,
@@ -75198,7 +75200,8 @@ const SHIPS_DATA = [
         "default": 118,
         "slot": 3,
         "type": [
-          8
+          8,
+          9
         ],
         "mount": 2,
         "preload": 0,
@@ -75591,14 +75594,15 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
         "default": 104,
         "slot": 3,
         "type": [
-          6
+          6,
+          12
         ],
         "mount": 1,
         "preload": 0,
@@ -75994,17 +75998,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 338,
-        "firepower": 15,
-        "torpedo": 52,
-        "antiair": 41,
+        "health": 832,
+        "firepower": 37,
+        "torpedo": 129,
+        "antiair": 101,
         "aviation": 0,
         "reload": 74,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 55,
-        "asw": 53
+        "asw": 131
       },
       "growth": {
         "health": 9620,
@@ -76186,17 +76190,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 336,
-        "firepower": 12,
-        "torpedo": 99,
-        "antiair": 28,
+        "health": 827,
+        "firepower": 30,
+        "torpedo": 245,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 58,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 9565,
@@ -76397,17 +76401,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 293,
-        "firepower": 15,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 721,
+        "firepower": 37,
+        "torpedo": 132,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 65,
         "evasion": 59,
         "speed": 42,
         "luck": 47,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 8335,
@@ -76641,17 +76645,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 267,
-        "firepower": 15,
-        "torpedo": 70,
-        "antiair": 47,
+        "health": 657,
+        "firepower": 37,
+        "torpedo": 174,
+        "antiair": 115,
         "aviation": 0,
         "reload": 82,
         "accuracy": 71,
         "evasion": 71,
         "speed": 25.2,
         "luck": 55,
-        "asw": 57
+        "asw": 141
       },
       "growth": {
         "health": 7593,
@@ -76893,17 +76897,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 394,
-        "firepower": 14,
-        "torpedo": 70,
-        "antiair": 37,
+        "health": 971,
+        "firepower": 35,
+        "torpedo": 174,
+        "antiair": 92,
         "aviation": 0,
         "reload": 77,
         "accuracy": 66,
         "evasion": 67,
         "speed": 39.6,
         "luck": 65,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 11226,
@@ -77093,7 +77097,7 @@ const SHIPS_DATA = [
         "evasion": 61,
         "speed": 33.4,
         "luck": 0,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 15486,
@@ -77447,17 +77451,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 245,
-        "firepower": 15,
-        "torpedo": 71,
-        "antiair": 29,
+        "health": 603,
+        "firepower": 37,
+        "torpedo": 176,
+        "antiair": 72,
         "aviation": 0,
         "reload": 74,
         "accuracy": 72,
         "evasion": 78,
         "speed": 43.2,
         "luck": 40,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 6968,
@@ -77932,7 +77936,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -78192,10 +78196,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
-        "firepower": 68,
+        "health": 2678,
+        "firepower": 169,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 126,
         "aviation": 0,
         "reload": 58,
         "accuracy": 21,
@@ -78356,10 +78360,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1088,
-        "firepower": 64,
+        "health": 2680,
+        "firepower": 159,
         "torpedo": 0,
-        "antiair": 57,
+        "antiair": 141,
         "aviation": 0,
         "reload": 56,
         "accuracy": 22,
@@ -78557,17 +78561,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 490,
-        "firepower": 17,
-        "torpedo": 85,
-        "antiair": 45,
+        "health": 971,
+        "firepower": 34,
+        "torpedo": 170,
+        "antiair": 89,
         "aviation": 0,
         "reload": 77,
         "accuracy": 69,
         "evasion": 67,
         "speed": 39.6,
         "luck": 61,
-        "asw": 64
+        "asw": 127
       },
       "growth": {
         "health": 11226,
@@ -78709,7 +78713,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.6
       },
       "3": {
@@ -79142,7 +79146,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -79404,17 +79408,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 286,
-        "firepower": 11,
-        "torpedo": 92,
-        "antiair": 27,
+        "health": 704,
+        "firepower": 27,
+        "torpedo": 229,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 66,
         "evasion": 71,
         "speed": 43.2,
         "luck": 45,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 8142,
@@ -79632,17 +79636,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 286,
-        "firepower": 11,
-        "torpedo": 92,
-        "antiair": 27,
+        "health": 704,
+        "firepower": 27,
+        "torpedo": 229,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 66,
         "evasion": 71,
         "speed": 43.2,
         "luck": 51,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 8142,
@@ -79829,17 +79833,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 409,
-        "firepower": 16,
-        "torpedo": 74,
-        "antiair": 36,
+        "health": 1008,
+        "firepower": 39,
+        "torpedo": 184,
+        "antiair": 89,
         "aviation": 0,
         "reload": 80,
         "accuracy": 67,
         "evasion": 67,
         "speed": 39.6,
         "luck": 43,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 11652,
@@ -80111,17 +80115,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 331,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 816,
+        "firepower": 39,
+        "torpedo": 131,
+        "antiair": 79,
         "aviation": 0,
         "reload": 72,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 75,
-        "asw": 54
+        "asw": 134
       },
       "growth": {
         "health": 9433,
@@ -80299,17 +80303,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 620,
-        "firepower": 32,
+        "health": 1527,
+        "firepower": 79,
         "torpedo": 0,
-        "antiair": 60,
+        "antiair": 148,
         "aviation": 0,
         "reload": 68,
         "accuracy": 60,
         "evasion": 28,
         "speed": 32.5,
         "luck": 33,
-        "asw": 26
+        "asw": 65
       },
       "growth": {
         "health": 15745,
@@ -80552,17 +80556,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 719,
-        "firepower": 32,
+        "health": 1771,
+        "firepower": 80,
         "torpedo": 0,
-        "antiair": 80,
+        "antiair": 197,
         "aviation": 0,
         "reload": 72,
         "accuracy": 47,
         "evasion": 22,
         "speed": 33,
         "luck": 33,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 12374,
@@ -80871,17 +80875,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 687,
+        "health": 1693,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 46,
-        "aviation": 52,
+        "antiair": 114,
+        "aviation": 129,
         "reload": 64,
         "accuracy": 26,
         "evasion": 18,
         "speed": 25,
         "luck": 41,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 18737,
@@ -81497,17 +81501,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 236,
-        "firepower": 16,
-        "torpedo": 71,
-        "antiair": 31,
+        "health": 582,
+        "firepower": 40,
+        "torpedo": 176,
+        "antiair": 77,
         "aviation": 0,
         "reload": 72,
         "accuracy": 72,
         "evasion": 78,
         "speed": 43.2,
         "luck": 80,
-        "asw": 55
+        "asw": 137
       },
       "growth": {
         "health": 6733,
@@ -81745,9 +81749,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 273,
-        "firepower": 13,
-        "torpedo": 97,
+        "health": 672,
+        "firepower": 33,
+        "torpedo": 242,
         "antiair": 0,
         "aviation": 0,
         "reload": 34,
@@ -82257,17 +82261,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 12,
-        "torpedo": 101,
-        "antiair": 29,
+        "health": 714,
+        "firepower": 29,
+        "torpedo": 251,
+        "antiair": 71,
         "aviation": 0,
         "reload": 79,
         "accuracy": 65,
         "evasion": 72,
         "speed": 45.6,
         "luck": 88,
-        "asw": 48
+        "asw": 119
       },
       "growth": {
         "health": 8257,
@@ -82490,10 +82494,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
-        "firepower": 69,
+        "health": 2678,
+        "firepower": 172,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 126,
         "aviation": 0,
         "reload": 59,
         "accuracy": 21,
@@ -82928,10 +82932,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1062,
-        "firepower": 68,
-        "torpedo": 31,
-        "antiair": 46,
+        "health": 2617,
+        "firepower": 170,
+        "torpedo": 77,
+        "antiair": 114,
         "aviation": 0,
         "reload": 59,
         "accuracy": 21,
@@ -83070,7 +83074,8 @@ const SHIPS_DATA = [
         "default": 104,
         "slot": 3,
         "type": [
-          6
+          6,
+          3
         ],
         "mount": 1,
         "preload": 0,
@@ -83415,11 +83420,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 912,
+        "health": 2246,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 59,
-        "aviation": 74,
+        "antiair": 145,
+        "aviation": 184,
         "reload": 45,
         "accuracy": 29,
         "evasion": 14,
@@ -83930,17 +83935,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1490,
+        "health": 2119,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 80,
-        "aviation": 90,
+        "antiair": 114,
+        "aviation": 129,
         "reload": 58,
         "accuracy": 25,
         "evasion": 19,
         "speed": 25.5,
         "luck": 43,
-        "asw": 33
+        "asw": 48
       },
       "growth": {
         "health": 23453,
@@ -84084,17 +84089,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1128,
+        "health": 2779,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 61,
+        "antiair": 118,
+        "aviation": 152,
         "reload": 71,
         "accuracy": 26,
         "evasion": 17,
         "speed": 26,
         "luck": 43,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 19422,
@@ -84327,17 +84332,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 294,
-        "firepower": 16,
-        "torpedo": 60,
-        "antiair": 32,
+        "health": 725,
+        "firepower": 40,
+        "torpedo": 149,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 67,
         "evasion": 60,
         "speed": 45,
         "luck": 68,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 8386,
@@ -84510,9 +84515,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 335,
-        "firepower": 9,
-        "torpedo": 102,
+        "health": 825,
+        "firepower": 23,
+        "torpedo": 254,
         "antiair": 0,
         "aviation": 0,
         "reload": 35,
@@ -84878,10 +84883,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1274,
-        "firepower": 77,
+        "health": 3138,
+        "firepower": 191,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 99,
         "aviation": 0,
         "reload": 53,
         "accuracy": 19,
@@ -85198,17 +85203,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 595,
-        "firepower": 30,
+        "health": 1466,
+        "firepower": 75,
         "torpedo": 0,
-        "antiair": 58,
+        "antiair": 143,
         "aviation": 0,
         "reload": 66,
         "accuracy": 54,
         "evasion": 28,
         "speed": 32.5,
         "luck": 50,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 15193,
@@ -85397,10 +85402,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1485,
-        "firepower": 66,
+        "health": 3658,
+        "firepower": 164,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -85651,11 +85656,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 979,
+        "health": 2412,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 76,
+        "antiair": 143,
+        "aviation": 189,
         "reload": 45,
         "accuracy": 33,
         "evasion": 13,
@@ -85856,11 +85861,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1106,
+        "health": 2725,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 83,
+        "antiair": 156,
+        "aviation": 206,
         "reload": 48,
         "accuracy": 31,
         "evasion": 13,
@@ -86130,11 +86135,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1017,
+        "health": 2505,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 60,
-        "aviation": 79,
+        "antiair": 148,
+        "aviation": 197,
         "reload": 47,
         "accuracy": 25,
         "evasion": 10,
@@ -86438,17 +86443,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 599,
+        "health": 1475,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 53,
+        "antiair": 119,
+        "aviation": 132,
         "reload": 65,
         "accuracy": 26,
         "evasion": 18,
         "speed": 25,
         "luck": 79,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 16318,
@@ -86660,17 +86665,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 619,
-        "firepower": 27,
+        "health": 1525,
+        "firepower": 67,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 56,
+        "antiair": 121,
+        "aviation": 139,
         "reload": 65,
         "accuracy": 20,
         "evasion": 14,
         "speed": 25,
         "luck": 79,
-        "asw": 27
+        "asw": 67
       },
       "growth": {
         "health": 11799,
@@ -86907,10 +86912,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 590,
-        "firepower": 45,
+        "health": 1453,
+        "firepower": 113,
         "torpedo": 0,
-        "antiair": 39,
+        "antiair": 97,
         "aviation": 0,
         "reload": 63,
         "accuracy": 40,
@@ -87148,17 +87153,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 760,
-        "firepower": 31,
+        "health": 1872,
+        "firepower": 78,
         "torpedo": 0,
-        "antiair": 72,
+        "antiair": 178,
         "aviation": 0,
         "reload": 71,
         "accuracy": 56,
         "evasion": 30,
         "speed": 32.5,
         "luck": 80,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 18847,
@@ -87381,10 +87386,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1334,
-        "firepower": 81,
+        "health": 3286,
+        "firepower": 202,
         "torpedo": 0,
-        "antiair": 48,
+        "antiair": 119,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -87630,17 +87635,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 315,
-        "firepower": 16,
-        "torpedo": 45,
-        "antiair": 19,
+        "health": 776,
+        "firepower": 40,
+        "torpedo": 113,
+        "antiair": 46,
         "aviation": 0,
         "reload": 77,
         "accuracy": 73,
         "evasion": 63,
         "speed": 40.2,
         "luck": 25,
-        "asw": 36
+        "asw": 90
       },
       "growth": {
         "health": 7805,
@@ -87853,10 +87858,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1193,
-        "firepower": 66,
+        "health": 2939,
+        "firepower": 164,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 150,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -88070,17 +88075,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 221,
-        "firepower": 14,
-        "torpedo": 67,
-        "antiair": 29,
+        "health": 544,
+        "firepower": 35,
+        "torpedo": 167,
+        "antiair": 72,
         "aviation": 0,
         "reload": 72,
         "accuracy": 70,
         "evasion": 78,
         "speed": 43.2,
         "luck": 24,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 6295,
@@ -88210,7 +88215,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -88495,11 +88500,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 802,
+        "health": 1975,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 27,
-        "aviation": 62,
+        "antiair": 67,
+        "aviation": 154,
         "reload": 64,
         "accuracy": 28,
         "evasion": 13,
@@ -88790,10 +88795,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1181,
-        "firepower": 76,
+        "health": 2909,
+        "firepower": 188,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 52,
         "accuracy": 22,
@@ -89000,11 +89005,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 428,
-        "firepower": 9,
-        "torpedo": 99,
+        "health": 1055,
+        "firepower": 23,
+        "torpedo": 246,
         "antiair": 0,
-        "aviation": 47,
+        "aviation": 116,
         "reload": 40,
         "accuracy": 59,
         "evasion": 7,
@@ -89185,9 +89190,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 349,
-        "firepower": 11,
-        "torpedo": 106,
+        "health": 860,
+        "firepower": 27,
+        "torpedo": 263,
         "antiair": 0,
         "aviation": 0,
         "reload": 41,
@@ -89449,9 +89454,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 314,
-        "firepower": 12,
-        "torpedo": 99,
+        "health": 773,
+        "firepower": 30,
+        "torpedo": 246,
         "antiair": 0,
         "aviation": 0,
         "reload": 26,
@@ -89895,9 +89900,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 335,
-        "firepower": 11,
-        "torpedo": 97,
+        "health": 826,
+        "firepower": 27,
+        "torpedo": 240,
         "antiair": 0,
         "aviation": 0,
         "reload": 23,
@@ -90348,9 +90353,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 321,
-        "firepower": 12,
-        "torpedo": 104,
+        "health": 791,
+        "firepower": 30,
+        "torpedo": 258,
         "antiair": 0,
         "aviation": 0,
         "reload": 42,
@@ -90569,11 +90574,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 604,
-        "firepower": 11,
-        "torpedo": 103,
+        "health": 1488,
+        "firepower": 27,
+        "torpedo": 257,
         "antiair": 0,
-        "aviation": 86,
+        "aviation": 214,
         "reload": 42,
         "accuracy": 69,
         "evasion": 8,
@@ -90835,7 +90840,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 2,
         "efficiency": 1.85
       },
       "3": {
@@ -91196,7 +91201,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "3": {
@@ -91463,10 +91468,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 697,
-        "firepower": 50,
-        "torpedo": 42,
-        "antiair": 37,
+        "health": 1716,
+        "firepower": 124,
+        "torpedo": 105,
+        "antiair": 92,
         "aviation": 0,
         "reload": 64,
         "accuracy": 47,
@@ -91834,17 +91839,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 282,
-        "firepower": 11,
-        "torpedo": 95,
-        "antiair": 28,
+        "health": 694,
+        "firepower": 28,
+        "torpedo": 236,
+        "antiair": 69,
         "aviation": 0,
         "reload": 77,
         "accuracy": 65,
         "evasion": 72,
         "speed": 45.6,
         "luck": 52,
-        "asw": 41
+        "asw": 103
       },
       "growth": {
         "health": 8025,
@@ -92035,11 +92040,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1123,
+        "health": 2766,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 56,
-        "aviation": 76,
+        "antiair": 138,
+        "aviation": 189,
         "reload": 43,
         "accuracy": 31,
         "evasion": 13,
@@ -92247,11 +92252,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1115,
+        "health": 2746,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 55,
-        "aviation": 77,
+        "antiair": 136,
+        "aviation": 192,
         "reload": 43,
         "accuracy": 31,
         "evasion": 13,
@@ -92477,11 +92482,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1235,
+        "health": 3043,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 82,
+        "antiair": 155,
+        "aviation": 204,
         "reload": 45,
         "accuracy": 31,
         "evasion": 12,
@@ -92740,11 +92745,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1151,
+        "health": 2835,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 62,
-        "aviation": 84,
+        "antiair": 153,
+        "aviation": 209,
         "reload": 46,
         "accuracy": 32,
         "evasion": 13,
@@ -92972,17 +92977,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 282,
-        "firepower": 11,
-        "torpedo": 95,
-        "antiair": 28,
+        "health": 694,
+        "firepower": 28,
+        "torpedo": 236,
+        "antiair": 69,
         "aviation": 0,
         "reload": 77,
         "accuracy": 65,
         "evasion": 72,
         "speed": 45.6,
         "luck": 57,
-        "asw": 41
+        "asw": 103
       },
       "growth": {
         "health": 8025,
@@ -93183,17 +93188,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1385,
+        "health": 1970,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 87,
-        "aviation": 101,
+        "antiair": 124,
+        "aviation": 144,
         "reload": 67,
         "accuracy": 29,
         "evasion": 21,
         "speed": 31,
         "luck": 78,
-        "asw": 45
+        "asw": 65
       },
       "growth": {
         "health": 21471,
@@ -93621,10 +93626,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1345,
-        "firepower": 82,
+        "health": 3313,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 78,
+        "antiair": 192,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -93884,10 +93889,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 818,
-        "firepower": 39,
+        "health": 2014,
+        "firepower": 97,
         "torpedo": 0,
-        "antiair": 47,
+        "antiair": 116,
         "aviation": 0,
         "reload": 64,
         "accuracy": 41,
@@ -94088,11 +94093,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1090,
+        "health": 2685,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 82,
+        "antiair": 144,
+        "aviation": 204,
         "reload": 44,
         "accuracy": 32,
         "evasion": 13,
@@ -94346,17 +94351,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 387,
-        "firepower": 25,
-        "torpedo": 72,
-        "antiair": 43,
+        "health": 953,
+        "firepower": 63,
+        "torpedo": 178,
+        "antiair": 106,
         "aviation": 0,
         "reload": 84,
         "accuracy": 76,
         "evasion": 59,
         "speed": 40.8,
         "luck": 75,
-        "asw": 55
+        "asw": 136
       },
       "growth": {
         "health": 11021,
@@ -94621,11 +94626,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1106,
+        "health": 2725,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 82,
+        "antiair": 155,
+        "aviation": 204,
         "reload": 48,
         "accuracy": 29,
         "evasion": 13,
@@ -95044,10 +95049,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1181,
-        "firepower": 76,
+        "health": 2909,
+        "firepower": 188,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 52,
         "accuracy": 22,
@@ -95252,17 +95257,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 738,
-        "firepower": 34,
-        "torpedo": 64,
-        "antiair": 68,
+        "health": 1817,
+        "firepower": 84,
+        "torpedo": 160,
+        "antiair": 169,
         "aviation": 0,
         "reload": 71,
         "accuracy": 56,
         "evasion": 35,
         "speed": 32,
         "luck": 65,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 21014,
@@ -95558,7 +95563,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -95596,17 +95601,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 418,
-        "firepower": 15,
-        "torpedo": 121,
-        "antiair": 35,
+        "health": 827,
+        "firepower": 30,
+        "torpedo": 240,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 18,
-        "asw": 61
+        "asw": 121
       },
       "growth": {
         "health": 9565,
@@ -95797,17 +95802,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 550,
-        "firepower": 22,
-        "torpedo": 41,
-        "antiair": 65,
+        "health": 1355,
+        "firepower": 55,
+        "torpedo": 101,
+        "antiair": 161,
         "aviation": 0,
         "reload": 65,
         "accuracy": 50,
         "evasion": 29,
         "speed": 36,
         "luck": 33,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 14097,
@@ -96345,17 +96350,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 836,
+        "health": 2059,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 50,
-        "aviation": 62,
+        "antiair": 124,
+        "aviation": 154,
         "reload": 68,
         "accuracy": 28,
         "evasion": 17,
         "speed": 21,
         "luck": 28,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 22784,
@@ -96544,17 +96549,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 625,
-        "firepower": 29,
-        "torpedo": 50,
-        "antiair": 62,
+        "health": 1540,
+        "firepower": 72,
+        "torpedo": 124,
+        "antiair": 154,
         "aviation": 0,
         "reload": 67,
         "accuracy": 58,
         "evasion": 29,
         "speed": 32,
         "luck": 67,
-        "asw": 30
+        "asw": 74
       },
       "growth": {
         "health": 15891,
@@ -96768,17 +96773,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 414,
-        "firepower": 28,
-        "torpedo": 112,
-        "antiair": 44,
+        "health": 820,
+        "firepower": 55,
+        "torpedo": 223,
+        "antiair": 86,
         "aviation": 0,
         "reload": 86,
         "accuracy": 74,
         "evasion": 78,
         "speed": 43.2,
         "luck": 53,
-        "asw": 80
+        "asw": 159
       },
       "growth": {
         "health": 9474,
@@ -97068,17 +97073,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 255,
-        "firepower": 15,
-        "torpedo": 71,
-        "antiair": 30,
+        "health": 628,
+        "firepower": 37,
+        "torpedo": 176,
+        "antiair": 74,
         "aviation": 0,
         "reload": 76,
         "accuracy": 71,
         "evasion": 78,
         "speed": 43.2,
         "luck": 65,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 7260,
@@ -97375,7 +97380,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.6
       },
       "2": {
@@ -97646,17 +97651,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 554,
-        "firepower": 28,
-        "torpedo": 49,
-        "antiair": 52,
+        "health": 1365,
+        "firepower": 70,
+        "torpedo": 122,
+        "antiair": 128,
         "aviation": 0,
         "reload": 67,
         "accuracy": 60,
         "evasion": 17,
         "speed": 25,
         "luck": 83,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 14088,
@@ -97877,17 +97882,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 335,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 826,
+        "firepower": 39,
+        "torpedo": 131,
+        "antiair": 79,
         "aviation": 0,
         "reload": 74,
         "accuracy": 72,
         "evasion": 60,
         "speed": 43.2,
         "luck": 81,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9549,
@@ -98060,17 +98065,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 248,
-        "firepower": 14,
-        "torpedo": 69,
-        "antiair": 29,
+        "health": 610,
+        "firepower": 35,
+        "torpedo": 171,
+        "antiair": 72,
         "aviation": 0,
         "reload": 74,
         "accuracy": 71,
         "evasion": 78,
         "speed": 43.2,
         "luck": 20,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 7054,
@@ -98226,17 +98231,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 408,
-        "firepower": 27,
-        "torpedo": 113,
-        "antiair": 46,
+        "health": 809,
+        "firepower": 54,
+        "torpedo": 226,
+        "antiair": 92,
         "aviation": 0,
         "reload": 84,
         "accuracy": 75,
         "evasion": 78,
         "speed": 43.2,
         "luck": 92,
-        "asw": 75
+        "asw": 150
       },
       "growth": {
         "health": 9355,
@@ -98480,17 +98485,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 447,
-        "firepower": 29,
-        "torpedo": 65,
-        "antiair": 53,
+        "health": 1101,
+        "firepower": 72,
+        "torpedo": 162,
+        "antiair": 132,
         "aviation": 0,
         "reload": 70,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 38,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 11481,
@@ -98722,17 +98727,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 518,
-        "firepower": 32,
-        "torpedo": 62,
-        "antiair": 61,
+        "health": 1276,
+        "firepower": 80,
+        "torpedo": 154,
+        "antiair": 151,
         "aviation": 0,
         "reload": 75,
         "accuracy": 42,
         "evasion": 23,
         "speed": 35,
         "luck": 38,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 9070,
@@ -98962,11 +98967,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1080,
+        "health": 2661,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 79,
+        "antiair": 143,
+        "aviation": 196,
         "reload": 47,
         "accuracy": 33,
         "evasion": 14,
@@ -99478,17 +99483,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 605,
-        "firepower": 24,
-        "torpedo": 29,
-        "antiair": 81,
+        "health": 1490,
+        "firepower": 59,
+        "torpedo": 72,
+        "antiair": 201,
         "aviation": 0,
         "reload": 66,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.5,
         "luck": 18,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 15365,
@@ -99733,17 +99738,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 248,
-        "firepower": 14,
-        "torpedo": 69,
-        "antiair": 29,
+        "health": 610,
+        "firepower": 35,
+        "torpedo": 171,
+        "antiair": 72,
         "aviation": 0,
         "reload": 74,
         "accuracy": 71,
         "evasion": 78,
         "speed": 43.2,
         "luck": 40,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 7054,
@@ -99923,17 +99928,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 860,
+        "health": 2119,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 46,
-        "aviation": 52,
+        "antiair": 114,
+        "aviation": 129,
         "reload": 58,
         "accuracy": 25,
         "evasion": 19,
         "speed": 25.5,
         "luck": 80,
-        "asw": 19
+        "asw": 47
       },
       "growth": {
         "health": 23453,
@@ -100077,17 +100082,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1128,
+        "health": 2779,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 61,
+        "antiair": 118,
+        "aviation": 152,
         "reload": 71,
         "accuracy": 26,
         "evasion": 17,
         "speed": 26,
         "luck": 80,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 19422,
@@ -100313,17 +100318,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 248,
-        "firepower": 14,
-        "torpedo": 69,
-        "antiair": 29,
+        "health": 610,
+        "firepower": 35,
+        "torpedo": 171,
+        "antiair": 72,
         "aviation": 0,
         "reload": 74,
         "accuracy": 71,
         "evasion": 78,
         "speed": 43.2,
         "luck": 52,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 7054,
@@ -100483,11 +100488,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1159,
+        "health": 2855,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 78,
+        "antiair": 151,
+        "aviation": 193,
         "reload": 48,
         "accuracy": 31,
         "evasion": 11,
@@ -100682,10 +100687,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1376,
-        "firepower": 81,
-        "torpedo": 40,
-        "antiair": 35,
+        "health": 3390,
+        "firepower": 201,
+        "torpedo": 99,
+        "antiair": 86,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -100913,17 +100918,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 304,
-        "firepower": 12,
-        "torpedo": 99,
-        "antiair": 28,
+        "health": 749,
+        "firepower": 30,
+        "torpedo": 245,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42.6,
         "luck": 25,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 8656,
@@ -101138,7 +101143,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
@@ -101516,10 +101521,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 589,
-        "firepower": 40,
-        "torpedo": 35,
-        "antiair": 30,
+        "health": 1450,
+        "firepower": 99,
+        "torpedo": 87,
+        "antiair": 74,
         "aviation": 0,
         "reload": 60,
         "accuracy": 38,
@@ -101964,17 +101969,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 294,
-        "firepower": 16,
-        "torpedo": 60,
-        "antiair": 32,
+        "health": 725,
+        "firepower": 40,
+        "torpedo": 149,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 67,
         "evasion": 60,
         "speed": 45,
         "luck": 75,
-        "asw": 47
+        "asw": 118
       },
       "growth": {
         "health": 8386,
@@ -102144,17 +102149,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 252,
-        "firepower": 11,
-        "torpedo": 77,
-        "antiair": 26,
+        "health": 620,
+        "firepower": 28,
+        "torpedo": 191,
+        "antiair": 64,
         "aviation": 0,
         "reload": 77,
         "accuracy": 67,
         "evasion": 72,
         "speed": 44.8,
         "luck": 86,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 7171,
@@ -102901,17 +102906,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 578,
-        "firepower": 28,
-        "torpedo": 51,
-        "antiair": 63,
+        "health": 1424,
+        "firepower": 70,
+        "torpedo": 126,
+        "antiair": 156,
         "aviation": 0,
         "reload": 64,
         "accuracy": 51,
         "evasion": 29,
         "speed": 32,
         "luck": 39,
-        "asw": 21
+        "asw": 52
       },
       "growth": {
         "health": 14769,
@@ -103142,10 +103147,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 823,
-        "firepower": 14,
+        "health": 2028,
+        "firepower": 34,
         "torpedo": 0,
-        "antiair": 25,
+        "antiair": 62,
         "aviation": 0,
         "reload": 75,
         "accuracy": 73,
@@ -103379,17 +103384,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 322,
-        "firepower": 12,
-        "torpedo": 101,
-        "antiair": 29,
+        "health": 794,
+        "firepower": 30,
+        "torpedo": 252,
+        "antiair": 72,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 70,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9182,
@@ -103657,10 +103662,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 781,
-        "firepower": 49,
-        "torpedo": 40,
-        "antiair": 42,
+        "health": 1924,
+        "firepower": 122,
+        "torpedo": 99,
+        "antiair": 104,
         "aviation": 0,
         "reload": 64,
         "accuracy": 46,
@@ -103875,7 +103880,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -104178,11 +104183,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1014,
+        "health": 2497,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 80,
+        "antiair": 144,
+        "aviation": 199,
         "reload": 44,
         "accuracy": 32,
         "evasion": 13,
@@ -104384,17 +104389,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 295,
-        "firepower": 13,
-        "torpedo": 105,
-        "antiair": 30,
+        "health": 727,
+        "firepower": 32,
+        "torpedo": 261,
+        "antiair": 74,
         "aviation": 0,
         "reload": 80,
         "accuracy": 70,
         "evasion": 71,
         "speed": 40.8,
         "luck": 38,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 8405,
@@ -104625,7 +104630,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -104936,17 +104941,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 361,
-        "firepower": 14,
-        "torpedo": 107,
-        "antiair": 30,
+        "health": 889,
+        "firepower": 34,
+        "torpedo": 266,
+        "antiair": 74,
         "aviation": 0,
         "reload": 82,
         "accuracy": 73,
         "evasion": 71,
         "speed": 42,
         "luck": 51,
-        "asw": 44
+        "asw": 110
       },
       "growth": {
         "health": 10279,
@@ -105721,10 +105726,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 598,
-        "firepower": 40,
-        "torpedo": 40,
-        "antiair": 39,
+        "health": 1473,
+        "firepower": 100,
+        "torpedo": 99,
+        "antiair": 96,
         "aviation": 0,
         "reload": 59,
         "accuracy": 38,
@@ -105860,7 +105865,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
@@ -106110,17 +106115,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 409,
-        "firepower": 32,
-        "torpedo": 50,
-        "antiair": 35,
+        "health": 1007,
+        "firepower": 79,
+        "torpedo": 125,
+        "antiair": 87,
         "aviation": 0,
         "reload": 76,
         "accuracy": 68,
         "evasion": 66,
         "speed": 50.4,
         "luck": 50,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 11640,
@@ -106452,10 +106457,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1317,
-        "firepower": 80,
-        "torpedo": 53,
-        "antiair": 70,
+        "health": 3244,
+        "firepower": 199,
+        "torpedo": 131,
+        "antiair": 173,
         "aviation": 0,
         "reload": 53,
         "accuracy": 22,
@@ -106709,17 +106714,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 331,
-        "firepower": 15,
-        "torpedo": 53,
-        "antiair": 34,
+        "health": 816,
+        "firepower": 38,
+        "torpedo": 131,
+        "antiair": 84,
         "aviation": 0,
         "reload": 74,
         "accuracy": 73,
         "evasion": 59,
         "speed": 42,
         "luck": 77,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9433,
@@ -106854,7 +106859,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -107170,10 +107175,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1334,
-        "firepower": 82,
+        "health": 3286,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 49,
+        "antiair": 122,
         "aviation": 0,
         "reload": 57,
         "accuracy": 22,
@@ -107532,17 +107537,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 494,
-        "firepower": 27,
-        "torpedo": 54,
-        "antiair": 57,
+        "health": 1217,
+        "firepower": 68,
+        "torpedo": 134,
+        "antiair": 141,
         "aviation": 0,
         "reload": 66,
         "accuracy": 50,
         "evasion": 31,
         "speed": 36,
         "luck": 52,
-        "asw": 30
+        "asw": 74
       },
       "growth": {
         "health": 12658,
@@ -107758,10 +107763,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 601,
-        "firepower": 40,
-        "torpedo": 35,
-        "antiair": 31,
+        "health": 1481,
+        "firepower": 99,
+        "torpedo": 87,
+        "antiair": 77,
         "aviation": 0,
         "reload": 60,
         "accuracy": 38,
@@ -107935,10 +107940,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
-        "firepower": 69,
+        "health": 2678,
+        "firepower": 172,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 126,
         "aviation": 0,
         "reload": 59,
         "accuracy": 21,
@@ -108124,17 +108129,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 710,
-        "firepower": 34,
-        "torpedo": 55,
-        "antiair": 65,
+        "health": 1749,
+        "firepower": 84,
+        "torpedo": 137,
+        "antiair": 161,
         "aviation": 0,
         "reload": 69,
         "accuracy": 54,
         "evasion": 36,
         "speed": 36.5,
         "luck": 52,
-        "asw": 37
+        "asw": 93
       },
       "growth": {
         "health": 17611,
@@ -108418,17 +108423,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 710,
-        "firepower": 38,
-        "torpedo": 56,
-        "antiair": 65,
+        "health": 1749,
+        "firepower": 95,
+        "torpedo": 139,
+        "antiair": 161,
         "aviation": 0,
         "reload": 69,
         "accuracy": 41,
         "evasion": 27,
         "speed": 37,
         "luck": 52,
-        "asw": 37
+        "asw": 93
       },
       "growth": {
         "health": 12952,
@@ -108694,7 +108699,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45,
         "retrofit": {
           "mount": 2,
@@ -108934,7 +108939,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.35
       },
       "3": {
@@ -109253,7 +109258,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -109291,17 +109296,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 573,
-        "firepower": 19,
-        "torpedo": 167,
-        "antiair": 45,
+        "health": 816,
+        "firepower": 27,
+        "torpedo": 238,
+        "antiair": 64,
         "aviation": 0,
         "reload": 77,
         "accuracy": 71,
         "evasion": 71,
         "speed": 42,
         "luck": 46,
-        "asw": 79
+        "asw": 112
       },
       "growth": {
         "health": 9437,
@@ -109485,17 +109490,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 447,
-        "firepower": 30,
-        "torpedo": 68,
-        "antiair": 53,
+        "health": 1101,
+        "firepower": 75,
+        "torpedo": 170,
+        "antiair": 131,
         "aviation": 0,
         "reload": 70,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 41,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 11481,
@@ -109708,17 +109713,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 285,
-        "firepower": 14,
-        "torpedo": 91,
-        "antiair": 31,
+        "health": 702,
+        "firepower": 34,
+        "torpedo": 227,
+        "antiair": 77,
         "aviation": 0,
         "reload": 74,
         "accuracy": 66,
         "evasion": 71,
         "speed": 42,
         "luck": 66,
-        "asw": 55
+        "asw": 137
       },
       "growth": {
         "health": 8118,
@@ -109891,17 +109896,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1008,
+        "health": 2484,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 77,
+        "antiair": 122,
+        "aviation": 191,
         "reload": 71,
         "accuracy": 32,
         "evasion": 19,
         "speed": 28,
         "luck": 54,
-        "asw": 20
+        "asw": 50
       },
       "growth": {
         "health": 27068,
@@ -110154,17 +110159,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 578,
-        "firepower": 28,
-        "torpedo": 51,
-        "antiair": 63,
+        "health": 1424,
+        "firepower": 70,
+        "torpedo": 126,
+        "antiair": 156,
         "aviation": 0,
         "reload": 64,
         "accuracy": 51,
         "evasion": 29,
         "speed": 32,
         "luck": 62,
-        "asw": 25
+        "asw": 63
       },
       "growth": {
         "health": 14769,
@@ -110647,7 +110652,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.7
       },
       "3": {
@@ -111020,10 +111025,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
-        "firepower": 69,
+        "health": 2678,
+        "firepower": 172,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 126,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -111201,10 +111206,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
-        "firepower": 70,
+        "health": 2678,
+        "firepower": 174,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 126,
         "aviation": 0,
         "reload": 59,
         "accuracy": 22,
@@ -111410,17 +111415,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 578,
-        "firepower": 28,
-        "torpedo": 51,
-        "antiair": 63,
+        "health": 1424,
+        "firepower": 70,
+        "torpedo": 126,
+        "antiair": 156,
         "aviation": 0,
         "reload": 64,
         "accuracy": 51,
         "evasion": 29,
         "speed": 32,
         "luck": 42,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 14769,
@@ -112155,17 +112160,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 654,
-        "firepower": 29,
-        "torpedo": 56,
-        "antiair": 32,
+        "health": 1611,
+        "firepower": 72,
+        "torpedo": 139,
+        "antiair": 80,
         "aviation": 0,
         "reload": 51,
         "accuracy": 49,
         "evasion": 28,
         "speed": 29.5,
         "luck": 85,
-        "asw": 13
+        "asw": 33
       },
       "growth": {
         "health": 17697,
@@ -112615,7 +112620,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "3": {
@@ -112651,10 +112656,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 886,
-        "firepower": 55,
-        "torpedo": 49,
-        "antiair": 50,
+        "health": 1754,
+        "firepower": 109,
+        "torpedo": 97,
+        "antiair": 99,
         "aviation": 0,
         "reload": 68,
         "accuracy": 44,
@@ -113061,17 +113066,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 336,
-        "firepower": 12,
-        "torpedo": 99,
-        "antiair": 28,
+        "health": 827,
+        "firepower": 30,
+        "torpedo": 245,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 34,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 9565,
@@ -113769,17 +113774,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 748,
-        "firepower": 33,
+        "health": 1843,
+        "firepower": 81,
         "torpedo": 0,
-        "antiair": 63,
+        "antiair": 155,
         "aviation": 0,
         "reload": 72,
         "accuracy": 57,
         "evasion": 30,
         "speed": 33.5,
         "luck": 73,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 18552,
@@ -114025,17 +114030,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 336,
-        "firepower": 28,
-        "torpedo": 52,
-        "antiair": 27,
+        "health": 828,
+        "firepower": 69,
+        "torpedo": 129,
+        "antiair": 66,
         "aviation": 0,
         "reload": 76,
         "accuracy": 68,
         "evasion": 79,
         "speed": 54,
         "luck": 49,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 9573,
@@ -114313,17 +114318,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 351,
-        "firepower": 26,
-        "torpedo": 50,
-        "antiair": 30,
+        "health": 864,
+        "firepower": 65,
+        "torpedo": 124,
+        "antiair": 74,
         "aviation": 0,
         "reload": 76,
         "accuracy": 69,
         "evasion": 83,
         "speed": 54,
         "luck": 23,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 9992,
@@ -114908,17 +114913,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 286,
-        "firepower": 19,
-        "torpedo": 70,
-        "antiair": 38,
+        "health": 704,
+        "firepower": 47,
+        "torpedo": 174,
+        "antiair": 94,
         "aviation": 0,
         "reload": 72,
         "accuracy": 71,
         "evasion": 66,
         "speed": 42,
         "luck": 45,
-        "asw": 47
+        "asw": 118
       },
       "growth": {
         "health": 8136,
@@ -115155,17 +115160,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 599,
-        "firepower": 32,
-        "torpedo": 52,
-        "antiair": 58,
+        "health": 1476,
+        "firepower": 79,
+        "torpedo": 129,
+        "antiair": 144,
         "aviation": 0,
         "reload": 65,
         "accuracy": 58,
         "evasion": 29,
         "speed": 31,
         "luck": 35,
-        "asw": 35
+        "asw": 88
       },
       "growth": {
         "health": 15224,
@@ -115368,17 +115373,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 583,
-        "firepower": 35,
-        "torpedo": 59,
-        "antiair": 58,
+        "health": 1436,
+        "firepower": 86,
+        "torpedo": 147,
+        "antiair": 144,
         "aviation": 0,
         "reload": 65,
         "accuracy": 46,
         "evasion": 29,
         "speed": 31,
         "luck": 35,
-        "asw": 35
+        "asw": 88
       },
       "growth": {
         "health": 10031,
@@ -115612,17 +115617,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 319,
-        "firepower": 19,
-        "torpedo": 56,
-        "antiair": 33,
+        "health": 786,
+        "firepower": 47,
+        "torpedo": 140,
+        "antiair": 81,
         "aviation": 0,
         "reload": 81,
         "accuracy": 75,
         "evasion": 60,
         "speed": 45,
         "luck": 18,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 9098,
@@ -115958,17 +115963,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 417,
-        "firepower": 28,
-        "torpedo": 76,
-        "antiair": 50,
+        "health": 1027,
+        "firepower": 69,
+        "torpedo": 188,
+        "antiair": 124,
         "aviation": 0,
         "reload": 90,
         "accuracy": 78,
         "evasion": 72,
         "speed": 40.8,
         "luck": 95,
-        "asw": 55
+        "asw": 137
       },
       "growth": {
         "health": 11878,
@@ -116339,10 +116344,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 873,
-        "firepower": 48,
+        "health": 2151,
+        "firepower": 119,
         "torpedo": 0,
-        "antiair": 46,
+        "antiair": 114,
         "aviation": 0,
         "reload": 69,
         "accuracy": 52,
@@ -116677,17 +116682,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 744,
+        "health": 1832,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 46,
-        "aviation": 38,
+        "antiair": 113,
+        "aviation": 94,
         "reload": 45,
         "accuracy": 26,
         "evasion": 15,
         "speed": 15.5,
         "luck": 32,
-        "asw": 23
+        "asw": 57
       },
       "growth": {
         "health": 19969,
@@ -116867,17 +116872,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 799,
+        "health": 1968,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 51,
-        "aviation": 64,
+        "antiair": 126,
+        "aviation": 159,
         "reload": 70,
         "accuracy": 29,
         "evasion": 21,
         "speed": 31,
         "luck": 70,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 21445,
@@ -117041,17 +117046,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 312,
-        "firepower": 23,
-        "torpedo": 76,
-        "antiair": 34,
+        "health": 768,
+        "firepower": 58,
+        "torpedo": 188,
+        "antiair": 85,
         "aviation": 0,
         "reload": 78,
         "accuracy": 73,
         "evasion": 78,
         "speed": 42,
         "luck": 57,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 8878,
@@ -117277,7 +117282,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -117617,17 +117622,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 326,
-        "firepower": 26,
-        "torpedo": 51,
-        "antiair": 25,
+        "health": 803,
+        "firepower": 64,
+        "torpedo": 127,
+        "antiair": 62,
         "aviation": 0,
         "reload": 76,
         "accuracy": 67,
         "evasion": 79,
         "speed": 54,
         "luck": 51,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9281,
@@ -117822,7 +117827,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4,
         "retrofit": {
           "mount": 2,
@@ -118159,17 +118164,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 253,
-        "firepower": 17,
-        "torpedo": 75,
-        "antiair": 32,
+        "health": 624,
+        "firepower": 43,
+        "torpedo": 186,
+        "antiair": 79,
         "aviation": 0,
         "reload": 70,
         "accuracy": 69,
         "evasion": 70,
         "speed": 42,
         "luck": 41,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 7217,
@@ -118415,17 +118420,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 261,
-        "firepower": 22,
-        "torpedo": 73,
-        "antiair": 33,
+        "health": 643,
+        "firepower": 55,
+        "torpedo": 181,
+        "antiair": 82,
         "aviation": 0,
         "reload": 72,
         "accuracy": 69,
         "evasion": 70,
         "speed": 42,
         "luck": 41,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 7429,
@@ -118656,7 +118661,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -118990,17 +118995,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 326,
-        "firepower": 24,
-        "torpedo": 49,
-        "antiair": 31,
+        "health": 803,
+        "firepower": 60,
+        "torpedo": 123,
+        "antiair": 77,
         "aviation": 0,
         "reload": 76,
         "accuracy": 68,
         "evasion": 79,
         "speed": 54,
         "luck": 77,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 9281,
@@ -119308,17 +119313,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 558,
-        "firepower": 27,
-        "torpedo": 50,
-        "antiair": 61,
+        "health": 1375,
+        "firepower": 67,
+        "torpedo": 124,
+        "antiair": 150,
         "aviation": 0,
         "reload": 63,
         "accuracy": 50,
         "evasion": 30,
         "speed": 32.5,
         "luck": 44,
-        "asw": 30
+        "asw": 75
       },
       "growth": {
         "health": 14187,
@@ -119535,17 +119540,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 601,
-        "firepower": 27,
-        "torpedo": 50,
-        "antiair": 66,
+        "health": 1480,
+        "firepower": 68,
+        "torpedo": 124,
+        "antiair": 163,
         "aviation": 0,
         "reload": 68,
         "accuracy": 53,
         "evasion": 29,
         "speed": 32,
         "luck": 67,
-        "asw": 24
+        "asw": 59
       },
       "growth": {
         "health": 15271,
@@ -119817,17 +119822,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 558,
-        "firepower": 31,
+        "health": 1375,
+        "firepower": 77,
         "torpedo": 0,
-        "antiair": 60,
+        "antiair": 148,
         "aviation": 0,
         "reload": 68,
         "accuracy": 59,
         "evasion": 28,
         "speed": 32.5,
         "luck": 33,
-        "asw": 26
+        "asw": 64
       },
       "growth": {
         "health": 14182,
@@ -120015,17 +120020,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 339,
-        "firepower": 18,
-        "torpedo": 93,
-        "antiair": 31,
+        "health": 836,
+        "firepower": 45,
+        "torpedo": 231,
+        "antiair": 77,
         "aviation": 0,
         "reload": 88,
         "accuracy": 73,
         "evasion": 73,
         "speed": 48,
         "luck": 75,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 9670,
@@ -120325,9 +120330,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 275,
-        "firepower": 9,
-        "torpedo": 104,
+        "health": 678,
+        "firepower": 22,
+        "torpedo": 258,
         "antiair": 0,
         "aviation": 0,
         "reload": 37,
@@ -120621,11 +120626,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1183,
+        "health": 2914,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 57,
-        "aviation": 75,
+        "antiair": 141,
+        "aviation": 187,
         "reload": 41,
         "accuracy": 32,
         "evasion": 13,
@@ -120816,11 +120821,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1257,
+        "health": 3096,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 71,
-        "aviation": 88,
+        "antiair": 176,
+        "aviation": 219,
         "reload": 49,
         "accuracy": 32,
         "evasion": 13,
@@ -121067,17 +121072,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 555,
-        "firepower": 24,
-        "torpedo": 30,
-        "antiair": 84,
+        "health": 1367,
+        "firepower": 60,
+        "torpedo": 74,
+        "antiair": 207,
         "aviation": 0,
         "reload": 67,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.5,
         "luck": 85,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 14094,
@@ -121275,17 +121280,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 21,
-        "torpedo": 56,
-        "antiair": 29,
+        "health": 714,
+        "firepower": 53,
+        "torpedo": 139,
+        "antiair": 71,
         "aviation": 0,
         "reload": 77,
         "accuracy": 73,
         "evasion": 78,
         "speed": 45.6,
         "luck": 42,
-        "asw": 45
+        "asw": 112
       },
       "growth": {
         "health": 8138,
@@ -121514,10 +121519,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 701,
-        "firepower": 51,
-        "torpedo": 47,
-        "antiair": 39,
+        "health": 1726,
+        "firepower": 126,
+        "torpedo": 117,
+        "antiair": 96,
         "aviation": 0,
         "reload": 66,
         "accuracy": 43,
@@ -121772,10 +121777,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1483,
-        "firepower": 88,
+        "health": 3653,
+        "firepower": 219,
         "torpedo": 0,
-        "antiair": 45,
+        "antiair": 111,
         "aviation": 0,
         "reload": 66,
         "accuracy": 24,
@@ -122050,10 +122055,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1147,
-        "firepower": 39,
-        "torpedo": 31,
-        "antiair": 39,
+        "health": 2826,
+        "firepower": 97,
+        "torpedo": 77,
+        "antiair": 96,
         "aviation": 0,
         "reload": 51,
         "accuracy": 38,
@@ -122236,7 +122241,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.15
       },
       "3": {
@@ -122272,10 +122277,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1319,
-        "firepower": 56,
-        "torpedo": 47,
-        "antiair": 51,
+        "health": 2611,
+        "firepower": 112,
+        "torpedo": 95,
+        "antiair": 101,
         "aviation": 0,
         "reload": 57,
         "accuracy": 45,
@@ -122523,17 +122528,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 558,
-        "firepower": 29,
-        "torpedo": 61,
-        "antiair": 53,
+        "health": 1375,
+        "firepower": 73,
+        "torpedo": 151,
+        "antiair": 131,
         "aviation": 0,
         "reload": 68,
         "accuracy": 55,
         "evasion": 28,
         "speed": 32,
         "luck": 89,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 14068,
@@ -122719,10 +122724,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 753,
-        "firepower": 46,
-        "torpedo": 36,
-        "antiair": 76,
+        "health": 1855,
+        "firepower": 114,
+        "torpedo": 89,
+        "antiair": 187,
         "aviation": 0,
         "reload": 52,
         "accuracy": 41,
@@ -122923,11 +122928,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 983,
+        "health": 2422,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 56,
-        "aviation": 77,
+        "antiair": 139,
+        "aviation": 192,
         "reload": 43,
         "accuracy": 32,
         "evasion": 13,
@@ -123057,11 +123062,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1050,
+        "health": 2587,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 52,
-        "aviation": 76,
+        "antiair": 129,
+        "aviation": 189,
         "reload": 42,
         "accuracy": 31,
         "evasion": 12,
@@ -123240,10 +123245,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1850,
-        "firepower": 97,
+        "health": 3663,
+        "firepower": 194,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 102,
         "aviation": 0,
         "reload": 53,
         "accuracy": 22,
@@ -123443,11 +123448,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1018,
+        "health": 2507,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 50,
-        "aviation": 72,
+        "antiair": 123,
+        "aviation": 179,
         "reload": 41,
         "accuracy": 29,
         "evasion": 13,
@@ -123624,10 +123629,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1039,
-        "firepower": 42,
-        "torpedo": 27,
-        "antiair": 37,
+        "health": 2559,
+        "firepower": 104,
+        "torpedo": 68,
+        "antiair": 91,
         "aviation": 0,
         "reload": 65,
         "accuracy": 44,
@@ -123789,10 +123794,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1040,
-        "firepower": 65,
+        "health": 2562,
+        "firepower": 161,
         "torpedo": 0,
-        "antiair": 57,
+        "antiair": 141,
         "aviation": 0,
         "reload": 56,
         "accuracy": 22,
@@ -123947,10 +123952,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 740,
-        "firepower": 56,
-        "torpedo": 41,
-        "antiair": 29,
+        "health": 1822,
+        "firepower": 139,
+        "torpedo": 101,
+        "antiair": 71,
         "aviation": 0,
         "reload": 64,
         "accuracy": 43,
@@ -124190,10 +124195,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1389,
-        "firepower": 80,
+        "health": 3422,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 45,
+        "antiair": 112,
         "aviation": 0,
         "reload": 57,
         "accuracy": 19,
@@ -124564,17 +124569,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 687,
-        "firepower": 29,
-        "torpedo": 52,
-        "antiair": 60,
+        "health": 1692,
+        "firepower": 72,
+        "torpedo": 129,
+        "antiair": 148,
         "aviation": 0,
         "reload": 66,
         "accuracy": 54,
         "evasion": 28,
         "speed": 32,
         "luck": 60,
-        "asw": 34
+        "asw": 85
       },
       "growth": {
         "health": 16745,
@@ -124808,10 +124813,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 607,
-        "firepower": 41,
-        "torpedo": 41,
-        "antiair": 40,
+        "health": 1495,
+        "firepower": 102,
+        "torpedo": 102,
+        "antiair": 98,
         "aviation": 0,
         "reload": 61,
         "accuracy": 38,
@@ -125041,17 +125046,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 782,
+        "health": 1927,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 52,
+        "antiair": 119,
+        "aviation": 129,
         "reload": 67,
         "accuracy": 28,
         "evasion": 15,
         "speed": 16.5,
         "luck": 68,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 20999,
@@ -125285,10 +125290,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 590,
-        "firepower": 49,
+        "health": 1453,
+        "firepower": 122,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 64,
         "accuracy": 43,
@@ -125497,17 +125502,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1033,
+        "health": 2545,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 69,
+        "antiair": 144,
+        "aviation": 171,
         "reload": 64,
         "accuracy": 32,
         "evasion": 20,
         "speed": 30,
         "luck": 88,
-        "asw": 4
+        "asw": 10
       },
       "growth": {
         "health": 27740,
@@ -125702,17 +125707,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 315,
-        "firepower": 16,
-        "torpedo": 45,
-        "antiair": 19,
+        "health": 776,
+        "firepower": 40,
+        "torpedo": 113,
+        "antiair": 46,
         "aviation": 0,
         "reload": 77,
         "accuracy": 73,
         "evasion": 63,
         "speed": 40.2,
         "luck": 25,
-        "asw": 36
+        "asw": 90
       },
       "growth": {
         "health": 7805,
@@ -125922,10 +125927,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1269,
-        "firepower": 74,
-        "torpedo": 33,
-        "antiair": 50,
+        "health": 3125,
+        "firepower": 184,
+        "torpedo": 83,
+        "antiair": 124,
         "aviation": 0,
         "reload": 60,
         "accuracy": 22,
@@ -126216,15 +126221,15 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 796,
-        "firepower": 47,
+        "health": 1961,
+        "firepower": 116,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
         "reload": 66,
         "accuracy": 45,
         "evasion": 18,
-        "speed": 14.4,
+        "speed": 29.4,
         "luck": 80,
         "asw": 0
       },
@@ -126524,10 +126529,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1182,
-        "firepower": 78,
-        "torpedo": 30,
-        "antiair": 39,
+        "health": 2912,
+        "firepower": 194,
+        "torpedo": 74,
+        "antiair": 96,
         "aviation": 0,
         "reload": 57,
         "accuracy": 22,
@@ -126726,17 +126731,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 296,
-        "firepower": 20,
-        "torpedo": 55,
-        "antiair": 30,
+        "health": 729,
+        "firepower": 50,
+        "torpedo": 136,
+        "antiair": 74,
         "aviation": 0,
         "reload": 77,
         "accuracy": 73,
         "evasion": 80,
         "speed": 45.6,
         "luck": 56,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 8311,
@@ -126952,17 +126957,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 630,
-        "firepower": 35,
-        "torpedo": 58,
-        "antiair": 72,
+        "health": 1552,
+        "firepower": 86,
+        "torpedo": 145,
+        "antiair": 178,
         "aviation": 0,
         "reload": 75,
         "accuracy": 55,
         "evasion": 31,
         "speed": 36,
         "luck": 50,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 16006,
@@ -127440,9 +127445,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 275,
-        "firepower": 8,
-        "torpedo": 102,
+        "health": 678,
+        "firepower": 20,
+        "torpedo": 254,
         "antiair": 0,
         "aviation": 0,
         "reload": 37,
@@ -127668,7 +127673,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
@@ -127706,17 +127711,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 521,
-        "firepower": 35,
-        "torpedo": 87,
-        "antiair": 50,
+        "health": 742,
+        "firepower": 50,
+        "torpedo": 124,
+        "antiair": 71,
         "aviation": 0,
         "reload": 76,
         "accuracy": 69,
         "evasion": 78,
         "speed": 43.2,
         "luck": 35,
-        "asw": 91
+        "asw": 129
       },
       "growth": {
         "health": 8580,
@@ -127870,7 +127875,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.1
       },
       "3": {
@@ -128279,17 +128284,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 348,
-        "firepower": 13,
-        "torpedo": 101,
-        "antiair": 29,
+        "health": 857,
+        "firepower": 32,
+        "torpedo": 252,
+        "antiair": 72,
         "aviation": 0,
         "reload": 79,
         "accuracy": 69,
         "evasion": 71,
         "speed": 42,
         "luck": 40,
-        "asw": 47
+        "asw": 118
       },
       "growth": {
         "health": 9906,
@@ -128654,17 +128659,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 640,
-        "firepower": 26,
-        "torpedo": 51,
-        "antiair": 63,
+        "health": 1577,
+        "firepower": 65,
+        "torpedo": 126,
+        "antiair": 155,
         "aviation": 0,
         "reload": 64,
         "accuracy": 54,
         "evasion": 29,
         "speed": 32,
         "luck": 41,
-        "asw": 33
+        "asw": 82
       },
       "growth": {
         "health": 15620,
@@ -128855,17 +128860,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 565,
-        "firepower": 25,
-        "torpedo": 45,
-        "antiair": 54,
+        "health": 1392,
+        "firepower": 62,
+        "torpedo": 112,
+        "antiair": 133,
         "aviation": 0,
         "reload": 68,
         "accuracy": 52,
         "evasion": 30,
         "speed": 35,
         "luck": 55,
-        "asw": 20
+        "asw": 49
       },
       "growth": {
         "health": 14475,
@@ -129442,17 +129447,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 329,
-        "firepower": 17,
-        "torpedo": 98,
-        "antiair": 33,
+        "health": 811,
+        "firepower": 42,
+        "torpedo": 243,
+        "antiair": 82,
         "aviation": 0,
         "reload": 82,
         "accuracy": 71,
         "evasion": 71,
         "speed": 42.6,
         "luck": 78,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 9370,
@@ -129674,17 +129679,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 622,
-        "firepower": 32,
-        "torpedo": 53,
-        "antiair": 61,
+        "health": 1532,
+        "firepower": 80,
+        "torpedo": 132,
+        "antiair": 150,
         "aviation": 0,
         "reload": 71,
         "accuracy": 57,
         "evasion": 29,
         "speed": 31,
         "luck": 46,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 15797,
@@ -129940,8 +129945,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 403,
-        "firepower": 35,
+        "health": 993,
+        "firepower": 86,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -130228,10 +130233,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1251,
-        "firepower": 77,
+        "health": 3081,
+        "firepower": 192,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 99,
         "aviation": 0,
         "reload": 54,
         "accuracy": 20,
@@ -130509,10 +130514,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1303,
-        "firepower": 80,
+        "health": 3210,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 79,
+        "antiair": 195,
         "aviation": 0,
         "reload": 57,
         "accuracy": 24,
@@ -130704,10 +130709,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1198,
-        "firepower": 66,
+        "health": 2952,
+        "firepower": 164,
         "torpedo": 0,
-        "antiair": 44,
+        "antiair": 109,
         "aviation": 0,
         "reload": 62,
         "accuracy": 24,
@@ -130866,7 +130871,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "3": {
@@ -131354,17 +131359,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 292,
-        "firepower": 14,
-        "torpedo": 86,
-        "antiair": 33,
+        "health": 719,
+        "firepower": 35,
+        "torpedo": 214,
+        "antiair": 82,
         "aviation": 0,
         "reload": 76,
         "accuracy": 71,
         "evasion": 73,
         "speed": 43.8,
         "luck": 69,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 8305,
@@ -131858,7 +131863,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.7
       },
       "3": {
@@ -132120,17 +132125,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 278,
-        "firepower": 13,
-        "torpedo": 82,
-        "antiair": 32,
+        "health": 685,
+        "firepower": 33,
+        "torpedo": 204,
+        "antiair": 79,
         "aviation": 0,
         "reload": 72,
         "accuracy": 71,
         "evasion": 60,
         "speed": 43.8,
         "luck": 69,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 7914,
@@ -132626,17 +132631,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 565,
-        "firepower": 27,
-        "torpedo": 39,
-        "antiair": 55,
+        "health": 1392,
+        "firepower": 67,
+        "torpedo": 97,
+        "antiair": 137,
         "aviation": 0,
         "reload": 68,
         "accuracy": 52,
         "evasion": 30,
         "speed": 35,
         "luck": 67,
-        "asw": 20
+        "asw": 49
       },
       "growth": {
         "health": 14475,
@@ -132821,17 +132826,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 581,
-        "firepower": 28,
-        "torpedo": 40,
-        "antiair": 57,
+        "health": 1432,
+        "firepower": 69,
+        "torpedo": 99,
+        "antiair": 141,
         "aviation": 0,
         "reload": 70,
         "accuracy": 39,
         "evasion": 23,
         "speed": 35,
         "luck": 67,
-        "asw": 20
+        "asw": 50
       },
       "growth": {
         "health": 10009,
@@ -133087,17 +133092,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 317,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 28,
+        "health": 780,
+        "firepower": 29,
+        "torpedo": 244,
+        "antiair": 69,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 48,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 9018,
@@ -133258,10 +133263,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 884,
-        "firepower": 63,
+        "health": 2178,
+        "firepower": 156,
         "torpedo": 0,
-        "antiair": 32,
+        "antiair": 79,
         "aviation": 0,
         "reload": 60,
         "accuracy": 22,
@@ -133413,7 +133418,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "3": {
@@ -133451,17 +133456,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 240,
-        "firepower": 11,
-        "torpedo": 82,
-        "antiair": 26,
+        "health": 591,
+        "firepower": 27,
+        "torpedo": 203,
+        "antiair": 64,
         "aviation": 0,
         "reload": 72,
         "accuracy": 65,
         "evasion": 72,
         "speed": 44.7,
         "luck": 40,
-        "asw": 45
+        "asw": 111
       },
       "growth": {
         "health": 6828,
@@ -133634,17 +133639,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 686,
-        "firepower": 37,
-        "torpedo": 35,
-        "antiair": 35,
+        "health": 1690,
+        "firepower": 92,
+        "torpedo": 86,
+        "antiair": 86,
         "aviation": 0,
         "reload": 69,
         "accuracy": 51,
         "evasion": 14,
         "speed": 29.6,
         "luck": 13,
-        "asw": 11
+        "asw": 27
       },
       "growth": {
         "health": 17635,
@@ -133817,17 +133822,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 341,
-        "firepower": 17,
-        "torpedo": 53,
-        "antiair": 34,
+        "health": 840,
+        "firepower": 43,
+        "torpedo": 132,
+        "antiair": 84,
         "aviation": 0,
         "reload": 78,
         "accuracy": 75,
         "evasion": 59,
         "speed": 42,
         "luck": 72,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 9713,
@@ -134034,17 +134039,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 467,
-        "firepower": 29,
-        "torpedo": 68,
-        "antiair": 55,
+        "health": 1151,
+        "firepower": 72,
+        "torpedo": 169,
+        "antiair": 136,
         "aviation": 0,
         "reload": 70,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 39,
-        "asw": 26
+        "asw": 64
       },
       "growth": {
         "health": 12008,
@@ -134266,9 +134271,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 271,
-        "firepower": 12,
-        "torpedo": 104,
+        "health": 668,
+        "firepower": 30,
+        "torpedo": 258,
         "antiair": 0,
         "aviation": 0,
         "reload": 40,
@@ -134684,10 +134689,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 717,
-        "firepower": 48,
+        "health": 1766,
+        "firepower": 119,
         "torpedo": 0,
-        "antiair": 46,
+        "antiair": 114,
         "aviation": 0,
         "reload": 67,
         "accuracy": 42,
@@ -134928,17 +134933,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 421,
-        "firepower": 27,
-        "torpedo": 42,
-        "antiair": 32,
+        "health": 1037,
+        "firepower": 67,
+        "torpedo": 104,
+        "antiair": 79,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 65,
         "speed": 48,
         "luck": 58,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 11991,
@@ -135161,17 +135166,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 677,
-        "firepower": 31,
+        "health": 1667,
+        "firepower": 77,
         "torpedo": 0,
-        "antiair": 62,
+        "antiair": 153,
         "aviation": 0,
         "reload": 72,
         "accuracy": 56,
         "evasion": 30,
         "speed": 33,
         "luck": 89,
-        "asw": 37
+        "asw": 93
       },
       "growth": {
         "health": 16774,
@@ -135404,17 +135409,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 27,
+        "health": 714,
+        "firepower": 30,
+        "torpedo": 244,
+        "antiair": 67,
         "aviation": 0,
         "reload": 78,
         "accuracy": 67,
         "evasion": 72,
         "speed": 45.6,
         "luck": 10,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 8257,
@@ -135573,7 +135578,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.3
       },
       "3": {
@@ -135901,17 +135906,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 686,
-        "firepower": 37,
-        "torpedo": 34,
-        "antiair": 35,
+        "health": 1690,
+        "firepower": 92,
+        "torpedo": 85,
+        "antiair": 86,
         "aviation": 0,
         "reload": 69,
         "accuracy": 51,
         "evasion": 14,
         "speed": 29.6,
         "luck": 14,
-        "asw": 11
+        "asw": 27
       },
       "growth": {
         "health": 17635,
@@ -136173,17 +136178,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 716,
-        "firepower": 32,
-        "torpedo": 68,
-        "antiair": 70,
+        "health": 1765,
+        "firepower": 79,
+        "torpedo": 169,
+        "antiair": 173,
         "aviation": 0,
         "reload": 71,
         "accuracy": 57,
         "evasion": 28,
         "speed": 32,
         "luck": 80,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 19236,
@@ -136856,17 +136861,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 652,
-        "firepower": 27,
-        "torpedo": 54,
-        "antiair": 68,
+        "health": 1606,
+        "firepower": 68,
+        "torpedo": 135,
+        "antiair": 168,
         "aviation": 0,
         "reload": 67,
         "accuracy": 55,
         "evasion": 29,
         "speed": 32,
         "luck": 88,
-        "asw": 21
+        "asw": 52
       },
       "growth": {
         "health": 16429,
@@ -137082,17 +137087,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 760,
-        "firepower": 31,
+        "health": 1872,
+        "firepower": 78,
         "torpedo": 0,
-        "antiair": 63,
+        "antiair": 156,
         "aviation": 0,
         "reload": 71,
         "accuracy": 56,
         "evasion": 30,
         "speed": 32.5,
         "luck": 72,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 18847,
@@ -137332,17 +137337,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 341,
-        "firepower": 16,
-        "torpedo": 54,
-        "antiair": 33,
+        "health": 840,
+        "firepower": 39,
+        "torpedo": 134,
+        "antiair": 82,
         "aviation": 0,
         "reload": 77,
         "accuracy": 75,
         "evasion": 59,
         "speed": 42,
         "luck": 48,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 9713,
@@ -138082,17 +138087,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 341,
-        "firepower": 17,
-        "torpedo": 54,
-        "antiair": 32,
+        "health": 840,
+        "firepower": 42,
+        "torpedo": 134,
+        "antiair": 79,
         "aviation": 0,
         "reload": 76,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 89,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 9713,
@@ -138586,17 +138591,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 835,
+        "health": 2056,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 58,
+        "antiair": 118,
+        "aviation": 144,
         "reload": 64,
         "accuracy": 28,
         "evasion": 19,
         "speed": 26,
         "luck": 85,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 23774,
@@ -138775,17 +138780,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 581,
-        "firepower": 29,
-        "torpedo": 48,
-        "antiair": 55,
+        "health": 1432,
+        "firepower": 72,
+        "torpedo": 120,
+        "antiair": 136,
         "aviation": 0,
         "reload": 70,
         "accuracy": 52,
         "evasion": 30,
         "speed": 35,
         "luck": 65,
-        "asw": 31
+        "asw": 77
       },
       "growth": {
         "health": 14895,
@@ -139007,10 +139012,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1819,
-        "firepower": 91,
+        "health": 4480,
+        "firepower": 226,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 57,
         "accuracy": 22,
@@ -139541,7 +139546,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "3": {
@@ -139579,17 +139584,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 470,
-        "firepower": 24,
-        "torpedo": 132,
-        "antiair": 50,
+        "health": 668,
+        "firepower": 35,
+        "torpedo": 189,
+        "antiair": 72,
         "aviation": 0,
         "reload": 74,
         "accuracy": 65,
         "evasion": 78,
         "speed": 43.2,
         "luck": 67,
-        "asw": 96
+        "asw": 137
       },
       "growth": {
         "health": 7731,
@@ -139756,10 +139761,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1309,
-        "firepower": 78,
+        "health": 3224,
+        "firepower": 194,
         "torpedo": 0,
-        "antiair": 34,
+        "antiair": 85,
         "aviation": 0,
         "reload": 53,
         "accuracy": 22,
@@ -139911,17 +139916,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 298,
-        "firepower": 14,
-        "torpedo": 102,
-        "antiair": 32,
+        "health": 591,
+        "firepower": 27,
+        "torpedo": 203,
+        "antiair": 64,
         "aviation": 0,
         "reload": 72,
         "accuracy": 65,
         "evasion": 72,
         "speed": 44.7,
         "luck": 35,
-        "asw": 55
+        "asw": 110
       },
       "growth": {
         "health": 6828,
@@ -140133,7 +140138,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -140169,10 +140174,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1142,
-        "firepower": 45,
-        "torpedo": 35,
-        "antiair": 45,
+        "health": 2261,
+        "firepower": 90,
+        "torpedo": 69,
+        "antiair": 89,
         "aviation": 0,
         "reload": 60,
         "accuracy": 43,
@@ -140331,7 +140336,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65,
         "retrofit": {
           "mount": 2,
@@ -140375,10 +140380,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1590,
-        "firepower": 63,
-        "torpedo": 49,
-        "antiair": 63,
+        "health": 2261,
+        "firepower": 90,
+        "torpedo": 69,
+        "antiair": 89,
         "aviation": 0,
         "reload": 60,
         "accuracy": 43,
@@ -140631,17 +140636,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 348,
-        "firepower": 12,
-        "torpedo": 102,
-        "antiair": 29,
+        "health": 857,
+        "firepower": 30,
+        "torpedo": 254,
+        "antiair": 72,
         "aviation": 0,
         "reload": 79,
         "accuracy": 69,
         "evasion": 71,
         "speed": 42,
         "luck": 55,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9906,
@@ -140859,17 +140864,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 493,
-        "firepower": 26,
-        "torpedo": 52,
-        "antiair": 52,
+        "health": 1214,
+        "firepower": 64,
+        "torpedo": 129,
+        "antiair": 129,
         "aviation": 0,
         "reload": 64,
         "accuracy": 50,
         "evasion": 31,
         "speed": 36,
         "luck": 36,
-        "asw": 20
+        "asw": 50
       },
       "growth": {
         "health": 12722,
@@ -141075,10 +141080,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1345,
-        "firepower": 80,
+        "health": 3314,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 34,
+        "antiair": 84,
         "aviation": 0,
         "reload": 54,
         "accuracy": 22,
@@ -141340,10 +141345,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1673,
-        "firepower": 102,
+        "health": 3314,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 84,
         "aviation": 0,
         "reload": 54,
         "accuracy": 17,
@@ -141673,17 +141678,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 244,
-        "firepower": 11,
-        "torpedo": 84,
-        "antiair": 24,
+        "health": 602,
+        "firepower": 28,
+        "torpedo": 209,
+        "antiair": 59,
         "aviation": 0,
         "reload": 74,
         "accuracy": 65,
         "evasion": 72,
         "speed": 44.7,
         "luck": 35,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 6962,
@@ -141856,10 +141861,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1245,
-        "firepower": 73,
+        "health": 3066,
+        "firepower": 181,
         "torpedo": 0,
-        "antiair": 32,
+        "antiair": 80,
         "aviation": 0,
         "reload": 55,
         "accuracy": 20,
@@ -142057,17 +142062,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 434,
-        "firepower": 28,
-        "torpedo": 65,
-        "antiair": 54,
+        "health": 1069,
+        "firepower": 69,
+        "torpedo": 162,
+        "antiair": 133,
         "aviation": 0,
         "reload": 68,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 53,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 11154,
@@ -142242,10 +142247,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 672,
-        "firepower": 43,
+        "health": 1655,
+        "firepower": 107,
         "torpedo": 0,
-        "antiair": 37,
+        "antiair": 91,
         "aviation": 0,
         "reload": 64,
         "accuracy": 37,
@@ -142386,7 +142391,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -142660,17 +142665,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 319,
-        "firepower": 18,
-        "torpedo": 102,
-        "antiair": 34,
+        "health": 786,
+        "firepower": 44,
+        "torpedo": 254,
+        "antiair": 84,
         "aviation": 0,
         "reload": 82,
         "accuracy": 73,
         "evasion": 72,
         "speed": 44.4,
         "luck": 68,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 9085,
@@ -143290,17 +143295,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 494,
-        "firepower": 27,
-        "torpedo": 54,
-        "antiair": 58,
+        "health": 1217,
+        "firepower": 67,
+        "torpedo": 135,
+        "antiair": 144,
         "aviation": 0,
         "reload": 67,
         "accuracy": 50,
         "evasion": 31,
         "speed": 36,
         "luck": 43,
-        "asw": 34
+        "asw": 85
       },
       "growth": {
         "health": 12658,
@@ -143527,17 +143532,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 284,
-        "firepower": 13,
-        "torpedo": 90,
-        "antiair": 31,
+        "health": 700,
+        "firepower": 32,
+        "torpedo": 224,
+        "antiair": 76,
         "aviation": 0,
         "reload": 76,
         "accuracy": 69,
         "evasion": 71,
         "speed": 40.8,
         "luck": 87,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 8093,
@@ -143727,9 +143732,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 396,
-        "firepower": 21,
-        "torpedo": 96,
+        "health": 976,
+        "firepower": 52,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 34,
@@ -143981,17 +143986,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 508,
-        "firepower": 29,
-        "torpedo": 69,
-        "antiair": 53,
+        "health": 1252,
+        "firepower": 72,
+        "torpedo": 172,
+        "antiair": 131,
         "aviation": 0,
         "reload": 70,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 40,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 13062,
@@ -144430,10 +144435,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1276,
-        "firepower": 79,
+        "health": 3144,
+        "firepower": 196,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -144642,7 +144647,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -144799,7 +144804,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.6
       },
       "3": {
@@ -145191,10 +145196,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1434,
-        "firepower": 90,
+        "health": 2840,
+        "firepower": 178,
         "torpedo": 0,
-        "antiair": 47,
+        "antiair": 93,
         "aviation": 0,
         "reload": 49,
         "accuracy": 20,
@@ -145356,10 +145361,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1210,
-        "firepower": 77,
+        "health": 2980,
+        "firepower": 192,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 107,
         "aviation": 0,
         "reload": 60,
         "accuracy": 17,
@@ -145569,10 +145574,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1594,
-        "firepower": 87,
+        "health": 3927,
+        "firepower": 217,
         "torpedo": 0,
-        "antiair": 84,
+        "antiair": 208,
         "aviation": 0,
         "reload": 62,
         "accuracy": 24,
@@ -145897,10 +145902,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 848,
-        "firepower": 45,
+        "health": 2089,
+        "firepower": 112,
         "torpedo": 0,
-        "antiair": 50,
+        "antiair": 123,
         "aviation": 0,
         "reload": 67,
         "accuracy": 45,
@@ -146138,17 +146143,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 637,
-        "firepower": 27,
-        "torpedo": 53,
-        "antiair": 66,
+        "health": 1569,
+        "firepower": 67,
+        "torpedo": 132,
+        "antiair": 163,
         "aviation": 0,
         "reload": 66,
         "accuracy": 55,
         "evasion": 29,
         "speed": 32,
         "luck": 78,
-        "asw": 20
+        "asw": 50
       },
       "growth": {
         "health": 16057,
@@ -146387,17 +146392,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 341,
-        "firepower": 16,
-        "torpedo": 54,
-        "antiair": 33,
+        "health": 840,
+        "firepower": 40,
+        "torpedo": 134,
+        "antiair": 82,
         "aviation": 0,
         "reload": 76,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 80,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 9713,
@@ -146672,17 +146677,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 301,
-        "firepower": 21,
-        "torpedo": 52,
-        "antiair": 32,
+        "health": 741,
+        "firepower": 53,
+        "torpedo": 129,
+        "antiair": 79,
         "aviation": 0,
         "reload": 73,
         "accuracy": 68,
         "evasion": 77,
         "speed": 39.6,
         "luck": 82,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 8445,
@@ -147099,10 +147104,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1273,
-        "firepower": 80,
+        "health": 3135,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 104,
         "aviation": 0,
         "reload": 57,
         "accuracy": 23,
@@ -147451,17 +147456,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 345,
-        "firepower": 27,
-        "torpedo": 43,
-        "antiair": 54,
+        "health": 851,
+        "firepower": 67,
+        "torpedo": 107,
+        "antiair": 134,
         "aviation": 0,
         "reload": 67,
         "accuracy": 52,
         "evasion": 26,
         "speed": 23.2,
         "luck": 51,
-        "asw": 18
+        "asw": 45
       },
       "growth": {
         "health": 8567,
@@ -147851,10 +147856,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 655,
-        "firepower": 44,
-        "torpedo": 37,
-        "antiair": 33,
+        "health": 1614,
+        "firepower": 109,
+        "torpedo": 92,
+        "antiair": 82,
         "aviation": 0,
         "reload": 61,
         "accuracy": 44,
@@ -147996,10 +148001,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 798,
-        "firepower": 33,
-        "torpedo": 26,
-        "antiair": 45,
+        "health": 1966,
+        "firepower": 82,
+        "torpedo": 65,
+        "antiair": 111,
         "aviation": 0,
         "reload": 59,
         "accuracy": 38,
@@ -148161,10 +148166,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1315,
-        "firepower": 82,
+        "health": 3239,
+        "firepower": 203,
         "torpedo": 0,
-        "antiair": 79,
+        "antiair": 195,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -148359,10 +148364,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 573,
-        "firepower": 44,
+        "health": 1411,
+        "firepower": 110,
         "torpedo": 0,
-        "antiair": 38,
+        "antiair": 94,
         "aviation": 0,
         "reload": 61,
         "accuracy": 40,
@@ -148545,10 +148550,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 804,
-        "firepower": 47,
+        "health": 1980,
+        "firepower": 117,
         "torpedo": 0,
-        "antiair": 55,
+        "antiair": 136,
         "aviation": 0,
         "reload": 69,
         "accuracy": 45,
@@ -148845,17 +148850,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 560,
-        "firepower": 32,
-        "torpedo": 70,
-        "antiair": 63,
+        "health": 1380,
+        "firepower": 80,
+        "torpedo": 175,
+        "antiair": 156,
         "aviation": 0,
         "reload": 66,
         "accuracy": 59,
         "evasion": 29,
         "speed": 35.56,
         "luck": 55,
-        "asw": 23
+        "asw": 58
       },
       "growth": {
         "health": 14395,
@@ -149214,17 +149219,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 529,
-        "firepower": 33,
-        "torpedo": 72,
-        "antiair": 63,
+        "health": 1304,
+        "firepower": 82,
+        "torpedo": 179,
+        "antiair": 156,
         "aviation": 0,
         "reload": 66,
         "accuracy": 60,
         "evasion": 29,
         "speed": 35.56,
         "luck": 55,
-        "asw": 20
+        "asw": 49
       },
       "growth": {
         "health": 13605,
@@ -149558,17 +149563,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 346,
-        "firepower": 12,
-        "torpedo": 101,
-        "antiair": 29,
+        "health": 852,
+        "firepower": 30,
+        "torpedo": 252,
+        "antiair": 71,
         "aviation": 0,
         "reload": 77,
         "accuracy": 70,
         "evasion": 71,
         "speed": 42,
         "luck": 72,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9847,
@@ -149686,7 +149691,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.35
       },
       "3": {
@@ -149724,17 +149729,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 351,
-        "firepower": 18,
-        "torpedo": 80,
-        "antiair": 36,
+        "health": 865,
+        "firepower": 44,
+        "torpedo": 199,
+        "antiair": 89,
         "aviation": 0,
         "reload": 87,
         "accuracy": 73,
         "evasion": 78,
         "speed": 43.2,
         "luck": 82,
-        "asw": 66
+        "asw": 164
       },
       "growth": {
         "health": 9999,
@@ -149984,17 +149989,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 655,
-        "firepower": 33,
-        "torpedo": 57,
-        "antiair": 77,
+        "health": 1614,
+        "firepower": 81,
+        "torpedo": 141,
+        "antiair": 191,
         "aviation": 0,
         "reload": 70,
         "accuracy": 53,
         "evasion": 28,
         "speed": 32,
         "luck": 80,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 16657,
@@ -150525,11 +150530,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1108,
+        "health": 2730,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 71,
+        "antiair": 144,
+        "aviation": 176,
         "reload": 43,
         "accuracy": 30,
         "evasion": 13,
@@ -150971,7 +150976,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -151271,17 +151276,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 252,
-        "firepower": 11,
-        "torpedo": 77,
-        "antiair": 24,
+        "health": 620,
+        "firepower": 27,
+        "torpedo": 191,
+        "antiair": 60,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 72,
         "speed": 44.76,
         "luck": 42,
-        "asw": 48
+        "asw": 119
       },
       "growth": {
         "health": 7171,
@@ -151458,11 +151463,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1027,
+        "health": 2530,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 54,
-        "aviation": 71,
+        "antiair": 134,
+        "aviation": 176,
         "reload": 43,
         "accuracy": 35,
         "evasion": 11,
@@ -151848,17 +151853,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 668,
-        "firepower": 15,
-        "torpedo": 26,
-        "antiair": 32,
+        "health": 1646,
+        "firepower": 38,
+        "torpedo": 65,
+        "antiair": 79,
         "aviation": 0,
         "reload": 53,
         "accuracy": 47,
         "evasion": 27,
         "speed": 23,
         "luck": 70,
-        "asw": 13
+        "asw": 33
       },
       "growth": {
         "health": 19034,
@@ -152077,7 +152082,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -152292,17 +152297,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 312,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 28,
+        "health": 769,
+        "firepower": 29,
+        "torpedo": 244,
+        "antiair": 69,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 40,
-        "asw": 42
+        "asw": 104
       },
       "growth": {
         "health": 8899,
@@ -153220,17 +153225,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 498,
-        "firepower": 23,
-        "torpedo": 66,
-        "antiair": 30,
+        "health": 1227,
+        "firepower": 58,
+        "torpedo": 164,
+        "antiair": 74,
         "aviation": 0,
         "reload": 80,
         "accuracy": 67,
         "evasion": 56,
         "speed": 43.2,
         "luck": 50,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 13375,
@@ -153508,10 +153513,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1317,
-        "firepower": 84,
-        "torpedo": 26,
-        "antiair": 70,
+        "health": 3244,
+        "firepower": 209,
+        "torpedo": 65,
+        "antiair": 173,
         "aviation": 0,
         "reload": 57,
         "accuracy": 24,
@@ -153850,10 +153855,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1405,
-        "firepower": 80,
-        "torpedo": 53,
-        "antiair": 70,
+        "health": 3461,
+        "firepower": 199,
+        "torpedo": 131,
+        "antiair": 173,
         "aviation": 0,
         "reload": 53,
         "accuracy": 22,
@@ -154133,17 +154138,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 336,
-        "firepower": 12,
-        "torpedo": 99,
-        "antiair": 28,
+        "health": 827,
+        "firepower": 30,
+        "torpedo": 245,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 34,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 9565,
@@ -154283,7 +154288,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -154560,11 +154565,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1080,
+        "health": 2661,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 79,
+        "antiair": 143,
+        "aviation": 196,
         "reload": 47,
         "accuracy": 33,
         "evasion": 14,
@@ -154762,17 +154767,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 531,
-        "firepower": 15,
-        "torpedo": 26,
-        "antiair": 27,
+        "health": 1308,
+        "firepower": 38,
+        "torpedo": 65,
+        "antiair": 67,
         "aviation": 0,
         "reload": 51,
         "accuracy": 47,
         "evasion": 27,
         "speed": 23,
         "luck": 88,
-        "asw": 13
+        "asw": 33
       },
       "growth": {
         "health": 13272,
@@ -155016,17 +155021,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 611,
-        "firepower": 26,
-        "torpedo": 36,
-        "antiair": 40,
+        "health": 1506,
+        "firepower": 64,
+        "torpedo": 89,
+        "antiair": 99,
         "aviation": 0,
         "reload": 53,
         "accuracy": 38,
         "evasion": 25,
         "speed": 23,
         "luck": 88,
-        "asw": 14
+        "asw": 34
       },
       "growth": {
         "health": 10274,
@@ -155279,17 +155284,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 751,
-        "firepower": 30,
+        "health": 1849,
+        "firepower": 74,
         "torpedo": 0,
-        "antiair": 61,
+        "antiair": 151,
         "aviation": 0,
         "reload": 70,
         "accuracy": 56,
         "evasion": 30,
         "speed": 32.5,
         "luck": 72,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 18613,
@@ -156059,8 +156064,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 974,
-        "firepower": 84,
+        "health": 2399,
+        "firepower": 209,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -156254,7 +156259,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -156505,10 +156510,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1483,
-        "firepower": 92,
+        "health": 2937,
+        "firepower": 184,
         "torpedo": 0,
-        "antiair": 50,
+        "antiair": 98,
         "aviation": 0,
         "reload": 50,
         "accuracy": 21,
@@ -156670,10 +156675,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 563,
-        "firepower": 43,
+        "health": 1387,
+        "firepower": 107,
         "torpedo": 0,
-        "antiair": 37,
+        "antiair": 91,
         "aviation": 0,
         "reload": 59,
         "accuracy": 39,
@@ -156927,17 +156932,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 916,
+        "health": 2256,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 61,
+        "antiair": 122,
+        "aviation": 152,
         "reload": 62,
         "accuracy": 28,
         "evasion": 18,
         "speed": 25,
         "luck": 82,
-        "asw": 35
+        "asw": 87
       },
       "growth": {
         "health": 24968,
@@ -157149,11 +157154,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1317,
+        "health": 3244,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 81,
+        "antiair": 144,
+        "aviation": 201,
         "reload": 51,
         "accuracy": 35,
         "evasion": 14,
@@ -157384,17 +157389,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 595,
-        "firepower": 30,
+        "health": 1466,
+        "firepower": 75,
         "torpedo": 0,
-        "antiair": 58,
+        "antiair": 143,
         "aviation": 0,
         "reload": 66,
         "accuracy": 54,
         "evasion": 28,
         "speed": 32.5,
         "luck": 88,
-        "asw": 23
+        "asw": 57
       },
       "growth": {
         "health": 15193,
@@ -157557,17 +157562,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 340,
-        "firepower": 27,
-        "torpedo": 43,
-        "antiair": 48,
+        "health": 837,
+        "firepower": 67,
+        "torpedo": 107,
+        "antiair": 119,
         "aviation": 0,
         "reload": 67,
         "accuracy": 53,
         "evasion": 25,
         "speed": 21.3,
         "luck": 47,
-        "asw": 18
+        "asw": 45
       },
       "growth": {
         "health": 8430,
@@ -157885,10 +157890,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 867,
-        "firepower": 47,
+        "health": 2136,
+        "firepower": 117,
         "torpedo": 0,
-        "antiair": 63,
+        "antiair": 155,
         "aviation": 0,
         "reload": 68,
         "accuracy": 45,
@@ -158153,7 +158158,7 @@ const SHIPS_DATA = [
         "evasion": 29,
         "speed": 31.5,
         "luck": 0,
-        "asw": 37
+        "asw": 92
       },
       "growth": {
         "health": 24771,
@@ -158444,10 +158449,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 853,
-        "firepower": 47,
+        "health": 2102,
+        "firepower": 116,
         "torpedo": 0,
-        "antiair": 45,
+        "antiair": 112,
         "aviation": 0,
         "reload": 67,
         "accuracy": 39,
@@ -158923,17 +158928,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 457,
-        "firepower": 21,
-        "torpedo": 64,
-        "antiair": 29,
+        "health": 1126,
+        "firepower": 52,
+        "torpedo": 159,
+        "antiair": 72,
         "aviation": 0,
         "reload": 76,
         "accuracy": 73,
         "evasion": 59,
         "speed": 51.6,
         "luck": 75,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 12831,
@@ -159146,10 +159151,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 788,
-        "firepower": 38,
+        "health": 1942,
+        "firepower": 94,
         "torpedo": 0,
-        "antiair": 46,
+        "antiair": 113,
         "aviation": 0,
         "reload": 62,
         "accuracy": 41,
@@ -159353,15 +159358,15 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 519,
-        "firepower": 31,
+        "health": 1278,
+        "firepower": 76,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
         "reload": 58,
         "accuracy": 55,
         "evasion": 25,
-        "speed": 6,
+        "speed": 30,
         "luck": 49,
         "asw": 0
       },
@@ -159629,10 +159634,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1334,
-        "firepower": 82,
+        "health": 3286,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 57,
         "accuracy": 22,
@@ -160117,17 +160122,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1383,
+        "health": 1968,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 83,
-        "aviation": 111,
+        "antiair": 118,
+        "aviation": 159,
         "reload": 66,
         "accuracy": 29,
         "evasion": 22,
         "speed": 31.6,
         "luck": 49,
-        "asw": 42
+        "asw": 59
       },
       "growth": {
         "health": 21445,
@@ -160311,17 +160316,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 814,
+        "health": 2005,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 48,
-        "aviation": 67,
+        "antiair": 118,
+        "aviation": 166,
         "reload": 66,
         "accuracy": 25,
         "evasion": 16,
         "speed": 32,
         "luck": 49,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 15516,
@@ -160501,10 +160506,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1033,
-        "firepower": 56,
-        "torpedo": 47,
-        "antiair": 40,
+        "health": 2544,
+        "firepower": 139,
+        "torpedo": 117,
+        "antiair": 99,
         "aviation": 0,
         "reload": 67,
         "accuracy": 46,
@@ -160741,10 +160746,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1099,
-        "firepower": 43,
-        "torpedo": 28,
-        "antiair": 38,
+        "health": 2708,
+        "firepower": 107,
+        "torpedo": 70,
+        "antiair": 94,
         "aviation": 0,
         "reload": 67,
         "accuracy": 44,
@@ -160976,10 +160981,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
-        "firepower": 53,
-        "torpedo": 44,
-        "antiair": 33,
+        "health": 2678,
+        "firepower": 131,
+        "torpedo": 109,
+        "antiair": 82,
         "aviation": 0,
         "reload": 68,
         "accuracy": 45,
@@ -161288,10 +161293,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1022,
-        "firepower": 58,
-        "torpedo": 45,
-        "antiair": 41,
+        "health": 2518,
+        "firepower": 144,
+        "torpedo": 112,
+        "antiair": 101,
         "aviation": 0,
         "reload": 67,
         "accuracy": 45,
@@ -162266,7 +162271,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -162521,8 +162526,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1197,
-        "firepower": 108,
+        "health": 2370,
+        "firepower": 216,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -162744,10 +162749,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1250,
-        "firepower": 78,
+        "health": 3080,
+        "firepower": 194,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 98,
         "aviation": 0,
         "reload": 53,
         "accuracy": 22,
@@ -162931,10 +162936,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1298,
-        "firepower": 81,
+        "health": 3197,
+        "firepower": 201,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 56,
         "accuracy": 16,
@@ -163213,10 +163218,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 862,
-        "firepower": 50,
+        "health": 1708,
+        "firepower": 100,
         "torpedo": 0,
-        "antiair": 54,
+        "antiair": 106,
         "aviation": 0,
         "reload": 59,
         "accuracy": 41,
@@ -163412,17 +163417,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 331,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 816,
+        "firepower": 39,
+        "torpedo": 131,
+        "antiair": 79,
         "aviation": 0,
         "reload": 74,
         "accuracy": 72,
         "evasion": 60,
         "speed": 45.6,
         "luck": 80,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9433,
@@ -163960,17 +163965,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 554,
-        "firepower": 26,
-        "torpedo": 38,
-        "antiair": 53,
+        "health": 1365,
+        "firepower": 65,
+        "torpedo": 95,
+        "antiair": 130,
         "aviation": 0,
         "reload": 67,
         "accuracy": 52,
         "evasion": 30,
         "speed": 35,
         "luck": 82,
-        "asw": 19
+        "asw": 48
       },
       "growth": {
         "health": 14197,
@@ -164149,17 +164154,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 797,
+        "health": 1963,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 46,
-        "aviation": 44,
+        "antiair": 114,
+        "aviation": 110,
         "reload": 48,
         "accuracy": 29,
         "evasion": 19,
         "speed": 29.3,
         "luck": 71,
-        "asw": 26
+        "asw": 64
       },
       "growth": {
         "health": 21395,
@@ -164271,7 +164276,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.35
       },
       "3": {
@@ -164309,17 +164314,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 784,
-        "firepower": 40,
-        "torpedo": 76,
-        "antiair": 90,
+        "health": 1552,
+        "firepower": 79,
+        "torpedo": 152,
+        "antiair": 178,
         "aviation": 0,
         "reload": 75,
         "accuracy": 55,
         "evasion": 31,
         "speed": 36,
         "luck": 46,
-        "asw": 45
+        "asw": 89
       },
       "growth": {
         "health": 16006,
@@ -164619,7 +164624,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.35
       },
       "3": {
@@ -164971,17 +164976,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 740,
-        "firepower": 27,
-        "torpedo": 71,
-        "antiair": 72,
+        "health": 1823,
+        "firepower": 67,
+        "torpedo": 177,
+        "antiair": 179,
         "aviation": 0,
         "reload": 73,
         "accuracy": 56,
         "evasion": 30,
         "speed": 35,
         "luck": 66,
-        "asw": 40
+        "asw": 99
       },
       "growth": {
         "health": 19858,
@@ -165228,17 +165233,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 803,
-        "firepower": 34,
-        "torpedo": 45,
-        "antiair": 116,
+        "health": 1591,
+        "firepower": 68,
+        "torpedo": 90,
+        "antiair": 230,
         "aviation": 0,
         "reload": 70,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.5,
         "luck": 52,
-        "asw": 62
+        "asw": 124
       },
       "growth": {
         "health": 16407,
@@ -165556,10 +165561,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1022,
-        "firepower": 71,
+        "health": 2517,
+        "firepower": 177,
         "torpedo": 0,
-        "antiair": 52,
+        "antiair": 128,
         "aviation": 0,
         "reload": 57,
         "accuracy": 23,
@@ -166026,10 +166031,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 993,
-        "firepower": 67,
+        "health": 2446,
+        "firepower": 166,
         "torpedo": 0,
-        "antiair": 50,
+        "antiair": 124,
         "aviation": 0,
         "reload": 56,
         "accuracy": 22,
@@ -166487,10 +166492,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1250,
-        "firepower": 77,
+        "health": 3080,
+        "firepower": 192,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 98,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -166669,10 +166674,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1399,
-        "firepower": 86,
+        "health": 3447,
+        "firepower": 213,
         "torpedo": 0,
-        "antiair": 55,
+        "antiair": 136,
         "aviation": 0,
         "reload": 61,
         "accuracy": 23,
@@ -166903,17 +166908,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 554,
-        "firepower": 26,
-        "torpedo": 38,
-        "antiair": 53,
+        "health": 1365,
+        "firepower": 65,
+        "torpedo": 95,
+        "antiair": 130,
         "aviation": 0,
         "reload": 67,
         "accuracy": 52,
         "evasion": 30,
         "speed": 35,
         "luck": 69,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 14197,
@@ -167044,7 +167049,7 @@ const SHIPS_DATA = [
           10
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.6
       },
       "3": {
@@ -167698,10 +167703,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1272,
-        "firepower": 79,
+        "health": 3134,
+        "firepower": 196,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -167877,10 +167882,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1320,
-        "firepower": 82,
+        "health": 3252,
+        "firepower": 203,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 104,
         "aviation": 0,
         "reload": 57,
         "accuracy": 17,
@@ -168156,10 +168161,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1451,
-        "firepower": 81,
+        "health": 3574,
+        "firepower": 202,
         "torpedo": 0,
-        "antiair": 45,
+        "antiair": 111,
         "aviation": 0,
         "reload": 57,
         "accuracy": 19,
@@ -168758,10 +168763,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1041,
-        "firepower": 53,
-        "torpedo": 40,
-        "antiair": 43,
+        "health": 2564,
+        "firepower": 131,
+        "torpedo": 99,
+        "antiair": 107,
         "aviation": 0,
         "reload": 63,
         "accuracy": 43,
@@ -169044,8 +169049,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 388,
-        "firepower": 37,
+        "health": 955,
+        "firepower": 91,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -169285,15 +169290,15 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 780,
-        "firepower": 37,
+        "health": 1545,
+        "firepower": 74,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
         "reload": 72,
         "accuracy": 49,
         "evasion": 24,
-        "speed": 26,
+        "speed": 42,
         "luck": 23,
         "asw": 0
       },
@@ -169511,10 +169516,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1305,
-        "firepower": 81,
+        "health": 3215,
+        "firepower": 201,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 57,
         "accuracy": 24,
@@ -169892,7 +169897,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
@@ -170266,17 +170271,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 824,
+        "health": 2030,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 52,
-        "aviation": 59,
+        "antiair": 128,
+        "aviation": 147,
         "reload": 69,
         "accuracy": 27,
         "evasion": 19,
         "speed": 26.5,
         "luck": 70,
-        "asw": 27
+        "asw": 67
       },
       "growth": {
         "health": 22470,
@@ -170429,17 +170434,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1225,
+        "health": 1742,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 82,
-        "aviation": 113,
+        "antiair": 116,
+        "aviation": 162,
         "reload": 66,
         "accuracy": 29,
         "evasion": 24,
         "speed": 28,
         "luck": 42,
-        "asw": 30
+        "asw": 43
       },
       "growth": {
         "health": 19284,
@@ -170992,17 +170997,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 576,
-        "firepower": 31,
-        "torpedo": 71,
-        "antiair": 63,
+        "health": 1420,
+        "firepower": 78,
+        "torpedo": 177,
+        "antiair": 156,
         "aviation": 0,
         "reload": 66,
         "accuracy": 60,
         "evasion": 32,
         "speed": 35.56,
         "luck": 74,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 14816,
@@ -171282,10 +171287,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 563,
-        "firepower": 43,
+        "health": 1387,
+        "firepower": 107,
         "torpedo": 0,
-        "antiair": 37,
+        "antiair": 91,
         "aviation": 0,
         "reload": 59,
         "accuracy": 39,
@@ -171467,17 +171472,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 646,
-        "firepower": 25,
-        "torpedo": 31,
-        "antiair": 87,
+        "health": 1591,
+        "firepower": 63,
+        "torpedo": 77,
+        "antiair": 215,
         "aviation": 0,
         "reload": 70,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.5,
         "luck": 85,
-        "asw": 49
+        "asw": 123
       },
       "growth": {
         "health": 16407,
@@ -171766,10 +171771,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 834,
-        "firepower": 47,
+        "health": 2055,
+        "firepower": 117,
         "torpedo": 0,
-        "antiair": 42,
+        "antiair": 104,
         "aviation": 0,
         "reload": 66,
         "accuracy": 45,
@@ -172045,17 +172050,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 835,
+        "health": 2056,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 52,
-        "aviation": 65,
+        "antiair": 128,
+        "aviation": 162,
         "reload": 73,
         "accuracy": 29,
         "evasion": 21,
         "speed": 31,
         "luck": 51,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 22408,
@@ -172258,17 +172263,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 605,
-        "firepower": 24,
-        "torpedo": 29,
-        "antiair": 83,
+        "health": 1490,
+        "firepower": 59,
+        "torpedo": 72,
+        "antiair": 205,
         "aviation": 0,
         "reload": 66,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.5,
         "luck": 77,
-        "asw": 45
+        "asw": 113
       },
       "growth": {
         "health": 15365,
@@ -172708,8 +172713,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1005,
-        "firepower": 81,
+        "health": 2475,
+        "firepower": 202,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -173168,11 +173173,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1183,
+        "health": 2914,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 57,
-        "aviation": 75,
+        "antiair": 141,
+        "aviation": 187,
         "reload": 41,
         "accuracy": 32,
         "evasion": 13,
@@ -173602,10 +173607,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1241,
-        "firepower": 69,
-        "torpedo": 0,
-        "antiair": 46,
+        "health": 3057,
+        "firepower": 172,
+        "torpedo": 83,
+        "antiair": 114,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -173617,7 +173622,7 @@ const SHIPS_DATA = [
       "growth": {
         "health": 33414,
         "firepower": 888,
-        "torpedo": 0,
+        "torpedo": 524,
         "antiair": 1011,
         "aviation": 0,
         "reload": 403,
@@ -174118,17 +174123,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 677,
-        "firepower": 27,
-        "torpedo": 33,
-        "antiair": 84,
+        "health": 1668,
+        "firepower": 68,
+        "torpedo": 82,
+        "antiair": 208,
         "aviation": 0,
         "reload": 71,
         "accuracy": 59,
         "evasion": 28,
         "speed": 32.25,
         "luck": 56,
-        "asw": 41
+        "asw": 102
       },
       "growth": {
         "health": 17075,
@@ -174378,7 +174383,8 @@ const SHIPS_DATA = [
         "default": 104,
         "slot": 2,
         "type": [
-          6
+          6,
+          2
         ],
         "mount": 1,
         "preload": 0,
@@ -174429,7 +174435,7 @@ const SHIPS_DATA = [
         "evasion": 28,
         "speed": 33,
         "luck": 0,
-        "asw": 37
+        "asw": 93
       },
       "growth": {
         "health": 22545,
@@ -174733,17 +174739,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 434,
-        "firepower": 28,
-        "torpedo": 63,
-        "antiair": 52,
+        "health": 1069,
+        "firepower": 69,
+        "torpedo": 157,
+        "antiair": 128,
         "aviation": 0,
         "reload": 68,
         "accuracy": 52,
         "evasion": 29,
         "speed": 35.3,
         "luck": 42,
-        "asw": 26
+        "asw": 64
       },
       "growth": {
         "health": 11154,
@@ -175006,11 +175012,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1097,
+        "health": 2703,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 56,
-        "aviation": 75,
+        "antiair": 139,
+        "aviation": 186,
         "reload": 51,
         "accuracy": 35,
         "evasion": 11,
@@ -175483,10 +175489,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1225,
-        "firepower": 73,
-        "torpedo": 33,
-        "antiair": 49,
+        "health": 3018,
+        "firepower": 181,
+        "torpedo": 82,
+        "antiair": 122,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -175669,7 +175675,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -176034,11 +176040,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1108,
+        "health": 2730,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 82,
+        "antiair": 155,
+        "aviation": 204,
         "reload": 48,
         "accuracy": 31,
         "evasion": 13,
@@ -176335,17 +176341,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 656,
-        "firepower": 29,
-        "torpedo": 55,
-        "antiair": 67,
+        "health": 1615,
+        "firepower": 72,
+        "torpedo": 137,
+        "antiair": 165,
         "aviation": 0,
         "reload": 67,
         "accuracy": 55,
         "evasion": 29,
         "speed": 32,
         "luck": 78,
-        "asw": 21
+        "asw": 52
       },
       "growth": {
         "health": 16528,
@@ -176605,17 +176611,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 652,
-        "firepower": 30,
-        "torpedo": 56,
-        "antiair": 66,
+        "health": 1606,
+        "firepower": 74,
+        "torpedo": 139,
+        "antiair": 164,
         "aviation": 0,
         "reload": 70,
         "accuracy": 43,
         "evasion": 25,
         "speed": 32,
         "luck": 78,
-        "asw": 22
+        "asw": 55
       },
       "growth": {
         "health": 11220,
@@ -176836,17 +176842,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 615,
-        "firepower": 28,
-        "torpedo": 55,
-        "antiair": 67,
+        "health": 1514,
+        "firepower": 70,
+        "torpedo": 137,
+        "antiair": 165,
         "aviation": 0,
         "reload": 67,
         "accuracy": 55,
         "evasion": 29,
         "speed": 32,
         "luck": 78,
-        "asw": 21
+        "asw": 52
       },
       "growth": {
         "health": 15494,
@@ -177048,17 +177054,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 284,
-        "firepower": 12,
-        "torpedo": 101,
-        "antiair": 28,
+        "health": 700,
+        "firepower": 30,
+        "torpedo": 251,
+        "antiair": 69,
         "aviation": 0,
         "reload": 78,
         "accuracy": 67,
         "evasion": 71,
         "speed": 40.8,
         "luck": 84,
-        "asw": 44
+        "asw": 110
       },
       "growth": {
         "health": 8095,
@@ -177277,7 +177283,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 1,
+        "preload": 2,
         "efficiency": 1.7
       },
       "3": {
@@ -177315,17 +177321,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 474,
-        "firepower": 18,
-        "torpedo": 145,
-        "antiair": 37,
+        "health": 938,
+        "firepower": 35,
+        "torpedo": 288,
+        "antiair": 74,
         "aviation": 0,
         "reload": 82,
         "accuracy": 74,
         "evasion": 86,
         "speed": 48.72,
         "luck": 41,
-        "asw": 65
+        "asw": 129
       },
       "growth": {
         "health": 10850,
@@ -177962,11 +177968,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1462,
+        "health": 3601,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 60,
-        "aviation": 84,
+        "antiair": 148,
+        "aviation": 208,
         "reload": 46,
         "accuracy": 27,
         "evasion": 11,
@@ -178277,11 +178283,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1312,
+        "health": 3232,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 55,
-        "aviation": 77,
+        "antiair": 136,
+        "aviation": 192,
         "reload": 43,
         "accuracy": 27,
         "evasion": 11,
@@ -178481,17 +178487,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 295,
-        "firepower": 14,
-        "torpedo": 93,
-        "antiair": 33,
-        "aviation": 37,
+        "health": 727,
+        "firepower": 35,
+        "torpedo": 232,
+        "antiair": 82,
+        "aviation": 92,
         "reload": 80,
         "accuracy": 70,
         "evasion": 71,
         "speed": 40.8,
         "luck": 69,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 8404,
@@ -178683,17 +178689,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 298,
-        "firepower": 12,
-        "torpedo": 97,
-        "antiair": 27,
+        "health": 734,
+        "firepower": 29,
+        "torpedo": 240,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42.6,
         "luck": 25,
-        "asw": 42
+        "asw": 105
       },
       "growth": {
         "health": 8487,
@@ -178929,17 +178935,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 276,
-        "firepower": 12,
-        "torpedo": 98,
-        "antiair": 28,
+        "health": 680,
+        "firepower": 30,
+        "torpedo": 244,
+        "antiair": 69,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 40.8,
         "luck": 41,
-        "asw": 40
+        "asw": 100
       },
       "growth": {
         "health": 7866,
@@ -179224,17 +179230,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 13,
-        "torpedo": 98,
-        "antiair": 27,
+        "health": 714,
+        "firepower": 32,
+        "torpedo": 243,
+        "antiair": 67,
         "aviation": 0,
         "reload": 78,
         "accuracy": 67,
         "evasion": 72,
         "speed": 45.6,
         "luck": 41,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 8257,
@@ -179483,10 +179489,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1315,
-        "firepower": 78,
+        "health": 3239,
+        "firepower": 193,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 51,
         "accuracy": 22,
@@ -180054,11 +180060,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1152,
+        "health": 2837,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 66,
-        "aviation": 79,
+        "antiair": 164,
+        "aviation": 197,
         "reload": 44,
         "accuracy": 30,
         "evasion": 14,
@@ -180279,10 +180285,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 590,
-        "firepower": 40,
-        "torpedo": 40,
-        "antiair": 39,
+        "health": 1453,
+        "firepower": 100,
+        "torpedo": 99,
+        "antiair": 96,
         "aviation": 0,
         "reload": 59,
         "accuracy": 38,
@@ -180488,17 +180494,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 293,
-        "firepower": 15,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 721,
+        "firepower": 37,
+        "torpedo": 132,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 65,
         "evasion": 59,
         "speed": 42,
         "luck": 45,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 8335,
@@ -180750,17 +180756,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 647,
-        "firepower": 28,
-        "torpedo": 30,
-        "antiair": 74,
+        "health": 1593,
+        "firepower": 69,
+        "torpedo": 74,
+        "antiair": 182,
         "aviation": 0,
         "reload": 67,
         "accuracy": 58,
         "evasion": 28,
         "speed": 32.25,
         "luck": 70,
-        "asw": 40
+        "asw": 99
       },
       "growth": {
         "health": 16301,
@@ -181005,17 +181011,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 338,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 35,
+        "health": 832,
+        "firepower": 40,
+        "torpedo": 131,
+        "antiair": 87,
         "aviation": 0,
         "reload": 74,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 65,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 9620,
@@ -181177,17 +181183,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 388,
-        "firepower": 25,
-        "torpedo": 43,
-        "antiair": 31,
+        "health": 956,
+        "firepower": 62,
+        "torpedo": 108,
+        "antiair": 77,
         "aviation": 0,
         "reload": 73,
         "accuracy": 67,
         "evasion": 65,
         "speed": 48.36,
         "luck": 84,
-        "asw": 50
+        "asw": 125
       },
       "growth": {
         "health": 11056,
@@ -181433,11 +181439,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 875,
+        "health": 2155,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 59,
-        "aviation": 74,
+        "antiair": 146,
+        "aviation": 184,
         "reload": 45,
         "accuracy": 29,
         "evasion": 14,
@@ -181781,11 +181787,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 908,
+        "health": 2236,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 80,
+        "antiair": 144,
+        "aviation": 199,
         "reload": 49,
         "accuracy": 26,
         "evasion": 10,
@@ -182137,10 +182143,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1345,
-        "firepower": 80,
+        "health": 3313,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 79,
+        "antiair": 195,
         "aviation": 0,
         "reload": 58,
         "accuracy": 23,
@@ -182312,17 +182318,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 637,
-        "firepower": 28,
-        "torpedo": 51,
-        "antiair": 58,
+        "health": 1569,
+        "firepower": 69,
+        "torpedo": 126,
+        "antiair": 143,
         "aviation": 0,
         "reload": 63,
         "accuracy": 54,
         "evasion": 29,
         "speed": 32,
         "luck": 32,
-        "asw": 25
+        "asw": 62
       },
       "growth": {
         "health": 16057,
@@ -183605,17 +183611,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 325,
-        "firepower": 15,
-        "torpedo": 52,
-        "antiair": 32,
+        "health": 800,
+        "firepower": 38,
+        "torpedo": 129,
+        "antiair": 79,
         "aviation": 0,
         "reload": 72,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 20,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9118,
@@ -183852,17 +183858,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 620,
-        "firepower": 32,
+        "health": 1527,
+        "firepower": 79,
         "torpedo": 0,
-        "antiair": 60,
+        "antiair": 148,
         "aviation": 0,
         "reload": 68,
         "accuracy": 57,
         "evasion": 28,
         "speed": 32.5,
         "luck": 65,
-        "asw": 24
+        "asw": 60
       },
       "growth": {
         "health": 15745,
@@ -184137,17 +184143,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 338,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 832,
+        "firepower": 39,
+        "torpedo": 131,
+        "antiair": 79,
         "aviation": 0,
         "reload": 75,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 90,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9620,
@@ -184314,17 +184320,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 347,
-        "firepower": 17,
-        "torpedo": 54,
-        "antiair": 34,
+        "health": 856,
+        "firepower": 42,
+        "torpedo": 135,
+        "antiair": 84,
         "aviation": 0,
         "reload": 75,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 70,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 9900,
@@ -184485,7 +184491,7 @@ const SHIPS_DATA = [
           4
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.7
       },
       "2": {
@@ -184762,17 +184768,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 398,
-        "firepower": 24,
-        "torpedo": 43,
-        "antiair": 33,
+        "health": 980,
+        "firepower": 60,
+        "torpedo": 106,
+        "antiair": 82,
         "aviation": 0,
         "reload": 73,
         "accuracy": 67,
         "evasion": 65,
         "speed": 45.6,
         "luck": 42,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 11335,
@@ -185038,10 +185044,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 595,
-        "firepower": 40,
-        "torpedo": 40,
-        "antiair": 39,
+        "health": 1465,
+        "firepower": 100,
+        "torpedo": 99,
+        "antiair": 96,
         "aviation": 0,
         "reload": 59,
         "accuracy": 38,
@@ -185249,10 +185255,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 690,
-        "firepower": 45,
-        "torpedo": 46,
-        "antiair": 48,
+        "health": 1699,
+        "firepower": 112,
+        "torpedo": 114,
+        "antiair": 118,
         "aviation": 0,
         "reload": 66,
         "accuracy": 45,
@@ -185989,9 +185995,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 454,
-        "firepower": 26,
-        "torpedo": 98,
+        "health": 1119,
+        "firepower": 64,
+        "torpedo": 244,
         "antiair": 0,
         "aviation": 0,
         "reload": 28,
@@ -186219,10 +186225,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1364,
-        "firepower": 80,
-        "torpedo": 39,
-        "antiair": 40,
+        "health": 3360,
+        "firepower": 199,
+        "torpedo": 98,
+        "antiair": 99,
         "aviation": 0,
         "reload": 51,
         "accuracy": 21,
@@ -186653,10 +186659,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 590,
-        "firepower": 37,
-        "torpedo": 40,
-        "antiair": 48,
+        "health": 1453,
+        "firepower": 93,
+        "torpedo": 99,
+        "antiair": 118,
         "aviation": 0,
         "reload": 59,
         "accuracy": 38,
@@ -186831,17 +186837,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 348,
-        "firepower": 13,
-        "torpedo": 102,
-        "antiair": 29,
+        "health": 857,
+        "firepower": 33,
+        "torpedo": 254,
+        "antiair": 72,
         "aviation": 0,
         "reload": 79,
         "accuracy": 70,
         "evasion": 71,
         "speed": 42,
         "luck": 41,
-        "asw": 48
+        "asw": 119
       },
       "growth": {
         "health": 9906,
@@ -187062,17 +187068,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 409,
-        "firepower": 15,
-        "torpedo": 73,
-        "antiair": 38,
+        "health": 1008,
+        "firepower": 37,
+        "torpedo": 181,
+        "antiair": 94,
         "aviation": 0,
         "reload": 80,
         "accuracy": 66,
         "evasion": 67,
         "speed": 39.6,
         "luck": 72,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 11652,
@@ -187334,10 +187340,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 718,
-        "firepower": 44,
-        "torpedo": 39,
-        "antiair": 39,
+        "health": 1769,
+        "firepower": 109,
+        "torpedo": 97,
+        "antiair": 96,
         "aviation": 0,
         "reload": 66,
         "accuracy": 44,
@@ -187536,7 +187542,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.15
       },
       "3": {
@@ -187825,17 +187831,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 650,
-        "firepower": 30,
-        "torpedo": 69,
-        "antiair": 57,
+        "health": 1601,
+        "firepower": 75,
+        "torpedo": 171,
+        "antiair": 141,
         "aviation": 0,
         "reload": 70,
         "accuracy": 56,
         "evasion": 28,
         "speed": 32,
         "luck": 44,
-        "asw": 36
+        "asw": 89
       },
       "growth": {
         "health": 16644,
@@ -188052,17 +188058,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 348,
-        "firepower": 12,
-        "torpedo": 101,
-        "antiair": 29,
+        "health": 857,
+        "firepower": 30,
+        "torpedo": 252,
+        "antiair": 72,
         "aviation": 0,
         "reload": 79,
         "accuracy": 69,
         "evasion": 71,
         "speed": 42,
         "luck": 56,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9906,
@@ -188329,17 +188335,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 367,
-        "firepower": 24,
-        "torpedo": 42,
-        "antiair": 32,
+        "health": 904,
+        "firepower": 59,
+        "torpedo": 105,
+        "antiair": 80,
         "aviation": 0,
         "reload": 73,
         "accuracy": 68,
         "evasion": 61,
         "speed": 45.6,
         "luck": 71,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 10459,
@@ -188674,11 +188680,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1240,
+        "health": 3055,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 60,
-        "aviation": 76,
+        "antiair": 149,
+        "aviation": 189,
         "reload": 44,
         "accuracy": 28,
         "evasion": 13,
@@ -188945,11 +188951,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1322,
+        "health": 3257,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 78,
+        "antiair": 151,
+        "aviation": 194,
         "reload": 45,
         "accuracy": 21,
         "evasion": 10,
@@ -189148,11 +189154,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1240,
+        "health": 3055,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 76,
+        "antiair": 144,
+        "aviation": 189,
         "reload": 44,
         "accuracy": 26,
         "evasion": 13,
@@ -189433,11 +189439,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1195,
+        "health": 2944,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 72,
+        "antiair": 143,
+        "aviation": 179,
         "reload": 43,
         "accuracy": 28,
         "evasion": 13,
@@ -189987,10 +189993,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 738,
-        "firepower": 50,
-        "torpedo": 45,
-        "antiair": 33,
+        "health": 1819,
+        "firepower": 124,
+        "torpedo": 112,
+        "antiair": 82,
         "aviation": 0,
         "reload": 64,
         "accuracy": 46,
@@ -190246,7 +190252,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.25
       },
       "3": {
@@ -190501,10 +190507,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1353,
-        "firepower": 77,
+        "health": 3333,
+        "firepower": 192,
         "torpedo": 0,
-        "antiair": 58,
+        "antiair": 144,
         "aviation": 0,
         "reload": 63,
         "accuracy": 23,
@@ -190754,17 +190760,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 336,
-        "firepower": 12,
-        "torpedo": 99,
-        "antiair": 29,
+        "health": 827,
+        "firepower": 30,
+        "torpedo": 245,
+        "antiair": 71,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 52,
-        "asw": 40
+        "asw": 100
       },
       "growth": {
         "health": 9565,
@@ -190941,7 +190947,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
@@ -191174,17 +191180,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 427,
-        "firepower": 33,
-        "torpedo": 52,
-        "antiair": 33,
+        "health": 1052,
+        "firepower": 82,
+        "torpedo": 129,
+        "antiair": 81,
         "aviation": 0,
         "reload": 75,
         "accuracy": 68,
         "evasion": 66,
         "speed": 51.24,
         "luck": 86,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 12160,
@@ -191480,17 +191486,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 427,
-        "firepower": 27,
-        "torpedo": 58,
-        "antiair": 29,
+        "health": 1052,
+        "firepower": 68,
+        "torpedo": 144,
+        "antiair": 71,
         "aviation": 0,
         "reload": 78,
         "accuracy": 68,
         "evasion": 66,
         "speed": 51.24,
         "luck": 86,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 12160,
@@ -191710,10 +191716,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1226,
-        "firepower": 74,
+        "health": 3020,
+        "firepower": 184,
         "torpedo": 0,
-        "antiair": 39,
+        "antiair": 97,
         "aviation": 0,
         "reload": 51,
         "accuracy": 22,
@@ -191843,10 +191849,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 730,
-        "firepower": 65,
+        "health": 1446,
+        "firepower": 130,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 79,
         "aviation": 0,
         "reload": 53,
         "accuracy": 28,
@@ -192034,17 +192040,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 331,
-        "firepower": 16,
-        "torpedo": 53,
-        "antiair": 32,
+        "health": 816,
+        "firepower": 39,
+        "torpedo": 131,
+        "antiair": 79,
         "aviation": 0,
         "reload": 77,
         "accuracy": 72,
         "evasion": 59,
         "speed": 42,
         "luck": 65,
-        "asw": 51
+        "asw": 126
       },
       "growth": {
         "health": 9297,
@@ -192501,17 +192507,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 826,
+        "health": 2034,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 81,
+        "antiair": 122,
+        "aviation": 201,
         "reload": 61,
         "accuracy": 32,
         "evasion": 18,
         "speed": 25,
         "luck": 71,
-        "asw": 30
+        "asw": 75
       },
       "growth": {
         "health": 22166,
@@ -192790,10 +192796,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1100,
-        "firepower": 76,
-        "torpedo": 21,
-        "antiair": 33,
+        "health": 2710,
+        "firepower": 189,
+        "torpedo": 53,
+        "antiair": 81,
         "aviation": 0,
         "reload": 51,
         "accuracy": 19,
@@ -193007,11 +193013,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1104,
+        "health": 2720,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 63,
-        "aviation": 83,
+        "antiair": 155,
+        "aviation": 206,
         "reload": 48,
         "accuracy": 30,
         "evasion": 13,
@@ -193475,10 +193481,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1477,
-        "firepower": 82,
-        "torpedo": 40,
-        "antiair": 39,
+        "health": 3639,
+        "firepower": 204,
+        "torpedo": 99,
+        "antiair": 96,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -193710,10 +193716,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 796,
-        "firepower": 51,
+        "health": 1962,
+        "firepower": 127,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 99,
         "aviation": 0,
         "reload": 73,
         "accuracy": 46,
@@ -193997,11 +194003,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1066,
+        "health": 2626,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 64,
-        "aviation": 80,
+        "antiair": 158,
+        "aviation": 199,
         "reload": 45,
         "accuracy": 35,
         "evasion": 11,
@@ -194187,9 +194193,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 245,
-        "firepower": 7,
-        "torpedo": 96,
+        "health": 603,
+        "firepower": 18,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -194406,10 +194412,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1335,
-        "firepower": 81,
-        "torpedo": 40,
-        "antiair": 37,
+        "health": 3289,
+        "firepower": 201,
+        "torpedo": 99,
+        "antiair": 92,
         "aviation": 0,
         "reload": 53,
         "accuracy": 22,
@@ -194692,17 +194698,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 321,
-        "firepower": 24,
-        "torpedo": 78,
-        "antiair": 64,
+        "health": 791,
+        "firepower": 60,
+        "torpedo": 194,
+        "antiair": 159,
         "aviation": 0,
         "reload": 90,
         "accuracy": 74,
         "evasion": 78,
         "speed": 40.8,
         "luck": 77,
-        "asw": 68
+        "asw": 170
       },
       "growth": {
         "health": 9156,
@@ -195050,10 +195056,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 612,
-        "firepower": 43,
-        "torpedo": 34,
-        "antiair": 35,
+        "health": 1508,
+        "firepower": 107,
+        "torpedo": 84,
+        "antiair": 86,
         "aviation": 0,
         "reload": 59,
         "accuracy": 39,
@@ -195231,10 +195237,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 630,
-        "firepower": 44,
-        "torpedo": 32,
-        "antiair": 36,
+        "health": 1552,
+        "firepower": 109,
+        "torpedo": 80,
+        "antiair": 89,
         "aviation": 0,
         "reload": 61,
         "accuracy": 29,
@@ -195490,10 +195496,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 630,
-        "firepower": 44,
-        "torpedo": 35,
-        "antiair": 36,
+        "health": 1552,
+        "firepower": 109,
+        "torpedo": 87,
+        "antiair": 89,
         "aviation": 0,
         "reload": 61,
         "accuracy": 39,
@@ -195721,17 +195727,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 648,
-        "firepower": 31,
-        "torpedo": 53,
-        "antiair": 52,
+        "health": 1597,
+        "firepower": 77,
+        "torpedo": 131,
+        "antiair": 128,
         "aviation": 0,
         "reload": 70,
         "accuracy": 55,
         "evasion": 30,
         "speed": 32,
         "luck": 10,
-        "asw": 30
+        "asw": 74
       },
       "growth": {
         "health": 18468,
@@ -195926,7 +195932,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.4
       },
       "3": {
@@ -196221,9 +196227,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 234,
-        "firepower": 10,
-        "torpedo": 122,
+        "health": 463,
+        "firepower": 21,
+        "torpedo": 244,
         "antiair": 0,
         "aviation": 0,
         "reload": 32,
@@ -196693,9 +196699,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 209,
-        "firepower": 9,
-        "torpedo": 102,
+        "health": 515,
+        "firepower": 22,
+        "torpedo": 254,
         "antiair": 0,
         "aviation": 0,
         "reload": 41,
@@ -196928,9 +196934,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 202,
-        "firepower": 8,
-        "torpedo": 101,
+        "health": 497,
+        "firepower": 21,
+        "torpedo": 250,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -197142,9 +197148,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 211,
-        "firepower": 9,
-        "torpedo": 107,
+        "health": 520,
+        "firepower": 23,
+        "torpedo": 266,
         "antiair": 0,
         "aviation": 0,
         "reload": 40,
@@ -197706,9 +197712,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 209,
-        "firepower": 9,
-        "torpedo": 102,
+        "health": 515,
+        "firepower": 22,
+        "torpedo": 254,
         "antiair": 0,
         "aviation": 0,
         "reload": 41,
@@ -197944,9 +197950,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 409,
-        "firepower": 15,
-        "torpedo": 168,
+        "health": 581,
+        "firepower": 22,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 30,
@@ -198214,9 +198220,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 203,
-        "firepower": 8,
-        "torpedo": 97,
+        "health": 501,
+        "firepower": 20,
+        "torpedo": 241,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -198425,9 +198431,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 241,
-        "firepower": 8,
-        "torpedo": 97,
+        "health": 594,
+        "firepower": 20,
+        "torpedo": 242,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -198891,9 +198897,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 203,
-        "firepower": 7,
-        "torpedo": 96,
+        "health": 501,
+        "firepower": 18,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -199416,9 +199422,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 203,
-        "firepower": 8,
-        "torpedo": 96,
+        "health": 501,
+        "firepower": 20,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -199694,9 +199700,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 351,
-        "firepower": 14,
-        "torpedo": 168,
+        "health": 500,
+        "firepower": 21,
+        "torpedo": 239,
         "antiair": 0,
         "aviation": 0,
         "reload": 31,
@@ -200160,7 +200166,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.2
       },
       "3": {
@@ -200451,10 +200457,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1573,
-        "firepower": 86,
+        "health": 3874,
+        "firepower": 214,
         "torpedo": 0,
-        "antiair": 47,
+        "antiair": 116,
         "aviation": 0,
         "reload": 65,
         "accuracy": 23,
@@ -200769,17 +200775,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 271,
-        "firepower": 12,
-        "torpedo": 95,
-        "antiair": 26,
+        "health": 668,
+        "firepower": 29,
+        "torpedo": 237,
+        "antiair": 64,
         "aviation": 0,
         "reload": 73,
         "accuracy": 70,
         "evasion": 71,
         "speed": 40.8,
         "luck": 50,
-        "asw": 45
+        "asw": 112
       },
       "growth": {
         "health": 7721,
@@ -200999,17 +201005,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 890,
+        "health": 2192,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 50,
-        "aviation": 57,
+        "antiair": 124,
+        "aviation": 142,
         "reload": 66,
         "accuracy": 27,
         "evasion": 18,
         "speed": 24,
         "luck": 78,
-        "asw": 26
+        "asw": 65
       },
       "growth": {
         "health": 23893,
@@ -201389,11 +201395,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1020,
+        "health": 2512,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 81,
+        "antiair": 144,
+        "aviation": 202,
         "reload": 44,
         "accuracy": 32,
         "evasion": 14,
@@ -201587,7 +201593,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 2,
         "efficiency": 1.5
       },
       "3": {
@@ -201623,10 +201629,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1001,
-        "firepower": 69,
-        "torpedo": 69,
-        "antiair": 52,
+        "health": 1983,
+        "firepower": 137,
+        "torpedo": 137,
+        "antiair": 104,
         "aviation": 0,
         "reload": 70,
         "accuracy": 49,
@@ -202146,7 +202152,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -202184,17 +202190,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 582,
-        "firepower": 21,
-        "torpedo": 169,
-        "antiair": 48,
+        "health": 827,
+        "firepower": 29,
+        "torpedo": 240,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 71,
         "speed": 42,
         "luck": 27,
-        "asw": 70
+        "asw": 100
       },
       "growth": {
         "health": 9565,
@@ -202362,17 +202368,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 290,
-        "firepower": 12,
-        "torpedo": 97,
-        "antiair": 27,
+        "health": 714,
+        "firepower": 30,
+        "torpedo": 241,
+        "antiair": 67,
         "aviation": 0,
         "reload": 76,
         "accuracy": 69,
         "evasion": 72,
         "speed": 45.6,
         "luck": 75,
-        "asw": 48
+        "asw": 119
       },
       "growth": {
         "health": 8257,
@@ -202749,17 +202755,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 240,
-        "firepower": 11,
-        "torpedo": 82,
-        "antiair": 26,
+        "health": 591,
+        "firepower": 27,
+        "torpedo": 203,
+        "antiair": 64,
         "aviation": 0,
         "reload": 72,
         "accuracy": 65,
         "evasion": 72,
         "speed": 44.7,
         "luck": 37,
-        "asw": 44
+        "asw": 110
       },
       "growth": {
         "health": 6828,
@@ -202932,10 +202938,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1250,
-        "firepower": 79,
+        "health": 3080,
+        "firepower": 196,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 98,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -203423,17 +203429,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 212,
-        "firepower": 13,
-        "torpedo": 71,
-        "antiair": 29,
+        "health": 522,
+        "firepower": 33,
+        "torpedo": 177,
+        "antiair": 72,
         "aviation": 0,
         "reload": 72,
         "accuracy": 61,
         "evasion": 73,
         "speed": 40.8,
         "luck": 42,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 6038,
@@ -203599,7 +203605,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.45
       },
       "3": {
@@ -203875,10 +203881,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1585,
-        "firepower": 81,
+        "health": 3905,
+        "firepower": 201,
         "torpedo": 0,
-        "antiair": 82,
+        "antiair": 203,
         "aviation": 0,
         "reload": 65,
         "accuracy": 25,
@@ -204145,17 +204151,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 301,
-        "firepower": 21,
-        "torpedo": 52,
-        "antiair": 27,
+        "health": 742,
+        "firepower": 52,
+        "torpedo": 129,
+        "antiair": 66,
         "aviation": 0,
         "reload": 76,
         "accuracy": 70,
         "evasion": 78,
         "speed": 43.2,
         "luck": 48,
-        "asw": 51
+        "asw": 127
       },
       "growth": {
         "health": 8580,
@@ -204495,10 +204501,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 771,
-        "firepower": 9,
+        "health": 1899,
+        "firepower": 23,
         "torpedo": 0,
-        "antiair": 28,
+        "antiair": 70,
         "aviation": 0,
         "reload": 62,
         "accuracy": 37,
@@ -205123,11 +205129,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1053,
+        "health": 2594,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 54,
-        "aviation": 78,
+        "antiair": 134,
+        "aviation": 194,
         "reload": 38,
         "accuracy": 31,
         "evasion": 13,
@@ -205349,10 +205355,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 862,
-        "firepower": 50,
+        "health": 1708,
+        "firepower": 100,
         "torpedo": 0,
-        "antiair": 54,
+        "antiair": 106,
         "aviation": 0,
         "reload": 59,
         "accuracy": 40,
@@ -205548,17 +205554,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 300,
-        "firepower": 21,
-        "torpedo": 54,
-        "antiair": 29,
+        "health": 739,
+        "firepower": 52,
+        "torpedo": 134,
+        "antiair": 71,
         "aviation": 0,
         "reload": 77,
         "accuracy": 73,
         "evasion": 78,
         "speed": 45.6,
         "luck": 44,
-        "asw": 53
+        "asw": 132
       },
       "growth": {
         "health": 8426,
@@ -205752,7 +205758,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -206092,10 +206098,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1410,
-        "firepower": 82,
+        "health": 3473,
+        "firepower": 204,
         "torpedo": 0,
-        "antiair": 45,
+        "antiair": 112,
         "aviation": 0,
         "reload": 58,
         "accuracy": 19,
@@ -206337,11 +206343,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1194,
+        "health": 2941,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 69,
-        "aviation": 75,
+        "antiair": 171,
+        "aviation": 187,
         "reload": 45,
         "accuracy": 35,
         "evasion": 12,
@@ -206566,17 +206572,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 749,
-        "firepower": 27,
-        "torpedo": 36,
-        "antiair": 77,
+        "health": 1846,
+        "firepower": 68,
+        "torpedo": 90,
+        "antiair": 190,
         "aviation": 0,
         "reload": 69,
         "accuracy": 54,
         "evasion": 39,
         "speed": 36.5,
         "luck": 52,
-        "asw": 37
+        "asw": 93
       },
       "growth": {
         "health": 19202,
@@ -206812,17 +206818,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 286,
-        "firepower": 11,
-        "torpedo": 92,
-        "antiair": 27,
+        "health": 704,
+        "firepower": 27,
+        "torpedo": 229,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 66,
         "evasion": 71,
         "speed": 43.2,
         "luck": 36,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 8142,
@@ -206990,17 +206996,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 409,
-        "firepower": 16,
-        "torpedo": 74,
-        "antiair": 37,
+        "health": 1008,
+        "firepower": 39,
+        "torpedo": 184,
+        "antiair": 91,
         "aviation": 0,
         "reload": 80,
         "accuracy": 67,
         "evasion": 67,
         "speed": 39.6,
         "luck": 43,
-        "asw": 52
+        "asw": 130
       },
       "growth": {
         "health": 11652,
@@ -207321,10 +207327,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1298,
-        "firepower": 84,
+        "health": 3197,
+        "firepower": 209,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 101,
         "aviation": 0,
         "reload": 58,
         "accuracy": 24,
@@ -207705,10 +207711,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1353,
-        "firepower": 82,
+        "health": 3333,
+        "firepower": 203,
         "torpedo": 0,
-        "antiair": 79,
+        "antiair": 195,
         "aviation": 0,
         "reload": 58,
         "accuracy": 22,
@@ -208071,11 +208077,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 816,
+        "health": 2010,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 51,
-        "aviation": 62,
+        "antiair": 126,
+        "aviation": 154,
         "reload": 43,
         "accuracy": 30,
         "evasion": 12,
@@ -208225,17 +208231,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 601,
-        "firepower": 34,
-        "torpedo": 71,
-        "antiair": 64,
+        "health": 1481,
+        "firepower": 85,
+        "torpedo": 176,
+        "antiair": 159,
         "aviation": 0,
         "reload": 68,
         "accuracy": 60,
         "evasion": 30,
         "speed": 37.5,
         "luck": 50,
-        "asw": 23
+        "asw": 58
       },
       "growth": {
         "health": 15449,
@@ -208531,17 +208537,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 787,
+        "health": 1938,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 60,
+        "antiair": 122,
+        "aviation": 150,
         "reload": 66,
         "accuracy": 29,
         "evasion": 21,
         "speed": 32,
         "luck": 30,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 21447,
@@ -208787,10 +208793,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1241,
-        "firepower": 78,
+        "health": 3057,
+        "firepower": 194,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 99,
         "aviation": 0,
         "reload": 55,
         "accuracy": 22,
@@ -209049,7 +209055,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.5
       },
       "3": {
@@ -209250,8 +209256,8 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 324,
-        "firepower": 34,
+        "health": 798,
+        "firepower": 85,
         "torpedo": 0,
         "antiair": 0,
         "aviation": 0,
@@ -209487,10 +209493,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 794,
-        "firepower": 61,
+        "health": 1571,
+        "firepower": 123,
         "torpedo": 0,
-        "antiair": 51,
+        "antiair": 102,
         "aviation": 0,
         "reload": 66,
         "accuracy": 43,
@@ -209743,10 +209749,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 662,
-        "firepower": 54,
+        "health": 1630,
+        "firepower": 134,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 107,
         "aviation": 0,
         "reload": 69,
         "accuracy": 35,
@@ -209993,17 +209999,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 370,
-        "firepower": 24,
-        "torpedo": 85,
-        "antiair": 55,
+        "health": 911,
+        "firepower": 60,
+        "torpedo": 211,
+        "antiair": 136,
         "aviation": 0,
         "reload": 88,
         "accuracy": 71,
         "evasion": 59,
         "speed": 42,
         "luck": 6,
-        "asw": 71
+        "asw": 176
       },
       "growth": {
         "health": 10535,
@@ -210390,17 +210396,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 271,
-        "firepower": 12,
-        "torpedo": 94,
-        "antiair": 26,
+        "health": 668,
+        "firepower": 30,
+        "torpedo": 234,
+        "antiair": 64,
         "aviation": 0,
         "reload": 73,
         "accuracy": 70,
         "evasion": 71,
         "speed": 40.8,
         "luck": 35,
-        "asw": 46
+        "asw": 114
       },
       "growth": {
         "health": 7721,
@@ -210625,10 +210631,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1208,
-        "firepower": 74,
+        "health": 2976,
+        "firepower": 184,
         "torpedo": 0,
-        "antiair": 41,
+        "antiair": 102,
         "aviation": 0,
         "reload": 51,
         "accuracy": 20,
@@ -210857,10 +210863,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1322,
-        "firepower": 78,
+        "health": 3256,
+        "firepower": 194,
         "torpedo": 0,
-        "antiair": 44,
+        "antiair": 108,
         "aviation": 0,
         "reload": 54,
         "accuracy": 17,
@@ -211118,17 +211124,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 328,
-        "firepower": 22,
+        "health": 809,
+        "firepower": 55,
         "torpedo": 0,
-        "antiair": 66,
+        "antiair": 163,
         "aviation": 0,
         "reload": 67,
         "accuracy": 50,
         "evasion": 24,
         "speed": 19,
         "luck": 64,
-        "asw": 13
+        "asw": 33
       },
       "growth": {
         "health": 8145,
@@ -211478,17 +211484,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 426,
-        "firepower": 13,
-        "torpedo": 43,
-        "antiair": 24,
+        "health": 1049,
+        "firepower": 32,
+        "torpedo": 107,
+        "antiair": 60,
         "aviation": 0,
         "reload": 51,
         "accuracy": 53,
         "evasion": 24,
         "speed": 20,
         "luck": 20,
-        "asw": 17
+        "asw": 43
       },
       "growth": {
         "health": 10555,
@@ -212020,17 +212026,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 394,
-        "firepower": 14,
-        "torpedo": 68,
-        "antiair": 37,
+        "health": 971,
+        "firepower": 34,
+        "torpedo": 170,
+        "antiair": 92,
         "aviation": 0,
         "reload": 77,
         "accuracy": 69,
         "evasion": 67,
         "speed": 39.6,
         "luck": 61,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 11226,
@@ -212209,10 +212215,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 814,
-        "firepower": 42,
-        "torpedo": 30,
-        "antiair": 32,
+        "health": 2006,
+        "firepower": 105,
+        "torpedo": 74,
+        "antiair": 79,
         "aviation": 0,
         "reload": 64,
         "accuracy": 45,
@@ -212376,7 +212382,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.65
       },
       "3": {
@@ -212416,10 +212422,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 782,
-        "firepower": 52,
-        "torpedo": 45,
-        "antiair": 56,
+        "health": 1550,
+        "firepower": 104,
+        "torpedo": 89,
+        "antiair": 112,
         "aviation": 0,
         "reload": 65,
         "accuracy": 43,
@@ -212686,11 +212692,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 975,
+        "health": 2402,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 60,
-        "aviation": 75,
+        "antiair": 148,
+        "aviation": 187,
         "reload": 45,
         "accuracy": 33,
         "evasion": 13,
@@ -213021,11 +213027,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1248,
+        "health": 3074,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 69,
-        "aviation": 87,
+        "antiair": 171,
+        "aviation": 216,
         "reload": 50,
         "accuracy": 32,
         "evasion": 13,
@@ -213318,11 +213324,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1114,
+        "health": 2744,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 67,
-        "aviation": 82,
+        "antiair": 165,
+        "aviation": 204,
         "reload": 48,
         "accuracy": 25,
         "evasion": 9,
@@ -213819,11 +213825,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1087,
+        "health": 2677,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 60,
-        "aviation": 77,
+        "antiair": 148,
+        "aviation": 192,
         "reload": 43,
         "accuracy": 37,
         "evasion": 13,
@@ -214078,17 +214084,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 359,
-        "firepower": 13,
-        "torpedo": 101,
-        "antiair": 30,
+        "health": 884,
+        "firepower": 32,
+        "torpedo": 252,
+        "antiair": 74,
         "aviation": 0,
         "reload": 82,
         "accuracy": 71,
         "evasion": 71,
         "speed": 42.6,
         "luck": 93,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 10221,
@@ -214301,7 +214307,7 @@ const SHIPS_DATA = [
           1
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 0.7
       },
       "3": {
@@ -215227,17 +215233,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1029,
+        "health": 2534,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 51,
-        "aviation": 82,
+        "antiair": 126,
+        "aviation": 203,
         "reload": 67,
         "accuracy": 29,
         "evasion": 17,
         "speed": 21,
         "luck": 26,
-        "asw": 25
+        "asw": 63
       },
       "growth": {
         "health": 29306,
@@ -215811,17 +215817,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 496,
-        "firepower": 27,
-        "torpedo": 54,
-        "antiair": 57,
+        "health": 1222,
+        "firepower": 67,
+        "torpedo": 135,
+        "antiair": 141,
         "aviation": 0,
         "reload": 67,
         "accuracy": 50,
         "evasion": 31,
         "speed": 36,
         "luck": 40,
-        "asw": 34
+        "asw": 85
       },
       "growth": {
         "health": 12710,
@@ -216083,17 +216089,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 369,
-        "firepower": 24,
-        "torpedo": 51,
-        "antiair": 58,
+        "health": 910,
+        "firepower": 60,
+        "torpedo": 127,
+        "antiair": 143,
         "aviation": 0,
         "reload": 67,
         "accuracy": 48,
         "evasion": 31,
         "speed": 35.5,
         "luck": 53,
-        "asw": 20
+        "asw": 50
       },
       "growth": {
         "health": 9616,
@@ -216484,17 +216490,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 295,
-        "firepower": 13,
-        "torpedo": 105,
-        "antiair": 29,
+        "health": 726,
+        "firepower": 32,
+        "torpedo": 261,
+        "antiair": 72,
         "aviation": 0,
         "reload": 83,
         "accuracy": 70,
         "evasion": 71,
         "speed": 40.8,
         "luck": 32,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 8397,
@@ -216799,7 +216805,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 1,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.55
       },
       "3": {
@@ -217125,17 +217131,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 261,
-        "firepower": 11,
-        "torpedo": 92,
-        "antiair": 27,
+        "health": 643,
+        "firepower": 27,
+        "torpedo": 229,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 66,
         "evasion": 72,
         "speed": 44.7,
         "luck": 32,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 7439,
@@ -217708,17 +217714,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 334,
-        "firepower": 12,
-        "torpedo": 86,
-        "antiair": 29,
+        "health": 822,
+        "firepower": 30,
+        "torpedo": 214,
+        "antiair": 71,
         "aviation": 0,
         "reload": 76,
         "accuracy": 63,
         "evasion": 55,
         "speed": 41,
         "luck": 40,
-        "asw": 48
+        "asw": 120
       },
       "growth": {
         "health": 9370,
@@ -218008,17 +218014,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 334,
-        "firepower": 16,
-        "torpedo": 83,
-        "antiair": 29,
+        "health": 822,
+        "firepower": 39,
+        "torpedo": 206,
+        "antiair": 71,
         "aviation": 0,
         "reload": 76,
         "accuracy": 64,
         "evasion": 55,
         "speed": 43.2,
         "luck": 44,
-        "asw": 48
+        "asw": 120
       },
       "growth": {
         "health": 9370,
@@ -218242,17 +218248,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 327,
-        "firepower": 14,
-        "torpedo": 86,
-        "antiair": 29,
+        "health": 806,
+        "firepower": 35,
+        "torpedo": 214,
+        "antiair": 71,
         "aviation": 0,
         "reload": 78,
         "accuracy": 68,
         "evasion": 55,
         "speed": 43.2,
         "luck": 38,
-        "asw": 48
+        "asw": 120
       },
       "growth": {
         "health": 9192,
@@ -218454,17 +218460,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 323,
-        "firepower": 13,
-        "torpedo": 88,
-        "antiair": 29,
+        "health": 795,
+        "firepower": 32,
+        "torpedo": 219,
+        "antiair": 71,
         "aviation": 0,
         "reload": 78,
         "accuracy": 70,
         "evasion": 55,
         "speed": 43.2,
         "luck": 36,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9061,
@@ -218682,17 +218688,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 327,
-        "firepower": 15,
-        "torpedo": 86,
-        "antiair": 33,
+        "health": 806,
+        "firepower": 37,
+        "torpedo": 214,
+        "antiair": 81,
         "aviation": 0,
         "reload": 77,
         "accuracy": 68,
         "evasion": 59,
         "speed": 43.2,
         "luck": 36,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9192,
@@ -219399,17 +219405,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 335,
-        "firepower": 13,
-        "torpedo": 87,
-        "antiair": 28,
+        "health": 825,
+        "firepower": 32,
+        "torpedo": 217,
+        "antiair": 69,
         "aviation": 0,
         "reload": 78,
         "accuracy": 69,
         "evasion": 55,
         "speed": 43.2,
         "luck": 51,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9405,
@@ -219622,17 +219628,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 330,
-        "firepower": 13,
-        "torpedo": 84,
-        "antiair": 28,
+        "health": 814,
+        "firepower": 32,
+        "torpedo": 209,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 55,
         "speed": 43.2,
         "luck": 38,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9278,
@@ -219860,17 +219866,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 330,
-        "firepower": 13,
-        "torpedo": 84,
-        "antiair": 28,
+        "health": 814,
+        "firepower": 32,
+        "torpedo": 209,
+        "antiair": 69,
         "aviation": 0,
         "reload": 74,
         "accuracy": 67,
         "evasion": 55,
         "speed": 43.2,
         "luck": 39,
-        "asw": 47
+        "asw": 117
       },
       "growth": {
         "health": 9278,
@@ -220096,17 +220102,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 324,
-        "firepower": 12,
-        "torpedo": 83,
-        "antiair": 27,
+        "health": 798,
+        "firepower": 30,
+        "torpedo": 206,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 55,
         "speed": 43.2,
         "luck": 71,
-        "asw": 46
+        "asw": 115
       },
       "growth": {
         "health": 9100,
@@ -220273,17 +220279,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 324,
-        "firepower": 12,
-        "torpedo": 83,
-        "antiair": 27,
+        "health": 798,
+        "firepower": 30,
+        "torpedo": 206,
+        "antiair": 67,
         "aviation": 0,
         "reload": 72,
         "accuracy": 67,
         "evasion": 55,
         "speed": 43.2,
         "luck": 42,
-        "asw": 47
+        "asw": 116
       },
       "growth": {
         "health": 9100,
@@ -220459,17 +220465,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 345,
-        "firepower": 22,
-        "torpedo": 61,
-        "antiair": 28,
+        "health": 851,
+        "firepower": 55,
+        "torpedo": 152,
+        "antiair": 69,
         "aviation": 0,
         "reload": 73,
         "accuracy": 64,
         "evasion": 58,
         "speed": 42,
         "luck": 65,
-        "asw": 49
+        "asw": 123
       },
       "growth": {
         "health": 9700,
@@ -220805,17 +220811,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 345,
-        "firepower": 22,
-        "torpedo": 61,
-        "antiair": 28,
+        "health": 851,
+        "firepower": 55,
+        "torpedo": 152,
+        "antiair": 69,
         "aviation": 0,
         "reload": 73,
         "accuracy": 64,
         "evasion": 58,
         "speed": 43.2,
         "luck": 56,
-        "asw": 49
+        "asw": 123
       },
       "growth": {
         "health": 9700,
@@ -221075,17 +221081,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 344,
-        "firepower": 22,
-        "torpedo": 61,
-        "antiair": 29,
+        "health": 847,
+        "firepower": 55,
+        "torpedo": 152,
+        "antiair": 71,
         "aviation": 0,
         "reload": 70,
         "accuracy": 62,
         "evasion": 58,
         "speed": 43.2,
         "luck": 72,
-        "asw": 49
+        "asw": 123
       },
       "growth": {
         "health": 9658,
@@ -221270,17 +221276,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 344,
-        "firepower": 22,
-        "torpedo": 61,
-        "antiair": 29,
+        "health": 847,
+        "firepower": 55,
+        "torpedo": 152,
+        "antiair": 71,
         "aviation": 0,
         "reload": 70,
         "accuracy": 62,
         "evasion": 58,
         "speed": 43.2,
         "luck": 43,
-        "asw": 49
+        "asw": 123
       },
       "growth": {
         "health": 9658,
@@ -221483,17 +221489,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 345,
-        "firepower": 14,
-        "torpedo": 81,
-        "antiair": 27,
+        "health": 850,
+        "firepower": 35,
+        "torpedo": 201,
+        "antiair": 66,
         "aviation": 0,
         "reload": 76,
         "accuracy": 61,
         "evasion": 58,
         "speed": 43.2,
         "luck": 45,
-        "asw": 48
+        "asw": 120
       },
       "growth": {
         "health": 9693,
@@ -221744,17 +221750,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 340,
-        "firepower": 15,
-        "torpedo": 84,
-        "antiair": 34,
+        "health": 838,
+        "firepower": 37,
+        "torpedo": 209,
+        "antiair": 84,
         "aviation": 0,
         "reload": 74,
         "accuracy": 66,
         "evasion": 59,
         "speed": 43.2,
         "luck": 35,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9550,
@@ -222000,17 +222006,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 340,
-        "firepower": 15,
-        "torpedo": 84,
-        "antiair": 33,
+        "health": 838,
+        "firepower": 38,
+        "torpedo": 208,
+        "antiair": 82,
         "aviation": 0,
         "reload": 77,
         "accuracy": 68,
         "evasion": 59,
         "speed": 43.2,
         "luck": 36,
-        "asw": 49
+        "asw": 122
       },
       "growth": {
         "health": 9550,
@@ -222196,17 +222202,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 340,
-        "firepower": 16,
-        "torpedo": 84,
-        "antiair": 34,
+        "health": 838,
+        "firepower": 39,
+        "torpedo": 209,
+        "antiair": 84,
         "aviation": 0,
         "reload": 77,
         "accuracy": 68,
         "evasion": 59,
         "speed": 43.2,
         "luck": 36,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9550,
@@ -222377,7 +222383,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.2
       },
       "3": {
@@ -222415,17 +222421,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 433,
-        "firepower": 17,
-        "torpedo": 87,
-        "antiair": 48,
+        "health": 1066,
+        "firepower": 42,
+        "torpedo": 216,
+        "antiair": 118,
         "aviation": 0,
         "reload": 78,
         "accuracy": 66,
         "evasion": 56,
         "speed": 43.2,
         "luck": 63,
-        "asw": 52
+        "asw": 129
       },
       "growth": {
         "health": 11619,
@@ -222737,17 +222743,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 433,
-        "firepower": 17,
-        "torpedo": 86,
-        "antiair": 48,
+        "health": 1066,
+        "firepower": 43,
+        "torpedo": 214,
+        "antiair": 118,
         "aviation": 0,
         "reload": 80,
         "accuracy": 65,
         "evasion": 56,
         "speed": 43.2,
         "luck": 50,
-        "asw": 54
+        "asw": 134
       },
       "growth": {
         "health": 11619,
@@ -223005,17 +223011,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 454,
-        "firepower": 22,
-        "torpedo": 94,
-        "antiair": 50,
+        "health": 1118,
+        "firepower": 55,
+        "torpedo": 233,
+        "antiair": 124,
         "aviation": 0,
         "reload": 84,
         "accuracy": 68,
         "evasion": 75,
         "speed": 43.2,
         "luck": 50,
-        "asw": 61
+        "asw": 151
       },
       "growth": {
         "health": 12739,
@@ -223351,10 +223357,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 853,
-        "firepower": 47,
+        "health": 2102,
+        "firepower": 116,
         "torpedo": 0,
-        "antiair": 43,
+        "antiair": 106,
         "aviation": 0,
         "reload": 67,
         "accuracy": 39,
@@ -223576,11 +223582,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1228,
-        "firepower": 32,
+        "health": 3025,
+        "firepower": 80,
         "torpedo": 0,
-        "antiair": 58,
-        "aviation": 71,
+        "antiair": 143,
+        "aviation": 177,
         "reload": 41,
         "accuracy": 29,
         "evasion": 16,
@@ -223822,17 +223828,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 763,
+        "health": 1879,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 49,
-        "aviation": 58,
+        "antiair": 122,
+        "aviation": 144,
         "reload": 72,
         "accuracy": 28,
         "evasion": 19,
         "speed": 28,
         "luck": 55,
-        "asw": 22
+        "asw": 54
       },
       "growth": {
         "health": 20793,
@@ -224012,11 +224018,11 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1231,
+        "health": 3033,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 61,
-        "aviation": 79,
+        "antiair": 151,
+        "aviation": 197,
         "reload": 44,
         "accuracy": 30,
         "evasion": 14,

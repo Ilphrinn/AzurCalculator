@@ -3053,11 +3053,11 @@ const SURVIVAL_BASE = { health: 0.5, evasion: 0.4 };
 const OPTIMIZE_TARGETS = {
   auto: { label: "Recommended", weights: null },
   survival: { label: "Survivability", weights: { health: 1, evasion: 1, antiair: 0.3 } },
-  firepower: { label: "Firepower", weights: { firepower: 1, accuracy: 0.7, antiair: 0.3, ...SURVIVAL_BASE } },
-  torpedo: { label: "Torpedo", weights: { torpedo: 1, antiair: 0.3, ...SURVIVAL_BASE } },
-  aviation: { label: "Aviation", weights: { aviation: 1, accuracy: 0.4, antiair: 0.3, ...SURVIVAL_BASE } },
-  antiair: { label: "Anti-Air", weights: { antiair: 1, ...SURVIVAL_BASE } },
-  asw: { label: "Anti-Sub", weights: { asw: 1, health: 0.4, evasion: 0.3 } },
+  firepower: { label: "Firepower", weights: { firepower: 1, accuracy: 0.7, antiair: 0.3, ...SURVIVAL_BASE }, metric: "dps" },
+  torpedo: { label: "Torpedo", weights: { torpedo: 1, antiair: 0.3, ...SURVIVAL_BASE }, metric: "dps" },
+  aviation: { label: "Aviation", weights: { aviation: 1, accuracy: 0.4, antiair: 0.3, ...SURVIVAL_BASE }, metric: "dps" },
+  antiair: { label: "Anti-Air", weights: { antiair: 1, ...SURVIVAL_BASE }, metric: "dpsAA" },
+  asw: { label: "Anti-Sub", weights: { asw: 1, health: 0.4, evasion: 0.3 }, metric: "dpsASW" },
   // Carrier-only: her aviation-stat slots can hold Fighter/Seaplane, Dive Bomber or
   // Torpedo Bomber families that a single "aviation" weight cannot tell apart, since
   // all three scale off the same stat. Dispatched by pickCarrierAircraft, not weights.
@@ -3566,6 +3566,9 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
         if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
           if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
         }
+        // Weapon scores of different metrics share no scale, so a slot taking two kinds
+        // (Hindenburg's AA or CA gun) keeps the goal's own kind first.
+        if (targetDef.metric && (weaponRole(item) || {}).metric !== targetDef.metric) score *= 0.01;
         // BB/BC/BM/BBV: a proc barrage wants more rolls of the dice (a faster reload),
         // a timer barrage fires regardless of reload so only the hit's own size
         // matters and the ordinary damage-based score already rewards that.

@@ -6105,3 +6105,40 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   (3382 before the max limit break fix, which had its 4 planes but not its 145/150%). Eldridge's
   AA drops 6%, Optimize now favouring her 140% gun. Specialties regenerated, `npm run check`
   passes.
+
+## Stats, slot types and preload at max limit break (2026-11-01)
+
+Third pass on the LB0 import found in "Slot mounts and efficiency at max limit break".
+
+- **Base stats and growth**: 677 ships had the game's LB0 `attrs` (Alabama 1303 HP instead of
+  3210; the template attrs rise with each limit break). `stats.base` and `stats.growth` now come
+  from the max template (`ship_data_statistics`, `gid*10+4`), for every ship the EN data covers.
+  Checked against the saved "List of Ships by Stats" page at level 125 (which assumes 100
+  affinity, +6% on all but Speed and Luck, then adds the retrofit bonus): 817 ships within 2
+  points, 99 of 108 retrofit rows too. Known differences: research ships' Luck (wiki 0, game
+  15-25, unchanged), sailing ships' Speed (wiki shows LB0; each limit break gives "SPD +8").
+  The app applies no affinity; the 27 `statsCurve` ships, read off the wiki, include it.
+- **Not fixed**: 10 ships newer than the AzurLaneData snapshot (Elbe META, Götz von
+  Berlichingen, Z14, Z15, U-2501, Prinz Moritz, Musashi-chan, Unzen-chan, Bristol META,
+  Königsberg META) keep their stats: their wiki rows fit no base value with our growth, so the
+  growth differs too. Retrofits that switch template (Ise, Hyuuga, Fusou, Yamashiro, Mogami,
+  Belfast, Warspite's ASW, Glowworm/Shiratsuyu Speed) still compute as base + `retrofitBonus`;
+  the 9xxxxx templates sharing their names are other variants and do not reproduce the wiki.
+- **Slot types**: 6 slots lacked a type unlocked at MLB or a development level ("Torpedoes /
+  Anti-Air Guns (MLB)"): De Zeven Provinciën 2, Hakuryuu 1 and 3, Halford 3, Hindenburg 3,
+  Seattle 2. Appended after the existing code so the slot keeps its name. The game templates and
+  every "(MLB)", "(Dev.N)", "(LBn)" note on the wiki pages agree that no other slot misses one.
+  Retrofit slots keep the retrofit's types (see "Retrofit slots").
+- **Preload**: 92 ships had LB0 (or mid limit break) `preload`; now the max template's. Display
+  only (slot tooltip).
+- **Optimize, mixed slots**: weapon scores of different metrics share no scale, so a slot taking
+  a surface gun or an AA gun always got the gun, even on the Anti-Air goal (Hindenburg's new
+  slot 3 failed `npm run check`). Single-metric goals now carry `metric`, and a weapon of another
+  metric scores x0.01. Over every ship and goal (UR, lv125) 11 loadouts change, all in mixed
+  slots, including two older cases: Elbing and Fritz Rumey took an AA gun on the Firepower goal.
+  Recommended is unchanged.
+- **Measured** (lv125, Recommended, UR, reference boss) against f600d59: medians DPS BB 1409 ->
+  1618, CV 1601 -> 1738, DD 1234 -> 1376; eHP BB 7338 -> 9189, DD 5043 -> 5952. De Zeven
+  Provinciën trades torpedo DPS for AA on her new slot (AA 1295 -> 2739); Hakuryuu's slot 3 now
+  takes a dive bomber (DPS -4%, air power +3%) under the existing rule that keeps torpedo bombers
+  for ships with a slowing skill. Specialties regenerated, `npm run check` passes.
