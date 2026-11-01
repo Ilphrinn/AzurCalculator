@@ -1265,9 +1265,11 @@ function computeStats(ship, level, isRetrofit) {
   }
 
   if (!ship.stats || !ship.stats.base) return null;
-  const base = ship.stats.base;
-  const growth = ship.stats.growth || {};
-  const enhance = ship.stats.enhance || {};
+  // A retrofit that swaps the ship's template (Ise into an aviation battleship) brings its own stats.
+  const stats = (isRetrofit && ship.retrofitStats) || ship.stats;
+  const base = stats.base;
+  const growth = stats.growth || {};
+  const enhance = stats.enhance || {};
   const bonus = (isRetrofit && ship.retrofitBonus) || {};
   const lvl = Math.max(level - 1, 1);
 

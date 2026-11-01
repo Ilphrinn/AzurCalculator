@@ -181,6 +181,8 @@ hasRetrofit, equipment, augmentModules`.
 - `stats: {base, growth, enhance}` — level-scaled via `computeStats()` in app.js:
   `base + growth*max(level-1,1)/1000 + enhance + retrofitBonus`. `statsCurve` ships use
   linear interpolation instead (`interpolateStatsCurve`).
+- `retrofitStats` (6 ships, optional): `{base, growth, enhance}` used instead of `stats` once
+  retrofitted, see "Retrofit templates".
 - `skill.marker`: `"R"` (Retrofit), `"Aug"` (Unique Augment), `"FS"` (Fate Simulation,
   Research-ship-only). A marked skill always sits **immediately after** the base skill it
   replaces in the array — that adjacency (not name matching) is how they're paired, since
@@ -6127,6 +6129,7 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   growth differs too. Retrofits that switch template (Ise, Hyuuga, Fusou, Yamashiro, Mogami,
   Belfast, Warspite's ASW, Glowworm/Shiratsuyu Speed) still compute as base + `retrofitBonus`;
   the 9xxxxx templates sharing their names are other variants and do not reproduce the wiki.
+  Fixed the same day for six of them, see "Retrofit templates" below.
 - **Slot types**: 6 slots lacked a type unlocked at MLB or a development level ("Torpedoes /
   Anti-Air Guns (MLB)"): De Zeven Provinciën 2, Hakuryuu 1 and 3, Halford 3, Hindenburg 3,
   Seattle 2. Appended after the existing code so the slot keeps its name. The game templates and
@@ -6145,3 +6148,19 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Provinciën trades torpedo DPS for AA on her new slot (AA 1295 -> 2739); Hakuryuu's slot 3 now
   takes a dive bomber (DPS -4%, air power +3%) under the existing rule that keeps torpedo bombers
   for ships with a slowing skill. Specialties regenerated, `npm run check` passes.
+
+## Retrofit templates (2026-11-01)
+
+- A retrofit node can swap the ship's template: `transform_data_template` "Modernization" has
+  `ship_id: [[305034, 310034]]` for Ise (her aviation-battleship form). Linked through
+  `ship_data_trans` (by group), 33 retrofits do it; for 27 the new template has the same stats.
+- `ship.retrofitStats` (`{base, growth, enhance}`, enhance from the new group's
+  `ship_data_strengthen` `durability`: FP, TRP, AA, AVI, RLD) replaces `ship.stats` in
+  `computeStats` when the retrofit is applied. Written only where it makes the level 125 row match
+  the wiki: Ise, Hyuuga, Fusou, Yamashiro (AVI 15 -> 278, FP 442 -> 394), Mogami, Warspite (ASW 0
+  -> 99). Independence also swaps template but her new group's enhancement would break an exact
+  match, so she keeps `stats`.
+- Retrofit rows now within a point of the wiki: 103 of 108. Left: Belfast (retrofit newer than
+  the AzurLaneData snapshot), Glowworm/Shiratsuyu/Nachi Speed by 2-3, Karlsruhe ASW by 2.
+- Measured (lv125, Recommended, UR, reference boss): Ise 1348 -> 1234 DPS, Hyuuga 2086 -> 1926,
+  Fusou/Yamashiro -8%, AA +13-17%; Mogami 1205 -> 1246, eHP +6%. `npm run check` passes.

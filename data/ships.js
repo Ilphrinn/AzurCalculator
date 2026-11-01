@@ -64066,7 +64066,40 @@ const SHIPS_DATA = [
       "Shichi-Go-San Exorcism Bells",
       "Bowgun",
       "Officer's Sword"
-    ]
+    ],
+    "retrofitStats": {
+      "base": {
+        "health": 2816,
+        "firepower": 152,
+        "torpedo": 0,
+        "antiair": 134,
+        "aviation": 72,
+        "reload": 46,
+        "accuracy": 24,
+        "evasion": 5,
+        "speed": 23,
+        "luck": 13,
+        "asw": 0
+      },
+      "growth": {
+        "health": 31170,
+        "firepower": 806,
+        "torpedo": 0,
+        "antiair": 1163,
+        "aviation": 403,
+        "reload": 322,
+        "accuracy": 417,
+        "evasion": 210,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 73,
+        "aviation": 29,
+        "reload": 38
+      }
+    }
   },
   {
     "id": 30005,
@@ -88933,7 +88966,40 @@ const SHIPS_DATA = [
     "augmentModules": [
       "Bowgun",
       "Officer's Sword"
-    ]
+    ],
+    "retrofitStats": {
+      "base": {
+        "health": 2909,
+        "firepower": 157,
+        "torpedo": 0,
+        "antiair": 136,
+        "aviation": 119,
+        "reload": 47,
+        "accuracy": 26,
+        "evasion": 5,
+        "speed": 23,
+        "luck": 60,
+        "asw": 0
+      },
+      "growth": {
+        "health": 32183,
+        "firepower": 826,
+        "torpedo": 0,
+        "antiair": 1187,
+        "aviation": 660,
+        "reload": 329,
+        "accuracy": 435,
+        "evasion": 210,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 75,
+        "aviation": 48,
+        "reload": 39
+      }
+    }
   },
   {
     "id": 381,
@@ -95183,7 +95249,40 @@ const SHIPS_DATA = [
     "augmentModules": [
       "Bowgun",
       "Officer's Sword"
-    ]
+    ],
+    "retrofitStats": {
+      "base": {
+        "health": 2909,
+        "firepower": 157,
+        "torpedo": 0,
+        "antiair": 136,
+        "aviation": 119,
+        "reload": 47,
+        "accuracy": 26,
+        "evasion": 5,
+        "speed": 23,
+        "luck": 60,
+        "asw": 0
+      },
+      "growth": {
+        "health": 32183,
+        "firepower": 826,
+        "torpedo": 0,
+        "antiair": 1187,
+        "aviation": 660,
+        "reload": 329,
+        "accuracy": 435,
+        "evasion": 210,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 75,
+        "aviation": 48,
+        "reload": 39
+      }
+    }
   },
   {
     "id": 10132,
@@ -136104,7 +136203,40 @@ const SHIPS_DATA = [
       "Sister's Care Package",
       "Crossbow",
       "Sword"
-    ]
+    ],
+    "retrofitStats": {
+      "base": {
+        "health": 1840,
+        "firepower": 105,
+        "torpedo": 89,
+        "antiair": 89,
+        "aviation": 0,
+        "reload": 66,
+        "accuracy": 44,
+        "evasion": 13,
+        "speed": 28.4,
+        "luck": 14,
+        "asw": 0
+      },
+      "growth": {
+        "health": 18976,
+        "firepower": 585,
+        "torpedo": 492,
+        "antiair": 785,
+        "aviation": 0,
+        "reload": 462,
+        "accuracy": 654,
+        "evasion": 528,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 37,
+        "torpedo": 34,
+        "reload": 52
+      }
+    }
   },
   {
     "id": 10113,
@@ -207638,7 +207770,39 @@ const SHIPS_DATA = [
       "Old Lady's Royal Sword",
       "Bowgun",
       "Officer's Sword"
-    ]
+    ],
+    "retrofitStats": {
+      "base": {
+        "health": 3197,
+        "firepower": 209,
+        "torpedo": 0,
+        "antiair": 101,
+        "aviation": 0,
+        "reload": 58,
+        "accuracy": 24,
+        "evasion": 6,
+        "speed": 24,
+        "luck": 90,
+        "asw": 58
+      },
+      "growth": {
+        "health": 34842,
+        "firepower": 925,
+        "torpedo": 0,
+        "antiair": 896,
+        "aviation": 0,
+        "reload": 406,
+        "accuracy": 400,
+        "evasion": 217,
+        "speed": 0,
+        "luck": 0,
+        "asw": 288
+      },
+      "enhance": {
+        "firepower": 83,
+        "reload": 44
+      }
+    }
   },
   {
     "id": 64,
@@ -210789,7 +210953,40 @@ const SHIPS_DATA = [
     "augmentModules": [
       "Bowgun",
       "Officer's Sword"
-    ]
+    ],
+    "retrofitStats": {
+      "base": {
+        "health": 2976,
+        "firepower": 152,
+        "torpedo": 0,
+        "antiair": 134,
+        "aviation": 72,
+        "reload": 46,
+        "accuracy": 24,
+        "evasion": 5,
+        "speed": 23,
+        "luck": 14,
+        "asw": 0
+      },
+      "growth": {
+        "health": 32926,
+        "firepower": 806,
+        "torpedo": 0,
+        "antiair": 1163,
+        "aviation": 403,
+        "reload": 322,
+        "accuracy": 417,
+        "evasion": 210,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 73,
+        "aviation": 29,
+        "reload": 38
+      }
+    }
   },
   {
     "id": 30010,
