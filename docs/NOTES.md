@@ -6058,3 +6058,29 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   in two diagonals over 6 lanes 5 units apart (z -12.5..12.5, barrage_template 82220-82223), while
   Independence's 3 span 12 units (80534); against one boss only the central lanes connect, so
   wide patterns are overrated. Needs boss hitbox widths and the pattern geometry from the game.
+
+## Slot mounts and efficiency at max limit break (2026-11-01)
+
+- **Found** while checking Chihaya Kisaragi's low aircraft DPS: her slots were 1/1/1 planes at
+  110/120/110%, the game's LB0 template, where the wiki and the game's max template give 2/3/3 at
+  110/120/140%. The Fernando2603 import took LB0 values (or an intermediate limit break) for 225
+  ships without retrofit: Princeton 1/1 planes instead of 3/3, Friedrich der Grosse, Sovetsky
+  Soyuz, Kansas and most research BBs one main gun turret instead of 3, many DDs one torpedo mount
+  instead of 2.
+- **Fix** (one-off, data only): slots 1-3 `mount` and `efficiency` set to the saved wiki page's
+  "Max #" and the middle "Efficiency" value (max limit break; research ships include their
+  development bonuses, +10-15% over the game's max template). Each page is tied to the ship by
+  the game's efficiencies for its `gid` (AzurLaneData `EN/sharecfgdata/ship_data_statistics.json`,
+  templates `gid*10+1..4`), which separates name twins (the CV and CL Enterprise, Little
+  Enterprise). Where the wiki shows "N/A" the game's max template is used. The game's `base_list`
+  is not used for mounts: it leaves out most "Main gun base +1" limit breaks (Alabama 1 turret).
+  Lion and Alsace go from 4 main gun mounts to the wiki's 3.
+- **Retrofit ships left as they were** (108): their stored values mix LB0, max and retrofit
+  (Independence has the retrofit's 4 planes but the unretrofitted efficiency; Cassin, Downes,
+  York, Portland LB0). The app never applies a retrofit to slots (`retrofitBonus`
+  `equipment_proficiency_N` is read nowhere) and some retrofits change a slot's type (An Shan's
+  torpedoes become missiles), so this needs per-slot retrofit values chosen by `retrofitApplied`.
+- **Measured** (lv125, Recommended, UR, reference boss): 221 ships change. Chihaya 3572 -> 4460,
+  Princeton 249 -> 834, Friedrich der Grosse 1287 -> 3305, Sovetsky Soyuz 601 -> 2254. Medians:
+  BB 1245 -> 1409, BC 1138 -> 1380, SS 1331 -> 1552, CV 1471 -> 1601. Specialties regenerated.
+  `npm run check` passes.

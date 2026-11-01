@@ -3238,9 +3238,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.2
       },
       "2": {
         "default": 100,
@@ -3248,9 +3248,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1.15
       },
       "3": {
         "default": 100,
@@ -3971,9 +3971,9 @@ const SHIPS_DATA = [
           3,
           11
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.2
       },
       "2": {
         "default": 100,
@@ -3983,7 +3983,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "3": {
         "default": 104,
@@ -4674,9 +4674,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.13
+        "efficiency": 1.25
       },
       "2": {
         "default": 119,
@@ -4684,9 +4684,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.13
+        "efficiency": 1.25
       },
       "3": {
         "default": 118,
@@ -4694,9 +4694,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.13
+        "efficiency": 1.25
       },
       "4": {
         "default": null,
@@ -5098,9 +5098,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -5109,7 +5109,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -7170,7 +7170,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "2": {
         "default": 106,
@@ -7178,9 +7178,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -7190,7 +7190,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -8239,7 +8239,7 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 4,
+        "mount": 3,
         "preload": 1,
         "efficiency": 1.45
       },
@@ -8508,9 +8508,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.4
       },
       "2": {
         "default": 101,
@@ -8519,7 +8519,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -9767,9 +9767,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -9777,9 +9777,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "3": {
         "default": 100,
@@ -10831,9 +10831,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1.25
       },
       "2": {
         "default": 101,
@@ -10842,7 +10842,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.5
       },
@@ -11063,9 +11063,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -11362,9 +11362,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.1
       },
       "2": {
         "default": 119,
@@ -11372,9 +11372,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "3": {
         "default": 118,
@@ -11382,9 +11382,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "4": {
         "default": null,
@@ -11947,7 +11947,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 107,
@@ -11955,9 +11955,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -11967,7 +11967,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -13227,9 +13227,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -13416,9 +13416,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -14249,9 +14249,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 101,
@@ -14260,7 +14260,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -16996,9 +16996,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -17008,7 +17008,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -17018,7 +17018,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "4": {
         "default": null,
@@ -17261,9 +17261,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.4
       },
       "2": {
         "default": 119,
@@ -17271,9 +17271,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.1
       },
       "3": {
         "default": 118,
@@ -17281,9 +17281,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "4": {
         "default": null,
@@ -18971,9 +18971,9 @@ const SHIPS_DATA = [
           3,
           11
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 1
       },
       "2": {
         "default": 100,
@@ -18983,7 +18983,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.5
+        "efficiency": 0.6
       },
       "3": {
         "default": 104,
@@ -19628,9 +19628,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.2
       },
       "2": {
         "default": 100,
@@ -19640,7 +19640,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.6
+        "efficiency": 0.65
       },
       "3": {
         "default": 104,
@@ -19650,7 +19650,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "4": {
         "default": null,
@@ -21207,9 +21207,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 106,
@@ -21217,9 +21217,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -24374,9 +24374,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.55
       },
       "2": {
         "default": 101,
@@ -24385,7 +24385,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -24761,7 +24761,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -24769,9 +24769,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -25479,7 +25479,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 106,
@@ -25487,9 +25487,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -25499,7 +25499,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -26556,7 +26556,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 3,
+        "mount": 4,
         "preload": 0,
         "efficiency": 1.3
       },
@@ -26566,9 +26566,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 3,
+        "mount": 4,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -28607,9 +28607,9 @@ const SHIPS_DATA = [
           3,
           11
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1.1
       },
       "2": {
         "default": 100,
@@ -28619,7 +28619,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "3": {
         "default": 104,
@@ -29185,7 +29185,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "2": {
         "default": 108,
@@ -29193,9 +29193,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -29205,7 +29205,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.6
       },
       "4": {
         "default": null,
@@ -30118,9 +30118,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.28
+        "efficiency": 1.4
       },
       "2": {
         "default": 111,
@@ -30128,9 +30128,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.18
+        "efficiency": 1.3
       },
       "3": {
         "default": 110,
@@ -30138,9 +30138,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.03
+        "efficiency": 1.15
       },
       "4": {
         "default": null,
@@ -30621,9 +30621,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -30631,7 +30631,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -31023,7 +31023,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.45
+        "efficiency": 1.65
       },
       "2": {
         "default": 106,
@@ -31031,9 +31031,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -31043,7 +31043,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -32208,7 +32208,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.8
       },
       "2": {
         "default": 101,
@@ -32217,7 +32217,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -36654,7 +36654,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.1
       },
@@ -36664,7 +36664,7 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -36674,9 +36674,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.4
       },
       "4": {
         "default": null,
@@ -37115,7 +37115,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -37125,7 +37125,7 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.25
       },
@@ -37135,9 +37135,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -37625,9 +37625,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 119,
@@ -37635,9 +37635,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -37856,7 +37856,7 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -37866,7 +37866,7 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -37876,9 +37876,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 4,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.55
       },
       "4": {
         "default": null,
@@ -38844,9 +38844,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.6
       },
       "2": {
         "default": 101,
@@ -38855,7 +38855,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -41518,9 +41518,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -41528,7 +41528,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -43701,9 +43701,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.4
       },
       "2": {
         "default": 101,
@@ -43712,7 +43712,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2.1
       },
@@ -45589,7 +45589,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.25
       },
       "2": {
         "default": 107,
@@ -45597,9 +45597,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -45609,7 +45609,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -46182,7 +46182,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -46190,9 +46190,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -46464,9 +46464,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 106,
@@ -46474,9 +46474,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -48050,7 +48050,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "2": {
         "default": 106,
@@ -48058,9 +48058,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.6
       },
       "3": {
         "default": 104,
@@ -48651,7 +48651,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.45
+        "efficiency": 1.5
       },
       "2": {
         "default": 106,
@@ -48661,7 +48661,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -48671,7 +48671,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -49421,9 +49421,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.7
       },
       "2": {
         "default": 101,
@@ -49431,7 +49431,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.5
       },
@@ -49749,9 +49749,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.7
       },
       "2": {
         "default": 101,
@@ -49759,7 +49759,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.8
       },
@@ -49953,7 +49953,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "2": {
         "default": 106,
@@ -49961,9 +49961,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -50195,7 +50195,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "2": {
         "default": 106,
@@ -50203,9 +50203,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -50629,7 +50629,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "2": {
         "default": 107,
@@ -50639,7 +50639,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -50649,7 +50649,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -52016,9 +52016,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1.1
       },
       "2": {
         "default": 100,
@@ -52028,7 +52028,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.5
+        "efficiency": 0.55
       },
       "3": {
         "default": 104,
@@ -52038,7 +52038,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "4": {
         "default": null,
@@ -52432,7 +52432,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "2": {
         "default": 105,
@@ -52440,9 +52440,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -52452,7 +52452,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 0.85
       },
       "4": {
         "default": null,
@@ -53660,7 +53660,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -53668,9 +53668,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.15
       },
       "3": {
         "default": 104,
@@ -53680,7 +53680,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -54319,7 +54319,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "2": {
         "default": 107,
@@ -54329,7 +54329,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 1,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -54339,7 +54339,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -54875,7 +54875,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -54883,9 +54883,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -54895,7 +54895,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -56250,7 +56250,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.6
+        "efficiency": 1.7
       },
       "2": {
         "default": 107,
@@ -56258,9 +56258,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -56270,7 +56270,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.85
       },
       "4": {
         "default": null,
@@ -56846,9 +56846,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.45
       },
       "2": {
         "default": 101,
@@ -56857,7 +56857,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -57600,7 +57600,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -57608,9 +57608,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.15
       },
       "3": {
         "default": 104,
@@ -57620,7 +57620,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -57818,7 +57818,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "2": {
         "default": 106,
@@ -57826,9 +57826,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -59446,7 +59446,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -59454,9 +59454,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -59466,7 +59466,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -59875,9 +59875,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.4
       },
       "2": {
         "default": 101,
@@ -59886,7 +59886,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -60697,9 +60697,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.6
       },
       "2": {
         "default": 101,
@@ -60708,7 +60708,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2.2
       },
@@ -62329,9 +62329,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -62340,7 +62340,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -64477,9 +64477,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 1.1
       },
       "2": {
         "default": 101,
@@ -64488,7 +64488,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -64977,9 +64977,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 6,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 1.1
       },
       "2": {
         "default": 100,
@@ -64987,7 +64987,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.75
       },
@@ -64997,7 +64997,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.75
       },
@@ -65281,7 +65281,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.8
       },
       "2": {
         "default": 101,
@@ -65290,7 +65290,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -65901,9 +65901,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.7
       },
       "2": {
         "default": 101,
@@ -65912,7 +65912,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -66067,9 +66067,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.65
       },
       "2": {
         "default": 101,
@@ -66077,7 +66077,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -66465,7 +66465,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "2": {
         "default": 106,
@@ -66473,9 +66473,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -66485,7 +66485,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -67132,9 +67132,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.25
       },
       "2": {
         "default": 100,
@@ -67142,7 +67142,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.5
       },
@@ -67650,7 +67650,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -68321,7 +68321,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "2": {
         "default": 106,
@@ -68329,9 +68329,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -68997,9 +68997,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 101,
@@ -70123,9 +70123,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.6
       },
       "2": {
         "default": 101,
@@ -70134,7 +70134,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2.1
       },
@@ -70401,9 +70401,9 @@ const SHIPS_DATA = [
           3,
           11
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1.05
       },
       "2": {
         "default": 101,
@@ -70421,7 +70421,7 @@ const SHIPS_DATA = [
         "type": [
           6
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.75
       },
@@ -70946,7 +70946,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -70956,9 +70956,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "3": {
         "default": 111,
@@ -70966,9 +70966,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "4": {
         "default": null,
@@ -71563,7 +71563,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.35
       },
       "2": {
         "default": 107,
@@ -71571,9 +71571,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -71583,7 +71583,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -73329,9 +73329,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -74856,9 +74856,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.25
       },
       "2": {
         "default": 119,
@@ -74866,9 +74866,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 4,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.5
       },
       "3": {
         "default": 118,
@@ -74876,9 +74876,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -75258,7 +75258,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.4
       },
       "2": {
         "default": 108,
@@ -75268,7 +75268,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -75278,7 +75278,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -77583,7 +77583,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "2": {
         "default": 106,
@@ -77591,9 +77591,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.45
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -78360,7 +78360,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -78368,9 +78368,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.6
       },
       "3": {
         "default": 104,
@@ -78627,7 +78627,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 107,
@@ -78637,7 +78637,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -78647,7 +78647,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -78793,7 +78793,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "2": {
         "default": 107,
@@ -78801,9 +78801,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -78813,7 +78813,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -80675,7 +80675,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "2": {
         "default": 106,
@@ -81611,9 +81611,9 @@ const SHIPS_DATA = [
         "type": [
           6
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1
       },
       "3": {
         "default": 104,
@@ -81621,9 +81621,9 @@ const SHIPS_DATA = [
         "type": [
           6
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -82229,9 +82229,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -82676,9 +82676,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -82688,7 +82688,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "3": {
         "default": 104,
@@ -82698,7 +82698,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -83243,7 +83243,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.1
       },
@@ -83253,7 +83253,7 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.1
       },
@@ -83263,9 +83263,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.5
       },
       "4": {
         "default": null,
@@ -83497,9 +83497,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.88
+        "efficiency": 1
       },
       "2": {
         "default": 119,
@@ -83507,9 +83507,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.08
+        "efficiency": 1.2
       },
       "3": {
         "default": 118,
@@ -83519,7 +83519,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 0.98
+        "efficiency": 1.1
       },
       "4": {
         "default": null,
@@ -86715,9 +86715,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -87817,7 +87817,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.25
       },
       "2": {
         "default": 107,
@@ -87825,9 +87825,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -87837,7 +87837,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -88730,9 +88730,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "2": {
         "default": 140,
@@ -88740,9 +88740,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.15
       },
       "3": {
         "default": 100,
@@ -89228,9 +89228,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "2": {
         "default": 140,
@@ -89238,9 +89238,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.15
       },
       "3": {
         "default": 100,
@@ -89645,9 +89645,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "2": {
         "default": 140,
@@ -89655,9 +89655,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.15
       },
       "3": {
         "default": 100,
@@ -90418,7 +90418,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "2": {
         "default": 106,
@@ -90426,9 +90426,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.6
+        "efficiency": 1.85
       },
       "3": {
         "default": 104,
@@ -90779,7 +90779,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.2
       },
       "2": {
         "default": 108,
@@ -90787,9 +90787,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -90799,7 +90799,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -94367,9 +94367,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "2": {
         "default": 100,
@@ -95121,7 +95121,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 107,
@@ -95129,9 +95129,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -95141,7 +95141,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -95567,9 +95567,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.4
       },
       "2": {
         "default": 101,
@@ -95578,7 +95578,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2.1
       },
@@ -96285,7 +96285,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "2": {
         "default": 108,
@@ -96295,7 +96295,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.5
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -96305,7 +96305,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -96930,9 +96930,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.6
       },
       "2": {
         "default": 101,
@@ -96941,7 +96941,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -99410,9 +99410,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.88
+        "efficiency": 1
       },
       "2": {
         "default": 119,
@@ -99422,7 +99422,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 0.98
+        "efficiency": 1.1
       },
       "3": {
         "default": 118,
@@ -99430,9 +99430,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.08
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -100657,7 +100657,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "2": {
         "default": 106,
@@ -100665,9 +100665,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -101187,9 +101187,9 @@ const SHIPS_DATA = [
           3,
           11
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1.1
       },
       "2": {
         "default": 101,
@@ -101199,7 +101199,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.35
+        "efficiency": 0.45
       },
       "3": {
         "default": 104,
@@ -101817,9 +101817,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 4,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1.15
       },
       "2": {
         "default": 101,
@@ -101827,7 +101827,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -103358,7 +103358,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.75
+        "efficiency": 0.8
       },
       "2": {
         "default": 107,
@@ -103366,9 +103366,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -103378,7 +103378,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -104108,7 +104108,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 0.85
       },
       "2": {
         "default": 107,
@@ -104116,9 +104116,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -104128,7 +104128,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 0.85
       },
       "4": {
         "default": null,
@@ -104627,9 +104627,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -104638,7 +104638,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -104850,9 +104850,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.4
       },
       "2": {
         "default": 109,
@@ -104860,9 +104860,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 2,
+        "mount": 4,
         "preload": 0,
-        "efficiency": 1.8
+        "efficiency": 2
       },
       "3": {
         "default": 104,
@@ -105343,7 +105343,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.4
       },
       "2": {
         "default": 106,
@@ -105351,9 +105351,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -105363,7 +105363,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -106337,7 +106337,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "2": {
         "default": 108,
@@ -106345,9 +106345,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -106357,7 +106357,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -108399,9 +108399,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1.05
       },
       "2": {
         "default": 106,
@@ -108411,7 +108411,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -108421,7 +108421,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "4": {
         "default": null,
@@ -108720,7 +108720,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 107,
@@ -108728,9 +108728,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -108740,7 +108740,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -110106,7 +110106,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "2": {
         "default": 106,
@@ -110114,9 +110114,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.6
+        "efficiency": 1.7
       },
       "3": {
         "default": 104,
@@ -110126,7 +110126,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -111049,7 +111049,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "2": {
         "default": 106,
@@ -111057,9 +111057,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.6
+        "efficiency": 1.7
       },
       "3": {
         "default": 104,
@@ -111069,7 +111069,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -111315,9 +111315,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.45
       },
       "2": {
         "default": 101,
@@ -111326,7 +111326,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -111788,9 +111788,9 @@ const SHIPS_DATA = [
           3,
           11
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1.1
       },
       "2": {
         "default": 101,
@@ -111800,7 +111800,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.45
+        "efficiency": 0.55
       },
       "3": {
         "default": 104,
@@ -112074,7 +112074,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -112082,9 +112082,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -112094,7 +112094,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1.1
       },
       "4": {
         "default": null,
@@ -112668,9 +112668,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "2": {
         "default": 106,
@@ -112680,7 +112680,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -112690,7 +112690,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -112940,9 +112940,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -116720,7 +116720,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "2": {
         "default": 106,
@@ -116728,9 +116728,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -116740,7 +116740,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -118087,7 +118087,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "2": {
         "default": 106,
@@ -118095,9 +118095,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -118107,7 +118107,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -121147,7 +121147,7 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 4,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.7
       },
@@ -121649,9 +121649,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.15
       },
       "2": {
         "default": 106,
@@ -121661,7 +121661,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.15
       },
       "3": {
         "default": 104,
@@ -121671,7 +121671,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "4": {
         "default": null,
@@ -122615,9 +122615,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.45
       },
       "2": {
         "default": 101,
@@ -122626,7 +122626,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -125575,7 +125575,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.35
       },
       "2": {
         "default": 100,
@@ -125585,7 +125585,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.35
       },
       "3": {
         "default": 100,
@@ -126309,7 +126309,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.45
       },
       "2": {
         "default": 106,
@@ -126319,7 +126319,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -126329,7 +126329,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -127063,7 +127063,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.4
       },
       "2": {
         "default": 106,
@@ -127071,9 +127071,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -127083,7 +127083,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -127263,9 +127263,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -127275,7 +127275,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "3": {
         "default": 104,
@@ -127828,9 +127828,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "2": {
         "default": 140,
@@ -127838,9 +127838,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "3": {
         "default": 100,
@@ -128411,9 +128411,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.45
       },
       "2": {
         "default": 101,
@@ -128422,7 +128422,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -130253,7 +130253,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.2
       },
       "2": {
         "default": 107,
@@ -130261,9 +130261,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -130273,7 +130273,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -131241,9 +131241,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.7
       },
       "3": {
         "default": 104,
@@ -131253,7 +131253,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -131633,9 +131633,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.7
       },
       "2": {
         "default": 101,
@@ -131644,7 +131644,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2.2
       },
@@ -132788,7 +132788,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 106,
@@ -132796,9 +132796,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -132808,7 +132808,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -133846,7 +133846,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 106,
@@ -133856,7 +133856,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.4
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -133866,7 +133866,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -134946,9 +134946,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 106,
@@ -134958,7 +134958,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "3": {
         "default": 104,
@@ -134968,7 +134968,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -136875,9 +136875,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.35
       },
       "2": {
         "default": 100,
@@ -136887,7 +136887,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "3": {
         "default": 104,
@@ -136897,7 +136897,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "4": {
         "default": null,
@@ -137150,9 +137150,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 101,
@@ -137161,7 +137161,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -137588,9 +137588,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "2": {
         "default": 118,
@@ -137598,9 +137598,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -138904,7 +138904,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "2": {
         "default": 107,
@@ -138912,9 +138912,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -138924,7 +138924,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -139488,7 +139488,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "2": {
         "default": 106,
@@ -139496,9 +139496,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -140643,9 +140643,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -140654,7 +140654,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2.1
       },
@@ -141729,7 +141729,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "2": {
         "default": 106,
@@ -141737,9 +141737,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -142266,7 +142266,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.5
       },
       "2": {
         "default": 101,
@@ -142274,9 +142274,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.55
+        "efficiency": 0.7
       },
       "3": {
         "default": 104,
@@ -142286,7 +142286,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -143977,7 +143977,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.4
       },
       "2": {
         "default": 106,
@@ -143985,9 +143985,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -144134,7 +144134,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "2": {
         "default": 106,
@@ -144142,9 +144142,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.6
       },
       "3": {
         "default": 104,
@@ -146173,7 +146173,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "2": {
         "default": 107,
@@ -146183,7 +146183,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 1,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -146193,7 +146193,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "4": {
         "default": null,
@@ -148987,9 +148987,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.1
       },
       "2": {
         "default": 107,
@@ -148999,7 +148999,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -149009,7 +149009,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -150011,9 +150011,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.4
       },
       "2": {
         "default": 107,
@@ -150274,7 +150274,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.6
       },
       "2": {
         "default": 106,
@@ -150282,9 +150282,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -150294,7 +150294,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.1
       },
       "4": {
         "default": null,
@@ -151372,7 +151372,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.12
+        "efficiency": 1.2
       },
       "2": {
         "default": 106,
@@ -151380,9 +151380,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.47
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -151392,7 +151392,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.22
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -152183,9 +152183,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "2": {
         "default": 119,
@@ -152193,9 +152193,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "3": {
         "default": 118,
@@ -152203,9 +152203,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -153578,7 +153578,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.6
       },
       "2": {
         "default": 106,
@@ -153586,9 +153586,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -153598,7 +153598,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.1
       },
       "4": {
         "default": null,
@@ -154764,9 +154764,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -154775,7 +154775,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -155065,9 +155065,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 140,
@@ -155075,9 +155075,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "3": {
         "default": 100,
@@ -155304,7 +155304,7 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 6,
         "preload": 0,
         "efficiency": 1.1
       },
@@ -155537,7 +155537,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -155545,9 +155545,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.45
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -155557,7 +155557,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -157952,9 +157952,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 1.1
       },
       "2": {
         "default": 101,
@@ -157963,7 +157963,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -158578,9 +158578,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -158590,7 +158590,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "3": {
         "default": 100,
@@ -159101,9 +159101,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1.15
       },
       "2": {
         "default": 104,
@@ -159340,9 +159340,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "2": {
         "default": 110,
@@ -159350,9 +159350,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -161068,9 +161068,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.45
       },
       "2": {
         "default": 107,
@@ -161079,7 +161079,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.8
       },
@@ -161529,7 +161529,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.45
       },
       "2": {
         "default": 106,
@@ -161537,9 +161537,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -161746,9 +161746,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 6,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1.15
       },
       "2": {
         "default": 100,
@@ -161756,7 +161756,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.75
       },
@@ -161766,7 +161766,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.75
       },
@@ -162438,9 +162438,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.15
       },
       "2": {
         "default": 100,
@@ -162450,7 +162450,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.55
+        "efficiency": 0.65
       },
       "3": {
         "default": 104,
@@ -162460,7 +162460,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -162818,9 +162818,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.5
       },
       "2": {
         "default": 101,
@@ -162829,7 +162829,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -163522,7 +163522,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.45
       },
       "2": {
         "default": 106,
@@ -163530,9 +163530,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -163542,7 +163542,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -163870,7 +163870,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.45
       },
       "2": {
         "default": 106,
@@ -163878,9 +163878,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -163890,7 +163890,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "4": {
         "default": null,
@@ -164996,9 +164996,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 100,
@@ -165006,7 +165006,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.5
       },
@@ -165389,9 +165389,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 100,
@@ -165399,7 +165399,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.5
       },
@@ -165880,9 +165880,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 1,
-        "efficiency": 1.35
+        "efficiency": 1.6
       },
       "2": {
         "default": 101,
@@ -165891,7 +165891,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -166294,7 +166294,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "2": {
         "default": 107,
@@ -166303,9 +166303,9 @@ const SHIPS_DATA = [
           5,
           10
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.6
       },
       "3": {
         "default": 104,
@@ -166692,7 +166692,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1.1
       },
       "2": {
         "default": 104,
@@ -166702,7 +166702,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "3": {
         "default": 100,
@@ -167614,9 +167614,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -167626,7 +167626,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "3": {
         "default": 104,
@@ -167636,7 +167636,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.1
       },
       "4": {
         "default": null,
@@ -168498,9 +168498,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1.25
       },
       "2": {
         "default": 100,
@@ -168510,7 +168510,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1.25
       },
       "3": {
         "default": 100,
@@ -169143,7 +169143,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "2": {
         "default": 106,
@@ -169151,9 +169151,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -169855,9 +169855,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 106,
@@ -169867,7 +169867,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -171654,9 +171654,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -171913,7 +171913,7 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 6,
         "preload": 0,
         "efficiency": 1.1
       },
@@ -173033,9 +173033,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -173610,9 +173610,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.45
       },
       "2": {
         "default": 104,
@@ -174454,9 +174454,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 101,
@@ -174465,7 +174465,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -174892,7 +174892,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.35
       },
       "2": {
         "default": 106,
@@ -174900,9 +174900,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.65
       },
       "3": {
         "default": 104,
@@ -176492,7 +176492,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 0.85
       },
       "2": {
         "default": 108,
@@ -176502,7 +176502,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.65
+        "efficiency": 1.7
       },
       "3": {
         "default": 104,
@@ -176512,7 +176512,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 0.9
       },
       "4": {
         "default": null,
@@ -176830,7 +176830,7 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.25
       },
@@ -176840,9 +176840,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -181663,9 +181663,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -181674,7 +181674,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -181862,9 +181862,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -181873,7 +181873,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -182240,9 +182240,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.5
       },
       "2": {
         "default": 100,
@@ -182251,7 +182251,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -183660,9 +183660,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.7
       },
       "2": {
         "default": 101,
@@ -183670,7 +183670,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.5
       },
@@ -184591,9 +184591,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 2,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 101,
@@ -186695,7 +186695,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.4
+        "efficiency": 1.6
       },
       "2": {
         "default": 106,
@@ -186703,9 +186703,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "3": {
         "default": 104,
@@ -186715,7 +186715,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.1
       },
       "4": {
         "default": null,
@@ -189112,7 +189112,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 1,
-        "efficiency": 1.6
+        "efficiency": 1.75
       },
       "3": {
         "default": 104,
@@ -189397,7 +189397,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "2": {
         "default": 106,
@@ -189405,9 +189405,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "3": {
         "default": 104,
@@ -189417,7 +189417,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "4": {
         "default": null,
@@ -190084,7 +190084,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.4
       },
       "2": {
         "default": 106,
@@ -190092,9 +190092,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -190104,7 +190104,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -190948,9 +190948,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.9
+        "efficiency": 1.2
       },
       "2": {
         "default": 100,
@@ -190958,7 +190958,7 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -191314,9 +191314,9 @@ const SHIPS_DATA = [
         "type": [
           4
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.35
       },
       "2": {
         "default": 101,
@@ -191324,7 +191324,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -192327,9 +192327,9 @@ const SHIPS_DATA = [
         "type": [
           12
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1
       },
       "2": {
         "default": 100,
@@ -195069,7 +195069,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.25
       },
       "2": {
         "default": 106,
@@ -195077,9 +195077,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.4
       },
       "3": {
         "default": 104,
@@ -195089,7 +195089,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "4": {
         "default": null,
@@ -195328,7 +195328,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -195338,7 +195338,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "3": {
         "default": 100,
@@ -195549,9 +195549,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -195559,9 +195559,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "3": {
         "default": 100,
@@ -196507,9 +196507,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -196517,9 +196517,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "3": {
         "default": 100,
@@ -197319,9 +197319,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -197329,9 +197329,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "3": {
         "default": 100,
@@ -197532,7 +197532,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -197542,7 +197542,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.2
       },
       "3": {
         "default": 100,
@@ -197739,9 +197739,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -197749,9 +197749,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "3": {
         "default": 100,
@@ -198232,9 +198232,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "2": {
         "default": 140,
@@ -198242,9 +198242,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "3": {
         "default": 100,
@@ -198799,9 +198799,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "2": {
         "default": 140,
@@ -198809,9 +198809,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.2
       },
       "3": {
         "default": 100,
@@ -199014,9 +199014,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "2": {
         "default": 140,
@@ -199024,9 +199024,9 @@ const SHIPS_DATA = [
         "type": [
           13
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "3": {
         "default": 104,
@@ -199303,7 +199303,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "2": {
         "default": 105,
@@ -199311,9 +199311,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.2
       },
       "3": {
         "default": 104,
@@ -199323,7 +199323,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 0.85
       },
       "4": {
         "default": null,
@@ -200720,9 +200720,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.4
       },
       "2": {
         "default": 107,
@@ -200730,9 +200730,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -200742,7 +200742,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -201281,7 +201281,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "2": {
         "default": 107,
@@ -201289,9 +201289,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -201301,7 +201301,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -202734,7 +202734,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.15
       },
       "2": {
         "default": 106,
@@ -202742,9 +202742,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.45
       },
       "3": {
         "default": 104,
@@ -202754,7 +202754,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -203448,7 +203448,7 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -203458,9 +203458,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "3": {
         "default": 111,
@@ -203468,9 +203468,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.25
       },
       "4": {
         "default": null,
@@ -203751,9 +203751,9 @@ const SHIPS_DATA = [
         "type": [
           6
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1
       },
       "3": {
         "default": 104,
@@ -203761,9 +203761,9 @@ const SHIPS_DATA = [
         "type": [
           6
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.85
+        "efficiency": 1
       },
       "4": {
         "default": null,
@@ -204446,9 +204446,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.15
       },
       "2": {
         "default": 100,
@@ -204458,7 +204458,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.55
+        "efficiency": 0.65
       },
       "3": {
         "default": 104,
@@ -204468,7 +204468,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -204887,7 +204887,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "2": {
         "default": 108,
@@ -204897,7 +204897,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.45
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -204907,7 +204907,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -208168,7 +208168,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.75
+        "efficiency": 0.8
       },
       "2": {
         "default": 106,
@@ -208176,9 +208176,9 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.3
+        "efficiency": 1.5
       },
       "3": {
         "default": 104,
@@ -208188,7 +208188,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.7
+        "efficiency": 0.75
       },
       "4": {
         "default": null,
@@ -208568,9 +208568,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -208580,7 +208580,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.5
+        "efficiency": 0.55
       },
       "3": {
         "default": 104,
@@ -208590,7 +208590,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -209930,7 +209930,7 @@ const SHIPS_DATA = [
         ],
         "mount": 2,
         "preload": 0,
-        "efficiency": 1.05
+        "efficiency": 1.3
       },
       "2": {
         "default": 101,
@@ -209939,7 +209939,7 @@ const SHIPS_DATA = [
           1,
           2
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
         "efficiency": 2
       },
@@ -212621,9 +212621,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.2
+        "efficiency": 1.35
       },
       "2": {
         "default": 119,
@@ -212631,9 +212631,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "3": {
         "default": 118,
@@ -212641,9 +212641,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -213382,9 +213382,9 @@ const SHIPS_DATA = [
         "type": [
           2
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.3
       },
       "2": {
         "default": 100,
@@ -213648,9 +213648,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.2
       },
       "2": {
         "default": 100,
@@ -213660,7 +213660,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.5
+        "efficiency": 0.65
       },
       "3": {
         "default": 104,
@@ -213670,7 +213670,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.15
       },
       "4": {
         "default": null,
@@ -213940,9 +213940,9 @@ const SHIPS_DATA = [
         "type": [
           7
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "2": {
         "default": 119,
@@ -213950,9 +213950,9 @@ const SHIPS_DATA = [
         "type": [
           9
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "3": {
         "default": 118,
@@ -213960,9 +213960,9 @@ const SHIPS_DATA = [
         "type": [
           8
         ],
-        "mount": 1,
+        "mount": 3,
         "preload": 0,
-        "efficiency": 1.15
+        "efficiency": 1.3
       },
       "4": {
         "default": null,
@@ -215864,9 +215864,9 @@ const SHIPS_DATA = [
         "type": [
           1
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 0.95
+        "efficiency": 1
       },
       "2": {
         "default": 107,
@@ -215876,7 +215876,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.35
+        "efficiency": 1.55
       },
       "3": {
         "default": 104,
@@ -215886,7 +215886,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.8
+        "efficiency": 0.85
       },
       "4": {
         "default": null,
@@ -216379,9 +216379,9 @@ const SHIPS_DATA = [
         "type": [
           3
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
-        "efficiency": 1.1
+        "efficiency": 1.3
       },
       "2": {
         "default": 107,
@@ -216391,7 +216391,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 0.5
+        "efficiency": 0.55
       },
       "3": {
         "default": 104,
@@ -216401,7 +216401,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1
+        "efficiency": 1.05
       },
       "4": {
         "default": null,
@@ -221420,7 +221420,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.5
+        "efficiency": 1.6
       },
       "2": {
         "default": 107,
@@ -221428,7 +221428,7 @@ const SHIPS_DATA = [
         "type": [
           5
         ],
-        "mount": 1,
+        "mount": 2,
         "preload": 0,
         "efficiency": 1.2
       },
@@ -221440,7 +221440,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "4": {
         "default": null,
@@ -221762,7 +221762,7 @@ const SHIPS_DATA = [
         ],
         "mount": 1,
         "preload": 0,
-        "efficiency": 1.25
+        "efficiency": 1.4
       },
       "4": {
         "default": null,
