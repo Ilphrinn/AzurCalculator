@@ -3558,8 +3558,11 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
 
     let best = null;
     const weaponCandidates = [];
-    for (const item of equipmentOptionsForSlot(slot, ship)) {
-      if (!filterItem(item)) continue;
+    const slotOptions = equipmentOptionsForSlot(slot, ship);
+    // A weapon slot that only takes event gear (a sailing ship's main gun) gets it rather than nothing.
+    const onlyUnique = !isAuxSlot && !slotOptions.some(filterItem);
+    for (const item of slotOptions) {
+      if (!filterItem(item) && !(onlyUnique && item.unique && filterItem({ ...item, unique: false }))) continue;
       // Auxiliaries stacking the same passive on one ship is a bug, not a feature — most
       // say "Effect does not stack" and rarely benefit from two copies. A carrier's two aux
       // slots are the deliberate exception: Steam Catapult, the strongest non-unique

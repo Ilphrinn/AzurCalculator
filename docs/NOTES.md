@@ -6200,3 +6200,18 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Yamashiro 1144 -> 1304, Ise 1234 -> 1293, Hyuuga 1926 -> 1991 (lv125, Recommended, UR,
   reference boss). Mogami loses the CL's innate depth charge (ASW 18 -> 0, as in game) and takes
   CA weights (Autoloader over the AA radar: DPS 1246 -> 1335, AA 544 -> 420).
+
+## Weapon slots with only event gear (2026-11-01)
+
+- Sweep after Optimize (lv125, Recommended, UR, every ship, retrofit both ways) for slots holding
+  an item they do not accept, or a weapon slot left empty: apart from the retrofit slot types
+  already noted, the four Main fleet sailing frigates (Pearl, Ganj-i-Sawai, Queen Anne's
+  Revenge, São Martinho) had **0 DPS**. Their main gun slot takes BB guns "Used By" IXM, and the
+  only one is Old Demi-Cannon, `unique` (event gear), which Optimize never takes unless a skill
+  names it (see "Obtainable vs unique gear"). Surcouf's deck gun slot has no catalog option at
+  all and keeps its built-in; repair ships deal no damage by design.
+- Narrow exception to the user's rule: a non-auxiliary slot where no item passes the filters
+  may take a `unique` item that passes them otherwise. Only those four ships change: 0 ->
+  1985-3953 DPS (Old Demi-Cannon x6 mounts, 12-Pounder Long Guns in slots 2-3 for their
+  Firepower). "1×6" on the gun is one mount's shells, the same format as "1×3" on a triple
+  406mm, so the six mounts do not double count.
