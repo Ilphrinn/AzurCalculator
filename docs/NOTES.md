@@ -181,6 +181,7 @@ hasRetrofit, equipment, augmentModules`.
 - `stats: {base, growth, enhance}` — level-scaled via `computeStats()` in app.js:
   `base + growth*max(level-1,1)/1000 + enhance + retrofitBonus`. `statsCurve` ships use
   linear interpolation instead (`interpolateStatsCurve`).
+- `stats.fateSim` (30 research ships, optional): Fate Simulation Luck, only with Fate Simulation on.
 - `retrofitStats` (6 ships, optional): `{base, growth, enhance}` used instead of `stats` once
   retrofitted, see "Retrofit templates".
 - `skill.marker`: `"R"` (Retrofit), `"Aug"` (Unique Augment), `"FS"` (Fate Simulation,
@@ -6117,13 +6118,15 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   from the max template (`ship_data_statistics`, `gid*10+4`), for every ship the EN data covers.
   Checked against the saved "List of Ships by Stats" page at level 125 (which assumes 100
   affinity, +6% on all but Speed and Luck, then adds the retrofit bonus): 817 ships within 2
-  points, 99 of 108 retrofit rows too. Known differences: research ships' Luck (wiki 0, game
-  15-25, unchanged), sailing ships' Speed (wiki shows LB0; each limit break gives "SPD +8").
+  points, 99 of 108 retrofit rows too. Known differences: research ships' Luck (wiki 0, ours
+  15-25: Fate Simulation, moved to `stats.fateSim` the same day, see "Newer ships and Fate
+  Simulation Luck"), sailing ships' Speed (wiki shows LB0; each limit break gives "SPD +8").
   The app applied no affinity while the 27 `statsCurve` ships, read off the wiki, include it:
   `computeStats` now applies 100 Affinity (x1.06, floored, not on Speed/Luck, before the
   retrofit bonus) on the user's go-ahead. 789 of 841 ships and the 27 curves then match the
   wiki's level 125 row within 1 point; the rest are the differences listed here.
-- **Not fixed**: 10 ships newer than the AzurLaneData snapshot (Elbe META, Götz von
+- **Not fixed here** (done later the same day, see "Newer ships and Fate Simulation Luck"): 10
+  ships newer than the AzurLaneData snapshot (Elbe META, Götz von
   Berlichingen, Z14, Z15, U-2501, Prinz Moritz, Musashi-chan, Unzen-chan, Bristol META,
   Königsberg META) keep their stats: their wiki rows fit no base value with our growth, so the
   growth differs too. Retrofits that switch template (Ise, Hyuuga, Fusou, Yamashiro, Mogami,
@@ -6164,3 +6167,20 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   the AzurLaneData snapshot), Glowworm/Shiratsuyu/Nachi Speed by 2-3, Karlsruhe ASW by 2.
 - Measured (lv125, Recommended, UR, reference boss): Ise 1348 -> 1234 DPS, Hyuuga 2086 -> 1926,
   Fusou/Yamashiro -8%, AA +13-17%; Mogami 1205 -> 1246, eHP +6%. `npm run check` passes.
+
+## Newer ships and Fate Simulation Luck (2026-11-01)
+
+- **10 ships newer than the AzurLaneData snapshot** (Elbe META, Götz von Berlichingen, Z14, Z15,
+  U-2501, Prinz Moritz, Musashi-chan, Unzen-chan, Bristol META, Königsberg META): base, growth
+  and enhancement from mrlar.dev `/db/static/json/ships.json` (game data, one entry per limit
+  break in `stats[]`, the last kept). All 10 then match the wiki's level 125 row. Bristol META
+  and Königsberg META slot 2 `preload` 0 -> 1 from the same file.
+- **Cross-check against mrlar** (861 ships by `gid`): slots agree everywhere except the
+  retrofit slot types already noted and Gascogne's main gun (mrlar 1, wiki and game template
+  2, kept 2). Stats agree except research ships, whose development HP/AA/EVA mrlar files
+  elsewhere; ours match the wiki.
+- **Fate Simulation Luck**: 30 research ships carried LCK +15/+25 in `stats.enhance`, exactly the
+  sum of their `fate_strengthen` stages (`ship_strengthen_blueprint`, LCK +1..+5), so they had it
+  without Fate Simulation. Moved to `stats.fateSim`, added by `computeStats` only when
+  `isFateSim`; the modal's Fate Simulation box shows for all 30 (each has an FS skill). Fleet,
+  Port and Optimize figures run with Fate Simulation off, as for its skills.

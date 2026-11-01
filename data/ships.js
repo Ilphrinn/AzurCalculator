@@ -10622,10 +10622,12 @@ const SHIPS_DATA = [
         "health": 1610,
         "antiair": 62,
         "evasion": 15,
-        "luck": 15,
         "firepower": 69,
         "torpedo": 59,
         "reload": 45
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Anchorage",
@@ -17420,9 +17422,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1862,
         "antiair": 91,
-        "luck": 15,
         "aviation": 122,
         "reload": 33
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "August von Parseval",
@@ -19139,9 +19143,11 @@ const SHIPS_DATA = [
         "health": 1889,
         "antiair": 62,
         "evasion": 5,
-        "luck": 25,
         "firepower": 85,
         "reload": 47
+      },
+      "fateSim": {
+        "luck": 25
       }
     },
     "displayName": "Azuma",
@@ -21384,10 +21390,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1214,
         "antiair": 103,
-        "luck": 15,
         "firepower": 49,
         "torpedo": 101,
         "reload": 56
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Bayard",
@@ -29310,7 +29318,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.35
       },
       "3": {
@@ -29376,10 +29384,10 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 407,
         "antiair": 44,
-        "accuracy": 68,
-        "evasion": 55,
         "torpedo": 77,
-        "reload": 71
+        "reload": 71,
+        "accuracy": 68,
+        "evasion": 55
       }
     },
     "displayName": "Bristol META",
@@ -32407,9 +32415,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1712,
         "antiair": 66,
-        "luck": 15,
         "firepower": 130,
         "reload": 50
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Champagne",
@@ -35917,10 +35927,12 @@ const SHIPS_DATA = [
         "health": 1299,
         "antiair": 116,
         "evasion": 15,
-        "luck": 15,
         "firepower": 78,
         "torpedo": 57,
         "reload": 43
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Cheshire",
@@ -38091,9 +38103,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1617,
         "antiair": 89,
-        "luck": 15,
         "aviation": 124,
         "reload": 33
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Chkalov",
@@ -43994,10 +44008,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2021,
         "antiair": 71,
-        "luck": 15,
         "firepower": 118,
         "torpedo": 73,
         "reload": 52
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Daisen",
@@ -47703,10 +47719,12 @@ const SHIPS_DATA = [
         "health": 1420,
         "antiair": 80,
         "evasion": 15,
-        "luck": 25,
         "firepower": 80,
         "torpedo": 67,
         "reload": 38
+      },
+      "fateSim": {
+        "luck": 25
       }
     },
     "displayName": "Drake",
@@ -51479,17 +51497,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 854,
+        "health": 2104,
         "firepower": 0,
         "torpedo": 0,
-        "antiair": 52,
-        "aviation": 64,
+        "antiair": 129,
+        "aviation": 159,
         "reload": 71,
         "accuracy": 21,
         "evasion": 13,
         "speed": 21,
         "luck": 30,
-        "asw": 18
+        "asw": 44
       },
       "growth": {
         "health": 16275,
@@ -51507,10 +51525,10 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 833,
         "antiair": 51,
-        "accuracy": 20,
-        "evasion": 12,
         "aviation": 63,
-        "reload": 53
+        "reload": 53,
+        "accuracy": 20,
+        "evasion": 12
       }
     },
     "displayName": "Elbe META",
@@ -56586,10 +56604,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 806,
         "antiair": 44,
-        "luck": 15,
         "firepower": 38,
         "torpedo": 98,
         "reload": 59
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Felix Schultz",
@@ -57184,9 +57204,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2136,
         "antiair": 74,
-        "luck": 15,
         "firepower": 124,
         "reload": 46
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Flandre",
@@ -61063,9 +61085,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2392,
         "antiair": 66,
-        "luck": 25,
         "firepower": 128,
         "reload": 43
+      },
+      "fateSim": {
+        "luck": 25
       }
     },
     "displayName": "Friedrich der Große",
@@ -65706,9 +65730,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1952,
         "antiair": 66,
-        "luck": 15,
         "firepower": 122,
         "reload": 46
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Gascogne",
@@ -66493,9 +66519,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2135,
         "antiair": 116,
-        "luck": 15,
         "firepower": 124,
         "reload": 45
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Georgia",
@@ -70530,10 +70558,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1957,
-        "firepower": 113,
+        "health": 3874,
+        "firepower": 226,
         "torpedo": 0,
-        "antiair": 59,
+        "antiair": 116,
         "aviation": 0,
         "reload": 65,
         "accuracy": 23,
@@ -75291,9 +75319,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2074,
         "antiair": 90,
-        "luck": 25,
         "aviation": 129,
         "reload": 35
+      },
+      "fateSim": {
+        "luck": 25
       }
     },
     "displayName": "Hakuryuu",
@@ -75694,11 +75724,13 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 602,
         "antiair": 48,
-        "luck": 15,
         "firepower": 38,
         "torpedo": 95,
         "aviation": 69,
         "reload": 61
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Halford",
@@ -77148,10 +77180,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 914,
         "antiair": 115,
-        "luck": 15,
         "firepower": 41,
         "torpedo": 102,
         "reload": 53
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Harbin",
@@ -90971,10 +91005,12 @@ const SHIPS_DATA = [
         "health": 1206,
         "antiair": 53,
         "evasion": 15,
-        "luck": 15,
         "firepower": 74,
         "torpedo": 80,
         "reload": 51
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Ibuki",
@@ -96184,9 +96220,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2082,
         "antiair": 65,
-        "luck": 15,
         "firepower": 123,
         "reload": 40
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Izumo",
@@ -109104,10 +109142,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 665,
         "antiair": 54,
-        "luck": 15,
         "firepower": 24,
         "torpedo": 111,
         "reload": 61
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Kitakaze",
@@ -111694,7 +111734,7 @@ const SHIPS_DATA = [
           5
         ],
         "mount": 2,
-        "preload": 0,
+        "preload": 1,
         "efficiency": 1.7
       },
       "3": {
@@ -111760,11 +111800,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 592,
         "antiair": 68,
-        "accuracy": 42,
-        "evasion": 33,
         "firepower": 32,
         "torpedo": 52,
-        "reload": 50
+        "reload": 50,
+        "accuracy": 42,
+        "evasion": 33
       }
     },
     "displayName": "Königsberg META",
@@ -128040,10 +128080,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1354,
         "antiair": 99,
-        "luck": 15,
         "firepower": 46,
         "torpedo": 53,
         "reload": 50
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Mainz",
@@ -129188,9 +129230,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2064,
         "antiair": 71,
-        "luck": 15,
         "firepower": 123,
         "reload": 43
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Marco Polo",
@@ -136718,9 +136762,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1952,
         "antiair": 63,
-        "luck": 15,
         "firepower": 122,
         "reload": 46
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Monarch",
@@ -139465,10 +139511,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1537,
-        "firepower": 80,
+        "health": 3786,
+        "firepower": 199,
         "torpedo": 0,
-        "antiair": 40,
+        "antiair": 99,
         "aviation": 0,
         "reload": 53,
         "accuracy": 20,
@@ -145002,10 +145048,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1193,
         "antiair": 102,
-        "luck": 15,
         "firepower": 47,
         "torpedo": 98,
         "reload": 45
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Neptune (Royal Navy)",
@@ -150912,10 +150960,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1736,
         "antiair": 94,
-        "luck": 15,
         "firepower": 101,
         "torpedo": 66,
         "reload": 47
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Odin",
@@ -161697,10 +161747,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 1024,
-        "firepower": 58,
-        "torpedo": 50,
-        "antiair": 47,
+        "health": 2523,
+        "firepower": 144,
+        "torpedo": 124,
+        "antiair": 116,
         "aviation": 0,
         "reload": 67,
         "accuracy": 46,
@@ -162010,10 +162060,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 2064,
         "antiair": 89,
-        "luck": 15,
         "firepower": 104,
         "torpedo": 83,
         "reload": 41
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Prinz Rupprecht",
@@ -168567,10 +168619,12 @@ const SHIPS_DATA = [
         "health": 1523,
         "antiair": 64,
         "evasion": 15,
-        "luck": 15,
         "firepower": 78,
         "torpedo": 59,
         "reload": 47
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Roon",
@@ -170808,10 +170862,12 @@ const SHIPS_DATA = [
         "health": 1380,
         "antiair": 68,
         "evasion": 15,
-        "luck": 15,
         "firepower": 76,
         "torpedo": 62,
         "reload": 52
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Saint Louis",
@@ -174585,9 +174641,11 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1353,
         "antiair": 102,
-        "luck": 15,
         "firepower": 49,
         "reload": 43
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Seattle",
@@ -177821,10 +177879,12 @@ const SHIPS_DATA = [
       "enhance": {
         "health": 1340,
         "antiair": 127,
-        "luck": 15,
         "firepower": 48,
         "torpedo": 119,
         "reload": 43
+      },
+      "fateSim": {
+        "luck": 15
       }
     },
     "displayName": "Shimanto",
@@ -200047,9 +200107,9 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 551,
+        "health": 783,
         "firepower": 0,
-        "torpedo": 192,
+        "torpedo": 274,
         "antiair": 0,
         "aviation": 0,
         "reload": 43,
@@ -202064,10 +202124,10 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 742,
-        "firepower": 51,
-        "torpedo": 51,
-        "antiair": 39,
+        "health": 1828,
+        "firepower": 126,
+        "torpedo": 127,
+        "antiair": 96,
         "aviation": 0,
         "reload": 64,
         "accuracy": 49,
@@ -219164,17 +219224,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 328,
-        "firepower": 16,
-        "torpedo": 84,
-        "antiair": 34,
+        "health": 808,
+        "firepower": 39,
+        "torpedo": 209,
+        "antiair": 84,
         "aviation": 0,
         "reload": 77,
         "accuracy": 68,
         "evasion": 59,
         "speed": 43.2,
         "luck": 36,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9205,
@@ -219389,17 +219449,17 @@ const SHIPS_DATA = [
     },
     "stats": {
       "base": {
-        "health": 335,
-        "firepower": 15,
-        "torpedo": 87,
-        "antiair": 33,
+        "health": 826,
+        "firepower": 38,
+        "torpedo": 216,
+        "antiair": 82,
         "aviation": 0,
         "reload": 78,
         "accuracy": 69,
         "evasion": 59,
         "speed": 43.2,
         "luck": 60,
-        "asw": 50
+        "asw": 124
       },
       "growth": {
         "health": 9416,

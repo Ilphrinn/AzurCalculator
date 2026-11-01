@@ -1259,7 +1259,7 @@ const AFFINITY_EXEMPT_STATS = new Set(["speed", "luck"]);
 // Two data shapes: ~861 datamined ships carry base/growth/enhance and scale by the
 // formula below; ~27 hand-imported ones carry only a 4-point statsCurve read off
 // their wiki stat table (levels 1/100/120/125), which already includes Affinity.
-function computeStats(ship, level, isRetrofit) {
+function computeStats(ship, level, isRetrofit, isFateSim = false) {
   if (ship.statsCurve && ship.statsCurve.length) {
     return interpolateStatsCurve(ship.statsCurve, level);
   }
@@ -1270,6 +1270,8 @@ function computeStats(ship, level, isRetrofit) {
   const base = stats.base;
   const growth = stats.growth || {};
   const enhance = stats.enhance || {};
+  // Research ships' Fate Simulation Luck (LCK +1..+5 per stage) counts only with Fate Simulation on.
+  const fateSim = (isFateSim && stats.fateSim) || {};
   const bonus = (isRetrofit && ship.retrofitBonus) || {};
   const lvl = Math.max(level - 1, 1);
 
@@ -1278,7 +1280,7 @@ function computeStats(ship, level, isRetrofit) {
     if (!(key in base)) continue;
     const b = base[key] || 0;
     const g = growth[key] || 0;
-    const e = enhance[key] || 0;
+    const e = (enhance[key] || 0) + (fateSim[key] || 0);
     const r = bonus[key] || 0;
     const raw = Math.floor(b + (g * lvl) / 1000 + e);
     result[key] = (AFFINITY_EXEMPT_STATS.has(key) ? raw : Math.floor(raw * AFFINITY_MULTIPLIER)) + r;
@@ -1636,7 +1638,7 @@ function equipConditionAllows(ship, plainText, raw) {
 // incoming: fleet bonuses from other members' skills (fleetSynergies), each { stats, amount,
 // isPercent, raw, skill, factor }, factor being its share of the fight or null when untimed.
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, timing = null, incoming = []) {
-  const base = computeStats(ship, level, isRetrofit);
+  const base = computeStats(ship, level, isRetrofit, isFateSim);
   if (!base) return null;
   // The equipped Augment Module lives in the same equippedGear map as gear (slot key
   // "augment") since it is a FlatStatBuff in the wiki's formula too, the same category -
@@ -4437,7 +4439,7 @@ function niceStep(raw) {
 }
 
 function renderModalStatsTable(ship, level, isRetrofit, isAugmented, isFateSim) {
-  const base = computeStats(ship, level, isRetrofit);
+  const base = computeStats(ship, level, isRetrofit, isFateSim);
   if (!base) {
     modalStatsSection.hidden = true;
     modalLevelControl.hidden = true;
