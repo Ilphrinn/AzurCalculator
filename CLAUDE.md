@@ -76,7 +76,7 @@ combat metrics, Optimize (2 levels x 2 rarity caps x every target x no boss or o
 armour) and the modal, failing on
 errors, NaN, illegal or over-cap picks, or a target metric Optimize lowered. On this machine
 (Fedora, Chromium is a Flatpak):
-`CHROME="flatpak run io.github.ungoogled_software.ungoogled_chromium" npm run check`.
+`CHROME="flatpak run io.github.ungoogled_software.ungoogled_chromium" npm run check` (on the Sirius PC: `CHROME="flatpak run org.chromium.Chromium"`).
 `--dump-dom` works here, unlike the old Windows/Edge workflow described in the notes.
 
 ## Open work
@@ -141,6 +141,10 @@ weapon refinement" in the notes). Next:
   count in DPS since 2026-10-29: schedules from the game tables (`fires` in data/skill-timing.js),
   kept only where the skill text describes them. See "Skill barrages in DPS" in the notes for
   what is still left out (multi-schedule skills, submarines, All-Out Assault triggers).
+- Main fleet secondary guns deal nothing against a boss, the reference target included; mob
+  targets keep them (2026-11-01, `outOfBossRange`, see "Secondary guns out of boss range"). CVs
+  now lead BBs. The "mob" specialty is computed against the campaign mob fleets averaged
+  (`referenceMobTarget`).
 
 ## Working with this user
 

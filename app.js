@@ -670,7 +670,7 @@ function createCardThumbnail(path, className, alt) {
 const SPECIALTIES = {
   boss: { label: "Boss killer", why: "top 10% DPS of her fleet role against the reference boss",
     icon: ["..###..", ".#...#.", "#..#..#", "#.###.#", "#..#..#", ".#...#.", "..###.."] },
-  mob: { label: "Mob clearer", why: "top 10% of DPS x durability (eHP plus heals and shields given) in her role",
+  mob: { label: "Mob clearer", why: "top 10% of DPS against campaign mob fleets x durability (eHP plus heals and shields given) in her role",
     icon: ["#.....#", ".#.#.#.", "..###..", ".#####.", "..###..", ".#.#.#.", "#.....#"] },
   tank: { label: "Tank", why: "top 10% durability (eHP plus heals and shields given) in her role",
     icon: ["#.#.#.#", "#######", "#.....#", "#.###.#", "#.###.#", "#.....#", "#######"] },
@@ -2196,6 +2196,14 @@ function reductionApplies(target) {
   return target === "Sirens" && Boolean(targetBoss && targetBoss.siren);
 }
 
+// A main fleet ship's secondary guns (DD/CL guns, range 45-80) do not reach a boss from the back
+// line, so against one (the reference target is one too) they deal nothing; mob targets (hpShare)
+// keep them.
+function outOfBossRange(ship, slotKey) {
+  if (targetStats().hpShare || ship.role !== "Main" || slotKey == null) return false;
+  return shipGunSlotKeys(ship).indexOf(String(slotKey)) > 0;
+}
+
 // Damage a slot contributes per second: the item's own figure, times mounts, times
 // efficiency, times the wiki's WeaponStatMultiplier (1 + ScalingStat/100), times the average
 // Critical/DMG Dealt multiplier (weaponDamageMultiplier). WeaponScalingCoefficient stays at
@@ -2204,6 +2212,7 @@ function reductionApplies(target) {
 function slotDamage(slot, item, effective, ship, slotKey, armor) {
   const role = weaponRole(item);
   if (!role) return null;
+  if (role.metric === "dps" && outOfBossRange(ship, slotKey)) return { metric: role.metric, value: 0, unknown: false, outOfRange: true };
   const base = equipmentBaseDps(item, armor);
   if (base === null) return { metric: role.metric, value: 0, unknown: true };
   const statEntry = effective.stats[role.stat];
@@ -2328,12 +2337,14 @@ function volleyBarrageDps(ship, effective, level, armor) {
 function computeCombatMetrics(ship, level, effective, armor) {
   const totals = { dps: 0, dpsAA: 0, dpsASW: 0 };
   let unknownSlots = 0;
+  let outOfRangeSlots = 0;
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
     if (!item) continue;
     const contribution = slotDamage(slot, item, effective, ship, slotKey, armor);
     if (!contribution) continue;
     if (contribution.unknown) { unknownSlots++; continue; }
+    if (contribution.outOfRange) outOfRangeSlots++;
     totals[contribution.metric] += contribution.value;
   }
 
@@ -2356,6 +2367,7 @@ function computeCombatMetrics(ship, level, effective, armor) {
     ehp,
     hitRate,
     unknownSlots,
+    outOfRangeSlots,
     volleyBarrageDps: barrageDps,
     timedBarrageDps: skillBarrageDps,
     innateDepthCharge: Boolean(launcher),
@@ -3371,11 +3383,13 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
 
     const isBbAntiAir = role === "bb" && (slot.type || []).some(c => c === 6 || c === 21);
     const isAuxSlot = auxSlotKeys.includes(slotKey);
+    // A secondary gun out of a boss's reach only adds its stats, so it is ranked like an auxiliary.
+    const statsOnly = outOfBossRange(ship, slotKey);
     // Baseline for this slot's own real eHP comparisons (see statPreferenceScore) -
     // computed once per slot, not per candidate, since it never depends on the item
     // being scored.
-    const baseEhp = isAuxSlot ? candidateEhp(ship, slotKey, null) : null;
-    const dpsGains = isAuxSlot
+    const baseEhp = isAuxSlot || statsOnly ? candidateEhp(ship, slotKey, null) : null;
+    const dpsGains = isAuxSlot || statsOnly
       ? slotDpsGains(ship, slotKey, equipmentOptionsForSlot(slot, ship).filter(filterItem), level, weights)
       : null;
 
@@ -3390,7 +3404,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       const isCarrierCatapult = role === "carrier" && item.name === "Steam Catapult";
       if (isAuxSlot && item.category === "Auxiliary" && usedAuxNames.has(item.name) && !isCarrierCatapult) continue;
 
-      const damage = isBbAntiAir ? null : equipmentOptimizeScore(item);
+      const damage = isBbAntiAir || statsOnly ? null : equipmentOptimizeScore(item);
       const isWeapon = damage !== null;
       let score;
       if (isBbAntiAir) score = bbAntiAirScore(item);
@@ -4046,6 +4060,9 @@ function renderCombatMetrics(ship, effective) {
         if (field.armor && targetBoss && field.armor === targetBoss.armor) notes.push(`${targetBoss.name} wears ${field.armor} armour: this is the figure for that fight.`);
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);
+        }
+        if (field.armor && fieldMetrics.outOfRangeSlots) {
+          notes.push(`Secondary guns not counted: from the main fleet they do not reach ${targetBoss ? targetBoss.name : "a boss"}.`);
         }
         if (field.armor && fieldMetrics.volleyBarrageDps) {
           notes.push(`Includes ${Math.round(fieldMetrics.volleyBarrageDps).toLocaleString("en-US")} DPS from her volley-triggered barrage, which fires off the main gun: a faster gun fires it more often.`);
@@ -7674,6 +7691,16 @@ fleetRestoreEl.addEventListener("click", () => {
 // need the skill. Run by scripts/import-specialties.js in a fresh page; `npm run check` recomputes
 // it, so a stale data/specialties.js fails.
 const SPECIALTY_TOP = 0.1;
+
+// Every campaign map's mob fleets as one averaged target, the mob counterpart of REFERENCE_TARGET.
+function referenceMobTarget() {
+  const mobs = MAPS_DATA.map(map => map.mobs);
+  const mean = pick => mobs.reduce((sum, m) => sum + pick(m), 0) / mobs.length;
+  const hpShare = Object.fromEntries(Object.keys(ARMOR_COLUMN).map(armor => [armor, mean(m => m.hpShare[armor] || 0)]));
+  return { name: "Campaign mob fleets", map: "", group: "", armor: null, hull: null, siren: false, hpShare,
+    level: mean(m => m.level), hit: mean(m => m.hit), eva: mean(m => m.eva), luck: mean(m => m.luck),
+    aa: mean(m => m.aa), airModifier: mean(m => m.airModifier), timeLimit: mean(m => m.timeLimit) };
+}
 const SPECIALTY_AIR_TOP = 0.25;
 
 function computeShipSpecialties() {
@@ -7685,6 +7712,10 @@ function computeShipSpecialties() {
   for (const id of Object.keys(equippedGear)) delete equippedGear[id];
   try {
     const figures = new Map(SHIPS_DATA.map(ship => [ship, ship.equipment ? fleetShipFigures(ship, false) : null]));
+    // Mob clearing is measured against mob fleets, where secondary guns reach, with gear picked for them.
+    targetBoss = referenceMobTarget();
+    const mobDps = new Map(SHIPS_DATA.map(ship => [ship, figures.get(ship) ? fleetShipFigures(ship, false).dps : 0]));
+    targetBoss = null;
     const marks = new Map(SHIPS_DATA.map(ship => [ship, new Set()]));
     // The value a ship must reach to be in the top share of the positive values.
     const cutoff = (list, value, share) => {
@@ -7696,7 +7727,7 @@ function computeShipSpecialties() {
       const durability = new Map(list.map(ship => [ship, figures.get(ship).ehp + (role === "Submarine" ? 0 : standaloneDurability(ship, role, figures))]));
       const rules = [
         ["boss", ship => figures.get(ship).dps, SPECIALTY_TOP],
-        ["mob", ship => figures.get(ship).dps * durability.get(ship), SPECIALTY_TOP],
+        ["mob", ship => mobDps.get(ship) * durability.get(ship), SPECIALTY_TOP],
         ["tank", ship => durability.get(ship), SPECIALTY_TOP],
         ["aa", ship => figures.get(ship).dpsAA, SPECIALTY_TOP],
         ["air", ship => figures.get(ship).airPower, SPECIALTY_AIR_TOP],

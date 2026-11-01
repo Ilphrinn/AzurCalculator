@@ -6023,3 +6023,24 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   META (every 5s). Specialty marks regenerated (67 ships change). `npm run check` passes.
 - Left for later: Chihaya Kisaragi's own aircraft give only 425 DPS beside 3147 from her skill
   airstrike, which looks low.
+
+## Secondary guns out of boss range (2026-11-01)
+
+- **User feedback** (`todo`): a BB's secondary battery should not count against a boss, and CVs
+  are expected to out-damage BBs in general (they differ in utility, not always). Queen
+  Elizabeth's slot 2 (Twin 127mm Type 5, 3121) outweighed her main gun (1027).
+- **Rule** (`outOfBossRange`): a `role === "Main"` ship's gun slots after the first deal 0 surface
+  DPS unless the target is a mob fleet (`hpShare`). The reference target counts as a boss, since it
+  is an average of four raid bosses. Range data alone could not decide it: `rangeMax` exists only
+  for DD/CL guns (45-80) and torpedoes, not CA/CB/BB guns. The DPS tooltip says when this applies.
+- **Optimize**: such a slot is ranked like an auxiliary (`statPreferenceScore`, simulated DPS gain
+  from the gun's stat bonus), so a gun is picked for its Firepower/Reload, not its own damage.
+- **Measured** (lv125, Recommended, UR, reference boss): BB median 2943 -> 1185, top-10 mean
+  5194 -> 2768; CV unchanged (median 1352, top-10 mean 3278). New Jersey 6124 -> 3807, still the
+  top BB but below Cowpens (4489). Specialties regenerated: 20 "boss" and 15 "mob" marks move
+  from BBs to CVs. `npm run check` passes.
+- **Mob mark** (`referenceMobTarget`): it was computed against the reference boss, so BBs lost
+  it to the rule above. It now uses DPS against the 16 campaign maps' mob fleets averaged
+  (14-1 to 16-4, `MAPS_DATA`), with gear re-optimised for that target; durability is unchanged.
+  Against the marks before this change, 7 mob marks move (Yuudachi, Allen M. Sumner, Guam... in;
+  Royal Oak, Friedrich der Grosse, Z52... out); the 20 boss marks still go from BBs to CVs.

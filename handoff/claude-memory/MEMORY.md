@@ -1,3 +1,0 @@
-- [AzurCalc product direction](azurcalc-product-direction.md) — tier-list-like insight computed from game data, boss-targeted Optimize; never copy Regal's own work
-- [AzurCalc DPS coherence, next](azurcalc-dps-coherence-next.md) — BB secondary guns off vs boss, CV > BB check, Chihaya, 29 skipped barrage skills
-- [AzurCalc commit and deploy](azurcalc-commit-and-deploy.md) — per-command git identity; push to main deploys via Cloudflare, check live app.js hash
