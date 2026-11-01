@@ -6075,7 +6075,7 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   Enterprise). Where the wiki shows "N/A" the game's max template is used. The game's `base_list`
   is not used for mounts: it leaves out most "Main gun base +1" limit breaks (Alabama 1 turret).
   Lion and Alsace go from 4 main gun mounts to the wiki's 3.
-- **Retrofit ships left as they were** (108): their stored values mix LB0, max and retrofit
+- **Retrofit ships left as they were** (108; done the same day, see "Retrofit slots" below): their stored values mix LB0, max and retrofit
   (Independence has the retrofit's 4 planes but the unretrofitted efficiency; Cassin, Downes,
   York, Portland LB0). The app never applies a retrofit to slots (`retrofitBonus`
   `equipment_proficiency_N` is read nowhere) and some retrofits change a slot's type (An Shan's
@@ -6084,3 +6084,24 @@ without one (QE) outranked the ships whose damage is mostly barrage.
   Princeton 249 -> 834, Friedrich der Grosse 1287 -> 3305, Sovetsky Soyuz 601 -> 2254. Medians:
   BB 1245 -> 1409, BC 1138 -> 1380, SS 1331 -> 1552, CV 1471 -> 1601. Specialties regenerated.
   `npm run check` passes.
+
+## Retrofit slots (2026-11-01)
+
+- **Data**: the 108 retrofit ships' slots 1-3 now hold the wiki's max limit break values like
+  every other ship, plus `retrofit: {mount, efficiency}` where the retrofit changes them (the
+  wiki's third efficiency and second "Max #"). For 88 ships the retrofit efficiency equals max +
+  `retrofitBonus.equipment_proficiency_N`; the 20 that differ are retrofits that change the
+  slot (An Shan class torpedoes -> missiles, Ise/Hyuuga/Fusou/Yamashiro guns -> seaplanes,
+  Mogami), plus Admiral Hipper, Belfast and Hwah Jah, where the wiki is taken.
+- **App**: `slotMount` / `slotEfficiency` read `slot.retrofit` when `retrofitApplied`, at every
+  place that read `slot.mount` / `slot.efficiency` (DPS, Optimize scores, aircraft reload
+  average, air power, slot cards). Every figure is computed with the global `retrofitApplied`
+  (`fleetShipFigures` sets it per ship), so the helpers need no ship argument. The modal now
+  re-renders the slot cards when the Retrofit box changes.
+- **Not handled**: slot types stay as stored, which for the slot-changing retrofits above are
+  the retrofit's types, so their unretrofitted view is still approximate.
+- **Measured** (lv125, Recommended, UR, reference boss, retrofit on): 108 ships change, DPS
+  only up. Kisaragi 709 -> 1450, Cassin 606 -> 1099, York 807 -> 1242, Independence 2846 -> 3517
+  (3382 before the max limit break fix, which had its 4 planes but not its 145/150%). Eldridge's
+  AA drops 6%, Optimize now favouring her 140% gun. Specialties regenerated, `npm run check`
+  passes.

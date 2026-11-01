@@ -136,7 +136,8 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "115": [
-    "buff"
+    "buff",
+    "aa"
   ],
   "116": [
     "buff"
@@ -201,6 +202,8 @@ const SPECIALTIES_DATA = {
     "boss"
   ],
   "165": [
+    "boss",
+    "mob",
     "heal"
   ],
   "167": [
@@ -779,7 +782,6 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "601": [
-    "boss",
     "asw"
   ],
   "605": [
@@ -1049,8 +1051,7 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "725": [
-    "boss",
-    "mob"
+    "boss"
   ],
   "727": [
     "mob",
@@ -1628,8 +1629,7 @@ const SPECIALTIES_DATA = {
   "wiki-superb": [
     "boss",
     "mob",
-    "tank",
-    "aa"
+    "tank"
   ],
   "wiki-takahashi": [
     "boss",

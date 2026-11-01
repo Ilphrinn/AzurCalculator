@@ -2343,6 +2343,16 @@ function outOfBossRange(ship, slotKey) {
   return shipGunSlotKeys(ship).indexOf(String(slotKey)) > 0;
 }
 
+// A retrofit can change a slot's mounts and efficiency; `slot.retrofit` holds the retrofitted values.
+function slotMount(slot) {
+  return (retrofitApplied && slot.retrofit || slot).mount || 1;
+}
+
+function slotEfficiency(slot) {
+  const efficiency = (retrofitApplied && slot.retrofit || slot).efficiency;
+  return typeof efficiency === "number" ? efficiency : 1;
+}
+
 // Damage a slot contributes per second: the item's own figure, times mounts, times
 // efficiency, times the wiki's WeaponStatMultiplier (1 + ScalingStat/100), times the average
 // Critical/DMG Dealt multiplier (weaponDamageMultiplier). WeaponScalingCoefficient stays at
@@ -2356,9 +2366,8 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
   if (base === null) return { metric: role.metric, value: 0, unknown: true };
   const statEntry = effective.stats[role.stat];
   const stat = statEntry ? statEntry.value : 0;
-  const mounts = slot.mount || 1;
-  const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
-  const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
+  const mounts = slotMount(slot);
+  const efficiency = slotEfficiency(slot) * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
   const damageMultiplier = weaponDamageMultiplier(effective, ship, slotKey, item, armor);
   if (role.stat === "aviation") {
     const value = base * mounts * efficiency * (1 + stat * aircraftScalingCoefficient(item) / 100) * damageMultiplier *
@@ -2405,8 +2414,8 @@ function airstrikeCooldown(ship, effective) {
     const role = weaponRole(item);
     if (!role || role.stat !== "aviation") continue;
     const bucket = item.category ? planes.catalog : planes.builtIn;
-    bucket[0] += item.reload * (slot.mount || 1);
-    bucket[1] += slot.mount || 1;
+    bucket[0] += item.reload * slotMount(slot);
+    bucket[1] += slotMount(slot);
   }
   const [time, count] = planes.catalog[1] ? planes.catalog : planes.builtIn;
   const reload = effectiveReload(effective);
@@ -3368,9 +3377,8 @@ function bestAircraftForSlot(ship, slotKey, slot, categories, effective, filterI
     const damage = equipmentOptimizeScore(item);
     if (damage === null) continue;
     const itemEffective = seekEquipGate ? weaponCandidateEffective(ship, slotKey, item, level) : effective;
-    const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
-    const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
-    const slotFactor = (slot.mount || 1) * efficiency;
+    const efficiency = slotEfficiency(slot) * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
+    const slotFactor = slotMount(slot) * efficiency;
     let score = weaponScoreForShip(item, damage, itemEffective, 0, slotFactor, ship, slotKey);
     // When this ship can actually slow the enemy her torpedoes need that for, Sakura
     // Empire torpedo bombers and rocket-armed fighters are the named preference.
@@ -3407,7 +3415,7 @@ function pickCarrierAircraft(ship, effective, orientation, filterItem, named, le
   }
 
   const allowTorpedo = shipHasEnemySlowSkill(ship);
-  const ordered = [...slots].sort((a, b) => (b.slot.efficiency || 1) - (a.slot.efficiency || 1));
+  const ordered = [...slots].sort((a, b) => slotEfficiency(b.slot) - slotEfficiency(a.slot));
   const rotation = ["Fighter", "Dive Bomber", "Torpedo Bomber"];
   let rotationIndex = 0;
   for (const s of ordered) {
@@ -3552,9 +3560,8 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
         const barragePerVolley = slotKey === mainGunSlotKey
           ? volleyBarrageDamage(volley, itemEffective, item) / volley.n
           : 0;
-        const baseEfficiency = typeof slot.efficiency === "number" ? slot.efficiency : 1;
-        const efficiency = baseEfficiency * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
-        const slotFactor = (slot.mount || 1) * efficiency;
+        const efficiency = slotEfficiency(slot) * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
+        const slotFactor = slotMount(slot) * efficiency;
         score = weaponScoreForShip(item, damage, itemEffective, barragePerVolley, slotFactor, ship, slotKey);
         if (item.category === "AA Gun" || item.category === "AA Time Fuze Gun") {
           if (wantFastAa && !isFastFiringAaGun(item)) score *= 0.01;
@@ -4083,8 +4090,8 @@ function renderModalEquipment(ship) {
     ].filter(Boolean).join(" \u2014 ");
 
     const meta = [];
-    if (slot.mount) meta.push({ text: "Mounts \u00d7" + slot.mount });
-    if (slot.efficiency) meta.push({ text: "Efficiency " + Math.round(slot.efficiency * 100) + "%" });
+    if (slot.mount) meta.push({ text: "Mounts \u00d7" + slotMount(slot) });
+    if (slot.efficiency) meta.push({ text: "Efficiency " + Math.round(slotEfficiency(slot) * 100) + "%" });
     const gearCtx = { ship, slotKey: key, slot, options: equipmentOptionsForSlot(slot, ship) };
     modalEquipment.appendChild(buildEquipmentSlot(name, tooltip, meta, gearCtx));
   }
@@ -6042,6 +6049,8 @@ function applyRetrofitState() {
   renderModalSkills(ship, retrofitApplied, augmentApplied, fateSimApplied);
   renderModalStatsTable(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
   renderModalBarrages(ship, retrofitApplied, augmentApplied, fateSimApplied, currentLevel);
+  // Slot mounts and efficiency can change with the retrofit.
+  if (ship.equipment) renderModalEquipment(ship);
   modalEl.style.setProperty("--modal-rarity-color", `var(--${RARITY_CLASS[rarity] || "rarity-normal"})`);
 }
 
@@ -6924,7 +6933,7 @@ function airPower(ship, effective) {
     const slot = ship.equipment && ship.equipment[slotKey];
     const item = slot && activeEquipmentForSlot(ship, slotKey, slot);
     const kind = item && (item.category || DEFAULT_PLANE_KINDS[item.name.split(" ")[0]]);
-    if (AIR_POWER_WEIGHTS[kind]) planes += slot.mount * AIR_POWER_WEIGHTS[kind];
+    if (AIR_POWER_WEIGHTS[kind]) planes += slotMount(slot) * AIR_POWER_WEIGHTS[kind];
   }
   const aviation = effective.stats.aviation;
   return aviation ? (aviation.base + aviation.equip) * planes * (0.8 + FLEET_LEVEL / 100) / 100 : 0;
