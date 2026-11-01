@@ -10,7 +10,8 @@ const SOURCES = {
   templates: `${GAME_DATA}/sharecfgdata/ship_data_template.json`,
   skills: `${GAME_DATA}/GameCfg/skill.json`,
   buffs: `${GAME_DATA}/GameCfg/buff.json`,
-  texts: `${GAME_DATA}/ShareCfg/skill_data_template.json`
+  texts: `${GAME_DATA}/ShareCfg/skill_data_template.json`,
+  weapons: `${GAME_DATA}/sharecfgdata/weapon_property.json`
 };
 
 // The game names a skill's level in its title ("Siren Killer Ⅲ"); our skills add "+" for the
@@ -175,6 +176,13 @@ class Timing {
 // bullets and inner timers it then runs (Musashi's 6 shots 0.5s apart are one activation).
 // Ticks: { first, every, until, quota, chance } in seconds from the battle start, `every` null
 // for a single one; events: { on: "mainGun" | "torpedo" | "airstrike", chance, cooldown, quota }.
+// A weapon_property entry with its `base` chain resolved (most entries only override a few fields).
+function weaponEntry(weapons, id, depth = 0) {
+  const own = weapons[id];
+  if (!own || depth > 8) return own;
+  return own.base && own.base !== id ? { ...weaponEntry(weapons, own.base, depth + 1), ...own } : own;
+}
+
 const FIRE_IMMEDIATE = new Set(["onAttach", "onUpdate", "onStartGame", "onAttach+onStack"]);
 const FIRE_EVENTS = {
   onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo",
@@ -211,7 +219,10 @@ class FireSchedule {
       const skill = atLevel(this.tables.skills[`skill_${target[1]}`], this.level);
       for (const entry of list(skill && skill.effect_list)) {
         const args = entry.arg_list || {};
-        if (entry.type === "BattleSkillFire") found.push({ chance: 1, weapons: [args.weapon_id], crit: 0 });
+        // A weapon with no damage and no bullet (Yorktown II's recon flight) fires nothing to count.
+        const weapon = weaponEntry(this.tables.weapons, args.weapon_id);
+        const inert = weapon && !weapon.damage && !(weapon.bullet_ID || []).length;
+        if (entry.type === "BattleSkillFire" && !inert) found.push({ chance: 1, weapons: [args.weapon_id], crit: 0 });
         else if (entry.type === "BattleSkillAddBuff" && args.buff_id) found.push(this.reaches(["buff", args.buff_id], depth + 1, seen));
       }
     } else {
@@ -278,6 +289,20 @@ class FireSchedule {
       if (added && !(added.time > 0) && !when.on) {
         this.source(target[1], when.first, odds, depth + 1);
         continue;
+      }
+      // A skill cast once that puts a permanent buff on the ship hands it the schedule (Formidable's
+      // Albacore check casts a skill whose buff fires on every airstrike). Only an unconditional cast or
+      // one requiring gear, assumed equipped as everywhere else; its "without that gear" twin
+      // (maxWeaponNumber 0) and casts gated on ship tags or fleet counts are left out.
+      const gated = Object.keys(args).some(key => key.startsWith("check_") && key !== "check_weapon") ||
+        (args.check_weapon && !(args.minWeaponNumber >= 1));
+      if (target[0] === "skill" && !when.on && !gated) {
+        const skill = atLevel(this.tables.skills[`skill_${target[1]}`], this.level);
+        for (const entry of list((skill || {}).effect_list)) {
+          const buffId = entry.type === "BattleSkillAddBuff" && entry.target_choise === "TargetSelf" && (entry.arg_list || {}).buff_id;
+          const buff = buffId && atLevel(this.tables.buffs[`buff_${buffId}`], this.level);
+          if (buff && !(buff.time > 0)) this.source(buffId, when.first, odds, depth + 1);
+        }
       }
       const reach = this.reaches(target);
       if (!reach.chance) continue;

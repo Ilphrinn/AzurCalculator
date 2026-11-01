@@ -6294,3 +6294,27 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   the eHP line (HP ÷ hit rate × other reductions = eHP) and the fire formula in the DPS notes.
   Other titles carry no calculation and stay native. Checked by headless screenshots on New
   Jersey (stat, eHP, DPS tooltips).
+
+## Barrage schedules behind a skill cast, inert weapons (2026-11-02)
+
+- **Found** through an outlier sweep (DPS per hull, top and bottom): Formidable 691 DPS, a third of
+  the CV median. Optimize gives her Fairey Albacores, as her skill names them, but the extra
+  Albacore strike they unlock counted 0: `buff_12570` casts skill 12570 at battle start (if an
+  "Albacore" label is equipped), which puts the permanent buff 12571 on her, whose
+  `onAllInStrikeSteady` trigger fires the strike. `FireSchedule.source` followed a permanent
+  buff added by a buff, not one put on by a cast skill.
+- **Import** (`scripts/import-skill-timing.js`): a skill cast at a fixed time (not on an event)
+  now hands the schedule to the permanent `TargetSelf` buffs it adds, but only when the cast is
+  unconditional or requires gear (`check_weapon` with `minWeaponNumber` >= 1, assumed equipped as
+  the stats are); its "without that gear" twin (`maxWeaponNumber` 0: King George V's plain
+  barrage beside the Quadruple 356mm one, Constellation's 80% beside 100%) and casts gated on
+  ship tags or fleet counts (Nelson's 100% branch) are left out, or both variants would count.
+- **Inert weapons**: a weapon with no damage and no bullet (`weapon_property`, `base` chain
+  resolved, as most entries only override a few fields) fires nothing to count. Yorktown II's AD-1
+  recon flight (61029) was her only "barrage"; her schedule is now the airstrike (160360, 100 +
+  440 DMG weapons, her rows).
+- `data/skill-timing.js` regenerated: only `fires` change (36 skills), checked by comparing the
+  file with `fires` stripped. Measured (lv125, Recommended, UR, reference boss), 18 ships, all up:
+  Hiryuu META 2020 -> 3428, Formidable 691 -> 2035, Yorktown II 2425 -> 3246, Constellation
+  1684 -> 2501, Shizuku 1477 -> 2213, Littorio 1570 -> 2259, Ark Royal META 1783 -> 2106;
+  Hindenburg's "3s, then every 15s" schedule now matches its text. `npm run check` passes.
