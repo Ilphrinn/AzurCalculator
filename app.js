@@ -2873,7 +2873,8 @@ function skillBarrage(ship, skill, level, armor) {
 // A game schedule counts only where the skill's text describes it: one it does not mention is a
 // gun emitter, a stack check or a recon flight (Prinz Rupprecht's secondary gun every 2s, Serri
 // Glaus's 1s loop), not the barrage its rows describe.
-const FIRE_EVENT_TEXT = { mainGun: /main gun/i, torpedo: /torpedo/i, airstrike: /air\s?strike/i };
+// A battleship's "Salvo" is its main gun firing (Big Seven, Amagi).
+const FIRE_EVENT_TEXT = { mainGun: /main gun|\bsalvo/i, torpedo: /torpedo/i, airstrike: /air\s?strike/i };
 const FIRE_PERIOD_RE = /\bevery\s+(?:(second)\b|([\d.]+)\s*(?:s\b|sec)?(?:\s*\(\s*([\d.]+)\s*s?\s*\))?)/gi;
 const FIRE_ONCE_TEXT_RE = /\b(?:start|begin|enter)|\d\s*s\s+after\b/i;
 
@@ -2891,7 +2892,14 @@ const barrageFiresCache = new WeakMap();
 function barrageFires(skill, fires) {
   if (barrageFiresCache.has(fires)) return barrageFiresCache.get(fires);
   const text = stripHtml(skill.description || "");
-  const described = fires.filter(fire => fireInText(fire, text));
+  // Schedules with the same timing are one activation firing all their weapons (Ark Royal's two
+  // Swordfish weapons every 20s).
+  const described = [];
+  for (const fire of fires.filter(fire => fireInText(fire, text))) {
+    const twin = described.find(other => JSON.stringify({ ...other, weapons: 0 }) === JSON.stringify({ ...fire, weapons: 0 }));
+    if (twin) twin.weapons = [...twin.weapons, ...fire.weapons];
+    else described.push({ ...fire, weapons: [...fire.weapons] });
+  }
   const kept = described.filter(fire => !described.some(other => other.weapons.length > fire.weapons.length &&
     fire.weapons.every(weapon => other.weapons.includes(weapon))));
   const result = new Set(kept.map(fire => fire.weapons.join())).size > 1 ? [] : kept;

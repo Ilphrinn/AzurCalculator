@@ -6215,3 +6215,26 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   1985-3953 DPS (Old Demi-Cannon x6 mounts, 12-Pounder Long Guns in slots 2-3 for their
   Firepower). "1×6" on the gun is one mount's shells, the same format as "1×3" on a triple
   406mm, so the six mounts do not double count.
+
+## Skill barrages: "Salvo" and same-time schedules (2026-11-01)
+
+- Listed every skill with barrage rows and game schedules that `timedBarrageDps` skipped (47 with
+  retrofit states): 32 "no schedule described", 14 "several weapon sets", 1 qualified rows.
+- **"Salvo" is the main gun** (`FIRE_EVENT_TEXT.mainGun`): Big Seven ("When this ship fires a
+  Salvo: 40% chance"), Amagi's Crippling Strike (70%), Sovetskaya Rossiya's Lod Obstrel (75%)
+  have an `on: mainGun` schedule with that exact chance. Colorado, Maryland, West Virginia and
+  Nelson are figured retrofitted, where another skill replaces Big Seven.
+- **Schedules with identical timing are one activation** (`barrageFires` merges their weapons):
+  Ark Royal's retrofit Destruction Bolt (two weapons every 20s), Souryuu META's Aotan (three
+  weapons per airstrike), Little Anchorage (two per torpedo launch), Suzutsuki (3s, then every 15s).
+- **Measured** (lv125, Recommended, UR, reference boss), 7 ships: Souryuu META 2295 -> 4070,
+  Rodney 1235 -> 2173, Sovetskaya Rossiya 1358 -> 2089, Ark Royal 1715 -> 2382, Amagi 1293 ->
+  1935, Little Anchorage 1061 -> 1152, Suzutsuki 1264 -> 1344. Each checked against the skill
+  text (chance, period, weapons) and its rows.
+- **Still skipped** (no safe general rule): schedules the text contradicts (Hindenburg "every 15s"
+  vs a 5s loop; Béarn, Eagle, Chang Feng, Helena META "every 20-24s" with a one-off schedule, the
+  period living in the attached weapon's reload), proximity/damage triggers (Francesco
+  Caracciolo, Watarase, Little Friedrich), stack counters (Murasaki Shion's MP, Zeppy, Fancy,
+  Serri Glaus), gear-conditional barrages (Emden, Halford, Hiryuu META), and skills pairing
+  qualified rows with several schedules (Asama, Mecklenburg, Kiev, Lion, Champagne, Santa Fe,
+  Rikka Takarada, Andrea Doria META, Scharnhorst META).

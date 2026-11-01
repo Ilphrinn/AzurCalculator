@@ -997,7 +997,6 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "660": [
-    "boss",
     "air"
   ],
   "661": [
@@ -1483,6 +1482,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "30004": [
+    "boss",
     "air"
   ],
   "30006": [
