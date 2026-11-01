@@ -844,7 +844,7 @@ main[aria-busy="true"] {
   max-width: calc(100% - 8px);
 }
 
-/* 14px of content draws the 7x7 icon at exactly 2px per pixel; a fractional scale blurs it. */
+/* 14px of content draws the 14x14 icon at exactly 1px per cell; a fractional scale blurs it. */
 .specialty {
   width: 20px;
   height: 20px;
