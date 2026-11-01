@@ -1334,6 +1334,9 @@ const SPECIALTIES_DATA = {
     "tank",
     "shield"
   ],
+  "10152": [
+    "air"
+  ],
   "10154": [
     "heal",
     "shield"
@@ -1475,6 +1478,9 @@ const SPECIALTIES_DATA = {
     "heal",
     "buff",
     "aa"
+  ],
+  "30001": [
+    "air"
   ],
   "30003": [
     "buff"

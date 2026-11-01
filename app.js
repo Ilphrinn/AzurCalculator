@@ -1936,7 +1936,13 @@ function isMissileItem(item) {
 // an item without usedBy stays unrestricted; a "maybe" hull counts as allowed since the
 // slot's own type already narrows it to the wiki's own named exceptions.
 function equipmentAllowedOnHull(item, ship) {
-  return !item.usedBy || !ship || item.usedBy.includes(ship.hullShort);
+  return !item.usedBy || !ship || item.usedBy.includes(currentHullShort(ship));
+}
+
+// Five retrofits change the hull class (Mogami becomes a heavy cruiser, Ise an aviation
+// battleship); figures run with retrofitApplied set for the ship at hand.
+function currentHullShort(ship) {
+  return retrofitApplied && ship.retrofitHullShort || ship.hullShort;
 }
 
 function equipmentOptionsForSlot(slot, ship) {
@@ -2468,7 +2474,7 @@ function effectiveReload(effective) {
 const INNATE_DEPTH_CHARGE_BY_HULL = { DD: 141, CL: 147 };
 
 function innateDepthCharge(ship) {
-  const id = INNATE_DEPTH_CHARGE_BY_HULL[ship.hullShort];
+  const id = INNATE_DEPTH_CHARGE_BY_HULL[currentHullShort(ship)];
   return id ? DEFAULT_EQUIPMENT_BY_ID.get(id) || null : null;
 }
 
@@ -2553,7 +2559,7 @@ function targetCombatMetrics(ship, level, effective) {
 // the AA gun's fast/slow pick, BB skipping survivability) Optimize applies below, read off
 // hullShort per the user's own breakdown of how each role gears up.
 function shipOptimizeRole(ship) {
-  switch (ship.hullShort) {
+  switch (currentHullShort(ship)) {
     case "CV": case "CVL": return "carrier";
     case "CL": return "cl";
     case "CA": return "ca";
@@ -6049,11 +6055,22 @@ function currentRarity() {
   return retrofitApplied && ship.retrofitRarity ? ship.retrofitRarity : ship.rarity;
 }
 
+function renderModalHullIcon(ship) {
+  const hull = currentHullShort(ship);
+  const hullType = retrofitApplied && ship.retrofitHullType || ship.hullType;
+  modalHullIcon.hidden = !hull;
+  if (!hull) return;
+  modalHullIcon.src = `assets/hull-icons/${hull}.png`;
+  modalHullIcon.alt = hullType || "";
+  modalHullIcon.title = hullType || "";
+}
+
 function applyRetrofitState() {
   const ship = currentShip;
   if (!ship) return;
   const rarity = currentRarity();
 
+  renderModalHullIcon(ship);
   renderModalTags(ship, rarity);
   // Skills first: it resets each toggle-bearing skill's Max Level override to the
   // current skillsAtMaxLevel default, which computeEffectiveStats reads - rendering
@@ -6125,14 +6142,7 @@ function openModal(ship) {
   } else {
     modalNationWatermark.hidden = true;
   }
-  if (ship.hullShort) {
-    modalHullIcon.src = `assets/hull-icons/${ship.hullShort}.png`;
-    modalHullIcon.alt = ship.hullType || "";
-    modalHullIcon.title = ship.hullType || "";
-    modalHullIcon.hidden = false;
-  } else {
-    modalHullIcon.hidden = true;
-  }
+  renderModalHullIcon(ship);
 
   renderSkinStrip(ship);
   updateModalImage();

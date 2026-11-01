@@ -64123,7 +64123,9 @@ const SHIPS_DATA = [
         "aviation": 29,
         "reload": 38
       }
-    }
+    },
+    "retrofitHullShort": "BBV",
+    "retrofitHullType": "Aviation Battleship"
   },
   {
     "id": 30005,
@@ -89033,7 +89035,9 @@ const SHIPS_DATA = [
         "aviation": 48,
         "reload": 39
       }
-    }
+    },
+    "retrofitHullShort": "BBV",
+    "retrofitHullType": "Aviation Battleship"
   },
   {
     "id": 381,
@@ -95318,7 +95322,9 @@ const SHIPS_DATA = [
         "aviation": 48,
         "reload": 39
       }
-    }
+    },
+    "retrofitHullShort": "BBV",
+    "retrofitHullType": "Aviation Battleship"
   },
   {
     "id": 10132,
@@ -136280,7 +136286,9 @@ const SHIPS_DATA = [
         "torpedo": 34,
         "reload": 52
       }
-    }
+    },
+    "retrofitHullShort": "CA",
+    "retrofitHullType": "Heavy Cruiser"
   },
   {
     "id": 10113,
@@ -211046,7 +211054,9 @@ const SHIPS_DATA = [
         "aviation": 29,
         "reload": 38
       }
-    }
+    },
+    "retrofitHullShort": "BBV",
+    "retrofitHullType": "Aviation Battleship"
   },
   {
     "id": 30010,

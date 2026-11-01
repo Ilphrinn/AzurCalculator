@@ -182,6 +182,7 @@ hasRetrofit, equipment, augmentModules`.
   `base + growth*max(level-1,1)/1000 + enhance + retrofitBonus`. `statsCurve` ships use
   linear interpolation instead (`interpolateStatsCurve`).
 - `stats.fateSim` (30 research ships, optional): Fate Simulation Luck, only with Fate Simulation on.
+- `retrofitHullShort`, `retrofitHullType` (5 ships, optional): hull class once retrofitted.
 - `retrofitStats` (6 ships, optional): `{base, growth, enhance}` used instead of `stats` once
   retrofitted, see "Retrofit templates".
 - `skill.marker`: `"R"` (Retrofit), `"Aug"` (Unique Augment), `"FS"` (Fate Simulation,
@@ -6184,3 +6185,18 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   without Fate Simulation. Moved to `stats.fateSim`, added by `computeStats` only when
   `isFateSim`; the modal's Fate Simulation box shows for all 30 (each has an FS skill). Fleet,
   Port and Optimize figures run with Fate Simulation off, as for its skills.
+
+## Retrofit hull classes (2026-11-01)
+
+- The retrofit template's `type` differs for 9 ships: An Shan, Chang Chun, Fu Shun, Tai Yuan
+  (DD -> DDG), Ise, Hyuuga, Fusou, Yamashiro (BB -> BBV), Mogami (CL -> CA). Armour never changes.
+- `retrofitHullShort` / `retrofitHullType` on the five BBV/CA cases; `currentHullShort` reads them
+  when `retrofitApplied`, in `equipmentAllowedOnHull`, `innateDepthCharge`, `shipOptimizeRole` and
+  the modal's hull icon. The DDG four stay DD: no equipment's "Used By" list names DDG, so the
+  class would forbid all their gear. Oil cost, skill-text hull matching and the Port filters keep
+  the base class.
+- Found through it: retrofitted, the four BBV kept a built-in CL gun in their seaplane slot,
+  because seaplanes are not "Used By" BB. They now take a seaplane: Fusou 1164 -> 1323 DPS,
+  Yamashiro 1144 -> 1304, Ise 1234 -> 1293, Hyuuga 1926 -> 1991 (lv125, Recommended, UR,
+  reference boss). Mogami loses the CL's innate depth charge (ASW 18 -> 0, as in game) and takes
+  CA weights (Autoloader over the AA radar: DPS 1246 -> 1335, AA 544 -> 420).
