@@ -86,6 +86,9 @@ const SPECIALTIES_DATA = {
   "62": [
     "boss"
   ],
+  "63": [
+    "mob"
+  ],
   "64": [
     "aa"
   ],
@@ -193,7 +196,6 @@ const SPECIALTIES_DATA = {
     "aa"
   ],
   "138": [
-    "mob",
     "tank"
   ],
   "142": [
@@ -763,9 +765,6 @@ const SPECIALTIES_DATA = {
     "boss",
     "air"
   ],
-  "555": [
-    "boss"
-  ],
   "556": [
     "boss"
   ],
@@ -960,6 +959,7 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "641": [
+    "boss",
     "mob",
     "tank"
   ],
@@ -995,7 +995,6 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "660": [
-    "boss",
     "air"
   ],
   "661": [
@@ -1063,13 +1062,13 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "682": [
-    "boss",
     "air"
   ],
   "683": [
     "aa"
   ],
   "685": [
+    "boss",
     "mob",
     "tank",
     "heal",
@@ -1139,6 +1138,7 @@ const SPECIALTIES_DATA = {
     "boss"
   ],
   "709": [
+    "boss",
     "mob",
     "tank"
   ],

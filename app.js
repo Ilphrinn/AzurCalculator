@@ -2406,6 +2406,45 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier * reloadFactor, unknown: false };
 }
 
+// HE shells and Beehive fragments may set the target on fire: the generic burn ticks 5 times,
+// every 3s from 3s after the hit, for Dmg x Coef x Efficiency x StatMultiplier x 0.6 + 5 (wiki
+// Damage Calculations, Fire / Burn Damage; chances from its table). Fires refresh instead of
+// stacking, so a burn deals its tick every 3s for the share of the fight a fire is alight,
+// a Poisson estimate over the 15.1s a fire lasts after the last hit that could light it.
+const BURN_CHANCE_BY_CATEGORY = { "DD Gun": 0.01, "CL Gun": 0.03, "CA Gun": 0.08, "CB Gun": 0.04, "BB Gun": 0.5 };
+const GUN_BURN = { coefficient: 0.6, flat: 5, interval: 3, duration: 15.1 };
+
+function gunBurnChance(item) {
+  if (item.ammoType === "Beehive") return 0.3;
+  return /^HE/.test(item.ammoType || "") ? BURN_CHANCE_BY_CATEGORY[item.category] || 0 : 0;
+}
+
+// One gun's burn DPS in `slot`, with `firepower` the ship's FP including the gun's own bonus.
+function gunBurnDps(item, slot, effective, ship, slotKey, firepower) {
+  const chance = gunBurnChance(item);
+  if (!chance || !(item.dmg > 0) || !(item.coef > 0) || !item.dps || !(item.dps.raw > 0)) return 0;
+  const shellDamage = item.dmg * item.coef / 100;
+  const efficiency = slotEfficiency(slot) * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
+  const tick = shellDamage * efficiency * (1 + firepower / 100) * GUN_BURN.coefficient + GUN_BURN.flat;
+  // Shells per second from the catalog's own stat-0 figure, on the ship's reload.
+  const hitsPerSecond = item.dps.raw / shellDamage * slotMount(slot) * ammoHitShare(item) *
+    reloadDpsFactor(item, effectiveReload(effective));
+  const uptime = 1 - Math.exp(-hitsPerSecond * chance * GUN_BURN.duration);
+  return tick / GUN_BURN.interval * uptime;
+}
+
+// The ship's fire: only one burns at a time, so her best burning gun's.
+function shipGunBurnDps(ship, effective) {
+  const firepower = effective.stats.firepower ? effective.stats.firepower.value : 0;
+  let best = 0;
+  for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    const item = activeEquipmentForSlot(ship, slotKey, slot);
+    if (!item || outOfBossRange(ship, slotKey)) continue;
+    best = Math.max(best, gunBurnDps(item, slot, effective, ship, slotKey, firepower));
+  }
+  return best;
+}
+
 // Catalog aircraft DPS is one plane on its own cycle at RLD 100 (RoF x 2.2 + 0.033, wiki List of
 // Torpedo Bombers); the ship launches every plane together on one shared cycle. Averaged over a
 // fight, only the strikes actually launched count: the first one comes a full cycle in, unless
@@ -2532,7 +2571,8 @@ function computeCombatMetrics(ship, level, effective, armor) {
 
   const barrageDps = volleyBarrageDps(ship, effective, level, armor);
   const skillBarrageDps = timedBarrageDps(ship, effective, level, armor);
-  totals.dps += barrageDps + skillBarrageDps;
+  const burnDps = shipGunBurnDps(ship, effective);
+  totals.dps += barrageDps + skillBarrageDps + burnDps;
 
   const { ehp, hitRate } = effectiveHp(effective);
 
@@ -2546,6 +2586,7 @@ function computeCombatMetrics(ship, level, effective, armor) {
     outOfRangeSlots,
     volleyBarrageDps: barrageDps,
     timedBarrageDps: skillBarrageDps,
+    gunBurnDps: burnDps,
     innateDepthCharge: Boolean(launcher),
   };
 }
@@ -3307,6 +3348,7 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
     const cycle = weaponCycle(item, reload);
     if (cycle) dps += barragePerVolley / cycle;
   }
+  if (ship && ship.equipment && ship.equipment[slotKey]) dps += gunBurnDps(item, ship.equipment[slotKey], effective, ship, slotKey, stat);
   return dps;
 }
 
@@ -4257,6 +4299,9 @@ function renderCombatMetrics(ship, effective) {
         }
         if (field.armor && fieldMetrics.timedBarrageDps) {
           notes.push(`Includes ${Math.round(fieldMetrics.timedBarrageDps).toLocaleString("en-US")} DPS from skill barrages fired on a timer or a weapon event, counted over a ${fightSeconds()}s fight.`);
+        }
+        if (field.armor && fieldMetrics.gunBurnDps) {
+          notes.push(`Includes ${Math.round(fieldMetrics.gunBurnDps).toLocaleString("en-US")} DPS from fire: her HE shells may set the target alight (BB 50%, CA 8%, CL 3%, DD 1%, Beehive 30% per hit), a tick every 3s of Dmg x Coef x Efficiency x (1 + FP/100) x 0.6 + 5, ignoring armour.`);
         }
         if (field.key === "dpsASW") {
           if (metrics.innateDepthCharge) {

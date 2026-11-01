@@ -6258,4 +6258,23 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   regular gun (New Jersey, Musashi, Georgia: Twin 457mm Mark A; others Triple 406mm Mk 7). DPS
   drops by the overcount, New Jersey 4791 -> 4642. `npm run check` passes.
 - Other ammo effects: the armour columns already carry each ammo type's modifiers; AP piercing
-  is moot against one boss. HE fire is not counted yet (see the next section when done).
+  is moot against one boss. HE fire: see the next section.
+
+## Gun fire (HE burn) in DPS (2026-11-01)
+
+- HE shells set fires the figures ignored (wiki Damage Calculations, Fire / Burn Damage: BB 50%,
+  CA 8%, CB 4%, CL 3%, DD 1%, Type 3 30% per hit). Checked against the client: buff 311
+  (`gamecfg/buff/buff_311.lua`: BattleBuffDOT, k 0.6 on `cannonPower`, +5, every 3s, 15.1s) and
+  `BattleFormulas.CalculateIgniteDamage` = weapon corrected damage (Dmg x efficiency x coef) x
+  (1 + FP/100) x k. Damage goes through `HandleDirectDamage`: no armour, crit or DMG Dealt.
+- `gunBurnDps` per gun: tick / 3s x uptime, uptime = 1 - exp(-hits/s x chance x 15.1s), hits/s
+  from the catalog's stat-0 DPS over one shell's damage, x mounts, x the Beehive hit share, on
+  the ship's reload. Fires refresh rather than stack, so `shipGunBurnDps` keeps the best gun (out
+  of range secondaries excluded). Added to surface DPS (`gunBurnDps` in the metrics, a DPS
+  tooltip line) and to `weaponScoreForShip`, so Optimize weighs it when picking a gun.
+- Left out: "Burn DMG" skill bonuses, boss burn resistance (`CaclulateDOTPlace` scales the chance
+  by the target's resist, not in our boss data), per-item chance exceptions, and the overlap with
+  a barrage's generic burn (same id, refreshes the same fire).
+- Measured (lv125, Recommended, UR, reference boss): BB median DPS 1524 -> 1913 (burn median
+  453), BC 1475 -> 1770, CB 972 -> 1056, CA/CL/DD within 1%. 90 ships move their main gun from
+  AP to HE (New Jersey: Twin 406mm SK C/34, 4642 -> 4879). `npm run check` passes.
