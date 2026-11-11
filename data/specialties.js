@@ -614,7 +614,6 @@ const SPECIALTIES_DATA = {
     "air"
   ],
   "483": [
-    "mob",
     "tank"
   ],
   "484": [
@@ -1253,6 +1252,7 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "10071": [
+    "mob",
     "heal"
   ],
   "10072": [

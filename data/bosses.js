@@ -12,6 +12,7 @@ const BOSSES_DATA = [
     "aa": 368,
     "siren": false,
     "torpedoShare": 0.072,
+    "airShare": 0.013,
     "timeLimit": 180
   },
   {
@@ -27,6 +28,7 @@ const BOSSES_DATA = [
     "aa": 423,
     "siren": false,
     "torpedoShare": 0.088,
+    "airShare": 0.011,
     "timeLimit": 180
   },
   {
@@ -42,6 +44,7 @@ const BOSSES_DATA = [
     "aa": 386,
     "siren": false,
     "torpedoShare": 0.075,
+    "airShare": 0.012,
     "timeLimit": 180
   },
   {
@@ -57,6 +60,7 @@ const BOSSES_DATA = [
     "aa": 443,
     "siren": false,
     "torpedoShare": 0.093,
+    "airShare": 0.01,
     "timeLimit": 180
   },
   {
@@ -72,6 +76,7 @@ const BOSSES_DATA = [
     "aa": 406,
     "siren": false,
     "torpedoShare": 0.369,
+    "airShare": 0.028,
     "timeLimit": 180
   },
   {
@@ -87,6 +92,7 @@ const BOSSES_DATA = [
     "aa": 420,
     "siren": false,
     "torpedoShare": 0.369,
+    "airShare": 0.028,
     "timeLimit": 180
   },
   {
@@ -102,6 +108,7 @@ const BOSSES_DATA = [
     "aa": 466,
     "siren": false,
     "torpedoShare": 0.331,
+    "airShare": 0.025,
     "timeLimit": 180
   },
   {
@@ -117,6 +124,7 @@ const BOSSES_DATA = [
     "aa": 483,
     "siren": false,
     "torpedoShare": 0.331,
+    "airShare": 0.025,
     "timeLimit": 180
   },
   {
@@ -132,6 +140,7 @@ const BOSSES_DATA = [
     "aa": 410,
     "siren": false,
     "torpedoShare": 0.28,
+    "airShare": 0.049,
     "timeLimit": 180
   },
   {
@@ -147,6 +156,7 @@ const BOSSES_DATA = [
     "aa": 471,
     "siren": false,
     "torpedoShare": 0.186,
+    "airShare": 0.049,
     "timeLimit": 180
   },
   {
@@ -162,6 +172,7 @@ const BOSSES_DATA = [
     "aa": 585,
     "siren": false,
     "torpedoShare": 0.381,
+    "airShare": 0.913,
     "timeLimit": 180
   },
   {
@@ -177,6 +188,7 @@ const BOSSES_DATA = [
     "aa": 585,
     "siren": false,
     "torpedoShare": 0.381,
+    "airShare": 0.913,
     "timeLimit": 180
   },
   {
@@ -192,6 +204,7 @@ const BOSSES_DATA = [
     "aa": 424,
     "siren": false,
     "torpedoShare": 0.635,
+    "airShare": 0.949,
     "timeLimit": 180
   },
   {
@@ -207,6 +220,7 @@ const BOSSES_DATA = [
     "aa": 404,
     "siren": false,
     "torpedoShare": 0.635,
+    "airShare": 0.949,
     "timeLimit": 180
   },
   {
@@ -222,6 +236,7 @@ const BOSSES_DATA = [
     "aa": 495,
     "siren": false,
     "torpedoShare": 0.093,
+    "airShare": 0.75,
     "timeLimit": 180
   },
   {
@@ -237,6 +252,7 @@ const BOSSES_DATA = [
     "aa": 495,
     "siren": false,
     "torpedoShare": 0.406,
+    "airShare": 0.894,
     "timeLimit": 180
   },
   {
@@ -252,6 +268,7 @@ const BOSSES_DATA = [
     "aa": 544,
     "siren": false,
     "torpedoShare": 0.174,
+    "airShare": 0.859,
     "timeLimit": 180
   },
   {
@@ -267,6 +284,7 @@ const BOSSES_DATA = [
     "aa": 462,
     "siren": false,
     "torpedoShare": 0.366,
+    "airShare": 0.856,
     "timeLimit": 180
   },
   {
@@ -282,6 +300,7 @@ const BOSSES_DATA = [
     "aa": 462,
     "siren": false,
     "torpedoShare": 0.366,
+    "airShare": 0.856,
     "timeLimit": 180
   },
   {
@@ -297,6 +316,7 @@ const BOSSES_DATA = [
     "aa": 495,
     "siren": false,
     "torpedoShare": 0.432,
+    "airShare": 0.912,
     "timeLimit": 180
   },
   {
@@ -312,6 +332,7 @@ const BOSSES_DATA = [
     "aa": 424,
     "siren": false,
     "torpedoShare": 0.349,
+    "airShare": 0.011,
     "timeLimit": 180
   },
   {
@@ -327,6 +348,7 @@ const BOSSES_DATA = [
     "aa": 424,
     "siren": false,
     "torpedoShare": 0.338,
+    "airShare": 0.011,
     "timeLimit": 180
   },
   {
@@ -342,6 +364,7 @@ const BOSSES_DATA = [
     "aa": 424,
     "siren": false,
     "torpedoShare": 0.376,
+    "airShare": 0.96,
     "timeLimit": 180
   },
   {
@@ -357,6 +380,7 @@ const BOSSES_DATA = [
     "aa": 424,
     "siren": false,
     "torpedoShare": 0.211,
+    "airShare": 0.974,
     "timeLimit": 180
   },
   {

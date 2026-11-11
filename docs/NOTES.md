@@ -6578,3 +6578,25 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   vs Ise (15-2): Bulge on every CL and 62 of 114 CAs; vs Fusou Retrofit (14-1): none. DDs cannot
   equip it. Campaign fights last 180s, so the Repair Toolkit heals 12 times there and beats
   Plum-Petal Poetry on DDs again. `npm run check` passes.
+
+## Air threat per fight drives the AA weight (2026-11-12)
+
+- **Asked by the user**: "AA items are very situational". Measured: Optimize valued AA the same in
+  every fight (stat share x the goal's AA weight).
+- **Data**: enemy carriers' strikes are not in their `equipment_list` (Chitose: one gun, no buffs);
+  they are the waves' `airFighter` raids (planes x `totalNumber`, `weaponID`, `attr.airPower`).
+  `planeOrdnance` (scripts/enemy-fire.js) sums every plane dropping each air-attribute weapon once.
+  Campaign nodes: 3-8 planes in 14-x and 16-1/2, 263 in 15-x, 823 in 16-3/4.
+- **airShare** (data/bosses.js campaign nodes, data/maps.js mobs): raid ordnance / (ordnance + the
+  ships' HP-weighted fire over the expedition's time limit). An upper bound (every plane drops,
+  AA downs some first), so it is not put in eHP; boss nodes read 1-5% vs 75-97%, mobs 4-9% vs
+  82-96%. The game's own `air_dominance` only grows with the chapter (1985 on 14-1, 4200 on 16-4,
+  carriers or not), so it cannot tell air fights apart.
+- **Rule** (`airThreatFactor`): every goal but Anti-Air scales its AA weight by the target's
+  airShare / `REFERENCE_AIR_SHARE` (0.461, the mean over the 24 campaign boss nodes); a target
+  with no figure (solo and event bosses) keeps factor 1, so the reference is unchanged.
+- **Measured** (lv125, Recommended, UR): vs Ise (15-2, 0.949): HP AA Radar on 157 CLs and 179 DDs
+  (CL AA median 670 -> 802, DPS 1149 -> 933 as Type 93 goes); vs Fusou Retrofit (14-1, 0.013): no
+  AA radar at all, Funkmess/Type 93 instead. Reference unchanged. `npm run check` passes.
+- **Not modelled**: a ship's own AA also cuts the air damage she takes (client: x 150 / (150 + AA),
+  same formula as a boss's AA against our planes); left out of eHP with the share itself.

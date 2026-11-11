@@ -3,7 +3,7 @@
 // tab's Mob fleet is measured against. Run by hand after a game update: node scripts/import-maps.js
 const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
-const { FIRE_SOURCES, fireRates } = require("./enemy-fire");
+const { FIRE_SOURCES, fireRates, planeOrdnance } = require("./enemy-fire");
 
 const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
 const SOURCES = {
@@ -50,8 +50,10 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
     const dungeon = expedition && dungeons[expedition.dungeon_id];
     if (!dungeon) throw new Error(`Mob fleet ${expeditionId} has no dungeon.`);
     const counts = new Map();
+    let raids = 0;
     for (const stage of list(dungeon.stages)) {
       for (const wave of list(stage.waves)) {
+        raids += planeOrdnance(list(wave.airFighter), { weapons, barrages });
         for (const unit of [...list(wave.spawn), ...list(wave.reinforcement)]) {
           const stats = unit && enemy(unit.monsterTemplateID);
           // A negative unit type is a scripted dummy (a 99999 HP "？？？" in 15-x); submarines only take ASW,
@@ -73,7 +75,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         fire: fireRates(stats, expedition.level, { weapons, barrages })
       };
     });
-    return { name: expedition.name, weight, level: expedition.level, timeLimit: expedition.time_limit, units };
+    return { name: expedition.name, weight, level: expedition.level, timeLimit: expedition.time_limit, units, raids };
   }
 
   const maps = [];
@@ -95,8 +97,15 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
     let totalHp = 0;
     let weightedTime = 0;
     const fired = { cannon: 0, torpedo: 0, air: 0 };
+    // Air raids against the ships' fire over each fleet's time limit, as bosses.js's airShare.
+    let raidDamage = 0;
+    let shipDamage = 0;
     let totalWeight = 0;
     for (const fleet of fleets) {
+      const fleetHp = fleet.units.reduce((sum, unit) => sum + unit.count * unit.hp, 0);
+      const fleetFire = fleet.units.reduce((sum, unit) => sum + unit.count * unit.hp * (unit.fire.cannon + unit.fire.torpedo + unit.fire.air), 0);
+      raidDamage += fleet.weight * fleet.raids;
+      shipDamage += fleet.weight * fleet.timeLimit * fleetFire / fleetHp;
       totalWeight += fleet.weight;
       weightedTime += fleet.weight * fleet.timeLimit;
       for (const unit of fleet.units) {
@@ -126,6 +135,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         siren: fleets.every(fleet => fleet.units.every(unit => unit.siren)),
         // Share of the damage fired at the fleet that is torpedo-attribute, each enemy by its HP like the rest.
         torpedoShare: round(fired.torpedo / (fired.cannon + fired.torpedo + fired.air), 3),
+        airShare: round(raidDamage / (raidDamage + shipDamage), 3),
         hpShare: Object.fromEntries(Object.entries(hpByArmor).map(([armor, hp]) => [armor, round(hp / totalHp, 3)])),
         fleets: fleets.map(({ name, weight, level }) => ({ name, weight, level }))
       }

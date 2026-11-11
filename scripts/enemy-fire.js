@@ -37,10 +37,7 @@ function fireRates(stats, level, { weapons, barrages }) {
     const weapon = weaponRow(weapons, id);
     const kind = weapon && ATTRIBUTE_STAT[weapon.attack_attribute];
     if (!kind || weapon.type === RAM_WEAPON || !(weapon.reload_max > 0)) continue;
-    const bullets = (weapon.barrage_ID || []).reduce((sum, barrageId) => {
-      const barrage = barrages[barrageId];
-      return sum + (barrage ? (barrage.primal_repeat + 1) * (barrage.senior_repeat + 1) : 0);
-    }, 0);
+    const bullets = barrageBullets(weapon, barrages);
     const perBullet = weapon.damage * (weapon.corrected || 0) / 100 * (1 + statAt(kind) * (weapon.attack_attribute_ratio || 0) / 10000);
     const cycle = weapon.reload_max / 150 * Math.sqrt(200 / (reload + 100));
     rates[kind] += perBullet * bullets / cycle;
@@ -48,4 +45,26 @@ function fireRates(stats, level, { weapons, barrages }) {
   return rates;
 }
 
-module.exports = { FIRE_SOURCES, fireRates };
+function barrageBullets(weapon, barrages) {
+  return (weapon.barrage_ID || []).reduce((sum, barrageId) => {
+    const barrage = barrages[barrageId];
+    return sum + (barrage ? (barrage.primal_repeat + 1) * (barrage.senior_repeat + 1) : 0);
+  }, 0);
+}
+
+// Everything a wave's air raids (`airFighter`: totalNumber planes with the airPower stat) can drop,
+// every plane releasing each air-attribute weapon once: an upper bound, since AA downs some first.
+function planeOrdnance(airFighters, { weapons, barrages }) {
+  let total = 0;
+  for (const raid of airFighters) {
+    for (const id of raid.weaponID || []) {
+      const weapon = weaponRow(weapons, id);
+      if (!weapon || weapon.attack_attribute !== 4) continue;
+      const perBullet = weapon.damage * (weapon.corrected || 0) / 100 * (1 + ((raid.attr || {}).airPower || 0) * (weapon.attack_attribute_ratio || 0) / 10000);
+      total += raid.totalNumber * perBullet * (barrageBullets(weapon, barrages) || 1);
+    }
+  }
+  return total;
+}
+
+module.exports = { FIRE_SOURCES, fireRates, planeOrdnance };

@@ -2413,7 +2413,9 @@ let targetBoss = null;
 // Median torpedo share of the damage fired at the fleet over the campaign 14-16 boss nodes
 // (torpedoShare in data/bosses.js); the raid bosses above fire skill barrages with no such figure.
 const REFERENCE_TORPEDO_SHARE = 0.34;
-const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, aa: REFERENCE_AA, torpedoShare: REFERENCE_TORPEDO_SHARE, armor: null };
+// Mean air raid share over the same boss nodes (airShare): 1-5% in 14-x and 16-1/2, 75-97% in 15-x and 16-3/4.
+const REFERENCE_AIR_SHARE = 0.461;
+const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, aa: REFERENCE_AA, torpedoShare: REFERENCE_TORPEDO_SHARE, airShare: REFERENCE_AIR_SHARE, armor: null };
 function targetStats() {
   return targetBoss || REFERENCE_TARGET;
 }
@@ -3452,8 +3454,18 @@ function recommendedWeights(ship, effective) {
 }
 
 function optimizeWeights(ship, targetId, effective) {
-  if (targetId === "auto") return recommendedWeights(ship, effective);
-  return (OPTIMIZE_TARGETS[targetId] || OPTIMIZE_TARGETS.auto).weights || recommendedWeights(ship, effective);
+  const weights = targetId === "auto"
+    ? recommendedWeights(ship, effective)
+    : (OPTIMIZE_TARGETS[targetId] || OPTIMIZE_TARGETS.auto).weights || recommendedWeights(ship, effective);
+  if (targetId === "antiair" || !weights.antiair) return weights;
+  return { ...weights, antiair: weights.antiair * airThreatFactor() };
+}
+
+// AA is worth what the fight's air raids threaten: 14-x brings a handful of planes, 15-x and 16-3/4
+// hundreds. A fight with no figure (solo and event bosses) keeps the reference weight.
+function airThreatFactor() {
+  const share = targetStats().airShare;
+  return typeof share === "number" ? share / REFERENCE_AIR_SHARE : 1;
 }
 
 // Auxiliary bonuses sit on wildly different scales (a few hundred HP vs. a dozen Evasion),
@@ -7235,8 +7247,8 @@ function visibleFleets() {
 // The Mob fleet's target: the map's mob fleets as one enemy whose armour is an HP split
 // (targetCombatMetrics) and whose Hit, Evasion and Luck are HP-weighted means.
 function mobTarget(map) {
-  const { level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare, torpedoShare } = map.mobs;
-  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare, torpedoShare };
+  const { level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare, torpedoShare, airShare } = map.mobs;
+  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare, torpedoShare, airShare };
 }
 
 // Figures read the target through the targetBoss global, so the Mob fleet's is swapped in and put back.
@@ -8203,7 +8215,7 @@ function referenceMobTarget() {
   return { name: "Campaign mob fleets", map: "", group: "", armor: null, hull: null, siren: false, hpShare,
     level: mean(m => m.level), hit: mean(m => m.hit), eva: mean(m => m.eva), luck: mean(m => m.luck),
     aa: mean(m => m.aa), airModifier: mean(m => m.airModifier), timeLimit: mean(m => m.timeLimit),
-    torpedoShare: mean(m => m.torpedoShare) };
+    torpedoShare: mean(m => m.torpedoShare), airShare: mean(m => m.airShare) };
 }
 const SPECIALTY_AIR_TOP = 0.25;
 
