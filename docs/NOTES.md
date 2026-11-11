@@ -6450,3 +6450,19 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   CA 1212 -> 1149, CL 1282 -> 1256, DD 1447 -> 1439 (ACC 219), SS 1829 -> 1800. Against a boss with
   more Evasion (median of our bosses 64) the gap grows. Specialties regenerated (28 ships change a
   mark; Shinano loses "boss", Alsace gains it). `npm run check` passes.
+
+## One fire per boss in fleet totals (2026-11-11)
+
+- **Found** checking how gun fire adds up in a fleet: the client keys a unit's buffs by id
+  (`BattleUnit.AddBuff`; a second buff 311 stacks, max 1, or replaces), so a boss carries one fire
+  whoever lit it. The Fleet tab and its optimizer summed every ship's own fire.
+- **Rule** (`sharedFireDps`, `fleetDps`, `fleetSharesFire`): against a boss (every fleet but a
+  Mob fleet with a map) the fleet's fire takes the summed ignition rate (`gunBurn.rate`, hits/s x
+  chance) and the rate-weighted tick (the next ship to light it after it goes out owns it, so
+  each owns it in proportion to its rate); each ship's own `gunBurnDps` is swapped for that. Used
+  by the Vanguard / Main / Fleet DPS lines and `optimizeScore`. A Mob fleet has a fire per enemy:
+  summed as before. Per-ship figures (modal, Port, specialties) are unchanged.
+- **Measured** (lv125, Recommended, UR, reference boss): New Jersey + Musashi + Friedrich der
+  Große 11690 -> 10526 main fleet DPS (one BB alone keeps the fire up ~93% of the time); New Jersey
+  + two CVs unchanged. The fleet optimizer stops rating BB stacks above mixed main fleets on fire
+  they cannot all keep. `npm run check` passes; Fleet totals checked headless.

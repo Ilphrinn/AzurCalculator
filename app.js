@@ -2545,31 +2545,56 @@ function gunBurnChance(item) {
   return /^HE/.test(item.ammoType || "") ? BURN_CHANCE_BY_CATEGORY[item.category] || 0 : 0;
 }
 
-// One gun's burn DPS in `slot`, with `firepower` the ship's FP including the gun's own bonus.
-function gunBurnDps(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
+// One gun's burn in `slot`, with `firepower` the ship's FP including the gun's own bonus: its DPS,
+// ignitions per second and tick damage.
+function gunBurn(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
   const chance = gunBurnChance(item);
-  if (!chance || !(item.dmg > 0) || !(item.coef > 0) || !item.dps || !(item.dps.raw > 0)) return 0;
+  if (!chance || !(item.dmg > 0) || !(item.coef > 0) || !item.dps || !(item.dps.raw > 0)) return { dps: 0, rate: 0, tick: 0 };
   const shellDamage = item.dmg * item.coef / 100;
   const efficiency = slotEfficiency(slot) * (1 + weaponEfficiencyBonus(effective, ship, slotKey, item) / 100);
   const tick = shellDamage * efficiency * (1 + firepower / 100) * GUN_BURN.coefficient + GUN_BURN.flat;
   // Shells per second from the catalog's own stat-0 figure, on the ship's reload.
   const hitsPerSecond = item.dps.raw / shellDamage * slotMount(slot) * ammoHitShare(item) *
     reloadDpsFactor(item, effectiveReload(effective)) * hitRate;
-  const uptime = 1 - Math.exp(-hitsPerSecond * chance * GUN_BURN.duration);
-  return tick / GUN_BURN.interval * uptime;
+  const rate = hitsPerSecond * chance;
+  return { dps: tick / GUN_BURN.interval * (1 - Math.exp(-rate * GUN_BURN.duration)), rate, tick };
+}
+
+function gunBurnDps(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
+  return gunBurn(item, slot, effective, ship, slotKey, firepower, hitRate).dps;
 }
 
 // The ship's fire: only one burns at a time, so her best burning gun's. A fire starts only on a
 // shell that hits, so the hit rate thins the ignitions, not the burn itself.
-function shipGunBurnDps(ship, effective, hitRate = 1) {
+function shipGunBurn(ship, effective, hitRate = 1) {
   const firepower = effective.stats.firepower ? effective.stats.firepower.value : 0;
-  let best = 0;
+  let best = { dps: 0, rate: 0, tick: 0 };
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
     if (!item || outOfBossRange(ship, slotKey)) continue;
-    best = Math.max(best, gunBurnDps(item, slot, effective, ship, slotKey, firepower, hitRate));
+    const burn = gunBurn(item, slot, effective, ship, slotKey, firepower, hitRate);
+    if (burn.dps > best.dps) best = burn;
   }
   return best;
+}
+
+// A target carries one fire whoever lit it (client BattleUnit.AddBuff keys buffs by id, buff 311
+// stack 1), so ships firing at one boss share it: ignitions add up, and the tick is the igniting
+// ship's, weighted by how often each one lights it. `figures` are fleetShipFigures results.
+function sharedFireDps(figures) {
+  const fires = figures.filter(figure => figure.gunBurn && figure.gunBurn.rate > 0);
+  const rate = fires.reduce((total, figure) => total + figure.gunBurn.rate, 0);
+  if (!rate) return 0;
+  const tick = fires.reduce((total, figure) => total + figure.gunBurn.rate * figure.gunBurn.tick, 0) / rate;
+  return tick / GUN_BURN.interval * (1 - Math.exp(-rate * GUN_BURN.duration));
+}
+
+// A fleet's DPS: each ship's own, with their fires merged into one against a boss. A mob fleet
+// has a fire per enemy, so its ships' fires stay apart.
+function fleetDps(figures, sharesFire) {
+  const dps = figures.reduce((total, figure) => total + figure.dps, 0);
+  if (!sharesFire) return dps;
+  return dps - figures.reduce((total, figure) => total + (figure.gunBurnDps || 0), 0) + sharedFireDps(figures);
 }
 
 // Catalog aircraft DPS is one plane on its own cycle at RLD 100 (RoF x 2.2 + 0.033, wiki List of
@@ -2701,7 +2726,8 @@ function computeCombatMetrics(ship, level, effective, armor) {
   const outgoingHit = outgoingHitRate(effective, armor);
   const barrageDps = volleyBarrageDps(ship, effective, level, armor) * outgoingHit;
   const skillBarrageDps = timedBarrageDps(ship, effective, level, armor) * outgoingHit;
-  const burnDps = shipGunBurnDps(ship, effective, outgoingHit);
+  const burn = shipGunBurn(ship, effective, outgoingHit);
+  const burnDps = burn.dps;
   totals.dps = totals.dps * outgoingHit + barrageDps + skillBarrageDps + burnDps;
 
   const { ehp, hitRate } = effectiveHp(effective);
@@ -2718,6 +2744,7 @@ function computeCombatMetrics(ship, level, effective, armor) {
     volleyBarrageDps: barrageDps,
     timedBarrageDps: skillBarrageDps,
     gunBurnDps: burnDps,
+    gunBurn: burn,
     innateDepthCharge: Boolean(launcher),
   };
 }
@@ -7190,6 +7217,11 @@ function mobTarget(map) {
 }
 
 // Figures read the target through the targetBoss global, so the Mob fleet's is swapped in and put back.
+// Against a boss every ship's fire lands on the same target; a mob fleet spreads them.
+function fleetSharesFire(key) {
+  return !(key === "mob" && fleetMap());
+}
+
 function withFleetTarget(key, compute) {
   const map = key === "mob" && fleetMap();
   if (!map) return compute();
@@ -7785,12 +7817,17 @@ function createFleetTotals(fleetKey, figures, sustain) {
     return total + (figure ? (raw ? figure.raw : figure)[key] : 0);
   }, 0);
   const both = (key, rows) => [rows.reduce((t, r) => t + sum(r, key), 0), rows.reduce((t, r) => t + sum(r, key, true), 0)];
+  const sharesFire = fleetSharesFire(fleetKey);
+  const bothDps = rows => {
+    const list = rows.flatMap(row => fleet[fleetKey][row]).map(ship => ship && figures.get(ship)).filter(Boolean);
+    return [fleetDps(list, sharesFire), fleetDps(list.map(figure => figure.raw), sharesFire)];
+  };
   const members = fleetMembers(fleetKey).filter(ship => figures.get(ship));
   const weakest = members.reduce((low, ship) => !low || figures.get(ship).ehp < figures.get(low).ehp ? ship : low, null);
   const rows = FLEET_ROWS[fleetKey];
   const cells = [
-    ...(rows.length > 1 ? [["Vanguard DPS", ...both("dps", ["Vanguard"])], ["Main fleet DPS", ...both("dps", ["Main"])]] : []),
-    ["Fleet DPS", ...both("dps", rows)],
+    ...(rows.length > 1 ? [["Vanguard DPS", ...bothDps(["Vanguard"])], ["Main fleet DPS", ...bothDps(["Main"])]] : []),
+    ["Fleet DPS", ...bothDps(rows)],
     ["Fleet AA DPS", ...both("dpsAA", rows)],
     ["Lowest eHP", weakest ? figures.get(weakest).ehp : null, weakest ? figures.get(weakest).raw.ehp : null, weakest],
     ["Healed / fight", sustain.totals.heal || null, null, null, sustain.fleetHp],
@@ -7938,7 +7975,7 @@ function fillFleetFigures(key, candidates, label) {
 function optimizeScore(key, rows, figures) {
   const members = FLEET_ROWS[key].flatMap(row => rows[row]).filter(ship => ship && figures.get(ship));
   if (!members.length) return 0;
-  const dps = members.reduce((sum, ship) => sum + figures.get(ship).dps, 0);
+  const dps = fleetDps(members.map(ship => figures.get(ship)), fleetSharesFire(key));
   if (key !== "mob") return dps;
   const ehp = members.reduce((sum, ship) => sum + figures.get(ship).ehp, 0);
   const sustain = withFleetTarget("mob", () => sustainFor(fleetSustainMembers(key, rows, figures), figures));
