@@ -1057,6 +1057,8 @@ const modalAugmentControl = document.getElementById("modal-augment-control");
 const modalAugmentCheckbox = document.getElementById("modal-augment-checkbox");
 const modalFateSimControl = document.getElementById("modal-fatesim-control");
 const modalFateSimCheckbox = document.getElementById("modal-fatesim-checkbox");
+const modalComboControl = document.getElementById("modal-combo-control");
+const modalComboCheckbox = document.getElementById("modal-combo-checkbox");
 const modalLevelControl = document.getElementById("modal-level-control");
 const modalLevelNotches = document.getElementById("modal-level-notches");
 const modalLevelInput = document.getElementById("modal-level-input");
@@ -1483,8 +1485,11 @@ function clauseBeforeRaw(plainText, raw) {
   const lower = plainText.toLowerCase();
   const idx = lower.indexOf(raw.toLowerCase().trim());
   if (idx < 0) return null;
-  // Mode tags often follow a period with no space ("(8%).[Operation Siren]Every time..."), so ".[" also starts a sentence.
-  const sentStart = Math.max(plainText.lastIndexOf(". ", idx) + 2, plainText.lastIndexOf(".[", idx) + 1, 0);
+  // Mode tags and some sentences follow a period with no space ("(8%).[Operation Siren]Every time...",
+  // "(20%).At the start"), so a period before "[" or a capital also ends one; a text that opens on the
+  // condition starts at 0, not at a missed "-1 + 2".
+  let sentStart = 0;
+  for (const m of plainText.slice(0, idx).matchAll(/\.(?:\s+|(?=\[|[A-Z]))/g)) sentStart = m.index + m[0].length;
   return plainText.slice(sentStart, idx);
 }
 
@@ -1620,6 +1625,140 @@ function parseEquipCondition(clause) {
   return null;
 }
 
+// A self bonus gated on who else sails ("sortied with Sheffield", "if there is another Royal Navy ship
+// in your fleet", "for each Sakura Empire ship in your fleet") counts only against known allies: the
+// Fleet tab's members (fleetAllies), or every condition met when the modal's combos are on.
+// Acasta's "when another ship in your fleet sinks" never counts: losing an ally costs more than it gives.
+let fleetAllies = null;
+let assumeCombos = false;
+const ALLY_SINKS_RE = /\banother ship in your fleet sinks\b/i;
+// Each form names the allies in group 1; the one nearest the bonus governs it.
+const ALLY_CONDITION_FORMS = [
+  // A name list runs on through "A, B (Muse), or C"; a comma before anything else ends it.
+  { kind: "sortied", re: /\bsortied (?:together |in a fleet )?with\s+(.+?)(?=\s*(?:,(?!\s+(?:or\s+|and\s+)?[A-Z])|[:;]|\((?![A-Z][\w ]*\))|\.\s|\band\s+(?:while|if|when|their)\b|\bin the same fleet\b|$))/gi },
+  { kind: "without", re: /\bsortied without\s+(?:any\s+)?(.+?)(?=\s*(?:[,:;(]|\.\s|$))/gi },
+  { kind: "present", re: /\bif there (?:is|are|was|were)\s+(.+?)\s+(?:afloat\s+)?in your fleet\b/gi },
+  { kind: "present", re: /\bif\s+((?!there\b|this ship\b|she\b)[^,:;]+?)\s+(?:is|are)\s+(?:afloat\s+)?in your fleet\b/gi },
+  { kind: "each", re: /\bfor (?:each|every)\s+(.+?)\s+(?:afloat\s+)?in your fleet\b/gi }
+];
+// An "else" branch after the condition holds when it fails (Andrea Doria's "if there is none").
+const ALLY_ELSE_RE = /\bif there (?:is|are) none\b|\botherwise\b|\binstead\b/i;
+// "2 or more friends in your Vanguard": a headcount any full fleet meets, as for "3 ships in your Vanguard".
+const ALLY_HEADCOUNT_RE = /^(?:friends?|ships?|allies|allied ships?)\b/i;
+const ALLY_COUNT_WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5 };
+
+// Who the condition asks for: at least `min` matching ships, the holder counted or not.
+// Negative and parity conditions ("neither", "no more than", "an odd number") are not modelled.
+function allyRequirement(phrase, kind) {
+  if (/^(?:no|neither|an? odd|none)\b/i.test(phrase) || /\benem/i.test(phrase)) return null;
+  const self = kind === "each" || /\bincluding (?:this ship|self|herself)\b/i.test(phrase);
+  let m = /^(?:at least\s+)?(\d+|one|two|three|four|five)\s+or more\s+(.+)$/i.exec(phrase);
+  if (m) return { min: Number(m[1]) || ALLY_COUNT_WORDS[m[1].toLowerCase()], others: kind === "sortied" && !self, group: m[2] };
+  m = /^(?:at least\s+(?:1|one)\s+other|any other|another|other|any version of|at least one|any|an?)\s+(.+)$/i.exec(phrase);
+  const group = m ? m[1] : phrase;
+  const others = !self || /^(?:another|other|any other|at least\s+(?:1|one)\s+other)\b/i.test(phrase);
+  return { min: 1, others, group };
+}
+
+// Only a group the app can name (a nation, hull, class or ship) can be checked against a fleet.
+const allyGroupReadable = new Map();
+function readableAllyGroup(group) {
+  if (!allyGroupReadable.has(group)) {
+    allyGroupReadable.set(group, GROUP_WORDS_RE.test(group) || ships.some(other => namesMember(group, other)));
+  }
+  return allyGroupReadable.get(group);
+}
+
+// A list of ships ("Sheffield, Sheffield (Muse), or Sheffield META") names them by name only, or
+// "META" would read as the META faction and "Queen Elizabeth" as her class.
+// Explicit bounds rather than \b, which never matches after a name's final "μ".
+function namesShipByName(text, member) {
+  if (!interactionPatterns(member).some(p => p.category === "name")) return false;
+  const re = new RegExp(`(?<!\\w)${escapeRegExp(member.displayName)}(?!\\w)`, "gi");
+  let match;
+  while ((match = re.exec(text))) {
+    if (isGenuineAllyMatch(text, match, "name", member)) return true;
+  }
+  return false;
+}
+
+const allyGroupByName = new Map();
+function allyMatches(phrase, member) {
+  // Skill text mixes the micro sign with the Greek mu the μ ships are named with.
+  const group = phrase.replace(/\u00b5/g, "\u03bc");
+  if (!allyGroupByName.has(group)) allyGroupByName.set(group, ships.some(other => namesShipByName(group, other)));
+  return allyGroupByName.get(group) ? namesShipByName(group, member) : namesMember(group, member);
+}
+
+function nearestAllyCondition(clause) {
+  let best = null;
+  for (const form of ALLY_CONDITION_FORMS) {
+    form.re.lastIndex = 0;
+    let m;
+    while ((m = form.re.exec(clause))) {
+      if (!best || m.index > best.index) best = { kind: form.kind, phrase: m[1], index: m.index, end: m.index + m[0].length };
+    }
+  }
+  return best;
+}
+
+// 0 when the condition fails, 1 when it holds, the matching headcount for a "for each" bonus.
+function allyConditionFactor(ship, plainText, raw) {
+  const clause = clauseBeforeRaw(plainText, raw);
+  if (!clause) return 1;
+  if (ALLY_SINKS_RE.test(clause)) return 0;
+  const found = nearestAllyCondition(clause);
+  if (!found) return 1;
+  const need = allyRequirement(found.phrase, found.kind);
+  if (!need || assumeCombos || ALLY_HEADCOUNT_RE.test(need.group)) return 1;
+  const invert = found.kind === "without" || ALLY_ELSE_RE.test(clause.slice(found.end));
+  if (fleetAllies && !readableAllyGroup(need.group)) return invert ? 1 : 0;
+  const members = [ship, ...(fleetAllies || []).filter(member => member !== ship)];
+  const count = members.filter(member => (!need.others || member !== ship) && allyMatches(need.group, member)).length;
+  if (invert) return count === 0 || (found.kind !== "without" && count < need.min) ? 1 : 0;
+  if (found.kind === "each") return count;
+  return count >= need.min ? 1 : 0;
+}
+
+// Her active skills' self bonuses that need other ships, with the ships that can unlock each.
+function shipComboConditions(ship) {
+  const combos = [];
+  const seen = new Set();
+  for (const skill of getSkillsForState(ship, retrofitApplied, augmentApplied, fateSimApplied)) {
+    const plain = skill.description ? stripHtml(skill.description) : "";
+    for (const b of skill.statBonuses || []) {
+      if (!b.raw || !(b.scope === "self" || SELF_LANGUAGE_RE.test(b.raw)) || OTHER_SHIPS_TARGET_RE.test(b.raw)) continue;
+      const clause = clauseBeforeRaw(plain, b.raw);
+      if (!clause) continue;
+      const sinks = ALLY_SINKS_RE.test(clause);
+      const found = sinks ? null : nearestAllyCondition(clause);
+      const need = found && allyRequirement(found.phrase, found.kind);
+      if (!sinks && (!need || ALLY_HEADCOUNT_RE.test(need.group))) continue;
+      const condition = sinks ? "only after an ally sinks, never counted" : clause.slice(found.index, found.end);
+      const key = `${skill.name}|${condition}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const partners = sinks ? [] : ships.filter(other => other !== ship && allyMatches(need.group, other));
+      combos.push({ skill, condition, sinks, partners });
+    }
+  }
+  return combos;
+}
+
+const COMBO_FACES_MAX = 12;
+
+function updateComboControl(ship) {
+  const combos = shipComboConditions(ship);
+  modalComboControl.hidden = !combos.some(combo => !combo.sinks);
+  if (!combos.length) return;
+  const parts = ["Bonuses that need other ships in her fleet. Off, she sails alone, as the Port sorts, Optimize and the specialties count her; the Fleet tab checks them against its members."];
+  for (const combo of combos) {
+    parts.push(`${combo.skill.name}: ${combo.condition}`);
+    if (combo.partners.length && combo.partners.length <= COMBO_FACES_MAX) parts.push({ faces: combo.partners });
+  }
+  setRichTip(modalComboControl, parts);
+}
+
 function equipConditionAllows(ship, plainText, raw) {
   const clause = equipConditionClauseForRaw(plainText, raw);
   if (!clause) return true;
@@ -1690,6 +1829,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       if (b.raw && OTHER_SHIPS_TARGET_RE.test(b.raw)) continue;
       if (b.raw && PICKED_ALLY_RE.test(b.raw) && !SELF_LANGUAGE_RE.test(b.raw) && !b.raw.includes(ship.name)) continue;
       if (!equipConditionAllows(ship, plainDesc, b.raw)) continue;
+      const allyFactor = allyConditionFactor(ship, plainDesc, b.raw);
+      if (!allyFactor) continue;
       const dedupeKey = `${skill.name}::${b.raw}::${b.min}::${b.max}`;
       if (seenRaw.has(dedupeKey)) continue;
       seenRaw.add(dedupeKey);
@@ -1700,7 +1841,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       if (typeof amount !== "number") continue;
       const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
       const factor = timing ? bonusTimingFactor(ship, skill, atMax, amount, timing) : null;
-      const timedAmount = (factor === null ? amount : amount * factor) * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses);
+      const timedAmount = (factor === null ? amount : amount * factor) * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses) * allyFactor;
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
           const qualifier = opsiOnly ? { source: modifierQualifier(b.raw).source, target: OPSI_TARGET } : undefined;
@@ -1794,6 +1935,18 @@ function richTipPart(part) {
     text.className = "rich-tip-text";
     text.textContent = part;
     return text;
+  }
+  if (part.faces) {
+    const row = document.createElement("div");
+    row.className = "rich-tip-faces";
+    for (const ship of part.faces) {
+      const face = document.createElement("img");
+      face.className = "rich-tip-face";
+      face.src = ship.thumbnail;
+      face.alt = ship.displayName;
+      row.appendChild(face);
+    }
+    return row;
   }
   if (part.calc) {
     const calc = document.createElement("div");
@@ -6400,6 +6553,7 @@ function applyRetrofitState() {
 
   renderModalHullIcon(ship);
   renderModalTags(ship, rarity);
+  updateComboControl(ship);
   // Skills first: it resets each toggle-bearing skill's Max Level override to the
   // current skillsAtMaxLevel default, which computeEffectiveStats reads - rendering
   // Stats first would compute off whatever override a previous view of this ship's
@@ -6455,6 +6609,8 @@ function openModal(ship) {
   modalAugmentControl.hidden = !(ship.skills || []).some(s => hasMarker(s, "Aug"));
   modalFateSimCheckbox.checked = false;
   modalFateSimControl.hidden = !(ship.skills || []).some(s => hasMarker(s, "FS"));
+  assumeCombos = false;
+  modalComboCheckbox.checked = false;
 
   modalName.textContent = ship.displayName;
   const nationColor = NATION_COLORS[nationDisplayName(ship.nationality)];
@@ -6495,6 +6651,8 @@ function closeModal() {
     mobRankFigures.delete(currentShip);
   }
   if (metricSortKey()) queueMicrotask(refreshRankFigures);
+  // Combos are a modal what-if: Port sorts and every other figure stay solo.
+  assumeCombos = false;
   modalOverlay.hidden = true;
   document.body.style.overflow = "";
   pageBehindModal.forEach(el => { el.inert = false; });
@@ -6574,6 +6732,11 @@ modalAugmentCheckbox.addEventListener("change", () => {
 
 modalFateSimCheckbox.addEventListener("change", () => {
   fateSimApplied = modalFateSimCheckbox.checked;
+  applyRetrofitState();
+});
+
+modalComboCheckbox.addEventListener("change", () => {
+  assumeCombos = modalComboCheckbox.checked;
   applyRetrofitState();
 });
 
@@ -7418,13 +7581,16 @@ function sustainLineText({ giver, skill, entry, count, amount }) {
 // are set for the fleet and put back. A ship with no gear set gets Optimize's pick, which is
 // then hers in the Equipment panel too, unless keepPicks is false (the Port sorts rank all 888
 // ships and must not equip them behind the user's back).
-function fleetShipFigures(ship, keepPicks = true, incoming = []) {
-  const saved = [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget];
+// allies: the rest of her fleet, whose presence decides her own combo bonuses (allyConditionFactor).
+function fleetShipFigures(ship, keepPicks = true, incoming = [], allies = null) {
+  const saved = [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget, fleetAllies, assumeCombos];
   const hadGear = Object.keys(equippedGear[ship.id] || {}).length > 0;
   currentLevel = FLEET_LEVEL;
   retrofitApplied = Boolean(ship.hasRetrofit);
   augmentApplied = false;
   fateSimApplied = false;
+  fleetAllies = allies;
+  assumeCombos = false;
   try {
     if (ship.equipment && !Object.keys(equippedGear[ship.id] || {}).length) {
       equipmentTarget = "auto";
@@ -7442,7 +7608,7 @@ function fleetShipFigures(ship, keepPicks = true, incoming = []) {
     metrics.cycles = weaponCycles(ship, effective);
     return metrics;
   } finally {
-    [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget] = saved;
+    [currentLevel, retrofitApplied, augmentApplied, fateSimApplied, equipmentTarget, fleetAllies, assumeCombos] = saved;
     if (!keepPicks && !hadGear) clearEquippedGear(ship);
   }
 }
@@ -7484,7 +7650,7 @@ function renderFleet() {
       }
     }
     const sustain = withFleetTarget(key, () => {
-      for (const ship of members) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship)));
+      for (const ship of members) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship), members));
       return fleetSustain(key, figures);
     });
     reports.push({ key, members, blocks });

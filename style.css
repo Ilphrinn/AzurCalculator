@@ -1240,7 +1240,8 @@ main[aria-busy="true"] {
 
 .retrofit-checkbox,
 .augment-checkbox,
-.fatesim-checkbox {
+.fatesim-checkbox,
+.combo-checkbox {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -1267,15 +1268,22 @@ main[aria-busy="true"] {
   color: var(--rarity-elite);
 }
 
+.combo-checkbox {
+  border: 1px solid var(--specialty-heal);
+  color: var(--specialty-heal);
+}
+
 .retrofit-checkbox[hidden],
 .augment-checkbox[hidden],
-.fatesim-checkbox[hidden] {
+.fatesim-checkbox[hidden],
+.combo-checkbox[hidden] {
   display: none;
 }
 
 .retrofit-checkbox input,
 .augment-checkbox input,
-.fatesim-checkbox input {
+.fatesim-checkbox input,
+.combo-checkbox input {
   appearance: none;
   -webkit-appearance: none;
   width: 12px;
@@ -1289,7 +1297,8 @@ main[aria-busy="true"] {
 
 .retrofit-checkbox input:checked,
 .augment-checkbox input:checked,
-.fatesim-checkbox input:checked {
+.fatesim-checkbox input:checked,
+.combo-checkbox input:checked {
   background: currentColor;
   box-shadow: 0 0 8px currentColor;
 }
@@ -3119,6 +3128,20 @@ main[aria-busy="true"] {
 
 .rich-tip-text {
   margin: 0 0 0.35rem;
+}
+
+.rich-tip-faces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0 0 0.45rem;
+}
+
+.rich-tip-face {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--specialty-heal);
+  object-fit: cover;
 }
 
 .rich-tip > :last-child {

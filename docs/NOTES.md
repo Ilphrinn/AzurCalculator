@@ -6600,3 +6600,37 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   AA radar at all, Funkmess/Type 93 instead. Reference unchanged. `npm run check` passes.
 - **Not modelled**: a ship's own AA also cuts the air damage she takes (client: x 150 / (150 + AA),
   same formula as a boss's AA against our planes); left out of eHP with the share itself.
+
+## Fleet combos: self bonuses that need other ships (2026-11-12)
+
+- **Asked by the user** (`todo`): stats inflated by bonuses that need other ships (Acasta's Death
+  Raid: +50% DMG dealt "when another ship in your fleet sinks"); such bonuses belong to fleet
+  building, with a with/without switch and the partners' faces in a tooltip.
+- **Found**: `computeEffectiveStats` assumed every condition met except equipment ones. 161
+  skills give a self bonus gated on fleet make-up; 76 are "permanent" in skill-timing, so they
+  counted in full in every time-weighted figure too (Acasta's +50% included: 2020 DPS).
+- **Rule** (`allyConditionFactor`, beside `equipConditionAllows`): the condition nearest before
+  the bonus in its sentence (`clauseBeforeRaw`), one of "sortied (in a fleet) with X", "sortied
+  without X", "if there is/are/was ... in your fleet", "if X is afloat in your fleet", "for
+  each/every X in your fleet". `allyRequirement` reads the count ("another", "N or more", "including
+  this ship"); a "for each" counts the holder and returns the headcount; an "if there is none" /
+  "otherwise" / "instead" after it inverts it (Andrea Doria, Kongou μ). Members match through
+  `namesMember`, or by name only when the phrase names ships (`allyMatches`: "Sheffield META" is a
+  ship, not the META faction), with µ read as μ and explicit bounds (`\b` never matches after μ).
+  Not modelled, kept as before: negations and parity ("neither", "no more than", "an odd number"),
+  headcounts with no group ("2 or more friends in your Vanguard"), conditions written after the
+  bonus (Dido's "for every Royal Navy ship", counted once). "Another ship in your fleet sinks"
+  never counts.
+- **Where**: solo everywhere (modal, Port sorts, Optimize, specialties, the Fleet ranking cache);
+  the Fleet tab passes each fleet's members (`fleetShipFigures(..., allies)`); the modal's "Fleet
+  combos" checkbox (`assumeCombos`, reset on close) counts every condition met, its tooltip lists
+  each condition with the partners' faces (12 at most, else the condition alone). The fleet
+  optimizer still ranks on solo figures, combos and fleet synergies alike.
+- **Fixed on the way**: `clauseBeforeRaw` started a text that opens on its condition at index 1
+  ("-1 + 2"), cutting "If" to "f", and ran over "(20%).At the start" into the previous sentence.
+  Only ally-gated ships moved, so the equipment conditions read the same.
+- **Measured** (lv125, Recommended, UR, reference boss): 49 ships lower, none higher: Acasta
+  2020 -> 1348, Zuikaku 1876 -> 1365, Akagi/Kaga/Hiryuu/Souryuu -24%, Hibiki -19%, Charles Ausburne
+  -19%. Fleet: Zuikaku + Shoukaku + Taihou 1876, + Taihou + Hakuryuu 1592 (three Sakura ships only);
+  Kaga + Akagi μ 1419. Specialties regenerated (Acasta, Hibiki, Albion, Yorktown II lose "boss").
+  `npm run check` passes.
