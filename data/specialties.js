@@ -13,7 +13,6 @@ const SPECIALTIES_DATA = {
   ],
   "13": [
     "boss",
-    "mob",
     "buff",
     "asw"
   ],
@@ -165,6 +164,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "115": [
+    "mob",
     "buff",
     "aa"
   ],
@@ -278,6 +278,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "195": [
+    "mob",
     "tank",
     "buff"
   ],
@@ -287,9 +288,6 @@ const SPECIALTIES_DATA = {
   "197": [
     "tank",
     "buff"
-  ],
-  "199": [
-    "tank"
   ],
   "205": [
     "buff"
@@ -346,6 +344,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "242": [
+    "mob",
     "shield"
   ],
   "243": [
@@ -393,6 +392,9 @@ const SPECIALTIES_DATA = {
   "303": [
     "buff"
   ],
+  "305": [
+    "aa"
+  ],
   "308": [
     "buff"
   ],
@@ -414,6 +416,7 @@ const SPECIALTIES_DATA = {
   "322": [
     "boss",
     "mob",
+    "tank",
     "buff"
   ],
   "324": [
@@ -429,6 +432,7 @@ const SPECIALTIES_DATA = {
     "aa"
   ],
   "335": [
+    "tank",
     "heal"
   ],
   "341": [
@@ -464,8 +468,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "371": [
-    "buff",
-    "aa"
+    "buff"
   ],
   "372": [
     "buff",
@@ -508,6 +511,7 @@ const SPECIALTIES_DATA = {
     "aa"
   ],
   "405": [
+    "tank",
     "aa"
   ],
   "410": [
@@ -552,9 +556,6 @@ const SPECIALTIES_DATA = {
   "442": [
     "air"
   ],
-  "443": [
-    "aa"
-  ],
   "444": [
     "boss",
     "asw"
@@ -576,7 +577,6 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "455": [
-    "tank",
     "shield"
   ],
   "459": [
@@ -606,6 +606,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "479": [
+    "tank",
     "shield"
   ],
   "480": [
@@ -621,6 +622,9 @@ const SPECIALTIES_DATA = {
   ],
   "485": [
     "shield"
+  ],
+  "486": [
+    "aa"
   ],
   "488": [
     "asw"
@@ -651,6 +655,7 @@ const SPECIALTIES_DATA = {
   ],
   "501": [
     "mob",
+    "tank",
     "shield"
   ],
   "502": [
@@ -681,6 +686,7 @@ const SPECIALTIES_DATA = {
     "air"
   ],
   "512": [
+    "mob",
     "tank",
     "heal"
   ],
@@ -696,11 +702,7 @@ const SPECIALTIES_DATA = {
     "buff",
     "aa"
   ],
-  "519": [
-    "mob"
-  ],
   "521": [
-    "tank",
     "shield",
     "buff"
   ],
@@ -715,6 +717,7 @@ const SPECIALTIES_DATA = {
     "shield"
   ],
   "527": [
+    "mob",
     "tank",
     "shield"
   ],
@@ -801,7 +804,8 @@ const SPECIALTIES_DATA = {
   ],
   "571": [
     "boss",
-    "mob"
+    "mob",
+    "tank"
   ],
   "572": [
     "air"
@@ -810,9 +814,6 @@ const SPECIALTIES_DATA = {
     "boss",
     "buff",
     "air"
-  ],
-  "575": [
-    "tank"
   ],
   "576": [
     "aa",
@@ -854,7 +855,6 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "592": [
-    "boss",
     "shield"
   ],
   "593": [
@@ -862,7 +862,6 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "597": [
-    "tank",
     "buff"
   ],
   "598": [
@@ -887,6 +886,7 @@ const SPECIALTIES_DATA = {
     "aa"
   ],
   "611": [
+    "mob",
     "tank"
   ],
   "613": [
@@ -988,9 +988,7 @@ const SPECIALTIES_DATA = {
   ],
   "655": [
     "mob",
-    "tank",
-    "shield",
-    "aa"
+    "shield"
   ],
   "657": [
     "heal"
@@ -1013,6 +1011,7 @@ const SPECIALTIES_DATA = {
   ],
   "664": [
     "boss",
+    "mob",
     "heal",
     "buff"
   ],
@@ -1033,7 +1032,6 @@ const SPECIALTIES_DATA = {
     "air"
   ],
   "670": [
-    "mob",
     "asw"
   ],
   "673": [
@@ -1132,14 +1130,12 @@ const SPECIALTIES_DATA = {
   "705": [
     "boss",
     "mob",
-    "tank",
     "buff",
     "air"
   ],
   "707": [
     "boss",
-    "mob",
-    "tank"
+    "mob"
   ],
   "709": [
     "tank"
@@ -1179,13 +1175,11 @@ const SPECIALTIES_DATA = {
   ],
   "725": [
     "boss",
-    "mob",
-    "tank"
+    "mob"
   ],
   "727": [
     "mob",
-    "tank",
-    "aa"
+    "tank"
   ],
   "728": [
     "shield"
@@ -1213,10 +1207,12 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "737": [
+    "boss",
     "mob",
     "tank"
   ],
   "754": [
+    "tank",
     "buff",
     "aa"
   ],
@@ -1224,13 +1220,13 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "756": [
-    "mob",
     "buff"
   ],
   "761": [
     "buff"
   ],
   "762": [
+    "mob",
     "tank"
   ],
   "763": [
@@ -1286,6 +1282,9 @@ const SPECIALTIES_DATA = {
   "10089": [
     "tank"
   ],
+  "10091": [
+    "tank"
+  ],
   "10092": [
     "tank",
     "heal"
@@ -1297,7 +1296,6 @@ const SPECIALTIES_DATA = {
     "tank"
   ],
   "10102": [
-    "tank",
     "shield"
   ],
   "10104": [
@@ -1334,11 +1332,11 @@ const SPECIALTIES_DATA = {
   ],
   "10132": [
     "boss",
-    "mob"
+    "mob",
+    "tank"
   ],
   "10134": [
-    "boss",
-    "mob"
+    "boss"
   ],
   "10141": [
     "heal",
@@ -1376,14 +1374,17 @@ const SPECIALTIES_DATA = {
     "tank"
   ],
   "10993": [
-    "mob",
     "shield"
   ],
   "10995": [
     "buff"
   ],
+  "20003": [
+    "boss"
+  ],
   "20005": [
     "mob",
+    "tank",
     "shield"
   ],
   "20006": [
@@ -1404,6 +1405,9 @@ const SPECIALTIES_DATA = {
   ],
   "20013": [
     "aa"
+  ],
+  "20014": [
+    "tank"
   ],
   "20015": [
     "shield"
@@ -1471,7 +1475,6 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "20038": [
-    "mob",
     "shield",
     "aa"
   ],
@@ -1526,7 +1529,8 @@ const SPECIALTIES_DATA = {
     "heal"
   ],
   "30018": [
-    "boss"
+    "boss",
+    "aa"
   ],
   "30019": [
     "buff"
@@ -1570,9 +1574,6 @@ const SPECIALTIES_DATA = {
     "tank",
     "shield"
   ],
-  "30043": [
-    "tank"
-  ],
   "30044": [
     "aa"
   ],
@@ -1587,9 +1588,6 @@ const SPECIALTIES_DATA = {
   ],
   "30049": [
     "boss",
-    "mob"
-  ],
-  "30051": [
     "mob"
   ],
   "30052": [
@@ -1643,6 +1641,7 @@ const SPECIALTIES_DATA = {
   ],
   "wiki-collett": [
     "buff",
+    "aa",
     "asw"
   ],
   "wiki-duncan": [
@@ -1668,9 +1667,6 @@ const SPECIALTIES_DATA = {
   "wiki-n-rnberg-meta": [
     "buff",
     "aa"
-  ],
-  "wiki-orage": [
-    "boss"
   ],
   "wiki-superb": [
     "boss",

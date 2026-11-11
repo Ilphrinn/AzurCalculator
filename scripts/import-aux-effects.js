@@ -50,6 +50,11 @@ class Walker {
       } else if (effect.type === "BattleBuffCastSkill" && sameTrigger(effect, ["onAttach"]) && hasOnly(args, ["skill_id", "target", "rant"]) &&
         args.target === "TargetSelf" && proc && args.rant > 0) {
         found = this.skill(args.skill_id, { ...proc, chance: proc.chance * args.rant / 10000 }, depth + 1);
+      } else if (effect.type === "BattleBuffCastSkill" && sameTrigger(effect, ["onUpdate"]) && !proc && args.time > 0 &&
+        hasOnly(args, ["skill_id", "time", "target", "check_target", "minTargetNumber", "targetMaxHPRatio", "group", "quota"]) &&
+        args.target === "TargetSelf" && args.check_target === "TargetSelf" && args.minTargetNumber === 1 && args.targetMaxHPRatio >= 0.99) {
+        // Repair Toolkit: a self heal every `time` seconds, held back only at 99% HP or more.
+        found = this.selfHeal(args);
       } else {
         found = this.terminal(effect, buff, proc, effects);
         if (found === "skip") continue;
@@ -72,6 +77,19 @@ class Walker {
       effects.push(...found);
     }
     return effects;
+  }
+
+  selfHeal(args) {
+    const skill = this.skills[`skill_${args.skill_id}`];
+    if (!skill || !(skill.effect_list || []).length) return null;
+    let ratio = 0;
+    for (const entry of skill.effect_list) {
+      const heal = entry.arg_list || {};
+      if (entry.type !== "BattleSkillHeal" || entry.target_choise !== "TargetSelf" || !hasOnly(heal, ["maxHPRatio"]) || !(heal.maxHPRatio > 0)) return null;
+      ratio += heal.maxHPRatio;
+    }
+    const group = args.group && args.group.id;
+    return [{ key: "regen", amount: percent(ratio), period: args.time, ...(args.quota ? { quota: args.quota } : {}), ...(group ? { group } : {}) }];
   }
 
   // A permanent effect needs a buff that never expires and no proc; a proc effect needs both.

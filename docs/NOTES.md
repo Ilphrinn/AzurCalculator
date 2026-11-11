@@ -6525,3 +6525,29 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   May snapshot), so their skills are untimed. Face points found for 8 of the 14 paintings.
 - Specialties regenerated: being top shares, the new ships push a few others out (486 loses
   "aa", 10152 "air").
+
+## Auxiliary scoring: Repair Toolkit regen, every DPS stat simulated (2026-11-11)
+
+- **Found** measuring Optimize's auxiliaries over every ship (lv125, Recommended, UR, reference
+  boss): Repair Toolkit on 250 of 254 DDs, 166 of 169 CLs; Type 93 on no CA.
+- **Repair Toolkit** was scored eHP x 1.15 (`HP_REGEN_SCORE_BONUS`, matched on its notes). The
+  game (buff 6120 -> skill 6120) heals 1% max HP every 15s while under 99% HP: +4% over a 60s
+  fight. `import-aux-effects.js` now reads that shape (`selfHeal`: onUpdate cast on self,
+  `targetMaxHPRatio` >= 0.99, BattleSkillHeal `maxHPRatio` only) as `regen` {amount, period,
+  quota}; also Bubbly-Boily Chef and Clover of Happiness (1% every 20s, 3 casts, both unique).
+  `effectiveHp` multiplies by 1 + amount x casts over `fightSeconds()`; the hack is gone.
+- **Every DPS stat simulated**: `slotDpsGains` used to simulate only weighted stats, so a CA
+  (Recommended weighs no Torpedo) never saw Type 93's real +13-21% DPS, and Accuracy, which now
+  moves DPS through `outgoingHitRate`, was still a stat share (weight 0.6-0.8, AFCT's 65 ACC
+  counted like a full Firepower item). Firepower, Torpedo, Reload and Accuracy now all go
+  through the simulation under max(Firepower, Torpedo) weight; a goal without either (carriers)
+  keeps Accuracy's stat share.
+- **Measured** (same settings), aux pairs: DD Plum-Petal Poetry (Core Shop, 640 HP) or Toolkit +
+  Type 93 (the two HP items tie within 0.1% on DDs); CL Rudder + Type 93 102, AA radar + Rudder
+  37; CA Rudder + Type 93 64, Funkmess-Ortung 25 (Core Shop monthly) + Rudder 37; BB 4 move from
+  AFCT to SHS + Type 1 AP. Medians: CA DPS 1097 -> 1220, AA 535 -> 430; CL eHP 7807 -> 8426;
+  DD eHP 6404 -> 6709. Rudder loses on DDs: at EVA ~250 the hit-rate formula gives +49 EVA less
+  than +600 HP. Specialties regenerated. `npm run check` passes.
+- **Next, asked by the user**: incoming damage by kind per boss / map, so the Anti-Torpedo
+  Bulge (and fire, aircraft) count. Enemy `equipment_list` -> `weapon_property` (sharecfgdata,
+  `base` chain) -> `bullet_template` type gives each enemy weapon's kind, damage and reload.

@@ -15827,6 +15827,16 @@ const EQUIPMENT_DATA = [
       "IXS",
       "IXV",
       "IXM"
+    ],
+    "effects": [
+      {
+        "key": "regen",
+        "amount": 1,
+        "period": 20,
+        "quota": 3,
+        "buff": 60730,
+        "text": "Every 20s: restores 1.0% of the wearer's max HP (can activate up to 3 times per battle)."
+      }
     ]
   },
   {
@@ -16026,6 +16036,16 @@ const EQUIPMENT_DATA = [
       "IXS",
       "IXV",
       "IXM"
+    ],
+    "effects": [
+      {
+        "key": "regen",
+        "amount": 1,
+        "period": 20,
+        "quota": 3,
+        "buff": 61090,
+        "text": "Every 20s during battle: restores 1.0% Max HP to the wearer (can be activated up to 3 times per battle)."
+      }
     ]
   },
   {
@@ -18562,6 +18582,16 @@ const EQUIPMENT_DATA = [
       "IXS",
       "IXV",
       "IXM"
+    ],
+    "effects": [
+      {
+        "key": "regen",
+        "amount": 1,
+        "period": 15,
+        "group": 6100,
+        "buff": 6120,
+        "text": "Recovers 1.0% of max HP every 15s. Effect does not stack."
+      }
     ]
   },
   {

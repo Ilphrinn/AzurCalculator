@@ -1300,7 +1300,8 @@ const COMBAT_MODIFIER_LABELS = {
   hitRate: "Hit Rate",
   evasionRate: "Evasion Rate",
   damageTaken: "DMG Taken",
-  dodgeUptime: "Evade-all uptime"
+  dodgeUptime: "Evade-all uptime",
+  regen: "Max HP healed per cast"
 };
 
 // The one modifier that is a reduction rather than a gain: a "DMG Taken" bonus is
@@ -2480,8 +2481,14 @@ function effectiveHp(effective) {
     if (effect.key === "dodgeUptime") ehp /= 1 - effect.amount / 100;
     // Torpedo-only reductions stay out: nothing says what share of a boss's damage is torpedoes.
     else if (effect.key === "damageTaken" && !effect.source && reductionApplies(effect.target)) ehp /= 1 - effect.amount / 100;
+    // Self heals add the HP they restore over the fight; the first one lands one period in.
+    else if (effect.key === "regen") ehp *= 1 + effect.amount / 100 * regenCasts(effect);
   }
   return { ehp, hitRate };
+}
+
+function regenCasts(effect) {
+  return Math.min(effect.quota || Infinity, Math.floor(fightSeconds() / effect.period));
 }
 
 function reductionApplies(target) {
@@ -3241,17 +3248,6 @@ function findEquipmentByName(name) {
   return EQUIPMENT_DATA.find(i => i.name === name) || null;
 }
 
-// Repair Toolkit's own passive HP regen is real value the single-hit eHP formula can't
-// represent, so a candidate whose notes promise it gets a deliberate score bump on top of
-// its eHP. Matched on the notes' own wording rather than hardcoded to one item's id —
-// checked dataset-wide, only Repair Toolkit and the unrelated Elixir mention HP recovery at
-// all, and Elixir's phrasing doesn't match.
-const HP_REGEN_NOTES_RE = /recovers?\s+\d+(?:\.\d+)?%\s+of\s+(?:this ship'?s\s+)?max\s*HP\s+every\s+\d+(?:\.\d+)?s/i;
-function itemGrantsHpRegen(item) {
-  return !!(item && item.notes && HP_REGEN_NOTES_RE.test(item.notes));
-}
-const HP_REGEN_SCORE_BONUS = 1.15;
-
 // Simulates equipping one candidate and reads back the REAL resulting eHP, rather than
 // approximating from the item's own flat numbers, since a flat bonus is amplified by the
 // ship's own skill percentages before it becomes real eHP. Cheap enough to call per
@@ -3260,25 +3256,23 @@ function candidateEhp(ship, slotKey, item) {
   const original = getEquippedGear(ship, slotKey);
   setEquippedGear(ship, slotKey, item);
   const eff = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
-  let { ehp } = effectiveHp(eff);
-  if (itemGrantsHpRegen(item)) ehp *= HP_REGEN_SCORE_BONUS;
+  const { ehp } = effectiveHp(eff);
   if (original) setEquippedGear(ship, slotKey, original);
   else setEquippedGear(ship, slotKey, null);
   return ehp;
 }
 
-const DPS_STAT_KEYS = new Set(["firepower", "torpedo", "reload"]);
+const DPS_STAT_KEYS = new Set(["firepower", "torpedo", "reload", "accuracy"]);
 
-// Only weighted stats are simulated, or Type 93's +118 Torpedo would ride in on its +13 Reload
-// for a CA that ignores Torpedo. The scale (the catalog's top bonus to the main stat) keeps a
-// Firepower auxiliary at its old stat-share score.
-function dpsStatWeight(key, weights) {
-  return key === "reload" ? Math.max(weights.firepower || 0, weights.torpedo || 0) : weights[key] || 0;
+// Every stat that moves the DPS figure is simulated under the goal's offensive weight: a CA's
+// torpedoes and Accuracy's hit rate count in the figure shown, so they count here too.
+function dpsStatWeight(weights) {
+  return Math.max(weights.firepower || 0, weights.torpedo || 0);
 }
 
-// Imported auxiliary effects all act on the Main Gun so far, which Firepower's weight stands for.
+// Imported auxiliary effects all act on the Main Gun so far.
 function dpsEffectWeight(effect, weights) {
-  return effect.source === "Main Gun" ? dpsStatWeight("firepower", weights) : 0;
+  return effect.source === "Main Gun" ? dpsStatWeight(weights) : 0;
 }
 
 function slotDpsGains(ship, slotKey, candidates, level, weights) {
@@ -3293,13 +3287,13 @@ function slotDpsGains(ship, slotKey, candidates, level, weights) {
   const byItem = new Map();
   const base = dpsWith(null);
   const refKey = (weights.torpedo || 0) > (weights.firepower || 0) ? "torpedo" : "firepower";
-  if (base <= 0 || !dpsStatWeight(refKey, weights)) return { byItem, scale: 0 };
+  if (base <= 0 || !dpsStatWeight(weights)) return { byItem, scale: 0 };
   const reference = { id: "reference", name: "", category: "Auxiliary", statBonus: { [refKey]: auxiliaryStatMaxima()[refKey] } };
   let scale = dpsWith(reference) / base - 1;
   for (const item of candidates) {
     const weighted = Object.entries(item.statBonus || {}).filter(([rawKey]) => {
       const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
-      return DPS_STAT_KEYS.has(key) && dpsStatWeight(key, weights) > 0;
+      return DPS_STAT_KEYS.has(key);
     });
     const effects = (item.effects || []).filter(effect => dpsEffectWeight(effect, weights) > 0);
     if (!weighted.length && !effects.length) continue;
@@ -3325,7 +3319,7 @@ function weaponCandidateEffective(ship, slotKey, item, level) {
 }
 
 const SURVIVAL_STAT_KEYS = new Set(["health", "evasion", "luck"]);
-const SURVIVAL_EFFECT_KEYS = new Set(["dodgeUptime", "damageTaken"]);
+const SURVIVAL_EFFECT_KEYS = new Set(["dodgeUptime", "damageTaken", "regen"]);
 // CA is the one role given an explicit override: almost only HP-boosting auxiliaries, not
 // the general eHP simulation every other role gets (which already favors HP over Evasion
 // for most hulls on its own). A CA's candidate pool is narrowed to items granting HP at
@@ -3484,9 +3478,11 @@ function statPreferenceScore(item, weights, ship, slotKey, baseEhp, dpsGains) {
   for (const [rawKey, amount] of Object.entries(bonus)) {
     const key = EQUIPMENT_STAT_KEY_ALIASES[rawKey] || rawKey;
     if (SURVIVAL_STAT_KEYS.has(key)) { hasSurvivalStat = true; continue; }
-    const weight = DPS_STAT_KEYS.has(key) ? dpsStatWeight(key, weights) : weights[key];
+    // A goal with no Firepower/Torpedo weight (carriers) keeps Accuracy's stat-share score.
+    const simulated = DPS_STAT_KEYS.has(key) && dpsStatWeight(weights) > 0;
+    const weight = simulated ? dpsStatWeight(weights) : weights[key];
     if (!weight || typeof amount !== "number") continue;
-    if (dpsGains && DPS_STAT_KEYS.has(key)) { dpsWeight = Math.max(dpsWeight, weight); continue; }
+    if (dpsGains && simulated) { dpsWeight = Math.max(dpsWeight, weight); continue; }
     score += weight * (amount / (maxima[key] || amount));
   }
   if (dpsGains) {
@@ -4557,7 +4553,7 @@ function renderCombatMetrics(ship, effective) {
 function ehpCalc(hp, metrics) {
   const rows = [["", "HP", hp], ["÷", "hit rate", `${(metrics.hitRate * 100).toFixed(1)}%`]];
   const reductions = metrics.ehp / (hp / metrics.hitRate);
-  if (Math.abs(reductions - 1) > 0.0005) rows.push(["×", "evade procs, DMG taken", reductions.toFixed(3)]);
+  if (Math.abs(reductions - 1) > 0.0005) rows.push(["×", "evade procs, DMG taken, self heals", reductions.toFixed(3)]);
   rows.push(["=", "eHP", Math.round(metrics.ehp)]);
   return { calc: rows };
 }
