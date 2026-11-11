@@ -45,6 +45,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61543
             ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -68,6 +74,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61543
             ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -85,6 +97,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61543
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -98,6 +116,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61543
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -633,6 +657,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               180022
+            ],
+            "shots": [
+              [
+                1,
+                "0/0/0"
+              ]
             ]
           }
         ]
@@ -687,6 +717,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               180022
+            ],
+            "shots": [
+              [
+                1,
+                "0/0/0"
+              ]
             ]
           }
         ]
@@ -706,6 +742,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183001
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -721,6 +763,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183010
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -777,6 +825,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               180021
             ],
+            "shots": [
+              [
+                1,
+                "100/50/20"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -828,6 +882,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               180021
+            ],
+            "shots": [
+              [
+                1,
+                "100/50/20"
+              ]
             ],
             "quota": 1
           }
@@ -952,6 +1012,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62311,
               62321
+            ],
+            "shots": [
+              [
+                16,
+                "130/90/60"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -992,6 +1062,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62320,
               62330
+            ],
+            "shots": [
+              [
+                32,
+                "130/90/60"
+              ],
+              [
+                10,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -1369,6 +1449,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66661,
               66681
+            ],
+            "shots": [
+              [
+                14,
+                "95/75/45"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -1398,6 +1488,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66670,
               66690
+            ],
+            "shots": [
+              [
+                35,
+                "95/75/45"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -1461,6 +1561,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64141
+            ],
+            "shots": [
+              [
+                48,
+                "100/75/40"
+              ]
             ]
           }
         ]
@@ -1483,6 +1589,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64150
+            ],
+            "shots": [
+              [
+                48,
+                "100/75/40"
+              ]
             ]
           }
         ]
@@ -1500,6 +1612,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -1508,6 +1626,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -1521,6 +1645,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -1529,6 +1659,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -2305,6 +2441,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               67561
+            ],
+            "shots": [
+              [
+                30,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -2327,6 +2469,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67570
+            ],
+            "shots": [
+              [
+                30,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -2515,6 +2663,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167351
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -2539,6 +2693,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167360
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -3458,6 +3618,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66101
+            ],
+            "shots": [
+              [
+                6,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -3471,6 +3637,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.6,
             "weapons": [
               66110
+            ],
+            "shots": [
+              [
+                12,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -3621,6 +3793,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66141
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -3633,6 +3811,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66150
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -3651,6 +3835,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66141,
               164491
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ],
+              [
+                2,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -3665,6 +3859,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66150,
               164500
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ],
+              [
+                2,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -3753,6 +3957,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66141
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -3765,6 +3975,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66150
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -3797,6 +4013,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66141,
               165191
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ],
+              [
+                2,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -3825,6 +4051,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66150,
               165200
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ],
+              [
+                2,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -3923,6 +4159,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66141
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -3935,6 +4177,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66150
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -3962,6 +4210,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66141,
               162351
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ],
+              [
+                2,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -3985,6 +4243,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66150,
               162360
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ],
+              [
+                2,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -4079,6 +4347,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66381,
               66401
+            ],
+            "shots": [
+              [
+                3,
+                "70/100/90"
+              ],
+              [
+                8,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -4093,6 +4371,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66390,
               66410
+            ],
+            "shots": [
+              [
+                9,
+                "70/100/90"
+              ],
+              [
+                30,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -4111,6 +4399,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66381,
               66401
+            ],
+            "shots": [
+              [
+                3,
+                "70/100/90"
+              ],
+              [
+                8,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -4125,6 +4423,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66390,
               66410
+            ],
+            "shots": [
+              [
+                9,
+                "70/100/90"
+              ],
+              [
+                30,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -4385,6 +4693,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164971,
               165001
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                8,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -4419,6 +4737,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164980,
               165010
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                30,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -4562,6 +4890,20 @@ const SKILL_TIMING_DATA = {
               64211,
               65971
             ],
+            "shots": [
+              [
+                3,
+                "65/135/115"
+              ],
+              [
+                3,
+                "140/110/90"
+              ],
+              [
+                16,
+                "100/100/100"
+              ]
+            ],
             "crit": 1,
             "quota": 1
           },
@@ -4572,6 +4914,20 @@ const SKILL_TIMING_DATA = {
               64201,
               64211,
               65971
+            ],
+            "shots": [
+              [
+                3,
+                "65/135/115"
+              ],
+              [
+                3,
+                "140/110/90"
+              ],
+              [
+                16,
+                "100/100/100"
+              ]
             ],
             "crit": 1,
             "cooldown": 8
@@ -4613,6 +4969,20 @@ const SKILL_TIMING_DATA = {
               64220,
               65980
             ],
+            "shots": [
+              [
+                3,
+                "65/135/115"
+              ],
+              [
+                3,
+                "140/110/90"
+              ],
+              [
+                16,
+                "100/100/100"
+              ]
+            ],
             "crit": 1,
             "quota": 1
           },
@@ -4623,6 +4993,20 @@ const SKILL_TIMING_DATA = {
               64210,
               64220,
               65980
+            ],
+            "shots": [
+              [
+                3,
+                "65/135/115"
+              ],
+              [
+                3,
+                "140/110/90"
+              ],
+              [
+                16,
+                "100/100/100"
+              ]
             ],
             "crit": 1,
             "cooldown": 8
@@ -4740,6 +5124,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164921,
               164931
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -4754,6 +5142,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164930,
               164940
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -4813,6 +5205,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166851
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -4826,6 +5224,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166860
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -4909,6 +5313,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66001
+            ],
+            "shots": [
+              [
+                6,
+                "115/90/70"
+              ]
             ]
           }
         ]
@@ -4922,6 +5332,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66010
+            ],
+            "shots": [
+              [
+                6,
+                "115/90/70"
+              ]
             ]
           }
         ]
@@ -4973,6 +5389,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66001
+            ],
+            "shots": [
+              [
+                6,
+                "115/90/70"
+              ]
             ]
           }
         ]
@@ -4986,6 +5408,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66010
+            ],
+            "shots": [
+              [
+                6,
+                "115/90/70"
+              ]
             ]
           }
         ]
@@ -5003,6 +5431,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161221
+            ],
+            "shots": [
+              [
+                6,
+                "115/90/70"
+              ]
             ]
           },
           {
@@ -5012,6 +5446,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161231,
               161241
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -5025,6 +5463,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161230
+            ],
+            "shots": [
+              [
+                6,
+                "115/90/70"
+              ]
             ]
           },
           {
@@ -5034,6 +5478,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161240,
               161250
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -5083,6 +5531,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66941,
               66961
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -5096,6 +5548,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66950,
               66970
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -5295,6 +5751,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67461,
               67481
+            ],
+            "shots": [
+              [
+                11,
+                "80/90/110"
+              ],
+              [
+                1,
+                "80/90/110"
+              ]
             ]
           }
         ]
@@ -5308,6 +5774,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67470,
               67490
+            ],
+            "shots": [
+              [
+                11,
+                "80/90/110"
+              ],
+              [
+                1,
+                "80/90/110"
+              ]
             ]
           }
         ]
@@ -5358,6 +5834,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66421
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -5370,6 +5849,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               66430
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -5522,6 +6004,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -5530,6 +6018,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -5543,6 +6037,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -5551,6 +6051,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -5794,6 +6300,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165461
             ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -5802,6 +6314,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165461
+            ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -5850,6 +6368,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165470
             ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -5858,6 +6382,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165470
+            ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -5946,6 +6476,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -5954,6 +6490,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -5967,6 +6509,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -5975,6 +6523,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6043,6 +6597,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -6051,6 +6611,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6064,6 +6630,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -6072,6 +6644,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6140,6 +6718,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -6148,6 +6732,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6161,6 +6751,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -6169,6 +6765,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6413,6 +7015,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               167951
+            ],
+            "shots": [
+              [
+                1,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -6441,6 +7049,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167960
+            ],
+            "shots": [
+              [
+                1,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -6614,6 +7228,16 @@ const SKILL_TIMING_DATA = {
               67981,
               67991
             ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ],
+              [
+                10,
+                "100/75/40"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -6627,6 +7251,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67990,
               67993
+            ],
+            "shots": [
+              [
+                7,
+                "80/100/130"
+              ],
+              [
+                14,
+                "100/75/40"
+              ]
             ],
             "quota": 1
           }
@@ -6647,6 +7281,16 @@ const SKILL_TIMING_DATA = {
               168151,
               168161
             ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ],
+              [
+                10,
+                "100/75/40"
+              ]
+            ],
             "quota": 3
           }
         ]
@@ -6661,6 +7305,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168160,
               168163
+            ],
+            "shots": [
+              [
+                7,
+                "80/100/130"
+              ],
+              [
+                14,
+                "100/75/40"
+              ]
             ],
             "quota": 3
           }
@@ -6831,6 +7485,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66281,
               66301
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/80"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -6860,6 +7524,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66290,
               66310
+            ],
+            "shots": [
+              [
+                30,
+                "100/80/80"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -6888,6 +7562,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -6896,6 +7576,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6909,6 +7595,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -6917,6 +7609,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -6956,6 +7654,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66161
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -6980,6 +7684,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66170
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -7008,6 +7718,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66161
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -7032,6 +7748,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66170
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -7086,6 +7808,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -7094,6 +7822,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -7107,6 +7841,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -7115,6 +7855,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -7496,6 +8242,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -7504,6 +8256,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -7517,6 +8275,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -7525,6 +8289,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -8059,6 +8829,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               921
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -8067,6 +8843,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               921
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -8082,6 +8864,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               930
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -8090,6 +8878,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               930
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -8795,6 +9589,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165161
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -8803,6 +9603,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               165161
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -8839,6 +9645,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165170
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -8847,6 +9659,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.6,
             "weapons": [
               165170
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -9058,6 +9876,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66061
+            ],
+            "shots": [
+              [
+                5,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -9081,6 +9905,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               66070
+            ],
+            "shots": [
+              [
+                13,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -9108,6 +9938,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66061
+            ],
+            "shots": [
+              [
+                5,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -9131,6 +9967,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               66070
+            ],
+            "shots": [
+              [
+                13,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -9194,6 +10036,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66021
             ],
+            "shots": [
+              [
+                2,
+                "70/100/90"
+              ]
+            ],
             "crit": 1
           }
         ]
@@ -9222,6 +10070,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66030
+            ],
+            "shots": [
+              [
+                2,
+                "30/130/110"
+              ]
             ],
             "crit": 1
           }
@@ -9256,6 +10110,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66021
             ],
+            "shots": [
+              [
+                2,
+                "70/100/90"
+              ]
+            ],
             "crit": 1
           }
         ]
@@ -9284,6 +10144,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66030
+            ],
+            "shots": [
+              [
+                2,
+                "30/130/110"
+              ]
             ],
             "crit": 1
           }
@@ -9336,6 +10202,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67881
             ],
+            "shots": [
+              [
+                2,
+                "70/100/90"
+              ]
+            ],
             "crit": 1,
             "until": 15
           },
@@ -9345,6 +10217,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67881
+            ],
+            "shots": [
+              [
+                2,
+                "70/100/90"
+              ]
             ],
             "crit": 1
           }
@@ -9393,6 +10271,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67890
             ],
+            "shots": [
+              [
+                2,
+                "30/130/110"
+              ]
+            ],
             "crit": 1,
             "until": 15
           },
@@ -9402,6 +10286,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67890
+            ],
+            "shots": [
+              [
+                2,
+                "30/130/110"
+              ]
             ],
             "crit": 1
           }
@@ -9476,6 +10366,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168121
             ],
+            "shots": [
+              [
+                2,
+                "70/100/90"
+              ]
+            ],
             "crit": 1,
             "quota": 1
           },
@@ -9486,6 +10382,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168121
             ],
+            "shots": [
+              [
+                2,
+                "70/100/90"
+              ]
+            ],
             "crit": 1
           },
           {
@@ -9494,6 +10396,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168111
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -9502,6 +10410,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168111
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -9572,6 +10486,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168130
             ],
+            "shots": [
+              [
+                2,
+                "65/135/115"
+              ]
+            ],
             "crit": 1,
             "quota": 1
           },
@@ -9582,6 +10502,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168130
             ],
+            "shots": [
+              [
+                2,
+                "65/135/115"
+              ]
+            ],
             "crit": 1
           },
           {
@@ -9590,6 +10516,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168120
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -9598,6 +10530,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168120
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -9670,6 +10608,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66141
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -9682,6 +10626,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66150
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -9701,6 +10651,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161031
             ],
+            "shots": [
+              [
+                7,
+                "100/80/70"
+              ]
+            ],
             "cooldown": 2
           }
         ]
@@ -9715,6 +10671,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               161040
+            ],
+            "shots": [
+              [
+                7,
+                "100/80/70"
+              ]
             ],
             "cooldown": 2
           }
@@ -9788,6 +10750,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66141
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -9800,6 +10768,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66150
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -9842,6 +10816,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68421,
               68481
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           },
           {
@@ -9851,6 +10835,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68431,
               68481
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ],
             "crit": 0.1,
             "quota": 1
@@ -9889,6 +10883,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68430,
               68490
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           },
           {
@@ -9898,6 +10902,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68440,
               68490
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ],
             "crit": 0.2,
             "quota": 1
@@ -10093,6 +11107,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66641
+            ],
+            "shots": [
+              [
+                4,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -10106,6 +11126,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66650
+            ],
+            "shots": [
+              [
+                4,
+                "70/100/90"
+              ]
             ]
           }
         ]
@@ -10310,6 +11336,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167881,
               168001
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/90"
+              ],
+              [
+                20,
+                "140/110/90"
+              ]
             ]
           },
           {
@@ -10318,6 +11354,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167891,
               168071
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/90"
+              ],
+              [
+                1,
+                "140/110/90"
+              ]
             ],
             "cooldown": 8
           }
@@ -10333,6 +11379,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167890,
               168010
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/90"
+              ],
+              [
+                20,
+                "140/110/90"
+              ]
             ]
           },
           {
@@ -10341,6 +11397,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167900,
               168080
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/90"
+              ],
+              [
+                1,
+                "140/110/90"
+              ]
             ],
             "cooldown": 8
           }
@@ -10662,6 +11728,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69421,
               69431
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           },
           {
@@ -10671,6 +11747,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69421,
               69431
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -10691,6 +11777,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69430,
               69440
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           },
           {
@@ -10700,6 +11796,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69430,
               69440
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -10716,6 +11822,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69751
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -10728,6 +11837,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69760
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -10748,6 +11860,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61010
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -10762,6 +11880,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61012
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -10821,6 +11945,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64591
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -10829,6 +11959,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64601
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -10852,6 +11985,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64600
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -10860,6 +11999,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64610
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -11120,6 +12262,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68651
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -11141,6 +12286,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68660
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -11168,6 +12316,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68651
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -11189,6 +12340,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68660
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -11371,6 +12525,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66121
+            ],
+            "shots": [
+              [
+                22,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -11384,6 +12544,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.6,
             "weapons": [
               66130
+            ],
+            "shots": [
+              [
+                52,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -11403,6 +12569,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66121
+            ],
+            "shots": [
+              [
+                22,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -11416,6 +12588,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.6,
             "weapons": [
               66130
+            ],
+            "shots": [
+              [
+                52,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -11807,6 +12985,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66321,
               66341
+            ],
+            "shots": [
+              [
+                6,
+                "120/60/60"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -11836,6 +13024,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66330,
               66350
+            ],
+            "shots": [
+              [
+                26,
+                "120/60/60"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -12025,6 +13223,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165571
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -12047,6 +13251,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165580
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -12092,6 +13302,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169231
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -12133,6 +13349,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169240
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -12239,6 +13461,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64751,
               64761
+            ],
+            "shots": [
+              [
+                50,
+                "120/100/90"
+              ],
+              [
+                8,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -12270,6 +13502,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64760,
               64770
+            ],
+            "shots": [
+              [
+                50,
+                "120/100/90"
+              ],
+              [
+                8,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -12669,6 +13911,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165111
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -12692,6 +13940,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165120
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -13132,6 +14386,28 @@ const SKILL_TIMING_DATA = {
               166871,
               166881,
               166911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                1,
+                "100/140/140"
+              ],
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                2,
+                "55/140/135"
+              ]
             ]
           }
         ]
@@ -13193,6 +14469,28 @@ const SKILL_TIMING_DATA = {
               166880,
               166890,
               166920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                1,
+                "100/140/140"
+              ],
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                2,
+                "55/140/135"
+              ]
             ]
           }
         ]
@@ -13564,6 +14862,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64651,
               64661
+            ],
+            "shots": [
+              [
+                32,
+                "100/75/40"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -13599,6 +14907,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64660,
               64670
+            ],
+            "shots": [
+              [
+                32,
+                "100/75/40"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -14287,6 +15605,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64671,
               64711
+            ],
+            "shots": [
+              null,
+              [
+                15,
+                "135/95/70"
+              ]
             ]
           },
           {
@@ -14297,6 +15622,14 @@ const SKILL_TIMING_DATA = {
               64671,
               64691,
               64711
+            ],
+            "shots": [
+              null,
+              null,
+              [
+                15,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -14316,6 +15649,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64680,
               64720
+            ],
+            "shots": [
+              null,
+              [
+                15,
+                "135/95/70"
+              ]
             ]
           },
           {
@@ -14326,6 +15666,14 @@ const SKILL_TIMING_DATA = {
               64680,
               64700,
               64720
+            ],
+            "shots": [
+              null,
+              null,
+              [
+                15,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -14623,6 +15971,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               67861
+            ],
+            "shots": [
+              [
+                4,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -14661,6 +16015,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               67870
+            ],
+            "shots": [
+              [
+                4,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -14854,6 +16214,20 @@ const SKILL_TIMING_DATA = {
               163431,
               163441,
               163451
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                10,
+                "135/95/70"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -14889,6 +16263,20 @@ const SKILL_TIMING_DATA = {
               163440,
               163450,
               163460
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                10,
+                "135/95/70"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -15006,6 +16394,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167291
+            ],
+            "shots": [
+              [
+                4,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -15034,6 +16428,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167300
+            ],
+            "shots": [
+              [
+                4,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -15410,6 +16810,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66701
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -15432,6 +16838,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.6,
             "weapons": [
               66710
+            ],
+            "shots": [
+              [
+                8,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -15485,6 +16897,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               163291
+            ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -15492,6 +16910,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               163291
+            ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -15513,6 +16937,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               163300
+            ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -15520,6 +16950,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               163300
+            ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -15537,6 +16973,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66241
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -15549,6 +16988,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66250
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -15595,6 +17037,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66241
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -15607,6 +17052,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66250
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -15727,6 +17175,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67221
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -15740,6 +17194,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67230
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -15810,6 +17270,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               67041
+            ],
+            "shots": [
+              [
+                14,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -15822,6 +17288,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               67050
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -15840,6 +17309,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               67041
+            ],
+            "shots": [
+              [
+                14,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -15852,6 +17327,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               67050
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -15873,6 +17351,17 @@ const SKILL_TIMING_DATA = {
               69871,
               69891,
               69901
+            ],
+            "shots": [
+              [
+                8,
+                "45/120/120"
+              ],
+              null,
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -15888,6 +17377,17 @@ const SKILL_TIMING_DATA = {
               69880,
               69900,
               69910
+            ],
+            "shots": [
+              [
+                10,
+                "45/120/120"
+              ],
+              null,
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -15951,6 +17451,16 @@ const SKILL_TIMING_DATA = {
               69341,
               69351
             ],
+            "shots": [
+              [
+                2,
+                "140/110/90"
+              ],
+              [
+                24,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -15971,6 +17481,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69350,
               69360
+            ],
+            "shots": [
+              [
+                2,
+                "140/110/90"
+              ],
+              [
+                24,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -16006,6 +17526,28 @@ const SKILL_TIMING_DATA = {
               62901,
               62911
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/140/140"
+              ],
+              [
+                1,
+                "150/150/150"
+              ],
+              [
+                1,
+                "100/140/140"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
+            ],
             "crit": 0.5,
             "cooldown": 2
           }
@@ -16034,6 +17576,28 @@ const SKILL_TIMING_DATA = {
               62870,
               62910,
               62920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/140/140"
+              ],
+              [
+                1,
+                "150/150/150"
+              ],
+              [
+                1,
+                "100/140/140"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ],
             "crit": 0.5,
             "cooldown": 2
@@ -16163,6 +17727,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66821
             ],
+            "shots": [
+              null
+            ],
             "quota": 2
           }
         ]
@@ -16175,6 +17742,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66830
+            ],
+            "shots": [
+              null
             ],
             "quota": 2
           }
@@ -16195,6 +17765,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66821
             ],
+            "shots": [
+              null
+            ],
             "quota": 2
           }
         ]
@@ -16207,6 +17780,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66830
+            ],
+            "shots": [
+              null
             ],
             "quota": 2
           }
@@ -16328,6 +17904,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166891
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -16402,6 +17981,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166900
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -16485,6 +18067,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165121
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -16562,6 +18147,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165130
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -16725,6 +18313,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67681
             ],
+            "shots": [
+              null
+            ],
             "quota": 2
           }
         ]
@@ -16737,6 +18328,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67690
+            ],
+            "shots": [
+              null
             ],
             "quota": 2
           }
@@ -17333,6 +18927,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61024
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -17342,6 +18939,11 @@ const SKILL_TIMING_DATA = {
               61024,
               69921,
               69931
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ],
             "cooldown": 3
           }
@@ -17398,6 +19000,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61024
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -17407,6 +19012,11 @@ const SKILL_TIMING_DATA = {
               61024,
               69930,
               69940
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ],
             "cooldown": 3
           }
@@ -17436,6 +19046,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65051
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -17460,6 +19076,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65060
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -17678,6 +19300,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               68511
+            ],
+            "shots": [
+              [
+                12,
+                "120/90/60"
+              ]
             ]
           }
         ]
@@ -17716,6 +19344,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.8,
             "weapons": [
               68520
+            ],
+            "shots": [
+              [
+                30,
+                "120/90/60"
+              ]
             ]
           }
         ]
@@ -17832,6 +19466,16 @@ const SKILL_TIMING_DATA = {
               67061,
               67081
             ],
+            "shots": [
+              [
+                12,
+                "110/90/60"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
+            ],
             "crit": 1
           }
         ]
@@ -17872,6 +19516,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67070,
               67090
+            ],
+            "shots": [
+              [
+                22,
+                "110/90/60"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ],
             "crit": 1
           }
@@ -17995,6 +19649,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163751
+            ],
+            "shots": [
+              [
+                36,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -18017,6 +19677,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163760
+            ],
+            "shots": [
+              [
+                36,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -18262,6 +19928,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68391
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -18270,6 +19939,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68391
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -18309,6 +19981,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68400
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -18317,6 +19992,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68400
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -18387,6 +20065,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164701,
               164711
+            ],
+            "shots": [
+              [
+                32,
+                "75/110/75"
+              ],
+              [
+                6,
+                "80/100/100"
+              ]
             ]
           }
         ]
@@ -18416,6 +20104,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164710,
               164720
+            ],
+            "shots": [
+              [
+                32,
+                "75/110/75"
+              ],
+              [
+                6,
+                "80/100/100"
+              ]
             ]
           }
         ]
@@ -18612,6 +20310,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62341
             ],
+            "shots": [
+              [
+                16,
+                "90/110/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -18620,6 +20324,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62341
+            ],
+            "shots": [
+              [
+                16,
+                "90/110/100"
+              ]
             ]
           }
         ]
@@ -18648,6 +20358,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62350
             ],
+            "shots": [
+              [
+                16,
+                "90/110/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -18656,6 +20372,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62350
+            ],
+            "shots": [
+              [
+                16,
+                "90/110/100"
+              ]
             ]
           }
         ]
@@ -18948,6 +20670,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66181
             ],
+            "shots": [
+              [
+                3,
+                "70/100/90"
+              ]
+            ],
             "crit": 1
           }
         ]
@@ -18976,6 +20704,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66190
+            ],
+            "shots": [
+              [
+                3,
+                "45/130/110"
+              ]
             ],
             "crit": 1
           }
@@ -19010,6 +20744,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66181
             ],
+            "shots": [
+              [
+                3,
+                "70/100/90"
+              ]
+            ],
             "crit": 1
           }
         ]
@@ -19039,6 +20779,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66190
             ],
+            "shots": [
+              [
+                3,
+                "45/130/110"
+              ]
+            ],
             "crit": 1
           }
         ]
@@ -19056,6 +20802,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66221
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19069,6 +20821,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66230
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19114,6 +20872,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66221
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19127,6 +20891,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66230
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19154,6 +20924,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161011
+            ],
+            "shots": [
+              [
+                12,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19177,6 +20953,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161020
+            ],
+            "shots": [
+              [
+                12,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19368,6 +21150,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66201
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19381,6 +21169,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               66210
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -19561,6 +21355,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64911
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -19590,6 +21390,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64920
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -19684,6 +21490,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167261
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -19713,6 +21525,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167270
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -19807,6 +21625,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64921
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -19836,6 +21660,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64930
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -19969,6 +21799,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161541
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -20013,6 +21849,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161550
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -20163,6 +22005,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160611
+            ],
+            "shots": [
+              [
+                10,
+                "140/90/70"
+              ]
             ]
           }
         ]
@@ -20193,6 +22041,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160620
+            ],
+            "shots": [
+              [
+                10,
+                "140/90/70"
+              ]
             ]
           }
         ]
@@ -20526,6 +22380,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -20534,6 +22394,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -20547,6 +22413,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -20555,6 +22427,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -20695,6 +22573,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183411
+            ],
+            "shots": [
+              [
+                2,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -20734,6 +22618,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183420
+            ],
+            "shots": [
+              [
+                2,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -20974,6 +22864,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63101,
               63111
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -21002,6 +22902,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63110,
               63120
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -22905,6 +24815,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -22913,6 +24829,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -22928,6 +24850,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -22936,6 +24864,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -23818,6 +25752,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183591
+            ],
+            "shots": [
+              [
+                50,
+                "120/120/120"
+              ]
             ]
           },
           {
@@ -23826,6 +25766,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183631
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -23854,6 +25800,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183600
+            ],
+            "shots": [
+              [
+                50,
+                "120/120/120"
+              ]
             ]
           },
           {
@@ -23862,6 +25814,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183640
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -24665,6 +26623,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66861,
               66881
+            ],
+            "shots": [
+              [
+                10,
+                "90/120/70"
+              ],
+              [
+                12,
+                "100/80/70"
+              ]
             ]
           },
           {
@@ -24674,6 +26642,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66861,
               66881
+            ],
+            "shots": [
+              [
+                10,
+                "90/120/70"
+              ],
+              [
+                12,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -24690,6 +26668,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66870,
               66890
+            ],
+            "shots": [
+              [
+                40,
+                "90/120/70"
+              ],
+              [
+                22,
+                "100/80/70"
+              ]
             ]
           },
           {
@@ -24699,6 +26687,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66870,
               66890
+            ],
+            "shots": [
+              [
+                40,
+                "90/120/70"
+              ],
+              [
+                22,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -25513,6 +27511,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163901
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -25549,6 +27553,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163910
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -26137,6 +28147,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67101
             ],
+            "shots": [
+              [
+                4,
+                "135/95/70"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -26150,6 +28166,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67110,
               67130
+            ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ],
             "quota": 1
           }
@@ -26168,6 +28194,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67101
             ],
+            "shots": [
+              [
+                4,
+                "135/95/70"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -26181,6 +28213,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67110,
               67130
+            ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ],
             "quota": 1
           }
@@ -26432,6 +28474,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67141,
               67161
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -26455,6 +28501,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67150,
               67170
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -26571,6 +28621,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67341
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -26593,6 +28646,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67350
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -26619,6 +28675,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67341
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -26641,6 +28700,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67350
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -27472,6 +29534,20 @@ const SKILL_TIMING_DATA = {
               67751,
               67761,
               67771
+            ],
+            "shots": [
+              [
+                3,
+                "90/120/70"
+              ],
+              [
+                16,
+                "90/70/40"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -27493,6 +29569,24 @@ const SKILL_TIMING_DATA = {
               67770,
               67780,
               67880
+            ],
+            "shots": [
+              [
+                3,
+                "90/120/70"
+              ],
+              [
+                16,
+                "90/70/40"
+              ],
+              [
+                2,
+                "80/100/130"
+              ],
+              [
+                2,
+                "90/120/70"
+              ]
             ]
           }
         ]
@@ -27512,6 +29606,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67721,
               67731
+            ],
+            "shots": [
+              [
+                4,
+                "70/100/90"
+              ],
+              [
+                12,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -27525,6 +29629,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67730,
               67740
+            ],
+            "shots": [
+              [
+                10,
+                "70/100/90"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -27544,6 +29658,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67741
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           },
           {
@@ -27552,6 +29672,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67741
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ]
             ],
             "until": 15
           }
@@ -27568,6 +29694,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67750
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           },
           {
@@ -27576,6 +29708,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67750
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ]
             ],
             "until": 15
           }
@@ -28022,6 +30160,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67891
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28036,6 +30177,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67900
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28054,6 +30198,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67891
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28068,6 +30215,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67900
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28121,6 +30271,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67921
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28148,6 +30301,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               67930
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28213,6 +30369,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67961,
               67971
+            ],
+            "shots": [
+              [
+                11,
+                "80/90/110"
+              ],
+              [
+                1,
+                "80/90/110"
+              ]
             ]
           }
         ]
@@ -28226,6 +30392,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               67970,
               67980
+            ],
+            "shots": [
+              [
+                11,
+                "80/90/110"
+              ],
+              [
+                1,
+                "80/90/110"
+              ]
             ]
           }
         ]
@@ -28263,6 +30439,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61022
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -28295,6 +30474,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61022
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -28333,6 +30515,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61022
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -28365,6 +30550,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61022
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -28508,6 +30696,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68021
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28529,6 +30720,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68030
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -28667,6 +30861,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68901
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -28680,6 +30880,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68910
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -28738,6 +30944,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68331
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -28751,6 +30960,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68340
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -28837,6 +31049,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68911,
               68921
+            ],
+            "shots": [
+              [
+                16,
+                "110/90/70"
+              ],
+              [
+                24,
+                "120/60/60"
+              ]
             ]
           },
           {
@@ -28846,6 +31068,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68911,
               68931
+            ],
+            "shots": [
+              [
+                16,
+                "110/90/70"
+              ],
+              [
+                24,
+                "110/90/70"
+              ]
             ]
           },
           {
@@ -28855,6 +31087,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68911,
               68931
+            ],
+            "shots": [
+              [
+                16,
+                "110/90/70"
+              ],
+              [
+                24,
+                "110/90/70"
+              ]
             ]
           }
         ]
@@ -28902,6 +31144,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68920,
               68930
+            ],
+            "shots": [
+              [
+                16,
+                "110/90/70"
+              ],
+              [
+                24,
+                "120/60/60"
+              ]
             ]
           },
           {
@@ -28911,6 +31163,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68920,
               68940
+            ],
+            "shots": [
+              [
+                16,
+                "110/90/70"
+              ],
+              [
+                24,
+                "110/90/70"
+              ]
             ]
           },
           {
@@ -28920,6 +31182,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68920,
               68940
+            ],
+            "shots": [
+              [
+                16,
+                "110/90/70"
+              ],
+              [
+                24,
+                "110/90/70"
+              ]
             ]
           }
         ]
@@ -29124,6 +31396,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68451
+            ],
+            "shots": [
+              [
+                6,
+                "90/70/40"
+              ]
             ]
           },
           {
@@ -29132,6 +31410,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68451
+            ],
+            "shots": [
+              [
+                6,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -29175,6 +31459,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68460
+            ],
+            "shots": [
+              [
+                18,
+                "90/70/40"
+              ]
             ]
           },
           {
@@ -29183,6 +31473,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68460
+            ],
+            "shots": [
+              [
+                18,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -29474,6 +31770,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68501
+            ],
+            "shots": [
+              [
+                1,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -29487,6 +31789,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68510
+            ],
+            "shots": [
+              [
+                3,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -29930,6 +32238,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68541,
               68551
+            ],
+            "shots": [
+              null,
+              [
+                2,
+                "80/85/100"
+              ]
             ]
           }
         ]
@@ -29955,6 +32270,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68550,
               68560
+            ],
+            "shots": [
+              null,
+              [
+                2,
+                "80/85/100"
+              ]
             ]
           }
         ]
@@ -30407,6 +32729,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68591,
               68611
+            ],
+            "shots": [
+              [
+                3,
+                "50/120/115"
+              ],
+              [
+                8,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -30437,6 +32769,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68600,
               68620
+            ],
+            "shots": [
+              [
+                9,
+                "50/120/115"
+              ],
+              [
+                30,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -30472,6 +32814,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68591,
               68611
+            ],
+            "shots": [
+              [
+                3,
+                "50/120/115"
+              ],
+              [
+                8,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -30502,6 +32854,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68600,
               68620
+            ],
+            "shots": [
+              [
+                9,
+                "50/120/115"
+              ],
+              [
+                30,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -30736,6 +33098,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.45,
             "weapons": [
               68621
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -30749,6 +33114,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.75,
             "weapons": [
               68630
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -31083,6 +33451,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -31091,6 +33465,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -31104,6 +33484,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -31112,6 +33498,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -31187,6 +33579,16 @@ const SKILL_TIMING_DATA = {
               68671,
               68691
             ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -31200,6 +33602,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68680,
               68700
+            ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
             ],
             "cooldown": 5
           }
@@ -31219,6 +33631,16 @@ const SKILL_TIMING_DATA = {
               68671,
               68691
             ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -31232,6 +33654,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68680,
               68700
+            ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
             ],
             "cooldown": 5
           }
@@ -31347,6 +33779,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68721
             ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -31386,6 +33824,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68730
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ]
             ],
             "quota": 1
           }
@@ -31440,6 +33884,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160781
+            ],
+            "shots": [
+              [
+                9,
+                "135/95/70"
+              ]
             ]
           },
           {
@@ -31449,6 +33899,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68721,
               160781
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                9,
+                "135/95/70"
+              ]
             ],
             "quota": 1
           }
@@ -31499,6 +33959,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160790
+            ],
+            "shots": [
+              [
+                9,
+                "135/95/70"
+              ]
             ]
           },
           {
@@ -31508,6 +33974,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68730,
               160790
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                9,
+                "135/95/70"
+              ]
             ],
             "quota": 1
           }
@@ -31528,6 +34004,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68701,
               68711
+            ],
+            "shots": [
+              [
+                5,
+                "135/95/70"
+              ],
+              [
+                10,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -31541,6 +34027,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68710,
               68720
+            ],
+            "shots": [
+              [
+                10,
+                "135/95/70"
+              ],
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -31558,6 +34054,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68701,
               68711
+            ],
+            "shots": [
+              [
+                5,
+                "135/95/70"
+              ],
+              [
+                10,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -31571,6 +34077,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68710,
               68720
+            ],
+            "shots": [
+              [
+                10,
+                "135/95/70"
+              ],
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -31615,6 +34131,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68721
             ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -31654,6 +34176,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68730
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ]
             ],
             "quota": 1
           }
@@ -32149,6 +34677,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68771
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -32161,6 +34692,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68780
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -32545,6 +35079,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64231,
               64241
+            ],
+            "shots": [
+              [
+                44,
+                "135/70/70"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -32575,6 +35119,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64240,
               64250
+            ],
+            "shots": [
+              [
+                44,
+                "135/70/70"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -32636,6 +35190,20 @@ const SKILL_TIMING_DATA = {
               68981,
               69001,
               69011
+            ],
+            "shots": [
+              [
+                8,
+                "70/100/90"
+              ],
+              [
+                36,
+                "100/80/70"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -32651,6 +35219,20 @@ const SKILL_TIMING_DATA = {
               68990,
               69010,
               69020
+            ],
+            "shots": [
+              [
+                10,
+                "70/100/90"
+              ],
+              [
+                36,
+                "100/80/70"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -33156,6 +35738,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168541
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33191,6 +35779,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168550
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33299,6 +35893,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -33307,6 +35907,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33320,6 +35926,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -33328,6 +35940,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33386,6 +36004,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69051
             ],
+            "shots": [
+              [
+                3,
+                "100/50/20"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -33428,6 +36052,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69060
+            ],
+            "shots": [
+              [
+                3,
+                "100/50/20"
+              ]
             ],
             "quota": 1
           }
@@ -33570,6 +36200,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               65801
+            ],
+            "shots": [
+              [
+                18,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -33592,6 +36228,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               65810
+            ],
+            "shots": [
+              [
+                18,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -33616,6 +36258,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65771,
               65811
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33634,6 +36286,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65780,
               65820
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33656,6 +36318,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65771,
               65811
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33674,6 +36346,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65780,
               65820
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -33739,6 +36421,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               69121
+            ],
+            "shots": [
+              [
+                6,
+                "125/85/65"
+              ]
             ]
           }
         ]
@@ -33752,6 +36440,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               69130
+            ],
+            "shots": [
+              [
+                12,
+                "125/85/65"
+              ]
             ]
           }
         ]
@@ -33769,6 +36463,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               69121
+            ],
+            "shots": [
+              [
+                6,
+                "125/85/65"
+              ]
             ]
           }
         ]
@@ -33782,6 +36482,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               69130
+            ],
+            "shots": [
+              [
+                12,
+                "125/85/65"
+              ]
             ]
           }
         ]
@@ -34193,6 +36899,28 @@ const SKILL_TIMING_DATA = {
               69101,
               69111
             ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                2,
+                "80/90/110"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -34209,6 +36937,28 @@ const SKILL_TIMING_DATA = {
               69100,
               69110,
               69120
+            ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                2,
+                "80/90/110"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
             ],
             "cooldown": 3
           }
@@ -34231,6 +36981,28 @@ const SKILL_TIMING_DATA = {
               69101,
               69111
             ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                2,
+                "80/90/110"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -34247,6 +37019,28 @@ const SKILL_TIMING_DATA = {
               69100,
               69110,
               69120
+            ],
+            "shots": [
+              [
+                9,
+                "40/120/125"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                2,
+                "80/90/110"
+              ],
+              [
+                3,
+                "80/90/110"
+              ],
+              [
+                20,
+                "120/60/60"
+              ]
             ],
             "cooldown": 3
           }
@@ -34296,6 +37090,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69161
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -34308,6 +37105,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69170
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -34536,6 +37336,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69201
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -34564,6 +37367,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69210
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -35224,6 +38030,16 @@ const SKILL_TIMING_DATA = {
               69391,
               69411
             ],
+            "shots": [
+              [
+                8,
+                "100/80/60"
+              ],
+              [
+                40,
+                "120/60/60"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -35237,6 +38053,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69400,
               69420
+            ],
+            "shots": [
+              [
+                8,
+                "100/80/60"
+              ],
+              [
+                40,
+                "120/60/60"
+              ]
             ],
             "cooldown": 3
           }
@@ -35538,6 +38364,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69381
             ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -35561,6 +38393,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69390
+            ],
+            "shots": [
+              [
+                18,
+                "135/95/70"
+              ]
             ],
             "quota": 1
           }
@@ -35590,6 +38428,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69381
             ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -35613,6 +38457,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69390
+            ],
+            "shots": [
+              [
+                18,
+                "135/95/70"
+              ]
             ],
             "quota": 1
           }
@@ -35930,6 +38780,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69421,
               69431
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           },
           {
@@ -35939,6 +38799,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69421,
               69431
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -35959,6 +38829,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69430,
               69440
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           },
           {
@@ -35968,6 +38848,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69430,
               69440
+            ],
+            "shots": [
+              [
+                14,
+                "40/125/120"
+              ],
+              [
+                44,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -35986,6 +38876,13 @@ const SKILL_TIMING_DATA = {
               69451,
               69471
             ],
+            "shots": [
+              null,
+              [
+                4,
+                "70/90/120"
+              ]
+            ],
             "quota": 3
           }
         ]
@@ -35999,6 +38896,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69460,
               69480
+            ],
+            "shots": [
+              null,
+              [
+                4,
+                "70/90/120"
+              ]
             ],
             "quota": 3
           }
@@ -36018,6 +38922,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               69481
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -36030,6 +38937,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               69490
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -36049,6 +38959,13 @@ const SKILL_TIMING_DATA = {
               69501,
               69511
             ],
+            "shots": [
+              null,
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -36058,6 +38975,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69501,
               69511
+            ],
+            "shots": [
+              null,
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -36073,6 +38997,13 @@ const SKILL_TIMING_DATA = {
               69510,
               69520
             ],
+            "shots": [
+              null,
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -36082,6 +39013,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69510,
               69520
+            ],
+            "shots": [
+              null,
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -36120,6 +39058,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               69521
+            ],
+            "shots": [
+              [
+                7,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -36143,6 +39087,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69530
+            ],
+            "shots": [
+              [
+                17,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -36177,6 +39127,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69841
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -36205,6 +39161,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69850
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -36385,6 +39347,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69831
+            ],
+            "shots": [
+              [
+                20,
+                "120/80/60"
+              ]
             ]
           },
           {
@@ -36393,6 +39361,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69741
+            ],
+            "shots": [
+              [
+                20,
+                "120/80/60"
+              ]
             ]
           }
         ]
@@ -36406,6 +39380,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69840
+            ],
+            "shots": [
+              [
+                20,
+                "120/80/60"
+              ]
             ]
           },
           {
@@ -36414,6 +39394,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69750
+            ],
+            "shots": [
+              [
+                20,
+                "120/80/60"
+              ]
             ]
           }
         ]
@@ -36513,6 +39499,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69781
             ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ]
+            ],
             "cooldown": 12
           }
         ]
@@ -36525,6 +39517,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69790
+            ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ]
             ],
             "cooldown": 12
           }
@@ -36543,6 +39541,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69791,
               69801
+            ],
+            "shots": [
+              [
+                4,
+                "135/95/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -36556,6 +39564,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69800,
               69810
+            ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -36586,6 +39604,16 @@ const SKILL_TIMING_DATA = {
               69811,
               69821
             ],
+            "shots": [
+              [
+                10,
+                "100/80/60"
+              ],
+              [
+                5,
+                "70/90/120"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -36595,6 +39623,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69811,
               69821
+            ],
+            "shots": [
+              [
+                10,
+                "100/80/60"
+              ],
+              [
+                5,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -36610,6 +39648,16 @@ const SKILL_TIMING_DATA = {
               69820,
               69830
             ],
+            "shots": [
+              [
+                20,
+                "100/80/60"
+              ],
+              [
+                5,
+                "70/90/120"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -36619,6 +39667,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69820,
               69830
+            ],
+            "shots": [
+              [
+                20,
+                "100/80/60"
+              ],
+              [
+                5,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -36946,6 +40004,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               911
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -36955,6 +40019,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69911,
               69941
+            ],
+            "shots": [
+              [
+                40,
+                "100/80/60"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ],
             "quota": 1
           },
@@ -36966,6 +40040,20 @@ const SKILL_TIMING_DATA = {
               911,
               69911,
               69941
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                40,
+                "100/80/60"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -36992,6 +40080,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               920
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -37001,6 +40095,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69920,
               69950
+            ],
+            "shots": [
+              [
+                40,
+                "100/80/60"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ],
             "quota": 1
           },
@@ -37012,6 +40116,20 @@ const SKILL_TIMING_DATA = {
               920,
               69920,
               69950
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                40,
+                "100/80/60"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -37128,6 +40246,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69971
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -37140,6 +40261,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69980
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -37190,6 +40314,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69971
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -37202,6 +40329,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69980
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -37557,6 +40687,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65111
+            ],
+            "shots": [
+              [
+                3,
+                "100/50/20"
+              ]
             ]
           }
         ]
@@ -37570,6 +40706,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65120
+            ],
+            "shots": [
+              [
+                3,
+                "100/50/20"
+              ]
             ]
           }
         ]
@@ -37637,6 +40779,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65161
+            ],
+            "shots": [
+              [
+                10,
+                "110/120/100"
+              ]
             ]
           }
         ]
@@ -37659,6 +40807,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65170
+            ],
+            "shots": [
+              [
+                10,
+                "110/120/100"
+              ]
             ]
           }
         ]
@@ -37834,6 +40988,20 @@ const SKILL_TIMING_DATA = {
               61025,
               65081,
               65241
+            ],
+            "shots": [
+              [
+                6,
+                "120/120/120"
+              ],
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -37851,6 +41019,20 @@ const SKILL_TIMING_DATA = {
               61025,
               65090,
               65250
+            ],
+            "shots": [
+              [
+                6,
+                "120/120/120"
+              ],
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -37935,6 +41117,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               65251
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -37947,6 +41132,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65260
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -37991,6 +41179,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65121
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -38020,6 +41211,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65130
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -38125,6 +41319,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65491
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -38137,6 +41334,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65500
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -38155,6 +41355,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65491
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -38167,6 +41370,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65500
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -38350,6 +41556,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65511
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -38367,6 +41579,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65520
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -38635,6 +41853,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65521
+            ],
+            "shots": [
+              [
+                32,
+                "75/110/75"
+              ]
             ]
           }
         ]
@@ -38648,6 +41872,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65530
+            ],
+            "shots": [
+              [
+                32,
+                "75/110/75"
+              ]
             ]
           }
         ]
@@ -38813,6 +42043,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65531
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -38821,6 +42054,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65531
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -38845,6 +42081,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65540
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -38853,6 +42092,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65540
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -38925,6 +42167,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65551
             ],
+            "shots": [
+              [
+                66,
+                "100/80/60"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -38933,6 +42181,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -38941,6 +42195,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -38960,6 +42220,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65560
             ],
+            "shots": [
+              [
+                66,
+                "100/80/60"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -38968,6 +42234,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -38976,6 +42248,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -39320,6 +42598,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65631,
               65641
+            ],
+            "shots": [
+              [
+                16,
+                "100/80/70"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -39343,6 +42631,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65640,
               65650
+            ],
+            "shots": [
+              [
+                16,
+                "100/80/70"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -39370,6 +42668,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65631,
               65641
+            ],
+            "shots": [
+              [
+                16,
+                "100/80/70"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -39393,6 +42701,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65640,
               65650
+            ],
+            "shots": [
+              [
+                16,
+                "100/80/70"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -39522,6 +42840,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183251,
               183261
+            ],
+            "shots": [
+              [
+                27,
+                "120/120/120"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -39567,6 +42895,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183260,
               183270
+            ],
+            "shots": [
+              [
+                27,
+                "120/120/120"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -39605,6 +42943,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65641,
               65651
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -39628,6 +42976,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65650,
               65660
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -39655,6 +43013,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65641,
               65651
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -39678,6 +43046,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65650,
               65660
+            ],
+            "shots": [
+              [
+                2,
+                "80/100/130"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -39798,6 +43176,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183241
+            ],
+            "shots": [
+              [
+                27,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -39834,6 +43218,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183250
+            ],
+            "shots": [
+              [
+                27,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -40273,6 +43663,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               65791
+            ],
+            "shots": [
+              [
+                5,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -40296,6 +43692,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.6,
             "weapons": [
               65800
+            ],
+            "shots": [
+              [
+                5,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -40606,6 +44008,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65901
             ],
+            "shots": [
+              [
+                5,
+                "65/125/65"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -40629,6 +44037,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               65910
+            ],
+            "shots": [
+              [
+                10,
+                "65/125/65"
+              ]
             ],
             "cooldown": 3
           }
@@ -40658,6 +44072,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65901
             ],
+            "shots": [
+              [
+                5,
+                "65/125/65"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -40681,6 +44101,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               65910
+            ],
+            "shots": [
+              [
+                10,
+                "65/125/65"
+              ]
             ],
             "cooldown": 3
           }
@@ -40842,6 +44268,10 @@ const SKILL_TIMING_DATA = {
               65911,
               65931
             ],
+            "shots": [
+              null,
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -40855,6 +44285,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65920,
               65940
+            ],
+            "shots": [
+              null,
+              null
             ],
             "cooldown": 3
           }
@@ -41356,6 +44790,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65871,
               65881
+            ],
+            "shots": [
+              [
+                17,
+                "110/110/100"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -41400,6 +44844,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65880,
               65890
+            ],
+            "shots": [
+              [
+                17,
+                "110/110/100"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -41639,6 +45093,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64081
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -41661,6 +45121,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64090
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -41679,6 +45145,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64121
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -41691,6 +45160,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64130
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -42081,6 +45553,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64111
+            ],
+            "shots": [
+              [
+                12,
+                "80/100/120"
+              ]
             ]
           }
         ]
@@ -42110,6 +45588,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64120
+            ],
+            "shots": [
+              [
+                12,
+                "80/100/120"
+              ]
             ]
           }
         ]
@@ -42415,6 +45899,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64621
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -42423,6 +45913,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64621
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -42470,6 +45966,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64630
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -42478,6 +45980,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64630
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -42646,6 +46154,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64721,
               64731
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -42672,6 +46184,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64730,
               64740
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -42865,6 +46381,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63171,
               63181
+            ],
+            "shots": [
+              [
+                18,
+                "130/90/60"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -42897,6 +46423,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63180,
               63190
+            ],
+            "shots": [
+              [
+                40,
+                "130/90/60"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -43264,6 +46800,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64831
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -43285,6 +46824,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.8,
             "weapons": [
               64840
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -43601,6 +47143,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               63491
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -43610,6 +47158,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63501,
               63511
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                48,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -43628,6 +47186,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63500
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -43637,6 +47201,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63510,
               63520
+            ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                48,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -43754,6 +47328,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.45,
             "weapons": [
               63541
+            ],
+            "shots": [
+              [
+                1,
+                "80/110/130"
+              ]
             ]
           }
         ]
@@ -43776,6 +47356,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.75,
             "weapons": [
               63550
+            ],
+            "shots": [
+              [
+                1,
+                "80/110/130"
+              ]
             ]
           }
         ]
@@ -44029,6 +47615,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -44037,6 +47629,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -44076,6 +47674,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -44084,6 +47688,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -44138,6 +47748,16 @@ const SKILL_TIMING_DATA = {
               63571,
               63581
             ],
+            "shots": [
+              [
+                22,
+                "110/110/100"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
+            ],
             "crit": 0.05
           }
         ]
@@ -44186,6 +47806,16 @@ const SKILL_TIMING_DATA = {
               63580,
               63590
             ],
+            "shots": [
+              [
+                22,
+                "110/110/100"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
+            ],
             "crit": 0.15
           }
         ]
@@ -44230,6 +47860,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63621
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -44258,6 +47891,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63630
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -44332,6 +47968,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63681
             ],
+            "shots": [
+              [
+                26,
+                "100/80/60"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -44340,6 +47982,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63691
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           },
@@ -44350,6 +47995,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63701,
               63711
+            ],
+            "shots": [
+              null,
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -44375,6 +48027,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63690
             ],
+            "shots": [
+              [
+                26,
+                "100/80/60"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -44383,6 +48041,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63700
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           },
@@ -44393,6 +48054,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63710,
               63720
+            ],
+            "shots": [
+              null,
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -44465,6 +48133,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63721
+            ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ]
             ]
           }
         ]
@@ -44493,6 +48167,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63730
+            ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ]
             ]
           }
         ]
@@ -44595,6 +48275,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -44631,6 +48317,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -44674,6 +48366,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63671,
               63731
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -44713,6 +48415,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63680,
               63740
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -44768,6 +48480,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64981
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -44805,6 +48523,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64990
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -45000,6 +48724,11 @@ const SKILL_TIMING_DATA = {
               63781,
               63801,
               63821
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -45037,6 +48766,11 @@ const SKILL_TIMING_DATA = {
               63790,
               63810,
               63830
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -45234,6 +48968,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65993
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           },
           {
@@ -45242,6 +48982,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65993
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ],
             "quota": 1
           }
@@ -45279,6 +49025,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65993
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           },
           {
@@ -45287,6 +49039,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65993
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ],
             "quota": 1
           }
@@ -45414,6 +49172,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -45422,6 +49186,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -45437,6 +49207,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -45445,6 +49221,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -45606,6 +49388,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63901
             ],
+            "shots": [
+              [
+                2,
+                "140/85/65"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -45620,6 +49408,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63910
+            ],
+            "shots": [
+              [
+                8,
+                "140/85/65"
+              ]
             ],
             "quota": 1
           }
@@ -45649,6 +49443,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63871,
               63881
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                24,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -45673,6 +49477,24 @@ const SKILL_TIMING_DATA = {
               63890,
               63900,
               63940
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                36,
+                "100/100/100"
+              ],
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                22,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -45961,6 +49783,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62041
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -45969,6 +49797,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62041
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -46007,6 +49841,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62050
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -46015,6 +49855,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62050
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -46196,6 +50042,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62051
+            ],
+            "shots": [
+              [
+                10,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -46218,6 +50070,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62060
+            ],
+            "shots": [
+              [
+                10,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -46567,6 +50425,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63981
             ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -46575,6 +50439,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63981
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -46612,6 +50482,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63990
             ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -46620,6 +50496,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63990
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -46676,6 +50558,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63941
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -46688,6 +50573,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63950
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -46732,6 +50620,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63961
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -46740,6 +50631,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63961
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -46780,6 +50674,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63970
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -46788,6 +50685,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63970
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -46859,6 +50759,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               63991
+            ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ]
             ]
           }
         ]
@@ -46872,6 +50778,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               64000
+            ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ]
             ]
           }
         ]
@@ -46969,6 +50881,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62181
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -46994,6 +50909,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62190
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -47048,6 +50966,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62201
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -47087,6 +51011,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62210
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -47408,6 +51338,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               79912,
               79913
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ],
+              [
+                9,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -47438,6 +51378,16 @@ const SKILL_TIMING_DATA = {
               62261,
               62271
             ],
+            "shots": [
+              [
+                8,
+                "140/90/65"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -47447,6 +51397,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62261,
               62271
+            ],
+            "shots": [
+              [
+                8,
+                "140/90/65"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -47473,6 +51433,16 @@ const SKILL_TIMING_DATA = {
               62270,
               62280
             ],
+            "shots": [
+              [
+                16,
+                "140/90/65"
+              ],
+              [
+                9,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -47482,6 +51452,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62270,
               62280
+            ],
+            "shots": [
+              [
+                16,
+                "140/90/65"
+              ],
+              [
+                9,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -47934,6 +51914,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -47942,6 +51928,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -47973,6 +51965,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -47981,6 +51979,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -48202,6 +52206,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62331
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -48220,6 +52230,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62340
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -48325,6 +52341,20 @@ const SKILL_TIMING_DATA = {
               62401,
               62411,
               62421
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                40,
+                "100/80/60"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -48363,6 +52393,20 @@ const SKILL_TIMING_DATA = {
               62410,
               62420,
               62430
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                40,
+                "100/80/60"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -48463,6 +52507,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62471
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -48476,6 +52526,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62480
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -48675,6 +52731,11 @@ const SKILL_TIMING_DATA = {
               160001,
               160021,
               160041
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -48705,6 +52766,11 @@ const SKILL_TIMING_DATA = {
               160010,
               160030,
               160050
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -48809,6 +52875,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62941
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -48834,6 +52906,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62950
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -48927,6 +53005,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160411,
               160431
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -48950,6 +53032,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160420,
               160440
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -49269,6 +53355,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160351
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -49392,6 +53481,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160360
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -49432,6 +53524,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               160381
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -49468,6 +53566,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160390
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -49548,6 +53652,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160451
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -49575,6 +53685,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160460
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -49708,6 +53824,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160481
             ],
+            "shots": [
+              [
+                24,
+                "125/85/65"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -49716,6 +53838,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               160481
+            ],
+            "shots": [
+              [
+                24,
+                "125/85/65"
+              ]
             ]
           }
         ]
@@ -49730,6 +53858,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160490
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -49738,6 +53869,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               160490
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -49840,6 +53974,11 @@ const SKILL_TIMING_DATA = {
               160531,
               160551
             ],
+            "shots": [
+              null,
+              null,
+              null
+            ],
             "quota": 1
           },
           {
@@ -49849,6 +53988,11 @@ const SKILL_TIMING_DATA = {
               160511,
               160531,
               160551
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -49875,6 +54019,11 @@ const SKILL_TIMING_DATA = {
               160540,
               160560
             ],
+            "shots": [
+              null,
+              null,
+              null
+            ],
             "quota": 1
           },
           {
@@ -49884,6 +54033,11 @@ const SKILL_TIMING_DATA = {
               160520,
               160540,
               160560
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -49910,6 +54064,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160601
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -49932,6 +54092,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160610
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -50100,6 +54266,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160491
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50124,6 +54293,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160500
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50143,6 +54315,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167231
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -50150,6 +54325,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167231
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50165,6 +54343,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167240
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -50172,6 +54353,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167240
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50260,6 +54444,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160581
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -50268,6 +54455,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160581
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50310,6 +54500,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160590
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -50318,6 +54511,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160590
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50453,6 +54649,20 @@ const SKILL_TIMING_DATA = {
               160681,
               160691,
               160701
+            ],
+            "shots": [
+              [
+                2,
+                "40/150/130"
+              ],
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                36,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -50484,6 +54694,20 @@ const SKILL_TIMING_DATA = {
               160690,
               160700,
               160710
+            ],
+            "shots": [
+              [
+                4,
+                "40/150/130"
+              ],
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                36,
+                "120/60/60"
+              ]
             ]
           }
         ]
@@ -50654,6 +54878,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               160711
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50666,6 +54893,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               160720
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -50723,6 +54953,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160741,
               160751
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -50749,6 +54989,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160750,
               160760
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -50997,6 +55247,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160831
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -51005,6 +55258,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160831
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -51033,6 +55289,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160840
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -51041,6 +55300,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160840
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -51082,6 +55344,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160881,
               160891
+            ],
+            "shots": [
+              [
+                42,
+                "100/100/100"
+              ],
+              [
+                6,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -51107,6 +55379,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160890,
               160900
+            ],
+            "shots": [
+              [
+                42,
+                "100/100/100"
+              ],
+              [
+                6,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -51183,6 +55465,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160861
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -51191,6 +55479,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160851
+            ],
+            "shots": [
+              [
+                16,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -51204,6 +55498,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160870
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -51212,6 +55512,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160860
+            ],
+            "shots": [
+              [
+                16,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -51332,6 +55638,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160971,
               160991
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -51368,6 +55678,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160980,
               161000
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -51419,6 +55733,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161061,
               161071
+            ],
+            "shots": [
+              [
+                60,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -51453,6 +55777,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161070,
               161080
+            ],
+            "shots": [
+              [
+                60,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -51579,6 +55913,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64831
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -51628,6 +55965,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               64840
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -51872,6 +56212,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161141
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -51879,6 +56225,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161121
+            ],
+            "shots": [
+              [
+                2,
+                "140/110/90"
+              ]
             ],
             "cooldown": 5
           }
@@ -51920,6 +56272,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161150
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -51927,6 +56285,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161130
+            ],
+            "shots": [
+              [
+                2,
+                "140/110/90"
+              ]
             ],
             "cooldown": 5
           }
@@ -52095,6 +56459,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61016
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -52125,6 +56492,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61016
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -52203,6 +56573,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161301,
               161311
+            ],
+            "shots": [
+              [
+                5,
+                "135/95/70"
+              ],
+              [
+                10,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -52226,6 +56606,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161310,
               161320
+            ],
+            "shots": [
+              [
+                10,
+                "135/95/70"
+              ],
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -52820,6 +57210,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162371,
               162381
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -52833,6 +57233,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162380,
               162390
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -53119,6 +57529,72 @@ const SKILL_TIMING_DATA = {
               163188,
               163189,
               163190
+            ],
+            "shots": [
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ]
             ]
           }
         ]
@@ -53163,6 +57639,72 @@ const SKILL_TIMING_DATA = {
               163188,
               163189,
               163190
+            ],
+            "shots": [
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ],
+              [
+                1,
+                "70/90/110"
+              ]
             ]
           }
         ]
@@ -53403,6 +57945,20 @@ const SKILL_TIMING_DATA = {
               163131,
               163141,
               163211
+            ],
+            "shots": [
+              [
+                8,
+                "135/100/90"
+              ],
+              [
+                72,
+                "100/80/70"
+              ],
+              [
+                2,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -53429,6 +57985,20 @@ const SKILL_TIMING_DATA = {
               163140,
               163150,
               163220
+            ],
+            "shots": [
+              [
+                8,
+                "135/100/90"
+              ],
+              [
+                72,
+                "100/80/70"
+              ],
+              [
+                2,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -53474,6 +58044,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163161,
               163261
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -53510,6 +58090,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163170,
               163270
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -53697,6 +58287,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163301
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -53730,6 +58326,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163310
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -53890,6 +58492,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163351
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -53935,6 +58543,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163360
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -53984,6 +58598,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163351
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -54029,6 +58649,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163360
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -54458,6 +59084,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163311
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -54475,6 +59104,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163320
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -54496,6 +59128,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163311
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -54513,6 +59148,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163320
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -54541,6 +59179,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163361
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -54554,6 +59198,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163370
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -54571,6 +59221,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163361
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -54584,6 +59240,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163370
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -54782,6 +59444,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163771,
               163781
+            ],
+            "shots": [
+              [
+                14,
+                "95/75/45"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -54915,6 +59587,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163780,
               163790
+            ],
+            "shots": [
+              [
+                35,
+                "95/75/45"
+              ],
+              [
+                5,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -55308,6 +59990,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163821
+            ],
+            "shots": [
+              [
+                30,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -55333,6 +60021,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163830
+            ],
+            "shots": [
+              [
+                30,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -55353,6 +60047,16 @@ const SKILL_TIMING_DATA = {
               163831,
               163841
             ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -55366,6 +60070,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163840,
               163850
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "cooldown": 3
           }
@@ -55770,6 +60484,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               164021
+            ],
+            "shots": [
+              [
+                30,
+                "120/140/140"
+              ]
             ]
           }
         ]
@@ -55797,6 +60517,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               164030
+            ],
+            "shots": [
+              [
+                30,
+                "120/140/140"
+              ]
             ]
           }
         ]
@@ -55941,6 +60667,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161551
+            ],
+            "shots": [
+              [
+                1,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -55963,6 +60695,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161560
+            ],
+            "shots": [
+              [
+                1,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -56042,6 +60780,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161561
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -56066,6 +60810,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161570
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -56200,6 +60950,20 @@ const SKILL_TIMING_DATA = {
               163911,
               163921,
               163951
+            ],
+            "shots": [
+              [
+                7,
+                "100/75/40"
+              ],
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                7,
+                "100/75/40"
+              ]
             ]
           }
         ]
@@ -56231,6 +60995,20 @@ const SKILL_TIMING_DATA = {
               163920,
               163930,
               163960
+            ],
+            "shots": [
+              [
+                7,
+                "100/75/40"
+              ],
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                7,
+                "100/75/40"
+              ]
             ]
           }
         ]
@@ -56329,6 +61107,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164051,
               164061
+            ],
+            "shots": [
+              [
+                48,
+                "110/90/70"
+              ],
+              [
+                12,
+                "110/90/70"
+              ]
             ]
           }
         ]
@@ -56358,6 +61146,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164060,
               164070
+            ],
+            "shots": [
+              [
+                48,
+                "110/90/70"
+              ],
+              [
+                12,
+                "110/90/70"
+              ]
             ]
           }
         ]
@@ -56397,6 +61195,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164091,
               164101
+            ],
+            "shots": [
+              [
+                40,
+                "120/90/60"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -56421,6 +61229,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164100,
               164110
+            ],
+            "shots": [
+              [
+                40,
+                "120/90/60"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -56688,6 +61506,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164161
             ],
+            "shots": [
+              [
+                48,
+                "110/110/110"
+              ]
+            ],
             "cooldown": 1
           }
         ]
@@ -56716,6 +61540,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164170
+            ],
+            "shots": [
+              [
+                48,
+                "110/110/110"
+              ]
             ],
             "cooldown": 1
           }
@@ -56945,6 +61775,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               164271
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -56968,6 +61801,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164280
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -57323,6 +62159,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164321,
               164331
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           },
           {
@@ -57333,6 +62179,16 @@ const SKILL_TIMING_DATA = {
               164321,
               164331
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -57342,6 +62198,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164321,
               164331
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -57382,6 +62248,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164330,
               164340
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           },
           {
@@ -57392,6 +62268,16 @@ const SKILL_TIMING_DATA = {
               164330,
               164340
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -57401,6 +62287,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164330,
               164340
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -57436,6 +62332,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164311
             ],
+            "shots": [
+              [
+                8,
+                "100/90/80"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -57464,6 +62366,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               164320
+            ],
+            "shots": [
+              [
+                8,
+                "100/90/80"
+              ]
             ],
             "cooldown": 5
           }
@@ -57533,6 +62441,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164291,
               164301
+            ],
+            "shots": [
+              [
+                18,
+                "100/100/100"
+              ],
+              [
+                2,
+                "130/100/80"
+              ]
             ]
           }
         ]
@@ -57556,6 +62474,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164300,
               164310
+            ],
+            "shots": [
+              [
+                18,
+                "100/100/100"
+              ],
+              [
+                2,
+                "130/100/80"
+              ]
             ]
           }
         ]
@@ -57657,6 +62585,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164341
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -57685,6 +62619,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164350
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -57752,6 +62692,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164351
+            ],
+            "shots": [
+              [
+                4,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -57765,6 +62711,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164360
+            ],
+            "shots": [
+              [
+                4,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -57943,6 +62895,20 @@ const SKILL_TIMING_DATA = {
               164511,
               164521,
               164541
+            ],
+            "shots": [
+              [
+                2,
+                "150/115/130"
+              ],
+              [
+                1,
+                "150/115/130"
+              ],
+              [
+                4,
+                "150/115/130"
+              ]
             ]
           }
         ]
@@ -57972,6 +62938,20 @@ const SKILL_TIMING_DATA = {
               164520,
               164530,
               164550
+            ],
+            "shots": [
+              [
+                2,
+                "150/115/130"
+              ],
+              [
+                1,
+                "150/115/130"
+              ],
+              [
+                4,
+                "150/115/130"
+              ]
             ]
           }
         ]
@@ -58095,6 +63075,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164461
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -58121,6 +63107,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164470
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -58591,6 +63583,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               164551
+            ],
+            "shots": [
+              [
+                3,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -58619,6 +63617,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               164560
+            ],
+            "shots": [
+              [
+                3,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -58668,6 +63672,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164571
             ],
+            "shots": [
+              [
+                64,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -58711,6 +63721,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164580
             ],
+            "shots": [
+              [
+                64,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -58737,6 +63753,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164581
             ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -58758,6 +63780,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               164590
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ],
             "cooldown": 5
           }
@@ -58787,6 +63815,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164661
             ],
+            "shots": [
+              [
+                1,
+                "140/110/110"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -58808,6 +63842,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.8,
             "weapons": [
               164670
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/110"
+              ]
             ],
             "cooldown": 5
           }
@@ -58847,6 +63887,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               164671
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/110"
+              ]
             ]
           }
         ]
@@ -58881,6 +63927,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               164680
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/110"
+              ]
             ]
           }
         ]
@@ -59162,6 +64214,20 @@ const SKILL_TIMING_DATA = {
               164881,
               164891,
               164901
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                18,
+                "100/100/100"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -59182,6 +64248,20 @@ const SKILL_TIMING_DATA = {
               164890,
               164900,
               164910
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                18,
+                "100/100/100"
+              ],
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -59313,6 +64393,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164861
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -59367,6 +64453,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164870
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -59604,6 +64696,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165041
+            ],
+            "shots": [
+              [
+                6,
+                "110/110/95"
+              ]
             ]
           }
         ]
@@ -59629,6 +64727,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165050
+            ],
+            "shots": [
+              [
+                6,
+                "110/110/95"
+              ]
             ]
           }
         ]
@@ -59768,6 +64872,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               496
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -59800,6 +64907,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               496
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -59826,6 +64936,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               165061
+            ],
+            "shots": [
+              [
+                40,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -59848,6 +64964,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               165070
+            ],
+            "shots": [
+              [
+                40,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -60042,6 +65164,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -60050,6 +65178,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60086,6 +65220,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -60094,6 +65234,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60146,6 +65292,11 @@ const SKILL_TIMING_DATA = {
               165211,
               165221,
               165231
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -60166,6 +65317,11 @@ const SKILL_TIMING_DATA = {
               165220,
               165230,
               165240
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ]
           }
         ]
@@ -60188,6 +65344,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165271
+            ],
+            "shots": [
+              [
+                119,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60206,6 +65368,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165280
+            ],
+            "shots": [
+              [
+                119,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60301,6 +65469,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165181
             ],
+            "shots": [
+              [
+                1,
+                "90/110/130"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -60339,6 +65513,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165190
             ],
+            "shots": [
+              [
+                1,
+                "90/110/130"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -60376,6 +65556,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.45,
             "weapons": [
               165291
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -60398,6 +65584,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.75,
             "weapons": [
               165300
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -60426,6 +65618,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165301
             ],
+            "shots": [
+              [
+                12,
+                "80/100/130"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -60449,6 +65647,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165310
+            ],
+            "shots": [
+              [
+                12,
+                "80/100/130"
+              ]
             ],
             "quota": 1
           }
@@ -60484,6 +65688,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165341,
               165351
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60503,6 +65717,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165350,
               165360
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60577,6 +65801,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165501,
               165511
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/40"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60619,6 +65853,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165510,
               165520
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/40"
+              ],
+              null
             ]
           }
         ]
@@ -60665,6 +65906,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165501,
               165511
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/40"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -60707,6 +65958,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165510,
               165520
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/40"
+              ],
+              null
             ]
           }
         ]
@@ -60825,6 +66083,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165481
+            ],
+            "shots": [
+              [
+                50,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -60858,6 +66122,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               165490
+            ],
+            "shots": [
+              [
+                50,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -61736,6 +67006,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               166991
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -61748,6 +67021,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167000
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -61769,6 +67045,20 @@ const SKILL_TIMING_DATA = {
               167011,
               167091,
               167101
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                22,
+                "100/110/90"
+              ],
+              [
+                30,
+                "100/110/90"
+              ]
             ]
           }
         ]
@@ -61785,6 +67075,20 @@ const SKILL_TIMING_DATA = {
               167020,
               167100,
               167110
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                22,
+                "100/110/90"
+              ],
+              [
+                30,
+                "100/110/90"
+              ]
             ]
           }
         ]
@@ -62098,6 +67402,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167111
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -62127,6 +67437,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167120
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -62155,6 +67471,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166981
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -62163,6 +67485,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166981
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -62176,6 +67504,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166990
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -62184,6 +67518,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166990
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -62509,6 +67849,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               167221
+            ],
+            "shots": [
+              [
+                12,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -62531,6 +67877,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               167230
+            ],
+            "shots": [
+              [
+                12,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -62647,6 +67999,16 @@ const SKILL_TIMING_DATA = {
               167141,
               167151
             ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                10,
+                "100/80/60"
+              ]
+            ],
             "crit": 0.01,
             "until": 0.5
           }
@@ -62703,6 +68065,16 @@ const SKILL_TIMING_DATA = {
               167150,
               167160
             ],
+            "shots": [
+              [
+                6,
+                "80/100/130"
+              ],
+              [
+                10,
+                "100/80/60"
+              ]
+            ],
             "crit": 0.1,
             "until": 0.5
           }
@@ -62754,6 +68126,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167161
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -62800,6 +68178,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167170
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -62888,6 +68272,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167281
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "crit": 0.1
           },
           {
@@ -62896,6 +68286,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               167281
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "crit": 0.1
           }
@@ -62934,6 +68330,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167281
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "crit": 0.1
           },
           {
@@ -62942,6 +68344,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               167281
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "crit": 0.1
           }
@@ -63175,6 +68583,20 @@ const SKILL_TIMING_DATA = {
               167431,
               167441
             ],
+            "shots": [
+              [
+                64,
+                "100/115/90"
+              ],
+              [
+                3,
+                "100/115/90"
+              ],
+              [
+                2,
+                "100/115/90"
+              ]
+            ],
             "crit": 0.5,
             "cooldown": 5
           }
@@ -63233,6 +68655,20 @@ const SKILL_TIMING_DATA = {
               167430,
               167440,
               167450
+            ],
+            "shots": [
+              [
+                64,
+                "100/115/90"
+              ],
+              [
+                3,
+                "100/115/90"
+              ],
+              [
+                2,
+                "100/115/90"
+              ]
             ],
             "crit": 0.5,
             "cooldown": 5
@@ -63612,6 +69048,16 @@ const SKILL_TIMING_DATA = {
               167311,
               167321
             ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ],
+              [
+                3,
+                "120/120/120"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -63634,6 +69080,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167320,
               167330
+            ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ],
+              [
+                3,
+                "120/120/120"
+              ]
             ],
             "cooldown": 3
           }
@@ -63666,6 +69122,11 @@ const SKILL_TIMING_DATA = {
               167621,
               167641
             ],
+            "shots": [
+              null,
+              null,
+              null
+            ],
             "cooldown": 1
           }
         ]
@@ -63690,6 +69151,11 @@ const SKILL_TIMING_DATA = {
               167600,
               167630,
               167650
+            ],
+            "shots": [
+              null,
+              null,
+              null
             ],
             "cooldown": 1
           }
@@ -63835,6 +69301,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167581
+            ],
+            "shots": [
+              [
+                16,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -63843,6 +69315,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -63851,6 +69329,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -63865,6 +69349,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167590
+            ],
+            "shots": [
+              [
+                16,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -63873,6 +69363,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -63881,6 +69377,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               902
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -64050,6 +69552,20 @@ const SKILL_TIMING_DATA = {
               167741,
               167751,
               167761
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                24,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -64085,6 +69601,20 @@ const SKILL_TIMING_DATA = {
               167750,
               167760,
               167770
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                24,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -64394,6 +69924,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61033
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -64419,6 +69952,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               61033
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -64649,6 +70185,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167861,
               167871
+            ],
+            "shots": [
+              [
+                54,
+                "120/120/120"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -64672,6 +70218,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167870,
               167880
+            ],
+            "shots": [
+              [
+                54,
+                "120/120/120"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -64811,6 +70367,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167841,
               167851
+            ],
+            "shots": [
+              [
+                1,
+                "110/110/110"
+              ],
+              [
+                12,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -64834,6 +70400,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167850,
               167860
+            ],
+            "shots": [
+              [
+                1,
+                "110/110/110"
+              ],
+              [
+                12,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -64961,6 +70537,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -64968,6 +70550,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167771
+            ],
+            "shots": [
+              [
+                21,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -65000,6 +70588,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -65007,6 +70601,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167780
+            ],
+            "shots": [
+              [
+                21,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -65248,6 +70848,20 @@ const SKILL_TIMING_DATA = {
               168221,
               168231,
               168241
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -65268,6 +70882,20 @@ const SKILL_TIMING_DATA = {
               168230,
               168240,
               168250
+            ],
+            "shots": [
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                4,
+                "80/100/130"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -65502,6 +71130,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168921,
               168931
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                42,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -65520,6 +71158,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168930,
               168940
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                42,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -65608,6 +71256,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168881,
               168901
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -65626,6 +71278,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168890,
               168910
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -65774,6 +71430,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168941,
               168951
+            ],
+            "shots": [
+              [
+                2,
+                "120/120/120"
+              ],
+              [
+                4,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -65808,6 +71474,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168950,
               168960
+            ],
+            "shots": [
+              [
+                2,
+                "120/120/120"
+              ],
+              [
+                4,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -65981,6 +71657,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168851
+            ],
+            "shots": [
+              [
+                10,
+                "130/90/60"
+              ]
             ]
           }
         ]
@@ -66005,6 +71687,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168860
+            ],
+            "shots": [
+              [
+                10,
+                "130/90/60"
+              ]
             ]
           }
         ]
@@ -66212,6 +71900,16 @@ const SKILL_TIMING_DATA = {
               169021,
               169031
             ],
+            "shots": [
+              [
+                22,
+                "100/80/60"
+              ],
+              [
+                10,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -66220,6 +71918,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -66228,6 +71932,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -66250,6 +71960,16 @@ const SKILL_TIMING_DATA = {
               169030,
               169040
             ],
+            "shots": [
+              [
+                22,
+                "100/80/60"
+              ],
+              [
+                10,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -66258,6 +71978,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -66266,6 +71992,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -66493,6 +72225,20 @@ const SKILL_TIMING_DATA = {
               169131,
               169141,
               169151
+            ],
+            "shots": [
+              [
+                10,
+                "135/100/90"
+              ],
+              [
+                54,
+                "100/90/80"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           },
           {
@@ -66503,6 +72249,20 @@ const SKILL_TIMING_DATA = {
               169161,
               169171,
               169181
+            ],
+            "shots": [
+              [
+                10,
+                "135/100/90"
+              ],
+              [
+                54,
+                "100/90/80"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -66538,6 +72298,20 @@ const SKILL_TIMING_DATA = {
               169140,
               169150,
               169160
+            ],
+            "shots": [
+              [
+                10,
+                "135/100/90"
+              ],
+              [
+                54,
+                "100/90/80"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           },
           {
@@ -66548,6 +72322,20 @@ const SKILL_TIMING_DATA = {
               169170,
               169180,
               169190
+            ],
+            "shots": [
+              [
+                10,
+                "135/100/90"
+              ],
+              [
+                54,
+                "100/90/80"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -66578,6 +72366,16 @@ const SKILL_TIMING_DATA = {
               169191,
               169201
             ],
+            "shots": [
+              [
+                20,
+                "115/80/60"
+              ],
+              [
+                4,
+                "80/110/130"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -66587,6 +72385,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169191,
               169201
+            ],
+            "shots": [
+              [
+                20,
+                "115/80/60"
+              ],
+              [
+                4,
+                "80/110/130"
+              ]
             ]
           },
           {
@@ -66594,6 +72402,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               169211
+            ],
+            "shots": [
+              [
+                8,
+                "80/110/130"
+              ]
             ]
           }
         ]
@@ -66609,6 +72423,16 @@ const SKILL_TIMING_DATA = {
               169200,
               169210
             ],
+            "shots": [
+              [
+                20,
+                "115/80/60"
+              ],
+              [
+                4,
+                "80/110/130"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -66618,6 +72442,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169200,
               169210
+            ],
+            "shots": [
+              [
+                20,
+                "115/80/60"
+              ],
+              [
+                4,
+                "80/110/130"
+              ]
             ]
           },
           {
@@ -66625,6 +72459,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               169220
+            ],
+            "shots": [
+              [
+                8,
+                "80/110/130"
+              ]
             ]
           }
         ]
@@ -66740,6 +72580,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169221
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -66762,6 +72608,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169230
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -66809,6 +72661,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169461,
               169471
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/40"
+              ],
+              [
+                5,
+                "100/80/40"
+              ]
             ]
           }
         ]
@@ -66850,6 +72712,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169470,
               169480
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/40"
+              ],
+              [
+                8,
+                "100/80/40"
+              ]
             ]
           }
         ]
@@ -67050,6 +72922,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169521
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           },
           {
@@ -67058,6 +72936,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169501
+            ],
+            "shots": [
+              [
+                1,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -67087,6 +72971,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169530
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           },
           {
@@ -67095,6 +72985,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169510
+            ],
+            "shots": [
+              [
+                1,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -67354,6 +73250,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169481
+            ],
+            "shots": [
+              [
+                32,
+                "140/100/80"
+              ]
             ]
           }
         ]
@@ -67375,6 +73277,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169490
+            ],
+            "shots": [
+              [
+                32,
+                "140/100/80"
+              ]
             ]
           }
         ]
@@ -67593,6 +73501,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169441
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -67615,6 +73529,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169450
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -67643,6 +73563,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169441
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -67665,6 +73591,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169450
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -67835,6 +73767,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169331
+            ],
+            "shots": [
+              [
+                36,
+                "100/80/40"
+              ]
             ]
           }
         ]
@@ -67863,6 +73801,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169340
+            ],
+            "shots": [
+              [
+                36,
+                "100/80/40"
+              ]
             ]
           }
         ]
@@ -68060,6 +74004,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169811,
               169831
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -68093,6 +74041,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169820,
               169840
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -68191,6 +74143,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169761,
               169771
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -68213,6 +74169,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169770,
               169780
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -68333,6 +74293,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169721
             ],
+            "shots": [
+              [
+                22,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -68341,6 +74307,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169721
+            ],
+            "shots": [
+              [
+                22,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -68366,6 +74338,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169730
             ],
+            "shots": [
+              [
+                22,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -68374,6 +74352,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169730
+            ],
+            "shots": [
+              [
+                22,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -68569,6 +74553,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183111,
               183121
+            ],
+            "shots": [
+              [
+                4,
+                "110/110/110"
+              ],
+              [
+                1,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -68591,6 +74585,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183120,
               183130
+            ],
+            "shots": [
+              [
+                4,
+                "110/110/110"
+              ],
+              [
+                1,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -68634,6 +74638,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183131
             ],
+            "shots": [
+              [
+                9,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -68673,6 +74683,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183140
             ],
+            "shots": [
+              [
+                9,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -68710,6 +74726,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183161
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -68732,6 +74754,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183170
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -68764,6 +74792,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.1,
             "weapons": [
               183171
+            ],
+            "shots": [
+              [
+                10,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -68792,6 +74826,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.1,
             "weapons": [
               183180
+            ],
+            "shots": [
+              [
+                10,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -68929,6 +74969,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183141,
               183151
+            ],
+            "shots": [
+              [
+                48,
+                "65/125/65"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -68965,6 +75015,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183150,
               183160
+            ],
+            "shots": [
+              [
+                48,
+                "65/125/65"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -69099,6 +75159,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183031,
               183051
+            ],
+            "shots": [
+              [
+                26,
+                "100/80/60"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -69134,6 +75204,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183040,
               183060
+            ],
+            "shots": [
+              [
+                26,
+                "100/80/60"
+              ],
+              [
+                4,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -69327,6 +75407,20 @@ const SKILL_TIMING_DATA = {
               183181,
               183191,
               183201
+            ],
+            "shots": [
+              [
+                8,
+                "100/80/60"
+              ],
+              [
+                4,
+                "100/80/60"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -69365,6 +75459,20 @@ const SKILL_TIMING_DATA = {
               183190,
               183200,
               183210
+            ],
+            "shots": [
+              [
+                8,
+                "100/80/60"
+              ],
+              [
+                4,
+                "100/80/60"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -69640,6 +75748,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183361
+            ],
+            "shots": [
+              [
+                6,
+                "80/125/85"
+              ]
             ]
           }
         ]
@@ -69662,6 +75776,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183370
+            ],
+            "shots": [
+              [
+                6,
+                "80/125/85"
+              ]
             ]
           }
         ]
@@ -69705,6 +75825,16 @@ const SKILL_TIMING_DATA = {
               183221,
               183231
             ],
+            "shots": [
+              [
+                6,
+                "110/90/70"
+              ],
+              [
+                12,
+                "0/0/0"
+              ]
+            ],
             "cooldown": 0.5
           }
         ]
@@ -69732,6 +75862,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183230,
               183240
+            ],
+            "shots": [
+              [
+                6,
+                "110/90/70"
+              ],
+              [
+                12,
+                "0/0/0"
+              ]
             ],
             "cooldown": 0.5
           }
@@ -69863,6 +76003,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169991
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -69896,6 +76042,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               170000
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -70044,6 +76196,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183271,
               183341
+            ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -70077,6 +76239,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183280,
               183350
+            ],
+            "shots": [
+              [
+                36,
+                "100/100/100"
+              ],
+              [
+                2,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -70115,6 +76287,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183441,
               183461
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -70147,6 +76323,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183450,
               183470
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -70267,6 +76447,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183581
+            ],
+            "shots": [
+              [
+                9,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -70280,6 +76466,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183590
+            ],
+            "shots": [
+              [
+                9,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -70347,6 +76539,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183531
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -70369,6 +76567,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183540
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -70583,6 +76787,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66461,
               66481
+            ],
+            "shots": [
+              [
+                6,
+                "70/110/90"
+              ],
+              [
+                21,
+                "100/50/20"
+              ]
             ]
           }
         ]
@@ -70599,6 +76813,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66470,
               66490
+            ],
+            "shots": [
+              [
+                18,
+                "70/110/90"
+              ],
+              [
+                63,
+                "100/50/20"
+              ]
             ]
           }
         ]
@@ -70616,6 +76840,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66501
+            ],
+            "shots": [
+              [
+                10,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -70629,6 +76859,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66510
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -70658,6 +76894,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66521
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -70671,6 +76910,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66530
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -70721,6 +76963,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66541,
               66561
+            ],
+            "shots": [
+              [
+                8,
+                "100/90/70"
+              ],
+              [
+                16,
+                "100/70/30"
+              ]
             ]
           }
         ]
@@ -70735,6 +76987,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               66550,
               66570
+            ],
+            "shots": [
+              [
+                24,
+                "100/90/70"
+              ],
+              [
+                32,
+                "100/70/30"
+              ]
             ]
           }
         ]
@@ -70810,6 +77072,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.2,
             "weapons": [
               66581
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -70823,6 +77088,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66590
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -71011,6 +77279,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68301
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -71020,6 +77291,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68301
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -71028,6 +77302,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68301
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -71043,6 +77320,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68310
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -71052,6 +77332,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68310
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -71060,6 +77343,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68310
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -71129,6 +77415,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68271,
               68281
+            ],
+            "shots": [
+              [
+                20,
+                "110/90/70"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -71159,6 +77455,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68280,
               68290
+            ],
+            "shots": [
+              [
+                20,
+                "110/90/70"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -71205,6 +77511,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68951
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -71219,6 +77528,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68960
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -71285,6 +77597,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               68821
+            ],
+            "shots": [
+              [
+                3,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -71297,6 +77615,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68830
+            ],
+            "shots": [
+              [
+                3,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -71454,6 +77778,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               68841
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -71467,6 +77794,9 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               68850
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -71580,6 +77910,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68971
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -71588,6 +77924,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68971
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -71611,6 +77953,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68980
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -71619,6 +77967,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68980
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -71658,6 +78012,16 @@ const SKILL_TIMING_DATA = {
               999,
               68941
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -71667,6 +78031,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               999,
               68941
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -71689,6 +78063,16 @@ const SKILL_TIMING_DATA = {
               999,
               68950
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -71698,6 +78082,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               999,
               68950
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -71723,6 +78117,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68861
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           }
         ]
@@ -71740,6 +78137,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               68870
+            ],
+            "shots": [
+              null
             ],
             "quota": 1
           }
@@ -71987,6 +78387,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65281,
               65291
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/60"
+              ],
+              [
+                2,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -72011,6 +78421,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65290,
               65300
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/60"
+              ],
+              [
+                2,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -72039,6 +78459,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65281,
               65291
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/60"
+              ],
+              [
+                2,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -72063,6 +78493,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65290,
               65300
+            ],
+            "shots": [
+              [
+                6,
+                "100/80/60"
+              ],
+              [
+                2,
+                "65/135/115"
+              ]
             ]
           }
         ]
@@ -72082,6 +78522,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65301
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -72095,6 +78538,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65310
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -72368,6 +78814,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65331
+            ],
+            "shots": [
+              [
+                25,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -72391,6 +78843,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65340
+            ],
+            "shots": [
+              [
+                25,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -72421,6 +78879,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65341,
               65351
+            ],
+            "shots": [
+              [
+                9,
+                "135/95/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -72445,6 +78913,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65350,
               65360
+            ],
+            "shots": [
+              [
+                9,
+                "135/95/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -72535,6 +79013,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65381
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -72547,6 +79028,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65390
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -72794,6 +79278,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               160921
             ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -72816,6 +79306,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160930
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ],
             "cooldown": 3
           }
@@ -73127,6 +79623,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64461,
               64471
+            ],
+            "shots": [
+              [
+                36,
+                "135/95/70"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -73141,6 +79647,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64470,
               64480
+            ],
+            "shots": [
+              [
+                36,
+                "135/95/70"
+              ],
+              [
+                6,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -73166,6 +79682,10 @@ const SKILL_TIMING_DATA = {
               64531,
               64571
             ],
+            "shots": [
+              null,
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -73184,6 +79704,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64540,
               64580
+            ],
+            "shots": [
+              null,
+              null
             ],
             "cooldown": 3
           }
@@ -73301,6 +79825,16 @@ const SKILL_TIMING_DATA = {
               64551,
               64561
             ],
+            "shots": [
+              [
+                3,
+                "135/100/90"
+              ],
+              [
+                3,
+                "65/125/120"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -73324,6 +79858,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64560,
               64570
+            ],
+            "shots": [
+              [
+                3,
+                "135/100/90"
+              ],
+              [
+                3,
+                "65/125/120"
+              ]
             ],
             "cooldown": 3
           }
@@ -73460,6 +80004,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64481
+            ],
+            "shots": [
+              [
+                6,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -73477,6 +80027,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64490
+            ],
+            "shots": [
+              [
+                9,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -73512,6 +80068,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64491
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -73541,6 +80100,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64500
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -73821,6 +80383,20 @@ const SKILL_TIMING_DATA = {
               63231,
               63241,
               63251
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                12,
+                "135/95/70"
+              ],
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           },
           {
@@ -73831,6 +80407,20 @@ const SKILL_TIMING_DATA = {
               63231,
               63241,
               63251
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                12,
+                "135/95/70"
+              ],
+              [
+                3,
+                "120/120/120"
+              ]
             ],
             "quota": 1
           }
@@ -73866,6 +80456,20 @@ const SKILL_TIMING_DATA = {
               63240,
               63250,
               63260
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                12,
+                "135/95/70"
+              ],
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           },
           {
@@ -73876,6 +80480,20 @@ const SKILL_TIMING_DATA = {
               63240,
               63250,
               63260
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                12,
+                "135/95/70"
+              ],
+              [
+                3,
+                "120/120/120"
+              ]
             ],
             "quota": 1
           }
@@ -73947,6 +80565,16 @@ const SKILL_TIMING_DATA = {
               63351,
               63371
             ],
+            "shots": [
+              [
+                36,
+                "120/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -73960,6 +80588,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63360,
               63380
+            ],
+            "shots": [
+              [
+                36,
+                "120/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ],
             "cooldown": 3
           }
@@ -73979,6 +80617,16 @@ const SKILL_TIMING_DATA = {
               63351,
               63371
             ],
+            "shots": [
+              [
+                36,
+                "120/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -73992,6 +80640,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63360,
               63380
+            ],
+            "shots": [
+              [
+                36,
+                "120/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ],
             "cooldown": 3
           }
@@ -74010,6 +80668,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63421
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -74023,6 +80684,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63430
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -74182,6 +80846,16 @@ const SKILL_TIMING_DATA = {
               63281,
               63291
             ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                20,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -74191,6 +80865,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63281,
               63291
+            ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -74230,6 +80914,16 @@ const SKILL_TIMING_DATA = {
               63290,
               63300
             ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                20,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -74239,6 +80933,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63290,
               63300
+            ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ],
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -74274,6 +80978,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63231
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -74303,6 +81013,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63240
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -74321,6 +81037,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               63261
+            ],
+            "shots": [
+              [
+                6,
+                "130/90/60"
+              ]
             ]
           }
         ]
@@ -74335,6 +81057,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               63270
+            ],
+            "shots": [
+              [
+                6,
+                "130/90/60"
+              ]
             ]
           }
         ]
@@ -74353,6 +81081,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               63261
+            ],
+            "shots": [
+              [
+                6,
+                "130/90/60"
+              ]
             ]
           }
         ]
@@ -74367,6 +81101,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               63270
+            ],
+            "shots": [
+              [
+                6,
+                "130/90/60"
+              ]
             ]
           }
         ]
@@ -74555,6 +81295,16 @@ const SKILL_TIMING_DATA = {
               63461,
               63471
             ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -74604,6 +81354,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63470,
               63480
+            ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -74659,6 +81419,16 @@ const SKILL_TIMING_DATA = {
               63461,
               63471
             ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -74709,6 +81479,16 @@ const SKILL_TIMING_DATA = {
               63470,
               63480
             ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -74728,6 +81508,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63391
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -74741,6 +81524,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63400
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -74757,6 +81543,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63481
+            ],
+            "shots": [
+              [
+                87,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -74769,6 +81561,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63490
+            ],
+            "shots": [
+              [
+                87,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -74785,6 +81583,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63481
+            ],
+            "shots": [
+              [
+                87,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -74797,6 +81601,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63490
+            ],
+            "shots": [
+              [
+                87,
+                "100/80/60"
+              ]
             ]
           }
         ]
@@ -74829,6 +81639,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162211
             ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -74854,6 +81670,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               162220
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ],
             "cooldown": 3
           }
@@ -74885,6 +81707,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162211
             ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -74910,6 +81738,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               162220
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ],
             "cooldown": 3
           }
@@ -75104,6 +81938,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162271
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -75127,6 +81967,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162280
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -75711,6 +82557,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160161
+            ],
+            "shots": [
+              [
+                20,
+                "60/60/60"
+              ]
             ]
           }
         ]
@@ -75729,6 +82581,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160170
+            ],
+            "shots": [
+              [
+                60,
+                "60/60/60"
+              ]
             ]
           }
         ]
@@ -76100,6 +82958,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163611,
               163621
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76133,6 +83001,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               163620,
               163630
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ],
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76336,6 +83214,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163461
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76365,6 +83249,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163470
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76398,6 +83288,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163461
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76427,6 +83323,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163470
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76482,6 +83384,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.8,
             "weapons": [
               163481
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -76533,6 +83441,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.8,
             "weapons": [
               163490
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -76620,6 +83534,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163491
+            ],
+            "shots": [
+              [
+                7,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76641,6 +83561,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163500
+            ],
+            "shots": [
+              [
+                7,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76666,6 +83592,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163491
+            ],
+            "shots": [
+              [
+                7,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76687,6 +83619,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               163500
+            ],
+            "shots": [
+              [
+                7,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -76824,6 +83762,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               163531
+            ],
+            "shots": [
+              [
+                20,
+                "70/100/130"
+              ]
             ]
           }
         ]
@@ -76845,6 +83789,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               163540
+            ],
+            "shots": [
+              [
+                20,
+                "70/100/130"
+              ]
             ]
           }
         ]
@@ -76870,6 +83820,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               163531
+            ],
+            "shots": [
+              [
+                20,
+                "70/100/130"
+              ]
             ]
           }
         ]
@@ -76891,6 +83847,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               163540
+            ],
+            "shots": [
+              [
+                20,
+                "70/100/130"
+              ]
             ]
           }
         ]
@@ -77207,6 +84169,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166751
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -77259,6 +84227,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166760
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -77315,6 +84289,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166751
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -77367,6 +84347,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166760
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -77743,6 +84729,24 @@ const SKILL_TIMING_DATA = {
               166701,
               166731,
               166741
+            ],
+            "shots": [
+              [
+                11,
+                "130/100/80"
+              ],
+              [
+                11,
+                "80/120/100"
+              ],
+              [
+                10,
+                "130/100/80"
+              ],
+              [
+                10,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -77763,6 +84767,24 @@ const SKILL_TIMING_DATA = {
               166710,
               166740,
               166750
+            ],
+            "shots": [
+              [
+                11,
+                "130/100/80"
+              ],
+              [
+                11,
+                "80/120/100"
+              ],
+              [
+                10,
+                "130/100/80"
+              ],
+              [
+                10,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -77787,6 +84809,24 @@ const SKILL_TIMING_DATA = {
               166701,
               166731,
               166741
+            ],
+            "shots": [
+              [
+                11,
+                "130/100/80"
+              ],
+              [
+                11,
+                "80/120/100"
+              ],
+              [
+                10,
+                "130/100/80"
+              ],
+              [
+                10,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -77807,6 +84847,24 @@ const SKILL_TIMING_DATA = {
               166710,
               166740,
               166750
+            ],
+            "shots": [
+              [
+                11,
+                "130/100/80"
+              ],
+              [
+                11,
+                "80/120/100"
+              ],
+              [
+                10,
+                "130/100/80"
+              ],
+              [
+                10,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -78133,6 +85191,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               166631
+            ],
+            "shots": [
+              [
+                28,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -78169,6 +85233,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               166640
+            ],
+            "shots": [
+              [
+                28,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -78188,6 +85258,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               166651
+            ],
+            "shots": [
+              [
+                48,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -78201,6 +85277,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               166660
+            ],
+            "shots": [
+              [
+                48,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -78218,6 +85300,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               166651
+            ],
+            "shots": [
+              [
+                48,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -78231,6 +85319,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               166660
+            ],
+            "shots": [
+              [
+                48,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -78322,6 +85416,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167931
             ],
+            "shots": [
+              [
+                6,
+                "90/130/110"
+              ]
+            ],
             "crit": 0.05
           }
         ]
@@ -78364,6 +85464,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167940
+            ],
+            "shots": [
+              [
+                6,
+                "90/130/110"
+              ]
             ],
             "crit": 0.15
           }
@@ -78412,6 +85518,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167931
             ],
+            "shots": [
+              [
+                6,
+                "90/130/110"
+              ]
+            ],
             "crit": 0.05
           }
         ]
@@ -78454,6 +85566,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167940
+            ],
+            "shots": [
+              [
+                6,
+                "90/130/110"
+              ]
             ],
             "crit": 0.15
           }
@@ -78615,6 +85733,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168041
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -78637,6 +85758,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168050
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -78675,6 +85799,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168061
+            ],
+            "shots": [
+              [
+                1,
+                "0/0/0"
+              ]
             ]
           }
         ]
@@ -78709,6 +85839,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168070
+            ],
+            "shots": [
+              [
+                1,
+                "0/0/0"
+              ]
             ]
           }
         ]
@@ -78747,6 +85883,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168061
+            ],
+            "shots": [
+              [
+                1,
+                "0/0/0"
+              ]
             ]
           }
         ]
@@ -78781,6 +85923,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168070
+            ],
+            "shots": [
+              [
+                1,
+                "0/0/0"
+              ]
             ]
           }
         ]
@@ -78923,6 +86071,20 @@ const SKILL_TIMING_DATA = {
               168691,
               168701,
               168711
+            ],
+            "shots": [
+              [
+                24,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -78947,6 +86109,20 @@ const SKILL_TIMING_DATA = {
               168700,
               168710,
               168720
+            ],
+            "shots": [
+              [
+                24,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -79003,6 +86179,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168611,
               168621
+            ],
+            "shots": [
+              [
+                6,
+                "135/85/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -79025,6 +86211,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168620,
               168630
+            ],
+            "shots": [
+              [
+                6,
+                "135/85/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -79051,6 +86247,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168611,
               168621
+            ],
+            "shots": [
+              [
+                6,
+                "135/85/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -79073,6 +86279,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168620,
               168630
+            ],
+            "shots": [
+              [
+                6,
+                "135/85/70"
+              ],
+              [
+                24,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -79294,6 +86510,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168671,
               168681
+            ],
+            "shots": [
+              [
+                6,
+                "110/110/110"
+              ],
+              [
+                2,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -79339,6 +86565,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168680,
               168690
+            ],
+            "shots": [
+              [
+                6,
+                "110/110/110"
+              ],
+              [
+                2,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -79388,6 +86624,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168671,
               168681
+            ],
+            "shots": [
+              [
+                6,
+                "110/110/110"
+              ],
+              [
+                2,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -79433,6 +86679,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168680,
               168690
+            ],
+            "shots": [
+              [
+                6,
+                "110/110/110"
+              ],
+              [
+                2,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -79565,6 +86821,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169241,
               180020
+            ],
+            "shots": [
+              [
+                16,
+                "135/95/70"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -79583,6 +86849,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169250,
               180020
+            ],
+            "shots": [
+              [
+                16,
+                "135/95/70"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -79605,6 +86881,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169241,
               180020
+            ],
+            "shots": [
+              [
+                16,
+                "135/95/70"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -79623,6 +86909,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169250,
               180020
+            ],
+            "shots": [
+              [
+                16,
+                "135/95/70"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -79726,6 +87022,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169951,
               169981
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                28,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -79749,6 +87055,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169960,
               169990
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                28,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -79776,6 +87092,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169951,
               169981
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                28,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -79799,6 +87125,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169960,
               169990
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                28,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -79981,6 +87317,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169351
+            ],
+            "shots": [
+              [
+                9,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -79990,6 +87332,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169391
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -79998,6 +87343,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169391
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -80022,6 +87370,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169360
+            ],
+            "shots": [
+              [
+                9,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -80031,6 +87385,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169400
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -80039,6 +87396,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169400
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -80201,6 +87561,17 @@ const SKILL_TIMING_DATA = {
               169271,
               169281,
               180018
+            ],
+            "shots": [
+              [
+                5,
+                "135/90/70"
+              ],
+              null,
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -80221,6 +87592,17 @@ const SKILL_TIMING_DATA = {
               169280,
               169290,
               180018
+            ],
+            "shots": [
+              [
+                5,
+                "135/90/70"
+              ],
+              null,
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -80482,6 +87864,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169411
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/110"
+              ]
             ]
           }
         ]
@@ -80517,6 +87905,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169420
+            ],
+            "shots": [
+              [
+                1,
+                "140/110/110"
+              ]
             ]
           }
         ]
@@ -80549,6 +87943,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169261
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           }
         ]
@@ -80575,6 +87975,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169261
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           }
         ]
@@ -80694,6 +88100,20 @@ const SKILL_TIMING_DATA = {
               169871,
               169881,
               169891
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -80711,6 +88131,20 @@ const SKILL_TIMING_DATA = {
               169880,
               169890,
               169900
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -80732,6 +88166,20 @@ const SKILL_TIMING_DATA = {
               169871,
               169881,
               169891
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -80749,6 +88197,20 @@ const SKILL_TIMING_DATA = {
               169880,
               169890,
               169900
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "120/120/120"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -80890,6 +88352,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183641
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -80941,6 +88409,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183650
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -80958,6 +88432,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183652
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -80971,6 +88448,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183660
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -80988,6 +88468,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183652
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -81001,6 +88484,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183660
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -81123,6 +88609,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183541,
               183551
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/60"
+              ],
+              [
+                46,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -81187,6 +88683,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183550,
               183560
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/60"
+              ],
+              [
+                46,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -81255,6 +88761,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183541,
               183551
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/60"
+              ],
+              [
+                46,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -81319,6 +88835,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183550,
               183560
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/60"
+              ],
+              [
+                46,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -81371,6 +88897,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183711
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81399,6 +88931,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183720
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81431,6 +88969,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183711
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81459,6 +89003,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183720
+            ],
+            "shots": [
+              [
+                3,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81501,6 +89051,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183731,
               183741
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -81510,6 +89070,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183731,
               183741
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -81547,6 +89117,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183740,
               183750
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -81556,6 +89136,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183740,
               183750
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -81597,6 +89187,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183731,
               183741
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -81606,6 +89206,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183731,
               183741
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -81643,6 +89253,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183740,
               183750
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -81652,6 +89272,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183740,
               183750
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ],
+              [
+                30,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -81822,6 +89452,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               183691
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81844,6 +89480,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               183700
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81870,6 +89512,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               183691
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -81892,6 +89540,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               183700
+            ],
+            "shots": [
+              [
+                1,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -82255,6 +89909,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66781
+            ],
+            "shots": [
+              [
+                5,
+                "40/125/120"
+              ]
             ]
           }
         ]
@@ -82267,6 +89927,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               66790
+            ],
+            "shots": [
+              [
+                13,
+                "40/125/120"
+              ]
             ]
           }
         ]
@@ -82283,6 +89949,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66781
+            ],
+            "shots": [
+              [
+                5,
+                "40/125/120"
+              ]
             ]
           }
         ]
@@ -82295,6 +89967,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               66790
+            ],
+            "shots": [
+              [
+                13,
+                "40/125/120"
+              ]
             ]
           }
         ]
@@ -82502,6 +90180,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               66801
+            ],
+            "shots": [
+              [
+                8,
+                "65/85/115"
+              ]
             ]
           }
         ]
@@ -82514,6 +90198,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66810
+            ],
+            "shots": [
+              [
+                8,
+                "65/85/115"
+              ]
             ]
           }
         ]
@@ -82530,6 +90220,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.15,
             "weapons": [
               66801
+            ],
+            "shots": [
+              [
+                8,
+                "65/85/115"
+              ]
             ]
           }
         ]
@@ -82542,6 +90238,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.3,
             "weapons": [
               66810
+            ],
+            "shots": [
+              [
+                8,
+                "65/85/115"
+              ]
             ]
           }
         ]
@@ -82576,6 +90278,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66741
+            ],
+            "shots": [
+              [
+                10,
+                "50/135/120"
+              ]
             ]
           }
         ]
@@ -82588,6 +90296,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               66750
+            ],
+            "shots": [
+              [
+                36,
+                "50/135/120"
+              ]
             ]
           }
         ]
@@ -82604,6 +90318,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               66741
+            ],
+            "shots": [
+              [
+                10,
+                "50/135/120"
+              ]
             ]
           }
         ]
@@ -82616,6 +90336,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               66750
+            ],
+            "shots": [
+              [
+                36,
+                "50/135/120"
+              ]
             ]
           }
         ]
@@ -83412,6 +91138,16 @@ const SKILL_TIMING_DATA = {
               68121,
               68141
             ],
+            "shots": [
+              [
+                2,
+                "65/135/115"
+              ],
+              [
+                36,
+                "120/80/60"
+              ]
+            ],
             "crit": 1,
             "cooldown": 5
           }
@@ -83437,6 +91173,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68130,
               68150
+            ],
+            "shots": [
+              [
+                2,
+                "65/135/115"
+              ],
+              [
+                36,
+                "120/80/60"
+              ]
             ],
             "crit": 1,
             "cooldown": 5
@@ -83468,6 +91214,16 @@ const SKILL_TIMING_DATA = {
               68121,
               68141
             ],
+            "shots": [
+              [
+                2,
+                "65/135/115"
+              ],
+              [
+                36,
+                "120/80/60"
+              ]
+            ],
             "crit": 1,
             "cooldown": 5
           }
@@ -83493,6 +91249,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68130,
               68150
+            ],
+            "shots": [
+              [
+                2,
+                "65/135/115"
+              ],
+              [
+                36,
+                "120/80/60"
+              ]
             ],
             "crit": 1,
             "cooldown": 5
@@ -83799,6 +91565,16 @@ const SKILL_TIMING_DATA = {
               68191,
               68221
             ],
+            "shots": [
+              [
+                2,
+                "140/110/90"
+              ],
+              [
+                48,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -83819,6 +91595,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68200,
               68230
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                48,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -83845,6 +91631,16 @@ const SKILL_TIMING_DATA = {
               68191,
               68221
             ],
+            "shots": [
+              [
+                2,
+                "140/110/90"
+              ],
+              [
+                48,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -83865,6 +91661,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               68200,
               68230
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                48,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -84246,6 +92052,32 @@ const SKILL_TIMING_DATA = {
               69611,
               69621,
               69631
+            ],
+            "shots": [
+              [
+                6,
+                "120/80/80"
+              ],
+              [
+                6,
+                "80/120/80"
+              ],
+              [
+                6,
+                "80/80/120"
+              ],
+              [
+                8,
+                "120/80/80"
+              ],
+              [
+                8,
+                "80/120/80"
+              ],
+              [
+                8,
+                "80/80/120"
+              ]
             ]
           }
         ]
@@ -84274,6 +92106,32 @@ const SKILL_TIMING_DATA = {
               69620,
               69630,
               69640
+            ],
+            "shots": [
+              [
+                10,
+                "120/80/80"
+              ],
+              [
+                10,
+                "80/120/80"
+              ],
+              [
+                10,
+                "80/80/120"
+              ],
+              [
+                12,
+                "120/80/80"
+              ],
+              [
+                12,
+                "80/120/80"
+              ],
+              [
+                12,
+                "80/80/120"
+              ]
             ]
           }
         ]
@@ -84306,6 +92164,32 @@ const SKILL_TIMING_DATA = {
               69611,
               69621,
               69631
+            ],
+            "shots": [
+              [
+                6,
+                "120/80/80"
+              ],
+              [
+                6,
+                "80/120/80"
+              ],
+              [
+                6,
+                "80/80/120"
+              ],
+              [
+                8,
+                "120/80/80"
+              ],
+              [
+                8,
+                "80/120/80"
+              ],
+              [
+                8,
+                "80/80/120"
+              ]
             ]
           }
         ]
@@ -84334,6 +92218,32 @@ const SKILL_TIMING_DATA = {
               69620,
               69630,
               69640
+            ],
+            "shots": [
+              [
+                10,
+                "120/80/80"
+              ],
+              [
+                10,
+                "80/120/80"
+              ],
+              [
+                10,
+                "80/80/120"
+              ],
+              [
+                12,
+                "120/80/80"
+              ],
+              [
+                12,
+                "80/120/80"
+              ],
+              [
+                12,
+                "80/80/120"
+              ]
             ]
           }
         ]
@@ -84388,6 +92298,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               69531
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -84411,6 +92327,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69540
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -85067,6 +92989,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69561,
               69571
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -85081,6 +93013,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69570,
               69580
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -85099,6 +93041,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69561,
               69571
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -85113,6 +93065,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               69570,
               69580
+            ],
+            "shots": [
+              [
+                24,
+                "100/80/60"
+              ],
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -85149,6 +93111,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69541
+            ],
+            "shots": [
+              [
+                3,
+                "30/130/110"
+              ]
             ]
           },
           {
@@ -85156,6 +93124,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69551
+            ],
+            "shots": [
+              [
+                16,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -85170,6 +93144,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69550
+            ],
+            "shots": [
+              [
+                3,
+                "30/130/110"
+              ]
             ]
           },
           {
@@ -85177,6 +93157,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69560
+            ],
+            "shots": [
+              [
+                16,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -85195,6 +93181,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69541
+            ],
+            "shots": [
+              [
+                3,
+                "30/130/110"
+              ]
             ]
           },
           {
@@ -85202,6 +93194,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69551
+            ],
+            "shots": [
+              [
+                16,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -85216,6 +93214,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69550
+            ],
+            "shots": [
+              [
+                3,
+                "30/130/110"
+              ]
             ]
           },
           {
@@ -85223,6 +93227,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               69560
+            ],
+            "shots": [
+              [
+                16,
+                "90/70/40"
+              ]
             ]
           }
         ]
@@ -85413,6 +93423,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -85447,6 +93463,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -85483,6 +93505,13 @@ const SKILL_TIMING_DATA = {
               64311,
               64321
             ],
+            "shots": [
+              null,
+              [
+                1,
+                "90/120/140"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -85496,6 +93525,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64320,
               64330
+            ],
+            "shots": [
+              null,
+              [
+                1,
+                "90/120/140"
+              ]
             ],
             "cooldown": 3
           }
@@ -85515,6 +93551,13 @@ const SKILL_TIMING_DATA = {
               64311,
               64321
             ],
+            "shots": [
+              null,
+              [
+                1,
+                "90/120/140"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -85528,6 +93571,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64320,
               64330
+            ],
+            "shots": [
+              null,
+              [
+                1,
+                "90/120/140"
+              ]
             ],
             "cooldown": 3
           }
@@ -85546,6 +93596,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64371
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -85554,6 +93610,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64371
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -85567,6 +93629,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64380
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -85575,6 +93643,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64380
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -85809,6 +93883,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64341
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -85821,6 +93898,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64350
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -86217,6 +94297,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62541
+            ],
+            "shots": [
+              [
+                20,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -86266,6 +94352,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62550
+            ],
+            "shots": [
+              [
+                20,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -86315,6 +94407,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62531
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86342,6 +94440,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62540
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86373,6 +94477,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62531
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86400,6 +94510,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62540
+            ],
+            "shots": [
+              [
+                4,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86449,6 +94565,16 @@ const SKILL_TIMING_DATA = {
               62551,
               62561
             ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ],
+              [
+                36,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -86493,6 +94619,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62560,
               62570
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ],
+              [
+                36,
+                "100/100/100"
+              ]
             ],
             "cooldown": 5
           }
@@ -86565,6 +94701,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               931
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -86572,6 +94714,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               931
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86612,6 +94760,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               940
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86647,6 +94801,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               62601
+            ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86678,6 +94838,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62610
+            ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86713,6 +94879,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               62601
+            ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86744,6 +94916,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62610
+            ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86822,6 +95000,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62671
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86844,6 +95028,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62680
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86870,6 +95060,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62671
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -86892,6 +95088,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62680
+            ],
+            "shots": [
+              [
+                12,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -87157,6 +95359,24 @@ const SKILL_TIMING_DATA = {
               161371,
               161411,
               161421
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                6,
+                "140/110/90"
+              ],
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -87164,6 +95384,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161391
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -87195,6 +95418,24 @@ const SKILL_TIMING_DATA = {
               161380,
               161420,
               161430
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                6,
+                "140/110/90"
+              ],
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -87202,6 +95443,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161400
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -87594,6 +95838,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161431,
               161441
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           },
           {
@@ -87603,6 +95857,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161431,
               161441
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -87639,6 +95903,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161440,
               161450
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           },
           {
@@ -87648,6 +95922,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161440,
               161450
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -87688,6 +95972,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161431,
               161441
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           },
           {
@@ -87697,6 +95991,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161431,
               161441
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -87733,6 +96037,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161440,
               161450
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           },
           {
@@ -87742,6 +96056,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161440,
               161450
+            ],
+            "shots": [
+              [
+                24,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -88054,6 +96378,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162001
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/80"
+              ]
             ]
           },
           {
@@ -88063,6 +96393,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162001
             ],
+            "shots": [
+              [
+                12,
+                "100/80/80"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -88071,6 +96407,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               473
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/80"
+              ]
             ]
           }
         ]
@@ -88084,6 +96426,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162010
+            ],
+            "shots": [
+              [
+                12,
+                "100/80/80"
+              ]
             ]
           },
           {
@@ -88093,6 +96441,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162010
             ],
+            "shots": [
+              [
+                12,
+                "100/80/80"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -88101,6 +96455,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               473
+            ],
+            "shots": [
+              [
+                3,
+                "100/80/80"
+              ]
             ]
           }
         ]
@@ -88152,6 +96512,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162011,
               162021
+            ],
+            "shots": [
+              [
+                6,
+                "50/110/110"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -88181,6 +96551,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162020,
               162030
+            ],
+            "shots": [
+              [
+                6,
+                "50/110/110"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -88214,6 +96594,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162011,
               162021
+            ],
+            "shots": [
+              [
+                6,
+                "50/110/110"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -88243,6 +96633,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162020,
               162030
+            ],
+            "shots": [
+              [
+                6,
+                "50/110/110"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -88369,6 +96769,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164721
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -88404,6 +96807,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164730
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -88443,6 +96849,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164721
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -88478,6 +96887,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164730
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -88534,6 +96946,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               911
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -88543,6 +96961,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164781,
               164791
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ],
+              [
+                10,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -88595,6 +97023,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               920
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -88604,6 +97038,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164790,
               164800
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ],
+              [
+                10,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -88831,6 +97275,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164811
+            ],
+            "shots": [
+              [
+                2,
+                "95/95/25"
+              ]
             ]
           }
         ]
@@ -88859,6 +97309,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164812
+            ],
+            "shots": [
+              [
+                4,
+                "95/95/25"
+              ]
             ]
           }
         ]
@@ -88878,6 +97334,16 @@ const SKILL_TIMING_DATA = {
               911,
               164801
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -88887,6 +97353,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               911,
               164801
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -88902,6 +97378,16 @@ const SKILL_TIMING_DATA = {
               920,
               164810
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -88911,6 +97397,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               920,
               164810
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -88965,6 +97461,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164761
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -88997,6 +97496,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164770
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -89198,6 +97700,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164741,
               164751
+            ],
+            "shots": [
+              [
+                60,
+                "100/100/100"
+              ],
+              [
+                25,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -89238,6 +97750,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164750,
               164760
+            ],
+            "shots": [
+              [
+                60,
+                "100/100/100"
+              ],
+              [
+                25,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -89735,6 +98257,16 @@ const SKILL_TIMING_DATA = {
               168481,
               168491
             ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/110/140"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -89744,6 +98276,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168481,
               168491
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/110/140"
+              ]
             ]
           },
           {
@@ -89751,6 +98293,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168501
+            ],
+            "shots": [
+              [
+                4,
+                "80/110/140"
+              ]
             ]
           }
         ]
@@ -89800,6 +98348,16 @@ const SKILL_TIMING_DATA = {
               168490,
               168500
             ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/110/140"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -89809,6 +98367,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168490,
               168500
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ],
+              [
+                8,
+                "80/110/140"
+              ]
             ]
           },
           {
@@ -89816,6 +98384,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168510
+            ],
+            "shots": [
+              [
+                4,
+                "80/110/140"
+              ]
             ]
           }
         ]
@@ -89959,6 +98533,20 @@ const SKILL_TIMING_DATA = {
               168551,
               168561,
               168571
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                3,
+                "65/125/65"
+              ],
+              [
+                3,
+                "65/125/65"
+              ]
             ]
           }
         ]
@@ -89982,6 +98570,20 @@ const SKILL_TIMING_DATA = {
               168560,
               168570,
               168580
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                3,
+                "65/125/65"
+              ],
+              [
+                3,
+                "65/125/65"
+              ]
             ]
           }
         ]
@@ -90009,6 +98611,20 @@ const SKILL_TIMING_DATA = {
               168551,
               168561,
               168571
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                3,
+                "65/125/65"
+              ],
+              [
+                3,
+                "65/125/65"
+              ]
             ]
           }
         ]
@@ -90032,6 +98648,20 @@ const SKILL_TIMING_DATA = {
               168560,
               168570,
               168580
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                3,
+                "65/125/65"
+              ],
+              [
+                3,
+                "65/125/65"
+              ]
             ]
           }
         ]
@@ -90169,6 +98799,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168591
+            ],
+            "shots": [
+              [
+                30,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -90211,6 +98847,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168600
+            ],
+            "shots": [
+              [
+                30,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -90257,6 +98899,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168591
+            ],
+            "shots": [
+              [
+                30,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -90299,6 +98947,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               168600
+            ],
+            "shots": [
+              [
+                30,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -90631,6 +99285,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65441
             ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -90639,6 +99299,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65441
+            ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -90663,6 +99329,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               65450
             ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -90671,6 +99343,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65450
+            ],
+            "shots": [
+              [
+                5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -90752,6 +99430,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65451
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -90760,6 +99441,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65451
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -90803,6 +99487,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65460
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -90811,6 +99498,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65460
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -90837,6 +99527,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65821
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -90850,6 +99546,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65830
+            ],
+            "shots": [
+              [
+                3,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -90898,6 +99600,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65841
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -90930,6 +99635,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65850
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -90956,6 +99664,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64221
+            ],
+            "shots": [
+              [
+                18,
+                "100/80/70"
+              ]
             ]
           },
           {
@@ -90964,6 +99678,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64221
+            ],
+            "shots": [
+              [
+                18,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -90977,6 +99697,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64230
+            ],
+            "shots": [
+              [
+                18,
+                "100/80/70"
+              ]
             ]
           },
           {
@@ -90985,6 +99711,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64230
+            ],
+            "shots": [
+              [
+                18,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -91011,6 +99743,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.5,
             "weapons": [
               65991
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           }
         ]
@@ -91033,6 +99771,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               65991
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           }
         ]
@@ -91115,6 +99859,16 @@ const SKILL_TIMING_DATA = {
               63031,
               63041
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                20,
+                "70/95/135"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -91124,6 +99878,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63031,
               63041
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                20,
+                "70/95/135"
+              ]
             ]
           }
         ]
@@ -91139,6 +99903,16 @@ const SKILL_TIMING_DATA = {
               63040,
               63050
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                20,
+                "70/95/135"
+              ]
+            ],
             "quota": 1
           },
           {
@@ -91148,6 +99922,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               63040,
               63050
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ],
+              [
+                20,
+                "70/95/135"
+              ]
             ]
           }
         ]
@@ -91164,6 +99948,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63051
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -91171,6 +99958,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63081
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -91178,6 +99971,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63091
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           }
         ]
@@ -91190,6 +99989,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63060
+            ],
+            "shots": [
+              null
             ]
           },
           {
@@ -91197,6 +99999,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63090
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           },
           {
@@ -91204,6 +100012,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63100
+            ],
+            "shots": [
+              [
+                1,
+                "100/90/80"
+              ]
             ]
           }
         ]
@@ -91255,6 +100069,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63131
+            ],
+            "shots": [
+              [
+                10,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -91267,6 +100087,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               63140
+            ],
+            "shots": [
+              [
+                40,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -91331,6 +100157,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64771,
               64791
+            ],
+            "shots": [
+              null,
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -91344,6 +100177,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64780,
               64800
+            ],
+            "shots": [
+              null,
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -91411,6 +100251,16 @@ const SKILL_TIMING_DATA = {
               64801,
               64811
             ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                60,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 8
           }
         ]
@@ -91424,6 +100274,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64810,
               64820
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                60,
+                "100/100/100"
+              ]
             ],
             "cooldown": 8
           }
@@ -91475,6 +100335,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               64821
             ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
+            ],
             "crit": 0.012
           }
         ]
@@ -91520,6 +100386,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64830
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ],
             "crit": 0.03
           }
@@ -91607,6 +100479,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64931
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -91620,6 +100495,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               64940
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -91677,6 +100555,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62001
+            ],
+            "shots": [
+              [
+                3,
+                "60/135/110"
+              ]
             ]
           },
           {
@@ -91685,6 +100569,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62021
+            ],
+            "shots": [
+              [
+                9,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -91704,6 +100594,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62010
+            ],
+            "shots": [
+              [
+                3,
+                "60/135/110"
+              ]
             ]
           },
           {
@@ -91712,6 +100608,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62030
+            ],
+            "shots": [
+              [
+                9,
+                "100/100/100"
+              ]
             ],
             "quota": 1
           }
@@ -91731,6 +100633,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62011
             ],
+            "shots": [
+              [
+                30,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -91744,6 +100652,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62020
+            ],
+            "shots": [
+              [
+                30,
+                "100/100/100"
+              ]
             ],
             "cooldown": 3
           }
@@ -91983,6 +100897,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62091
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -91996,6 +100916,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62100
+            ],
+            "shots": [
+              [
+                2,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -92146,6 +101072,16 @@ const SKILL_TIMING_DATA = {
               62101,
               62111
             ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                5,
+                "120/100/80"
+              ]
+            ],
             "cooldown": 8
           }
         ]
@@ -92168,6 +101104,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62110,
               62120
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                5,
+                "120/100/80"
+              ]
             ],
             "cooldown": 8
           }
@@ -92219,6 +101165,16 @@ const SKILL_TIMING_DATA = {
               62121,
               62131
             ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ],
+              [
+                4,
+                "120/100/80"
+              ]
+            ],
             "quota": 1
           }
         ]
@@ -92264,6 +101220,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62130,
               62140
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ],
+              [
+                4,
+                "120/100/80"
+              ]
             ],
             "quota": 1
           }
@@ -92467,6 +101433,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62361,
               62371
+            ],
+            "shots": [
+              [
+                1,
+                "90/130/110"
+              ],
+              [
+                5,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -92481,6 +101457,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62370,
               62380
+            ],
+            "shots": [
+              [
+                1,
+                "90/130/110"
+              ],
+              [
+                5,
+                "80/120/100"
+              ]
             ]
           }
         ]
@@ -92610,6 +101596,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62921
             ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
+            ],
             "until": 60
           }
         ]
@@ -92633,6 +101625,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62930
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ],
             "until": 60
           }
@@ -92894,6 +101892,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160571
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -92921,6 +101925,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160580
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -92998,6 +102008,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               62961
             ],
+            "shots": [
+              null
+            ],
             "cooldown": 3
           }
         ]
@@ -93019,6 +102032,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62970
+            ],
+            "shots": [
+              null
             ],
             "cooldown": 3
           }
@@ -93109,6 +102125,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62951
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -93146,6 +102168,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               62960
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -93218,6 +102246,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160821
+            ],
+            "shots": [
+              [
+                5,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -93241,6 +102275,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               160830
+            ],
+            "shots": [
+              [
+                5,
+                "120/100/80"
+              ]
             ]
           }
         ]
@@ -93542,6 +102582,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161101
+            ],
+            "shots": [
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -93565,6 +102611,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161110
+            ],
+            "shots": [
+              [
+                1,
+                "150/150/150"
+              ]
             ]
           }
         ]
@@ -93664,6 +102716,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161211
+            ],
+            "shots": [
+              [
+                8,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -93691,6 +102749,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               161220
+            ],
+            "shots": [
+              [
+                18,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -93821,6 +102885,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               162301
             ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 3
           }
         ]
@@ -93833,6 +102903,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162310
+            ],
+            "shots": [
+              [
+                8,
+                "100/100/100"
+              ]
             ],
             "cooldown": 3
           }
@@ -93908,6 +102984,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162401
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -93931,6 +103013,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               162410
+            ],
+            "shots": [
+              [
+                8,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -94214,6 +103302,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               163741
+            ],
+            "shots": [
+              [
+                52,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -94237,6 +103331,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               163750
+            ],
+            "shots": [
+              [
+                52,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -94316,6 +103416,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161521,
               161531
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -94334,6 +103444,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               161530,
               161540
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ],
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -94371,6 +103491,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               163941
+            ],
+            "shots": [
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -94393,6 +103519,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               163950
+            ],
+            "shots": [
+              [
+                16,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -94583,6 +103715,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164201
+            ],
+            "shots": [
+              [
+                14,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -94597,6 +103735,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164210
+            ],
+            "shots": [
+              [
+                44,
+                "100/80/70"
+              ]
             ]
           }
         ]
@@ -94680,6 +103824,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               61066
             ],
+            "shots": [
+              [
+                153,
+                "100/100/100"
+              ]
+            ],
             "cooldown": 5
           }
         ]
@@ -94704,6 +103854,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.8,
             "weapons": [
               61066
+            ],
+            "shots": [
+              [
+                153,
+                "100/100/100"
+              ]
             ],
             "cooldown": 5
           }
@@ -94811,6 +103967,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164231,
               164241
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -94834,6 +104000,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164240,
               164250
+            ],
+            "shots": [
+              [
+                3,
+                "80/100/130"
+              ],
+              [
+                3,
+                "80/100/130"
+              ]
             ]
           }
         ]
@@ -94933,6 +104109,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164441
             ],
+            "shots": [
+              [
+                1.5,
+                "100/100/100"
+              ]
+            ],
             "quota": 3
           },
           {
@@ -94941,6 +104123,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164441
+            ],
+            "shots": [
+              [
+                1.5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -94991,6 +104179,12 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               164450
             ],
+            "shots": [
+              [
+                1.5,
+                "100/100/100"
+              ]
+            ],
             "quota": 3
           },
           {
@@ -94999,6 +104193,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164450
+            ],
+            "shots": [
+              [
+                1.5,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -95031,6 +104231,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164451
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           },
           {
@@ -95039,6 +104245,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164451
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -95067,6 +104279,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164460
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           },
           {
@@ -95075,6 +104293,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164460
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -95102,6 +104326,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164591
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -95116,6 +104346,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164600
+            ],
+            "shots": [
+              [
+                20,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -95338,6 +104574,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164871
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -95359,6 +104601,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               164880
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -95688,6 +104936,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165361,
               165371
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                20,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -95725,6 +104983,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               165370,
               165380
+            ],
+            "shots": [
+              [
+                4,
+                "140/110/90"
+              ],
+              [
+                20,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -95935,6 +105203,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               166791
+            ],
+            "shots": [
+              [
+                32,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -95958,6 +105232,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               166800
+            ],
+            "shots": [
+              [
+                32,
+                "120/120/120"
+              ]
             ]
           }
         ]
@@ -96047,6 +105327,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166951
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -96059,6 +105342,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166960
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -96124,6 +105410,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166971
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -96137,6 +105429,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               166980
+            ],
+            "shots": [
+              [
+                1,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -96419,6 +105717,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167301
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -96437,6 +105741,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167310
+            ],
+            "shots": [
+              [
+                3,
+                "135/95/70"
+              ]
             ]
           }
         ]
@@ -96548,6 +105858,16 @@ const SKILL_TIMING_DATA = {
               167391,
               167401
             ],
+            "shots": [
+              [
+                3,
+                "140/110/90"
+              ],
+              [
+                44,
+                "110/100/90"
+              ]
+            ],
             "cooldown": 3
           },
           {
@@ -96557,6 +105877,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167451,
               167461
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ],
+              [
+                4,
+                "110/100/90"
+              ]
             ],
             "quota": 1
           }
@@ -96578,6 +105908,16 @@ const SKILL_TIMING_DATA = {
               167400,
               167410
             ],
+            "shots": [
+              [
+                3,
+                "140/110/90"
+              ],
+              [
+                44,
+                "110/100/90"
+              ]
+            ],
             "cooldown": 3
           },
           {
@@ -96587,6 +105927,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167460,
               167470
+            ],
+            "shots": [
+              [
+                32,
+                "100/100/100"
+              ],
+              [
+                4,
+                "110/100/90"
+              ]
             ],
             "quota": 1
           }
@@ -96778,6 +106128,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167561
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -96791,6 +106144,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167570
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -96828,6 +106184,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167541
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -96861,6 +106223,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               167550
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -96979,6 +106347,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               167651
+            ],
+            "shots": [
+              [
+                3,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -97006,6 +106380,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               167660
+            ],
+            "shots": [
+              [
+                3,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -97232,6 +106612,13 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167961,
               167981
+            ],
+            "shots": [
+              [
+                1,
+                "80/110/130"
+              ],
+              null
             ]
           }
         ]
@@ -97254,6 +106641,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               167970,
               167990
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -97351,6 +106742,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168131,
               168141
+            ],
+            "shots": [
+              [
+                2,
+                "115/115/115"
+              ],
+              [
+                8,
+                "115/115/115"
+              ]
             ]
           }
         ]
@@ -97365,6 +106766,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               168140,
               168150
+            ],
+            "shots": [
+              [
+                2,
+                "115/115/115"
+              ],
+              [
+                8,
+                "115/115/115"
+              ]
             ]
           }
         ]
@@ -97476,6 +106887,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.4,
             "weapons": [
               168741
+            ],
+            "shots": [
+              [
+                8,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -97488,6 +106905,12 @@ const SKILL_TIMING_DATA = {
             "chance": 0.7,
             "weapons": [
               168750
+            ],
+            "shots": [
+              [
+                8,
+                "140/110/90"
+              ]
             ]
           }
         ]
@@ -97606,6 +107029,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169121
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -97619,6 +107048,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169130
+            ],
+            "shots": [
+              [
+                6,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -97843,6 +107278,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169611
+            ],
+            "shots": [
+              [
+                16,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -97879,6 +107320,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169620
+            ],
+            "shots": [
+              [
+                16,
+                "100/100/100"
+              ]
             ]
           }
         ]
@@ -98090,6 +107537,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169671,
               169701
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -98134,6 +107585,10 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               169680,
               169710
+            ],
+            "shots": [
+              null,
+              null
             ]
           }
         ]
@@ -98201,6 +107656,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169801
+            ],
+            "shots": [
+              [
+                40,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -98215,6 +107676,12 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               169810
+            ],
+            "shots": [
+              [
+                40,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -98489,6 +107956,20 @@ const SKILL_TIMING_DATA = {
               183281,
               183291,
               183301
+            ],
+            "shots": [
+              [
+                3,
+                "110/110/110"
+              ],
+              [
+                36,
+                "120/80/70"
+              ],
+              [
+                3,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -98516,6 +107997,20 @@ const SKILL_TIMING_DATA = {
               183290,
               183300,
               183310
+            ],
+            "shots": [
+              [
+                3,
+                "110/110/110"
+              ],
+              [
+                36,
+                "120/80/70"
+              ],
+              [
+                3,
+                "110/110/110"
+              ]
             ]
           }
         ]
@@ -98778,6 +108273,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183501
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -98786,6 +108284,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183501
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -98844,6 +108345,9 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183510
             ],
+            "shots": [
+              null
+            ],
             "quota": 1
           },
           {
@@ -98852,6 +108356,9 @@ const SKILL_TIMING_DATA = {
             "chance": 1,
             "weapons": [
               183510
+            ],
+            "shots": [
+              null
             ]
           }
         ]
@@ -98893,6 +108400,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183491,
               183511
+            ],
+            "shots": [
+              [
+                42,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]
@@ -98930,6 +108447,16 @@ const SKILL_TIMING_DATA = {
             "weapons": [
               183500,
               183520
+            ],
+            "shots": [
+              [
+                42,
+                "110/90/70"
+              ],
+              [
+                4,
+                "70/90/120"
+              ]
             ]
           }
         ]

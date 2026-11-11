@@ -11,7 +11,9 @@ const SOURCES = {
   skills: `${GAME_DATA}/GameCfg/skill.json`,
   buffs: `${GAME_DATA}/GameCfg/buff.json`,
   texts: `${GAME_DATA}/ShareCfg/skill_data_template.json`,
-  weapons: `${GAME_DATA}/sharecfgdata/weapon_property.json`
+  weapons: `${GAME_DATA}/sharecfgdata/weapon_property.json`,
+  barrages: `${GAME_DATA}/sharecfgdata/barrage_template.json`,
+  bullets: `${GAME_DATA}/sharecfgdata/bullet_template.json`
 };
 
 // The game names a skill's level in its title ("Siren Killer Ⅲ"); our skills add "+" for the
@@ -183,6 +185,24 @@ function weaponEntry(weapons, id, depth = 0) {
   return own.base && own.base !== id ? { ...weaponEntry(weapons, own.base, depth + 1), ...own } : own;
 }
 
+// What a weapon fires, as the wiki's barrage rows show it: bullet count and armour modifiers
+// ("30/130/110"), so the app can tell which row goes with which schedule. Null when its bullets
+// differ in armour or are aircraft.
+function weaponShots(tables, id) {
+  const weapon = weaponEntry(tables.weapons, id);
+  if (!weapon || !(weapon.barrage_ID || []).length) return null;
+  let count = 0;
+  const armors = new Set();
+  weapon.barrage_ID.forEach((barrageId, i) => {
+    const barrage = weaponEntry(tables.barrages, barrageId);
+    const bullet = weaponEntry(tables.bullets, (weapon.bullet_ID || [])[i]);
+    if (!barrage || !bullet || !Array.isArray(bullet.damage_type)) return armors.add(null);
+    count += ((barrage.primal_repeat || 0) + 1) * ((barrage.senior_repeat || 0) + 1);
+    armors.add(bullet.damage_type.map(value => Math.round(value * 100)).join("/"));
+  });
+  return armors.size === 1 && !armors.has(null) ? [count, [...armors][0]] : null;
+}
+
 const FIRE_IMMEDIATE = new Set(["onAttach", "onUpdate", "onStartGame", "onAttach+onStack"]);
 const FIRE_EVENTS = {
   onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo",
@@ -306,7 +326,7 @@ class FireSchedule {
       }
       const reach = this.reaches(target);
       if (!reach.chance) continue;
-      const fire = { ...when, chance: round(odds * reach.chance), weapons: reach.weapons, ...(reach.crit ? { crit: round(reach.crit) } : {}), ...(until !== null && !when.on ? { until: round(until) } : {}), ...(args.quota ? { quota: args.quota } : {}) };
+      const fire = { ...when, chance: round(odds * reach.chance), weapons: reach.weapons, shots: reach.weapons.map(id => weaponShots(this.tables, id)), ...(reach.crit ? { crit: round(reach.crit) } : {}), ...(until !== null && !when.on ? { until: round(until) } : {}), ...(args.quota ? { quota: args.quota } : {}) };
       // Re-adding a live buff only refreshes it, so its onAttach cast waits for it to expire.
       if (when.on && added && added.time > 0) fire.cooldown = added.time;
       if (!this.out.some(other => JSON.stringify(other) === JSON.stringify(fire))) this.out.push(fire);

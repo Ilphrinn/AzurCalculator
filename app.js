@@ -2963,15 +2963,19 @@ function volleyBarrage(ship, level, armor) {
   return best;
 }
 
+function skillBarrageRows(ship, skill, level) {
+  return barragesAtLevel(ship, ship.barrages || [], level || 0).filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
+}
+
 // One activation of a skill's barrage against `armor`: its rows' damage split into terms by the
 // stat each scales with, burns included. `qualified` says rows were set aside for carrying a
 // qualifier ("(15s)", "(crossfleet)"), which a skill with several schedules cannot pair up.
-function skillBarrage(ship, skill, level, armor) {
+// `paired` restricts it to the rows one schedule fires (pairBarrageRows), qualifiers included.
+function skillBarrage(ship, skill, level, armor, paired = null) {
   const upgraded = (level || 0) >= barrageEnhancedLevel(ship);
-  const cacheKey = `${ship.id}|${skill.name}|${upgraded}|${armor || ""}`;
+  const cacheKey = `${ship.id}|${skill.name}|${upgraded}|${armor || ""}` + (paired ? "|" + paired.key : "");
   if (skillBarrageCache.has(cacheKey)) return skillBarrageCache.get(cacheKey);
-  const rows = barragesAtLevel(ship, ship.barrages || [], level || 0);
-  const mine = rows.filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
+  const mine = paired ? paired.rows : skillBarrageRows(ship, skill, level);
   let qualified = false;
   const terms = new Map();
   let damage = 0;
@@ -3005,7 +3009,7 @@ function skillBarrage(ship, skill, level, armor) {
       const rowKey = barrageNameKey(b.skillName);
       const skillKey = barrageNameKey(skill.name);
       const suffix = rowKey.startsWith(skillKey) ? rowKey.slice(skillKey.length) : rowKey;
-      if (/\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) {
+      if (!paired && /\([^)]+\)/.test(suffix) && !/main gun/i.test(b.trigger || "")) {
         qualified = true;
         continue;
       }
@@ -3051,8 +3055,8 @@ function fireInText(fire, text) {
 }
 
 // The schedules that fire the skill's barrage. One firing only part of another's weapons (Shinano's
-// opening recon flight) is not it; schedules firing different weapons cannot be paired with the
-// rows, so the skill is left out.
+// opening recon flight) is not it; `split` marks schedules firing different weapons, whose rows
+// must be paired with them (pairBarrageRows).
 const barrageFiresCache = new WeakMap();
 function barrageFires(skill, fires) {
   if (barrageFiresCache.has(fires)) return barrageFiresCache.get(fires);
@@ -3061,20 +3065,41 @@ function barrageFires(skill, fires) {
   // Swordfish weapons every 20s).
   const described = [];
   for (const fire of fires.filter(fire => fireInText(fire, text))) {
-    const twin = described.find(other => JSON.stringify({ ...other, weapons: 0 }) === JSON.stringify({ ...fire, weapons: 0 }));
-    if (twin) twin.weapons = [...twin.weapons, ...fire.weapons];
-    else described.push({ ...fire, weapons: [...fire.weapons] });
+    const twin = described.find(other => JSON.stringify({ ...other, weapons: 0, shots: 0 }) === JSON.stringify({ ...fire, weapons: 0, shots: 0 }));
+    if (twin) {
+      twin.weapons = [...twin.weapons, ...fire.weapons];
+      twin.shots = [...twin.shots, ...(fire.shots || [])];
+    } else described.push({ ...fire, weapons: [...fire.weapons], shots: [...(fire.shots || [])] });
   }
   const kept = described.filter(fire => !described.some(other => other.weapons.length > fire.weapons.length &&
     fire.weapons.every(weapon => other.weapons.includes(weapon))));
-  const result = new Set(kept.map(fire => fire.weapons.join())).size > 1 ? [] : kept;
+  const result = { fires: kept, split: new Set(kept.map(fire => fire.weapons.join())).size > 1 };
   barrageFiresCache.set(fires, result);
   return result;
 }
 
+// Each schedule's rows, matched on the bullet count and armour modifiers the game gives its weapons
+// (`shots`). Schedules firing the same weapons share rows (Asama's "10s + every 20s" is two in the
+// game). Null unless each set of weapons gets rows covering exactly its shots, no more and no less.
+function pairBarrageRows(rows, fires) {
+  const rowKey = row => `${Number(row.count)}|${row.armorModifiers}`;
+  const groups = new Map();
+  for (const fire of fires) {
+    const key = fire.weapons.join();
+    if (!groups.has(key)) groups.set(key, { key, shots: (fire.shots || []).map(shot => shot && `${shot[0]}|${shot[1]}`), rows: [] });
+  }
+  for (const row of rows) {
+    const owners = [...groups.values()].filter(group => group.shots.includes(rowKey(row)));
+    if (owners.length !== 1) return null;
+    owners[0].rows.push(row);
+  }
+  const sameKeys = group => JSON.stringify(group.rows.map(rowKey).sort()) === JSON.stringify([...group.shots].sort());
+  return [...groups.values()].every(sameKeys) ? fires.map(fire => groups.get(fire.weapons.join())) : null;
+}
+
 // Barrages a skill fires on a timer or a weapon event (`fires` in data/skill-timing.js), as DPS
-// over the fight; volley-triggered ones are volleyBarrage's. A skill with several schedules and
-// qualified rows is left out: which row goes with which schedule is unknown.
+// over the fight; volley-triggered ones are volleyBarrage's. Schedules firing different weapons
+// count only when their rows pair up with them; several schedules sharing qualified rows do not.
 function timedBarrageDps(ship, effective, level, armor) {
   if (typeof SKILL_TIMING_DATA === "undefined") return 0;
   const fight = fightSeconds();
@@ -3084,14 +3109,23 @@ function timedBarrageDps(ship, effective, level, armor) {
     if (MAIN_GUN_VOLLEY_RE.test(stripHtml(skill.description || ""))) continue;
     const timing = skillTiming(ship, skill, isSkillAtMaxLevel(skill));
     if (!timing || !timing.fires) continue;
-    const fires = barrageFires(skill, timing.fires);
-    const barrage = fires.length ? skillBarrage(ship, skill, level, armor) : null;
-    if (!barrage || (barrage.qualified && fires.length > 1)) continue;
-    cycles = cycles || weaponCycles(ship, effective);
-    for (const fire of fires) {
-      const count = fireCount(fire, fight, cycles);
-      if (count > 0) total += count * volleyBarrageDamage({ ...barrage, crit: fire.crit }, effective, null, armor);
+    const { fires, split } = barrageFires(skill, timing.fires);
+    if (!fires.length) continue;
+    let barrages;
+    if (split) {
+      const groups = pairBarrageRows(skillBarrageRows(ship, skill, level), fires);
+      if (!groups) continue;
+      barrages = groups.map(group => skillBarrage(ship, skill, level, armor, group));
+    } else {
+      const barrage = skillBarrage(ship, skill, level, armor);
+      if (!barrage || (barrage.qualified && fires.length > 1)) continue;
+      barrages = fires.map(() => barrage);
     }
+    cycles = cycles || weaponCycles(ship, effective);
+    fires.forEach((fire, i) => {
+      const count = barrages[i] ? fireCount(fire, fight, cycles) : 0;
+      if (count > 0) total += count * volleyBarrageDamage({ ...barrages[i], crit: fire.crit }, effective, null, armor);
+    });
   }
   return total / fight;
 }
@@ -6633,6 +6667,7 @@ function compareItems(a, b, sort) {
   const name = a.name.localeCompare(b.name, "en", { numeric: true }) || String(a.tier).localeCompare(String(b.tier));
   if (sort === "rarity") return rarity || type || name;
   if (sort === "name") return name;
+  if (sort === "type-name") return type || name;
   if (sort === "stat") return headlineValue(b) - headlineValue(a) || name;
   return type || rarity || name;
 }

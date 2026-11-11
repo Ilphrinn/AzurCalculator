@@ -757,7 +757,7 @@ const BOSSES_DATA = [
   },
   {
     "group": "Event EX",
-    "map": "Tempesta and the Corridor of Fog --EXTRA",
+    "map": "Tempesta and the Corridor of Fog-EXTRA",
     "name": "Ormrinn Langi",
     "armor": "light",
     "hull": null,
@@ -771,7 +771,7 @@ const BOSSES_DATA = [
   },
   {
     "group": "Event EX",
-    "map": "Tempesta and the Corridor of Fog --EXTRA",
+    "map": "Tempesta and the Corridor of Fog-EXTRA",
     "name": "Star-Sinking Beast, Orm",
     "armor": "light",
     "hull": "DD",
@@ -1976,7 +1976,7 @@ const BOSSES_DATA = [
   },
   {
     "group": "Event EX",
-    "map": "Ink-Stained Steel Sakura --EXTRA",
+    "map": "Ink-Stained Steel Sakura-EXTRA",
     "name": "Mutsu",
     "armor": "heavy",
     "hull": "BB",
@@ -1990,7 +1990,7 @@ const BOSSES_DATA = [
   },
   {
     "group": "Event EX",
-    "map": "Ink-Stained Steel Sakura --EXTRA",
+    "map": "Ink-Stained Steel Sakura-EXTRA",
     "name": "Nagato",
     "armor": "heavy",
     "hull": "BB",

@@ -6337,3 +6337,46 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Measured (lv125, Recommended, UR, reference boss): Z13 2820 -> 2020, Kersaint 1708 -> 1402,
   L'Indomptable 2076 -> 1835, Painlevé 1544 -> 1399, Huan Ch'ang 1554 -> 1450.
   `npm run check` passes.
+
+## Balance pass and data refresh (2026-11-11)
+
+- **Live = HEAD** before the pass (`app.js?v=7b257e352e` online and in a local build of d222461).
+- **Depot sort**: new default "Type, then name" (`type-name` in `compareItems`), on the user's
+  request; "Type, then rarity" stays an option.
+- **Data refresh**: `import-bosses.js` only renames two event maps ("--EXTRA" -> "-EXTRA");
+  `import-aux-effects.js` changes nothing; AzurLaneData is still the 2026-05-08 snapshot.
+  mrlar.dev `ships.json` (updated 2026-11-05) has 14 EN ships we lack: Amatsukaze, Hostile,
+  Tiger, Azuchi, I-14, Hasty (2026-08-27 to 09-08), Saratoga META, Victorious META,
+  Soobrazitelny META, and Merkuriy, Járnbarðinn, Selimiye, Ormrinn Langi, Riyala Bey
+  (2026-10-22). mrlar gives stats, slots and skill ids, but no skill text, paintings or barrage
+  rows: those come from saved wiki pages ("Data provenance"), so adding them waits on the user.
+  22 wiki-imported ships carry placeholder gids 999000-999026 while mrlar has their real gid
+  (Cherbourg 81801...); their stats already match the wiki at level 125, so left as they are.
+  Slots 1-3 (mount, efficiency) agree with mrlar's max limit break for every ship.
+- **Barrage rows paired with schedules by weapon**: `import-skill-timing.js` writes `shots` on
+  each fire, one `[bullet count, "L/M/H" armour %]` per weapon (weapon_property ->
+  barrage_template `(primal_repeat + 1) x (senior_repeat + 1)` per barrage -> bullet_template
+  `damage_type`), null for aircraft or mixed armour. Checked on Champagne (69550: 3 x
+  30/130/110, 69560: 16 x 90/70/40) and Colorado (66150: 44 x 100/80/70), which match the wiki
+  rows exactly. `pairBarrageRows` groups schedules by weapon set and gives each group the rows
+  whose count and armour match its shots; the skill counts only if every row fits one group
+  and each group's rows cover exactly its shots. Of the 19 skills with schedules firing
+  different weapons, 3 pair: Champagne (every 20s + every main gun salvo), Asama (10s then
+  every 20s + 70% per torpedo launch), Warspite's augment skill. The exact-cover rule rejects
+  Scharnhorst META (two wiki rows of 3 for a 3-shell weapon) and the rest (Lion 9 vs 1+1,
+  Mecklenburg 2 vs 3, aircraft weapons, unpaired weapons such as 920 or flares).
+  Measured (lv125, Recommended, UR, reference boss): Asama 1757 -> 2205, Champagne 1118 -> 1396,
+  no other ship moves. Specialties: Asama gains "boss", Takahashi loses it.
+- **Boss burn resistance checked**: the client scales a fire's chance by the target's
+  `igniteResist` (`CaclulateDOTPlace`, `DOT_CONFIG`). Walking every boss's buffs
+  (`enemy_data_statistics` buff_list + wave buffList), none carries `igniteResist`; only the
+  Star Beast (5 stages) and two Shadows have `igniteReduce`. HE burn (BB median ~500 DPS) stays.
+- **Where BB vs CV stands** (medians, same settings): BB 1945, BC 1903, CV 1866, CVL 1368, SS
+  1829. Barrages are 16% of BB DPS, 24% of CV DPS on average.
+- **Next for balance: barrage hit geometry**. Every bullet still counts as a hit. The game has
+  what a model needs: enemy `cld_box` / `cld_offset` / `scale` (`enemy_data_statistics`),
+  bullet `cld_box`, `range`, `velocity`, `acceleration` (bullet_template), barrage `angle`,
+  `delta_angle`, offsets, delays (barrage_template). Big Seven fires 2 x 22 shells from 20 to
+  70 degrees off the aim line, and its bullets carry an `acceleration` that bends them back
+  (u -0.035, then flipped at t = 1), so a straight-line estimate is wrong: the client's bullet
+  movement (`mod/battle` in AzurLaneLuaScripts) must be reproduced first.

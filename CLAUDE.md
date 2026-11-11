@@ -140,7 +140,11 @@ weapon refinement" in the notes). Next:
 - Skill barrages on a timer or a weapon event (New Jersey's Dragon's Breath, Musashi, Warspite)
   count in DPS since 2026-10-29: schedules from the game tables (`fires` in data/skill-timing.js),
   kept only where the skill text describes them. See "Skill barrages in DPS" in the notes for
-  what is still left out (multi-schedule skills, submarines, All-Out Assault triggers).
+  what is still left out (submarines, All-Out Assault triggers). Schedules firing different
+  weapons pair with the rows through the game's bullet counts (2026-11-11, "Balance pass and
+  data refresh"); every barrage bullet still counts as a hit (the next balance step, same section).
+- 14 EN ships released since 2026-08-27 are missing (list in "Balance pass and data refresh"):
+  they need the user's saved wiki pages.
 - Main fleet secondary guns deal nothing against a boss, the reference target included; mob
   targets keep them (2026-11-01, `outOfBossRange`, see "Secondary guns out of boss range"). CVs
   now lead BBs. The "mob" specialty is computed against the campaign mob fleets averaged

@@ -1130,6 +1130,7 @@ const SPECIALTIES_DATA = {
     "air"
   ],
   "707": [
+    "boss",
     "mob",
     "tank"
   ],
@@ -1647,7 +1648,6 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "wiki-takahashi": [
-    "boss",
     "mob",
     "tank",
     "buff",
