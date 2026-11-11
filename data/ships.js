@@ -224711,5 +224711,4129 @@ const SHIPS_DATA = [
       "Lance",
       "Greatsword"
     ]
+  },
+  {
+    "id": 754,
+    "gid": 20238,
+    "name": "Tiger",
+    "class": "Tiger Class",
+    "nationality": "Royal Navy",
+    "hullType": "Light Cruiser",
+    "hullShort": "CL",
+    "role": "Vanguard",
+    "rarity": "Ultra Rare",
+    "thumbnail": "assets/thumbnails/754.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Tiger",
+    "releaseOrder": 20238,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 101,
+        "slot": 1,
+        "type": [
+          2
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.35
+      },
+      "2": {
+        "default": 101,
+        "slot": 2,
+        "type": [
+          2
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.35
+      },
+      "3": {
+        "default": 104,
+        "slot": 3,
+        "type": [
+          6
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.5
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 1986,
+        "firepower": 89,
+        "torpedo": 0,
+        "antiair": 197,
+        "aviation": 0,
+        "reload": 78,
+        "accuracy": 60,
+        "evasion": 29,
+        "speed": 31.5,
+        "luck": 65,
+        "asw": 99
+      },
+      "growth": {
+        "health": 22975,
+        "firepower": 498,
+        "torpedo": 0,
+        "antiair": 1633,
+        "aviation": 0,
+        "reload": 541,
+        "accuracy": 886,
+        "evasion": 579,
+        "speed": 0,
+        "luck": 0,
+        "asw": 466
+      },
+      "enhance": {
+        "firepower": 36,
+        "reload": 58
+      }
+    },
+    "displayName": "Tiger",
+    "painting": "assets/paintings/754.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Raise the Curtain of the Cosmos",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152710.png",
+        "description": "At the start of battle, and every 5s afterwards: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level). The DMG type of this special barrage changes depending on the Main Guns equipped in this ship's 1st and 2nd slots: If both Main Guns are HE: DMG type skews towards Light armor; If both Main Guns are AP: DMG type skews towards Heavy armor; Neither of the above: DMG type is balanced; Applies [Mark of the Stars] to enemies hit by this special barrage. [Mark of the Stars] reduces the target's SPD by 15%, and does not stack with itself.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      },
+      {
+        "type": "support",
+        "name": "Celestial Resonance",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152720.png",
+        "description": "At the start of battle, increases this ship's FP and AA by 5% (15%). Once per battle, if this ship's HP falls below 60% as a result of DMG taken: if there are enemies with [Mark of the Stars] on the field, detonates all [Mark of the Stars] (removes [Mark of the Stars] from all targets and deals 650 fixed DMG to each affected target), and restores 3.5% (8%) of this ship's max HP. If there are no enemies with [Mark of the Stars]: instead fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level; the DMG type for this special barrage is balanced).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower",
+              "antiair"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP and AA by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Orchestra of the Stars",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152730.png",
+        "description": "Every 15s: detonates all [Mark of the Stars] on the field (removes [Mark of the Stars] from all targets and deals 650 fixed DMG to each affected target) and increases the Vanguard fleet's DMG dealt by 4% (10%) for 8s, then directs each Vanguard ship to fire a Lv.1 (Lv.10) coordinated barrage (DMG is based on the skill's level, and the FP stat of each ship firing this barrage). When a fleet that this ship is NOT in starts a battle: as long as this ship is still afloat, fires a Lv.1 (Lv.10) supporting barrage 15s after the start of battle (DMG is based on the skill's level).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 4,
+            "max": 10,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases the Vanguard fleet's DMG dealt by 4% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): Tiger once every 15 (10) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Tiger",
+        "type": "Default",
+        "painting": "assets/paintings/754.png",
+        "icon": "assets/thumbnails/754.png"
+      },
+      {
+        "name": "Maiden of the Stars",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      },
+      {
+        "name": "Maiden of the Stars",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault - Tiger II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "135/75/75",
+        "baseDmg": 55,
+        "count": 18,
+        "lightDmg": 1336.5,
+        "mediumDmg": 742.5,
+        "heavyDmg": 742.5,
+        "notes": "Shrapnel, Ignores Shield, Pierce 99, Splits into fragment after 0.4s",
+        "effect": null
+      },
+      {
+        "skillName": "All Out Assault - Tiger II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "135/75/75",
+        "baseDmg": 55,
+        "count": 18,
+        "lightDmg": 1336.5,
+        "mediumDmg": 742.5,
+        "heavyDmg": 742.5,
+        "notes": "Ignores Shield, Reaimed",
+        "effect": null
+      },
+      {
+        "skillName": "Celestial Resonance",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 50,
+        "count": 30,
+        "lightDmg": 1500,
+        "mediumDmg": 1500,
+        "heavyDmg": 1500,
+        "notes": "Ignores Shield",
+        "effect": "100%: Applies 'Mark of the Stars'. Reduce SPD by 15%."
+      },
+      {
+        "skillName": "Orchestra of the Stars",
+        "trigger": "fired by each vanguard",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "120/80/80",
+        "baseDmg": 100,
+        "count": 6,
+        "lightDmg": 720,
+        "mediumDmg": 480,
+        "heavyDmg": 480,
+        "notes": "Priority targeting, Splash 17, Spread 20×20",
+        "effect": null
+      },
+      {
+        "skillName": "Orchestra of the Stars",
+        "trigger": "crossfleet",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "120/80/80",
+        "baseDmg": 100,
+        "count": 10,
+        "lightDmg": 1200,
+        "mediumDmg": 800,
+        "heavyDmg": 800,
+        "notes": "Priority targeting, Splash 17, Spread 30×30",
+        "effect": null
+      },
+      {
+        "skillName": "Orchestra of the Stars",
+        "trigger": "crossfleet",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "120/80/80",
+        "baseDmg": 100,
+        "count": 8,
+        "lightDmg": 960,
+        "mediumDmg": 640,
+        "heavyDmg": 640,
+        "notes": "Priority targeting, Splash 17, Spread 30×30",
+        "effect": null
+      },
+      {
+        "skillName": "Raise the Curtain of the Cosmos",
+        "trigger": "HE guns",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "135/75/75",
+        "baseDmg": 50,
+        "count": 30,
+        "lightDmg": 2025,
+        "mediumDmg": 1125,
+        "heavyDmg": 1125,
+        "notes": "Ignores Shield",
+        "effect": "100%: Applies 'Mark of the Stars'. Reduce SPD by 15%."
+      },
+      {
+        "skillName": "Raise the Curtain of the Cosmos",
+        "trigger": "AP guns",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "AP",
+        "armorModifiers": "75/75/135",
+        "baseDmg": 50,
+        "count": 30,
+        "lightDmg": 1125,
+        "mediumDmg": 1125,
+        "heavyDmg": 2025,
+        "notes": "Ignores Shield",
+        "effect": "100%: Applies 'Mark of the Stars'. Reduce SPD by 15%."
+      },
+      {
+        "skillName": "Raise the Curtain of the Cosmos",
+        "trigger": "Balanced",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 50,
+        "count": 30,
+        "lightDmg": 1500,
+        "mediumDmg": 1500,
+        "heavyDmg": 1500,
+        "notes": "Ignores Shield",
+        "effect": "100%: Applies 'Mark of the Stars'. Reduce SPD by 15%."
+      }
+    ],
+    "augmentModules": [
+      "Crossbow",
+      "Sword"
+    ]
+  },
+  {
+    "id": 99,
+    "gid": 20119,
+    "name": "Hostile",
+    "class": "H Class",
+    "nationality": "Royal Navy",
+    "hullType": "Destroyer",
+    "hullShort": "DD",
+    "role": "Vanguard",
+    "rarity": "Elite",
+    "thumbnail": "assets/thumbnails/99.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Hostile",
+    "releaseOrder": 20119,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.3
+      },
+      "2": {
+        "default": 107,
+        "slot": 2,
+        "type": [
+          5
+        ],
+        "mount": 2,
+        "preload": 1,
+        "efficiency": 1.35
+      },
+      "3": {
+        "default": 104,
+        "slot": 3,
+        "type": [
+          6
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.05
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 581,
+        "firepower": 39,
+        "torpedo": 178,
+        "antiair": 71,
+        "aviation": 0,
+        "reload": 75,
+        "accuracy": 73,
+        "evasion": 78,
+        "speed": 43.2,
+        "luck": 28,
+        "asw": 117
+      },
+      "growth": {
+        "health": 6717,
+        "firepower": 219,
+        "torpedo": 912,
+        "antiair": 629,
+        "aviation": 0,
+        "reload": 523,
+        "accuracy": 1125,
+        "evasion": 1428,
+        "speed": 0,
+        "luck": 0,
+        "asw": 542
+      },
+      "enhance": {
+        "firepower": 16,
+        "torpedo": 71,
+        "reload": 56
+      }
+    },
+    "displayName": "Hostile",
+    "painting": "assets/paintings/99.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Relentless Barrage",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152660.png",
+        "description": "Increases this ship's DMG dealt to DDs by 4% (10%). Every 20s: fires a Lv.1 (Lv.10) special barrage at a random enemy over 5s (DMG is based on the skill's level); during this barrage: reduces this ship's RLD by 30%, but increases her FP and Crit DMG by 4% (10%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 4,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Increases this ship's DMG dealt to DDs by 4% (10%)"
+          },
+          {
+            "stats": [
+              "firepower",
+              "critDamage"
+            ],
+            "min": 4,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases her FP and Crit DMG by 4% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "Voltus ad Hostem",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152670.png",
+        "description": "At the start of battle, increases this ship's FP and TRP by 5% (15%). During battle, each time an enemy appears: increases this ship's Crit Rate and ACC by 1% (5%) until the end of battle (stacks up to 3 times). At the start of battle, and an additional time when this ship's HP falls below 50% as a result of DMG taken: generates a barrier that can absorb 5% of this ship's max HP.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower",
+              "torpedo"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP and TRP by 5% (15%)"
+          },
+          {
+            "stats": [
+              "critRate",
+              "accuracy"
+            ],
+            "min": 1,
+            "max": 5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's Crit Rate and ACC by 1% (5%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): H Class once every 15 (10) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Hostile",
+        "type": "Default",
+        "painting": "assets/paintings/99.png",
+        "icon": "assets/thumbnails/99.png"
+      },
+      {
+        "name": "Coastal Vigil",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault - H-class II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/80/60",
+        "baseDmg": 12.5,
+        "count": 14,
+        "lightDmg": 175,
+        "mediumDmg": 140,
+        "heavyDmg": 105,
+        "notes": null,
+        "effect": null
+      },
+      {
+        "skillName": "Relentless Barrage",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 0,
+          "raw": "FP×0"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/80/60",
+        "baseDmg": 30,
+        "count": 52,
+        "lightDmg": 1560,
+        "mediumDmg": 1248,
+        "heavyDmg": 936,
+        "notes": "Priority targeting, Splash 8, Spread 16×16, Arching shells, Skill levels 1-9 have 1×FP scaling",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Hammer",
+      "Dual Swords"
+    ]
+  },
+  {
+    "id": 169,
+    "gid": 30119,
+    "name": "Amatsukaze",
+    "class": "Kagerou Class",
+    "nationality": "Sakura Empire",
+    "hullType": "Destroyer",
+    "hullShort": "DD",
+    "role": "Vanguard",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/169.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Amatsukaze",
+    "releaseOrder": 30119,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 0.75
+      },
+      "2": {
+        "default": 107,
+        "slot": 2,
+        "type": [
+          5
+        ],
+        "mount": 2,
+        "preload": 1,
+        "efficiency": 1.5
+      },
+      "3": {
+        "default": 104,
+        "slot": 3,
+        "type": [
+          6
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 0.75
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 884,
+        "firepower": 32,
+        "torpedo": 261,
+        "antiair": 74,
+        "aviation": 0,
+        "reload": 82,
+        "accuracy": 71,
+        "evasion": 71,
+        "speed": 42.6,
+        "luck": 70,
+        "asw": 129
+      },
+      "growth": {
+        "health": 10221,
+        "firepower": 177,
+        "torpedo": 1261,
+        "antiair": 656,
+        "aviation": 0,
+        "reload": 571,
+        "accuracy": 1100,
+        "evasion": 1320,
+        "speed": 0,
+        "luck": 0,
+        "asw": 586
+      },
+      "enhance": {
+        "firepower": 13,
+        "torpedo": 104,
+        "reload": 61
+      }
+    },
+    "displayName": "Amatsukaze",
+    "painting": "assets/paintings/169.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "The Girl Who Pierces the Clouds",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152750.png",
+        "description": "Increases this ship's TRP by 5% (15%); if there is another Sakura Empire ship in the same fleet, additionally increases the Crit Rate of this ship's equipped torpedoes by 15% (30%). When this ship fires her torpedoes: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level; 10s cooldown between activations), with a 50% (100%) chance to fire another wave of torpedoes. Enemies hit by this barrage have their SPD reduced to 0 for 1s, before returning to normal over 0.5s. Enemies with their SPD reduced to 0 in this way are inflicted with a special Flooding debuff, receiving DMG over time for 6s (DMG is based on Amatsukaze's TRP stat).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "torpedo"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Increases this ship's TRP by 5% (15%)"
+          },
+          {
+            "stats": [
+              "critRate"
+            ],
+            "min": 15,
+            "max": 30,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases the Crit Rate of this ship's equipped torpedoes by 15% (30%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "The Big Shot's Majesty",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152760.png",
+        "description": "Increases this ship's EVA by 5% (15%). Once per battle, when this ship falls below 30% Max HP as a result of DMG taken: this ship evades all attacks for 4s and restores 15% of her Max HP, but deals 10% reduced DMG until the battle ends. When this ship takes damage, there is a 40% (70%) chance to gain the following effect once per battle: until the end of battle, reduces this ship's DMG taken by 1% (10%); upon taking DMG, 5% (15%) chance to reduce that instance of DMG to 1.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Increases this ship's EVA by 5% (15%)"
+          },
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken by 1% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): Amatsukaze once every 15 (10) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Amatsukaze",
+        "type": "Default",
+        "painting": "assets/paintings/169.png",
+        "icon": "assets/thumbnails/169.png"
+      },
+      {
+        "name": "The Fox Spirit Descends On Heavenly Winds",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      },
+      {
+        "name": "The Fox Spirit Descends On Heavenly Winds",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault - Amatsukaze II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 10,
+        "count": 42,
+        "lightDmg": 420,
+        "mediumDmg": 420,
+        "heavyDmg": 420,
+        "notes": null,
+        "effect": null
+      },
+      {
+        "skillName": "All Out Assault - Amatsukaze II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "80/100/130",
+        "baseDmg": 45,
+        "count": 8,
+        "lightDmg": 288,
+        "mediumDmg": 360,
+        "heavyDmg": 468,
+        "notes": "Splash 3",
+        "effect": null
+      },
+      {
+        "skillName": "The Girl Who Pierces the Clouds",
+        "trigger": null,
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "80/100/130",
+        "baseDmg": 150,
+        "count": 4,
+        "lightDmg": 480,
+        "mediumDmg": 600,
+        "heavyDmg": 780,
+        "notes": "Splash 3",
+        "effect": "100%: Reduce SPD to 0 for 1s, returning to normal over 0.5s. Inflicts Flood (1 tick every 3 seconds for 6.1s, ID: 152757)."
+      }
+    ],
+    "augmentModules": [
+      "Hammer",
+      "Dual Swords"
+    ]
+  },
+  {
+    "id": 755,
+    "gid": 30409,
+    "name": "Azuchi",
+    "class": "Azuchi Class",
+    "nationality": "Sakura Empire",
+    "hullType": "Battlecruiser",
+    "hullShort": "BC",
+    "role": "Main",
+    "rarity": "Ultra Rare",
+    "thumbnail": "assets/thumbnails/755.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Azuchi",
+    "releaseOrder": 30409,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 103,
+        "slot": 1,
+        "type": [
+          4
+        ],
+        "mount": 3,
+        "preload": 0,
+        "efficiency": 1.55
+      },
+      "2": {
+        "default": 101,
+        "slot": 2,
+        "type": [
+          1,
+          2
+        ],
+        "mount": 3,
+        "preload": 0,
+        "efficiency": 2
+      },
+      "3": {
+        "default": 104,
+        "slot": 3,
+        "type": [
+          6,
+          21
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 3277,
+        "firepower": 219,
+        "torpedo": 171,
+        "antiair": 124,
+        "aviation": 0,
+        "reload": 65,
+        "accuracy": 26,
+        "evasion": 8,
+        "speed": 30,
+        "luck": 50,
+        "asw": 0
+      },
+      "growth": {
+        "health": 37898,
+        "firepower": 1060,
+        "torpedo": 884,
+        "antiair": 1091,
+        "aviation": 0,
+        "reload": 450,
+        "accuracy": 379,
+        "evasion": 246,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 87,
+        "torpedo": 68,
+        "reload": 48
+      }
+    },
+    "displayName": "Azuchi",
+    "painting": "assets/paintings/755.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "All-Devouring Inferno",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152830.png",
+        "description": "This ship's Main Gun attacks have a 20% (50%) chance to inflict a normal Burn debuff even if this ship does not have an HE Main Gun equipped. During battle, increases this ship's FP by 10% (20%) and RLD by 5% (15%). 2s after the start of battle, and whenever this ship finishes loading her Main Guns: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level); enemies hit by this special barrage are inflicted with the [Flame-Devoured] special Burn status, causing them to take 130 DMG per second and decreasing their ACC by 5% for 20s ([Flame-Devoured] does not stack; repeated applications reset the duration).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": 10,
+            "max": 20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP by 10% (20%)"
+          },
+          {
+            "stats": [
+              "reload"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "RLD by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Blazing Bastion",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152840.png",
+        "description": "At the start of battle, if this ship is equipping any pieces of Sakura Empire gear, or if there are other Sakura Empire ships in the fleet: increases this ship's Main Gun efficiency by 1% (10%), and improves the special barrage of [All-Devouring Inferno]. At the start of battle, applies [Blazing Bastion] to all Main Fleet ships. Ships with [Blazing Bastion] gain the following effects: Reduces DMG taken by 3.5% (8%); Increases DMG dealt to enemies with [Flame-Devoured] by 4.5% (12%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "weaponEfficiency"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's Main Gun efficiency by 1% (10%)"
+          },
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 3.5,
+            "max": 8,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Reduces DMG taken by 3.5% (8%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 4.5,
+            "max": 12,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Increases DMG dealt to enemies with [Flame-Devoured] by 4.5% (12%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Wash Away the Old, Usher in the New",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152850.png",
+        "description": "When sortied into a stage: this ship gains 1 stack of [Wash Away the Old, Usher in the New] whenever the fleet she is in defeats an enemy fleet (stacks up to 4 times); for each stack of [Wash Away the Old, Usher in the New]: reduces this ship's DMG taken in battle by 2%, and at the start of battle, restores 2% of this ship's max HP. When a fleet that this ship is NOT in starts a battle: as long as this ship is still afloat, increases the FP of that fleet's frontmost Vanguard ship (Game incorrectly claims Vanguard) by 3% (5%); additionally, 20s after the start of battle: fires a Lv.1 (Lv.10) supporting barrage (DMG is based on the skill's level).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 2,
+            "max": 2,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken in battle by 2%"
+          }
+        ]
+      }
+    ],
+    "skins": [
+      {
+        "name": "Azuchi",
+        "type": "Default",
+        "painting": "assets/paintings/755.png",
+        "icon": "assets/thumbnails/755.png"
+      },
+      {
+        "name": "Testing Courage in Crimson",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      },
+      {
+        "name": "Testing Courage in Crimson",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Heavy",
+    "barrages": [
+      {
+        "skillName": "All-Devouring Inferno",
+        "trigger": "unenhanced",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "150/115/95",
+        "baseDmg": 200,
+        "count": 1,
+        "lightDmg": 300,
+        "mediumDmg": 230,
+        "heavyDmg": 190,
+        "notes": "Priority targeting, Splash 35, Explodes on target",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "All-Devouring Inferno",
+        "trigger": "unenhanced",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "150/115/95",
+        "baseDmg": 170,
+        "count": 8,
+        "lightDmg": 2040,
+        "mediumDmg": 1564,
+        "heavyDmg": 1292,
+        "notes": "Special targeting, Splash 35, Explodes around original target in octagon pattern, 15 units from centre",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "All-Devouring Inferno",
+        "trigger": "unenhanced",
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "80/100/130",
+        "baseDmg": 85,
+        "count": 16,
+        "lightDmg": 1088,
+        "mediumDmg": 1360,
+        "heavyDmg": 1768,
+        "notes": "Splash 3, Centered",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "All-Devouring Inferno",
+        "trigger": "enhanced",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "150/115/95",
+        "baseDmg": 270,
+        "count": 1,
+        "lightDmg": 405,
+        "mediumDmg": 310.5,
+        "heavyDmg": 256.5,
+        "notes": "Priority targeting, Splash 35, Explodes on target",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "All-Devouring Inferno",
+        "trigger": "enhanced",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "150/115/95",
+        "baseDmg": 220,
+        "count": 8,
+        "lightDmg": 2640,
+        "mediumDmg": 2024,
+        "heavyDmg": 1672,
+        "notes": "Special targeting, Splash 35, Explodes around original target in octagon pattern, 15 units from centre",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "All-Devouring Inferno",
+        "trigger": "enhanced",
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "80/100/130",
+        "baseDmg": 85,
+        "count": 16,
+        "lightDmg": 1088,
+        "mediumDmg": 1360,
+        "heavyDmg": 1768,
+        "notes": "Splash 3, Centered",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "Wash Away the Old, Usher in the New",
+        "trigger": "crossfleet",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "150/115/95",
+        "baseDmg": 170,
+        "count": 1,
+        "lightDmg": 255,
+        "mediumDmg": 195.5,
+        "heavyDmg": 161.5,
+        "notes": "Priority targeting, Splash 35, Explodes on target",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      },
+      {
+        "skillName": "Wash Away the Old, Usher in the New",
+        "trigger": "crossfleet",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "150/115/95",
+        "baseDmg": 150,
+        "count": 8,
+        "lightDmg": 1800,
+        "mediumDmg": 1380,
+        "heavyDmg": 1140,
+        "notes": "Special targeting, Splash 35, Explodes around original target in octagon pattern, 15 units from centre",
+        "effect": "100%: Inflicts Special Burn (130 DMG every 1 second for 20s, ID: 152835). Reduce ACC by 5% for 20s."
+      }
+    ],
+    "augmentModules": [
+      "Bowgun",
+      "Officer's Sword"
+    ]
+  },
+  {
+    "id": 756,
+    "gid": 31703,
+    "name": "I-14",
+    "class": "Type AM Class",
+    "nationality": "Sakura Empire",
+    "hullType": "Aviation Submarine",
+    "hullShort": "SSV",
+    "role": "Submarine",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/756.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/I-14",
+    "releaseOrder": 31703,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 140,
+        "slot": 1,
+        "type": [
+          13
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.35
+      },
+      "2": {
+        "default": 140,
+        "slot": 2,
+        "type": [
+          13
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.15
+      },
+      "3": {
+        "default": 144,
+        "slot": 3,
+        "type": [
+          12
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.5
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 1055,
+        "firepower": 25,
+        "torpedo": 244,
+        "antiair": 0,
+        "aviation": 116,
+        "reload": 40,
+        "accuracy": 59,
+        "evasion": 7,
+        "speed": 16.7,
+        "luck": 28,
+        "asw": 0
+      },
+      "growth": {
+        "health": 12205,
+        "firepower": 139,
+        "torpedo": 1176,
+        "antiair": 0,
+        "aviation": 643,
+        "reload": 277,
+        "accuracy": 870,
+        "evasion": 234,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 10,
+        "torpedo": 97,
+        "aviation": 46,
+        "reload": 30
+      }
+    },
+    "displayName": "I-14",
+    "painting": "assets/paintings/756.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Burst of Light",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152800.png",
+        "description": "When this boat enters the battlefield: launches 1 Saiun reconnaissance plane, increasing the Vanguard fleet's DMG dealt by 5% (15%) for 10s. When this boat leaves the battlefield: launches a Lv.1 (Lv.10) torpedo barrage (DMG is based on the skill's level).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increasing the Vanguard fleet's DMG dealt by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Deadly Explosion",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152810.png",
+        "description": "Increases this boat's TRP and ACC by 4.5% (12%). When this boat fires her torpedoes, or when this boat takes DMG: 15% (30%) chance to increase this boat's TRP by 2% (stacks up to 5 times).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "torpedo",
+              "accuracy"
+            ],
+            "min": 4.5,
+            "max": 12,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Increases this boat's TRP and ACC by 4.5% (12%)"
+          },
+          {
+            "stats": [
+              "torpedo"
+            ],
+            "min": 2,
+            "max": 2,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increase this boat's TRP by 2%"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): I-14 immediately after entering the battle.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "I-14",
+        "type": "Default",
+        "painting": "assets/paintings/756.png",
+        "icon": "assets/thumbnails/756.png"
+      },
+      {
+        "name": "Thousand-Faced Nothingness",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault - I-14 II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "80/100/130",
+        "baseDmg": 55,
+        "count": 13,
+        "lightDmg": 572,
+        "mediumDmg": 715,
+        "heavyDmg": 929.5,
+        "notes": "Splash 3",
+        "effect": null
+      },
+      {
+        "skillName": "Burst of Light",
+        "trigger": null,
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 65,
+        "count": 20,
+        "lightDmg": 1300,
+        "mediumDmg": 1300,
+        "heavyDmg": 1300,
+        "notes": "Priority targeting, Splash 3",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Kunai",
+      "Dagger"
+    ]
+  },
+  {
+    "id": 757,
+    "gid": 20140,
+    "name": "Hasty",
+    "class": "H Class",
+    "nationality": "Royal Navy",
+    "hullType": "Destroyer",
+    "hullShort": "DD",
+    "role": "Vanguard",
+    "rarity": "Elite",
+    "thumbnail": "assets/thumbnails/757.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Hasty",
+    "releaseOrder": 20140,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.3
+      },
+      "2": {
+        "default": 107,
+        "slot": 2,
+        "type": [
+          5
+        ],
+        "mount": 2,
+        "preload": 1,
+        "efficiency": 1.35
+      },
+      "3": {
+        "default": 104,
+        "slot": 3,
+        "type": [
+          6
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.05
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 561,
+        "firepower": 38,
+        "torpedo": 170,
+        "antiair": 81,
+        "aviation": 0,
+        "reload": 77,
+        "accuracy": 73,
+        "evasion": 78,
+        "speed": 43.2,
+        "luck": 35,
+        "asw": 125
+      },
+      "growth": {
+        "health": 6483,
+        "firepower": 213,
+        "torpedo": 882,
+        "antiair": 718,
+        "aviation": 0,
+        "reload": 534,
+        "accuracy": 1125,
+        "evasion": 1428,
+        "speed": 0,
+        "luck": 0,
+        "asw": 574
+      },
+      "enhance": {
+        "firepower": 15,
+        "torpedo": 68,
+        "reload": 57
+      }
+    },
+    "displayName": "Hasty",
+    "painting": "assets/paintings/757.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "support",
+        "name": "Hypnotic Magical Smile",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152700.png",
+        "description": "At the start of battle, casts a \"Dream\" spell, increasing this ship's FP and TRP by 20% (50%) for 30s, and decreasing enemies' EVA by 3%. After \"Dream\" ends, restores 1% (10%) of this ship's Max HP. Every 10s: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower",
+              "torpedo"
+            ],
+            "min": 20,
+            "max": 50,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increasing this ship's FP and TRP by 20% (50%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Flank Defense",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_1060.png",
+        "description": "While this ship is afloat: decreases the DMG your Main Fleet takes by 5% (15%). Does not stack with the same skill.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): H Class once every 15 (10) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Hasty",
+        "type": "Default",
+        "painting": "assets/paintings/757.png",
+        "icon": "assets/thumbnails/757.png"
+      },
+      {
+        "name": "Sleepless Dollhouse",
+        "type": "Spooky Tales",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault - H-class II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/80/60",
+        "baseDmg": 12.5,
+        "count": 14,
+        "lightDmg": 175,
+        "mediumDmg": 140,
+        "heavyDmg": 105,
+        "notes": null,
+        "effect": null
+      },
+      {
+        "skillName": "Hypnotic Magical Smile",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 45,
+        "count": 26,
+        "lightDmg": 1170,
+        "mediumDmg": 1170,
+        "heavyDmg": 1170,
+        "notes": null,
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Hammer",
+      "Dual Swords"
+    ]
+  },
+  {
+    "id": 760,
+    "gid": 960020,
+    "name": "Ormrinn Langi",
+    "class": "Ormrinn Langi",
+    "nationality": "Tempesta",
+    "hullType": "Sailing Frigate",
+    "hullShort": "IXV",
+    "role": "Vanguard",
+    "rarity": "Elite",
+    "thumbnail": "assets/thumbnails/760.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Ormrinn%20Langi",
+    "releaseOrder": 960020,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.25
+      },
+      "2": {
+        "default": 100,
+        "slot": 2,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.25
+      },
+      "3": {
+        "default": 100,
+        "slot": 3,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 1758,
+        "firepower": 72,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 74,
+        "accuracy": 58,
+        "evasion": 14,
+        "speed": 40,
+        "luck": 22,
+        "asw": 0
+      },
+      "growth": {
+        "health": 20331,
+        "firepower": 401,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 513,
+        "accuracy": 834,
+        "evasion": 405,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 29,
+        "reload": 55
+      }
+    },
+    "displayName": "Ormrinn Langi",
+    "painting": "assets/paintings/760.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Thundering Voice",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152770.png",
+        "description": "During battle, reduces this ship's DMG taken by 5% (15%), and increases this ship's FP and ACC by 5% (15%). Every time this ship activates [All Out Assault: Ormrinn Langi]: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level). When this special barrage has been fired 3 times: nullifies all effects from this skill.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken by 5% (15%)"
+          },
+          {
+            "stats": [
+              "firepower",
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP and ACC by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "Thundering Voice+",
+        "marker": "Aug",
+        "icon": "assets/skill-icons/Skill_152770.png",
+        "description": "During battle, reduces this ship's DMG taken by 5% (15%), increases this ship's FP and ACC by 5% (15%), and increases this ship's DMG dealt by 5%. Every time this ship activates [All Out Assault: Ormrinn Langi]: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level). <b>(Replaces Thundering Voice)</b>",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken by 5% (15%)"
+          },
+          {
+            "stats": [
+              "firepower",
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP and ACC by 5% (15%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 5%"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Serpent's Fang",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152780.png",
+        "description": "Increases this ship's EVA by 5% (15%). When this ship hits the same enemy with her Main Guns twice: inflicts [Serpent's Fang] on that enemy until the end of battle, reducing its SPD by 1% (5%) and causing it to take 87 DMG per second. When an enemy with [Serpent's Fang] is defeated: restores 1% of this ship's Max HP.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Increases this ship's EVA by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): Ormrinn Langi once every 22 (30) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Ormrinn Langi",
+        "type": "Default",
+        "painting": "assets/paintings/760.png",
+        "icon": "assets/thumbnails/760.png"
+      },
+      {
+        "name": "Pure-White Predator",
+        "type": "RPG Adventure",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault II - Ormrinn Langi",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "90/70/60",
+        "baseDmg": 22,
+        "count": 48,
+        "lightDmg": 950.4,
+        "mediumDmg": 739.2,
+        "heavyDmg": 633.6,
+        "notes": null,
+        "effect": null
+      },
+      {
+        "skillName": "Thundering Voice",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "90/70/60",
+        "baseDmg": 16,
+        "count": 20,
+        "lightDmg": 288,
+        "mediumDmg": 224,
+        "heavyDmg": 192,
+        "notes": "Priority targeting, Splash 5, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Thundering Voice",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "90/70/60",
+        "baseDmg": 140,
+        "count": 1,
+        "lightDmg": 126,
+        "mediumDmg": 98,
+        "heavyDmg": 84,
+        "notes": "Priority targeting, Splash 5, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Thundering Voice+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "90/70/60",
+        "baseDmg": 16,
+        "count": 20,
+        "lightDmg": 288,
+        "mediumDmg": 224,
+        "heavyDmg": 192,
+        "notes": "Priority targeting, Splash 5, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Thundering Voice+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "90/70/60",
+        "baseDmg": 140,
+        "count": 1,
+        "lightDmg": 126,
+        "mediumDmg": 98,
+        "heavyDmg": 84,
+        "notes": "Priority targeting, Splash 5, Arching shells",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Abyssal Summons"
+    ]
+  },
+  {
+    "id": 761,
+    "gid": 960021,
+    "name": "Riyala Bey",
+    "class": "Riyala Bey",
+    "nationality": "Tempesta",
+    "hullType": "Sailing Frigate",
+    "hullShort": "IXM",
+    "role": "Main",
+    "rarity": "Elite",
+    "thumbnail": "assets/thumbnails/761.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Riyala%20Bey",
+    "releaseOrder": 960021,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 158,
+        "slot": 1,
+        "type": [
+          4
+        ],
+        "mount": 6,
+        "preload": 0,
+        "efficiency": 1.1
+      },
+      "2": {
+        "default": 100,
+        "slot": 2,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.75
+      },
+      "3": {
+        "default": 100,
+        "slot": 3,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.75
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 2209,
+        "firepower": 204,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 66,
+        "accuracy": 19,
+        "evasion": 6,
+        "speed": 26,
+        "luck": 50,
+        "asw": 0
+      },
+      "growth": {
+        "health": 25546,
+        "firepower": 1008,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 459,
+        "accuracy": 274,
+        "evasion": 227,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 81,
+        "reload": 49
+      }
+    },
+    "displayName": "Riyala Bey",
+    "painting": "assets/paintings/761.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Sanctuary of Wings",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152880.png",
+        "description": "At the start of battle, for each Tempesta ship in the fleet: increases this ship's FP and ACC by 1.5% (5%), and reduces this ship's DMG taken by 1.5% (5%) until the end of battle (stacks up to 4 times). When this ship fires her Main Guns: 40% (70%) chance to fire a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower",
+              "accuracy"
+            ],
+            "min": 1.5,
+            "max": 5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP and ACC by 1.5% (5%)"
+          },
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 1.5,
+            "max": 5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken by 1.5% (5%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Plumes of Retribution",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152890.png",
+        "description": "Once per battle, if this ship's total DMG taken exceeds 30% of her Max HP: restores 3.5% (8%) of this ship's Max HP. As long as this ship remains afloat: increases Tempesta ships' RLD by 4% (10%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "reload"
+            ],
+            "min": 4,
+            "max": 10,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases Tempesta ships' RLD by 4% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Plumes of Retribution+",
+        "marker": "Aug",
+        "icon": "assets/skill-icons/Skill_152890.png",
+        "description": "Once per battle, if this ship's total DMG taken exceeds 30% of her Max HP: restores 3.5% (8%) of this ship's and another random Vanguard ship's Max HP. As long as this ship remains afloat: increases Tempesta ships' RLD and ACC by 5% (15%). <b>(Replaces Plumes of Retribution)</b>",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "reload",
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases Tempesta ships' RLD and ACC by 5% (15%)"
+          }
+        ]
+      }
+    ],
+    "skins": [
+      {
+        "name": "Riyala Bey",
+        "type": "Default",
+        "painting": "assets/paintings/761.png",
+        "icon": "assets/thumbnails/761.png"
+      },
+      {
+        "name": "Angelic Idol☆in Training",
+        "type": "RPG Adventure",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "Sanctuary of Wings",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "135/85/70",
+        "baseDmg": 220,
+        "count": 1,
+        "lightDmg": 297,
+        "mediumDmg": 187,
+        "heavyDmg": 154,
+        "notes": "Priority targeting, Splash 42, Arching shells",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Mizrak of Trials"
+    ]
+  },
+  {
+    "id": 762,
+    "gid": 960018,
+    "name": "Járnbarðinn",
+    "class": "Járnbarðinn",
+    "nationality": "Tempesta",
+    "hullType": "Sailing Frigate",
+    "hullShort": "IXS",
+    "role": "Submarine",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/762.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/J%C3%A1rnbar%C3%B0inn",
+    "releaseOrder": 960018,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.25
+      },
+      "2": {
+        "default": 100,
+        "slot": 2,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.25
+      },
+      "3": {
+        "default": 100,
+        "slot": 3,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 1034,
+        "firepower": 87,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 69,
+        "accuracy": 58,
+        "evasion": 28,
+        "speed": 18,
+        "luck": 70,
+        "asw": 0
+      },
+      "growth": {
+        "health": 11960,
+        "firepower": 485,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 478,
+        "accuracy": 893,
+        "evasion": 532,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 35,
+        "reload": 51
+      }
+    },
+    "displayName": "Járnbarðinn",
+    "painting": "assets/paintings/762.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "support",
+        "name": "The Wavebreaking Longship",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152910.png",
+        "description": "During battle, increases this ship's DMG dealt by 5% (15%), and SPD by 5. Upon entering battle, and every 15s after that: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level); enemies hit by this barrage deal 4% (10%) less DMG to Járnbarðinn.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 5% (15%)"
+          },
+          {
+            "stats": [
+              "speed"
+            ],
+            "min": 5,
+            "max": 5,
+            "isPercent": false,
+            "scope": "self",
+            "raw": "SPD by 5"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "The Wavebreaking Longship+",
+        "marker": "Aug",
+        "icon": "assets/skill-icons/Skill_152910.png",
+        "description": "During battle, increases this ship's DMG dealt by 5% (15%), and SPD by 5. Upon entering battle, and every 10s after that: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level); enemies hit by this barrage deal 4% (10%) less DMG to Járnbarðinn. Once per battle, when this barrage has hit enemies a total of 4 times: restores 1% (5%) of this ship's Max HP. <b>(Replaces The Wavebreaking Longship)</b>",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 5% (15%)"
+          },
+          {
+            "stats": [
+              "speed"
+            ],
+            "min": 5,
+            "max": 5,
+            "isPercent": false,
+            "scope": "self",
+            "raw": "SPD by 5"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "The Iron Ram's Charge",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152920.png",
+        "description": "Upon entering battle: increases this ship's FP by 5% (15%), and reduces this ship's DMG taken by 5% (15%) until the end of battle. Once per battle, when this ship's HP falls below 35% as a result of DMG taken, or after 60s have passed since entering battle: restores 15% of this ship's Max HP, then charges at a random enemy to perform a Lv.1 (Lv.10) special slashing attack (prioritizes humanoid enemies; DMG is based on the skill's level); while performing this charge attack, this ship cannot be dealt more than 10% of her Max HP in a single hit. However, if this ship takes more than 10% of her Max HP during this time, she will leave the battlefield after finishing this attack and ignore all enemy projectiles and collision in the process.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP by 5% (15%)"
+          },
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): Járnbarðinn once every 28 (40) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Járnbarðinn",
+        "type": "Default",
+        "painting": "assets/paintings/762.png",
+        "icon": "assets/thumbnails/762.png"
+      },
+      {
+        "name": "Fallen Angel Astray",
+        "type": "RPG Adventure",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault II - Járnbarðinn",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "100/80/40",
+        "baseDmg": 30,
+        "count": 28,
+        "lightDmg": 840,
+        "mediumDmg": 672,
+        "heavyDmg": 336,
+        "notes": null,
+        "effect": null
+      },
+      {
+        "skillName": "The Wavebreaking Longship",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "120/120/120",
+        "baseDmg": 330,
+        "count": 3,
+        "lightDmg": 1188,
+        "mediumDmg": 1188,
+        "heavyDmg": 1188,
+        "notes": "Ignores Shield, Priority targeting, Pierce 99",
+        "effect": "100%: Reduce DMG dealt to Járnbarðinn by 10%.."
+      },
+      {
+        "skillName": "The Wavebreaking Longship+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "120/120/120",
+        "baseDmg": 330,
+        "count": 3,
+        "lightDmg": 1188,
+        "mediumDmg": 1188,
+        "heavyDmg": 1188,
+        "notes": "Ignores Shield, Priority targeting, Pierce 99",
+        "effect": "100%: Reduce DMG dealt to Járnbarðinn by 10%.."
+      }
+    ],
+    "augmentModules": [
+      "Silent Scythe"
+    ]
+  },
+  {
+    "id": 763,
+    "gid": 960017,
+    "name": "Merkuriy",
+    "class": "Merkuriy",
+    "nationality": "Tempesta",
+    "hullType": "Sailing Frigate",
+    "hullShort": "IXV",
+    "role": "Vanguard",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/763.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Merkuriy",
+    "releaseOrder": 960017,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.35
+      },
+      "2": {
+        "default": 100,
+        "slot": 2,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.35
+      },
+      "3": {
+        "default": 100,
+        "slot": 3,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 1986,
+        "firepower": 122,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 71,
+        "accuracy": 45,
+        "evasion": 15,
+        "speed": 29.4,
+        "luck": 85,
+        "asw": 0
+      },
+      "growth": {
+        "health": 20827,
+        "firepower": 669,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 492,
+        "accuracy": 667,
+        "evasion": 356,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 48,
+        "reload": 53
+      }
+    },
+    "displayName": "Merkuriy",
+    "painting": "assets/paintings/763.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "support",
+        "name": "I Shall Illuminate the Way",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152940.png",
+        "description": "Every 4s: fires a Lv.1 (Lv.10) special shell (DMG is based on the skill's level); enemies hit by this special shell take 5% (15%) increased shelling DMG from Merkuriy (effect does not stack). Once per battle, (Special barrage is fired every 4 special shells, not once per battle) when this special shell has been fired 4 times: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level) and reduces this ship's DMG taken by 15% (25%) until the end of battle (does not stack).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 15,
+            "max": 25,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's DMG taken by 15% (25%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Lodestar of the Mercurial Path",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152960.png",
+        "description": "Once per battle, when a Tempesta ship other than Merkuriy takes DMG that would otherwise sink her: as long as Merkuriy is afloat, that ship does not sink, evades all DMG, and instead gains the [Mercurial Path] effect for up to 3s, increasing that ship's FP by 5% (15%). When the [Mercurial Path] effect ends, or if Merkuriy is sunk: that ship immediately sinks. At the end of battle: all ships with [Mercurial Path] restore 3.5% (8%) of their Max HP. As long as Merkuriy is afloat: increases the DMG of all other Tempesta ships in the fleet by 5%.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 5,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases the DMG of all other Tempesta ships in the fleet by 5%"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Lodestar of the Mercurial Path+",
+        "marker": "Aug",
+        "icon": "assets/skill-icons/Skill_152960.png",
+        "description": "When a Tempesta ship other than Merkuriy takes DMG that would otherwise sink her: as long as Merkuriy is afloat, that ship does not sink, evades all DMG, and instead gains the [Mercurial Path] effect for up to 5s, increasing that ship's FP and RLD by 5% (15%). When the [Mercurial Path] effect ends, or if Merkuriy is sunk: that ship immediately sinks. At the end of battle: all ships with [Mercurial Path] restore 4% (10%) of their Max HP. Each time an ally gains the effects of [Mercurial Path]: increases Merkuriy's DMG dealt by 2% (stacks up to 5 times, lasts until the end of battle). As long as Merkuriy is afloat: increases the DMG of all other Tempesta ships in the fleet by 5%. <b>(Replaces Lodestar of the Mercurial Path)</b>",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 2,
+            "max": 2,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases Merkuriy's DMG dealt by 2%"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 5,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases the DMG of all other Tempesta ships in the fleet by 5%"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "The Miracle Named Merkuriy",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_152970.png",
+        "description": "At the start of battle: increases this ship's FP, RLD, and ACC by 5% (15%), and EVA by 15% (25%), then generates a barrier that can absorb up to 5% (15%) of this ship's Max HP, lasting until the end of battle. Every 10s: this ship gains a buff based on the battlefield state; if 2 or more enemies are present on the field: increases this ship's DMG dealt by 1% (10%) for 8s; if fewer than 2 enemies are present on the field: increases this ship's Evasion Rate by 3.5% (8%) for 8s.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower",
+              "reload",
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP, RLD, and ACC by 5% (15%)"
+          },
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 15,
+            "max": 25,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "EVA by 15% (25%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 1% (10%)"
+          },
+          {
+            "stats": [
+              "evasionRate"
+            ],
+            "min": 3.5,
+            "max": 8,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's Evasion Rate by 3.5% (8%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "All Out Assault",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_20000.png",
+        "description": "Activates All Out Assault I (II): Merkuriy once every 30 (20) times the Main Guns are fired.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": []
+      }
+    ],
+    "skins": [
+      {
+        "name": "Merkuriy",
+        "type": "Default",
+        "painting": "assets/paintings/763.png",
+        "icon": "assets/thumbnails/763.png"
+      },
+      {
+        "name": "Envoy Angel of Love",
+        "type": "RPG Adventure",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "All Out Assault II - Merkuriy",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "135/95/70",
+        "baseDmg": 54,
+        "count": 18,
+        "lightDmg": 1312.2,
+        "mediumDmg": 923.4,
+        "heavyDmg": 680.4,
+        "notes": "Splash 3",
+        "effect": null
+      },
+      {
+        "skillName": "I Shall Illuminate the Way",
+        "trigger": "special shell every 4s",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "AP",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 120,
+        "count": 1,
+        "lightDmg": 120,
+        "mediumDmg": 120,
+        "heavyDmg": 120,
+        "notes": "Priority targeting",
+        "effect": "100%: Increase shelling DMG taken from Merkuriy by 15%.."
+      },
+      {
+        "skillName": "I Shall Illuminate the Way",
+        "trigger": "every 4 special shell fires",
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 200,
+        "count": 5,
+        "lightDmg": 1000,
+        "mediumDmg": 1000,
+        "heavyDmg": 1000,
+        "notes": "Priority targeting, Pierce 1, Splash 12, Area created on target that pulls enemies in and deals damage at 0.2s intervals, lasting 1s.",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Greatstaff of the Lodestar"
+    ]
+  },
+  {
+    "id": 764,
+    "gid": 960019,
+    "name": "Selimiye",
+    "class": "Selimiye",
+    "nationality": "Tempesta",
+    "hullType": "Sailing Frigate",
+    "hullShort": "IXM",
+    "role": "Main",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/764.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Selimiye",
+    "releaseOrder": 960019,
+    "category": "Standard",
+    "equipment": {
+      "1": {
+        "default": 158,
+        "slot": 1,
+        "type": [
+          4
+        ],
+        "mount": 6,
+        "preload": 0,
+        "efficiency": 1.1
+      },
+      "2": {
+        "default": 100,
+        "slot": 2,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.75
+      },
+      "3": {
+        "default": 100,
+        "slot": 3,
+        "type": [
+          1
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.75
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 2420,
+        "firepower": 221,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 73,
+        "accuracy": 20,
+        "evasion": 6,
+        "speed": 26,
+        "luck": 50,
+        "asw": 0
+      },
+      "growth": {
+        "health": 27987,
+        "firepower": 1069,
+        "torpedo": 0,
+        "antiair": 0,
+        "aviation": 0,
+        "reload": 510,
+        "accuracy": 291,
+        "evasion": 227,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "firepower": 88,
+        "reload": 55
+      }
+    },
+    "displayName": "Selimiye",
+    "painting": "assets/paintings/764.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Superheavy Firepower Network",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_153010.png",
+        "description": "At the start of battle: increases this ship's FP by 10% (20%), ACC by 5% (15%), and changes this ship's Armor type to Medium. Every 15s: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": 10,
+            "max": 20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP by 10% (20%)"
+          },
+          {
+            "stats": [
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "ACC by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "offense",
+        "name": "Superheavy Firepower Network+",
+        "marker": "Aug",
+        "icon": "assets/skill-icons/Skill_153010.png",
+        "description": "At the start of battle: increases this ship's FP by 15% (30%), ACC by 10% (20%), and changes this ship's Armor type to Medium. Every 15s: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level). Once per battle, when this barrage has hit enemies a total of 6 times: increases this ship's Crit Rate and Crit DMG by 1% (10%) until the end of battle. <b>(Replaces Superheavy Firepower Network)</b>",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": 15,
+            "max": 30,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP by 15% (30%)"
+          },
+          {
+            "stats": [
+              "accuracy"
+            ],
+            "min": 10,
+            "max": 20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "ACC by 10% (20%)"
+          },
+          {
+            "stats": [
+              "critRate",
+              "critDamage"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's Crit Rate and Crit DMG by 1% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Selimiye's Siege",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_153020.png",
+        "description": "Every 15s: applies [Selimiye's Siege] to a random enemy (prioritizes humanoid enemies) for 10s, reducing its SPD by 5% (15%), causing it to take 10% (20%) more DMG from Selimiye, and reducing allied Tempesta ships' DMG taken from it by 5% (15%). When [Selimiye's Siege] ends: increases allied Tempesta ships' EVA by 5% (15%) until the next time [Selimiye's Siege] is applied.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "reducing allied Tempesta ships' DMG taken from it by 5% (15%)"
+          },
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases allied Tempesta ships' EVA by 5% (15%)"
+          }
+        ]
+      }
+    ],
+    "skins": [
+      {
+        "name": "Selimiye",
+        "type": "Default",
+        "painting": "assets/paintings/764.png",
+        "icon": "assets/thumbnails/764.png"
+      },
+      {
+        "name": "Seer in a Bind",
+        "type": "RPG Adventure",
+        "painting": "assets/skin-placeholder.png",
+        "icon": "assets/skin-placeholder.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "Superheavy Firepower Network",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      },
+      {
+        "skillName": "Superheavy Firepower Network+",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "130/110/80",
+        "baseDmg": 30,
+        "count": 22,
+        "lightDmg": 858,
+        "mediumDmg": 726,
+        "heavyDmg": 528,
+        "notes": "Splash 14, Arching shells",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Fate's Choice"
+    ]
+  },
+  {
+    "id": 30064,
+    "gid": 970710,
+    "name": "Saratoga META",
+    "class": "Saratoga META",
+    "nationality": "META",
+    "hullType": "Aircraft Carrier",
+    "hullShort": "CV",
+    "role": "Main",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/30064.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Saratoga%20META",
+    "releaseOrder": 970710,
+    "category": "META",
+    "equipment": {
+      "1": {
+        "default": 109,
+        "slot": 1,
+        "type": [
+          7
+        ],
+        "mount": 3,
+        "preload": 0,
+        "efficiency": 1.25
+      },
+      "2": {
+        "default": 111,
+        "slot": 2,
+        "type": [
+          9
+        ],
+        "mount": 3,
+        "preload": 0,
+        "efficiency": 1.4
+      },
+      "3": {
+        "default": 110,
+        "slot": 3,
+        "type": [
+          8
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.4
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 3037,
+        "firepower": 0,
+        "torpedo": 0,
+        "antiair": 168,
+        "aviation": 212,
+        "reload": 48,
+        "accuracy": 25,
+        "evasion": 10,
+        "speed": 33,
+        "luck": 66,
+        "asw": 0
+      },
+      "growth": {
+        "health": 22486,
+        "firepower": 0,
+        "torpedo": 0,
+        "antiair": 863,
+        "aviation": 1038,
+        "reload": 332,
+        "accuracy": 348,
+        "evasion": 270,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "health": 1203,
+        "antiair": 67,
+        "aviation": 84,
+        "reload": 36,
+        "accuracy": 24,
+        "evasion": 10
+      }
+    },
+    "displayName": "Saratoga META",
+    "painting": "assets/paintings/30064.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Shining Idol's★Brilliant Debut",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802370.png",
+        "description": "5s after the start of battle, and every 10s afterwards: fires a Lv.1 (Lv.10) special barrage (DMG is based on the skill's level). When this ship readies an airstrike: launches a Lv.1 (Lv.10) aerial barrage (DMG is based on the skill's level and this ship's AVI stat), and increases this ship's DMG dealt by 1% (10%) for 8s.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 1% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Be Dazzled! Perfect★Performance!",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802380.png",
+        "description": "At the start of battle: increases this ship's AVI by 1% (10%). Each time this ship launches an airstrike, the following effects are applied alternately, starting with the first effect: 1) Increases the Vanguard fleet's DMG dealt by 1% (10%) for 8s; 2) Decreases the Vanguard fleet's DMG taken by 1% (10%) for 8s.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "aviation"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's AVI by 1% (10%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "Increases the Vanguard fleet's DMG dealt by 1% (10%)"
+          },
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 1,
+            "max": 10,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "Decreases the Vanguard fleet's DMG taken by 1% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Light It Up! Colorful★Stage!",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802390.png",
+        "description": "At the start of battle, if there are 3 ships afloat in your Main Fleet: increases this ship's maximum Detection Gauge by 20. During battle, if this ship's HP is above 50%: increases this ship's ACC by 5% (15%); if this ship's HP is below 50%: increases this ship's EVA by 5% (15%). Once per battle, if this ship falls below 50% max HP as a result of DMG taken: this ship's Detection Gauge is reset to 0, and she restores 1% of her Max HP every 5s until the end of battle.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's ACC by 5% (15%)"
+          },
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's EVA by 5% (15%)"
+          }
+        ]
+      }
+    ],
+    "skins": [
+      {
+        "name": "Saratoga META",
+        "type": "Default",
+        "painting": "assets/paintings/30064.png",
+        "icon": "assets/thumbnails/30064.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Medium",
+    "barrages": [
+      {
+        "skillName": "Shining Idol's★Brilliant Debut",
+        "trigger": "5s after start and every 10s after",
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "140/95/70",
+        "baseDmg": 20,
+        "count": 32,
+        "lightDmg": 896,
+        "mediumDmg": 608,
+        "heavyDmg": 448,
+        "notes": "Pierce 5",
+        "effect": null
+      },
+      {
+        "skillName": "Shining Idol's★Brilliant Debut",
+        "trigger": "on airstrike ready",
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "80/95/115",
+        "baseDmg": 250,
+        "count": 4,
+        "lightDmg": 800,
+        "mediumDmg": 950,
+        "heavyDmg": 1150,
+        "notes": "Priority targeting, Airdropped, Splash 22, Spread 42×42",
+        "effect": null
+      },
+      {
+        "skillName": "Shining Idol's★Brilliant Debut",
+        "trigger": "on airstrike ready",
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "80/90/110",
+        "baseDmg": 125,
+        "count": 4,
+        "lightDmg": 400,
+        "mediumDmg": 450,
+        "heavyDmg": 550,
+        "notes": "Priority targeting, Airdropped, Splash 19, Spread 36×36",
+        "effect": null
+      },
+      {
+        "skillName": "Shining Idol's★Brilliant Debut",
+        "trigger": "on airstrike ready",
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "Rocket",
+        "armorModifiers": "140/110/50",
+        "baseDmg": 100,
+        "count": 16,
+        "lightDmg": 2240,
+        "mediumDmg": 1760,
+        "heavyDmg": 800,
+        "notes": "Priority targeting, Airborne, Splash 7, Spread 12×5",
+        "effect": null
+      },
+      {
+        "skillName": "Shining Idol's★Brilliant Debut",
+        "trigger": "on airstrike ready",
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "140/95/70",
+        "baseDmg": 20,
+        "count": 15,
+        "lightDmg": 420,
+        "mediumDmg": 285,
+        "heavyDmg": 210,
+        "notes": "Beam, 1 tick every 0.2s for 15 ticks total, Aimed",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Scepter",
+      "Hunting Bow"
+    ]
+  },
+  {
+    "id": 30065,
+    "gid": 970709,
+    "name": "Victorious META",
+    "class": "Victorious META",
+    "nationality": "META",
+    "hullType": "Aircraft Carrier",
+    "hullShort": "CV",
+    "role": "Main",
+    "rarity": "Super Rare",
+    "thumbnail": "assets/thumbnails/30065.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Victorious%20META",
+    "releaseOrder": 970709,
+    "category": "META",
+    "equipment": {
+      "1": {
+        "default": 113,
+        "slot": 1,
+        "type": [
+          7
+        ],
+        "mount": 2,
+        "preload": 0,
+        "efficiency": 1.2
+      },
+      "2": {
+        "default": 115,
+        "slot": 2,
+        "type": [
+          9
+        ],
+        "mount": 3,
+        "preload": 0,
+        "efficiency": 1.3
+      },
+      "3": {
+        "default": 114,
+        "slot": 3,
+        "type": [
+          8
+        ],
+        "mount": 3,
+        "preload": 0,
+        "efficiency": 1.3
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 2676,
+        "firepower": 0,
+        "torpedo": 0,
+        "antiair": 144,
+        "aviation": 206,
+        "reload": 40,
+        "accuracy": 24,
+        "evasion": 10,
+        "speed": 31,
+        "luck": 82,
+        "asw": 0
+      },
+      "growth": {
+        "health": 19815,
+        "firepower": 0,
+        "torpedo": 0,
+        "antiair": 763,
+        "aviation": 1014,
+        "reload": 276,
+        "accuracy": 343,
+        "evasion": 274,
+        "speed": 0,
+        "luck": 0,
+        "asw": 0
+      },
+      "enhance": {
+        "health": 1060,
+        "antiair": 57,
+        "aviation": 82,
+        "reload": 30,
+        "accuracy": 24,
+        "evasion": 10
+      }
+    },
+    "displayName": "Victorious META",
+    "painting": "assets/paintings/30065.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "The Torch of Victory",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802310.png",
+        "description": "At the start of battle, increases this ship's AVI and ACC by 5% (15%). When this ship launches an airstrike: launches an additional Lv.1 (Lv.10) special airstrike (DMG is based on the skill's level). During battle, increases this ship's DMG dealt to BBs by 10% (20%), and increases the DMG other allied CVs and CVLs deal to BBs by 5% (10%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "aviation",
+              "accuracy"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's AVI and ACC by 5% (15%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 10,
+            "max": 20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt to BBs by 10% (20%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 10,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increases the DMG other allied CVs and CVLs deal to BBs by 5% (10%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Inextinguishable Resolve",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802320.png",
+        "description": "When this ship readies an airstrike: increases this ship's DMG dealt by 5% (15%), and reduces all other Main Fleet ships' DMG taken by 1% (5%) until the end of battle (stacks up to 2 times). Once per battle, when this ship is hit by an attack that would otherwise sink it: this ship survives and becomes invulnerable for 5 (15) seconds.",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 5% (15%)"
+          },
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 1,
+            "max": 5,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "reduces all other Main Fleet ships' DMG taken by 1% (5%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Ashen Might - Victorious",
+        "marker": null,
+        "icon": "assets/skin-placeholder.png",
+        "description": "[Operation Siren] When fighting humanoid Siren fleets or Boss fleets: increases this ship's DMG dealt by 3% (8%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 3,
+            "max": 8,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt by 3% (8%)"
+          }
+        ]
+      }
+    ],
+    "skins": [
+      {
+        "name": "Victorious META",
+        "type": "Default",
+        "painting": "assets/paintings/30065.png",
+        "icon": "assets/thumbnails/30065.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Heavy",
+    "barrages": [
+      {
+        "skillName": "The Torch of Victory",
+        "trigger": null,
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "Bomb",
+        "armorModifiers": "80/95/115",
+        "baseDmg": 330,
+        "count": 4,
+        "lightDmg": 1056,
+        "mediumDmg": 1254,
+        "heavyDmg": 1518,
+        "notes": "Airborne, Airdropped, Splash 10, Spread 20×20",
+        "effect": null
+      },
+      {
+        "skillName": "The Torch of Victory",
+        "trigger": null,
+        "statScaling": {
+          "stat": "aviation",
+          "multiplier": 1,
+          "raw": "AVI×1"
+        },
+        "ammoType": "Torpedo",
+        "armorModifiers": "80/110/130",
+        "baseDmg": 220,
+        "count": 12,
+        "lightDmg": 2112,
+        "mediumDmg": 2904,
+        "heavyDmg": 3432,
+        "notes": "Airborne, Splash 3, Parallel",
+        "effect": null
+      }
+    ],
+    "augmentModules": [
+      "Scepter",
+      "Hunting Bow"
+    ]
+  },
+  {
+    "id": 30066,
+    "gid": 970113,
+    "name": "Soobrazitelny META",
+    "class": "Soobrazitelny META",
+    "nationality": "META",
+    "hullType": "Destroyer",
+    "hullShort": "DD",
+    "role": "Vanguard",
+    "rarity": "Elite",
+    "thumbnail": "assets/thumbnails/30066.png",
+    "hasRetrofit": false,
+    "retrofitIcon": null,
+    "retrofitRarity": null,
+    "wikiUrl": "https://azurlane.koumakan.jp/wiki/Soobrazitelny%20META",
+    "releaseOrder": 970113,
+    "category": "META",
+    "equipment": {
+      "1": {
+        "default": 100,
+        "slot": 1,
+        "type": [
+          1
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.6
+      },
+      "2": {
+        "default": 106,
+        "slot": 2,
+        "type": [
+          5
+        ],
+        "mount": 2,
+        "preload": 1,
+        "efficiency": 1.15
+      },
+      "3": {
+        "default": 104,
+        "slot": 3,
+        "type": [
+          6
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1.1
+      },
+      "4": {
+        "default": null,
+        "slot": 4,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      },
+      "5": {
+        "default": null,
+        "slot": 5,
+        "type": [
+          10,
+          14
+        ],
+        "mount": 1,
+        "preload": 0,
+        "efficiency": 1
+      }
+    },
+    "stats": {
+      "base": {
+        "health": 960,
+        "firepower": 78,
+        "torpedo": 107,
+        "antiair": 74,
+        "aviation": 0,
+        "reload": 77,
+        "accuracy": 55,
+        "evasion": 55,
+        "speed": 48,
+        "luck": 84,
+        "asw": 117
+      },
+      "growth": {
+        "health": 7903,
+        "firepower": 394,
+        "torpedo": 594,
+        "antiair": 411,
+        "aviation": 0,
+        "reload": 534,
+        "accuracy": 746,
+        "evasion": 863,
+        "speed": 0,
+        "luck": 0,
+        "asw": 632
+      },
+      "enhance": {
+        "health": 380,
+        "antiair": 31,
+        "torpedo": 42,
+        "reload": 57,
+        "accuracy": 54,
+        "evasion": 54
+      }
+    },
+    "displayName": "Soobrazitelny META",
+    "painting": "assets/paintings/30066.png",
+    "retrofitPainting": null,
+    "skills": [
+      {
+        "type": "offense",
+        "name": "Super Combat Amplifier",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802340.png",
+        "description": "At the start of battle, increases this ship's FP and TRP by 5% (15%). Every 20s: 70% chance to fire a Lv.1 (Lv.10) special barrage, restoring 1% (5%) of this ship's Max HP (DMG is based on the skill's level; healing effect can only activate up to twice per battle); increases this ship's DMG dealt to enemies hit by this special barrage by 5% (15%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "firepower",
+              "torpedo"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's FP and TRP by 5% (15%)"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's DMG dealt to enemies hit by this special barrage by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "defense",
+        "name": "Once a Genius Mechanic, Always a Genius Mechanic",
+        "marker": null,
+        "icon": "assets/skill-icons/Skill_802350.png",
+        "description": "Every 15s: 15% (30%) chance to deploy a smokescreen for 5s, increasing the Evasion Rate of ships inside by 20% (40%) (does not stack with other smokescreen effects; the greatest effect takes precedence). When this ship is NOT inside a smokescreen: increases this ship's EVA by 5% (15%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "evasionRate"
+            ],
+            "min": 20,
+            "max": 40,
+            "isPercent": true,
+            "scope": "fleet",
+            "raw": "increasing the Evasion Rate of ships inside by 20% (40%)"
+          },
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increases this ship's EVA by 5% (15%)"
+          }
+        ]
+      },
+      {
+        "type": "support",
+        "name": "Flickering Light - Soobrazitelny",
+        "marker": null,
+        "icon": "assets/skin-placeholder.png",
+        "description": "Every 15 (10) times this ship fires her Main Guns: fires a special barrage. [Operation Siren] Every 15 (10) times this ship fires her Main Guns: fires a special barrage. When fighting humanoid Siren fleets or Boss fleets: decreases this ship's DMG taken by 2% (6%).",
+        "isModified": false,
+        "isRetrofitVersion": false,
+        "isNewOnRetrofit": false,
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 2,
+            "max": 6,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreases this ship's DMG taken by 2% (6%)"
+          }
+        ]
+      }
+    ],
+    "skins": [
+      {
+        "name": "Soobrazitelny META",
+        "type": "Default",
+        "painting": "assets/paintings/30066.png",
+        "icon": "assets/thumbnails/30066.png"
+      }
+    ],
+    "retrofitBonus": null,
+    "armorType": "Light",
+    "barrages": [
+      {
+        "skillName": "Flickering Light - Soobrazitelny II",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 15,
+        "count": 20,
+        "lightDmg": 300,
+        "mediumDmg": 300,
+        "heavyDmg": 300,
+        "notes": null,
+        "effect": null
+      },
+      {
+        "skillName": "Super Combat Amplifier",
+        "trigger": null,
+        "statScaling": {
+          "stat": "firepower",
+          "multiplier": 1,
+          "raw": "FP×1"
+        },
+        "ammoType": "Normal",
+        "armorModifiers": "100/100/100",
+        "baseDmg": 25,
+        "count": 24,
+        "lightDmg": 600,
+        "mediumDmg": 600,
+        "heavyDmg": 600,
+        "notes": null,
+        "effect": "100%: Increase DMG taken from Soobrazitelny META by 15% until end of battle."
+      },
+      {
+        "skillName": "Super Combat Amplifier",
+        "trigger": null,
+        "statScaling": {
+          "stat": "torpedo",
+          "multiplier": 1,
+          "raw": "TRP×1"
+        },
+        "ammoType": "HE",
+        "armorModifiers": "80/100/130",
+        "baseDmg": 50,
+        "count": 6,
+        "lightDmg": 240,
+        "mediumDmg": 300,
+        "heavyDmg": 390,
+        "notes": "Splash 3",
+        "effect": "100%: Increase DMG taken from Soobrazitelny META by 15% until end of battle."
+      }
+    ],
+    "augmentModules": [
+      "Hammer",
+      "Dual Swords"
+    ]
   }
 ];

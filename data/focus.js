@@ -2054,6 +2054,16 @@ const FOCUS_DATA = {
     0.294,
     0.109
   ],
+  "assets/paintings/30065.png": [
+    0.492,
+    0.376,
+    0.054
+  ],
+  "assets/paintings/30066.png": [
+    0.456,
+    0.355,
+    0.049
+  ],
   "assets/paintings/301.png": [
     0.422,
     0.174,
@@ -4384,6 +4394,31 @@ const FOCUS_DATA = {
     0.144,
     0.145
   ],
+  "assets/paintings/754.png": [
+    0.49,
+    0.42,
+    0.023
+  ],
+  "assets/paintings/755.png": [
+    0.478,
+    0.515,
+    0.046
+  ],
+  "assets/paintings/757.png": [
+    0.517,
+    0.236,
+    0.09
+  ],
+  "assets/paintings/760.png": [
+    0.472,
+    0.372,
+    0.029
+  ],
+  "assets/paintings/764.png": [
+    0.479,
+    0.406,
+    0.029
+  ],
   "assets/paintings/77.png": [
     0.456,
     0.345,
@@ -4548,6 +4583,11 @@ const FOCUS_DATA = {
     0.528,
     0.167,
     0.127
+  ],
+  "assets/paintings/99.png": [
+    0.495,
+    0.245,
+    0.094
   ],
   "assets/paintings/wiki-22.png": [
     0.483,

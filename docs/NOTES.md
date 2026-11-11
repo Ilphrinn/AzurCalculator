@@ -6488,3 +6488,40 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   +13%). Optimize now weighs how a gun's cycle fits the fight: Ulrich von Hutten and Vanguard move
   from Twin 406mm SK C/34 to Triple 406mm Mk 7 (main gun slot 1652 -> 2084), which the per-salvo
   barrage heuristic kept from them before. Specialties regenerated. `npm run check` passes.
+
+## The 14 missing EN ships imported (2026-11-11)
+
+- **Ships**: Hostile, Amatsukaze, Tiger, Azuchi, I-14, Hasty, Ormrinn Langi, Riyala Bey,
+  Járnbarðinn, Merkuriy, Selimiye, Saratoga META, Victorious META, Soobrazitelny META (902 ships).
+  `node scripts/import-wiki-ships.js "Name" ...` builds each one and replaces an entry with the
+  same gid, so it can be re-run.
+- **Sources**: the user's saved wiki pages (`Site web/ships/{Name}.html`) for class, faction,
+  armour, skill text and colour (pink offense, gold support, deepskyblue defense), barrage rows
+  and augment modules; mrlar.dev `ships.json` for base/growth/enhancement and slots at max limit
+  break (on the 753 non-retrofit ships it has, the same mapping reproduces our slots for 748, the
+  5 others being the known differences; its `strengthen` carries the META HP/ACC/EVA too);
+  Fernando2603 `ship_skin_list.json` for the painting (resized to 1100 wide), the shipyard icon
+  (pixel-identical to our thumbnails; card JPEG at 320 wide on navy #0b1121, like the old ones)
+  and the skin list, `skill_icon.json` for skill icons (45x45). Fernando2603's `ship.json` stops
+  at 861 ships, so it is not used for stats. Every ship's level 125 row matches the wiki's.
+- **Wiki saves**: the pages are saved "Web Page, complete" but the browser drops the `_files`
+  folder (its image requests hit Anubis), so only the HTML is used. Relaunching a failed
+  download from the browser's download list saves Anubis's challenge page instead of the ship.
+- **statBonuses**: the original extractor is lost; the one in the script finds 2091 of the 2182
+  mapped bonuses it wrote (96%), plus ~590 it never wrote (mostly "DMG taken" reductions and
+  later clauses). Skipped on purpose: decreases other than DMG taken, enemy debuffs ("their",
+  "the target's ... by"), "that ship's"/"that fleet's" (Merkuriy's saved ally, Azuchi's buff for
+  another fleet), speeds that are not the SPD stat. Each new ship's bonuses were read against
+  its text.
+- **Conventions kept**: "(Augment Module) X+" becomes "X+" with marker `Aug` right after X
+  (likewise Retrofit, Fate Simulation); "All Out Assault - ..." becomes "All Out Assault" (505 of
+  511 stored ones; the wiki writes "All Out Assault - -14" for I-14); a barrage title's trailing
+  "(...)" becomes `trigger`; class is the stored "X Class" when one exists, the ship's own name
+  for META and sailing frigates.
+- **Gaps**: 9 skill icons the datamine lacks. The 7 ship-specific All Out Assault ones use the
+  generic `Skill_20000`; Victorious META's "Ashen Might" (802330) and Soobrazitelny META's
+  "Flickering Light" (802360) show `skin-placeholder.png`. Non-default skins are placeholders as
+  for every other ship. `data/skill-timing.js` has nothing for them (AzurLaneData is still the
+  May snapshot), so their skills are untimed. Face points found for 8 of the 14 paintings.
+- Specialties regenerated: being top shares, the new ships push a few others out (486 loses
+  "aa", 10152 "air").
