@@ -6466,3 +6466,25 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Große 11690 -> 10526 main fleet DPS (one BB alone keeps the fire up ~93% of the time); New Jersey
   + two CVs unchanged. The fleet optimizer stops rating BB stacks above mixed main fleets on fire
   they cannot all keep. `npm run check` passes; Fleet totals checked headless.
+
+## Gun and torpedo volleys counted like airstrikes (2026-11-11)
+
+- **Found** comparing how slow weapons are averaged over the 60s reference fight (or the boss's
+  time limit): airstrikes count only the strikes launched (`aircraftCycleFactor`, preload +
+  floor(fight / cycle)), timed and per-salvo barrages count their activations, but gun and
+  torpedo DPS was the continuous rate. Carriers lost a median 22% to the rounding (cycle 20.5s:
+  2 strikes in 60s, not 2.9) while battleships with ~20s guns lost nothing. Slot `preload`
+  (DD/CL torpedoes ~1, 6 BB main guns) was read nowhere in the figures.
+- **Rule** (`firedVolleyShare`, time-weighted figures only, as for aircraft): a gun or torpedo
+  slot fires min(preload, mounts) volleys at the start, then mounts x floor(fight / cycle);
+  the slot's DPS is scaled by that over the continuous mounts x fight / cycle. Same factor in
+  `weaponScoreForShip`, so Optimize scores what is shown. `weaponCycles` now carries the main gun's
+  and torpedo slot's preload (one event), used by main gun / torpedo barrage schedules and by
+  heal/shield casts on those events. Raw figures stay continuous. Volley-count barrages
+  (`volleyBarrageDps`) stay continuous.
+- **Measured** (lv125, Recommended, UR, reference boss), medians: BB 1837 -> 1698 (x0.92), BC
+  1816 -> 1698, CA 1149 -> 1097, CB 954 -> 864, CL 1256 -> 1215, DD 1439 -> 1405, SS 1800 -> 1745,
+  CV/CVL unchanged (1661 / 1195). Preloaded main guns gain (Richelieu +16%, Alsace +14%, Champagne
+  +13%). Optimize now weighs how a gun's cycle fits the fight: Ulrich von Hutten and Vanguard move
+  from Twin 406mm SK C/34 to Triple 406mm Mk 7 (main gun slot 1652 -> 2084), which the per-salvo
+  barrage heuristic kept from them before. Specialties regenerated. `npm run check` passes.

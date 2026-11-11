@@ -2529,7 +2529,17 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
     return { metric: role.metric, value, unknown: false };
   }
   const reloadFactor = reloadDpsFactor(item, effectiveReload(effective));
-  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier * reloadFactor, unknown: false };
+  const fired = role.metric === "dps" ? firedVolleyShare(weaponCycle(item, effectiveReload(effective)), mounts, slot.preload, effective) : 1;
+  return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier * reloadFactor * fired, unknown: false };
+}
+
+// Averaged over the fight, a gun or torpedo slot fires its preloaded mounts at the start, then
+// one volley per mount per full cycle, as aircraftCycleFactor counts airstrikes: the share of the
+// continuous rate that is.
+function firedVolleyShare(cycle, mounts, preload, effective) {
+  if (!effective || effective.timing !== "share" || !(cycle > 0) || !(mounts > 0)) return 1;
+  const fight = fightSeconds();
+  return (mounts * Math.floor(fight / cycle) + Math.min(preload || 0, mounts)) / (mounts * fight / cycle);
 }
 
 // HE shells and Beehive fragments may set the target on fire: the generic burn ticks 5 times,
@@ -3555,6 +3565,8 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
   const aircraft = role.stat === "aviation";
   const scaling = aircraft ? aircraftScalingCoefficient(item) : 1;
   let dps = damage * (slotFactor || 1) * (1 + stat * scaling / 100) * damageMultiplier * reloadDpsFactor(item, reload) * (aircraft ? targetAirModifier() : 1);
+  const slot = ship && ship.equipment && ship.equipment[slotKey];
+  if (slot && !aircraft && role.metric === "dps") dps *= firedVolleyShare(weaponCycle(item, reload), slotMount(slot), slot.preload, effective);
   if (barragePerVolley) {
     const cycle = weaponCycle(item, reload);
     if (cycle) dps += barragePerVolley / cycle;
@@ -7272,15 +7284,19 @@ function weaponCycles(ship, effective) {
   const reload = effectiveReload(effective);
   const launch = airstrikeCooldown(ship, effective);
   let torpedo = null;
+  let torpedoPreload = 0;
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
-    if (item && !torpedo && (/Torpedo$/.test(item.category || "") || item.kind === "torpedo")) torpedo = weaponCycle(item, reload);
+    if (item && !torpedo && (/Torpedo$/.test(item.category || "") || item.kind === "torpedo")) {
+      torpedo = weaponCycle(item, reload);
+      torpedoPreload = Math.min(1, slot.preload || 0);
+    }
   }
   const gunKey = shipGunSlotKeys(ship)[0];
   const gun = gunKey != null && activeEquipmentForSlot(ship, gunKey, ship.equipment[gunKey]);
   return {
     airstrike: launch.cycle,
-    preload: { airstrike: launch.preload },
+    preload: { airstrike: launch.preload, mainGun: gun ? Math.min(1, ship.equipment[gunKey].preload || 0) : 0, torpedo: torpedoPreload },
     mainGun: gun ? weaponCycle(gun, reload) : null,
     torpedo
   };
