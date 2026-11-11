@@ -6416,3 +6416,16 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   with 2. Straight fans depend on the distance instead: Champagne's 16-bullet volley 63% at 30-50
   units, 25% at 100; Kiev's 26-bullet one 85% at 30, 23% at 100. Bosses and the vanguard move,
   so no single distance is right. Simulator kept in the session scratchpad only.
+- **Fixed-distance attempt, rejected (2026-11-11)**: straight bullets only (client BulletType 1
+  cannon / 3 torpedo, no `acceleration`), main fleet ships, a boss 97 units ahead (MAIN_UNIT_POS
+  to the median spawn), box [5.5, 10] plus the bullet's own. Also recorded counter casts
+  (`onBattleBuffCount`) so volley barrages get the same share. Rejected on review:
+  - short-range barrages read 0%: Washington and Alabama (bullet range 75, weapon range 50),
+    Tosa (90); the game gives a main fleet BB a close-range skill, so the boss must come closer
+    than its spawn point and one distance cannot stand for the fight;
+  - parallel lines sit on the box edge: Valiant fires at z +-6 and +-15, the boss + bullet
+    half-height is exactly 6, so 0% or 50% hangs on a strict or non-strict comparison;
+  - `weapon_property.spawn_bound` "plane" weapons (Ark Royal's Swordfish) drop from the aircraft,
+    not the ship.
+  Any retry needs the engagement distance over a fight (boss AI movement, `pilot_ai_template`)
+  and the collider overlap rule, not one spawn distance.
