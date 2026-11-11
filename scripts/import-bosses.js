@@ -3,6 +3,7 @@
 // calculator reads. Run by hand after a new event: node scripts/import-bosses.js
 const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
+const { FIRE_SOURCES, fireRates } = require("./enemy-fire");
 
 const SOURCE = "https://azurlane.mrlar.dev/db/static/json/maps.json";
 // The game's own tables, for buffs that change the aircraft damage a boss takes.
@@ -11,7 +12,8 @@ const GAME_SOURCES = {
   expeditions: `${GAME_DATA}/sharecfgdata/expedition_data_template.json`,
   dungeons: `${GAME_DATA}/GameCfg/dungeon.json`,
   enemies: `${GAME_DATA}/ShareCfg/enemy_data_statistics.json`,
-  buffs: `${GAME_DATA}/GameCfg/buff.json`
+  buffs: `${GAME_DATA}/GameCfg/buff.json`,
+  ...FIRE_SOURCES
 };
 // maps.json codes armour as 0/1/2, checked against known hulls: Shigure (DD) 0, Mogami (CA) 1, Fusou (BB) 2.
 const ARMOR = ["light", "medium", "heavy"];
@@ -40,7 +42,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
 
 (async () => {
   const maps = Object.values(await load(SOURCE));
-  const [expeditions, dungeons, enemies, buffs] = await Promise.all(Object.values(GAME_SOURCES).map(load));
+  const [expeditions, dungeons, enemies, buffs, weapons, barrages] = await Promise.all(Object.values(GAME_SOURCES).map(load));
 
   // injureRatioByAir on the boss, from the buffs its wave or its own stats attach (client:
   // aircraft damage x (1 + injureRatioByAir)); Elise in Vacation Lane EX takes double.
@@ -61,6 +63,31 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
       }
     }
     return 0;
+  }
+
+  // Share of the damage the boss node's enemies fire that is torpedo-attribute, each enemy weighted by
+  // its HP (the longer it takes to sink, the longer it shoots), as scripts/import-maps.js does for mobs.
+  // Campaign only: solo and event bosses fire mostly skill barrages their weapon list does not hold.
+  function bossTorpedoShare(map) {
+    const expedition = expeditions[map.expo_id];
+    const dungeon = expedition && dungeons[expedition.dungeon_id];
+    const fired = { cannon: 0, torpedo: 0, air: 0 };
+    for (const stage of list(dungeon && dungeon.stages)) {
+      for (const wave of list(stage.waves)) {
+        for (const unit of [...list(wave.spawn), ...list(wave.reinforcement)]) {
+          const own = unit && enemies[unit.monsterTemplateID];
+          const stats = own && { ...enemies[own.base], ...own };
+          // A negative unit type is a scripted dummy; submarines are their own fleet.
+          if (!stats || stats.battle_unit_type < 0 || [8, 17].includes(stats.type)) continue;
+          const hp = stats.durability + (expedition.level - 1) * stats.durability_growth / 1000;
+          const rates = fireRates(stats, expedition.level, { weapons, barrages });
+          for (const kind of Object.keys(fired)) fired[kind] += hp * rates[kind];
+        }
+      }
+    }
+    const total = fired.cannon + fired.torpedo + fired.air;
+    if (!(total > 0)) throw new Error(`No enemy fire found for ${map.name}.`);
+    return Math.round(fired.torpedo / total * 1000) / 1000;
   }
 
   // Event reruns repeat a stage under the same names; the highest id is the latest version.
@@ -89,6 +116,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
       ...(bossAirCut(map, boss.name) ? { airCut: bossAirCut(map, boss.name) } : {}),
       // Nationality 99 is the Sirens, which some damage reductions name (the Intel Report auxiliaries).
       siren: boss.nation === 99,
+      ...(groupName.startsWith("Campaign") ? { torpedoShare: bossTorpedoShare(map) } : {}),
       // The stage's battle time limit in seconds (META Showdown 80, Arbiters 90, campaign 180):
       // the fight length a buff's uptime is measured against.
       timeLimit: map.time_limit

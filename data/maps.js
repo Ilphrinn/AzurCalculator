@@ -14,6 +14,7 @@ const MAPS_DATA = [
       "aa": 305,
       "airModifier": 0.305,
       "siren": false,
+      "torpedoShare": 0.349,
       "hpShare": {
         "light": 0.524,
         "medium": 0.305,
@@ -83,6 +84,7 @@ const MAPS_DATA = [
       "aa": 308,
       "airModifier": 0.302,
       "siren": false,
+      "torpedoShare": 0.354,
       "hpShare": {
         "light": 0.519,
         "medium": 0.305,
@@ -152,6 +154,7 @@ const MAPS_DATA = [
       "aa": 305,
       "airModifier": 0.304,
       "siren": false,
+      "torpedoShare": 0.33,
       "hpShare": {
         "light": 0.509,
         "medium": 0.308,
@@ -221,6 +224,7 @@ const MAPS_DATA = [
       "aa": 308,
       "airModifier": 0.301,
       "siren": false,
+      "torpedoShare": 0.334,
       "hpShare": {
         "light": 0.503,
         "medium": 0.308,
@@ -290,6 +294,7 @@ const MAPS_DATA = [
       "aa": 294,
       "airModifier": 0.324,
       "siren": false,
+      "torpedoShare": 0.249,
       "hpShare": {
         "light": 0.497,
         "medium": 0.175,
@@ -359,6 +364,7 @@ const MAPS_DATA = [
       "aa": 296,
       "airModifier": 0.322,
       "siren": false,
+      "torpedoShare": 0.258,
       "hpShare": {
         "light": 0.491,
         "medium": 0.179,
@@ -428,6 +434,7 @@ const MAPS_DATA = [
       "aa": 294,
       "airModifier": 0.324,
       "siren": false,
+      "torpedoShare": 0.239,
       "hpShare": {
         "light": 0.491,
         "medium": 0.17,
@@ -497,6 +504,7 @@ const MAPS_DATA = [
       "aa": 296,
       "airModifier": 0.322,
       "siren": false,
+      "torpedoShare": 0.247,
       "hpShare": {
         "light": 0.484,
         "medium": 0.175,
@@ -566,6 +574,7 @@ const MAPS_DATA = [
       "aa": 386,
       "airModifier": 0.26,
       "siren": false,
+      "torpedoShare": 0.315,
       "hpShare": {
         "light": 0.486,
         "medium": 0.431,
@@ -650,6 +659,7 @@ const MAPS_DATA = [
       "aa": 386,
       "airModifier": 0.26,
       "siren": false,
+      "torpedoShare": 0.315,
       "hpShare": {
         "light": 0.484,
         "medium": 0.431,
@@ -734,6 +744,7 @@ const MAPS_DATA = [
       "aa": 394,
       "airModifier": 0.264,
       "siren": false,
+      "torpedoShare": 0.249,
       "hpShare": {
         "light": 0.4,
         "medium": 0.335,
@@ -818,6 +829,7 @@ const MAPS_DATA = [
       "aa": 395,
       "airModifier": 0.263,
       "siren": false,
+      "torpedoShare": 0.247,
       "hpShare": {
         "light": 0.398,
         "medium": 0.332,
@@ -902,6 +914,7 @@ const MAPS_DATA = [
       "aa": 373,
       "airModifier": 0.267,
       "siren": false,
+      "torpedoShare": 0.275,
       "hpShare": {
         "light": 0.418,
         "medium": 0.505,
@@ -986,6 +999,7 @@ const MAPS_DATA = [
       "aa": 373,
       "airModifier": 0.266,
       "siren": false,
+      "torpedoShare": 0.279,
       "hpShare": {
         "light": 0.426,
         "medium": 0.503,
@@ -1070,6 +1084,7 @@ const MAPS_DATA = [
       "aa": 384,
       "airModifier": 0.268,
       "siren": false,
+      "torpedoShare": 0.196,
       "hpShare": {
         "light": 0.321,
         "medium": 0.489,
@@ -1154,6 +1169,7 @@ const MAPS_DATA = [
       "aa": 384,
       "airModifier": 0.268,
       "siren": false,
+      "torpedoShare": 0.196,
       "hpShare": {
         "light": 0.319,
         "medium": 0.486,

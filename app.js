@@ -2410,7 +2410,10 @@ const REFERENCE_AA = 437.5;
 // The boss picked in the Target menu (one BOSSES_DATA row, from mrlar.dev's maps.json), or null
 // for the averaged reference boss above. Armour only applies once a real boss is picked.
 let targetBoss = null;
-const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, aa: REFERENCE_AA, armor: null };
+// Median torpedo share of the damage fired at the fleet over the campaign 14-16 boss nodes
+// (torpedoShare in data/bosses.js); the raid bosses above fire skill barrages with no such figure.
+const REFERENCE_TORPEDO_SHARE = 0.34;
+const REFERENCE_TARGET = { hit: EHP_REFERENCE_ACCURACY, eva: CRIT_REFERENCE_EVASION, luck: EHP_REFERENCE_LUCK, aa: REFERENCE_AA, torpedoShare: REFERENCE_TORPEDO_SHARE, armor: null };
 function targetStats() {
   return targetBoss || REFERENCE_TARGET;
 }
@@ -2460,7 +2463,7 @@ function outgoingHitRate(effective, armor) {
 
 // The wiki's eHP: HP / HitRate / prod(1 + resistance). Only imported auxiliary effects enter it:
 // skill Evasion Rate and DMG Taken buffs mostly last seconds, and their uptime is not modelled yet.
-function effectiveHp(effective) {
+function effectiveHp(effective, ship) {
   const hp = effective.stats.health ? effective.stats.health.value : 0;
   const evasion = effective.stats.evasion ? effective.stats.evasion.value : 0;
   const luck = effective.stats.luck ? effective.stats.luck.value : 0;
@@ -2479,12 +2482,23 @@ function effectiveHp(effective) {
   }
   for (const effect of effective.itemEffects || []) {
     if (effect.key === "dodgeUptime") ehp /= 1 - effect.amount / 100;
-    // Torpedo-only reductions stay out: nothing says what share of a boss's damage is torpedoes.
     else if (effect.key === "damageTaken" && !effect.source && reductionApplies(effect.target)) ehp /= 1 - effect.amount / 100;
+    else if (effect.key === "damageTaken" && effect.source === "Torpedo") ehp /= 1 - effect.amount / 100 * incomingTorpedoShare(ship);
     // Self heals add the HP they restore over the fight; the first one lands one period in.
     else if (effect.key === "regen") ehp *= 1 + effect.amount / 100 * regenCasts(effect);
   }
   return { ehp, hitRate };
+}
+
+function torpedoShareNote(target) {
+  if (typeof target.torpedoShare !== "number") return "No torpedo figure for this fight (its enemies fire skill barrages): torpedo damage reductions count for nothing.";
+  const where = targetBoss ? "this fight" : "the median campaign 14-16 boss node";
+  return `Torpedoes are ${Math.round(target.torpedoShare * 100)}% of the damage the enemies of ${where} fire (each weighted by its HP), so a torpedo damage reduction counts for that share.`;
+}
+
+// Torpedoes run along the water at the vanguard; the main fleet behind it is left out.
+function incomingTorpedoShare(ship) {
+  return ship && ship.role === "Vanguard" ? targetStats().torpedoShare || 0 : 0;
 }
 
 function regenCasts(effect) {
@@ -2747,7 +2761,7 @@ function computeCombatMetrics(ship, level, effective, armor) {
   const burnDps = burn.dps;
   totals.dps = totals.dps * outgoingHit + barrageDps + skillBarrageDps + burnDps;
 
-  const { ehp, hitRate } = effectiveHp(effective);
+  const { ehp, hitRate } = effectiveHp(effective, ship);
 
   return {
     dps: totals.dps,
@@ -3256,7 +3270,7 @@ function candidateEhp(ship, slotKey, item) {
   const original = getEquippedGear(ship, slotKey);
   setEquippedGear(ship, slotKey, item);
   const eff = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
-  const { ehp } = effectiveHp(eff);
+  const { ehp } = effectiveHp(eff, ship);
   if (original) setEquippedGear(ship, slotKey, original);
   else setEquippedGear(ship, slotKey, null);
   return ehp;
@@ -4500,6 +4514,7 @@ function renderCombatMetrics(ship, effective) {
           ehpCalc(effective.stats.health.value, metrics),
           "The main figure counts auxiliary evade procs and damage reductions only. \"avg\" also counts skill Evasion Rate and DMG Taken buffs whose timing is known, weighted by their share of the fight."
         );
+        if (ship.role === "Vanguard") notes.push(torpedoShareNote(target));
         if (!targetBoss) notes.push("Pick a boss in Target to see this against a specific fight.");
       } else {
         notes.push(hasBuiltInWeapons(ship)
@@ -7220,8 +7235,8 @@ function visibleFleets() {
 // The Mob fleet's target: the map's mob fleets as one enemy whose armour is an HP split
 // (targetCombatMetrics) and whose Hit, Evasion and Luck are HP-weighted means.
 function mobTarget(map) {
-  const { level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare } = map.mobs;
-  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare };
+  const { level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare, torpedoShare } = map.mobs;
+  return { name: `${map.map} mob fleets`, map: map.map, group: map.group, armor: null, hull: null, level, hit, eva, luck, aa, airModifier, siren, timeLimit, hpShare, torpedoShare };
 }
 
 // Figures read the target through the targetBoss global, so the Mob fleet's is swapped in and put back.
@@ -8187,7 +8202,8 @@ function referenceMobTarget() {
   const hpShare = Object.fromEntries(Object.keys(ARMOR_COLUMN).map(armor => [armor, mean(m => m.hpShare[armor] || 0)]));
   return { name: "Campaign mob fleets", map: "", group: "", armor: null, hull: null, siren: false, hpShare,
     level: mean(m => m.level), hit: mean(m => m.hit), eva: mean(m => m.eva), luck: mean(m => m.luck),
-    aa: mean(m => m.aa), airModifier: mean(m => m.airModifier), timeLimit: mean(m => m.timeLimit) };
+    aa: mean(m => m.aa), airModifier: mean(m => m.airModifier), timeLimit: mean(m => m.timeLimit),
+    torpedoShare: mean(m => m.torpedoShare) };
 }
 const SPECIALTY_AIR_TOP = 0.25;
 

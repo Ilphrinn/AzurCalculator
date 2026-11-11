@@ -3,6 +3,7 @@
 // tab's Mob fleet is measured against. Run by hand after a game update: node scripts/import-maps.js
 const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
+const { FIRE_SOURCES, fireRates } = require("./enemy-fire");
 
 const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
 const SOURCES = {
@@ -10,7 +11,8 @@ const SOURCES = {
   expeditions: `${GAME_DATA}/sharecfgdata/expedition_data_template.json`,
   dungeons: `${GAME_DATA}/GameCfg/dungeon.json`,
   enemies: `${GAME_DATA}/ShareCfg/enemy_data_statistics.json`,
-  buffs: `${GAME_DATA}/GameCfg/buff.json`
+  buffs: `${GAME_DATA}/GameCfg/buff.json`,
+  ...FIRE_SOURCES
 };
 // enemy_data_statistics codes armour 1/2/3, checked on Shiratsuyu (DD) 1, the Anti-Air Ship (CL) 2
 // and Fusou Retrofit (BBV) 3. Hull codes are maps.json's, which import-bosses.js already checked.
@@ -29,7 +31,7 @@ async function load(url) {
 const list = value => Array.isArray(value) ? value : value && typeof value === "object" ? Object.values(value) : [];
 
 (async () => {
-  const [chapters, expeditions, dungeons, enemies, buffs] = await Promise.all(Object.values(SOURCES).map(load));
+  const [chapters, expeditions, dungeons, enemies, buffs, weapons, barrages] = await Promise.all(Object.values(SOURCES).map(load));
 
   // A buff a wave puts on a spawned enemy can cut the aircraft damage it takes (Anti-Air Ships and
   // Mass-Produced Akizukis: injureRatioByAir -0.5, the client's x (1 + injureRatioByAir)).
@@ -67,7 +69,8 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
       if (!armor) throw new Error(`Unknown armour code ${stats.armor_type} on enemy ${id}.`);
       return {
         name: stats.name.trim(), hull: HULL[stats.type] || null, armor, count, hp: hpAt(stats, expedition.level), aa: aaAt(stats, expedition.level), airCut,
-        hit: stats.hit, eva: stats.dodge, luck: stats.luck, siren: stats.nationality === SIREN_NATION
+        hit: stats.hit, eva: stats.dodge, luck: stats.luck, siren: stats.nationality === SIREN_NATION,
+        fire: fireRates(stats, expedition.level, { weapons, barrages })
       };
     });
     return { name: expedition.name, weight, level: expedition.level, timeLimit: expedition.time_limit, units };
@@ -91,6 +94,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
     let airTime = 0;
     let totalHp = 0;
     let weightedTime = 0;
+    const fired = { cannon: 0, torpedo: 0, air: 0 };
     let totalWeight = 0;
     for (const fleet of fleets) {
       totalWeight += fleet.weight;
@@ -101,6 +105,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         totalHp += hp;
         for (const key of Object.keys(weighted)) weighted[key] += hp * unit[key];
         airTime += hp / (Math.min(150 / (150 + unit.aa), 1) * Math.max(0, 1 + unit.airCut));
+        for (const kind of Object.keys(fired)) fired[kind] += hp * unit.fire[kind];
       }
     }
     const round = (value, places) => Math.round(value * 10 ** places) / 10 ** places;
@@ -119,6 +124,8 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
         aa: round(weighted.aa / totalHp, 0),
         airModifier: round(totalHp / airTime, 3),
         siren: fleets.every(fleet => fleet.units.every(unit => unit.siren)),
+        // Share of the damage fired at the fleet that is torpedo-attribute, each enemy by its HP like the rest.
+        torpedoShare: round(fired.torpedo / (fired.cannon + fired.torpedo + fired.air), 3),
         hpShare: Object.fromEntries(Object.entries(hpByArmor).map(([armor, hp]) => [armor, round(hp / totalHp, 3)])),
         fleets: fleets.map(({ name, weight, level }) => ({ name, weight, level }))
       }

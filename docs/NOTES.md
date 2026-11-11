@@ -6548,6 +6548,33 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   AFCT to SHS + Type 1 AP. Medians: CA DPS 1097 -> 1220, AA 535 -> 430; CL eHP 7807 -> 8426;
   DD eHP 6404 -> 6709. Rudder loses on DDs: at EVA ~250 the hit-rate formula gives +49 EVA less
   than +600 HP. Specialties regenerated. `npm run check` passes.
-- **Next, asked by the user**: incoming damage by kind per boss / map, so the Anti-Torpedo
-  Bulge (and fire, aircraft) count. Enemy `equipment_list` -> `weapon_property` (sharecfgdata,
-  `base` chain) -> `bullet_template` type gives each enemy weapon's kind, damage and reload.
+- **Then asked by the user**: survival per stage ("CAs get hit by torpedoes"): see the next section.
+
+## Incoming torpedo share per fight (2026-11-11)
+
+- **Asked by the user**: survival must depend on the stage; CAs take torpedoes. The Anti-Torpedo
+  Bulge's -30% (`injureRatioByBulletTorpedo`) was left out of eHP for lack of that figure.
+- **Client rule** (`battleformulas.lua`): the torpedo cut applies by the WEAPON's
+  `attack_attribute` (2), not the bullet type: a torpedo bullet on a cannon-attribute weapon is
+  not cut, a Bombing Ship's ram (attribute 2) is; aircraft are attribute 4, so aerial torpedoes
+  are not cut either. Damage per bullet: damage x `corrected`% x (1 + stat x
+  `attack_attribute_ratio` / 10000) (`WeaponDamagePreCorrection`, `WeaponAtkAttrPreRatio`).
+- **Data** (`scripts/enemy-fire.js`, shared): each enemy's `equipment_list` -> sharecfgdata
+  `weapon_property` (its `base` chain) and `barrage_template` gives damage per second by
+  attribute at the fight's level, reload_max / 150 x sqrt(200 / (RLD + 100)). Anti-air and ASW
+  weapons never hit a surface ship; the ram (`EquipmentType` 18, HAMMER_HEAD) is one hit, often
+  shot down first, so left out. Each enemy weighs by its HP, as the mob mix already does.
+- **Written**: `torpedoShare` on every map's `mobs` (data/maps.js: 20-35%) and on the 24
+  campaign boss nodes (data/bosses.js: Fusou/Yamashiro 7-9%, Mogami 19-28%, Ise/Hyuuga 64%).
+  Solo, META, OpSi and most event bosses fire skill barrages their weapon list does not hold
+  (Kawakaze META reads 95% air), so they get none and torpedo cuts count for nothing there.
+  The reference target uses the campaign boss median, 0.34 (`REFERENCE_TORPEDO_SHARE`);
+  `referenceMobTarget` the mean of the maps.
+- **App**: `effectiveHp(effective, ship)` divides by 1 - cut x share for torpedo-source item
+  effects, for Vanguard ships only (torpedoes run at the front line; the main fleet is out of
+  scope until something says otherwise). The eHP tooltip states the share. Skill "DMG taken from
+  torpedoes" reductions are still out, like every skill DMG Taken buff in the main figure.
+- **Measured** (lv125, Recommended, UR): reference: Bulge on 38 CLs (Rudder kept by CAs);
+  vs Ise (15-2): Bulge on every CL and 62 of 114 CAs; vs Fusou Retrofit (14-1): none. DDs cannot
+  equip it. Campaign fights last 180s, so the Repair Toolkit heals 12 times there and beats
+  Plum-Petal Poetry on DDs again. `npm run check` passes.
