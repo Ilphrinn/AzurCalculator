@@ -6380,3 +6380,39 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   70 degrees off the aim line, and its bullets carry an `acceleration` that bends them back
   (u -0.035, then flipped at t = 1), so a straight-line estimate is wrong: the client's bullet
   movement (`mod/battle` in AzurLaneLuaScripts) must be reproduced first.
+
+## Large-caliber volley count (2026-11-11)
+
+- **Found** in the CB outlier check: "Once every 8 times ... If this ship is equipped with a
+  high-caliber main gun (280mm or higher), fire this barrage every 4 times instead of 8".
+  `MAIN_GUN_VOLLEY_RE` always took the 8. The game (buff.json) casts the fast version when slot 1
+  holds a type 11 weapon (our "CB Gun"): Ägir 19430, Brest 19650, Kronshtadt 15290, Little Ägir
+  151160, Gouden Leeuw 19940 (pattern change only, no count). The "enhanced" rows these skills
+  switch to were already the ones read at level 125 (limit break rule).
+- **Rule**: `largeCaliberVolleys` reads the count from the sentence naming a large/high-caliber
+  (or "caliber of 280mm") main gun ("every N" / "to N", below the base count); `volleyCount`
+  uses it when slot 1 holds a "CB Gun", in the DPS figure and in Optimize's main gun score.
+  Matches Ägir, Brest, Kronshtadt, Little Ägir (8 -> 4) and Prinz Moritz (6 -> 3, newer than the
+  game snapshot, text only). Azuma's base skill names one gun (Prototype 310mm): left out.
+- **Measured** (lv125, Recommended, UR, reference boss): Prinz Moritz 1701 -> 1926, Ägir 1130 ->
+  1170, Kronshtadt 964 -> 992, Brest 1223 -> 1247, Little Ägir 791 -> 796. CBs stay low: their
+  main gun (Prototype Triple 283mm, 2 mounts) gives 600-700 DPS, the data agrees with the game.
+  Specialties regenerated (Prinz Moritz gains "boss"). `npm run check` passes.
+
+## Barrage hit geometry: measured, not built (2026-11-11)
+
+- The client's bullet motion is readable (AzurLaneLuaScripts `mod/battle/data/bullet/
+  battlebulletunit.lua`, `view/bullet/battlebullet.lua`, `data/weapon/battlebulletemitter.lua`):
+  direction = aim at the target + the barrage row's angle; speed = velocity x
+  `bfConsts.SECONDs / viewFPS (30) x 0.1` per frame; `acceleration` entries add `u` along and
+  `v` across the current heading every 1/30s (`v` negated for angles in (0, 180) when `flip`,
+  every `u` negated when it would reverse the speed); the bullet dies past `range` (+-
+  range_offset/2) from its spawn. Boss colliders: `cld_box` [5.5, 7.5, 10] for most of our
+  bosses. The player main fleet stands at x = -105 (`MAIN_UNIT_POS`), boss spawns median x =
+  -10, z = 50 (`dungeon.json` `corrdinate`).
+- **Blocker**: `pg.bfConsts.SECONDs` is not in either published repository (searched every EN
+  file name and the include/const files). Straight bullets do not depend on it, but curving ones
+  do: Big Seven (weapon 66150) hits 0% at every distance from 30 with SECONDs/30 = 1, and 18-36%
+  with 2. Straight fans depend on the distance instead: Champagne's 16-bullet volley 63% at 30-50
+  units, 25% at 100; Kiev's 26-bullet one 85% at 30, 23% at 100. Bosses and the vanguard move,
+  so no single distance is right. Simulator kept in the session scratchpad only.

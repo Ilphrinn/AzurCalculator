@@ -697,9 +697,6 @@ const SPECIALTIES_DATA = {
     "shield",
     "buff"
   ],
-  "522": [
-    "mob"
-  ],
   "523": [
     "shield",
     "asw"
@@ -1134,9 +1131,6 @@ const SPECIALTIES_DATA = {
     "mob",
     "tank"
   ],
-  "708": [
-    "boss"
-  ],
   "709": [
     "mob",
     "tank"
@@ -1210,6 +1204,7 @@ const SPECIALTIES_DATA = {
     "mob"
   ],
   "737": [
+    "boss",
     "mob",
     "tank"
   ],
@@ -1410,6 +1405,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "20027": [
+    "mob",
     "tank"
   ],
   "20029": [

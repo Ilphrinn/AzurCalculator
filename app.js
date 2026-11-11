@@ -2654,7 +2654,7 @@ function volleyBarrageDps(ship, effective, level, armor) {
   if (!gun) return 0;
   const cycle = weaponCycle(gun, effectiveReload(effective));
   if (!cycle) return 0;
-  return (volleyBarrageDamage(barrage, effective, null, armor) / barrage.n) / cycle;
+  return (volleyBarrageDamage(barrage, effective, null, armor) / volleyCount(barrage, gun)) / cycle;
 }
 
 // The four headline figures. Every slot contributes through whatever it actually fights
@@ -2957,7 +2957,7 @@ function volleyBarrage(ship, level, armor) {
     const n = Number(m[2] || m[1]);
     if (!n) continue;
     const barrage = skillBarrage(ship, skill, level, armor);
-    if (barrage && (!best || barrage.damage / n > best.damage / best.n)) best = { n, ...barrage };
+    if (barrage && (!best || barrage.damage / n > best.damage / best.n)) best = { n, largeN: largeCaliberVolleys(skill, n), ...barrage };
   }
   volleyBarrageCache.set(cacheKey, best);
   return best;
@@ -2965,6 +2965,25 @@ function volleyBarrage(ship, level, armor) {
 
 function skillBarrageRows(ship, skill, level) {
   return barragesAtLevel(ship, ship.barrages || [], level || 0).filter(b => matchSkillForBarrage(ship, b.skillName) === skill);
+}
+
+// "If this ship is equipped with a high-caliber main gun (280mm or higher), fire this barrage every
+// 4 times ... instead of 8": the game checks for a type 11 gun (our "CB Gun") in slot 1 (Ägir,
+// Brest, Kronshtadt, Little Ägir, Gouden Leeuw in buff.json).
+const LARGE_CALIBER_RE = /\b(?:large|high)[- ]?caliber\b|\bcaliber of 2[89]0\s?mm\b/i;
+
+function largeCaliberVolleys(skill, n) {
+  for (const sentence of stripHtml(skill.description || "").split(/(?<=[.!])\s*/)) {
+    const at = sentence.search(LARGE_CALIBER_RE);
+    const m = at >= 0 ? /\b(?:every|to)\s+(\d+)\b/i.exec(sentence.slice(at)) : null;
+    if (m && Number(m[1]) > 0 && Number(m[1]) < n) return Number(m[1]);
+  }
+  return null;
+}
+
+// Main gun volleys between two barrages with `gun` in slot 1.
+function volleyCount(volley, gun) {
+  return volley.largeN && gun && gun.category === "CB Gun" ? volley.largeN : volley.n;
 }
 
 // One activation of a skill's barrage against `armor`: its rows' damage split into terms by the
@@ -3785,7 +3804,7 @@ function optimizeEquipment(ship, effective, level = currentLevel) {
       else if (isWeapon) {
         const itemEffective = seekEquipGate ? weaponCandidateEffective(ship, slotKey, item, level) : effective;
         const barragePerVolley = slotKey === mainGunSlotKey
-          ? volleyBarrageDamage(volley, itemEffective, item) / volley.n
+          ? volleyBarrageDamage(volley, itemEffective, item) / volleyCount(volley, item)
           : 0;
         const efficiency = slotEfficiency(slot) * (1 + weaponEfficiencyBonus(itemEffective, ship, slotKey, item) / 100);
         const slotFactor = slotMount(slot) * efficiency;
