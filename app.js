@@ -2443,6 +2443,20 @@ function referenceHitRate(evasion, luck) {
   return Math.min(1, Math.max(0.1, raw));
 }
 
+// The wiki's HitRate (Damage Calculations, Weapon Accuracy) for this ship's attacks on the target:
+// 0.1 + ACC / (ACC + target EVA + 2) + (LCK - target LCK) / 1000 + Hit Rate skills, within 0.1-1.
+// The level difference is left out, as in referenceHitRate.
+function outgoingHitRate(effective, armor) {
+  const accuracy = effective.stats.accuracy ? effective.stats.accuracy.value : 0;
+  const luck = effective.stats.luck ? effective.stats.luck.value : 0;
+  const { eva, luck: targetLuck } = targetStats();
+  const skills = effective.modifiers
+    .filter(m => m.key === "hitRate" && !m.source && modifierTargetApplies(m.target, armor))
+    .reduce((total, m) => total + m.amount, 0);
+  const raw = 0.1 + accuracy / (accuracy + (eva || 0) + 2) + (luck - (targetLuck || 0)) / 1000 + skills / 100;
+  return Math.min(1, Math.max(0.1, raw));
+}
+
 // The wiki's eHP: HP / HitRate / prod(1 + resistance). Only imported auxiliary effects enter it:
 // skill Evasion Rate and DMG Taken buffs mostly last seconds, and their uptime is not modelled yet.
 function effectiveHp(effective) {
@@ -2532,7 +2546,7 @@ function gunBurnChance(item) {
 }
 
 // One gun's burn DPS in `slot`, with `firepower` the ship's FP including the gun's own bonus.
-function gunBurnDps(item, slot, effective, ship, slotKey, firepower) {
+function gunBurnDps(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
   const chance = gunBurnChance(item);
   if (!chance || !(item.dmg > 0) || !(item.coef > 0) || !item.dps || !(item.dps.raw > 0)) return 0;
   const shellDamage = item.dmg * item.coef / 100;
@@ -2540,19 +2554,20 @@ function gunBurnDps(item, slot, effective, ship, slotKey, firepower) {
   const tick = shellDamage * efficiency * (1 + firepower / 100) * GUN_BURN.coefficient + GUN_BURN.flat;
   // Shells per second from the catalog's own stat-0 figure, on the ship's reload.
   const hitsPerSecond = item.dps.raw / shellDamage * slotMount(slot) * ammoHitShare(item) *
-    reloadDpsFactor(item, effectiveReload(effective));
+    reloadDpsFactor(item, effectiveReload(effective)) * hitRate;
   const uptime = 1 - Math.exp(-hitsPerSecond * chance * GUN_BURN.duration);
   return tick / GUN_BURN.interval * uptime;
 }
 
-// The ship's fire: only one burns at a time, so her best burning gun's.
-function shipGunBurnDps(ship, effective) {
+// The ship's fire: only one burns at a time, so her best burning gun's. A fire starts only on a
+// shell that hits, so the hit rate thins the ignitions, not the burn itself.
+function shipGunBurnDps(ship, effective, hitRate = 1) {
   const firepower = effective.stats.firepower ? effective.stats.firepower.value : 0;
   let best = 0;
   for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
     if (!item || outOfBossRange(ship, slotKey)) continue;
-    best = Math.max(best, gunBurnDps(item, slot, effective, ship, slotKey, firepower));
+    best = Math.max(best, gunBurnDps(item, slot, effective, ship, slotKey, firepower, hitRate));
   }
   return best;
 }
@@ -2681,10 +2696,13 @@ function computeCombatMetrics(ship, level, effective, armor) {
     if (contribution && !contribution.unknown) totals[contribution.metric] += contribution.value;
   }
 
-  const barrageDps = volleyBarrageDps(ship, effective, level, armor);
-  const skillBarrageDps = timedBarrageDps(ship, effective, level, armor);
-  const burnDps = shipGunBurnDps(ship, effective);
-  totals.dps += barrageDps + skillBarrageDps + burnDps;
+  // Every shell, torpedo, bomb and barrage bullet rolls to hit with the ship's Accuracy and Luck,
+  // aircraft included (they inherit both, client BattleAttr.AttrListInheritance).
+  const outgoingHit = outgoingHitRate(effective, armor);
+  const barrageDps = volleyBarrageDps(ship, effective, level, armor) * outgoingHit;
+  const skillBarrageDps = timedBarrageDps(ship, effective, level, armor) * outgoingHit;
+  const burnDps = shipGunBurnDps(ship, effective, outgoingHit);
+  totals.dps = totals.dps * outgoingHit + barrageDps + skillBarrageDps + burnDps;
 
   const { ehp, hitRate } = effectiveHp(effective);
 
@@ -2694,6 +2712,7 @@ function computeCombatMetrics(ship, level, effective, armor) {
     dpsASW: totals.dpsASW,
     ehp,
     hitRate,
+    outgoingHit,
     unknownSlots,
     outOfRangeSlots,
     volleyBarrageDps: barrageDps,
@@ -4452,6 +4471,7 @@ function renderCombatMetrics(ship, effective) {
           ? "Empty slots count as the ship's built-in weapon."
           : "Her built-in weapons are not documented, so an empty weapon slot counts as nothing: equip something, or optimise.");
         notes.push(`Includes the average Critical Hit / DMG Dealt multiplier from the base 5% crit rate / 50% crit DMG plus any skill bonus; crit rate assumes ${targetName}: ${target.eva} Evasion, ${target.luck} Luck.`);
+        if ((field.key === "dps" || field.armor) && typeof fieldMetrics.outgoingHit === "number") notes.push(`x ${(fieldMetrics.outgoingHit * 100).toFixed(1)}% hit rate: her Accuracy and Luck against that Evasion and Luck (aircraft use hers too).`);
         if (field.armor && targetBoss && field.armor === targetBoss.armor) notes.push(`${targetBoss.name} wears ${field.armor} armour: this is the figure for that fight.`);
         if (metrics.unknownSlots) {
           notes.push(`${metrics.unknownSlots} slot(s) not counted: their built-in aircraft have no published damage.`);

@@ -6429,3 +6429,24 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
     not the ship.
   Any retry needs the engagement distance over a fight (boss AI movement, `pilot_ai_template`)
   and the collider overlap rule, not one spawn distance.
+
+## Outgoing hit rate in DPS (2026-11-11)
+
+- **Found** reading the client's damage formula (`battleformulas.lua`
+  `CreateContextCalculateDamage`): every bullet rolls to hit with the attacker's `attackRating`
+  (Accuracy) and Luck against the target's `dodgeRate` and Luck, the wiki's HitRate (Damage
+  Calculations, Weapon Accuracy: 0.1 + ACC / (ACC + EVA + 2) + (LCK - target LCK + level diff) /
+  1000 + Hit Rate skills, within 0.1-1; "shell/torpedo/bomb"). Aircraft inherit the carrier's
+  `attackRating` and `luck` (`BattleAttr.AttrListInheritance`). The app used it only for eHP
+  (incoming) and crit; DPS assumed every shot hits.
+- **Rule** (`outgoingHitRate`): surface DPS from slots, volley and timed barrages x the ship's
+  hit rate against `targetStats()` (reference boss: EVA 26, LCK 39; a picked boss or mob fleet
+  uses its own), plus source-less "hitRate" skill modifiers for that target. Gun fire: the rate
+  thins the ignitions (`gunBurnDps` hits/s), not the burn ticks. Level difference left out, as in
+  `referenceHitRate`. AA and ASW untouched. DPS tooltip shows the rate. Optimize unchanged: one
+  factor per ship, same for every candidate.
+- **Measured** (lv125, Recommended, UR, reference boss), medians: CV 1866 -> 1661 (hit 0.886,
+  ACC 96), CVL 1368 -> 1195, BB 1945 -> 1837 (0.942, ACC 140), BC 1903 -> 1816, CB 1056 -> 954,
+  CA 1212 -> 1149, CL 1282 -> 1256, DD 1447 -> 1439 (ACC 219), SS 1829 -> 1800. Against a boss with
+  more Evasion (median of our bosses 64) the gap grows. Specialties regenerated (28 ships change a
+  mark; Shinano loses "boss", Alsace gains it). `npm run check` passes.
