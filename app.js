@@ -1915,6 +1915,85 @@ function bestPosition(ship, level, isRetrofit, isAugmented, isFateSim) {
   return chosen;
 }
 
+// "For 80s after battle starts" (Amazon), when the game tables give the bonus no window: active for
+// that opening stretch, as a "start" window would be.
+const TEXT_START_RE = /\bfor (?:the first )?(\d+)\s*s(?:econds)? (?:after (?:the )?(?:battle|combat) (?:starts|begins)|after entering (?:the )?battle|of (?:the )?battle)\b/i;
+
+function textStartFactor(plainText, raw, timing) {
+  const at = plainText.toLowerCase().indexOf((raw || "").toLowerCase());
+  const after = at < 0 ? "" : plainText.slice(at + raw.length, at + raw.length + 60).split(/\.(?:\s|$)/)[0];
+  const around = `${clauseBeforeRaw(plainText, raw) || ""} ${after}`;
+  const m = TEXT_START_RE.exec(around);
+  if (!m) return null;
+  const window = { kind: "start", duration: Number(m[1]) };
+  return timing === "share" ? uptimeShare(window, fightSeconds()) : activityAt(window, timing.at);
+}
+
+// The window the text gives a bonus the game tables leave unmatched (Suffolk: "Every 20s: 30% (60%)
+// chance to increase this ship's FP by 20% (40%) for 10s"; Épée: "Every 8 times this ship fires her
+// Main Guns: for 4s"; Hasty: "At the start of battle ... for 30s"). Without a duration it stays raw.
+// "The stat buffs gradually decrease to 0 over 20s" (Hero) holds half of that on average.
+const TEXT_PERIOD_RE = /\bevery\s+(\d+(?:\.\d+)?)\s*s\b/i;
+const TEXT_EVENT_FORMS = [
+  [/\bevery\s+(\d+)\s+times this ship fires (?:her|its) main guns\b/i, "onChargeWeaponFire"],
+  [/\bwhen this ship fires (?:her|its) main guns\b/i, "onChargeWeaponFire"],
+  [/\bwhen this ship fires (?:her|its) torpedoes\b/i, "onTorpedoWeaponFire"],
+  [/\b(?:when this ship launches an airstrike|after launching an airstrike)\b/i, "onAllInStrike"]
+];
+const TEXT_START_EVENT_RE = /\b(?:at the start of (?:the )?battle|when the battle starts)\b/i;
+const TEXT_CHANCE_RE = /(\d+(?:\.\d+)?)%\s*(?:\((\d+(?:\.\d+)?)%\)\s*)?chance\b/i;
+const TEXT_DURATION_RE = /\bfor\s+(\d+(?:\.\d+)?)\s*s\b|\bgradually decrease to 0 over\s+(\d+(?:\.\d+)?)\s*s\b/i;
+
+// Triggers the text fallback cannot time: when one is nearer the bonus than a timer, it stays raw.
+const TEXT_UNTIMED_TRIGGER_RE = /\b(?:takes? (?:DMG|damage)|is hit|is attacked|being (?:hit|attacked)|sinks?|shot down|shoots? down|hits? (?:an|the) enemy|HP)\b/i;
+
+// Only stats and damage modifiers: eHP keeps Evasion Rate and DMG Taken buffs to the game's own windows.
+function textWindowFactor(plainText, raw, timing, atMax, cycles, stats) {
+  if ((stats || []).some(key => key === "evasionRate" || key === "damageTaken")) return null;
+  const at = plainText.toLowerCase().indexOf((raw || "").toLowerCase());
+  if (at < 0) return null;
+  const clause = clauseBeforeRaw(plainText, raw) || "";
+  const after = plainText.slice(at + raw.length).split(/\.(?:\s|$)|;/)[0];
+  const duration = TEXT_DURATION_RE.exec(after) || TEXT_DURATION_RE.exec(clause);
+  if (!duration) return null;
+  const length = duration[1] ? Number(duration[1]) : Number(duration[2]) / 2;
+  const chanceMatch = TEXT_CHANCE_RE.exec(clause);
+  const chance = chanceMatch ? Number(atMax && chanceMatch[2] ? chanceMatch[2] : chanceMatch[1]) / 100 : 1;
+  // The trigger nearest the bonus governs it.
+  const last = re => {
+    const flags = re.flags.includes("g") ? re.flags : `${re.flags}g`;
+    const found = [...clause.matchAll(new RegExp(re.source, flags))].pop();
+    return found ? found.index : -1;
+  };
+  const candidates = [
+    { at: last(TEXT_PERIOD_RE), make: m => ({ kind: "periodic", period: Number(m[1]), duration: length, chance }), re: TEXT_PERIOD_RE },
+    ...TEXT_EVENT_FORMS.map(([re, trigger]) => ({ at: last(re), re, make: m => ({ kind: "conditional", trigger, duration: length, chance, cooldown: 0, ...(Number(m[1]) ? { every: Number(m[1]) } : {}) }) })),
+    { at: last(TEXT_START_EVENT_RE), re: TEXT_START_EVENT_RE, make: () => ({ kind: "start", duration: length }) },
+    { at: last(TEXT_UNTIMED_TRIGGER_RE), re: TEXT_UNTIMED_TRIGGER_RE, make: () => null }
+  ].filter(c => c.at >= 0).sort((a, b) => b.at - a.at);
+  if (!candidates.length) return null;
+  const nearest = candidates[0];
+  const window = nearest.make([...clause.matchAll(new RegExp(nearest.re.source, "gi"))].pop());
+  if (!window) return null;
+  const share = uptimeShare(window, fightSeconds(), window.kind === "conditional" && cycles ? cycles() : null);
+  if (timing === "share" || share === null) return share;
+  const instant = activityAt(window, timing.at);
+  return instant === null ? share : instant;
+}
+
+// "If this shield is destroyed" and "if the barrier expires" are the two outcomes of one shield, set
+// by enemy fire the app does not simulate: each counts half (the user's rule). "Destroyed or
+// expires" always happens and counts in full. The outcome nearest the bonus governs it.
+const SHIELD_OUTCOME_RE = /\b(?:shield|barrier)\b[^.:;]{0,40}?\b(?:is |are )?(destroyed|broken|expires?|runs out)\b/gi;
+const SHIELD_EITHER_RE = /\b(?:destroyed|broken),?\s+or\s+(?:if its active duration runs out|(?:when |if )?it expires|expires)\b|\bexpires?\s+or\s+is\s+(?:destroyed|broken)\b/i;
+
+function shieldOutcomeShare(plainText, raw) {
+  const clause = clauseBeforeRaw(plainText, raw) || "";
+  const last = [...clause.matchAll(SHIELD_OUTCOME_RE)].pop();
+  if (!last) return 1;
+  return SHIELD_EITHER_RE.test(clause.slice(last.index)) ? 1 : 0.5;
+}
+
 // Friedrich der Große's "every odd salvo" / "every even salvo" buffs swap at each salvo: each holds
 // about half the fight.
 const ALTERNATE_SALVO_RE = /\bevery (?:odd|even) salvo\b/i;
@@ -1985,6 +2064,33 @@ function randomAlternativeShare(plainDesc, raw, bonuses = []) {
   return 1;
 }
 
+// How much of a skill's stat bonus her own figures take, apart from its timing: 0 when it is not hers
+// or cannot hold (another ship's buff, a condition she fails, a ship close to sinking, a position
+// branch she is not at), a share for alternatives and events, the matching headcount for "for each".
+function selfBonusShare(ship, skill, b, plainDesc, position) {
+  const isSelfScoped = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
+  if (!isSelfScoped) return 0;
+  if (b.raw && OTHER_SHIPS_TARGET_RE.test(b.raw)) return 0;
+  if (b.raw && PICKED_ALLY_RE.test(b.raw) && !SELF_LANGUAGE_RE.test(b.raw) && !b.raw.includes(ship.name)) return 0;
+  if (b.raw && !SELF_LANGUAGE_RE.test(b.raw) && !groupBonusReachesHolder(ship, skill, b)) return 0;
+  if (!equipConditionAllows(ship, plainDesc, b.raw)) return 0;
+  if (lowHpTriggered(plainDesc, b.raw)) return 0;
+  if (OWN_DAMAGE_TAKEN_RE.test(b.raw || "") && (b.stats || []).includes("damageDealt")) return 0;
+  const clause = clauseBeforeRaw(plainDesc, b.raw) || "";
+  if (position) {
+    const condition = positionCondition(ship, clause);
+    if (condition && !condition.has(position)) return 0;
+    if (position === "solo" && SOLO_BREAKS_RE.test(clause)) return 0;
+  }
+  if (OTHER_POSITION_RECIPIENT_RE.test(clause)) return 0;
+  if (b.raw && !HOLDER_WORDS_RE.test(b.raw) && !namesMember(b.raw, ship) && OTHER_RECIPIENT_CLAUSE_RE.test(clause)) return 0;
+  const allyFactor = allyConditionFactor(ship, plainDesc, b.raw);
+  if (!allyFactor) return 0;
+  const alternate = ALTERNATE_SALVO_RE.test(clause) ? 0.5 : 1;
+  return allyFactor * alternate * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses) *
+    enemyLowHpShare(plainDesc, b.raw) * targetEventShare(plainDesc, b.raw) * shieldOutcomeShare(plainDesc, b.raw);
+}
+
 function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, timing = null, incoming = []) {
   const base = computeStats(ship, level, isRetrofit, isFateSim);
   if (!base) return null;
@@ -2006,24 +2112,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
   for (const skill of skills) {
     const plainDesc = skill.description ? stripHtml(skill.description) : "";
     for (const b of (skill.statBonuses || [])) {
-      const isSelfScoped = b.scope === "self" || (b.raw && SELF_LANGUAGE_RE.test(b.raw));
-      if (!isSelfScoped) continue;
-      if (b.raw && OTHER_SHIPS_TARGET_RE.test(b.raw)) continue;
-      if (b.raw && PICKED_ALLY_RE.test(b.raw) && !SELF_LANGUAGE_RE.test(b.raw) && !b.raw.includes(ship.name)) continue;
-      if (b.raw && !SELF_LANGUAGE_RE.test(b.raw) && !groupBonusReachesHolder(ship, skill, b)) continue;
-      if (!equipConditionAllows(ship, plainDesc, b.raw)) continue;
-      if (lowHpTriggered(plainDesc, b.raw)) continue;
-      if (OWN_DAMAGE_TAKEN_RE.test(b.raw || "") && (b.stats || []).includes("damageDealt")) continue;
-      if (position) {
-        const clause = clauseBeforeRaw(plainDesc, b.raw) || "";
-        const condition = positionCondition(ship, clause);
-        if (condition && !condition.has(position)) continue;
-        if (position === "solo" && SOLO_BREAKS_RE.test(clause)) continue;
-      }
-      if (OTHER_POSITION_RECIPIENT_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "")) continue;
-      if (b.raw && !HOLDER_WORDS_RE.test(b.raw) && !namesMember(b.raw, ship) && OTHER_RECIPIENT_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "")) continue;
-      const allyFactor = allyConditionFactor(ship, plainDesc, b.raw);
-      if (!allyFactor) continue;
+      const share = selfBonusShare(ship, skill, b, plainDesc, position);
+      if (!share) continue;
       const dedupeKey = `${skill.name}::${b.raw}::${b.min}::${b.max}`;
       if (seenRaw.has(dedupeKey)) continue;
       seenRaw.add(dedupeKey);
@@ -2033,10 +2123,10 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
         : (typeof b.min === "number" ? b.min : b.max);
       if (typeof amount !== "number") continue;
       const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
-      const factor = timing ? bonusTimingFactor(ship, skill, atMax, amount, timing, procCycles) : null;
-      const alternate = ALTERNATE_SALVO_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "") ? 0.5 : 1;
-      const execute = enemyLowHpShare(plainDesc, b.raw) * targetEventShare(plainDesc, b.raw);
-      const timedAmount = (factor === null ? amount : amount * factor) * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses) * allyFactor * alternate * execute;
+      const factor = timing
+        ? bonusTimingFactor(ship, skill, atMax, amount, timing, procCycles, b.stats) ?? textStartFactor(plainDesc, b.raw, timing) ?? textWindowFactor(plainDesc, b.raw, timing, atMax, procCycles, b.stats)
+        : null;
+      const timedAmount = (factor === null ? amount : amount * factor) * share;
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
           const qualifier = opsiOnly ? { source: modifierQualifier(b.raw).source, target: OPSI_TARGET } : undefined;
@@ -5725,6 +5815,16 @@ function uptimeShare(window, fight, cycles = null) {
     return cycle ? procUptimeShare(window, cycle * (window.every || 1), fight) : null;
   }
   if (window.kind === "start") return Math.min(window.duration, fight) / fight;
+  if (window.kind === "periodic" && !(window.duration > 0)) {
+    // A buff with no end (a stack, or one that lasts the battle) holds from its first success on.
+    let active = 0;
+    let pending = 1;
+    for (let t = window.period; t < fight; t += window.period) {
+      active += pending * window.chance * (fight - t);
+      pending *= 1 - window.chance;
+    }
+    return active / fight;
+  }
   if (window.kind === "periodic") {
     let active = 0;
     for (let t = window.period; t < fight; t += window.period) active += Math.min(window.duration, window.period, fight - t);
@@ -5756,6 +5856,7 @@ function procUptimeShare(window, interval, fight) {
 function activityAt(window, t) {
   if (window.kind === "permanent") return 1;
   if (window.kind === "start") return t < window.duration ? 1 : 0;
+  if (window.kind === "periodic" && !(window.duration > 0)) return 1 - (1 - window.chance) ** Math.floor(t / window.period);
   if (window.kind === "periodic") {
     return t >= window.period && t % window.period < Math.min(window.duration, window.period) ? window.chance : 0;
   }
@@ -5770,10 +5871,19 @@ function windowSignature(window) {
 // with different windows (a skill with two "+10%" on different timers), leave it raw (null).
 // cycles() gives the weapon cycles (weaponCycles) that time the buffs a weapon event procs, asked
 // for only then; without it those stay raw.
-function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing, cycles = null) {
+// stats: the bonus's stat keys. A stat ratio (FP, RLD...) leaves one value in the tables, a DMG or
+// crit modifier two (percent and fraction): that tells apart Foch's periodic +20% ACC/RLD from her
+// permanent +20% DMG.
+function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing, cycles = null, stats = null) {
   const window = skillTiming(ship, skill, atMaxLevel);
   const target = Math.abs(amount);
-  const matches = ((window && window.effects) || []).filter(e => e.values.some(v => Math.abs(v - target) < 0.01));
+  let matches = ((window && window.effects) || []).filter(e => e.values.some(v => Math.abs(v - target) < 0.01));
+  if (stats && new Set(matches.map(windowSignature)).size > 1) {
+    const modifier = stats.every(key => key in COMBAT_MODIFIER_LABELS);
+    const ratio = stats.every(key => !(key in COMBAT_MODIFIER_LABELS));
+    const shaped = matches.filter(e => (modifier && e.values.length === 2) || (ratio && e.values.length === 1));
+    if (shaped.length) matches = shaped;
+  }
   if (!matches.length || new Set(matches.map(windowSignature)).size !== 1) return null;
   const isProc = matches[0].kind === "conditional" && matches[0].cooldown !== undefined;
   const share = uptimeShare(matches[0], fightSeconds(), isProc && cycles ? cycles() : null);

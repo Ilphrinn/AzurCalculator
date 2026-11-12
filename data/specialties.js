@@ -413,9 +413,6 @@ const SPECIALTIES_DATA = {
     "mob",
     "shield"
   ],
-  "326": [
-    "asw"
-  ],
   "329": [
     "buff",
     "aa"
@@ -769,6 +766,9 @@ const SPECIALTIES_DATA = {
     "boss",
     "air"
   ],
+  "558": [
+    "boss"
+  ],
   "559": [
     "boss",
     "mob",
@@ -915,6 +915,10 @@ const SPECIALTIES_DATA = {
   ],
   "623": [
     "heal"
+  ],
+  "626": [
+    "boss",
+    "asw"
   ],
   "628": [
     "buff"
@@ -1234,9 +1238,6 @@ const SPECIALTIES_DATA = {
     "boss",
     "air"
   ],
-  "10053": [
-    "boss"
-  ],
   "10063": [
     "tank"
   ],
@@ -1427,7 +1428,6 @@ const SPECIALTIES_DATA = {
     "tank"
   ],
   "20025": [
-    "boss",
     "buff",
     "aa"
   ],
@@ -1481,7 +1481,8 @@ const SPECIALTIES_DATA = {
     "aa"
   ],
   "20041": [
-    "mob"
+    "mob",
+    "aa"
   ],
   "20042": [
     "tank",
@@ -1664,8 +1665,7 @@ const SPECIALTIES_DATA = {
     "buff"
   ],
   "wiki-n-rnberg-meta": [
-    "buff",
-    "aa"
+    "buff"
   ],
   "wiki-orage": [
     "boss"

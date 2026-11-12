@@ -18798,13 +18798,19 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.4,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 0
           },
           {
             "values": [
@@ -18812,20 +18818,29 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.7,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 0
           },
           {
             "values": [
@@ -18833,7 +18848,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 0
           }
         ]
       },
@@ -19469,7 +19487,9 @@ const SKILL_TIMING_DATA = {
               3
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -19477,7 +19497,9 @@ const SKILL_TIMING_DATA = {
               0.03
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -19542,7 +19564,9 @@ const SKILL_TIMING_DATA = {
               3
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -19550,7 +19574,9 @@ const SKILL_TIMING_DATA = {
               0.03
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -29929,6 +29955,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "duration": 5,
+        "chance": 0.2,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -29936,13 +29965,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 5,
+            "chance": 0.2,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "duration": 5,
+        "chance": 0.4,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -29950,7 +29985,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 5,
+            "chance": 0.4,
+            "cooldown": 0
           }
         ]
       },
@@ -55472,28 +55510,38 @@ const SKILL_TIMING_DATA = {
     },
     "You Can't Escape♪": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ],
         "effects": [
           {
             "values": [
               10
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 6,
+            "chance": 0.7,
+            "cooldown": 0
           }
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ],
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -62696,26 +62744,42 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 10,
+        "chance": 0.4,
+        "cooldown": 0,
+        "every": 3,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 10,
+            "chance": 0.4,
+            "cooldown": 0,
+            "every": 3
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 10,
+        "chance": 0.7,
+        "cooldown": 0,
+        "every": 3,
         "effects": [
           {
             "values": [
               25
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 10,
+            "chance": 0.7,
+            "cooldown": 0,
+            "every": 3
           }
         ]
       },
@@ -69621,8 +69685,10 @@ const SKILL_TIMING_DATA = {
     },
     "Apex Artist": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -69630,39 +69696,43 @@ const SKILL_TIMING_DATA = {
               50
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 0.5,
+            "cooldown": 0
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "sustain": [
           {
             "effect": "heal",
             "target": "restricted",
-            "events": [
-              "onChargeWeaponFire",
-              "onAttach+onStack"
-            ],
             "casterMaxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.5,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "restricted",
-            "events": [
-              "onChargeWeaponFire",
-              "onAttach+onStack"
-            ],
             "quota": 1,
             "casterMaxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -69694,8 +69764,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -69703,39 +69775,43 @@ const SKILL_TIMING_DATA = {
               50
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
           {
             "effect": "heal",
             "target": "restricted",
-            "events": [
-              "onChargeWeaponFire",
-              "onAttach+onStack"
-            ],
             "casterMaxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "restricted",
-            "events": [
-              "onChargeWeaponFire",
-              "onAttach+onStack"
-            ],
             "quota": 1,
             "casterMaxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -80317,7 +80393,10 @@ const SKILL_TIMING_DATA = {
               0.045
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 0
           },
           {
             "values": [
@@ -80341,7 +80420,10 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 0
           },
           {
             "values": [
@@ -80369,7 +80451,10 @@ const SKILL_TIMING_DATA = {
               0.045
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 0
           },
           {
             "values": [
@@ -80393,7 +80478,10 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 0
           },
           {
             "values": [
@@ -95327,24 +95415,32 @@ const SKILL_TIMING_DATA = {
   "20021": {
     "Hex-Principle of Insight": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ]
       },
       "max": 10,
       "id": 19460
     },
     "Hex-Principle of Insight+": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ]
       },
       "max": 10,
       "id": 19460

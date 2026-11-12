@@ -130,7 +130,7 @@ class Timing {
         else if (trigger === "onStartGame" || (trigger === "onAttach" && !args.rant) || isPosition(effect.trigger)) next = { ...next };
         else if (trigger === "onUpdate" && args.time > 0 && !context.period) next = { ...next, period: args.time, chance: (args.rant || 10000) / 10000 };
         else if (trigger === "onAttach" && args.rant && context.period) next = { ...next, chance: context.chance * args.rant / 10000 };
-        else if (trigger === "onAttach" && args.rant && context.proc) next = { ...next, proc: { ...context.proc, chance: context.proc.chance * args.rant / 10000 } };
+        else if ((trigger === "onAttach" || trigger === "onAttach+onStack") && args.rant && context.proc) next = { ...next, proc: { ...context.proc, chance: context.proc.chance * args.rant / 10000 } };
         else if (PROC_EVENTS.has(trigger) || counted) {
           // A weapon event with a chance and a cooldown (Z23: 5% on firing, 5s cooldown): the app
           // times it from that weapon's cycle. "Every 3 times this ship fires" counts firing events.

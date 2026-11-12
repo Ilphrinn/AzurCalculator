@@ -6744,3 +6744,32 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   DPS -3.5%. Specialties unchanged. `npm run check` passes.
 - **Not modelled**: two Flagship-only fleet buffs in one fleet (Nagato and Richelieu) both reach
   it in the Fleet tab, though one ship leads.
+
+## Shields, text windows, endless periodic buffs (2026-11-12)
+
+- **Shield outcomes** (the user's rule, `shieldOutcomeShare`): "if this shield is destroyed" and
+  "if the barrier expires" are the two outcomes of one shield, set by enemy fire: each counts
+  half (Elbe, Mainz, Sakawa, Z13, Tohka, Fancy, New Orleans). "Destroyed or expires" (Kaguya, Felix
+  Schultz, Noshiro μ) counts in full.
+- **Value shape** (`bonusTimingFactor(..., stats)`): when a value matches several windows, a stat
+  ratio (FP, RLD...) keeps the single-value entries and a DMG or crit modifier the two-value ones
+  (percent and fraction): Foch's periodic +20% ACC/RLD no longer shares her permanent +20% DMG.
+- **Text windows** (`textStartFactor`, `textWindowFactor`), only when the game tables give the
+  bonus no window: "for 80s after battle starts" (Amazon), "Every 20s: 30% (60%) chance ... for
+  10s" (Suffolk, Z43, Z14), "Every 8 times this ship fires her Main Guns: for 4s" (Épée), "When this
+  ship launches an airstrike, 50% (100%) chance ... for 6s" (Max Immelmann), "At the start of
+  battle ... for 30s" (Hasty), "gradually decrease to 0 over 20s" as half that (Hero). The trigger
+  nearest the bonus governs; a nearer untimed one (being hit, a kill, HP, a shot-down plane) keeps
+  it raw; the duration is read in the same sentence, before any ";" (Kursk's kill branch "for 12s"
+  is not her solo branch's). Stats and damage modifiers only: Evasion Rate and DMG Taken stay on
+  the game's own windows for eHP (Napoli's two non-stacking smokescreens read 3x eHP otherwise).
+- **Import**: a chance on an "onAttach+onStack" cast inside a proc now multiplies the proc
+  (Devonshire: every 3 firings, 70%, 10s).
+- **Periodic with no duration** (a stack, or a buff kept until the battle ends: 58 windows) read
+  0% active; they now hold from the first success (Ognevoy's "the first time ... until the
+  battle ends", Ryu Lion's crit after her opening 10s).
+- **Measured** (lv125, Recommended, UR, reference boss), against 40b19c0: the timing fixes take
+  Ryuujou -26% (her airstrike cycle passes 20s: 2 strikes in a 60s fight instead of 3), Devonshire
+  -17%, Kansas -17%, Z43 -16%, Épée -15%, Max Immelmann -15%, Hasty -14%, Noshiro μ -10.5%; the
+  endless periodic fix brings 23 figures up (Ryu Lion +16%, Ognevoy +10%, L'Indomptable eHP +15%).
+  Specialties regenerated. `npm run check` passes.
