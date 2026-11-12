@@ -6851,3 +6851,10 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   start window of N gun cycles, `FIRST_VOLLEYS_RE`), Kongou μ -20% (stacked), Ulrich von Hutten -50%
   with her -45% main gun DMG, both only when she is not the Flagship (her best position takes
   that). Gangut +42%, Ulrich +14%, Kongou μ +8%. `npm run check` passes.
+- **More mislabelled keys** (same day, a cross-check of the stats each raw names against its keys):
+  "Anti-Air Gun efficiency" read as the AA stat (Belfast, Seattle, William D. Porter: now
+  `weaponEfficiency`, and "anti-air gun" is an AA Gun source word, or the efficiency would reach
+  every weapon); Fu Shun's two crit rate bonuses had no key at all (her "of this ship's Main Gun and
+  Missiles" names its source after the stat, unread, so it reaches her torpedoes too); Jintsuu's
+  torpedo crit chance and crit damage read as +TRP for the fleet; Yat Sen's "Evasion Rate" read as
+  EVA. AA: William D. Porter +10.5%, Belfast +8%; Fu Shun DPS +9%.

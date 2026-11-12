@@ -22712,7 +22712,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "antiair"
+              "weaponEfficiency"
             ],
             "min": 15,
             "max": 30,
@@ -62172,7 +62172,9 @@ const SHIPS_DATA = [
         "isNewOnRetrofit": false,
         "statBonuses": [
           {
-            "stats": [],
+            "stats": [
+              "critRate"
+            ],
             "unmapped": [
               "critical   rate"
             ],
@@ -62195,7 +62197,9 @@ const SHIPS_DATA = [
         "isNewOnRetrofit": false,
         "statBonuses": [
           {
-            "stats": [],
+            "stats": [
+              "critRate"
+            ],
             "unmapped": [
               "crit   rate   of   this   ship's   main   gun",
               "missiles"
@@ -98837,7 +98841,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "torpedo"
+              "critRate"
             ],
             "unmapped": [
               "destroyers in the same fleet"
@@ -98850,7 +98854,7 @@ const SHIPS_DATA = [
           },
           {
             "stats": [
-              "torpedo"
+              "critDamage"
             ],
             "min": 5,
             "max": 30,
@@ -174997,7 +175001,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "antiair"
+              "weaponEfficiency"
             ],
             "min": 5,
             "max": 15,
@@ -210624,7 +210628,7 @@ const SHIPS_DATA = [
           },
           {
             "stats": [
-              "antiair"
+              "weaponEfficiency"
             ],
             "min": 20,
             "max": 50,
@@ -211736,7 +211740,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "evasion"
+              "evasionRate"
             ],
             "min": 15,
             "max": 30,

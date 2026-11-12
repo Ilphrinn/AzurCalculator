@@ -1322,6 +1322,7 @@ const MODIFIER_SOURCES = {
   "main gun": "Main Gun",
   "secondary gun": "Secondary Gun",
   "aa gun": "AA Gun",
+  "anti-air gun": "AA Gun",
   torpedo: "Torpedo",
   torpedoes: "Torpedo",
   airstrike: "Airstrike",

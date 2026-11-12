@@ -340,6 +340,10 @@ const SPECIALTIES_DATA = {
   "250": [
     "tank"
   ],
+  "254": [
+    "boss",
+    "asw"
+  ],
   "255": [
     "buff"
   ],
@@ -1185,7 +1189,6 @@ const SPECIALTIES_DATA = {
     "air"
   ],
   "732": [
-    "boss",
     "shield"
   ],
   "733": [
@@ -1231,9 +1234,6 @@ const SPECIALTIES_DATA = {
   ],
   "764": [
     "buff"
-  ],
-  "10041": [
-    "asw"
   ],
   "10051": [
     "boss",
