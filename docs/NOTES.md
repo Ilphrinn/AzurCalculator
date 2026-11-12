@@ -6634,3 +6634,85 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   -19%. Fleet: Zuikaku + Shoukaku + Taihou 1876, + Taihou + Hakuryuu 1592 (three Sakura ships only);
   Kaga + Akagi μ 1419. Specialties regenerated (Acasta, Hibiki, Albion, Yorktown II lose "boss").
   `npm run check` passes.
+
+## Inflated self bonuses: missed combos, group bonuses, low HP (2026-11-12)
+
+- **Asked by the user** (`todo`, second pass): re-check every ship for bonuses that do not apply.
+  Audit: every self bonus `computeEffectiveStats` counts, with its clause and timing window. Event
+  triggers (`conditional` windows) have no uptime, so they counted in full.
+- **Missed ally conditions**: `ALLY_CONDITION_FORMS` now also reads "when paired with X" (Akatsuki,
+  Saraana), "in (the) same fleet with/as X" (Blanc, Isokaze, Maillé Brézé), "if/when there is X in
+  the same fleet / the fleet / your Vanguard / your Main Fleet", "if X is present in the fleet"
+  (Neptune), "for each X in the same fleet". "In your Vanguard" / "Main Fleet" count only members
+  of that role (`allyScopeRole`). A headcount may start with a number ("3 ships in your Vanguard",
+  still assumed met); "2 (or more)" reads as "2 or more". 39 bonuses moved to combos (Reno, Sovetsky
+  Soyuz, Mecklenburg, Franklin, Royal Oak, Regensburg, Hermione, Z28...).
+- **Group bonuses on their holder** (`groupBonusReachesHolder`): a "self" bonus worded for "your X"
+  counts only if the holder is one of them, read by `synergyRecipients` as the Fleet tab does;
+  "your other ..." never, "your Flagship" only for a Main Fleet ship. Removed: Bismarck and Nagato's
+  +20% DMG to their nation's Carriers, Bunker Hill (EU BBs/DDs), Yura (SE DDs), Fargo, Dido μ and
+  William D. Porter (Flagship), Cleveland META (other CLs), Bristol (Allen M. Sumner-class).
+- **Low HP triggers** (`lowHpTriggered`, also in `fleetSynergies`): "HP falls below / is below X%",
+  "DMG that would sink her" never count, as Acasta's ally sinking. The HP condition nearest the
+  bonus governs (Sakawa's "2) if HP is above 25%" counts); "30s after the battle starts, or when..."
+  (Le Hardi) still counts. "HP above X%" conditions count (a healthy ship). 37 bonuses removed
+  (Neptune +30% RLD, Queen Elizabeth META +50% secondary efficiency, Giulio Cesare META, Royal Oak's
+  -18% DMG taken, L'Indomptable's unsinkable buffs).
+- **Measured** (lv125, Recommended, UR, reference boss): 85 figures change, 84 down: Blanc DPS -20%,
+  Nagato -14%, Reno -14%, Akatsuki/Ikazuchi/Inazuma -11%, Sovetsky Soyuz -10%, Bismarck -9.5% (her
+  eHP +12%: Optimize moves to survival gear). Specialties regenerated. `npm run check` passes.
+- **Left as is**: kill triggers ("when this ship sinks an enemy", 40-odd bonuses, Minneapolis +30% RLD),
+  shield destroyed/expired branches, both branches of a position choice counted together (Momo's
+  frontmost / not frontmost, Mainz, Bremerton, Queen Anne's Revenge), Momo's and Z14's buffs for
+  another ship worded "their"/"this ship's".
+
+## Second pass: procs with a chance, sources, bands (2026-11-12)
+
+- **Asked by the user**: another pass over every ship. The user expected leader buffs to reach
+  the leader too: the game tables say yes for nation-wide ones (Nagato, Richelieu:
+  `TargetNationalityFriendly`, already counted) and no for hull-filtered ones (Bunker Hill's
+  `ship_type_list [5]`, Bismarck/Nagato's `[6,7]`), which confirms the group rule above. Fargo, Dido μ,
+  William D. Porter (`TargetPlayerFlagShip`), Cleveland META (`exceptCaster`) and Bristol (tag
+  `Allen M. Sumner-class`) confirmed the same way.
+- **Procs with a chance** were counted in full ("Triggered by firing: not timed"): Z23 and Javelin
+  +60% FP on 5% of firings, Laffey +40% FP/RLD/EVA, York +40% FP on 20%. `import-skill-timing.js` now
+  keeps, on a window reached through one weapon event (`PROC_EVENTS`: onFire, main gun salvo,
+  torpedo launch, airstrike), the cast's `chance` (`rant`), `cooldown` (its `time`) and the buff's
+  `duration`; "every N times this ship fires" (a `BattleBuffCount` on onFire) is `every: N`.
+  Client (`battlebuffcastskill.lua`): a failed roll costs nothing, the cooldown starts on a
+  success. `onFire` comes from gun weapon units only: AA (`ON_ANTIAIR_FIRE_NEAR`) and torpedoes
+  (`ON_TORPEDO_FIRE`) override it (`battleweaponunit.lua`), so it follows the main gun cycle (a
+  lower bound: secondary guns fire it too).
+- **App**: `procUptimeShare` (renewal: cooldown rounded up to the next event, then a geometric
+  wait; the first success about interval / chance in), fed by `bareWeaponCycles` (Reload before
+  skill buffs, the timed buffs being among them), asked for only when a bonus matches a proc.
+  The fleet synergies time a giver's procs the same way; the damage chart takes their expected
+  value. Heals and shields on a weapon event now count `chance` x casts, capped by the cooldown
+  (`sustainCount`). The modal's timing line gives "5% chance on firing, for 8s, 5s cooldown:
+  active N%". Proc DMG Taken buffs now have an uptime, so they enter eHP (Princeton META).
+- **Sources**: "aviation" and "shelling" were not source words, so Princeton's "aviation DMG
+  taken -70%" and Dmitri Donskoi's "shelling DMG taken" read as all damage. Added to
+  `MODIFIER_SOURCES` (aviation -> aircraft weapons, shelling -> guns); source-bound DMG Taken stays
+  out of eHP as before.
+- **Also**: Charybdis' "increases her damage taken" was extracted as DMG dealt +5%
+  (`OWN_DAMAGE_TAKEN_RE`); "Health falls below" now counts as low HP (Washington, Gascogne);
+  Friedrich der Große's HP bands count only the one from 100% (`HP_BAND_RE`) and her odd/even
+  salvo buffs half each (`ALTERNATE_SALVO_RE`); "attacks an enemy with 25% or less HP" counts for
+  that share (`enemyLowHpShare`: Joffre, Formidable μ).
+- **Measured** (lv125, Recommended, UR, reference boss), against the first pass: 33 figures move,
+  2 up: Ayanami and Laffey DPS -25%, Friedrich der Große -20%, Washington -13%, Z23 -13%,
+  Formidable μ -12.5%, Mikasa -11%, York -10%; eHP Houston -23%, Shigure -23%, Javelin -21%,
+  Kamikaze -20%, Dmitri Donskoi -15%; Princeton META eHP +4%, Ayanami AA +6% (Optimize's new pick).
+  Specialties regenerated. `npm run check` passes.
+- **Decided by the user** (`targetEventShare`): kill triggers ("when this ship sinks an enemy",
+  "after this ship sinks 3 enemies", 34 bonuses) count against mob fleets only (`isMobTarget`: a
+  target with an `hpShare`); a timer beside the kill ("every 10s, and every time...": Roma, Memphis
+  META) still counts; "sinks an enemy fleet" (sortie nodes) is not a kill. Shot-down-aircraft
+  triggers (38: Curacoa, the Akizuki class, Seattle) scale with min(1, `airThreatFactor`), so the
+  reference is unchanged and 14-1 (air share 0.013) nearly drops them. Procs on being hit
+  (Noire, Repulse, Chikuma) stay at full value. Applied to fleet synergies too. Measured vs the
+  reference boss: Minneapolis -12.6%, Lützow -5%, Duquesne -4.5%, 31 figures down, none up.
+  Drake's "frontmost: all 3 stacks at once" is after the bonus, so she loses her stacks against a
+  boss too. `npm run check` passes.
+- **Still open**: sortie battle-index conditions (Shinano's "1st and 2nd battles"); shield and
+  position branches (Momo's frontmost / not frontmost both counted).

@@ -620,14 +620,20 @@ const SKILL_TIMING_DATA = {
               0.01
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -635,7 +641,10 @@ const SKILL_TIMING_DATA = {
               0.04
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -688,14 +697,20 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -911,26 +926,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.04,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.04,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.04,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.04,
+            "cooldown": 5
           }
         ]
       },
@@ -1367,26 +1394,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -1397,26 +1436,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -2897,26 +2948,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 15,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 15,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 15,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 15,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
@@ -2927,26 +2990,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 15,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 15,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 15,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 15,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
@@ -3661,7 +3736,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.04,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 12
           }
         ]
       },
@@ -3673,7 +3750,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.1,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 12
           }
         ]
       },
@@ -3689,7 +3768,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.04,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 12
           }
         ]
       },
@@ -3701,7 +3782,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.1,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 12
           }
         ]
       },
@@ -4798,7 +4881,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 3,
             "duration": 2,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -4845,7 +4930,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 3,
             "duration": 2,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -4877,7 +4964,10 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 3,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -4956,7 +5046,10 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 3,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -5157,26 +5250,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -5349,6 +5454,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5356,13 +5464,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5370,7 +5484,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -5493,6 +5610,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5500,13 +5620,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5514,7 +5640,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -5575,6 +5704,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5582,13 +5714,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5596,7 +5734,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -5677,6 +5818,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5684,13 +5828,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5698,7 +5848,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -5711,6 +5864,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.4,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5718,13 +5874,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.7,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5732,7 +5894,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 0
           }
         ]
       },
@@ -5795,6 +5960,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5802,13 +5970,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -5816,7 +5990,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -7403,26 +7580,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -7433,26 +7622,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -9253,7 +9454,9 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 0.45,
+            "cooldown": 5
           }
         ]
       },
@@ -9265,7 +9468,9 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 0.75,
+            "cooldown": 5
           }
         ]
       },
@@ -9385,26 +9590,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
@@ -9415,26 +9632,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.2,
+        "cooldown": 10,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.2,
+            "cooldown": 10
           }
         ]
       },
@@ -9860,6 +10089,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.4,
+        "cooldown": 12,
         "barrage": true,
         "effects": [
           {
@@ -9867,7 +10099,10 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 12
           }
         ],
         "fires": [
@@ -9889,6 +10124,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.7,
+        "cooldown": 12,
         "barrage": true,
         "effects": [
           {
@@ -9896,7 +10134,10 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 12
           }
         ],
         "fires": [
@@ -9922,6 +10163,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.4,
+        "cooldown": 12,
         "barrage": true,
         "effects": [
           {
@@ -9929,7 +10173,10 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.4,
+            "cooldown": 12
           }
         ],
         "fires": [
@@ -9951,6 +10198,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.7,
+        "cooldown": 12,
         "barrage": true,
         "effects": [
           {
@@ -9958,7 +10208,10 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.7,
+            "cooldown": 12
           }
         ],
         "fires": [
@@ -11533,6 +11786,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -11540,13 +11796,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -11554,7 +11816,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -11572,7 +11837,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -11584,7 +11851,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.08,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -11605,7 +11874,9 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -11624,7 +11895,9 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -11632,7 +11905,9 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "maxHP": 0.012,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -11649,7 +11924,9 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "maxHP": 0.08,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -11668,7 +11945,9 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -11676,7 +11955,9 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "maxHP": 0.03,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -11853,6 +12134,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "fires": [
           {
@@ -11873,6 +12157,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "fires": [
           {
@@ -11897,6 +12184,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -11904,13 +12194,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -11918,7 +12214,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -12015,6 +12314,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "sustain": [
           {
             "effect": "shield",
@@ -12022,13 +12324,18 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.05,
             "duration": 8,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "sustain": [
           {
             "effect": "shield",
@@ -12036,7 +12343,9 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.1,
             "duration": 8,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12047,6 +12356,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "sustain": [
           {
             "effect": "shield",
@@ -12054,13 +12366,18 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.05,
             "duration": 8,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "sustain": [
           {
             "effect": "shield",
@@ -12068,7 +12385,9 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.1,
             "duration": 8,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12213,6 +12532,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12220,13 +12542,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12234,7 +12562,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -12353,12 +12684,16 @@ const SKILL_TIMING_DATA = {
     },
     "Don't Move An Inch!": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike"
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ]
       },
       "max": 10,
       "id": 12580
@@ -12385,6 +12720,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "values": [
+              3.5,
+              0.035
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12409,6 +12755,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
+          },
+          {
+            "values": [
+              8,
+              0.08
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12421,6 +12778,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12428,13 +12788,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12442,7 +12808,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12453,6 +12822,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12460,13 +12832,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12474,7 +12852,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12485,6 +12866,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12492,13 +12876,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -12506,7 +12896,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -12903,26 +13296,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 12,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 12,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 12,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 12,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -12933,26 +13338,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 12,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 12,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 12,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 12,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -13293,7 +13710,9 @@ const SKILL_TIMING_DATA = {
             "target": "lowest-main",
             "maxHP": 0.015,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -13340,7 +13759,9 @@ const SKILL_TIMING_DATA = {
             "target": "lowest-main",
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -13377,26 +13798,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.06,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.06,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.06,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.06,
+            "cooldown": 5
           }
         ]
       },
@@ -13407,26 +13840,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.06,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.06,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.06,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.06,
+            "cooldown": 5
           }
         ]
       },
@@ -13534,26 +13979,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.04,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.04,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.04,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.04,
+            "cooldown": 5
           }
         ]
       },
@@ -16503,7 +16960,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 6,
+            "chance": 0.5,
+            "cooldown": 10
           }
         ]
       },
@@ -16531,7 +16991,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 10
           }
         ]
       },
@@ -16763,26 +17226,34 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               1.5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               6
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -17505,6 +17976,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.5,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -17512,7 +17986,10 @@ const SKILL_TIMING_DATA = {
               50
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -17556,6 +18033,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -17563,7 +18043,10 @@ const SKILL_TIMING_DATA = {
               50
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -17807,26 +18290,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -17847,7 +18342,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -17924,7 +18422,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -17995,8 +18496,10 @@ const SKILL_TIMING_DATA = {
   "221": {
     "I'll Share My Luck With You, Chirp!": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "sustain": [
           {
@@ -18005,7 +18508,10 @@ const SKILL_TIMING_DATA = {
             "quota": 2,
             "casterMaxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 0.5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -18013,7 +18519,10 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "casterMaxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 0.5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -18021,7 +18530,9 @@ const SKILL_TIMING_DATA = {
             "quota": 3,
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -18075,8 +18586,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "sustain": [
           {
@@ -18085,7 +18598,10 @@ const SKILL_TIMING_DATA = {
             "quota": 2,
             "casterMaxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 0.5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -18093,7 +18609,10 @@ const SKILL_TIMING_DATA = {
             "quota": 1,
             "casterMaxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 0.5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -18101,7 +18620,9 @@ const SKILL_TIMING_DATA = {
             "quota": 3,
             "maxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -18206,7 +18727,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -18218,7 +18741,9 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.08,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -18229,26 +18754,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -18437,6 +18974,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -18444,13 +18984,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -18458,7 +19004,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -18657,6 +19206,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 12,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -18664,13 +19216,19 @@ const SKILL_TIMING_DATA = {
               0.04
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 12,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 12,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -18678,7 +19236,10 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 12,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -19372,26 +19933,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -19402,26 +19975,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               60
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -23058,26 +23643,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.04,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.04,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.04,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               50
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.04,
+            "cooldown": 5
           }
         ]
       },
@@ -23683,13 +24280,19 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "duration": 10,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -23697,20 +24300,29 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "duration": 10,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -23718,7 +24330,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -24245,13 +24860,19 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               16
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           },
           {
             "values": [
@@ -24259,20 +24880,29 @@ const SKILL_TIMING_DATA = {
               0.16
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           },
           {
             "values": [
@@ -24280,7 +24910,10 @@ const SKILL_TIMING_DATA = {
               0.4
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -24291,13 +24924,19 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               16
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           },
           {
             "values": [
@@ -24305,20 +24944,29 @@ const SKILL_TIMING_DATA = {
               0.16
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onFire",
+        "duration": 8,
+        "chance": 0.05,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           },
           {
             "values": [
@@ -24326,7 +24974,10 @@ const SKILL_TIMING_DATA = {
               0.4
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "duration": 8,
+            "chance": 0.05,
+            "cooldown": 5
           }
         ]
       },
@@ -25307,6 +25958,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.3,
+        "cooldown": 6,
         "effects": [
           {
             "values": [
@@ -25314,13 +25968,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.3,
+            "cooldown": 6
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 8,
+        "chance": 0.6,
+        "cooldown": 6,
         "effects": [
           {
             "values": [
@@ -25328,7 +25988,10 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 0.6,
+            "cooldown": 6
           }
         ]
       },
@@ -28516,40 +29179,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               4
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               10
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -28560,40 +29241,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               4
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               10
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -30153,6 +30852,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 5,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "fires": [
           {
@@ -30170,6 +30872,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "fires": [
           {
@@ -30191,6 +30896,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 5,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "fires": [
           {
@@ -30208,6 +30916,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "fires": [
           {
@@ -30975,6 +31686,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 2,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -30982,13 +31696,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 2,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 5,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -30996,7 +31716,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -33746,6 +34469,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -33753,14 +34478,18 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -33768,7 +34497,9 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -33792,6 +34523,8 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -33799,14 +34532,18 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -33814,7 +34551,9 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -33859,14 +34598,18 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -33874,7 +34617,9 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -33934,14 +34679,18 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -33949,7 +34698,9 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -34098,6 +34849,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -34105,14 +34858,18 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -34120,7 +34877,9 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -34144,6 +34903,8 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -34151,14 +34912,18 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -34166,7 +34931,9 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -34614,7 +35381,10 @@ const SKILL_TIMING_DATA = {
               1.5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -34644,7 +35414,10 @@ const SKILL_TIMING_DATA = {
               6
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -35296,8 +36069,10 @@ const SKILL_TIMING_DATA = {
   "426": {
     "Swirling Cherry Blossoms": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ],
         "sustain": [
           {
             "effect": "heal",
@@ -35305,7 +36080,10 @@ const SKILL_TIMING_DATA = {
             "quota": 3,
             "casterMaxHP": 0.024,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 1,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -35325,7 +36103,10 @@ const SKILL_TIMING_DATA = {
             "quota": 3,
             "casterMaxHP": 0.012,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 1,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -35342,8 +36123,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrike",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrike"
+        ],
         "sustain": [
           {
             "effect": "heal",
@@ -35351,7 +36134,10 @@ const SKILL_TIMING_DATA = {
             "quota": 3,
             "casterMaxHP": 0.06,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 1,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -35371,7 +36157,10 @@ const SKILL_TIMING_DATA = {
             "quota": 3,
             "casterMaxHP": 0.03,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 1,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -36557,7 +37346,10 @@ const SKILL_TIMING_DATA = {
               8
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -36574,7 +37366,10 @@ const SKILL_TIMING_DATA = {
               18
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -36595,7 +37390,10 @@ const SKILL_TIMING_DATA = {
               8
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -36612,7 +37410,10 @@ const SKILL_TIMING_DATA = {
               18
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -36786,11 +37587,17 @@ const SKILL_TIMING_DATA = {
     "Curtain of Rime": {
       "1": {
         "kind": "conditional",
-        "trigger": "onChargeWeaponFire"
+        "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onChargeWeaponFire"
+        "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "max": 10,
       "id": 14150
@@ -37853,7 +38660,9 @@ const SKILL_TIMING_DATA = {
               0.6
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -37887,7 +38696,9 @@ const SKILL_TIMING_DATA = {
               0.6
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -39241,14 +40052,18 @@ const SKILL_TIMING_DATA = {
             "target": "main",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "vanguard",
             "maxHP": 0.015,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -39264,14 +40079,18 @@ const SKILL_TIMING_DATA = {
             "target": "main",
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "vanguard",
             "maxHP": 0.07,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -40276,26 +41095,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -40344,6 +41175,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -40351,13 +41185,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 10,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -40365,7 +41205,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -40466,6 +41309,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -40474,13 +41320,19 @@ const SKILL_TIMING_DATA = {
               0.4
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -40489,7 +41341,10 @@ const SKILL_TIMING_DATA = {
               0.7
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -44323,7 +45178,9 @@ const SKILL_TIMING_DATA = {
             "target": "lowest-main",
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "shield",
@@ -44331,14 +45188,18 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.015,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -44367,7 +45228,9 @@ const SKILL_TIMING_DATA = {
             "target": "lowest-main",
             "maxHP": 0.08,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "shield",
@@ -44375,14 +45238,18 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.06,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.08,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -44999,7 +45866,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 6,
             "duration": 8,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "wall",
@@ -45043,7 +45912,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 6,
             "duration": 8,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "wall",
@@ -48437,11 +49308,17 @@ const SKILL_TIMING_DATA = {
     "Meteoric Hope": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAllInStrikeSteady"
+        "trigger": "onAllInStrikeSteady",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAllInStrikeSteady"
+        "trigger": "onAllInStrikeSteady",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "max": 10,
       "id": 15320
@@ -51779,11 +52656,17 @@ const SKILL_TIMING_DATA = {
     "Inheritor's Will": {
       "1": {
         "kind": "conditional",
-        "trigger": "onChargeWeaponFire"
+        "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onChargeWeaponFire"
+        "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "max": 10,
       "id": 15840
@@ -52720,7 +53603,9 @@ const SKILL_TIMING_DATA = {
               0.01
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -52755,7 +53640,9 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -53209,7 +54096,10 @@ const SKILL_TIMING_DATA = {
               0.01
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -53226,7 +54116,10 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -54201,7 +55094,10 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -54231,7 +55127,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -54249,6 +55148,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -54257,7 +55158,9 @@ const SKILL_TIMING_DATA = {
               0.005
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -54276,6 +55179,8 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -54284,7 +55189,9 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -55326,6 +56233,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 10,
+        "chance": 0.3,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -55334,7 +56244,10 @@ const SKILL_TIMING_DATA = {
               0.035
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.3,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -55361,6 +56274,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 10,
+        "chance": 0.5,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -55369,7 +56285,10 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -55398,15 +56317,20 @@ const SKILL_TIMING_DATA = {
     },
     "Fortitude of Ice": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -55415,20 +56339,28 @@ const SKILL_TIMING_DATA = {
             "target": "restricted",
             "maxHP": 0.035,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 0.5,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -55437,7 +56369,10 @@ const SKILL_TIMING_DATA = {
             "target": "restricted",
             "maxHP": 0.08,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 0.5,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -55868,8 +56803,10 @@ const SKILL_TIMING_DATA = {
   "591": {
     "A Good Girl's Caprice": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -55878,7 +56815,10 @@ const SKILL_TIMING_DATA = {
               0.035
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -55921,8 +56861,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -55931,7 +56873,10 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -56673,7 +57618,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 5,
+            "chance": 0.7,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -56682,7 +57630,18 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.015,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 0.5,
+            "cooldown": 0
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 0.7,
+            "cooldown": 0
           }
         ]
       },
@@ -56704,7 +57663,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -56713,7 +57675,18 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.015,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 0.8,
+            "cooldown": 0
+          },
+          {
+            "effect": "heal",
+            "target": "self",
+            "maxHP": 0.015,
+            "kind": "conditional",
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -57924,8 +58897,10 @@ const SKILL_TIMING_DATA = {
     },
     "Don't Mess With My Best Buds!": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -57934,7 +58909,21 @@ const SKILL_TIMING_DATA = {
               0.04
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.7,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              4,
+              0.04
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.45,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -57964,8 +58953,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -57974,7 +58965,21 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              10,
+              0.1
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 0.75,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -59920,7 +60925,9 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.01,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -59961,7 +60968,9 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.01,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -59972,6 +60981,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 6,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -59980,7 +60992,10 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -60003,6 +61018,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 6,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -60011,7 +61029,10 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -61674,27 +62695,27 @@ const SKILL_TIMING_DATA = {
     "Slayer Mode": {
       "1": {
         "kind": "conditional",
-        "trigger": "onBattleBuffCount",
+        "trigger": "onFire",
         "effects": [
           {
             "values": [
               15
             ],
             "kind": "conditional",
-            "trigger": "onBattleBuffCount"
+            "trigger": "onFire"
           }
         ]
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onBattleBuffCount",
+        "trigger": "onFire",
         "effects": [
           {
             "values": [
               25
             ],
             "kind": "conditional",
-            "trigger": "onBattleBuffCount"
+            "trigger": "onFire"
           }
         ]
       },
@@ -62382,28 +63403,38 @@ const SKILL_TIMING_DATA = {
     },
     "Rising Passion!": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "effects": [
           {
             "values": [
               2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onChargeWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onChargeWeaponFire"
+        ],
         "effects": [
           {
             "values": [
               7
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -62884,7 +63915,20 @@ const SKILL_TIMING_DATA = {
               0.045
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              4.5,
+              0.045
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -62927,7 +63971,20 @@ const SKILL_TIMING_DATA = {
               0.12
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              12,
+              0.12
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -65784,14 +66841,18 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -65836,14 +66897,18 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.03,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.03,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -65889,14 +66954,18 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -65941,14 +67010,18 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": 0.03,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.03,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -67159,7 +68232,10 @@ const SKILL_TIMING_DATA = {
               0.015
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -67167,7 +68243,10 @@ const SKILL_TIMING_DATA = {
               0.015
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -67186,7 +68265,10 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -67194,7 +68276,10 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -67641,11 +68726,17 @@ const SKILL_TIMING_DATA = {
     "Simple-Yet-Flashy DIY": {
       "1": {
         "kind": "conditional",
-        "trigger": "onTorpedoWeaponFire"
+        "trigger": "onTorpedoWeaponFire",
+        "duration": 1,
+        "chance": 1,
+        "cooldown": 0
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onTorpedoWeaponFire"
+        "trigger": "onTorpedoWeaponFire",
+        "duration": 1,
+        "chance": 1,
+        "cooldown": 0
       },
       "max": 10,
       "id": 150740
@@ -69856,14 +70947,18 @@ const SKILL_TIMING_DATA = {
             "bullets": 5,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -69888,14 +70983,18 @@ const SKILL_TIMING_DATA = {
             "bullets": 10,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "lowest-vanguard",
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -70528,7 +71627,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 15,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -70579,7 +71681,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 15,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -71073,6 +72178,8 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 0.5,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -71080,20 +72187,26 @@ const SKILL_TIMING_DATA = {
               4
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 0
           },
           {
             "values": [
               4
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -71101,14 +72214,18 @@ const SKILL_TIMING_DATA = {
               4
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               4
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -72214,6 +73331,15 @@ const SKILL_TIMING_DATA = {
             "values": [
               4.5
             ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              4.5
+            ],
             "kind": "permanent"
           }
         ],
@@ -72282,6 +73408,15 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              12
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -73305,6 +74440,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              4,
+              0.04
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -73348,6 +74494,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              10,
+              0.1
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -73395,6 +74552,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              4,
+              0.04
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -73438,6 +74606,17 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              10,
+              0.1
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -74082,7 +75261,9 @@ const SKILL_TIMING_DATA = {
             "quota": 4,
             "maxHP": 0.01,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -74115,7 +75296,9 @@ const SKILL_TIMING_DATA = {
             "quota": 4,
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -75814,7 +76997,10 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -75852,7 +77038,10 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -76260,8 +77449,10 @@ const SKILL_TIMING_DATA = {
   "731": {
     "Freeflowing Air Raid": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -76270,14 +77461,20 @@ const SKILL_TIMING_DATA = {
               0.01
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 15,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -76296,8 +77493,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -76306,14 +77505,20 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 15,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -76579,6 +77784,18 @@ const SKILL_TIMING_DATA = {
       },
       "max": 10,
       "id": 152220
+    }
+  },
+  "757": {
+    "Flank Defense": {
+      "1": {
+        "kind": "permanent"
+      },
+      "10": {
+        "kind": "permanent"
+      },
+      "max": 10,
+      "id": 1061
     }
   },
   "10001": {
@@ -77358,6 +78575,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.15,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -77365,13 +78585,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.15,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.25,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -77379,7 +78605,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 0.25,
+            "cooldown": 0
           }
         ]
       },
@@ -77985,11 +79214,17 @@ const SKILL_TIMING_DATA = {
     "The Wave of a Pleasant Dream": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAllInStrikeSteady"
+        "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 0.7,
+        "cooldown": 0
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAllInStrikeSteady"
+        "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0
       },
       "max": 10,
       "id": 105120
@@ -78286,7 +79521,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -78309,7 +79547,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -78370,6 +79611,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "sustain": [
           {
@@ -78377,7 +79621,10 @@ const SKILL_TIMING_DATA = {
             "target": "restricted",
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 3,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -78404,6 +79651,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "sustain": [
           {
@@ -78411,7 +79661,10 @@ const SKILL_TIMING_DATA = {
             "target": "restricted",
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 3,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -78442,6 +79695,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "sustain": [
           {
@@ -78449,7 +79705,10 @@ const SKILL_TIMING_DATA = {
             "target": "restricted",
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 3,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -78476,6 +79735,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "sustain": [
           {
@@ -78483,7 +79745,10 @@ const SKILL_TIMING_DATA = {
             "target": "restricted",
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 3,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -81120,7 +82385,7 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onBattleBuffCount",
+          "conditional:onFire",
           "volleys"
         ],
         "barrage": true
@@ -81128,7 +82393,7 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onBattleBuffCount",
+          "conditional:onFire",
           "volleys"
         ],
         "barrage": true
@@ -81212,7 +82477,7 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "mixed",
         "parts": [
-          "conditional:onBattleBuffCount",
+          "conditional:onFire",
           "volleys"
         ],
         "barrage": true
@@ -81220,7 +82485,7 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "mixed",
         "parts": [
-          "conditional:onBattleBuffCount",
+          "conditional:onFire",
           "volleys"
         ],
         "barrage": true
@@ -81250,10 +82515,23 @@ const SKILL_TIMING_DATA = {
     },
     "Take to the Skies": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
+          {
+            "values": [
+              8,
+              0.08
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
           {
             "values": [
               8,
@@ -81271,7 +82549,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 15,
             "duration": 10,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "wall",
@@ -81310,10 +82590,23 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
+          {
+            "values": [
+              8,
+              0.08
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
           {
             "values": [
               8,
@@ -81331,7 +82624,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 15,
             "duration": 10,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "wall",
@@ -81374,10 +82669,23 @@ const SKILL_TIMING_DATA = {
     },
     "Take to the Skies+": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
+          {
+            "values": [
+              8,
+              0.08
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
           {
             "values": [
               8,
@@ -81395,7 +82703,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 15,
             "duration": 10,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "wall",
@@ -81434,10 +82744,23 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "barrage": true,
         "effects": [
+          {
+            "values": [
+              8,
+              0.08
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
+          },
           {
             "values": [
               8,
@@ -81455,7 +82778,9 @@ const SKILL_TIMING_DATA = {
             "bullets": 15,
             "duration": 10,
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "wall",
@@ -82147,14 +83472,18 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.015,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "restricted",
             "maxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -82186,14 +83515,18 @@ const SKILL_TIMING_DATA = {
             "target": "vanguard",
             "maxHP": 0.05,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
             "target": "restricted",
             "maxHP": 0.02,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -82625,6 +83958,16 @@ const SKILL_TIMING_DATA = {
               0.01
             ],
             "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              1,
+              0.01
+            ],
+            "kind": "conditional",
             "trigger": "onAllInStrikeSteady"
           }
         ]
@@ -82660,6 +84003,26 @@ const SKILL_TIMING_DATA = {
             ],
             "kind": "conditional",
             "trigger": "check"
+          },
+          {
+            "values": [
+              1,
+              0.01
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              2,
+              0.02
+            ],
+            "kind": "conditional",
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -85399,7 +86762,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -85448,7 +86814,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -85501,7 +86870,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -85550,7 +86922,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -87300,6 +88675,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -87308,7 +88686,10 @@ const SKILL_TIMING_DATA = {
               0.035
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -87353,6 +88734,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrikeSteady",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -87361,7 +88745,10 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -87836,6 +89223,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 6,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "sustain": [
           {
@@ -87844,7 +89234,9 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.01,
             "duration": 6,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -87877,6 +89269,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 6,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "sustain": [
           {
@@ -87885,7 +89280,9 @@ const SKILL_TIMING_DATA = {
             "maxHP": 0.03,
             "duration": 6,
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "effect": "heal",
@@ -90504,7 +91901,9 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -90523,7 +91922,9 @@ const SKILL_TIMING_DATA = {
               3.5
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -90546,7 +91947,9 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -90565,7 +91968,9 @@ const SKILL_TIMING_DATA = {
               3.5
             ],
             "kind": "conditional",
-            "trigger": "onFire"
+            "trigger": "onFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -91120,6 +92525,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 2,
+        "chance": 0.5,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -91127,7 +92535,10 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 2,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -91156,6 +92567,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 2,
+        "chance": 0.8,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -91163,7 +92577,10 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 2,
+            "chance": 0.8,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -91196,6 +92613,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 2,
+        "chance": 0.5,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -91203,7 +92623,10 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 2,
+            "chance": 0.5,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -91232,6 +92655,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onChargeWeaponFire",
+        "duration": 2,
+        "chance": 0.8,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -91239,7 +92665,10 @@ const SKILL_TIMING_DATA = {
               100
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 2,
+            "chance": 0.8,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -91692,7 +93121,9 @@ const SKILL_TIMING_DATA = {
               30
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -91700,11 +93131,28 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               10
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              30
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              10,
+              0.1
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
@@ -91723,7 +93171,9 @@ const SKILL_TIMING_DATA = {
               50
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -91731,11 +93181,28 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               20
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              50
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              20,
+              0.2
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
@@ -93394,8 +94861,10 @@ const SKILL_TIMING_DATA = {
     },
     "Hide and Seek": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onTorpedoWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onTorpedoWeaponFire"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -93414,7 +94883,9 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.015,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -93434,8 +94905,10 @@ const SKILL_TIMING_DATA = {
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onTorpedoWeaponFire",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onTorpedoWeaponFire"
+        ],
         "barrage": true,
         "effects": [
           {
@@ -93454,7 +94927,9 @@ const SKILL_TIMING_DATA = {
             "casterMaxHP": 0.06,
             "duration": 5,
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -97508,15 +98983,20 @@ const SKILL_TIMING_DATA = {
     },
     "Vulnerability Exploit: Security Breach": {
       "1": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -97524,27 +99004,37 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
-        "kind": "conditional",
-        "trigger": "onAllInStrikeSteady",
+        "kind": "mixed",
+        "parts": [
+          "conditional:onAllInStrikeSteady"
+        ],
         "effects": [
           {
             "values": [
               5
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -97552,14 +99042,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "duration": 6,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrikeSteady"
+            "trigger": "onAllInStrikeSteady",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -98245,6 +99740,17 @@ const SKILL_TIMING_DATA = {
               0.01
             ],
             "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              1,
+              0.01
+            ],
+            "kind": "conditional",
             "trigger": "onChargeWeaponFire"
           }
         ],
@@ -98329,6 +99835,17 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "permanent"
+          },
+          {
+            "values": [
+              5,
+              0.05
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -99562,11 +101079,17 @@ const SKILL_TIMING_DATA = {
     "Shadow Skirmisher": {
       "1": {
         "kind": "conditional",
-        "trigger": "onAllInStrikeSteady"
+        "trigger": "onAllInStrikeSteady",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "10": {
         "kind": "conditional",
-        "trigger": "onAllInStrikeSteady"
+        "trigger": "onAllInStrikeSteady",
+        "duration": 3,
+        "chance": 1,
+        "cooldown": 0
       },
       "max": 10,
       "id": 800020
@@ -100805,7 +102328,9 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -100829,11 +102354,20 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
               20
+            ],
+            "kind": "conditional",
+            "trigger": "onChargeWeaponFire"
+          },
+          {
+            "values": [
+              40
             ],
             "kind": "conditional",
             "trigger": "onChargeWeaponFire"
@@ -101826,7 +103360,9 @@ const SKILL_TIMING_DATA = {
             "target": "lowest-vanguard",
             "maxHP": 0.06,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 12
           }
         ]
       },
@@ -101852,7 +103388,9 @@ const SKILL_TIMING_DATA = {
             "target": "lowest-vanguard",
             "maxHP": 0.06,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 0.5,
+            "cooldown": 12
           }
         ]
       },
@@ -102107,7 +103645,9 @@ const SKILL_TIMING_DATA = {
               0.035
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -102116,7 +103656,10 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": -0.03,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 2.1,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -102150,7 +103693,9 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -102159,7 +103704,10 @@ const SKILL_TIMING_DATA = {
             "target": "self",
             "maxHP": -0.03,
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 2.1,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -102968,6 +104516,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "duration": 10,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -102975,7 +104526,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -102997,6 +104551,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "duration": 10,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -103004,7 +104561,10 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "duration": 10,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "fires": [
@@ -103193,6 +104753,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -103201,7 +104764,10 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -103209,13 +104775,19 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "barrage": true,
         "effects": [
           {
@@ -103224,7 +104796,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -103232,7 +104807,10 @@ const SKILL_TIMING_DATA = {
               1
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -105964,7 +107542,10 @@ const SKILL_TIMING_DATA = {
               4.5
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -105972,7 +107553,10 @@ const SKILL_TIMING_DATA = {
               0.1
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -106001,7 +107585,10 @@ const SKILL_TIMING_DATA = {
               12
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -106009,7 +107596,10 @@ const SKILL_TIMING_DATA = {
               0.2
             ],
             "kind": "conditional",
-            "trigger": "onChargeWeaponFire"
+            "trigger": "onChargeWeaponFire",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -106565,6 +108155,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -106572,13 +108165,19 @@ const SKILL_TIMING_DATA = {
               0.05
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAllInStrike",
+        "duration": 8,
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
@@ -106586,7 +108185,10 @@ const SKILL_TIMING_DATA = {
               0.15
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -106787,26 +108389,34 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               1
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onTorpedoWeaponFire",
+        "chance": 1,
+        "cooldown": 0,
         "effects": [
           {
             "values": [
               10
             ],
             "kind": "conditional",
-            "trigger": "onTorpedoWeaponFire"
+            "trigger": "onTorpedoWeaponFire",
+            "chance": 1,
+            "cooldown": 0
           }
         ]
       },
@@ -107517,7 +109127,10 @@ const SKILL_TIMING_DATA = {
               2
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [
@@ -107565,7 +109178,10 @@ const SKILL_TIMING_DATA = {
               2
             ],
             "kind": "conditional",
-            "trigger": "onAllInStrike"
+            "trigger": "onAllInStrike",
+            "duration": 5,
+            "chance": 1,
+            "cooldown": 0
           }
         ],
         "sustain": [

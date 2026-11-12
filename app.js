@@ -1327,6 +1327,8 @@ const MODIFIER_SOURCES = {
   airstrike: "Airstrike",
   aircraft: "Aircraft",
   cannon: "Cannon",
+  shelling: "Shelling",
+  aviation: "Aviation",
   burn: "Burn",
   barrage: "Barrage",
   salvo: "Salvo",
@@ -1632,24 +1634,31 @@ function parseEquipCondition(clause) {
 let fleetAllies = null;
 let assumeCombos = false;
 const ALLY_SINKS_RE = /\banother ship in your fleet sinks\b/i;
-// Each form names the allies in group 1; the one nearest the bonus governs it.
+// Each form names the allies in group "who" and, when it says so, the part of the fleet they must
+// sail in ("where": your Vanguard, your Main Fleet); the one nearest the bonus governs it.
+const ALLY_WHERE = String.raw`(?:afloat\s+|present\s+)?in\s+(?<where>your\s+(?:fleet|Vanguard|Main Fleet|Surface Fleet)|the\s+(?:same\s+|vanguard\s+|main\s+)?fleet)\b`;
+// A name list runs on through "A, B (Muse), or C"; a comma before anything else ends it.
+const ALLY_LIST_END = String.raw`(?=\s*(?:,(?!\s+(?:or\s+|and\s+)?[A-Z])|[:;]|\.\s|$))`;
 const ALLY_CONDITION_FORMS = [
-  // A name list runs on through "A, B (Muse), or C"; a comma before anything else ends it.
-  { kind: "sortied", re: /\bsortied (?:together |in a fleet )?with\s+(.+?)(?=\s*(?:,(?!\s+(?:or\s+|and\s+)?[A-Z])|[:;]|\((?![A-Z][\w ]*\))|\.\s|\band\s+(?:while|if|when|their)\b|\bin the same fleet\b|$))/gi },
-  { kind: "without", re: /\bsortied without\s+(?:any\s+)?(.+?)(?=\s*(?:[,:;(]|\.\s|$))/gi },
-  { kind: "present", re: /\bif there (?:is|are|was|were)\s+(.+?)\s+(?:afloat\s+)?in your fleet\b/gi },
-  { kind: "present", re: /\bif\s+((?!there\b|this ship\b|she\b)[^,:;]+?)\s+(?:is|are)\s+(?:afloat\s+)?in your fleet\b/gi },
-  { kind: "each", re: /\bfor (?:each|every)\s+(.+?)\s+(?:afloat\s+)?in your fleet\b/gi }
+  { kind: "sortied", re: /\bsortied (?:together |in a fleet )?with\s+(?<who>.+?)(?=\s*(?:,(?!\s+(?:or\s+|and\s+)?[A-Z])|[:;]|\((?![A-Z][\w ]*\))|\.\s|\band\s+(?:while|if|when|their)\b|\bin the same fleet\b|$))/gi },
+  // "When paired with any of the Destroyers from Destroyer Division 6 (Akatsuki, Hibiki, ...)".
+  { kind: "sortied", re: new RegExp(String.raw`\b(?:when|if)\s+paired with\s+(?<who>.+?)${ALLY_LIST_END}`, "gi") },
+  { kind: "sortied", re: new RegExp(String.raw`\b(?:when|if)\s+(?:sortied\s+)?in\s+(?:the\s+)?same fleet\s+(?:with|as)\s+(?<who>.+?)${ALLY_LIST_END}`, "gi") },
+  { kind: "without", re: /\bsortied without\s+(?:any\s+)?(?<who>.+?)(?=\s*(?:[,:;(]|\.\s|$))/gi },
+  { kind: "present", re: new RegExp(String.raw`\b(?:if|when)\s+there\s+(?:is|are|was|were)\s+(?<who>.+?)\s+${ALLY_WHERE}`, "gi") },
+  { kind: "present", re: new RegExp(String.raw`\bif\s+(?<who>(?!there\b|this ship\b|she\b)[^,:;]+?)\s+(?:is|are)\s+${ALLY_WHERE}`, "gi") },
+  { kind: "each", re: new RegExp(String.raw`\bfor\s+(?:each|every)\s+(?<who>.+?)\s+${ALLY_WHERE}`, "gi") }
 ];
 // An "else" branch after the condition holds when it fails (Andrea Doria's "if there is none").
 const ALLY_ELSE_RE = /\bif there (?:is|are) none\b|\botherwise\b|\binstead\b/i;
 // "2 or more friends in your Vanguard": a headcount any full fleet meets, as for "3 ships in your Vanguard".
-const ALLY_HEADCOUNT_RE = /^(?:friends?|ships?|allies|allied ships?)\b/i;
+const ALLY_HEADCOUNT_RE = /^(?:(?:\d+|one|two|three|four|five)\s+)?(?:friends?|ships?|allies|allied ships?)\b/i;
 const ALLY_COUNT_WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5 };
 
 // Who the condition asks for: at least `min` matching ships, the holder counted or not.
 // Negative and parity conditions ("neither", "no more than", "an odd number") are not modelled.
 function allyRequirement(phrase, kind) {
+  phrase = phrase.replace(/\(or more\)/i, "or more");
   if (/^(?:no|neither|an? odd|none)\b/i.test(phrase) || /\benem/i.test(phrase)) return null;
   const self = kind === "each" || /\bincluding (?:this ship|self|herself)\b/i.test(phrase);
   let m = /^(?:at least\s+)?(\d+|one|two|three|four|five)\s+or more\s+(.+)$/i.exec(phrase);
@@ -1690,13 +1699,20 @@ function allyMatches(phrase, member) {
   return allyGroupByName.get(group) ? namesShipByName(group, member) : namesMember(group, member);
 }
 
+// "in your Vanguard" or "in your Main Fleet" counts only the ships sailing there.
+function allyScopeRole(where) {
+  if (/vanguard/i.test(where || "")) return "Vanguard";
+  if (/main/i.test(where || "")) return "Main";
+  return null;
+}
+
 function nearestAllyCondition(clause) {
   let best = null;
   for (const form of ALLY_CONDITION_FORMS) {
     form.re.lastIndex = 0;
     let m;
     while ((m = form.re.exec(clause))) {
-      if (!best || m.index > best.index) best = { kind: form.kind, phrase: m[1], index: m.index, end: m.index + m[0].length };
+      if (!best || m.index > best.index) best = { kind: form.kind, phrase: m.groups.who, role: allyScopeRole(m.groups.where), index: m.index, end: m.index + m[0].length };
     }
   }
   return best;
@@ -1714,7 +1730,8 @@ function allyConditionFactor(ship, plainText, raw) {
   const invert = found.kind === "without" || ALLY_ELSE_RE.test(clause.slice(found.end));
   if (fleetAllies && !readableAllyGroup(need.group)) return invert ? 1 : 0;
   const members = [ship, ...(fleetAllies || []).filter(member => member !== ship)];
-  const count = members.filter(member => (!need.others || member !== ship) && allyMatches(need.group, member)).length;
+  const count = members.filter(member => (!need.others || member !== ship) && (!found.role || member.role === found.role)
+    && allyMatches(need.group, member)).length;
   if (invert) return count === 0 || (found.kind !== "without" && count < need.min) ? 1 : 0;
   if (found.kind === "each") return count;
   return count >= need.min ? 1 : 0;
@@ -1738,7 +1755,8 @@ function shipComboConditions(ship) {
       const key = `${skill.name}|${condition}`;
       if (seen.has(key)) continue;
       seen.add(key);
-      const partners = sinks ? [] : ships.filter(other => other !== ship && allyMatches(need.group, other));
+      const partners = sinks ? [] : ships.filter(other => other !== ship && (!found.role || other.role === found.role)
+        && allyMatches(need.group, other));
       combos.push({ skill, condition, sinks, partners });
     }
   }
@@ -1757,6 +1775,78 @@ function updateComboControl(ship) {
     if (combo.partners.length && combo.partners.length <= COMBO_FACES_MAX) parts.push({ faces: combo.partners });
   }
   setRichTip(modalComboControl, parts);
+}
+
+// "When this ship's HP falls below 30%", "takes DMG that would sink her": a bonus for a ship close to
+// sinking, never counted, as Acasta's. The HP condition nearest the bonus governs it (Sakawa's "1) if
+// HP is below 25% ... 2) if HP is above 25%"); a timed alternative ("30s after the battle starts, or
+// when...") still fires.
+const HP_CONDITION_RE = /\b(?:HP|Health)\b[^.:;]{0,40}?\b(?:falls?|drops?|is|goes|stays|remains)\s+(below|under|lower than|above|over|higher than)\b|\bfalls?\s+(below)\s+\d+(?:\.\d+)?%\s*(?:max(?:imum)?\s+)?HP\b|\bDMG that (would sink)\b/gi;
+const TIMED_ALTERNATIVE_RE = /\bafter the battle starts,?\s+or\b/i;
+
+// Friedrich der Große's bands ("HP is between: 100% and 70% ... 70% and 30% of max HP"): only the
+// band from full HP counts.
+const HP_BAND_RE = /\b(\d+)%\s+and\s+(\d+)%\s+of\s+(?:her\s+|its\s+)?max(?:imum)?\s+HP\b/gi;
+
+function lowHpTriggered(plainText, raw) {
+  const clause = clauseBeforeRaw(plainText, raw);
+  if (!clause || TIMED_ALTERNATIVE_RE.test(clause)) return false;
+  const band = [...clause.matchAll(HP_BAND_RE)].pop();
+  if (band) return Math.max(Number(band[1]), Number(band[2])) < 100;
+  const last = [...clause.matchAll(HP_CONDITION_RE)].pop();
+  return Boolean(last) && /below|under|lower|sink/i.test(last[1] || last[2] || last[3]);
+}
+
+// "When this ship attacks an enemy with 25% or less max HP left" (Joffre, Formidable μ): the bonus
+// reaches the damage dealt while the enemy is in its last 25%, that share of its HP.
+const ENEMY_LOW_HP_RE = /\benemy with (\d+)%\s+(?:or less\s+(?:max\s+)?HP|(?:max\s+)?HP\s+(?:left|remaining)\s+or less)\b/i;
+
+function enemyLowHpShare(plainText, raw) {
+  const m = ENEMY_LOW_HP_RE.exec(clauseBeforeRaw(plainText, raw) || "");
+  return m ? Number(m[1]) / 100 : 1;
+}
+
+// Bonuses on an event the target decides. A kill ("when this ship sinks an enemy") counts only
+// against mob fleets: against a boss, who finishes its escorts is anyone's guess. A timer beside it
+// ("every 10s, and every time this ship sinks an enemy") still fires. "Sinks an enemy fleet" is a
+// sortie's node count, not a kill in the fight. A shot-down plane ("when an enemy aircraft is shot
+// down") follows the fight's air raids, as the AA weight does (airThreatFactor, at most 1).
+const KILL_TRIGGER_RE = /\b(?:sinks?|sunk|defeats?|destroy(?:s|ing))\s+(?:an?\s+|\d+\s+(?:or more\s+)?|two\s+|three\s+)?enem(?:y|ies)\b(?!\s+fleets?\b)|\benem(?:y|ies)\s+(?:this ship|she)\s+sinks\b/i;
+const KILL_TIMED_ALTERNATIVE_RE = /\bevery\s+\d+(?:\.\d+)?\s*s\b,?\s+(?:and|or)\b|\bwhenever this skill activates\b/i;
+const SHOT_DOWN_RE = /\bshoots?\s+down\b|\bshot\s+down\b/i;
+
+function isMobTarget() {
+  return Boolean(targetBoss && targetBoss.hpShare);
+}
+
+function targetEventShare(plainText, raw) {
+  const clause = clauseBeforeRaw(plainText, raw) || "";
+  if (KILL_TRIGGER_RE.test(clause) && !KILL_TIMED_ALTERNATIVE_RE.test(clause)) return isMobTarget() ? 1 : 0;
+  if (SHOT_DOWN_RE.test(clause)) return Math.min(1, airThreatFactor());
+  return 1;
+}
+
+// Friedrich der Große's "every odd salvo" / "every even salvo" buffs swap at each salvo: each holds
+// about half the fight.
+const ALTERNATE_SALVO_RE = /\bevery (?:odd|even) salvo\b/i;
+
+// Charybdis' "increases her damage taken" was extracted as DMG dealt: a penalty on the holder, never a
+// damage bonus ("its DMG taken" is an enemy's, a real bonus).
+const OWN_DAMAGE_TAKEN_RE = /\b(?:her|this ship's|own)\s+(?:\w+\s+)?(?:DMG|damage) taken\b/i;
+
+// A bonus worded for a group ("your Iron Blood Carriers", "your other CLs", "your Flagship") reaches
+// its holder only if she belongs to it, read as the Fleet tab delivers fleet bonuses.
+const OTHER_ALLIES_RE = /\byour other\b|\bother all(?:y|ies)\b/i;
+const FLAGSHIP_RECIPIENT_RE = /\byour Flagship\b/i;
+
+function groupBonusReachesHolder(ship, skill, bonus) {
+  if (!/\byour\b/i.test(bonus.raw)) return true;
+  if (OTHER_ALLIES_RE.test(bonus.raw)) return false;
+  if (namesMember(bonus.raw, ship)) return true;
+  // Only a Main Fleet ship can lead the fleet.
+  if (FLAGSHIP_RECIPIENT_RE.test(bonus.raw)) return ship.role === "Main";
+  const recipients = synergyRecipients(skill, bonus, [ship]);
+  return !recipients || recipients.length > 0;
 }
 
 function equipConditionAllows(ship, plainText, raw) {
@@ -1820,6 +1910,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
   const modifiers = [];
   const modifierIndex = new Map();
   const seenRaw = new Set();
+  let cycles = null;
+  const procCycles = () => cycles || (cycles = bareWeaponCycles(ship, base, equipFlat));
 
   for (const skill of skills) {
     const plainDesc = skill.description ? stripHtml(skill.description) : "";
@@ -1828,7 +1920,10 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       if (!isSelfScoped) continue;
       if (b.raw && OTHER_SHIPS_TARGET_RE.test(b.raw)) continue;
       if (b.raw && PICKED_ALLY_RE.test(b.raw) && !SELF_LANGUAGE_RE.test(b.raw) && !b.raw.includes(ship.name)) continue;
+      if (b.raw && !SELF_LANGUAGE_RE.test(b.raw) && !groupBonusReachesHolder(ship, skill, b)) continue;
       if (!equipConditionAllows(ship, plainDesc, b.raw)) continue;
+      if (lowHpTriggered(plainDesc, b.raw)) continue;
+      if (OWN_DAMAGE_TAKEN_RE.test(b.raw || "") && (b.stats || []).includes("damageDealt")) continue;
       const allyFactor = allyConditionFactor(ship, plainDesc, b.raw);
       if (!allyFactor) continue;
       const dedupeKey = `${skill.name}::${b.raw}::${b.min}::${b.max}`;
@@ -1840,8 +1935,10 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
         : (typeof b.min === "number" ? b.min : b.max);
       if (typeof amount !== "number") continue;
       const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
-      const factor = timing ? bonusTimingFactor(ship, skill, atMax, amount, timing) : null;
-      const timedAmount = (factor === null ? amount : amount * factor) * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses) * allyFactor;
+      const factor = timing ? bonusTimingFactor(ship, skill, atMax, amount, timing, procCycles) : null;
+      const alternate = ALTERNATE_SALVO_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "") ? 0.5 : 1;
+      const execute = enemyLowHpShare(plainDesc, b.raw) * targetEventShare(plainDesc, b.raw);
+      const timedAmount = (factor === null ? amount : amount * factor) * randomAlternativeShare(plainDesc, b.raw, skill.statBonuses) * allyFactor * alternate * execute;
       for (const key of (b.stats || [])) {
         if (key in COMBAT_MODIFIER_LABELS) {
           const qualifier = opsiOnly ? { source: modifierQualifier(b.raw).source, target: OPSI_TARGET } : undefined;
@@ -2374,10 +2471,10 @@ function weaponModifierApplies(source, role, ship, slotKey) {
   return parts.some(part => {
     if (part === "main gun") return role.stat === "firepower" && slotKey === mainGunKey;
     if (part === "secondary gun") return role.stat === "firepower" && slotKey !== mainGunKey;
-    if (part === "cannon") return role.stat === "firepower";
+    if (part === "cannon" || part === "shelling") return role.stat === "firepower";
     if (part === "aa gun") return role.stat === "antiair";
     if (part === "torpedo") return role.stat === "torpedo";
-    if (part === "aircraft" || part === "airstrike") return role.stat === "aviation";
+    if (part === "aircraft" || part === "airstrike" || part === "aviation") return role.stat === "aviation";
     return false;
   });
 }
@@ -5523,8 +5620,12 @@ function fightSeconds() {
 
 // Expected share of the fight the effect is on; periodic effects first fire one period in, as the
 // client's timers do.
-function uptimeShare(window, fight) {
+function uptimeShare(window, fight, cycles = null) {
   if (window.kind === "permanent") return 1;
+  if (window.kind === "conditional" && window.cooldown !== undefined && cycles) {
+    const cycle = cycles[SUSTAIN_CYCLE_TRIGGERS[window.trigger]];
+    return cycle ? procUptimeShare(window, cycle * (window.every || 1), fight) : null;
+  }
   if (window.kind === "start") return Math.min(window.duration, fight) / fight;
   if (window.kind === "periodic") {
     let active = 0;
@@ -5532,6 +5633,25 @@ function uptimeShare(window, fight) {
     return window.chance * active / fight;
   }
   return null;
+}
+
+// A buff a weapon event procs (Z23: 5% on firing, 5s cooldown, 8s long): events every `interval`
+// seconds, each a success with `chance` once the cooldown since the last success is over; a new
+// success refreshes the buff. Between successes: the cooldown rounded up to the next event, then a
+// geometric wait. The first success comes about interval / chance into the fight.
+function procUptimeShare(window, interval, fight) {
+  const { chance, duration } = window;
+  if (!(chance > 0) || !(duration > 0) || !(interval > 0)) return null;
+  const lock = Math.max(1, Math.ceil((window.cooldown || 0) / interval)) * interval;
+  const meanGap = lock + interval * (1 - chance) / chance;
+  let meanOn = 0;
+  let pending = 1;
+  for (let k = 0; lock + k * interval < duration; k++) {
+    meanOn += pending * chance * (lock + k * interval);
+    pending *= 1 - chance;
+  }
+  meanOn += pending * duration;
+  return Math.max(0, fight - interval / chance) / fight * Math.min(1, meanOn / meanGap);
 }
 
 // Whether the effect is on at second t (its expected value for a proc with a chance).
@@ -5550,12 +5670,26 @@ function windowSignature(window) {
 
 // The parsed bonus is matched to the game effect carrying the same figure; no match, or matches
 // with different windows (a skill with two "+10%" on different timers), leave it raw (null).
-function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing) {
+// cycles() gives the weapon cycles (weaponCycles) that time the buffs a weapon event procs, asked
+// for only then; without it those stay raw.
+function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing, cycles = null) {
   const window = skillTiming(ship, skill, atMaxLevel);
   const target = Math.abs(amount);
   const matches = ((window && window.effects) || []).filter(e => e.values.some(v => Math.abs(v - target) < 0.01));
   if (!matches.length || new Set(matches.map(windowSignature)).size !== 1) return null;
-  return timing === "share" ? uptimeShare(matches[0], fightSeconds()) : activityAt(matches[0], timing.at);
+  const isProc = matches[0].kind === "conditional" && matches[0].cooldown !== undefined;
+  const share = uptimeShare(matches[0], fightSeconds(), isProc && cycles ? cycles() : null);
+  if (timing === "share") return share;
+  // A proc has no fixed instant: the chart takes its expected value all fight long.
+  const at = activityAt(matches[0], timing.at);
+  return at === null ? share : at;
+}
+
+// The weapon cycles that time a ship's procs, at her Reload before skill buffs (the buffs being timed
+// are among them).
+function bareWeaponCycles(ship, base, equipFlat) {
+  const reload = (base.reload || 0) + (equipFlat.reload || 0);
+  return weaponCycles(ship, { stats: { reload: { value: reload } } });
 }
 
 function skillTiming(ship, skill, atMaxLevel) {
@@ -5564,9 +5698,9 @@ function skillTiming(ship, skill, atMaxLevel) {
   return entry ? entry[atMaxLevel ? entry.max : 1] : null;
 }
 
-function skillUptimeText(window) {
+function skillUptimeText(window, cycles = null) {
   const fight = fightSeconds();
-  const share = uptimeShare(window, fight);
+  const share = uptimeShare(window, fight, cycles);
   const of = `of a ${fight}s fight${targetBoss ? ` (${targetBoss.name})` : ""}`;
   const percent = share === null ? "" : `${Math.round(share * 100)}% ${of}`;
   switch (window.kind) {
@@ -5580,7 +5714,14 @@ function skillUptimeText(window) {
     }
     case "volleys": return `Fires every ${window.volleys} main gun volleys`;
     case "barrage": return "Fires a special attack";
-    case "conditional": return `Triggered by ${EVENT_LABELS[window.trigger] || "a battle event"}: not timed`;
+    case "conditional": {
+      const event = EVENT_LABELS[window.trigger] || "a battle event";
+      if (window.cooldown === undefined) return `Triggered by ${event}: not timed`;
+      const every = window.every ? `every ${window.every} times ` : "";
+      const chance = window.chance < 1 ? `${Math.round(window.chance * 100)}% chance ` : "";
+      const cooldown = window.cooldown > 0 ? `, ${window.cooldown}s cooldown` : "";
+      return `${chance}${every}on ${event}, for ${window.duration}s${cooldown}${percent ? `: active ${percent}` : ""}`;
+    }
     case "mixed": {
       // The one timed window among its effects, if there is exactly one (Z35's buff every 20s,
       // beside a Reload penalty that follows each buff).
@@ -5608,7 +5749,9 @@ function createSkillUptimeLine(ship, skill) {
   return {
     el: line,
     paint(atMaxLevel) {
-      const text = skillUptimeText(skillTiming(ship, skill, atMaxLevel));
+      const base = computeStats(ship, currentLevel, retrofitApplied, fateSimApplied);
+      const cycles = base ? bareWeaponCycles(ship, base, equippedGearFlatStats(ship)) : null;
+      const text = skillUptimeText(skillTiming(ship, skill, atMaxLevel), cycles);
       line.hidden = !text;
       line.textContent = text || "";
     }
@@ -7463,7 +7606,7 @@ function airPower(ship, effective) {
 
 // Triggers whose count follows a weapon's cycle; any other event (an HP threshold, a kill, being
 // hit) is listed but not counted.
-const SUSTAIN_CYCLE_TRIGGERS = { onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo" };
+const SUSTAIN_CYCLE_TRIGGERS = { onFire: "mainGun", onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo" };
 
 // The weapon cycles that heal and shield triggers follow (airstrikeCooldown for the airstrike).
 function weaponCycles(ship, effective) {
@@ -7498,7 +7641,12 @@ function sustainCount(entry, fight, cycles) {
     const events = entry.events || [entry.trigger];
     const cycle = cycles[SUSTAIN_CYCLE_TRIGGERS[entry.trigger]];
     const preload = (cycles.preload || {})[SUSTAIN_CYCLE_TRIGGERS[entry.trigger]] || 0;
-    if (cycle && events.every(event => event === entry.trigger)) count = Math.max(0, preload + Math.floor(fight / cycle) - (events.length - 1));
+    if (cycle && events.every(event => event === entry.trigger)) {
+      // A proc with a chance and a cooldown (scripts/import-skill-timing.js) casts on that share of events.
+      const interval = cycle * (entry.every || 1);
+      const casts = Math.max(0, preload + Math.floor(fight / interval) - (events.length - 1));
+      count = entry.chance !== undefined ? Math.min(casts * entry.chance, entry.cooldown > 0 ? Math.floor(fight / entry.cooldown) + 1 : Infinity) : casts;
+    }
   }
   return count !== null && entry.quota ? Math.min(count, entry.quota) : count;
 }
@@ -7826,16 +7974,26 @@ function fleetSynergies(members) {
   const incoming = new Map(members.map(member => [member, []]));
   const report = [];
   for (const from of members) {
+    let cycles = null;
+    const giverCycles = () => {
+      if (!cycles) {
+        const base = computeStats(from, FLEET_LEVEL, Boolean(from.hasRetrofit), false);
+        cycles = base ? bareWeaponCycles(from, base, equippedGearFlatStats(from)) : {};
+      }
+      return cycles;
+    };
     for (const skill of getSkillsForState(from, Boolean(from.hasRetrofit), false, false)) {
       for (const bonus of skill.statBonuses || []) {
         // Some "fleet" bonuses read "this ship's ...": the ship's own stats already count those.
         if (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw)) continue;
+        if (lowHpTriggered(stripHtml(skill.description || ""), bonus.raw)) continue;
         const atMax = isSkillAtMaxLevel(skill);
         const listed = atMax ? (typeof bonus.max === "number" ? bonus.max : bonus.min) : (typeof bonus.min === "number" ? bonus.min : bonus.max);
         if (typeof listed !== "number") continue;
         const recipients = synergyRecipients(skill, bonus, members);
-        const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, listed, "share") : null;
-        const amount = listed * randomAlternativeShare(stripHtml(skill.description || ""), bonus.raw, skill.statBonuses);
+        const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, listed, "share", giverCycles) : null;
+        const plain = stripHtml(skill.description || "");
+        const amount = listed * randomAlternativeShare(plain, bonus.raw, skill.statBonuses) * targetEventShare(plain, bonus.raw);
         report.push({ from, skill, bonus, amount, recipients, factor });
         for (const to of recipients || []) {
           incoming.get(to).push({ stats: bonus.stats, amount, isPercent: bonus.isPercent, raw: bonus.raw, skill, factor });

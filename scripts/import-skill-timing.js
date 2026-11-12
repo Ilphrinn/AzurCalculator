@@ -27,6 +27,8 @@ function atLevel(entry, level) {
   return entry && entry[level] ? { ...entry, ...entry[level] } : entry;
 }
 
+// Weapon events the app knows the cycle of, for timing a buff they proc.
+const PROC_EVENTS = new Set(["onFire", "onChargeWeaponFire", "onTorpedoWeaponFire", "onAllInStrike", "onAllInStrikeSteady"]);
 const POSITION = new Set(["onLeader", "onFlagShip", "onCenter", "onRear"]);
 function isPosition(triggers) {
   return Boolean(triggers && triggers.length) && triggers.every(t => POSITION.has(t));
@@ -122,11 +124,19 @@ class Timing {
       if (ROUTING.has(effect.type)) {
         const extra = Object.keys(args).filter(key => !["skill_id", "buff_id", "time", "rant", "group", "index", "countType"].includes(key));
         let next = effect.type === "BattleBuffAddBuff" && args.target ? { ...context, target: targetGroup(args.target, context.target || "self") } : context;
+        const counter = trigger === "onBattleBuffCount" && effects.find(e => e.type === "BattleBuffCount" && (e.arg_list || {}).countType === args.countType);
+        const counted = counter && (counter.trigger || []).join() === "onFire" ? counter.arg_list.countTarget : null;
         if (extra.some(key => !STATIC_CHECK.test(key))) next = withEvent(next, "check");
         else if (trigger === "onStartGame" || (trigger === "onAttach" && !args.rant) || isPosition(effect.trigger)) next = { ...next };
         else if (trigger === "onUpdate" && args.time > 0 && !context.period) next = { ...next, period: args.time, chance: (args.rant || 10000) / 10000 };
         else if (trigger === "onAttach" && args.rant && context.period) next = { ...next, chance: context.chance * args.rant / 10000 };
-        else next = withEvent(next, trigger || effect.type);
+        else if (trigger === "onAttach" && args.rant && context.proc) next = { ...next, proc: { ...context.proc, chance: context.proc.chance * args.rant / 10000 } };
+        else if (PROC_EVENTS.has(trigger) || counted) {
+          // A weapon event with a chance and a cooldown (Z23: 5% on firing, 5s cooldown): the app
+          // times it from that weapon's cycle. "Every 3 times this ship fires" counts firing events.
+          next = withEvent(next, counted ? "onFire" : trigger);
+          if (!context.conditional) next.proc = { chance: (args.rant || 10000) / 10000, cooldown: args.time || 0, ...(counted ? { every: counted } : {}) };
+        } else next = withEvent(next, trigger || effect.type);
         // quota caps how many times this cast happens in a battle (once, for quota 1); a buff it
         // attaches then fires on its own events, uncapped.
         if (next.events !== context.events) next = { ...next, quota: undefined };
@@ -168,6 +178,10 @@ class Timing {
   }
 
   window(context, duration) {
+    if (context.conditional && context.proc && context.events.length === 1) {
+      const { chance, cooldown, every } = context.proc;
+      return { kind: "conditional", trigger: context.conditional, ...(duration > 0 ? { duration } : {}), chance: round(chance), cooldown, ...(every ? { every } : {}) };
+    }
     if (context.conditional) return { kind: "conditional", trigger: context.conditional };
     if (context.period) return { kind: "periodic", period: context.period, duration, chance: round(context.chance) };
     return duration > 0 ? { kind: "start", duration } : { kind: "permanent" };
@@ -351,8 +365,8 @@ function round(value) {
   return Math.round(value * 1000) / 1000;
 }
 
-function windowKey({ kind, trigger, period, duration, chance, volleys }) {
-  return JSON.stringify({ kind, trigger, period, duration, chance, volleys });
+function windowKey({ kind, trigger, period, duration, chance, volleys, cooldown, every }) {
+  return JSON.stringify({ kind, trigger, period, duration, chance, volleys, cooldown, every });
 }
 
 // The skill's overall window ("mixed" when its effects disagree) for display, plus one entry per
