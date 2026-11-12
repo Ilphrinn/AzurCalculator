@@ -6862,3 +6862,24 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   (`equipConditionAllows`) and who sails with her (`allyConditionFactor` against the fleet's
   members: Baltimore's "when sortied with at least one Eagle Union CV or CVL", Chi An's "if there are
   other Dragon Empery ships"). Until now a fleet buff reached the fleet whatever its condition.
+
+## Audit fixes (2026-11-13)
+
+- **Optimize starts from the bare hull** (`optimizeShip`): the button weighed the gear already on,
+  so 31 ships got other gear on a second click and 23 depended on the previous goal's picks
+  (Dunkerque META auto: DPS 1965 after a cleared run, 1719 after an "antiair" one). Toggles
+  (retrofit, augment, Fate Sim) still apply. `npm run check` now runs Optimize auto, antiair, auto
+  on every ship and fails if the two auto loadouts differ.
+- **Figures pinned in `npm run check`** (`PINNED` in scripts/check-page.js): six ships (DD, CL, CA,
+  BB with barrage, CV, SS) on a fixed named loadout at level 125, 0.5% tolerance. The other checks
+  compare figures with each other, so a formula error that moves them all alike passed (base crit
+  rate 5% -> 10% failed none of them). Copy the new values from the failure when a change is meant
+  to move them, after checking the move is the intended one.
+- **Rank and fleet figure runs refill what a mid-run change dropped** (`refreshRankFigures`,
+  `fillFleetFigures`): picking a boss while the Port sort computed left the first batch (40 ships)
+  without a figure, sorted last; a modal closed during the fleet optimizer could make it fail.
+- **Import scripts share `scripts/game-data.js`** (fetch, `list`, `base` chains, enemy rows,
+  aircraft damage cuts). The four importers' output was byte-identical before and after.
+- **`.gitignore` tracked again**, for project rules only (`dist/`, `node_modules/`, `Site web/`,
+  `programming rules/`); machine-local ones moved to `.git/info/exclude`. Untracked, a fresh clone
+  ignored nothing, so a `git add -A` after a build staged the 1.3 GB `dist/`.

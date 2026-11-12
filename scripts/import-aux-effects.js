@@ -5,9 +5,9 @@
 const { readFileSync, writeFileSync } = require("node:fs");
 const { join } = require("node:path");
 const vm = require("node:vm");
+const { GAME_DATA, getJson } = require("./game-data");
 
 const EQUIPMENTS = "https://azurlane.mrlar.dev/db/static/json/equipments.json";
-const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
 const SKILLS = `${GAME_DATA}/GameCfg/skill.json`;
 const BUFFS = `${GAME_DATA}/GameCfg/buff.json`;
 const SKILL_TEXT = `${GAME_DATA}/ShareCfg/skill_data_template.json`;
@@ -122,12 +122,6 @@ class Walker {
 
 function percent(fraction) {
   return Math.round(fraction * 1000) / 10;
-}
-
-async function getJson(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url} answered ${response.status}.`);
-  return response.json();
 }
 
 (async () => {

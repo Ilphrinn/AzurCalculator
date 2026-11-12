@@ -4,8 +4,8 @@
 const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
 const { FIRE_SOURCES, fireRates, planeOrdnance } = require("./enemy-fire");
+const { GAME_DATA, getJson, list, enemyRow, airCutOf } = require("./game-data");
 
-const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
 const SOURCES = {
   chapters: `${GAME_DATA}/sharecfgdata/chapter_template.json`,
   expeditions: `${GAME_DATA}/sharecfgdata/expedition_data_template.json`,
@@ -21,26 +21,12 @@ const HULL = { 1: "DD", 2: "CL", 3: "CA", 4: "BC", 5: "BB", 6: "CVL", 7: "CV", 8
 const SIREN_NATION = 99;
 const SUBMARINE_HULLS = new Set([8, 17]);
 
-async function load(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url} answered ${response.status}.`);
-  return response.json();
-}
-
-// Waves and their spawns come as arrays or as objects keyed "1", "2"...
-const list = value => Array.isArray(value) ? value : value && typeof value === "object" ? Object.values(value) : [];
-
 (async () => {
-  const [chapters, expeditions, dungeons, enemies, buffs, weapons, barrages] = await Promise.all(Object.values(SOURCES).map(load));
+  const [chapters, expeditions, dungeons, enemies, buffs, weapons, barrages] = await Promise.all(Object.values(SOURCES).map(getJson));
 
   // A buff a wave puts on a spawned enemy can cut the aircraft damage it takes (Anti-Air Ships and
   // Mass-Produced Akizukis: injureRatioByAir -0.5, the client's x (1 + injureRatioByAir)).
-  const airCutOf = buffList => (buffList || []).reduce((sum, id) => sum + list((buffs[`buff_${id}`] || {}).effect_list)
-    .filter(e => e.type === "BattleBuffAddAttr" && (e.arg_list || {}).attr === "injureRatioByAir")
-    .reduce((s2, e) => s2 + e.arg_list.number, 0), 0);
-
-  // An enemy row only overrides its `base` row, which carries the name, hull, armour and nation.
-  const enemy = id => enemies[id] && { ...enemies[enemies[id].base], ...enemies[id] };
+  const enemy = id => enemyRow(enemies, id);
   // Level scaling as the game applies it; it reproduces maps.json's boss HP for 1322 of 1329 bosses.
   const hpAt = (stats, level) => Math.floor(stats.durability + (level - 1) * stats.durability_growth / 1000);
   const aaAt = (stats, level) => stats.antiaircraft + (level - 1) * stats.antiaircraft_growth / 1000;
@@ -59,7 +45,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
           // A negative unit type is a scripted dummy (a 99999 HP "？？？" in 15-x); submarines only take ASW,
           // which the surface figures this mix weighs do not use.
           if (!stats || stats.battle_unit_type < 0 || SUBMARINE_HULLS.has(stats.type)) continue;
-          const key = `${unit.monsterTemplateID}|${airCutOf(unit.buffList)}`;
+          const key = `${unit.monsterTemplateID}|${airCutOf(buffs, unit.buffList)}`;
           counts.set(key, (counts.get(key) || 0) + 1);
         }
       }

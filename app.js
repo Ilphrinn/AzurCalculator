@@ -3068,10 +3068,6 @@ function gunBurn(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
   return { dps: tick / GUN_BURN.interval * (1 - Math.exp(-rate * GUN_BURN.duration)), rate, tick };
 }
 
-function gunBurnDps(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
-  return gunBurn(item, slot, effective, ship, slotKey, firepower, hitRate).dps;
-}
-
 // The ship's fire: only one burns at a time, so her best burning gun's. A fire starts only on a
 // shell that hits, so the hit rate thins the ignitions, not the burn itself.
 function shipGunBurn(ship, effective, hitRate = 1) {
@@ -4076,7 +4072,7 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
     const cycle = weaponCycle(item, reload, cut);
     if (cycle) dps += barragePerVolley / cycle;
   }
-  if (ship && ship.equipment && ship.equipment[slotKey]) dps += gunBurnDps(item, ship.equipment[slotKey], effective, ship, slotKey, stat);
+  if (ship && ship.equipment && ship.equipment[slotKey]) dps += gunBurn(item, ship.equipment[slotKey], effective, ship, slotKey, stat).dps;
   return dps;
 }
 
@@ -4844,14 +4840,19 @@ modalEquipmentOptimize.addEventListener("click", () => {
   // Picks are made on the time-weighted figures, so the timing data comes first.
   loadDataScript("data/skill-timing.js").catch(() => {}).then(() => {
     if (currentShip !== ship) return;
-    // Weighting reads the ship's CURRENT stats, so "amplify her strongest" reflects
-    // whatever is equipped and toggled right now, not her bare hull.
-    const effective = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
-    if (effective) optimizeEquipment(ship, effective);
+    optimizeShip(ship);
     renderModalEquipment(ship);
     refreshStatsAfterGearChange();
   });
 });
+
+// Starts from the bare hull (toggles kept): weighting on the gear already on made the pick depend
+// on what was equipped before, and a second click change it.
+function optimizeShip(ship) {
+  clearEquippedGear(ship);
+  const effective = computeEffectiveStats(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied, figureTiming());
+  if (effective) optimizeEquipment(ship, effective);
+}
 
 function renderModalEquipment(ship) {
   const slots = ship.equipment;
@@ -8755,7 +8756,7 @@ function fleetFigureCache(key) {
 
 function fillFleetFigures(key, candidates, label) {
   const cache = fleetFigureCache(key);
-  const todo = candidates.filter(ship => !cache.has(ship));
+  let todo = candidates.filter(ship => !cache.has(ship));
   return new Promise(resolve => {
     let index = 0;
     const step = () => {
@@ -8764,6 +8765,11 @@ function fillFleetFigures(key, candidates, label) {
           cache.set(todo[index], todo[index].equipment ? figuresKeepingPicks(key, todo[index]) : null);
         }
       });
+      // A modal closed mid-run drops its ship's figure, which composeFleets reads unguarded.
+      if (index >= todo.length) {
+        todo = candidates.filter(ship => !cache.has(ship));
+        index = 0;
+      }
       if (index < todo.length) {
         fleetStatusEl.textContent = `${label}: ${index}/${todo.length}`;
         setTimeout(step, 0);
@@ -9143,12 +9149,17 @@ function refreshRankFigures() {
   if (rankRun) return rankRun;
   rankRun = Promise.all([loadDataScript("data/equipment.js"), loadDataScript("data/bosses.js"), loadDataScript("data/augments.js"), loadDataScript("data/skill-timing.js")])
     .then(() => new Promise(resolve => {
-      const todo = ships.filter(ship => !rankFigures.has(ship));
+      let todo = ships.filter(ship => !rankFigures.has(ship));
       let index = 0;
       const step = () => {
         for (const end = Math.min(todo.length, index + RANK_BATCH); index < end; index++) {
           const ship = todo[index];
           rankFigures.set(ship, ship.equipment ? fleetShipFigures(ship, false) : null);
+        }
+        // A new target or a closed modal mid-run drops figures this run already made.
+        if (index >= todo.length) {
+          todo = ships.filter(ship => !rankFigures.has(ship));
+          index = 0;
         }
         if (index < todo.length) {
           countEl.textContent = `Computing level 125 figures... ${index}/${todo.length}`;

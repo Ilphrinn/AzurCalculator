@@ -4,8 +4,8 @@
 const { readFileSync, writeFileSync } = require("node:fs");
 const { join } = require("node:path");
 const vm = require("node:vm");
+const { GAME_DATA, getJson, list, withBase } = require("./game-data");
 
-const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
 const SOURCES = {
   templates: `${GAME_DATA}/sharecfgdata/ship_data_template.json`,
   skills: `${GAME_DATA}/GameCfg/skill.json`,
@@ -32,11 +32,6 @@ const PROC_EVENTS = new Set(["onFire", "onChargeWeaponFire", "onTorpedoWeaponFir
 const POSITION = new Set(["onLeader", "onFlagShip", "onCenter", "onRear"]);
 function isPosition(triggers) {
   return Boolean(triggers && triggers.length) && triggers.every(t => POSITION.has(t));
-}
-
-// Sparse Lua tables come out of the export as objects keyed "1", "2"... rather than arrays.
-function list(value) {
-  return Array.isArray(value) ? value : Object.values(value || {});
 }
 
 // Effects that only route to other buffs or skills; anything else is what the skill does.
@@ -188,28 +183,17 @@ class Timing {
   }
 }
 
-// When a skill fires its barrage: one activation per schedule tick or weapon event, however many
-// bullets and inner timers it then runs (Musashi's 6 shots 0.5s apart are one activation).
-// Ticks: { first, every, until, quota, chance } in seconds from the battle start, `every` null
-// for a single one; events: { on: "mainGun" | "torpedo" | "airstrike", chance, cooldown, quota }.
-// A weapon_property entry with its `base` chain resolved (most entries only override a few fields).
-function weaponEntry(weapons, id, depth = 0) {
-  const own = weapons[id];
-  if (!own || depth > 8) return own;
-  return own.base && own.base !== id ? { ...weaponEntry(weapons, own.base, depth + 1), ...own } : own;
-}
-
 // What a weapon fires, as the wiki's barrage rows show it: bullet count and armour modifiers
 // ("30/130/110"), so the app can tell which row goes with which schedule. Null when its bullets
 // differ in armour or are aircraft.
 function weaponShots(tables, id) {
-  const weapon = weaponEntry(tables.weapons, id);
+  const weapon = withBase(tables.weapons, id);
   if (!weapon || !(weapon.barrage_ID || []).length) return null;
   let count = 0;
   const armors = new Set();
   weapon.barrage_ID.forEach((barrageId, i) => {
-    const barrage = weaponEntry(tables.barrages, barrageId);
-    const bullet = weaponEntry(tables.bullets, (weapon.bullet_ID || [])[i]);
+    const barrage = withBase(tables.barrages, barrageId);
+    const bullet = withBase(tables.bullets, (weapon.bullet_ID || [])[i]);
     if (!barrage || !bullet || !Array.isArray(bullet.damage_type)) return armors.add(null);
     count += ((barrage.primal_repeat || 0) + 1) * ((barrage.senior_repeat || 0) + 1);
     armors.add(bullet.damage_type.map(value => Math.round(value * 100)).join("/"));
@@ -217,6 +201,10 @@ function weaponShots(tables, id) {
   return armors.size === 1 && !armors.has(null) ? [count, [...armors][0]] : null;
 }
 
+// When a skill fires its barrage: one activation per schedule tick or weapon event, however many
+// bullets and inner timers it then runs (Musashi's 6 shots 0.5s apart are one activation).
+// Ticks: { first, every, until, quota, chance } in seconds from the battle start, `every` null
+// for a single one; events: { on: "mainGun" | "torpedo" | "airstrike", chance, cooldown, quota }.
 const FIRE_IMMEDIATE = new Set(["onAttach", "onUpdate", "onStartGame", "onAttach+onStack"]);
 const FIRE_EVENTS = {
   onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo",
@@ -254,7 +242,7 @@ class FireSchedule {
       for (const entry of list(skill && skill.effect_list)) {
         const args = entry.arg_list || {};
         // A weapon with no damage and no bullet (Yorktown II's recon flight) fires nothing to count.
-        const weapon = weaponEntry(this.tables.weapons, args.weapon_id);
+        const weapon = withBase(this.tables.weapons, args.weapon_id);
         const inert = weapon && !weapon.damage && !(weapon.bullet_ID || []).length;
         if (entry.type === "BattleSkillFire" && !inert) found.push({ chance: 1, weapons: [args.weapon_id], crit: 0 });
         else if (entry.type === "BattleSkillAddBuff" && args.buff_id) found.push(this.reaches(["buff", args.buff_id], depth + 1, seen));
@@ -398,12 +386,6 @@ function summarise(windows) {
     ...(effects.length ? { effects } : {}),
     ...(sustain.length ? { sustain } : {})
   };
-}
-
-async function getJson(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url} answered ${response.status}.`);
-  return response.json();
 }
 
 (async () => {

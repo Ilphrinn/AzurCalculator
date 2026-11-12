@@ -13,6 +13,42 @@ const TARGET_METRIC = { firepower: "dps", torpedo: "dps", aviation: "dps", antia
 const BOSS_TARGETS = [null, ...["light", "medium", "heavy"].map(armor => BOSSES_DATA.find(boss => boss.armor === armor)),
   mobTarget(MAPS_DATA.find(map => map.map === "14-4"))];
 
+// Figures pinned at level 125 (retrofit when she has one) against the reference target, on a fixed
+// loadout: a formula change that moves every figure alike passes every other check here. When a
+// change is meant to move them, copy the new values from the failure.
+const PINNED = [
+  ["Z23", ["Twin 127mm (Type 5 Prototype)", "610mm Quintuple Torpedo Mount", "Twin 57mm Bofors (Mle 1951)", "Repair Toolkit", "Type 93 Pure Oxygen Torpedo", "Custom-made Companion Rigging - Raubtier"],
+    { dps: 1624.7, ehp: 7645.3, dpsAA: 347.3, dpsASW: 66 }],
+  ["Helena", ["Prototype Quadruple 152mm Main Gun Mount", "Twin 127mm (Type 5 Prototype)", "Twin 57mm Bofors (Mle 1951)", "Improved Hydraulic Rudder", "SG Radar", "Crossbow"],
+    { dps: 833.5, ehp: 8767.2, dpsAA: 728.8, dpsASW: 38.9 }],
+  ["Prinz Eugen", ["Triple 234mm (BL 9.2\" Mk XII Prototype)", "610mm Quadruple Torpedo Mount (Cruiser)", "Twin 57mm Bofors (Mle 1951)", "Improved Hydraulic Rudder", "Type 93 Pure Oxygen Torpedo", "Greatsword"],
+    { dps: 1108.1, ehp: 12120.5, dpsAA: 448.5 }],
+  ["New Jersey", ["Twin 406mm (SK C/34 Prototype)", "Twin 127mm (Type 5 Prototype)", "Twin 134mm AA (Time Fuze)", "Admiralty Fire Control Table", "Super Heavy Shell", "Bowgun"],
+    { dps: 4680.3, ehp: 12323.5, dpsAA: 919.6 }],
+  ["Taihou", ["Lavochkin La-9 (Carrier-based Prototype)", "Nakajima J5N Tenrai (Dive Bomber Prototype)", "Fairey Spearfish (Prototype)", "Steam Catapult", "Steam Catapult", "Majestic Phoenix"],
+    { dps: 1143.6, ehp: 10217.9 }],
+  ["I-19", ["Improved Submarine-mounted G7e Acoustic Homing Torpedo", "Improved Submarine-mounted G7e Acoustic Homing Torpedo", "Twin 127mm (Type 5 Prototype)", "Improved Snorkel", "Type 93 Pure Oxygen Torpedo", "Kunai"],
+    { dps: 1759.3, ehp: 2717.5 }]
+];
+currentLevel = 125;
+for (const [name, gear, expected] of PINNED) {
+  const ship = SHIPS_DATA.find(s => s.displayName === name);
+  retrofitApplied = Boolean(ship.hasRetrofit);
+  clearEquippedGear(ship);
+  gear.forEach((itemName, i) => {
+    const slotKey = i < 5 ? String(i + 1) : "augment";
+    const item = (slotKey === "augment" ? AUGMENTS_DATA : EQUIPMENT_DATA).find(entry => entry.name === itemName);
+    if (!item) report.errors.push(`Pinned ${name}: no item "${itemName}"`);
+    setEquippedGear(ship, slotKey, item);
+  });
+  const metrics = targetCombatMetrics(ship, 125, computeEffectiveStats(ship, 125, retrofitApplied, false, false, figureTiming()));
+  for (const [key, value] of Object.entries(expected)) {
+    if (!(Math.abs(metrics[key] - value) <= Math.max(value * 0.005, 0.1))) report.errors.push(`Pinned ${name} ${key}: expected ${value}, got ${metrics[key].toFixed(1)}`);
+  }
+  clearEquippedGear(ship);
+}
+retrofitApplied = false;
+
 for (const ship of SHIPS_DATA) {
   report.ships++;
   for (const boss of BOSS_TARGETS) {
@@ -70,6 +106,29 @@ for (const ship of SHIPS_DATA) {
     report.errors.push(`${ship.displayName} modal: ${error && error.stack || error}`);
   }
 }
+
+// The Optimize button gives one loadout whatever was on before: it once weighed the gear already
+// equipped, so a second click, or a previous goal's picks, changed the result.
+const loadoutKey = ship => JSON.stringify(Object.entries(equippedGear[ship.id] || {}).map(([slot, item]) => [slot, item.name]).sort());
+currentLevel = 125;
+equipmentRarityCap = "Ultra Rare";
+for (const ship of SHIPS_DATA.filter(s => s.equipment)) {
+  try {
+    retrofitApplied = Boolean(ship.hasRetrofit);
+    equipmentTarget = "auto";
+    optimizeShip(ship);
+    const first = loadoutKey(ship);
+    equipmentTarget = "antiair";
+    optimizeShip(ship);
+    equipmentTarget = "auto";
+    optimizeShip(ship);
+    if (loadoutKey(ship) !== first) report.errors.push(`${ship.displayName}: Optimize depends on the gear already equipped`);
+  } catch (error) {
+    report.errors.push(`${ship.displayName} Optimize twice: ${error && error.stack || error}`);
+  }
+  clearEquippedGear(ship);
+}
+retrofitApplied = false;
 
 // The tabs: every item and augment opens its detail, and a Targets pick is the boss Optimize reads.
 try {

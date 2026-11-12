@@ -4,10 +4,10 @@
 const { writeFileSync } = require("node:fs");
 const { join } = require("node:path");
 const { FIRE_SOURCES, fireRates, planeOrdnance } = require("./enemy-fire");
+const { GAME_DATA, getJson, list, enemyRow, airCutOf } = require("./game-data");
 
 const SOURCE = "https://azurlane.mrlar.dev/db/static/json/maps.json";
 // The game's own tables, for buffs that change the aircraft damage a boss takes.
-const GAME_DATA = "https://raw.githubusercontent.com/AzurLaneTools/AzurLaneData/main/EN";
 const GAME_SOURCES = {
   expeditions: `${GAME_DATA}/sharecfgdata/expedition_data_template.json`,
   dungeons: `${GAME_DATA}/GameCfg/dungeon.json`,
@@ -31,34 +31,21 @@ function group(mapName) {
   return null;
 }
 
-async function load(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`${url} answered ${response.status}.`);
-  return response.json();
-}
-
-// Waves and their spawns come as arrays or as objects keyed "1", "2"...
-const list = value => Array.isArray(value) ? value : value && typeof value === "object" ? Object.values(value) : [];
-
 (async () => {
-  const maps = Object.values(await load(SOURCE));
-  const [expeditions, dungeons, enemies, buffs, weapons, barrages] = await Promise.all(Object.values(GAME_SOURCES).map(load));
+  const maps = Object.values(await getJson(SOURCE));
+  const [expeditions, dungeons, enemies, buffs, weapons, barrages] = await Promise.all(Object.values(GAME_SOURCES).map(getJson));
 
-  // injureRatioByAir on the boss, from the buffs its wave or its own stats attach (client:
-  // aircraft damage x (1 + injureRatioByAir)); Elise in Vacation Lane EX takes double.
-  const airCutOf = ids => ids.reduce((sum, id) => sum + list((buffs[`buff_${id}`] || {}).effect_list)
-    .filter(e => e.type === "BattleBuffAddAttr" && (e.arg_list || {}).attr === "injureRatioByAir")
-    .reduce((s2, e) => s2 + e.arg_list.number, 0), 0);
+  // injureRatioByAir on the boss, from the buffs its wave or its own stats attach; Elise in Vacation
+  // Lane EX takes double.
   function bossAirCut(map, bossName) {
     const expedition = expeditions[map.expo_id];
     const dungeon = expedition && dungeons[expedition.dungeon_id];
     for (const stage of list(dungeon && dungeon.stages)) {
       for (const wave of list(stage.waves)) {
         for (const unit of [...list(wave.spawn), ...list(wave.reinforcement)]) {
-          const own = unit && enemies[unit.monsterTemplateID];
-          const stats = own && { ...enemies[own.base], ...own };
+          const stats = unit && enemyRow(enemies, unit.monsterTemplateID);
           if (!stats || (stats.name || "").trim() !== bossName.trim()) continue;
-          return airCutOf([...(unit.buffList || []), ...(stats.buff_list || []).map(b => b.ID)]);
+          return airCutOf(buffs, [...(unit.buffList || []), ...(stats.buff_list || []).map(b => b.ID)]);
         }
       }
     }
@@ -79,8 +66,7 @@ const list = value => Array.isArray(value) ? value : value && typeof value === "
       for (const wave of list(stage.waves)) {
         raids += planeOrdnance(list(wave.airFighter), { weapons, barrages });
         for (const unit of [...list(wave.spawn), ...list(wave.reinforcement)]) {
-          const own = unit && enemies[unit.monsterTemplateID];
-          const stats = own && { ...enemies[own.base], ...own };
+          const stats = unit && enemyRow(enemies, unit.monsterTemplateID);
           // A negative unit type is a scripted dummy; submarines are their own fleet.
           if (!stats || stats.battle_unit_type < 0 || [8, 17].includes(stats.type)) continue;
           const hp = stats.durability + (expedition.level - 1) * stats.durability_growth / 1000;
