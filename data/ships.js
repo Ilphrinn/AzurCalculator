@@ -65053,6 +65053,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "Increase this ship's main gun efficiency by 50% (80%)"
+          },
+          {
+            "stats": [
+              "mainGunCooldown"
+            ],
+            "min": 20,
+            "max": 35,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Decrease this ship's main gun cooldown by 20% (35%)"
           }
         ]
       },
@@ -65102,6 +65112,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases her Main Gun's DMG dealt against Medium and Heavy Armor enemies by 5% (15%)"
+          },
+          {
+            "stats": [
+              "mainGunCooldown"
+            ],
+            "min": 20,
+            "max": 35,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreases the reload time of this ship's first 4 Main Gun volleys by 20% (35%)"
           }
         ]
       },
@@ -82941,7 +82961,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 5,
             "max": 8,
@@ -111542,6 +111562,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "fleet",
             "raw": "increases your Vanguard's FP and EVA by 2% (7%)"
+          },
+          {
+            "stats": [
+              "mainGunCooldown"
+            ],
+            "min": 20,
+            "max": 20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreases this ship's Main Gun reload time by 10% (stacks up to 20%)"
           }
         ]
       }
@@ -114113,7 +114143,7 @@ const SHIPS_DATA = [
           },
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 15,
             "max": 30,
@@ -128300,7 +128330,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 15,
             "max": 25,
@@ -128342,7 +128372,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 15,
             "max": 25,
@@ -163464,7 +163494,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 5,
             "max": 8,
@@ -198446,7 +198476,7 @@ const SHIPS_DATA = [
           {
             "stats": [
               "critRate",
-              "damageDealt"
+              "critDamage"
             ],
             "min": 1.2,
             "max": 3,
@@ -200962,6 +200992,26 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases this ship's DMG Dealt to Light and Medium Armor enemies by 5.0% (15.0%)"
+          },
+          {
+            "stats": [
+              "mainGunCooldown"
+            ],
+            "min": 50,
+            "max": 50,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease this ship's main gun cooldown by 50.0%"
+          },
+          {
+            "stats": [
+              "damageDealt"
+            ],
+            "min": -55,
+            "max": -45,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease its main gun damage Dealt by 55.0% (45.0%)"
           }
         ]
       },
@@ -200977,7 +201027,7 @@ const SHIPS_DATA = [
         "statBonuses": [
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 10,
             "max": 20,
@@ -200987,7 +201037,7 @@ const SHIPS_DATA = [
           },
           {
             "stats": [
-              "damageDealt"
+              "critDamage"
             ],
             "min": 1,
             "max": 10,

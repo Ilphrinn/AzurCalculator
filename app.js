@@ -1950,6 +1950,7 @@ const TEXT_EVENT_FORMS = [
   [/\bwhen this ship fires (?:her|its) torpedoes\b/i, "onTorpedoWeaponFire"],
   [/\b(?:when this ship launches an airstrike|after launching an airstrike)\b/i, "onAllInStrike"]
 ];
+const FIRST_VOLLEYS_RE = /\bfirst\s+(\d+|two|three|four|five)\s+(?:reloads|main gun volleys)\b/i;
 const TEXT_START_EVENT_RE = /\b(?:at the start of (?:the )?battle|when the battle starts)\b/i;
 const TEXT_CHANCE_RE = /(\d+(?:\.\d+)?)%\s*(?:\((\d+(?:\.\d+)?)%\)\s*)?chance\b/i;
 const TEXT_DURATION_RE = /\bfor\s+(\d+(?:\.\d+)?)\s*s\b|\bgradually decrease to 0 over\s+(\d+(?:\.\d+)?)\s*s\b|\bover\s+(\d+(?:\.\d+)?)\s*s\b(?=[^.]*\bduring this (?:barrage|attack)\b)/i;
@@ -1964,6 +1965,13 @@ function textWindowFactor(plainText, raw, timing, atMax, cycles, stats) {
   if (at < 0) return null;
   const clause = clauseBeforeRaw(plainText, raw) || "";
   const after = plainText.slice(at + raw.length).split(/\.(?:\s|$)|;/)[0];
+  // "For the first four reloads" (Gangut): that many main gun cycles from the start.
+  const volleys = FIRST_VOLLEYS_RE.exec(`${raw} ${after}`);
+  const gun = volleys && cycles ? cycles().mainGun : null;
+  if (gun) {
+    const window = { kind: "start", duration: (Number(volleys[1]) || COUNT_WORDS[volleys[1].toLowerCase()] || ALLY_COUNT_WORDS[volleys[1].toLowerCase()]) * gun };
+    return timing === "share" ? uptimeShare(window, fightSeconds()) : activityAt(window, timing.at);
+  }
   const duration = TEXT_DURATION_RE.exec(after) || TEXT_DURATION_RE.exec(clause);
   if (!duration) return null;
   const length = duration[2] ? Number(duration[2]) / 2 : Number(duration[1] || duration[3]);
@@ -2119,6 +2127,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
   const seenRaw = new Set();
   let cycles = null;
   const procCycles = () => cycles || (cycles = bareWeaponCycles(ship, base, equipFlat));
+  // "Decreases this ship's Main Gun reload time by 20%" (Gangut, Kongou μ, Ulrich von Hutten).
+  let mainGunCut = 0;
   const position = forcedPosition ||
     (fleetPositions && fleetPositions.has(ship) ? fleetPositions.get(ship) : bestPosition(ship, level, isRetrofit, isAugmented, isFateSim));
 
@@ -2146,6 +2156,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
           addModifier(modifiers, modifierIndex, key, timedAmount, skill, b.raw, qualifier, factor !== null);
         } else if (opsiOnly && !inOperationSiren()) {
           continue;
+        } else if (key === "mainGunCooldown") {
+          mainGunCut += timedAmount;
         } else if (NUMERIC_STAT_KEYS.includes(key)) {
           const bucket = b.isPercent ? percentSum : flatSum;
           bucket[key] = (bucket[key] || 0) + timedAmount;
@@ -2201,7 +2213,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
     stats[key] = { value, delta: value - base[key], base: base[key], equip, pct, skillFlat };
   }
 
-  return { stats, modifiers, itemEffects, timing };
+  return { stats, modifiers, itemEffects, timing, mainGunCut: Math.min(mainGunCut, 90) };
 }
 
 // A boosted cell renders as "{base}+{delta} ({real})" rather than the final number alone,
@@ -3002,8 +3014,9 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
       targetAirModifier() * aircraftCycleFactor(item, ship, effective);
     return { metric: role.metric, value, unknown: false };
   }
-  const reloadFactor = reloadDpsFactor(item, effectiveReload(effective));
-  const fired = role.metric === "dps" ? firedVolleyShare(weaponCycle(item, effectiveReload(effective)), mounts, slot.preload, effective) : 1;
+  const cut = slotCycleCut(effective, ship, slotKey);
+  const reloadFactor = reloadDpsFactor(item, effectiveReload(effective), cut);
+  const fired = role.metric === "dps" ? firedVolleyShare(weaponCycle(item, effectiveReload(effective), cut), mounts, slot.preload, effective) : 1;
   return { metric: role.metric, value: base * mounts * efficiency * (1 + stat / 100) * damageMultiplier * reloadFactor * fired, unknown: false };
 }
 
@@ -3049,7 +3062,7 @@ function gunBurn(item, slot, effective, ship, slotKey, firepower, hitRate = 1) {
   const tick = shellDamage * efficiency * (1 + firepower / 100) * GUN_BURN.coefficient + GUN_BURN.flat;
   // Shells per second from the catalog's own stat-0 figure, on the ship's reload.
   const hitsPerSecond = item.dps.raw / shellDamage * slotMount(slot) * ammoHitShare(item) *
-    reloadDpsFactor(item, effectiveReload(effective)) * hitRate;
+    reloadDpsFactor(item, effectiveReload(effective), slotCycleCut(effective, ship, slotKey)) * hitRate;
   const rate = hitsPerSecond * chance;
   return { dps: tick / GUN_BURN.interval * (1 - Math.exp(-rate * GUN_BURN.duration)), rate, tick };
 }
@@ -3143,18 +3156,24 @@ function airstrikeCooldown(ship, effective) {
 // built-in guns or torpedoes, whose figures were computed without one).
 const GUN_ABSOLUTE_COOLDOWN = { "DD Gun": 0.3, "CL Gun": 0.3, "CA Gun": 0.3, "CB Gun": 0.3, "BB Gun": 0.2 };
 
-function weaponCycle(item, reloadStat) {
+// cut: a skill's percent off the reload part (mainGunCut, main gun only).
+function weaponCycle(item, reloadStat, cut = 0) {
   if (typeof item.reload !== "number" || item.reload <= 0) return null;
   const scale = Math.sqrt(200 / (Math.max(reloadStat, 0) + 100));
-  return item.reload * scale + (item.volleyTime || 0) + (GUN_ABSOLUTE_COOLDOWN[item.category] || 0);
+  return item.reload * scale * (1 - cut / 100) + (item.volleyTime || 0) + (GUN_ABSOLUTE_COOLDOWN[item.category] || 0);
+}
+
+// The skill cut that applies to a slot: the main gun's only.
+function slotCycleCut(effective, ship, slotKey) {
+  return effective && effective.mainGunCut && slotKey === shipGunSlotKeys(ship)[0] ? effective.mainGunCut : 0;
 }
 
 // Aircraft, AA and ASW reload by other formulas (Damage Calculations page), not modelled yet.
-function reloadDpsFactor(item, reloadStat) {
+function reloadDpsFactor(item, reloadStat, cut = 0) {
   const role = weaponRole(item);
   if (!role || role.metric !== "dps" || role.stat === "aviation") return 1;
   const base = weaponCycle(item, 100);
-  const live = weaponCycle(item, reloadStat);
+  const live = weaponCycle(item, reloadStat, cut);
   return base && live ? base / live : 1;
 }
 
@@ -3186,7 +3205,7 @@ function volleyBarrageDps(ship, effective, level, armor) {
   if (key == null) return 0;
   const gun = activeEquipmentForSlot(ship, key, ship.equipment[key]);
   if (!gun) return 0;
-  const cycle = weaponCycle(gun, effectiveReload(effective));
+  const cycle = weaponCycle(gun, effectiveReload(effective), effective.mainGunCut || 0);
   if (!cycle) return 0;
   return (volleyBarrageDamage(barrage, effective, null, armor) / volleyCount(barrage, gun)) / cycle;
 }
@@ -4048,11 +4067,12 @@ function weaponScoreForShip(item, damage, effective, barragePerVolley, slotFacto
   const reload = effectiveReload(effective) + itemStatBonus(item, "reload");
   const aircraft = role.stat === "aviation";
   const scaling = aircraft ? aircraftScalingCoefficient(item) : 1;
-  let dps = damage * (slotFactor || 1) * (1 + stat * scaling / 100) * damageMultiplier * reloadDpsFactor(item, reload) * (aircraft ? targetAirModifier() : 1);
+  const cut = ship ? slotCycleCut(effective, ship, slotKey) : 0;
+  let dps = damage * (slotFactor || 1) * (1 + stat * scaling / 100) * damageMultiplier * reloadDpsFactor(item, reload, cut) * (aircraft ? targetAirModifier() : 1);
   const slot = ship && ship.equipment && ship.equipment[slotKey];
-  if (slot && !aircraft && role.metric === "dps") dps *= firedVolleyShare(weaponCycle(item, reload), slotMount(slot), slot.preload, effective);
+  if (slot && !aircraft && role.metric === "dps") dps *= firedVolleyShare(weaponCycle(item, reload, cut), slotMount(slot), slot.preload, effective);
   if (barragePerVolley) {
-    const cycle = weaponCycle(item, reload);
+    const cycle = weaponCycle(item, reload, cut);
     if (cycle) dps += barragePerVolley / cycle;
   }
   if (ship && ship.equipment && ship.equipment[slotKey]) dps += gunBurnDps(item, ship.equipment[slotKey], effective, ship, slotKey, stat);
@@ -7894,7 +7914,7 @@ function weaponCycles(ship, effective) {
     const item = activeEquipmentForSlot(ship, slotKey, slot);
     const role = item && weaponRole(item);
     if (role && role.stat === "antiair" && item.reload > 0) aaRate += 1 / item.reload;
-    const cycle = role && role.stat === "firepower" && role.metric === "dps" ? weaponCycle(item, reload) : null;
+    const cycle = role && role.stat === "firepower" && role.metric === "dps" ? weaponCycle(item, reload, slotCycleCut(effective, ship, slotKey)) : null;
     if (cycle) gunRate += 1 / cycle;
   }
   return {
@@ -7902,7 +7922,7 @@ function weaponCycles(ship, effective) {
     anyGun: gunRate > 0 ? 1 / gunRate : null,
     airstrike: launch.cycle,
     preload: { airstrike: launch.preload, mainGun: gun ? Math.min(1, ship.equipment[gunKey].preload || 0) : 0, torpedo: torpedoPreload },
-    mainGun: gun ? weaponCycle(gun, reload) : null,
+    mainGun: gun ? weaponCycle(gun, reload, (effective && effective.mainGunCut) || 0) : null,
     torpedo
   };
 }

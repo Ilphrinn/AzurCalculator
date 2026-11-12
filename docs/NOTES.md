@@ -6837,3 +6837,17 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   +2.4%, 10th / 90th percentile -3.4% / +7.1%; CVLs about +21%, Vanguard -30%, Ulrich von Hutten -29%,
   Black★Rock Shooter -25% (her Limit Released now on the gun cycle). Specialties regenerated.
   `npm run check` passes.
+
+## Crit DMG mislabelled, main gun cooldown cuts (2026-11-12)
+
+- **Crit DMG read as DMG dealt**: 8 bonuses ("increases this ship's Crit DMG dealt by 20%",
+  "critical damage") were extracted as `damageDealt`, a bonus on every hit instead of on crits only:
+  Mainz (25%), Ulrich von Hutten (20%), Kuybyshev, Hiei META, Queen Elizabeth META, U-110. Fixed in
+  data/ships.js (`critDamage`). Mainz DPS -18%.
+- **Main gun cooldown cuts** (new stat key `mainGunCooldown`, `effective.mainGunCut`,
+  `slotCycleCut`): a percent off the reload part of the main gun's cycle (`weaponCycle(item, reload,
+  cut)`), in its DPS, Optimize's scores, its burn, the volley barrages and the proc cycles. Gangut
+  -35% for her first 4 reloads with the Triple 305mm ("first N reloads / Main Gun volleys" is a
+  start window of N gun cycles, `FIRST_VOLLEYS_RE`), Kongou μ -20% (stacked), Ulrich von Hutten -50%
+  with her -45% main gun DMG, both only when she is not the Flagship (her best position takes
+  that). Gangut +42%, Ulrich +14%, Kongou μ +8%. `npm run check` passes.
