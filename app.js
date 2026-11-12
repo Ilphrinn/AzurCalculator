@@ -1826,6 +1826,95 @@ function targetEventShare(plainText, raw) {
   return 1;
 }
 
+// Where the ship sails changes some of her bonuses ("if this ship is the frontmost ship of your
+// Vanguard", "when sortied as Flagship", "if NOT the frontmost ship"). The condition nearest the
+// bonus names the positions it holds in; the player picks one, so the app takes the one that serves
+// her figures best (bestPosition) and never adds up exclusive branches (Momo, Mainz, Bremerton).
+const POSITION_FORMS = [
+  [/\b(?:this ship|she) is (?:placed )?in the backmost position\b|\bBack\b(?=\s*[:(])/g, () => ["back"]],
+  [/\b(?:this ship|she) is in the middle position\b|\bMiddle\b(?=\s*[:(])/g, () => ["middle"]],
+  [/\bnot in the rearmost position\b/gi, () => ["front", "middle", "solo"]],
+  [/\bNOT (?:in )?the frontmost\b|\bnot in this position\b|\bin any other position\b/gi,
+    ship => ship.role === "Main" ? ["other"] : ["middle", "back"]],
+  [/\b(?:this ship|she) is (?:in )?the frontmost\b|\bFront\b(?=\s*[:(])/gi, () => ["front", "solo"]],
+  [/\bonly ship in your Vanguard\b|\bsole Vanguard ship\b|\bVanguard consists only of this ship\b/gi, () => ["solo"]],
+  [/\bnon-flagship\b|\bnot (?:your |the )?flagship\b/gi, () => ["other"]],
+  [/\bsortied as (?:the )?Flagship\b|\b(?:this ship|she) is (?:your |the )?Flagship\b/gi, () => ["flagship"]]
+];
+const POSITIONS_BY_ROLE = { Vanguard: ["front", "middle", "back"], Main: ["flagship", "other"] };
+const POSITION_LABELS = { front: "the frontmost Vanguard ship", middle: "the middle Vanguard ship", back: "the backmost Vanguard ship",
+  solo: "the sole Vanguard ship", flagship: "the Flagship", other: "a Main Fleet ship other than the Flagship" };
+// A bonus with no "this ship" after a clause that picks someone else ("picks one random other ally",
+// "the recipient", "that ship", "targets 2 random ships") reaches that ship, not the holder (Momo,
+// Ting An, Sevastopol, Raffaello); "this ship and a random ship" (Dunkerque) names her and counts.
+const HOLDER_WORDS_RE = /\bthis (?:ship|boat|unit|character)\b|\bher own\b|\bown\b/i;
+const OTHER_RECIPIENT_CLAUSE_RE = /\b(?:the recipient|that ship|the target|other ally|random (?:other )?(?:ally|allies|ships?))\b/i;
+// Z14's "the following effects will be applied to the frontmost ship" reach another ship.
+const OTHER_POSITION_RECIPIENT_RE = /\bapplied to the frontmost ship\b/i;
+// Sailing alone in the Vanguard fails every headcount of other Vanguard ships.
+const SOLO_BREAKS_RE = /\b(?:\d+|two|three|other|any other)\s+(?:other\s+)?ships?(?:\s+afloat)?\s+in (?:your|the) vanguard\b|\bother ships afloat in the vanguard\b|\bfor each other ship in your Vanguard\b/i;
+
+function positionCondition(ship, clause) {
+  if (!POSITIONS_BY_ROLE[ship.role]) return null;
+  let best = null;
+  for (const [re, positions] of POSITION_FORMS) {
+    re.lastIndex = 0;
+    let m;
+    while ((m = re.exec(clause))) {
+      if (!best || m.index > best.index) best = { index: m.index, positions: positions(ship) };
+    }
+  }
+  return best ? new Set(best.positions) : null;
+}
+
+// The positions worth comparing for her active skills, or null when none of her bonuses depends on one.
+let forcedPosition = null;
+const positionOptionsCache = new Map();
+function positionOptions(ship, isRetrofit, isAugmented, isFateSim) {
+  const key = `${ship.id}|${isRetrofit}|${isAugmented}|${isFateSim}`;
+  if (positionOptionsCache.has(key)) return positionOptionsCache.get(key);
+  let options = null;
+  for (const skill of getSkillsForState(ship, isRetrofit, isAugmented, isFateSim)) {
+    const plain = skill.description ? stripHtml(skill.description) : "";
+    for (const b of skill.statBonuses || []) {
+      const condition = b.raw && positionCondition(ship, clauseBeforeRaw(plain, b.raw) || "");
+      if (!condition) continue;
+      options = options || new Set(POSITIONS_BY_ROLE[ship.role]);
+      for (const position of condition) if (position === "solo") options.add("solo");
+    }
+  }
+  const result = options ? [...options] : null;
+  positionOptionsCache.set(key, result);
+  return result;
+}
+
+// Each option's DPS, eHP and AA, each as a share of the best option's: the highest sum wins, the
+// first listed on a tie. Cached per ship, state, target and gear.
+const bestPositionCache = new Map();
+function bestPosition(ship, level, isRetrofit, isAugmented, isFateSim) {
+  const options = positionOptions(ship, isRetrofit, isAugmented, isFateSim);
+  if (!options) return null;
+  const gear = Object.entries(equippedGear[ship.id] || {}).map(([slot, item]) => `${slot}:${item.id}`).sort().join(",");
+  const key = [ship.id, level, isRetrofit, isAugmented, isFateSim, targetBoss ? targetBoss.name : "", figureTiming(), gear].join("|");
+  if (bestPositionCache.has(key)) return bestPositionCache.get(key);
+  const figures = options.map(position => {
+    forcedPosition = position;
+    try {
+      const effective = computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, figureTiming());
+      return effective ? targetCombatMetrics(ship, level, effective) : null;
+    } finally {
+      forcedPosition = null;
+    }
+  });
+  const metrics = ["dps", "ehp", "dpsAA"];
+  const top = Object.fromEntries(metrics.map(m => [m, Math.max(0, ...figures.map(f => (f && f[m]) || 0))]));
+  const score = f => f ? metrics.reduce((sum, m) => sum + (top[m] > 0 ? (f[m] || 0) / top[m] : 0), 0) : -1;
+  let chosen = options[0];
+  figures.forEach((f, i) => { if (score(f) > score(figures[options.indexOf(chosen)]) + 1e-9) chosen = options[i]; });
+  bestPositionCache.set(key, chosen);
+  return chosen;
+}
+
 // Friedrich der Große's "every odd salvo" / "every even salvo" buffs swap at each salvo: each holds
 // about half the fight.
 const ALTERNATE_SALVO_RE = /\bevery (?:odd|even) salvo\b/i;
@@ -1912,6 +2001,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
   const seenRaw = new Set();
   let cycles = null;
   const procCycles = () => cycles || (cycles = bareWeaponCycles(ship, base, equipFlat));
+  const position = forcedPosition || bestPosition(ship, level, isRetrofit, isAugmented, isFateSim);
 
   for (const skill of skills) {
     const plainDesc = skill.description ? stripHtml(skill.description) : "";
@@ -1924,6 +2014,14 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       if (!equipConditionAllows(ship, plainDesc, b.raw)) continue;
       if (lowHpTriggered(plainDesc, b.raw)) continue;
       if (OWN_DAMAGE_TAKEN_RE.test(b.raw || "") && (b.stats || []).includes("damageDealt")) continue;
+      if (position) {
+        const clause = clauseBeforeRaw(plainDesc, b.raw) || "";
+        const condition = positionCondition(ship, clause);
+        if (condition && !condition.has(position)) continue;
+        if (position === "solo" && SOLO_BREAKS_RE.test(clause)) continue;
+      }
+      if (OTHER_POSITION_RECIPIENT_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "")) continue;
+      if (b.raw && !HOLDER_WORDS_RE.test(b.raw) && !namesMember(b.raw, ship) && OTHER_RECIPIENT_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "")) continue;
       const allyFactor = allyConditionFactor(ship, plainDesc, b.raw);
       if (!allyFactor) continue;
       const dedupeKey = `${skill.name}::${b.raw}::${b.min}::${b.max}`;
@@ -5743,7 +5841,9 @@ function createSkillUptimeLine(ship, skill) {
     }, () => {});
     return null;
   }
-  if (!(SKILL_TIMING_DATA[ship.id] || {})[skill.name]) return null;
+  const plain = stripHtml(skill.description || "");
+  const positional = (skill.statBonuses || []).some(b => b.raw && positionCondition(ship, clauseBeforeRaw(plain, b.raw) || ""));
+  if (!(SKILL_TIMING_DATA[ship.id] || {})[skill.name] && !positional) return null;
   const line = document.createElement("div");
   line.className = "skill-uptime";
   return {
@@ -5751,9 +5851,15 @@ function createSkillUptimeLine(ship, skill) {
     paint(atMaxLevel) {
       const base = computeStats(ship, currentLevel, retrofitApplied, fateSimApplied);
       const cycles = base ? bareWeaponCycles(ship, base, equippedGearFlatStats(ship)) : null;
-      const text = skillUptimeText(skillTiming(ship, skill, atMaxLevel), cycles);
+      const window = skillTiming(ship, skill, atMaxLevel);
+      const parts = [window ? skillUptimeText(window, cycles) : null];
+      if (positional) {
+        const position = bestPosition(ship, currentLevel, retrofitApplied, augmentApplied, fateSimApplied);
+        if (position) parts.push(`Counted as ${POSITION_LABELS[position]}, her best position`);
+      }
+      const text = parts.filter(Boolean).join(". ");
       line.hidden = !text;
-      line.textContent = text || "";
+      line.textContent = text;
     }
   };
 }

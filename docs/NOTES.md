@@ -6714,5 +6714,33 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   reference boss: Minneapolis -12.6%, Lützow -5%, Duquesne -4.5%, 31 figures down, none up.
   Drake's "frontmost: all 3 stacks at once" is after the bonus, so she loses her stacks against a
   boss too. `npm run check` passes.
-- **Still open**: sortie battle-index conditions (Shinano's "1st and 2nd battles"); shield and
-  position branches (Momo's frontmost / not frontmost both counted).
+- **Decided by the user**: sortie battle-index conditions ("first 3 battles of each sortie",
+  Shinano's "1st and 2nd battles") count as met, as before.
+
+## Positions and other ships' buffs (2026-11-12)
+
+- **Asked by the user**: a position choice takes the best branch, never both. Before, Momo's
+  "frontmost: AA/EVA" and "if NOT the frontmost: RLD/ACC" both counted, so did Mainz, Bremerton,
+  Queen Anne's Revenge (Flagship / not), Kiev (3 Vanguard ships / sole).
+- **Rule** (`positionCondition`, `POSITION_FORMS`): the position phrase nearest the bonus names
+  where it holds: frontmost (also the sole Vanguard ship), middle, backmost, "not in the rearmost",
+  "NOT the frontmost" / "not in this position" / "in any other position" (middle or back for the
+  Vanguard, not the Flagship for the Main Fleet), sole Vanguard ship, Flagship, non-flagship.
+  Sailing alone fails every headcount of other Vanguard ships (`SOLO_BREAKS_RE`: Kiev's "3 ships").
+  `bestPosition` computes her figures at each position her role allows (Vanguard: front, middle,
+  back, solo when a skill names it; Main: Flagship, other) and keeps the highest sum of DPS, eHP
+  and AA, each as a share of the best position's; cached per ship, state, target and gear;
+  `forcedPosition` stops the recursion. Everywhere, Fleet tab included (the user's choice: the
+  optimum, not the slot). The modal's timing line says "Counted as the frontmost Vanguard ship,
+  her best position". Augment skills (Deutschland, Kasumi) count when the Augment is on.
+- **Others' buffs**: a bonus without "this ship/boat/unit/character" after a clause that picks
+  someone else ("picks one random other ally", "the recipient", "that ship", "targets 2 random
+  ships": `OTHER_RECIPIENT_CLAUSE_RE`) no longer counts for the holder (Momo, Ting An's five hull
+  branches, Sevastopol, Raffaello, Elise, Portsmouth Adventure, Princess Hime's SSSS variant,
+  Chang Wu's Fine Jade, reached only after 10 stacks). Z14's buff "applied to the frontmost ship"
+  likewise. "This ship and a random ship" (Dunkerque) and a bonus naming her (Nagara) still count.
+- **Measured** (lv125, Recommended, UR, reference boss): 15 figures down, none up: Chang Wu DPS
+  -12%, Bremerton eHP -10%, Kiev AA -10%, Queen Anne's Revenge DPS -9%, Mainz eHP -4.6%, Momo
+  DPS -3.5%. Specialties unchanged. `npm run check` passes.
+- **Not modelled**: two Flagship-only fleet buffs in one fleet (Nagato and Richelieu) both reach
+  it in the Fleet tab, though one ship leads.
