@@ -8397,6 +8397,13 @@ function fleetSynergies(members, positions = null) {
         const groupSelf = !debuff && bonus.scope === "self" && bonus.raw && !SELF_LANGUAGE_RE.test(bonus.raw) && /\byour\b/i.test(bonus.raw);
         if (!debuff && !groupSelf && (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw))) continue;
         if (lowHpTriggered(stripHtml(skill.description || ""), bonus.raw)) continue;
+        // The giver's own conditions: her gear, and who sails with her (this fleet's members).
+        if (!equipConditionAllows(from, stripHtml(skill.description || ""), bonus.raw)) continue;
+        const savedAllies = fleetAllies;
+        fleetAllies = members;
+        const allyFactor = allyConditionFactor(from, stripHtml(skill.description || ""), bonus.raw);
+        fleetAllies = savedAllies;
+        if (!allyFactor) continue;
         if (positions && positions.has(from)) {
           const condition = positionCondition(from, clauseBeforeRaw(stripHtml(skill.description || ""), bonus.raw) || "");
           if (condition && !condition.has(positions.get(from))) continue;
@@ -8412,7 +8419,7 @@ function fleetSynergies(members, positions = null) {
         if ((groupSelf || debuff) && recipients) recipients = recipients.filter(member => member !== from);
         const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, listed, "share", giverCycles) : null;
         const plain = stripHtml(skill.description || "");
-        const amount = listed * randomAlternativeShare(plain, bonus.raw, skill.statBonuses) * targetEventShare(plain, bonus.raw);
+        const amount = listed * allyFactor * randomAlternativeShare(plain, bonus.raw, skill.statBonuses) * targetEventShare(plain, bonus.raw);
         report.push({ from, skill, bonus, amount, recipients, factor });
         for (const to of recipients || []) {
           incoming.get(to).push({ stats: bonus.stats, amount, isPercent: bonus.isPercent, raw: bonus.raw, skill, factor });

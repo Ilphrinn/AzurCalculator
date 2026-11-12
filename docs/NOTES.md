@@ -6858,3 +6858,7 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   Missiles" names its source after the stat, unread, so it reaches her torpedoes too); Jintsuu's
   torpedo crit chance and crit damage read as +TRP for the fleet; Yat Sen's "Evasion Rate" read as
   EVA. AA: William D. Porter +10.5%, Belfast +8%; Fu Shun DPS +9%.
+- **Fleet buffs check their giver's conditions** (`fleetSynergies`): her gear
+  (`equipConditionAllows`) and who sails with her (`allyConditionFactor` against the fleet's
+  members: Baltimore's "when sortied with at least one Eagle Union CV or CVL", Chi An's "if there are
+  other Dragon Empery ships"). Until now a fleet buff reached the fleet whatever its condition.
