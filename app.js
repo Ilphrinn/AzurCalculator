@@ -1869,6 +1869,9 @@ function positionCondition(ship, clause) {
 
 // The positions worth comparing for her active skills, or null when none of her bonuses depends on one.
 let forcedPosition = null;
+// The Fleet tab's places (ship -> position) while a fleet's figures are computed: one Flagship and
+// one ship per Vanguard place, so two ships never both count their Flagship or frontmost bonuses.
+let fleetPositions = null;
 const positionOptionsCache = new Map();
 function positionOptions(ship, isRetrofit, isAugmented, isFateSim) {
   const key = `${ship.id}|${isRetrofit}|${isAugmented}|${isFateSim}`;
@@ -2011,8 +2014,10 @@ function groupBonusReachesHolder(ship, skill, bonus) {
   if (!/\byour\b/i.test(bonus.raw)) return true;
   if (OTHER_ALLIES_RE.test(bonus.raw)) return false;
   if (namesMember(bonus.raw, ship)) return true;
-  // Only a Main Fleet ship can lead the fleet.
-  if (FLAGSHIP_RECIPIENT_RE.test(bonus.raw)) return ship.role === "Main";
+  // Only a Main Fleet ship can lead the fleet; in the Fleet tab, the one seated Flagship.
+  if (FLAGSHIP_RECIPIENT_RE.test(bonus.raw)) {
+    return fleetPositions && fleetPositions.size ? fleetPositions.get(ship) === "flagship" : ship.role === "Main";
+  }
   const recipients = synergyRecipients(skill, bonus, [ship]);
   return !recipients || recipients.length > 0;
 }
@@ -2107,7 +2112,8 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
   const seenRaw = new Set();
   let cycles = null;
   const procCycles = () => cycles || (cycles = bareWeaponCycles(ship, base, equipFlat));
-  const position = forcedPosition || bestPosition(ship, level, isRetrofit, isAugmented, isFateSim);
+  const position = forcedPosition ||
+    (fleetPositions && fleetPositions.has(ship) ? fleetPositions.get(ship) : bestPosition(ship, level, isRetrofit, isAugmented, isFateSim));
 
   for (const skill of skills) {
     const plainDesc = skill.description ? stripHtml(skill.description) : "";
@@ -7990,6 +7996,81 @@ function appendRawFigure(element, value, raw) {
   element.appendChild(note);
 }
 
+function withFleetPositions(positions, compute) {
+  const saved = fleetPositions;
+  fleetPositions = positions;
+  try {
+    return compute();
+  } finally {
+    fleetPositions = saved;
+  }
+}
+
+// Each fleet's places for the ships whose skills depend on one: every way to seat them (one Flagship
+// among the Main Fleet; front, middle, back in the Vanguard, or alone when she sails alone) is
+// tried, row by row, and the one with the highest fleet DPS, eHP and AA, each as a share of the
+// best seating's, is kept.
+const FLEET_VANGUARD_PLACES = { 1: ["solo"], 2: ["front", "back"], 3: ["front", "middle", "back"] };
+const fleetPlaces = new Map();
+const FLEET_PLACE_SHORT = { flagship: "Flagship", other: "Escort", front: "Front", middle: "Middle", back: "Back", solo: "Alone" };
+
+// A skill that buffs "your Flagship" (Fargo, William D. Porter): who leads matters to the fleet.
+function flagshipRecipientSkill(ship) {
+  return getSkillsForState(ship, Boolean(ship.hasRetrofit), false, false)
+    .some(skill => (skill.statBonuses || []).some(b => b.raw && FLAGSHIP_RECIPIENT_RE.test(b.raw)));
+}
+
+function fleetPositionPlan(key, members) {
+  const plan = new Map();
+  const positional = ship => Boolean(positionOptions(ship, Boolean(ship.hasRetrofit), false, false));
+  const rowSeatings = row => {
+    const ships = (fleet[key][row] || []).filter(Boolean);
+    const seated = ships.filter(positional);
+    if (!seated.length && row !== "Main") return [];
+    const places = row === "Main" ? null : FLEET_VANGUARD_PLACES[ships.length];
+    if (row === "Main") {
+      // The Flagship is one of the Main Fleet, chosen among them when a skill cares who leads.
+      const seat = leader => new Map(ships.filter(ship => ship === leader || seated.includes(ship))
+        .map(ship => [ship, ship === leader ? "flagship" : "other"]));
+      const matters = seated.length || members.some(names => flagshipRecipientSkill(names));
+      return matters && ships.length > 1 ? ships.map(seat) : ships.length ? [seat(ships[0])] : [];
+    }
+    const out = [];
+    const seat = (i, used, map) => {
+      if (i === seated.length) return out.push(new Map(map));
+      for (const place of places) {
+        if (used.has(place)) continue;
+        used.add(place);
+        map.set(seated[i], place);
+        seat(i + 1, used, map);
+        used.delete(place);
+        map.delete(seated[i]);
+      }
+    };
+    seat(0, new Set(), new Map());
+    return out;
+  };
+  const score = seating => {
+    const positions = new Map([...plan, ...seating]);
+    const synergies = fleetSynergies(members, positions);
+    return withFleetPositions(positions, () => members.map(ship => fleetShipFigures(ship, true, synergies.incoming.get(ship), members)));
+  };
+  for (const row of FLEET_ROWS[key].filter(r => r !== "Submarine")) {
+    const seatings = rowSeatings(row);
+    if (seatings.length === 1) for (const [ship, place] of seatings[0]) plan.set(ship, place);
+    if (seatings.length < 2) continue;
+    const results = seatings.map(score);
+    const metrics = ["dps", "ehp", "dpsAA"];
+    const total = (list, m) => list.reduce((sum, f) => sum + ((f && f[m]) || 0), 0);
+    const top = Object.fromEntries(metrics.map(m => [m, Math.max(0, ...results.map(list => total(list, m)))]));
+    const value = list => metrics.reduce((sum, m) => sum + (top[m] > 0 ? total(list, m) / top[m] : 0), 0);
+    let best = 0;
+    results.forEach((list, i) => { if (value(list) > value(results[best]) + 1e-9) best = i; });
+    for (const [ship, place] of seatings[best]) plan.set(ship, place);
+  }
+  return plan;
+}
+
 function renderFleet() {
   if (typeof EQUIPMENT_DATA === "undefined" || typeof MAPS_DATA === "undefined") return;
   renderFleetTarget();
@@ -7999,10 +8080,12 @@ function renderFleet() {
   const groups = [];
   fleetSynergyLinks.clear();
   fleetSlotEls.clear();
+  fleetPlaces.clear();
   // Skills reach members of their own fleet only, as in battle.
   for (const key of visibleFleets()) {
     const members = fleetMembers(key);
-    const synergies = fleetSynergies(members);
+    const positions = withFleetTarget(key, () => fleetPositionPlan(key, members));
+    const synergies = fleetSynergies(members, positions);
     const blocks = fleetSynergyBlocks(members, synergies.report);
     for (const { ships: [from, ...others] } of blocks) {
       for (const to of others) {
@@ -8013,10 +8096,11 @@ function renderFleet() {
         }
       }
     }
-    const sustain = withFleetTarget(key, () => {
+    const sustain = withFleetTarget(key, () => withFleetPositions(positions, () => {
       for (const ship of members) figures.set(ship, fleetShipFigures(ship, true, synergies.incoming.get(ship), members));
       return fleetSustain(key, figures);
-    });
+    }));
+    for (const [ship, position] of positions) fleetPlaces.set(ship, position);
     reports.push({ key, members, blocks });
     groups.push(createFleetGroup(key, map, figures, sustain));
   }
@@ -8170,6 +8254,15 @@ function namesMember(scope, member) {
   });
 }
 
+const CLASS_TERM_RE = /\b([A-Z][\w.]*(?:\s+[A-Z][\w.]*)*)-class\b/g;
+
+// The data's class starts with the text's name ("J Class", "Fubuki Class Type I"); the game's
+// "Z-class" is every Z-numbered destroyer, whatever her Type.
+function memberInClass(member, term) {
+  if (term === "Z" && /^Z\d+\b/.test(member.name)) return true;
+  return new RegExp(`^${escapeRegExp(term)}\\b`, "i").test((member.class || "").trim());
+}
+
 function synergyRecipients(skill, bonus, members) {
   const text = stripHtml(skill.description || "").replace(/\s+/g, " ");
   const raw = bonus.raw.replace(/\s+/g, " ");
@@ -8178,6 +8271,9 @@ function synergyRecipients(skill, bonus, members) {
   const stop = text.indexOf(". ", at + raw.length);
   const after = text.slice(at + raw.length, stop < 0 ? text.length : stop);
   for (const scope of [raw, after]) {
+    // A class named ("your Z-class DDs") reaches that class only, not every ship of its hull.
+    const classes = [...scope.matchAll(CLASS_TERM_RE)].map(m => m[1].replace(/^(?:(?:Your|The|All|Increases?)\s+)+/, ""));
+    if (classes.length) return members.filter(member => classes.some(term => memberInClass(member, term)));
     const named = members.filter(member => namesMember(scope, member));
     if (named.length) return named;
     if (GROUP_WORDS_RE.test(scope)) return [];
@@ -8186,7 +8282,9 @@ function synergyRecipients(skill, bonus, members) {
 }
 
 // Every fleet-scope bonus of every member, with who receives it and its share of the fight.
-function fleetSynergies(members) {
+// positions (fleetPositionPlan): a bonus gated on where its giver sails ("When sortied as Flagship")
+// comes only from the ship placed there.
+function fleetSynergies(members, positions = null) {
   const incoming = new Map(members.map(member => [member, []]));
   const report = [];
   for (const from of members) {
@@ -8200,13 +8298,25 @@ function fleetSynergies(members) {
     };
     for (const skill of getSkillsForState(from, Boolean(from.hasRetrofit), false, false)) {
       for (const bonus of skill.statBonuses || []) {
-        // Some "fleet" bonuses read "this ship's ...": the ship's own stats already count those.
-        if (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw)) continue;
+        // Some "fleet" bonuses read "this ship's ...": the ship's own stats already count those. Some
+        // "self" ones name a group ("all your Royal Navy ships", Queen Elizabeth): the giver's own
+        // share is in her stats, the others get theirs here.
+        const groupSelf = bonus.scope === "self" && bonus.raw && !SELF_LANGUAGE_RE.test(bonus.raw) && /\byour\b/i.test(bonus.raw);
+        if (!groupSelf && (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw))) continue;
         if (lowHpTriggered(stripHtml(skill.description || ""), bonus.raw)) continue;
+        if (positions && positions.has(from)) {
+          const condition = positionCondition(from, clauseBeforeRaw(stripHtml(skill.description || ""), bonus.raw) || "");
+          if (condition && !condition.has(positions.get(from))) continue;
+        }
         const atMax = isSkillAtMaxLevel(skill);
         const listed = atMax ? (typeof bonus.max === "number" ? bonus.max : bonus.min) : (typeof bonus.min === "number" ? bonus.min : bonus.max);
         if (typeof listed !== "number") continue;
-        const recipients = synergyRecipients(skill, bonus, members);
+        let recipients = synergyRecipients(skill, bonus, members);
+        // "Your Flagship" is the ship the fleet's seating made Flagship.
+        const flagship = positions && [...positions].find(([, place]) => place === "flagship");
+        if (FLAGSHIP_RECIPIENT_RE.test(bonus.raw) && flagship) recipients = [...new Set([...(recipients || []), flagship[0]])];
+        if (OTHER_ALLIES_RE.test(bonus.raw) && recipients) recipients = recipients.filter(member => member !== from);
+        if (groupSelf && recipients) recipients = recipients.filter(member => member !== from);
         const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, listed, "share", giverCycles) : null;
         const plain = stripHtml(skill.description || "");
         const amount = listed * randomAlternativeShare(plain, bonus.raw, skill.statBonuses) * targetEventShare(plain, bonus.raw);
@@ -8276,6 +8386,14 @@ function createFleetSlot(key, row, index, ship, metrics, sustainGiven) {
     badge.title = `Shares skills with ${[...linked].map(s => s.displayName).join(", ")}`;
     slot.appendChild(badge);
     bindShipHighlight(slot, () => [ship, ...linked]);
+  }
+  const place = fleetPlaces.get(ship);
+  if (place) {
+    const badge = document.createElement("span");
+    badge.className = "fleet-place-badge";
+    badge.textContent = FLEET_PLACE_SHORT[place];
+    badge.title = `Her skills count her as ${POSITION_LABELS[place]}: the best seating for this fleet`;
+    slot.appendChild(badge);
   }
   const stats = document.createElement("dl");
   stats.className = "fleet-slot-stats";

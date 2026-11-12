@@ -6773,3 +6773,27 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   -17%, Kansas -17%, Z43 -16%, Épée -15%, Max Immelmann -15%, Hasty -14%, Noshiro μ -10.5%; the
   endless periodic fix brings 23 figures up (Ryu Lion +16%, Ognevoy +10%, L'Indomptable eHP +15%).
   Specialties regenerated. `npm run check` passes.
+
+## One Flagship per fleet, group buffs delivered (2026-11-12)
+
+- **Asked by the user**: "corrige le flagship". In the Fleet tab each ship took her own best
+  position, so two Main Fleet ships could both count their Flagship bonuses (Nagato and Richelieu),
+  two Vanguard ships both their frontmost ones.
+- **Seating** (`fleetPositionPlan`, `fleetPositions`, `withFleetPositions`): per fleet and row, the
+  ships whose skills depend on a position are seated: one Flagship among the Main Fleet (chosen
+  among all of them when a skill cares who leads, Flagship-recipient buffs included), front / middle
+  / back in the Vanguard (front and back with two ships, alone with one). Every seating is tried and
+  the one with the highest fleet DPS, eHP and AA (each as a share of the best seating's) is kept;
+  about 50-250 ms per fleet. `computeEffectiveStats` reads the seat before `bestPosition`; fleet
+  buffs gated on the giver's place ("When sortied as Flagship") come only from the ship seated
+  there. Each slot shows its seat (Flagship, Escort, Front, Middle, Back, Alone).
+- **Group buffs tagged "self"**: 63 bonuses worded for a group ("all your Royal Navy ships", Queen
+  Elizabeth; "your DDs", Fubuki, Sims; "your Z-class DDs", Z1; Nagato's Flagship buff) were
+  extracted with scope "self": the giver counted them, the fleet never got them. `fleetSynergies`
+  now delivers them to the other members they name; "your Flagship" (Fargo, Dido μ, William D.
+  Porter) reaches the seated Flagship, and counts for the giver only when she is it.
+- **Class names** (`memberInClass`, `CLASS_TERM_RE`): a bonus naming a class reaches that class
+  only, not every ship of its hull ("your Z-class DDs" reached Fubuki). The data's class starts with
+  the text's name ("J Class"); the game's "Z-class" is every Z-numbered destroyer (Z1 is "Type
+  1934"). This also corrects Bristol: she is DD-857, an Allen M. Sumner-class ship, and her own +10%
+  counts again (solo DPS 1944 -> 2120), the only solo figure that moves. `npm run check` passes.

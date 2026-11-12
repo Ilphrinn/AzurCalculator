@@ -2917,6 +2917,18 @@ main[aria-busy="true"] {
   font-size: 0.68rem;
 }
 
+/* The place her position-gated skills are counted at. */
+.fleet-place-badge {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+  color: var(--gold);
+  font-size: 0.68rem;
+}
+
 /* The ships a hovered member or synergy line involves. */
 .fleet-slot.is-linked .card {
   outline: 2px solid var(--gold);
