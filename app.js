@@ -1495,8 +1495,11 @@ function clauseBeforeRaw(plainText, raw) {
   return plainText.slice(sentStart, idx);
 }
 
+// "While this ship is equipping the Twin 127mm" reads as "equipped with" (Biloxi, King George V);
+// "while not equipping this gun" then negates the gun named before it.
 function equipConditionClauseForRaw(plainText, raw) {
-  const clause = clauseBeforeRaw(plainText, raw);
+  const found = clauseBeforeRaw(plainText, raw);
+  const clause = found && found.replace(/\b(?:is\s+)?equipping\s+/gi, "equipped with ");
   return clause && /equipped|otherwise/i.test(clause) ? clause : null;
 }
 
@@ -1515,6 +1518,8 @@ function inOperationSiren() {
 function parseEquipCondition(clause) {
   const equipMatch = /equipped\s+with\s+((?:at least one\s+)?(?:a|an|the|any)?\s*[^,:;.]+)/i.exec(clause);
   if (!equipMatch) return null;
+  // A bare reference back ("if not equipping one") names nothing to check.
+  if (/^(?:one|it|this (?:gun|one))\s*$/i.test(equipMatch[1])) return null;
   const negate = /\botherwise\b/i.test(clause) || /\bnot\s+equipped\b|\bisn'?t\s+equipped\b/i.test(clause);
   const rawTarget = equipMatch[1]
     .replace(/^(?:at least one|a|an|the|any)\s+/i, "")
@@ -1836,7 +1841,7 @@ const POSITION_FORMS = [
   [/\bnot in the rearmost position\b/gi, () => ["front", "middle", "solo"]],
   [/\bNOT (?:in )?the frontmost\b|\bnot in this position\b|\bin any other position\b/gi,
     ship => ship.role === "Main" ? ["other"] : ["middle", "back"]],
-  [/\b(?:this ship|she) is (?:in )?the frontmost\b|\bFront\b(?=\s*[:(])/gi, () => ["front", "solo"]],
+  [/\b(?:this ship|she) is (?:in )?the frontmost\b|\bFront\b(?=\s*[:(])|\bsortie(?:ing|d)? as (?:the )?Lead Ship\b/gi, () => ["front", "solo"]],
   [/\bonly ship in your Vanguard\b|\bsole Vanguard ship\b|\bVanguard consists only of this ship\b/gi, () => ["solo"]],
   [/\bnon-flagship\b|\bnot (?:your |the )?flagship\b/gi, () => ["other"]],
   [/\bsortied as (?:the )?Flagship\b|\b(?:this ship|she) is (?:your |the )?Flagship\b/gi, () => ["flagship"]]
@@ -1940,12 +1945,14 @@ const TEXT_PERIOD_RE = /\bevery\s+(\d+(?:\.\d+)?)\s*s\b/i;
 const TEXT_EVENT_FORMS = [
   [/\bevery\s+(\d+)\s+times this ship fires (?:her|its) main guns\b/i, "onChargeWeaponFire"],
   [/\bwhen this ship fires (?:her|its) main guns\b/i, "onChargeWeaponFire"],
+  // A loaded gun fires at once: loading and firing share the main gun's cycle.
+  [/\bwhen this ship finishes loading (?:her|its) main guns\b|\bwhen this ship's main guns finish loading\b/i, "onChargeWeaponFire"],
   [/\bwhen this ship fires (?:her|its) torpedoes\b/i, "onTorpedoWeaponFire"],
   [/\b(?:when this ship launches an airstrike|after launching an airstrike)\b/i, "onAllInStrike"]
 ];
 const TEXT_START_EVENT_RE = /\b(?:at the start of (?:the )?battle|when the battle starts)\b/i;
 const TEXT_CHANCE_RE = /(\d+(?:\.\d+)?)%\s*(?:\((\d+(?:\.\d+)?)%\)\s*)?chance\b/i;
-const TEXT_DURATION_RE = /\bfor\s+(\d+(?:\.\d+)?)\s*s\b|\bgradually decrease to 0 over\s+(\d+(?:\.\d+)?)\s*s\b/i;
+const TEXT_DURATION_RE = /\bfor\s+(\d+(?:\.\d+)?)\s*s\b|\bgradually decrease to 0 over\s+(\d+(?:\.\d+)?)\s*s\b|\bover\s+(\d+(?:\.\d+)?)\s*s\b(?=[^.]*\bduring this (?:barrage|attack)\b)/i;
 
 // Triggers the text fallback cannot time: when one is nearer the bonus than a timer, it stays raw.
 const TEXT_UNTIMED_TRIGGER_RE = /\b(?:takes? (?:DMG|damage)|is hit|is attacked|being (?:hit|attacked)|sinks?|shot down|shoots? down|hits? (?:an|the) enemy|HP)\b/i;
@@ -1959,7 +1966,7 @@ function textWindowFactor(plainText, raw, timing, atMax, cycles, stats) {
   const after = plainText.slice(at + raw.length).split(/\.(?:\s|$)|;/)[0];
   const duration = TEXT_DURATION_RE.exec(after) || TEXT_DURATION_RE.exec(clause);
   if (!duration) return null;
-  const length = duration[1] ? Number(duration[1]) : Number(duration[2]) / 2;
+  const length = duration[2] ? Number(duration[2]) / 2 : Number(duration[1] || duration[3]);
   const chanceMatch = TEXT_CHANCE_RE.exec(clause);
   const chance = chanceMatch ? Number(atMax && chanceMatch[2] ? chanceMatch[2] : chanceMatch[1]) / 100 : 1;
   // The trigger nearest the bonus governs it.
@@ -2130,7 +2137,7 @@ function computeEffectiveStats(ship, level, isRetrofit, isAugmented, isFateSim, 
       if (typeof amount !== "number") continue;
       const opsiOnly = OPSI_CLAUSE_RE.test(clauseBeforeRaw(plainDesc, b.raw) || "");
       const factor = timing
-        ? bonusTimingFactor(ship, skill, atMax, amount, timing, procCycles, b.stats) ?? textStartFactor(plainDesc, b.raw, timing) ?? textWindowFactor(plainDesc, b.raw, timing, atMax, procCycles, b.stats)
+        ? bonusTimingFactor(ship, skill, atMax, amount, timing, procCycles, b.stats, textStacks(plainDesc, b.raw)) ?? textStartFactor(plainDesc, b.raw, timing) ?? textWindowFactor(plainDesc, b.raw, timing, atMax, procCycles, b.stats)
         : null;
       const timedAmount = (factor === null ? amount : amount * factor) * share;
       for (const key of (b.stats || [])) {
@@ -3005,8 +3012,18 @@ function slotDamage(slot, item, effective, ship, slotKey, armor) {
 // continuous rate that is.
 function firedVolleyShare(cycle, mounts, preload, effective) {
   if (!effective || effective.timing !== "share" || !(cycle > 0) || !(mounts > 0)) return 1;
-  const fight = fightSeconds();
-  return (mounts * Math.floor(fight / cycle) + Math.min(preload || 0, mounts)) / (mounts * fight / cycle);
+  return meanOverFight(fightSeconds(), t => (mounts * Math.floor(t / cycle) + Math.min(preload || 0, mounts)) / (mounts * t / cycle));
+}
+
+// A fight does not end on a set second: counts of whole cycles are averaged over fights 25% shorter
+// to 25% longer, so a cycle crossing 20s in a 60s fight costs part of a volley, not a third of them.
+const FIGHT_SPREAD = 0.25;
+const FIGHT_SAMPLES = 21;
+
+function meanOverFight(fight, perFight) {
+  let sum = 0;
+  for (let i = 0; i < FIGHT_SAMPLES; i++) sum += perFight(fight * (1 - FIGHT_SPREAD + 2 * FIGHT_SPREAD * i / (FIGHT_SAMPLES - 1)));
+  return sum / FIGHT_SAMPLES;
 }
 
 // HE shells and Beehive fragments may set the target on fire: the generic burn ticks 5 times,
@@ -3085,7 +3102,7 @@ function aircraftCycleFactor(item, ship, effective) {
   let factor = own / launch.cycle;
   if (effective.timing === "share") {
     const fight = fightSeconds();
-    factor *= (launch.preload + Math.floor(fight / launch.cycle)) * launch.cycle / fight;
+    factor *= meanOverFight(fight, t => (launch.preload + Math.floor(t / launch.cycle)) * launch.cycle / t);
   }
   return factor;
 }
@@ -3680,7 +3697,8 @@ function fireCount(fire, fight, cycles) {
     const cycle = cycles[fire.on];
     if (!cycle) return 0;
     const gap = fire.cooldown > cycle ? cycle * Math.ceil(fire.cooldown / cycle) : cycle;
-    count = ((cycles.preload || {})[fire.on] || 0) + Math.floor(fight / gap);
+    // As a share of this fight, averaged over its spread like the volleys.
+    count = meanOverFight(fight, t => (((cycles.preload || {})[fire.on] || 0) + Math.floor(t / gap)) * fight / t);
   } else {
     const end = Math.min(fight, fire.until ?? Infinity);
     if (fire.first < end) count = fire.every ? Math.ceil((end - fire.first) / fire.every) : 1;
@@ -5858,6 +5876,24 @@ function procUptimeShare(window, interval, fight) {
   return Math.max(0, fight - interval / chance) / fight * Math.min(1, meanOn / meanGap);
 }
 
+// A periodic buff that stacks ("every 12s ... can be stacked 3 times"): its j-th stack comes j periods
+// in, so it holds that many stacks' worth over the fight, in units of one stack.
+function stackedPeriodicShare(window, stacks, fight) {
+  let total = 0;
+  for (let j = 1; j <= stacks; j++) total += uptimeShare({ ...window, period: window.period * j }, fight) || 0;
+  return total;
+}
+
+// "(can be stacked up to 3 times)", "stacks up to 5 times", in the bonus's own sentence.
+const STACKS_RE = /\b(?:can be )?stack(?:ed|s)?\s+(?:up to\s+)?(\d+)\s+times\b/i;
+
+function textStacks(plainText, raw) {
+  const at = plainText.toLowerCase().indexOf((raw || "").toLowerCase());
+  if (at < 0) return 1;
+  const m = STACKS_RE.exec(plainText.slice(at + raw.length).split(/\.(?:\s|$)/)[0]);
+  return m ? Number(m[1]) : 1;
+}
+
 // Whether the effect is on at second t (its expected value for a proc with a chance).
 function activityAt(window, t) {
   if (window.kind === "permanent") return 1;
@@ -5880,7 +5916,7 @@ function windowSignature(window) {
 // stats: the bonus's stat keys. A stat ratio (FP, RLD...) leaves one value in the tables, a DMG or
 // crit modifier two (percent and fraction): that tells apart Foch's periodic +20% ACC/RLD from her
 // permanent +20% DMG.
-function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing, cycles = null, stats = null) {
+function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing, cycles = null, stats = null, stacks = 1) {
   const window = skillTiming(ship, skill, atMaxLevel);
   const target = Math.abs(amount);
   let matches = ((window && window.effects) || []).filter(e => e.values.some(v => Math.abs(v - target) < 0.01));
@@ -5892,7 +5928,12 @@ function bonusTimingFactor(ship, skill, atMaxLevel, amount, timing, cycles = nul
   }
   if (!matches.length || new Set(matches.map(windowSignature)).size !== 1) return null;
   const isProc = matches[0].kind === "conditional" && matches[0].cooldown !== undefined;
-  const share = uptimeShare(matches[0], fightSeconds(), isProc && cycles ? cycles() : null);
+  let share = uptimeShare(matches[0], fightSeconds(), isProc && cycles ? cycles() : null);
+  // AA guns fire only at aircraft: their procs follow the fight's air raids, as the AA weight does.
+  if (share !== null && matches[0].trigger === "onAntiAirWeaponFireNear") share *= Math.min(1, airThreatFactor());
+  if (share !== null && stacks > 1 && matches[0].kind === "periodic" && !(matches[0].duration > 0)) {
+    share = stackedPeriodicShare(matches[0], stacks, fightSeconds());
+  }
   if (timing === "share") return share;
   // A proc has no fixed instant: the chart takes its expected value all fight long.
   const at = activityAt(matches[0], timing.at);
@@ -7828,7 +7869,7 @@ function airPower(ship, effective) {
 
 // Triggers whose count follows a weapon's cycle; any other event (an HP threshold, a kill, being
 // hit) is listed but not counted.
-const SUSTAIN_CYCLE_TRIGGERS = { onFire: "mainGun", onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo" };
+const SUSTAIN_CYCLE_TRIGGERS = { onAntiAirWeaponFireNear: "antiAir", onFire: "anyGun", onAllInStrike: "airstrike", onAllInStrikeSteady: "airstrike", onChargeWeaponFire: "mainGun", onTorpedoWeaponFire: "torpedo" };
 
 // The weapon cycles that heal and shield triggers follow (airstrikeCooldown for the airstrike).
 function weaponCycles(ship, effective) {
@@ -7845,7 +7886,20 @@ function weaponCycles(ship, effective) {
   }
   const gunKey = shipGunSlotKeys(ship)[0];
   const gun = gunKey != null && activeEquipmentForSlot(ship, gunKey, ship.equipment[gunKey]);
+  // Every AA gun fires its own event; with none, nothing fires one (an endless interval).
+  // "onFire" comes from every gun, main and secondary (battleweaponunit.lua), each on its own cycle.
+  let aaRate = 0;
+  let gunRate = 0;
+  for (const [slotKey, slot] of Object.entries(ship.equipment || {})) {
+    const item = activeEquipmentForSlot(ship, slotKey, slot);
+    const role = item && weaponRole(item);
+    if (role && role.stat === "antiair" && item.reload > 0) aaRate += 1 / item.reload;
+    const cycle = role && role.stat === "firepower" && role.metric === "dps" ? weaponCycle(item, reload) : null;
+    if (cycle) gunRate += 1 / cycle;
+  }
   return {
+    antiAir: aaRate > 0 ? 1 / aaRate : Infinity,
+    anyGun: gunRate > 0 ? 1 / gunRate : null,
     airstrike: launch.cycle,
     preload: { airstrike: launch.preload, mainGun: gun ? Math.min(1, ship.equipment[gunKey].preload || 0) : 0, torpedo: torpedoPreload },
     mainGun: gun ? weaponCycle(gun, reload) : null,
@@ -8282,6 +8336,23 @@ function synergyRecipients(skill, bonus, members) {
 }
 
 // Every fleet-scope bonus of every member, with who receives it and its share of the fight.
+// A debuff on the enemy ("increases all enemies' DMG taken", "that enemy's DMG Taken") helps every
+// ship firing at it, unless it names its beneficiary: "from L'Indomptable" / "from this ship" keep it
+// hers (already in her figures), "by your Iron Blood ships" / "from your DDs' cannons" give it to them.
+const ENEMY_DEBUFF_RE = /\b(?:all (?:present |on-field )?enemies'|that enemy's|the enemy's|its|their)\s+(?:[\w-]+\s+){0,2}(?:DMG|damage) taken\b/i;
+const DEBUFF_BENEFICIARY_RE = /\b(?:by|from) your ([^.;,]+?)(?:'s?)?(?:\s+(?:cannons?|torpedoes|main guns?))?\s+by\s+[\d.]+%/i;
+
+function enemyDebuffFor(from, bonus) {
+  if (!bonus.raw || !(bonus.stats || []).includes("damageDealt") || !ENEMY_DEBUFF_RE.test(bonus.raw)) return null;
+  if (/\bfrom (?:this ship|this boat|her)\b/i.test(bonus.raw) || namesMember(bonus.raw, from) && /\bfrom\b/i.test(bonus.raw)) return null;
+  const group = DEBUFF_BENEFICIARY_RE.exec(bonus.raw);
+  return { group: group ? group[1] : null };
+}
+
+function debuffRecipients(debuff, members) {
+  return debuff.group ? members.filter(member => namesMember(debuff.group, member) || memberInClass(member, debuff.group)) : [...members];
+}
+
 // positions (fleetPositionPlan): a bonus gated on where its giver sails ("When sortied as Flagship")
 // comes only from the ship placed there.
 function fleetSynergies(members, positions = null) {
@@ -8301,8 +8372,9 @@ function fleetSynergies(members, positions = null) {
         // Some "fleet" bonuses read "this ship's ...": the ship's own stats already count those. Some
         // "self" ones name a group ("all your Royal Navy ships", Queen Elizabeth): the giver's own
         // share is in her stats, the others get theirs here.
-        const groupSelf = bonus.scope === "self" && bonus.raw && !SELF_LANGUAGE_RE.test(bonus.raw) && /\byour\b/i.test(bonus.raw);
-        if (!groupSelf && (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw))) continue;
+        const debuff = enemyDebuffFor(from, bonus);
+        const groupSelf = !debuff && bonus.scope === "self" && bonus.raw && !SELF_LANGUAGE_RE.test(bonus.raw) && /\byour\b/i.test(bonus.raw);
+        if (!debuff && !groupSelf && (bonus.scope !== "fleet" || SELF_LANGUAGE_RE.test(bonus.raw))) continue;
         if (lowHpTriggered(stripHtml(skill.description || ""), bonus.raw)) continue;
         if (positions && positions.has(from)) {
           const condition = positionCondition(from, clauseBeforeRaw(stripHtml(skill.description || ""), bonus.raw) || "");
@@ -8311,12 +8383,12 @@ function fleetSynergies(members, positions = null) {
         const atMax = isSkillAtMaxLevel(skill);
         const listed = atMax ? (typeof bonus.max === "number" ? bonus.max : bonus.min) : (typeof bonus.min === "number" ? bonus.min : bonus.max);
         if (typeof listed !== "number") continue;
-        let recipients = synergyRecipients(skill, bonus, members);
+        let recipients = debuff ? debuffRecipients(debuff, members) : synergyRecipients(skill, bonus, members);
         // "Your Flagship" is the ship the fleet's seating made Flagship.
         const flagship = positions && [...positions].find(([, place]) => place === "flagship");
         if (FLAGSHIP_RECIPIENT_RE.test(bonus.raw) && flagship) recipients = [...new Set([...(recipients || []), flagship[0]])];
         if (OTHER_ALLIES_RE.test(bonus.raw) && recipients) recipients = recipients.filter(member => member !== from);
-        if (groupSelf && recipients) recipients = recipients.filter(member => member !== from);
+        if ((groupSelf || debuff) && recipients) recipients = recipients.filter(member => member !== from);
         const factor = figureTiming() ? bonusTimingFactor(from, skill, atMax, listed, "share", giverCycles) : null;
         const plain = stripHtml(skill.description || "");
         const amount = listed * randomAlternativeShare(plain, bonus.raw, skill.statBonuses) * targetEventShare(plain, bonus.raw);
@@ -8627,8 +8699,14 @@ function synergyBlock({ title, detail, text, className, ships: involved }) {
 const OPTIMIZE_POOL = { dps: 25, durability: 15, air: 12 };
 const OPTIMIZE_PASSES = 4;
 const OPTIMIZE_ALTERNATIVES = 3;
+// The synergy pass tries, per slot, the best free ships alone and the best that share a skill with
+// the fleet in place, this many of each.
+const OPTIMIZE_SYNERGY_CANDIDATES = 5;
+const OPTIMIZE_SYNERGY_PASSES = 2;
 const mobRankFigures = new Map();
 let mobRankMap = null;
+// Each candidate's gear as Optimize picked it for the figure caches, per target ("boss"/"mob").
+const fleetGearPicks = new Map();
 const fleetAlternatives = new Map();
 let fleetBeforeOptimize = null;
 let fleetOptimizeRunning = false;
@@ -8655,7 +8733,7 @@ function fillFleetFigures(key, candidates, label) {
     const step = () => {
       withFleetTarget(key, () => {
         for (const end = Math.min(todo.length, index + RANK_BATCH); index < end; index++) {
-          cache.set(todo[index], todo[index].equipment ? fleetShipFigures(todo[index], false) : null);
+          cache.set(todo[index], todo[index].equipment ? figuresKeepingPicks(key, todo[index]) : null);
         }
       });
       if (index < todo.length) {
@@ -8666,6 +8744,37 @@ function fillFleetFigures(key, candidates, label) {
       }
     };
     step();
+  });
+}
+
+// A ship's figures with Optimize's gear, the picks kept aside (her own gear, if she has any, stays).
+function figuresKeepingPicks(key, ship) {
+  const own = Object.keys(equippedGear[ship.id] || {}).length > 0;
+  const figures = fleetShipFigures(ship, true);
+  if (!own) {
+    fleetGearPicks.set(`${key === "mob" ? "mob" : "boss"}|${ship.id}`, { ...(equippedGear[ship.id] || {}) });
+    clearEquippedGear(ship);
+  }
+  return figures;
+}
+
+// A fleet's figures with its skills on each other: fleet buffs, enemy debuffs, combos. Members with
+// no gear of their own borrow the picks the figure caches made for them.
+function synergyFleetFigures(key, members) {
+  return withFleetTarget(key, () => {
+    const synergies = fleetSynergies(members);
+    const figures = new Map();
+    for (const ship of members) {
+      const own = Object.keys(equippedGear[ship.id] || {}).length > 0;
+      const picks = fleetGearPicks.get(`${key === "mob" ? "mob" : "boss"}|${ship.id}`);
+      if (!own && picks) equippedGear[ship.id] = { ...picks };
+      try {
+        figures.set(ship, ship.equipment ? fleetShipFigures(ship, own || Boolean(picks), synergies.incoming.get(ship), members) : null);
+      } finally {
+        if (!own) clearEquippedGear(ship);
+      }
+    }
+    return figures;
   });
 }
 
@@ -8713,14 +8822,22 @@ function optimizeFleets() {
   const subs = ships.filter(ship => ship.role === "Submarine");
   const steps = [() => fillFleetFigures("boss", [...surface, ...subs], `Computing the Boss fleet figures`)];
   if (map) steps.push(() => fillFleetFigures("mob", surface, `Computing the Mob fleet figures against ${map.map}`));
+  // A target changed while the figures were computed would mix two fights.
+  const targetChanged = () => {
+    if (targetBoss === boss) return false;
+    fleetStatusEl.textContent = "The target changed while optimizing; run it again.";
+    return true;
+  };
+  let result = null;
   steps.reduce((chain, next) => chain.then(next), Promise.resolve())
     .then(() => {
-      // A target changed while the figures were computed would mix two fights.
-      if (targetBoss !== boss) {
-        fleetStatusEl.textContent = "The target changed while optimizing; run it again.";
-        return;
-      }
-      const result = composeFleets(keys, map);
+      if (targetChanged()) return null;
+      result = composeFleets(keys, map);
+      return refineFleetsWithSynergies(keys, map, result);
+    })
+    .then(swaps => {
+      if (swaps === null || targetChanged()) return;
+      result.summary += ` Synergies, combos and enemy debuffs then weighed slot by slot: ${swaps} swap${swaps === 1 ? "" : "s"}.`;
       fleetBeforeOptimize = Object.fromEntries(Object.entries(fleet).map(([key, rows]) =>
         [key, Object.fromEntries(Object.entries(rows).map(([row, list]) => [row, [...list]]))]));
       for (const key of keys) for (const row of FLEET_ROWS[key]) fleet[key][row].splice(0, FLEET_SIZE, ...result.plan[key][row]);
@@ -8842,8 +8959,61 @@ function composeFleets(keys, map) {
 
   const airText = map ? ` Airspace Control ${Math.floor(air()).toLocaleString("en-US")} / ${map.airRecommended.toLocaleString("en-US")}${airShort ? ", short: no swap among the candidates reaches it" : ""}.` : "";
   const summary = `Optimized ${keys.map(key => FLEET_LABELS[key]).join(", ")} against ${map ? `${map.map}` : targetBoss ? targetBoss.name : "the reference target"}.` +
-    `${airText} Synergies are applied after the pick, not during it; each slot lists ${OPTIMIZE_ALTERNATIVES} alternatives.`;
-  return { plan, alternatives, summary };
+    `${airText} Each slot lists ${OPTIMIZE_ALTERNATIVES} alternatives, ranked alone.`;
+  return { plan, alternatives, summary, pools, airKeys };
+}
+
+// The pick above ranks ships alone. This pass weighs each surface slot with the fleet's skills on each
+// other (fleet buffs, enemy debuffs, combos): it tries the best free ships alone and the best that
+// share a skill with the fleet, keeps a swap that raises the fleet's score without dropping the
+// Airspace Control under its mark, one slot per tick.
+function refineFleetsWithSynergies(keys, map, result) {
+  const { plan, pools, airKeys } = result;
+  const figuresFor = key => fleetFigureCache(key === "mob" ? "mob" : "boss");
+  const membersOf = key => FLEET_ROWS[key].flatMap(row => plan[key][row]).filter(Boolean);
+  const exactScore = key => optimizeScore(key, plan[key], synergyFleetFigures(key, membersOf(key)));
+  const placed = ship => keys.some(key => FLEET_ROWS[key].some(row => plan[key][row].includes(ship)));
+  const air = () => airKeys.reduce((sum, key) => sum + membersOf(key)
+    .reduce((s2, ship) => s2 + (figuresFor(key).get(ship) ? figuresFor(key).get(ship).airPower : 0), 0), 0);
+  const sharesSkill = (key, row, index, ship) => {
+    const members = FLEET_ROWS[key].flatMap(r => plan[key][r].map((m, i) => r === row && i === index ? ship : m)).filter(Boolean);
+    return fleetSynergies(members).report.some(entry => (entry.recipients || []).some(to =>
+      (entry.from === ship && to !== ship) || (to === ship && entry.from !== ship)));
+  };
+  const surfaceKeys = keys.filter(key => key !== "sub");
+  const once = surfaceKeys.flatMap(key => FLEET_ROWS[key].flatMap(row => [0, 1, 2].map(index => ({ key, row, index }))))
+    .filter(slot => plan[slot.key][slot.row][slot.index]);
+  const slots = Array.from({ length: OPTIMIZE_SYNERGY_PASSES }, () => once).flat();
+  const scores = new Map();
+  let swaps = 0;
+  return new Promise(resolve => {
+    let n = 0;
+    const step = () => {
+      if (n === 0) for (const key of surfaceKeys) scores.set(key, withFleetTarget(key, () => exactScore(key)));
+      if (n >= slots.length) return resolve(swaps);
+      const { key, row, index } = slots[n++];
+      fleetStatusEl.textContent = `Weighing synergies: ${n}/${slots.length}`;
+      const dps = ship => (figuresFor(key).get(ship) || { dps: 0 }).dps;
+      const free = pools[key][row].filter(ship => !placed(ship)).sort((a, b) => dps(b) - dps(a));
+      const linked = free.filter(ship => sharesSkill(key, row, index, ship));
+      const candidates = [...new Set([...free.slice(0, OPTIMIZE_SYNERGY_CANDIDATES), ...linked.slice(0, OPTIMIZE_SYNERGY_CANDIDATES)])];
+      const airBefore = air();
+      for (const ship of candidates) {
+        const current = plan[key][row][index];
+        plan[key][row][index] = ship;
+        const score = exactScore(key);
+        const airOk = !map || airBefore <= map.airRecommended || air() > map.airRecommended;
+        if (airOk && Math.log(1 + score) > Math.log(1 + scores.get(key)) + 1e-9) {
+          scores.set(key, score);
+          swaps++;
+        } else {
+          plan[key][row][index] = current;
+        }
+      }
+      setTimeout(step, 0);
+    };
+    step();
+  });
 }
 
 fleetOptimizeEl.addEventListener("click", optimizeFleets);

@@ -6797,3 +6797,43 @@ Third pass on the LB0 import found in "Slot mounts and efficiency at max limit b
   the text's name ("J Class"); the game's "Z-class" is every Z-numbered destroyer (Z1 is "Type
   1934"). This also corrects Bristol: she is DD-857, an Allen M. Sumner-class ship, and her own +10%
   counts again (solo DPS 1944 -> 2120), the only solo figure that moves. `npm run check` passes.
+
+## Missing data, enemy debuffs, synergy-aware Optimize, smoothed fights (2026-11-12)
+
+- **Asked by the user**: do the five open points, then keep improving.
+- **Bonuses the extraction missed** (one-off scratchpad script, as in "Missing statBonuses
+  backfilled"; each raw checked against its description): Black★Rock Shooter's Limit Released (+15%
+  FP/ACC/RLD), Z1's Destruction Mode crit DMG (+50%), Maury's Sprint Mode DMG taken (-30%), Le
+  Téméraire's Lead Ship branch (+25% FP, +12% EVA, -40% AA, -5% ACC; "sortieing as Lead Ship" is a
+  frontmost condition). Left out: Daisen (the enemy furthest away), Vampire META (after 15 hits on
+  one enemy, cleared by a torpedo hit), Brennus (Allegro and Lento swap on an untimed rule).
+- **Penalties were never data**: no statBonus held a negative value. Added: "Anti-Air Mode" (12
+  CLs and DDs: -20% FP with its +40% AA), Biloxi's two "decreases its FP/AA", Hostile's -30% RLD during
+  her barrage ("over 5s ... during this barrage" read as a duration). Hunter's -8% stacks are not
+  added: the game's own window already ends her +24% after 36s. Haruna Sairenji, Lala, Minase, Z35
+  and Ning Hai/Ping Hai keep small untimed penalties out.
+- **"Equipping" conditions** (`equipConditionClauseForRaw`): "while this ship is equipping the
+  Twin 127mm" reads as "equipped with"; Biloxi's "while not equipping this gun" negates it, so only
+  one of her branches counts. A bare "if not equipping one" names nothing and stays met.
+- **Anti-Air Mode timing**: a proc on AA fire (`onAntiAirWeaponFireNear`, now in `PROC_EVENTS`:
+  25%, 5s cooldown, 3s) follows the AA guns' combined cycle (`weaponCycles().antiAir`, endless with
+  none) and the fight's air threat (AA guns fire only at planes). `onFire` follows every gun's
+  combined cycle (`anyGun`), not the main gun's alone.
+- **Stacking periodic buffs** (`stackedPeriodicShare`, `STACKS_RE`): "every 10s ... can be stacked
+  3 times" counts its later stacks too (L'Audacieux, Adventure).
+- **Enemy debuffs in the Fleet tab** (`enemyDebuffFor`, `debuffRecipients`): "all enemies' DMG
+  taken", "that enemy's / its / their DMG taken" help every other member; "by your Iron Blood ships"
+  names who; "from this ship" / "from Kursk" stays the holder's. 7 in the data (Noshiro μ, Haruka,
+  Mecklenburg, Thüringen, Vittorio Veneto, Nautilus).
+- **Fleet Optimize** (`refineFleetsWithSynergies`): the pick still ranks ships alone, then each
+  surface slot tries the 5 best free ships alone and the 5 best that share a skill with the fleet,
+  scored on the fleet's figures with its synergies, debuffs and combos (`synergyFleetFigures`, gear
+  from `fleetGearPicks`, kept when the caches are filled), 2 passes, Airspace Control kept. About
+  0.2-0.3 s. Against a heavy boss: 2 swaps, fleet score 26719 -> 27545 with synergies.
+- **Smoothed fight length** (`meanOverFight`): whole weapon cycles (volleys, airstrikes, barrages
+  on a weapon event) are averaged over fights 25% shorter to 25% longer. A 60s fight counted 2
+  strikes for a 20.7s cycle and 3 for 19.9s; the CVLs, whose cycles sit at 20-25s, lost a strike in
+  most cases. Measured (lv125, Recommended, UR, reference boss): 890 DPS figures move, median
+  +2.4%, 10th / 90th percentile -3.4% / +7.1%; CVLs about +21%, Vanguard -30%, Ulrich von Hutten -29%,
+  Black★Rock Shooter -25% (her Limit Released now on the gun cycle). Specialties regenerated.
+  `npm run check` passes.

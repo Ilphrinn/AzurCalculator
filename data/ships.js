@@ -17020,6 +17020,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -23883,6 +23893,26 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases this ship's FP by 5% (15%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -15,
+            "max": -5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreases its FP by 15% (5%)"
+          },
+          {
+            "stats": [
+              "antiair"
+            ],
+            "min": -15,
+            "max": -5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreases its AA by 15% (5%)"
           }
         ]
       },
@@ -25431,6 +25461,18 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases this ship's Main Gun Crit Rate by 5% (15%)"
+          },
+          {
+            "stats": [
+              "firepower",
+              "accuracy",
+              "reload"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increasing her FP, ACC, and RLD by 5% (15%)"
           }
         ]
       },
@@ -25463,6 +25505,18 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases this ship's Main Gun Crit Rate by 1% (10%)"
+          },
+          {
+            "stats": [
+              "firepower",
+              "accuracy",
+              "reload"
+            ],
+            "min": 5,
+            "max": 15,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increasing her FP, ACC, and RLD by 5% (15%)"
           }
         ]
       },
@@ -39831,6 +39885,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -41134,6 +41198,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       },
@@ -45039,6 +45113,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -76545,6 +76629,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -96009,6 +96103,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       },
@@ -99714,6 +99818,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -118365,7 +118479,48 @@ const SHIPS_DATA = [
         "isModified": false,
         "isRetrofitVersion": false,
         "isNewOnRetrofit": false,
-        "statBonuses": []
+        "statBonuses": [
+          {
+            "stats": [
+              "antiair"
+            ],
+            "min": -40,
+            "max": -40,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreases own Anti-Air by 40%"
+          },
+          {
+            "stats": [
+              "accuracy"
+            ],
+            "min": -20,
+            "max": -5,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Accuracy by 20% (5%)"
+          },
+          {
+            "stats": [
+              "evasion"
+            ],
+            "min": 6,
+            "max": 12,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increasing own Evasion by 6% (12%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": 13,
+            "max": 25,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "Firepower by 13% (25%)"
+          }
+        ]
       },
       {
         "type": "support",
@@ -131597,7 +131752,18 @@ const SHIPS_DATA = [
         "isModified": false,
         "isRetrofitVersion": false,
         "isNewOnRetrofit": true,
-        "statBonuses": []
+        "statBonuses": [
+          {
+            "stats": [
+              "damageTaken"
+            ],
+            "min": 15,
+            "max": 30,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decreasing her DMG taken by 15% (30%)"
+          }
+        ]
       }
     ],
     "skins": [
@@ -137361,6 +137527,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       },
@@ -137393,6 +137569,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase this ship's DMG dealt by 5% (25%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease her FP by 40% (20%)"
           }
         ]
       }
@@ -146397,6 +146583,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       },
@@ -147181,6 +147377,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -184171,6 +184377,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -184409,6 +184625,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increase own Anti-Air by 20% (40%)"
+          },
+          {
+            "stats": [
+              "firepower"
+            ],
+            "min": -40,
+            "max": -20,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "decrease own Firepower by 40% (20%)"
           }
         ]
       }
@@ -218095,7 +218321,18 @@ const SHIPS_DATA = [
         "isModified": false,
         "isRetrofitVersion": false,
         "isNewOnRetrofit": true,
-        "statBonuses": []
+        "statBonuses": [
+          {
+            "stats": [
+              "critDamage"
+            ],
+            "min": 30,
+            "max": 50,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "increasing own critical damage Dealt by 30% (50%)"
+          }
+        ]
       }
     ],
     "skins": [
@@ -225216,6 +225453,16 @@ const SHIPS_DATA = [
             "isPercent": true,
             "scope": "self",
             "raw": "increases her FP and Crit DMG by 4% (10%)"
+          },
+          {
+            "stats": [
+              "reload"
+            ],
+            "min": -30,
+            "max": -30,
+            "isPercent": true,
+            "scope": "self",
+            "raw": "reduces this ship's RLD by 30%"
           }
         ]
       },

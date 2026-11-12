@@ -2247,40 +2247,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -2362,40 +2380,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -2417,26 +2453,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 8,
+        "chance": 0.15,
+        "cooldown": 8,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.15,
+            "cooldown": 8
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 8,
+        "chance": 0.15,
+        "cooldown": 8,
         "effects": [
           {
             "values": [
               50
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.15,
+            "cooldown": 8
           }
         ]
       },
@@ -2447,26 +2495,38 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 8,
+        "chance": 0.15,
+        "cooldown": 8,
         "effects": [
           {
             "values": [
               30
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.15,
+            "cooldown": 8
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 8,
+        "chance": 0.15,
+        "cooldown": 8,
         "effects": [
           {
             "values": [
               50
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.15,
+            "cooldown": 8
           }
         ]
       },
@@ -2588,40 +2648,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -2653,40 +2731,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -2697,6 +2793,9 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "barrage": true,
         "effects": [
           {
@@ -2704,7 +2803,10 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ],
         "fires": [
@@ -2727,6 +2829,9 @@ const SKILL_TIMING_DATA = {
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "barrage": true,
         "effects": [
           {
@@ -2734,7 +2839,10 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ],
         "fires": [
@@ -15113,40 +15221,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -24651,40 +24777,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -25301,40 +25445,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -26828,40 +26990,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -26882,14 +27062,20 @@ const SKILL_TIMING_DATA = {
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
@@ -26923,21 +27109,30 @@ const SKILL_TIMING_DATA = {
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               80
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
@@ -27014,40 +27209,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -29785,40 +29998,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -32330,7 +32561,10 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.3,
+            "cooldown": 5
           },
           {
             "values": [
@@ -32353,7 +32587,10 @@ const SKILL_TIMING_DATA = {
               25
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.3,
+            "cooldown": 5
           },
           {
             "values": [
@@ -32587,7 +32824,10 @@ const SKILL_TIMING_DATA = {
               10
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 10,
+            "chance": 0.1,
+            "cooldown": 10
           },
           {
             "values": [
@@ -32618,7 +32858,10 @@ const SKILL_TIMING_DATA = {
               30
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 10,
+            "chance": 0.3,
+            "cooldown": 10
           },
           {
             "values": [
@@ -33921,7 +34164,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.25,
+            "cooldown": 8
           },
           {
             "values": [
@@ -33944,7 +34190,10 @@ const SKILL_TIMING_DATA = {
               30
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.25,
+            "cooldown": 8
           },
           {
             "values": [
@@ -34123,7 +34372,10 @@ const SKILL_TIMING_DATA = {
               15
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.25,
+            "cooldown": 8
           }
         ]
       },
@@ -34146,7 +34398,10 @@ const SKILL_TIMING_DATA = {
               30
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 0.25,
+            "cooldown": 8
           }
         ]
       },
@@ -34287,40 +34542,58 @@ const SKILL_TIMING_DATA = {
       "1": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
       "10": {
         "kind": "conditional",
         "trigger": "onAntiAirWeaponFireNear",
+        "duration": 3,
+        "chance": 0.25,
+        "cooldown": 5,
         "effects": [
           {
             "values": [
               20
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           },
           {
             "values": [
               40
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 3,
+            "chance": 0.25,
+            "cooldown": 5
           }
         ]
       },
@@ -56528,6 +56801,27 @@ const SKILL_TIMING_DATA = {
               5
             ],
             "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              5,
+              0.05
+            ],
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              5
+            ],
+            "kind": "conditional",
             "trigger": "onAntiAirWeaponFireNear"
           },
           {
@@ -56553,6 +56847,27 @@ const SKILL_TIMING_DATA = {
               0.08
             ],
             "kind": "permanent"
+          },
+          {
+            "values": [
+              15
+            ],
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
+          },
+          {
+            "values": [
+              15,
+              0.15
+            ],
+            "kind": "conditional",
+            "trigger": "onAntiAirWeaponFireNear",
+            "duration": 8,
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -97098,7 +97413,9 @@ const SKILL_TIMING_DATA = {
               1.5
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -97162,7 +97479,9 @@ const SKILL_TIMING_DATA = {
               6
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -97230,7 +97549,9 @@ const SKILL_TIMING_DATA = {
               1.5
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [
@@ -97294,7 +97615,9 @@ const SKILL_TIMING_DATA = {
               6
             ],
             "kind": "conditional",
-            "trigger": "onAntiAirWeaponFireNear"
+            "trigger": "onAntiAirWeaponFireNear",
+            "chance": 1,
+            "cooldown": 0
           },
           {
             "values": [

@@ -28,7 +28,7 @@ function atLevel(entry, level) {
 }
 
 // Weapon events the app knows the cycle of, for timing a buff they proc.
-const PROC_EVENTS = new Set(["onFire", "onChargeWeaponFire", "onTorpedoWeaponFire", "onAllInStrike", "onAllInStrikeSteady"]);
+const PROC_EVENTS = new Set(["onFire", "onChargeWeaponFire", "onTorpedoWeaponFire", "onAllInStrike", "onAllInStrikeSteady", "onAntiAirWeaponFireNear"]);
 const POSITION = new Set(["onLeader", "onFlagShip", "onCenter", "onRear"]);
 function isPosition(triggers) {
   return Boolean(triggers && triggers.length) && triggers.every(t => POSITION.has(t));
